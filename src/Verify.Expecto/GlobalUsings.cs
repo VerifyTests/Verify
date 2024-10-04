@@ -1,1 +1,2 @@
-﻿global using VerifyTests;
+﻿global using System.IO.Compression;
+global using VerifyTests;

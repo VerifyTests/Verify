@@ -1,6 +1,4 @@
-﻿using System.IO.Compression;
-
-namespace VerifyXunit;
+﻿namespace VerifyXunit;
 
 public static partial class Verifier
 {
@@ -14,8 +12,9 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
+        bool includeStructure = false,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyZip(archive, include, info, fileScrubber), true);
+        Verify(settings, sourceFile, _ => _.VerifyZip(archive, include, info, fileScrubber, includeStructure), true);
 
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive" />
@@ -27,8 +26,9 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
+        bool includeStructure = false,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyZip(path, include, info, fileScrubber), true);
+        Verify(settings, sourceFile, _ => _.VerifyZip(path, include, info, fileScrubber, includeStructure), true);
 
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive" />
@@ -40,6 +40,7 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
+        bool includeStructure = false,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyZip(stream, include, info, fileScrubber), true);
+        Verify(settings, sourceFile, _ => _.VerifyZip(stream, include, info, fileScrubber, includeStructure), true);
 }

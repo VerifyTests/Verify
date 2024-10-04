@@ -1,6 +1,4 @@
-﻿using System.IO.Compression;
-
-namespace VerifyFixie;
+﻿namespace VerifyFixie;
 
 public static partial class Verifier
 {

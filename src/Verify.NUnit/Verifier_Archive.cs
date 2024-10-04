@@ -1,6 +1,4 @@
-﻿using System.IO.Compression;
-
-namespace VerifyNUnit;
+﻿namespace VerifyNUnit;
 
 public static partial class Verifier
 {

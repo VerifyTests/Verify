@@ -1,5 +1,3 @@
-using System.IO.Compression;
-
 namespace VerifyMSTest;
 
 partial class VerifyBase

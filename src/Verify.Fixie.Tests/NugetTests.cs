@@ -2,8 +2,13 @@
 
 public class NugetTests
 {
-    public Task Run()
+    public async Task Run()
     {
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            return;
+        }
+
         var version = GetType().Assembly
             .GetCustomAttribute<AssemblyInformationalVersionAttribute>()!
             .InformationalVersion.Split('+')
@@ -11,7 +16,7 @@ public class NugetTests
         var nugetPath = Path.Combine(
             AttributeReader.GetSolutionDirectory(),
             $"../nugets/Verify.Fixie.{version}.nupkg");
-        return VerifyZip(
+        await VerifyZip(
                 nugetPath,
                 include: _ =>
                 {

@@ -4,8 +4,13 @@
 public partial class NugetTests
 {
     [TestMethod]
-    public Task Run()
+    public async Task Run()
     {
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            return;
+        }
+
         var version = GetType().Assembly
             .GetCustomAttribute<AssemblyInformationalVersionAttribute>()!
             .InformationalVersion.Split('+')
@@ -13,7 +18,7 @@ public partial class NugetTests
         var nugetPath = Path.Combine(
             AttributeReader.GetSolutionDirectory(),
             $"../nugets/Verify.MSTest.{version}.nupkg");
-        return VerifyZip(
+        await VerifyZip(
                 nugetPath,
                 include: _ =>
                 {

@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-public class IoHelpersTests
+﻿public class IoHelpersTests
 {
     [Theory]
     [InlineData(@"C:\test\my_file.cs", @"C:\test")]

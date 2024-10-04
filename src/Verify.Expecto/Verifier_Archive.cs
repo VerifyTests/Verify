@@ -1,7 +1,5 @@
 ﻿// ReSharper disable RedundantSuppressNullableWarningExpression
 
-using System.IO.Compression;
-
 namespace VerifyExpecto;
 
 public static partial class Verifier

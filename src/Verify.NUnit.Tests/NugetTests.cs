@@ -1,11 +1,18 @@
 #if RELEASE && NET9_0
 
+using OSPlatform = System.Runtime.InteropServices.OSPlatform;
+
 [TestFixture]
 public class NugetTests
 {
     [Test]
-    public Task Run()
+    public async Task Run()
     {
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            return;
+        }
+
         var version = GetType().Assembly
             .GetCustomAttribute<AssemblyInformationalVersionAttribute>()!
             .InformationalVersion.Split('+')
@@ -13,7 +20,7 @@ public class NugetTests
         var nugetPath = Path.Combine(
             AttributeReader.GetSolutionDirectory(),
             $"../nugets/Verify.NUnit.{version}.nupkg");
-        return VerifyZip(
+        await VerifyZip(
                 nugetPath,
                 include: _ =>
                 {

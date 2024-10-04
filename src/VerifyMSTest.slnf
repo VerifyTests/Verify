@@ -8,6 +8,7 @@
       "Verify.MSTest.SourceGenerator\\Verify.MSTest.SourceGenerator.csproj",
       "Verify.MSTest.Tests\\Verify.MSTest.Tests.csproj",
       "Verify.MSTest\\Verify.MSTest.csproj",
+      "Verify.Xunit\\Verify.Xunit.csproj",
       "Verify\\Verify.csproj"
     ]
   }

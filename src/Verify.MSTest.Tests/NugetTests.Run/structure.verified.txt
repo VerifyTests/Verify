@@ -10,9 +10,8 @@ lib/net8.0/Verify.MSTest.dll
 lib/net8.0/Verify.MSTest.xml
 lib/net9.0/Verify.MSTest.dll
 lib/net9.0/Verify.MSTest.xml
-analyzers/dotnet/roslyn4.4/cs/Verify.MSTest.SourceGenerator.dll
-analyzers/dotnet/roslyn4.4/cs/Verify.MSTest.SourceGenerator.xml
 icon.png
 buildTransitive/Verify.MSTest.props
 build/Verify.MSTest.props
+analyzers/dotnet/roslyn4.4/cs/Verify.MSTest.SourceGenerator.dll
 [Content_Types].xml

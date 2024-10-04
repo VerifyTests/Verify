@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks Condition="'$(OS)' == 'Windows_NT'">net472;net48</TargetFrameworks>
     <TargetFrameworks>$(TargetFrameworks);net6.0;net8.0;net9.0</TargetFrameworks>
+    <RoslynVersion>4.4</RoslynVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,7 +15,9 @@
 
     <None Include="buildTransitive\Verify.MSTest.props" Pack="true" PackagePath="buildTransitive\" />
     <None Include="buildTransitive\Verify.MSTest.props" Pack="true" PackagePath="build\" />
-    <None Include="..\Verify.MSTest.SourceGenerator\bin\Release\netstandard2.0\Verify.MSTest.SourceGenerator.dll" Pack="true" PackagePath="build\" />
+    <None Include="..\Verify.MSTest.SourceGenerator\bin\Release\netstandard2.0\Verify.MSTest.SourceGenerator.dll"
+          Pack="true"
+          PackagePath="analyzers\dotnet\roslyn$(RoslynVersion)\cs\" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">

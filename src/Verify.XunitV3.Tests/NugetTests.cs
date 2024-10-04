@@ -28,7 +28,7 @@ public class NugetTests
                            !extension.Contains(".rels");
                 },
                 includeStructure: true)
-            .ScrubLinesContaining("psmdcp")
+            .ScrubLinesContaining("psmdcp", "branch")
             .ScrubLinesWithReplace(_ => _.Replace(version, "version"));
     }
 }

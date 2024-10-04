@@ -11,7 +11,6 @@
     <description>Enables verification of complex models and documents.</description>
     <copyright>Copyright 2024. All rights reserved</copyright>
     <tags>Json, Testing, Verify, Snapshot, Approvals</tags>
-    <repository type="git" url="https://github.com/VerifyTests/Verify.git" branch="refs/heads/main" commit="a682c400d6ca0473b46e146faf5c7b1ec935e82a" />
     <dependencies>
       <group targetFramework=".NETFramework4.7.2">
         <dependency id="Verify" version="version" include="All" />

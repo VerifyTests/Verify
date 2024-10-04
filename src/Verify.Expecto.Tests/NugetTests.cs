@@ -15,7 +15,7 @@ public class NugetTests
                 AttributeReader.GetSolutionDirectory(),
                 $"../nugets/Verify.Expecto.{version}.nupkg");
             var settings = new VerifySettings();
-            settings.ScrubLinesContaining("psmdcp");
+            settings.ScrubLinesContaining("psmdcp", "branch");
             settings.ScrubLinesWithReplace(_ => _.Replace(version, "version"));
             return VerifyZip(
                     name: nameof(nuget),

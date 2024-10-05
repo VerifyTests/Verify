@@ -7,10 +7,10 @@ public static class TrackingNames
 
     // Keep this list in-sync with the tracking name properties so that tests can verify cachability
     public static IReadOnlyCollection<string> AllNames { get; } =
-        [
+    [
         MarkerAttributeInitialTransform,
         AssemblyAttributeInitialTransform,
         Merge,
-        Complete,
-        ];
+        Complete
+    ];
 }

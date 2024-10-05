@@ -6,7 +6,7 @@
 /// value (not reference) equality.
 ///
 /// The built in equality and hash code implementations won't work because this type includes a
-/// collection (which has reference equality semantics), so we must implement them ouselves.
+/// collection (which has reference equality semantics), so we must implement them ourselves.
 /// </remarks>
 readonly record struct ClassToGenerate(string? Namespace, string ClassName, ParentClass[] ParentClasses)
 {

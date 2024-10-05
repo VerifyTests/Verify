@@ -20,18 +20,18 @@ static class Parser
 
         var parents = new Stack<ParentClass>();
 
-        var parentSyntax = typeSyntax.Parent as TypeDeclarationSyntax;
+        var parent = typeSyntax.Parent as TypeDeclarationSyntax;
 
-        while (parentSyntax is not null &&
-               IsAllowedKind(parentSyntax.Kind()))
+        while (parent is not null &&
+               IsAllowedKind(parent.Kind()))
         {
             cancel.ThrowIfCancellationRequested();
 
             parents.Push(new(
-                Keyword: parentSyntax.Keyword.ValueText,
-                Name: parentSyntax.GetTypeNameWithGenericParameters()));
+                Keyword: parent.Keyword.ValueText,
+                Name: parent.GetTypeNameWithGenericParameters()));
 
-            parentSyntax = parentSyntax.Parent as TypeDeclarationSyntax;
+            parent = parent.Parent as TypeDeclarationSyntax;
         }
 
         return parents.ToArray();

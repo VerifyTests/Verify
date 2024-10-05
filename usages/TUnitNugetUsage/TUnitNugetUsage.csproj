@@ -2,11 +2,12 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <OutputType>Exe</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
     <!-- begin-snippet: tunit-nugets -->
-    <PackageReference Include="TUnit" Version="0.1.885" />
-    <PackageReference Include="Verify.TUnit" Version="26.6.0" />
+    <PackageReference Include="TUnit" Version="0.1.928" />
+    <PackageReference Include="Verify.TUnit" Version="27.0.0-beta.5" />
     <!-- end-snippet -->
   </ItemGroup>
 </Project>

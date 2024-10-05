@@ -9,7 +9,7 @@
     <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.14.3" />
     <PackageReference Include="Expecto" Version="10.2.1" />
     <PackageReference Update="FSharp.Core" Version="8.0.400" />
-    <PackageReference Include="Verify.Expecto" Version="26.6.0" />
+    <PackageReference Include="Verify.Expecto" Version="27.0.0-beta.5" />
 <!-- end-snippet -->
   </ItemGroup>
 </Project>

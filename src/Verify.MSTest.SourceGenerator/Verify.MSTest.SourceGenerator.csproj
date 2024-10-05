@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AnalyzerLanguage>cs</AnalyzerLanguage>
-    <AnalyzerRoslynVersion>4.4</AnalyzerRoslynVersion>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
     <!-- Packaged as part of the main Verify.MSTest package -->
     <IsPackable>false</IsPackable>

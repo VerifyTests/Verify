@@ -3,8 +3,5 @@
     "version": "9.0.100-rc.1.24452.12",
     "allowPrerelease": true,
     "rollForward": "latestFeature"
-  },
-  "msbuild-sdks": {
-    "ViHo.PackAsAnalyzer" : "1.0.1"
   }
 }

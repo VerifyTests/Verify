@@ -18,9 +18,9 @@ Add the following packages to the test project:
 <a id='snippet-fixie-nugets'></a>
 ```csproj
 <PackageReference Include="Fixie" Version="3.4.0" />
-<PackageReference Include="Verify.Fixie" Version="26.6.0" />
+<PackageReference Include="Verify.Fixie" Version="27.0.0-beta.5" />
 ```
-<sup><a href='/usages/FixieNugetUsage/FixieNugetUsage.csproj#L6-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-fixie-nugets' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/usages/FixieNugetUsage/FixieNugetUsage.csproj#L7-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-fixie-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

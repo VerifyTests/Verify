@@ -333,8 +333,3 @@ Note that TUnit can derive the parameters without explicitly passing them.
 ### xUnit
 
 snippet: UseParametersHashXunit
-
-
-### Globally
-
-snippet: StaticHashParameters

@@ -54,8 +54,7 @@ static class FileNameBuilder
 
         var verifiedValues = GetVerifiedValues(ignored, allValues);
 
-        var hashParameters = settings.hashParameters ||
-                             VerifierSettings.hashParameters;
+        var hashParameters = settings.hashParameters;
         return (
             BuildParameterString(allValues, hashParameters),
             BuildParameterString(verifiedValues, hashParameters));

@@ -266,64 +266,15 @@ public Task IgnoreParametersForVerifiedCustomParamsFluent(string arg) =>
 <!-- endSnippet -->
 
 
-## Hashing parameters<!-- include: hashing-parameters. path: /docs/mdsource/hashing-parameters.include.md -->
+## Hashing parameters
 
-Parameters can be hashed as an alternative to being stringified. This is useful when the parameters are large and could potentially generate file names that exceed allowances of the OS.
+Parameters can be hashed as an alternative to being stringified. This is useful when the parameters are large and could potentially generate file names that exceed allowances of the OS.<!-- include: hashing-parameters. path: /docs/mdsource/hashing-parameters.include.md -->
 
 Hashing parameter is achieved by using `UseParameters` in combination with `HashParameters`. Alternatively `UseHashedParameters` can be used as a wrapper for those two method calls.
 
 [Overriding text used for parameters](#overriding-text-used-for-parameters) is respected when generating the hash.
 
 [XxHash64](https://learn.microsoft.com/en-us/dotnet/api/system.io.hashing.xxhash64) is used to perform the hash.<!-- endInclude -->
-
-
-### MSTest
-
-<!-- snippet: UseParametersHashMsTest -->
-<a id='snippet-UseParametersHashMsTest'></a>
-```cs
-[TestClass]
-public partial class ParametersHashSample
-{
-    [DataTestMethod]
-    [DataRow("Value1")]
-    [DataRow("Value2")]
-    public Task UseHashedParametersUsage(string arg)
-    {
-        var settings = new VerifySettings();
-        settings.UseHashedParameters(arg);
-        return Verify(arg, settings);
-    }
-
-    [DataTestMethod]
-    [DataRow("Value1")]
-    [DataRow("Value2")]
-    public Task UseHashedParametersUsageFluent(string arg) =>
-        Verify(arg)
-            .UseHashedParameters(arg);
-
-    [DataTestMethod]
-    [DataRow("Value1")]
-    [DataRow("Value2")]
-    public Task HashParametersUsage(string arg)
-    {
-        var settings = new VerifySettings();
-        settings.UseParameters(arg);
-        settings.HashParameters();
-        return Verify(arg, settings);
-    }
-
-    [DataTestMethod]
-    [DataRow("Value1")]
-    [DataRow("Value2")]
-    public Task HashParametersUsageFluent(string arg) =>
-        Verify(arg)
-            .UseParameters(arg)
-            .HashParameters();
-}
-```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersHashSample.cs#L1-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashMsTest' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
 
 
 ### NUnit
@@ -385,7 +336,6 @@ public class ParametersHashSample
 <!-- endSnippet -->
 
 Note that NUnit can derive the parameters without explicitly passing them.
-
 
 
 ### Globally

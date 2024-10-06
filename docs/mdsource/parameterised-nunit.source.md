@@ -93,12 +93,9 @@ snippet: IgnoreParametersForVerifiedCustomParamsNunit
 snippet: IgnoreParametersForVerifiedCustomParamsFluentNunit
 
 
+## Hashing parameters
+
 include: hashing-parameters
-
-
-### MSTest
-
-snippet: UseParametersHashMsTest
 
 
 ### NUnit
@@ -106,7 +103,6 @@ snippet: UseParametersHashMsTest
 snippet: UseParametersHashNunit
 
 Note that NUnit can derive the parameters without explicitly passing them.
-
 
 
 ### Globally

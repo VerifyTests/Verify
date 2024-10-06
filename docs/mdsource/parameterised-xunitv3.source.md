@@ -95,6 +95,7 @@ snippet: IgnoreParametersForVerifiedCustomParamsXunit
 snippet: IgnoreParametersForVerifiedCustomParamsFluentXunit
 
 
+## Hashing parameters
 
 include: hashing-parameters
 

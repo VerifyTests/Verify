@@ -63,6 +63,8 @@ include: ignore-parameters
 The parameters passed to IgnoreParametersForVerified can be used pass custom parameters to [UseParameters](#UseParameters).
 
 
+## Hashing parameters
+
 include: hashing-parameters
 
 

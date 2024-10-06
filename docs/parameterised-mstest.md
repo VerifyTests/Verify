@@ -239,9 +239,9 @@ public Task IgnoreParametersForVerifiedFluentCustomParams(string arg) =>
 <!-- endSnippet -->
 
 
-## Hashing parameters<!-- include: hashing-parameters. path: /docs/mdsource/hashing-parameters.include.md -->
+## Hashing parameters
 
-Parameters can be hashed as an alternative to being stringified. This is useful when the parameters are large and could potentially generate file names that exceed allowances of the OS.
+Parameters can be hashed as an alternative to being stringified. This is useful when the parameters are large and could potentially generate file names that exceed allowances of the OS.<!-- include: hashing-parameters. path: /docs/mdsource/hashing-parameters.include.md -->
 
 Hashing parameter is achieved by using `UseParameters` in combination with `HashParameters`. Alternatively `UseHashedParameters` can be used as a wrapper for those two method calls.
 

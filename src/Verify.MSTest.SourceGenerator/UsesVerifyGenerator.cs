@@ -8,7 +8,7 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        var markerAttributeClassesToGenerate = context.SyntaxProvider
+        var markerAttributesToGenerate = context.SyntaxProvider
             .ForAttributeWithMetadataName(
                 fullyQualifiedMetadataName: MarkerAttributeName,
                 predicate: IsSyntaxEligibleForGeneration,
@@ -41,7 +41,7 @@ public class UsesVerifyGenerator : IIncrementalGenerator
             .WithTrackingName(TrackingNames.MarkerAttributeInitialTransform)
             .Collect();
 
-        var assemblyAttributeClassesToGenerate = context.SyntaxProvider
+        var assemblyAttributesToGenerate = context.SyntaxProvider
             .CreateSyntaxProvider(
                 predicate: IsSyntaxEligibleForGeneration,
                 transform: static (context, cancel) =>
@@ -51,12 +51,13 @@ public class UsesVerifyGenerator : IIncrementalGenerator
                         return null;
                     }
 
-                    if (!IsAssemblyEligibleForGeneration(context.SemanticModel.Compilation.Assembly))
+                    var model = context.SemanticModel;
+                    if (!IsAssemblyEligibleForGeneration(model.Compilation.Assembly))
                     {
                         return null;
                     }
 
-                    if (context.SemanticModel.GetDeclaredSymbol(syntax, cancel) is not INamedTypeSymbol symbol)
+                    if (model.GetDeclaredSymbol(syntax, cancel) is not INamedTypeSymbol symbol)
                     {
                         return null;
                     }
@@ -70,7 +71,8 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
                     // Only run generator for classes when the parent won't _also_ have generation.
                     // Otherwise the generator will hide the base member.
-                    if (HasParentWithTestClassAttribute(symbol) || HasParentWithMarkerAttribute(symbol))
+                    if (HasParentWithTestClassAttribute(symbol) ||
+                        HasParentWithMarkerAttribute(symbol))
                     {
                         return null;
                     }
@@ -85,26 +87,30 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
         // Collect the classes to generate into a single collection so that we can write them to a single file and
         // avoid the issues of ambiguous hint names discussed in https://github.com/dotnet/roslyn/discussions/60272.
-        var classesToGenerate = markerAttributeClassesToGenerate.Combine(assemblyAttributeClassesToGenerate)
+        var toGenerate = markerAttributesToGenerate.Combine(assemblyAttributesToGenerate)
             .SelectMany((classes, _) => classes.Left.AddRange(classes.Right))
             .WithTrackingName(TrackingNames.Merge)
             .Collect()
             .WithTrackingName(TrackingNames.Complete);
 
-        context.RegisterSourceOutput(classesToGenerate, Execute);
+        context.RegisterSourceOutput(toGenerate, Execute);
     }
 
-    static bool IsSyntaxEligibleForGeneration(SyntaxNode node, Cancel _) => node is ClassDeclarationSyntax;
+    static bool IsSyntaxEligibleForGeneration(SyntaxNode node, Cancel _) =>
+        node is ClassDeclarationSyntax;
 
-    static bool IsAssemblyEligibleForGeneration(IAssemblySymbol assembly) => assembly.HasAttributeOfType(MarkerAttributeName, includeDerived: false);
+    static bool IsAssemblyEligibleForGeneration(IAssemblySymbol assembly) =>
+        assembly.HasAttributeOfType(MarkerAttributeName, includeDerived: false);
 
-    static bool HasParentWithMarkerAttribute(INamedTypeSymbol symbol) => symbol
+    static bool HasParentWithMarkerAttribute(INamedTypeSymbol symbol) =>
+        symbol
         .GetBaseTypes()
-        .Any(parent => parent.HasAttributeOfType(MarkerAttributeName, includeDerived: false));
+        .Any(_ => _.HasAttributeOfType(MarkerAttributeName, includeDerived: false));
 
-    static bool HasParentWithTestClassAttribute(INamedTypeSymbol symbol) => symbol
+    static bool HasParentWithTestClassAttribute(INamedTypeSymbol symbol) =>
+        symbol
         .GetBaseTypes()
-        .Any(parent => parent.HasAttributeOfType(TestClassAttributeName, includeDerived: true));
+        .Any(_ => _.HasAttributeOfType(TestClassAttributeName, includeDerived: true));
 
     static void Execute(SourceProductionContext context, ImmutableArray<ClassToGenerate> classesToGenerate)
     {

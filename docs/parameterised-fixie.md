@@ -10,20 +10,14 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 ## UseParameters()
 
-`UseParameters()` controls what parameters are used when naming files. The usage depends on the test framework being used:
+`UseParameters()` controls what parameters are used when naming files.
 
-  * Verify.Expecto: Does not currently support `UseParameters()`.
-  * Verify.Fixie: Automatically detects the method parameters via a [custom ITestProject]( docs/parameterised.md#fixie).
-  * Verify.MSTest: Does not detect the parametrised arguments, as such `UseParameters()` is required.
-  * Verify.NUnit: Automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.
-  * Verify.TUnit: Automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.
-  * Verify.Xunit: Does not detect the parametrised arguments, as such `UseParameters()` is required.
-  * Verify.XunitV3: Automatically detect the method parameters for built in types (string, int, bool etc), but for complex parameters `UseParameters()` is required.
+Verify.Fixie automatically detects the method parameters via a [custom ITestProject]( docs/parameterised.md#fixie).
 
 
 ### Usage:
 
-For the above scenarios where parameters are not automatically detected: 
+For the above scenarios where parameters are not automatically detected:
 
 <!-- snippet: UseParameters -->
 <a id='snippet-UseParameters'></a>

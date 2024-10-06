@@ -3,20 +3,9 @@
 
 ## UseParameters()
 
-`UseParameters()` controls what parameters are used when naming files. The usage depends on the test framework being used:
+`UseParameters()` controls what parameters are used when naming files.
 
-  * Verify.Expecto: Does not currently support `UseParameters()`.
-  * Verify.Fixie: Automatically detects the method parameters via a [custom ITestProject](docs/parameterised.md#fixie).
-  * Verify.MSTest: Does not detect the parametrised arguments, as such `UseParameters()` is required.
-  * Verify.NUnit: Automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.
-  * Verify.TUnit: Automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.
-  * Verify.Xunit: Does not detect the parametrised arguments, as such `UseParameters()` is required.
-  * Verify.XunitV3: Automatically detect the method parameters for built in types (string, int, bool etc), but for complex parameters `UseParameters()` is required.
-
-
-### Usage:
-
-For the above scenarios where parameters are not automatically detected: 
+Verify.MSTest does not detect the parametrised arguments, as such `UseParameters()` is required.
 
 snippet: UseParameters
 
@@ -25,11 +14,6 @@ If not all parameters are required, a subset can be passed in. In this scenario,
 snippet: UseParametersSubSet
 
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
-
-
-## MSTest
-
-`Verify.MSTest` does not detect the parametrized arguments, as such `UseParameters()` is required.
 
 
 ### DataRow

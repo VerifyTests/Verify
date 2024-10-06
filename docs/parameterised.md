@@ -7,8 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Parameterised Tests
 
-
-## Additions to file name
+## File name suffix<!-- include: file-name-suffix. path: /docs/mdsource/file-name-suffix.include.md -->
 
 Every parameterised case should have a unique [file name](/docs/naming.md) with the parameters appended to the file name. This happens automatically for NUnit; xUnit and MSTest require the use of `UseParameters()` (see below).
 
@@ -22,7 +21,7 @@ A test with two parameters `param1` + `param2`, and called twice with the values
 
 ### Invalid characters
 
-Characters that cannot be used for a file name are replaced with a dash (`-`).
+Characters that cannot be used for a file name are replaced with a dash (`-`).<!-- endInclude -->
 
 
 ## UseParameters()
@@ -585,13 +584,26 @@ public Task DataRowUsageFluent(string arg) =>
 <!-- endSnippet -->
 
 
-## Overriding text used for parameters
+## Overriding text used for parameters<!-- include: override-parameters-text. path: /docs/mdsource/override-parameters-text.include.md -->
 
-`UseTextForParameters()` can be used to override the substitution text used for `{Parameters}`.
+`UseTextForParameters()` can be used to override the substitution text used for the `{Parameters}` part of the file convention.
 
 ```
 {Directory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}
 ```
+
+The below samples produce:
+
+For the instance case:
+
+ * TheTest.UseTextForParameters_Value1.verified.txt
+ * TheTest.UseTextForParameters_Value2.verified.txt
+
+For the fluent case:
+
+ * TheTest.UseTextForParametersFluent_Value1.verified.txt
+ * TheTest.UseTextForParametersFluent_Value2.verified.txt<!-- endInclude -->
+
 
 <!-- snippet: UseTextForParameters -->
 <a id='snippet-UseTextForParameters'></a>
@@ -616,15 +628,8 @@ public Task UseTextForParametersFluent(string arg) =>
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L381-L400' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParameters' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Results in:
 
- * TheTest.UseTextForParameters_Value1.verified.txt
- * TheTest.UseTextForParameters_Value2.verified.txt
- * TheTest.UseTextForParametersFluent_Value1.verified.txt
- * TheTest.UseTextForParametersFluent_Value2.verified.txt
-
-
-## Ignore parameters for verified filename
+## Ignore parameters for verified filename<!-- include: ignore-parameters. path: /docs/mdsource/ignore-parameters.include.md -->
 
 By default, Verify expects every parameterized case to have a unique [file name](/docs/naming.md) with the parameters appended to the file name. This behavior can be overridden by using `IgnoreParametersForVerified()`. In this case, the verified file name does not contain the parameter values, meaning it is the same for each testcase.
 
@@ -642,7 +647,7 @@ For the fluent case:
 
  * NamerTests.IgnoreParametersForVerifiedFluent_arg=One.received.txt
  * NamerTests.IgnoreParametersForVerifiedFluent_arg=Two.received.txt
- * NamerTests.IgnoreParametersForVerifiedFluent.verified.txt
+ * NamerTests.IgnoreParametersForVerifiedFluent.verified.txt<!-- endInclude -->
 
 
 ### xUnit
@@ -950,7 +955,7 @@ public Task IgnoreParametersForVerifiedFluentCustomParams(string arg) =>
 <!-- endSnippet -->
 
 
-## Hashing parameters
+## Hashing parameters<!-- include: hashing-parameters. path: /docs/mdsource/hashing-parameters.include.md -->
 
 Parameters can be hashed as an alternative to being stringified. This is useful when the parameters are large and could potentially generate file names that exceed allowances of the OS.
 
@@ -958,7 +963,7 @@ Hashing parameter is achieved by using `UseParameters` in combination with `Hash
 
 [Overriding text used for parameters](#overriding-text-used-for-parameters) is respected when generating the hash.
 
-[XxHash64](https://learn.microsoft.com/en-us/dotnet/api/system.io.hashing.xxhash64) is used to perform the hash.
+[XxHash64](https://learn.microsoft.com/en-us/dotnet/api/system.io.hashing.xxhash64) is used to perform the hash.<!-- endInclude -->
 
 
 ### MSTest

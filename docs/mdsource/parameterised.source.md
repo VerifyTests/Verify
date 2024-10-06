@@ -1,21 +1,6 @@
 # Parameterised Tests
 
-
-## Additions to file name
-
-Every parameterised case should have a unique [file name](/docs/naming.md) with the parameters appended to the file name. This happens automatically for NUnit; xUnit and MSTest require the use of `UseParameters()` (see below).
-
-The appending format is `_ParamName=ParamValue` repeated for each parameter. 
-
-A test with two parameters `param1` + `param2`, and called twice with the values `value1a` + `value2a` and `value1b` + `value2b` would have the following file names:
-
-  * `MyTest.MyMethod_param1=value1a_param2=value2a.verified.txt`
-  * `MyTest.MyMethod_param1=value1b_param2=value2b.verified.txt`
-
-
-### Invalid characters
-
-Characters that cannot be used for a file name are replaced with a dash (`-`).
+include: file-name-suffix
 
 
 ## UseParameters()
@@ -152,43 +137,13 @@ snippet: FixieTestCase
 snippet: MSTestDataRow
 
 
-## Overriding text used for parameters
+include: override-parameters-text
 
-`UseTextForParameters()` can be used to override the substitution text used for `{Parameters}`.
-
-```
-{Directory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}
-```
 
 snippet: UseTextForParameters
 
-Results in:
 
- * TheTest.UseTextForParameters_Value1.verified.txt
- * TheTest.UseTextForParameters_Value2.verified.txt
- * TheTest.UseTextForParametersFluent_Value1.verified.txt
- * TheTest.UseTextForParametersFluent_Value2.verified.txt
-
-
-## Ignore parameters for verified filename
-
-By default, Verify expects every parameterized case to have a unique [file name](/docs/naming.md) with the parameters appended to the file name. This behavior can be overridden by using `IgnoreParametersForVerified()`. In this case, the verified file name does not contain the parameter values, meaning it is the same for each testcase.
-
-`IgnoreParametersForVerified` accepts an array for passing through the parameters. These values are passed to [UseParameters](#UseParameters). This is required for MSTest, and xUnit. Parameters should not be passed for NUnit, TUnit and Fixie since they are automatically detected.
-
-The below samples produce:
-
-For the instance case:
-
- * NamerTests.IgnoreParametersForVerified_arg=One.received.txt
- * NamerTests.IgnoreParametersForVerified_arg=Two.received.txt
- * NamerTests.IgnoreParametersForVerified.verified.txt
-
-For the fluent case:
-
- * NamerTests.IgnoreParametersForVerifiedFluent_arg=One.received.txt
- * NamerTests.IgnoreParametersForVerifiedFluent_arg=Two.received.txt
- * NamerTests.IgnoreParametersForVerifiedFluent.verified.txt
+include: ignore-parameters
 
 
 ### xUnit
@@ -300,15 +255,7 @@ snippet: IgnoreParametersForVerifiedCustomParamsMsTest
 snippet: IgnoreParametersForVerifiedCustomParamsFluentMsTest
 
 
-## Hashing parameters
-
-Parameters can be hashed as an alternative to being stringified. This is useful when the parameters are large and could potentially generate file names that exceed allowances of the OS.
-
-Hashing parameter is achieved by using `UseParameters` in combination with `HashParameters`. Alternatively `UseHashedParameters` can be used as a wrapper for those two method calls.
-
-[Overriding text used for parameters](#overriding-text-used-for-parameters) is respected when generating the hash.
-
-[XxHash64](https://learn.microsoft.com/en-us/dotnet/api/system.io.hashing.xxhash64) is used to perform the hash.
+include: hashing-parameters
 
 
 ### MSTest

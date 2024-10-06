@@ -23,13 +23,26 @@ static class SymbolExtensions
                     return true;
                 }
 
-                typeSymbol = includeDerived ? typeSymbol.BaseType : null;
+                if (includeDerived)
+                {
+                    typeSymbol = typeSymbol.BaseType;
+                    continue;
+                }
+
+                typeSymbol = null;
             }
         }
 
         return false;
     }
 
-    public static string? GetNamespaceOrDefault(this ISymbol symbol) =>
-        symbol.ContainingNamespace.IsGlobalNamespace ? null : symbol.ContainingNamespace.ToString();
+    public static string? GetNamespaceOrDefault(this ISymbol symbol)
+    {
+        if (symbol.ContainingNamespace.IsGlobalNamespace)
+        {
+            return null;
+        }
+
+        return symbol.ContainingNamespace.ToString();
+    }
 }

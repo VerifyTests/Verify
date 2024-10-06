@@ -8,7 +8,7 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        var markerAttributeClassesToGenerate = context.SyntaxProvider
+        var markerAttributesToGenerate = context.SyntaxProvider
             .ForAttributeWithMetadataName(
                 fullyQualifiedMetadataName: MarkerAttributeName,
                 predicate: IsSyntaxEligibleForGeneration,
@@ -41,7 +41,7 @@ public class UsesVerifyGenerator : IIncrementalGenerator
             .WithTrackingName(TrackingNames.MarkerAttributeInitialTransform)
             .Collect();
 
-        var assemblyAttributeClassesToGenerate = context.SyntaxProvider
+        var assemblyAttributesToGenerate = context.SyntaxProvider
             .CreateSyntaxProvider(
                 predicate: IsSyntaxEligibleForGeneration,
                 transform: static (context, cancel) =>
@@ -85,7 +85,7 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
         // Collect the classes to generate into a single collection so that we can write them to a single file and
         // avoid the issues of ambiguous hint names discussed in https://github.com/dotnet/roslyn/discussions/60272.
-        var classesToGenerate = markerAttributeClassesToGenerate.Combine(assemblyAttributeClassesToGenerate)
+        var classesToGenerate = markerAttributesToGenerate.Combine(assemblyAttributesToGenerate)
             .SelectMany((classes, _) => classes.Left.AddRange(classes.Right))
             .WithTrackingName(TrackingNames.Merge)
             .Collect()
@@ -94,17 +94,19 @@ public class UsesVerifyGenerator : IIncrementalGenerator
         context.RegisterSourceOutput(classesToGenerate, Execute);
     }
 
-    static bool IsSyntaxEligibleForGeneration(SyntaxNode node, Cancel _) => node is ClassDeclarationSyntax;
+    static bool IsSyntaxEligibleForGeneration(SyntaxNode node, Cancel _) =>
+        node is ClassDeclarationSyntax;
 
-    static bool IsAssemblyEligibleForGeneration(IAssemblySymbol assembly) => assembly.HasAttributeOfType(MarkerAttributeName, includeDerived: false);
+    static bool IsAssemblyEligibleForGeneration(IAssemblySymbol assembly) =>
+        assembly.HasAttributeOfType(MarkerAttributeName, includeDerived: false);
 
     static bool HasParentWithMarkerAttribute(INamedTypeSymbol symbol) => symbol
         .GetBaseTypes()
-        .Any(parent => parent.HasAttributeOfType(MarkerAttributeName, includeDerived: false));
+        .Any(_ => _.HasAttributeOfType(MarkerAttributeName, includeDerived: false));
 
     static bool HasParentWithTestClassAttribute(INamedTypeSymbol symbol) => symbol
         .GetBaseTypes()
-        .Any(parent => parent.HasAttributeOfType(TestClassAttributeName, includeDerived: true));
+        .Any(_ => _.HasAttributeOfType(TestClassAttributeName, includeDerived: true));
 
     static void Execute(SourceProductionContext context, ImmutableArray<ClassToGenerate> classesToGenerate)
     {

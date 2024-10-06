@@ -72,15 +72,12 @@ snippet: IgnoreParametersForVerifiedFluentXunit
 The parameters passed to IgnoreParametersForVerified can be used pass custom parameters to [UseParameters](#UseParameters).
 
 
-### xUnit
-
-
-#### Instance
+### Instance
 
 snippet: IgnoreParametersForVerifiedCustomParamsXunit
 
 
-#### Fluent
+### Fluent
 
 snippet: IgnoreParametersForVerifiedCustomParamsFluentXunit
 
@@ -89,8 +86,6 @@ snippet: IgnoreParametersForVerifiedCustomParamsFluentXunit
 
 include: hashing-parameters
 
-
-### xUnit
 
 snippet: UseParametersHashXunit
 

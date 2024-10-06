@@ -62,15 +62,12 @@ snippet: IgnoreParametersForVerifiedFluentNunit
 The parameters passed to IgnoreParametersForVerified can be used pass custom parameters to [UseParameters](#UseParameters).
 
 
-### NUnit
-
-
-#### Instance
+### Instance
 
 snippet: IgnoreParametersForVerifiedCustomParamsNunit
 
 
-#### Fluent
+### Fluent
 
 snippet: IgnoreParametersForVerifiedCustomParamsFluentNunit
 
@@ -79,8 +76,6 @@ snippet: IgnoreParametersForVerifiedCustomParamsFluentNunit
 
 include: hashing-parameters
 
-
-### NUnit
 
 snippet: UseParametersHashNunit
 

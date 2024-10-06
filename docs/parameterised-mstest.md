@@ -185,10 +185,7 @@ public Task IgnoreParametersForVerifiedFluent(string arg) =>
 The parameters passed to IgnoreParametersForVerified can be used pass custom parameters to [UseParameters](#UseParameters).
 
 
-### MSTest
-
-
-#### Instance
+### Instance
 
 <!-- snippet: IgnoreParametersForVerifiedCustomParamsMsTest -->
 <a id='snippet-IgnoreParametersForVerifiedCustomParamsMsTest'></a>
@@ -207,7 +204,7 @@ public Task IgnoreParametersForVerifiedCustomParams(string arg)
 <!-- endSnippet -->
 
 
-#### Fluent
+### Fluent
 
 <!-- snippet: IgnoreParametersForVerifiedCustomParamsFluentMsTest -->
 <a id='snippet-IgnoreParametersForVerifiedCustomParamsFluentMsTest'></a>
@@ -233,8 +230,6 @@ Hashing parameter is achieved by using `UseParameters` in combination with `Hash
 
 [XxHash64](https://learn.microsoft.com/en-us/dotnet/api/system.io.hashing.xxhash64) is used to perform the hash.<!-- endInclude -->
 
-
-### MSTest
 
 <!-- snippet: UseParametersHashMsTest -->
 <a id='snippet-UseParametersHashMsTest'></a>

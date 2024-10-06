@@ -52,15 +52,12 @@ snippet: IgnoreParametersForVerifiedFluentMsTest
 The parameters passed to IgnoreParametersForVerified can be used pass custom parameters to [UseParameters](#UseParameters).
 
 
-### MSTest
-
-
-#### Instance
+### Instance
 
 snippet: IgnoreParametersForVerifiedCustomParamsMsTest
 
 
-#### Fluent
+### Fluent
 
 snippet: IgnoreParametersForVerifiedCustomParamsFluentMsTest
 
@@ -69,8 +66,6 @@ snippet: IgnoreParametersForVerifiedCustomParamsFluentMsTest
 
 include: hashing-parameters
 
-
-### MSTest
 
 snippet: UseParametersHashMsTest
 

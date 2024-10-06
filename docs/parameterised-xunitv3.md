@@ -221,7 +221,6 @@ For the fluent case:
  * TheTest.UseTextForParametersFluent_Value1.verified.txt
  * TheTest.UseTextForParametersFluent_Value2.verified.txt<!-- endInclude -->
 
-
 <!-- snippet: UseTextForParameters -->
 <a id='snippet-UseTextForParameters'></a>
 ```cs
@@ -265,7 +264,6 @@ For the fluent case:
  * NamerTests.IgnoreParametersForVerifiedFluent_arg=One.received.txt
  * NamerTests.IgnoreParametersForVerifiedFluent_arg=Two.received.txt
  * NamerTests.IgnoreParametersForVerifiedFluent.verified.txt<!-- endInclude -->
-
 
 
 ### Instance
@@ -352,7 +350,6 @@ Hashing parameter is achieved by using `UseParameters` in combination with `Hash
 [Overriding text used for parameters](#overriding-text-used-for-parameters) is respected when generating the hash.
 
 [XxHash64](https://learn.microsoft.com/en-us/dotnet/api/system.io.hashing.xxhash64) is used to perform the hash.<!-- endInclude -->
-
 
 <!-- snippet: UseParametersHashXunit -->
 <a id='snippet-UseParametersHashXunit'></a>

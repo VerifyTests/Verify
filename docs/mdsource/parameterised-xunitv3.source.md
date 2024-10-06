@@ -44,14 +44,12 @@ snippet: xunitV3ComplexMemberData
 
 include: override-parameters-text
 
-
 snippet: UseTextForParameters
 
 
 ## Ignore parameters for verified filename
 
 include: ignore-parameters
-
 
 
 ### Instance
@@ -82,6 +80,5 @@ snippet: IgnoreParametersForVerifiedCustomParamsFluentXunit
 ## Hashing parameters
 
 include: hashing-parameters
-
 
 snippet: UseParametersHashXunit

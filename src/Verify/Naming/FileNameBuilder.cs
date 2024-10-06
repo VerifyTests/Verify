@@ -54,8 +54,7 @@ static class FileNameBuilder
 
         var verifiedValues = GetVerifiedValues(ignored, allValues);
 
-        var hashParameters = settings.hashParameters ||
-                             VerifierSettings.hashParameters;
+        var hashParameters = settings.hashParameters;
         return (
             BuildParameterString(allValues, hashParameters),
             BuildParameterString(verifiedValues, hashParameters));
@@ -78,14 +77,16 @@ static class FileNameBuilder
 
     static string BuildParameterString(IEnumerable<KeyValuePair<string, object?>> values, bool hashParameters)
     {
-        var builder = values.Aggregate(new StringBuilder(), (acc, seed) =>
-        {
-            acc.Append('_');
-            acc.Append(seed.Key);
-            acc.Append('=');
-            VerifierSettings.AppendParameter(seed.Value, acc, true);
-            return acc;
-        });
+        var builder = values.Aggregate(
+            new StringBuilder(),
+            (acc, seed) =>
+            {
+                acc.Append('_');
+                acc.Append(seed.Key);
+                acc.Append('=');
+                VerifierSettings.AppendParameter(seed.Value, acc, true);
+                return acc;
+            });
 
         var parameterText = builder.ToString();
 

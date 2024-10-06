@@ -39,15 +39,12 @@ snippet: UseTextForParameters
 include: ignore-parameters
 
 
-### TUnit
-
-
-#### Instance
+### Instance
 
 snippet: IgnoreParametersForVerifiedTUnit
 
 
-#### Fluent
+### Fluent
 
 snippet: IgnoreParametersForVerifiedFluentTUnit
 

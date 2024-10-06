@@ -5,7 +5,7 @@ Source File: /docs/mdsource/parameterised-mstest.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
-# NUnit Parameterised Tests
+# MSTest Parameterised Tests
 
 
 ## UseParameters()
@@ -142,10 +142,7 @@ For the fluent case:
  * NamerTests.IgnoreParametersForVerifiedFluent.verified.txt<!-- endInclude -->
 
 
-### MSTest
-
-
-#### Instance
+### Instance
 
 <!-- snippet: IgnoreParametersForVerifiedMsTest -->
 <a id='snippet-IgnoreParametersForVerifiedMsTest'></a>
@@ -164,7 +161,7 @@ public Task IgnoreParametersForVerified(string arg)
 <!-- endSnippet -->
 
 
-#### Fluent
+### Fluent
 
 <!-- snippet: IgnoreParametersForVerifiedFluentMsTest -->
 <a id='snippet-IgnoreParametersForVerifiedFluentMsTest'></a>

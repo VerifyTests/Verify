@@ -157,10 +157,7 @@ For the fluent case:
  * NamerTests.IgnoreParametersForVerifiedFluent.verified.txt<!-- endInclude -->
 
 
-### NUnit
-
-
-#### Instance
+### Instance
 
 <!-- snippet: IgnoreParametersForVerifiedNunit -->
 <a id='snippet-IgnoreParametersForVerifiedNunit'></a>
@@ -178,7 +175,7 @@ public Task IgnoreParametersForVerified(string arg)
 <!-- endSnippet -->
 
 
-#### Fluent
+### Fluent
 
 <!-- snippet: IgnoreParametersForVerifiedFluentNunit -->
 <a id='snippet-IgnoreParametersForVerifiedFluentNunit'></a>

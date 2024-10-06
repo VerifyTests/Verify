@@ -1,4 +1,4 @@
-# NUnit Parameterised Tests
+# MSTest Parameterised Tests
 
 
 ## UseParameters()
@@ -34,15 +34,12 @@ snippet: UseTextForParameters
 include: ignore-parameters
 
 
-### MSTest
-
-
-#### Instance
+### Instance
 
 snippet: IgnoreParametersForVerifiedMsTest
 
 
-#### Fluent
+### Fluent
 
 snippet: IgnoreParametersForVerifiedFluentMsTest
 

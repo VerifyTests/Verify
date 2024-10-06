@@ -53,15 +53,13 @@ snippet: UseTextForParameters
 include: ignore-parameters
 
 
-### xUnit
 
-
-#### Instance
+### Instance
 
 snippet: IgnoreParametersForVerifiedXunit
 
 
-#### Fluent
+### Fluent
 
 snippet: IgnoreParametersForVerifiedFluentXunit
 

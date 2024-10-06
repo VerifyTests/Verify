@@ -44,15 +44,12 @@ snippet: UseTextForParameters
 include: ignore-parameters
 
 
-### NUnit
-
-
-#### Instance
+### Instance
 
 snippet: IgnoreParametersForVerifiedNunit
 
 
-#### Fluent
+### Fluent
 
 snippet: IgnoreParametersForVerifiedFluentNunit
 

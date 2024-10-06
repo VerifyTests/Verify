@@ -52,6 +52,7 @@ snippet: xunitComplexMemberData
 `VerifierSettings.NameForParameter()` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
 
 
+## Overriding text used for parameters
 
 include: override-parameters-text
 

@@ -1,5 +1,3 @@
-## Overriding text used for parameters
-
 `UseTextForParameters()` can be used to override the substitution text used for the `{Parameters}` part of the file convention.
 
 ```

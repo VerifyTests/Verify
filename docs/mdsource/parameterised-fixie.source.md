@@ -45,6 +45,8 @@ Resulting usage:
 snippet: FixieTestCase
 
 
+## Overriding text used for parameters
+
 include: override-parameters-text
 
 

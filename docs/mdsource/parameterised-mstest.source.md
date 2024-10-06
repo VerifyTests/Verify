@@ -37,6 +37,8 @@ If the number of parameters passed to `UseParameters()` is greater than the numb
 snippet: MSTestDataRow
 
 
+## Overriding text used for parameters
+
 include: override-parameters-text
 
 

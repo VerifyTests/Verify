@@ -212,9 +212,9 @@ public class ComplexParametersSample
 `VerifierSettings.NameForParameter()` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
 
 
-## Overriding text used for parameters<!-- include: override-parameters-text. path: /docs/mdsource/override-parameters-text.include.md -->
+## Overriding text used for parameters
 
-`UseTextForParameters()` can be used to override the substitution text used for the `{Parameters}` part of the file convention.
+`UseTextForParameters()` can be used to override the substitution text used for the `{Parameters}` part of the file convention.<!-- include: override-parameters-text. path: /docs/mdsource/override-parameters-text.include.md -->
 
 ```
 {Directory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}

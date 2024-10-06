@@ -27,6 +27,8 @@ snippet: UseParametersSubSet
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
 
 
+## Overriding text used for parameters
+
 include: override-parameters-text
 
 

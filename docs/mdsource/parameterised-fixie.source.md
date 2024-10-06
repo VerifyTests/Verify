@@ -60,8 +60,3 @@ The parameters passed to IgnoreParametersForVerified can be used pass custom par
 ## Hashing parameters
 
 include: hashing-parameters
-
-
-### Globally
-
-snippet: StaticHashParameters

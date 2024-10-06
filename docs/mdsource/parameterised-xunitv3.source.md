@@ -87,8 +87,3 @@ include: hashing-parameters
 
 
 snippet: UseParametersHashXunit
-
-
-### Globally
-
-snippet: StaticHashParameters

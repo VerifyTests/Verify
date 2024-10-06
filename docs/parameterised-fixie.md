@@ -206,19 +206,3 @@ Hashing parameter is achieved by using `UseParameters` in combination with `Hash
 [Overriding text used for parameters](#overriding-text-used-for-parameters) is respected when generating the hash.
 
 [XxHash64](https://learn.microsoft.com/en-us/dotnet/api/system.io.hashing.xxhash64) is used to perform the hash.<!-- endInclude -->
-
-
-### Globally
-
-<!-- snippet: StaticHashParameters -->
-<a id='snippet-StaticHashParameters'></a>
-```cs
-public static class ModuleInitializer
-{
-    [ModuleInitializer]
-    public static void Init() =>
-        VerifierSettings.HashParameters();
-}
-```
-<sup><a href='/src/ModuleInitDocs/HashParameters.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticHashParameters' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->

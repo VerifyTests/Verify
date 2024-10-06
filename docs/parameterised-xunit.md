@@ -377,7 +377,6 @@ Hashing parameter is achieved by using `UseParameters` in combination with `Hash
 
 [XxHash64](https://learn.microsoft.com/en-us/dotnet/api/system.io.hashing.xxhash64) is used to perform the hash.<!-- endInclude -->
 
-
 <!-- snippet: UseParametersHashXunit -->
 <a id='snippet-UseParametersHashXunit'></a>
 ```cs
@@ -419,20 +418,4 @@ public class ParametersHashSample
 }
 ```
 <sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersHashSample.cs#L1-L40' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashXunit' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
-### Globally
-
-<!-- snippet: StaticHashParameters -->
-<a id='snippet-StaticHashParameters'></a>
-```cs
-public static class ModuleInitializer
-{
-    [ModuleInitializer]
-    public static void Init() =>
-        VerifierSettings.HashParameters();
-}
-```
-<sup><a href='/src/ModuleInitDocs/HashParameters.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticHashParameters' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

@@ -65,11 +65,3 @@ snippet: IgnoreParametersForVerifiedCustomParamsFluentMsTest
 ## Hashing parameters
 
 include: hashing-parameters
-
-
-snippet: UseParametersHashMsTest
-
-
-### Globally
-
-snippet: StaticHashParameters

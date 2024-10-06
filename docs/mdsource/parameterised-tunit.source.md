@@ -75,8 +75,3 @@ include: hashing-parameters
 snippet: UseParametersHashTUnit
 
 Note that TUnit can derive the parameters without explicitly passing them.
-
-
-### Globally
-
-snippet: StaticHashParameters

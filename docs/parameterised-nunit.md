@@ -299,19 +299,3 @@ public class ParametersHashSample
 <!-- endSnippet -->
 
 Note that NUnit can derive the parameters without explicitly passing them.
-
-
-### Globally
-
-<!-- snippet: StaticHashParameters -->
-<a id='snippet-StaticHashParameters'></a>
-```cs
-public static class ModuleInitializer
-{
-    [ModuleInitializer]
-    public static void Init() =>
-        VerifierSettings.HashParameters();
-}
-```
-<sup><a href='/src/ModuleInitDocs/HashParameters.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticHashParameters' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->

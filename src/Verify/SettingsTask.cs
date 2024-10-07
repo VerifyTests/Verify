@@ -282,18 +282,6 @@ public partial class SettingsTask
     }
 
     /// <summary>
-    /// Provide parameters to hash together and pass to <see cref="UseTextForParameters" />.
-    /// Used to get a deterministic file name while avoiding long paths.
-    /// Combines <see cref="UseParameters" /> and <see cref="HashParameters" />.
-    /// </summary>
-    [Pure]
-    public SettingsTask UseHashedParameters(params object?[] parameters)
-    {
-        CurrentSettings.UseHashedParameters(parameters);
-        return this;
-    }
-
-    /// <summary>
     /// Hash parameters together and pass to <see cref="UseTextForParameters" />.
     /// Used to get a deterministic file name while avoiding long paths.
     /// </summary>

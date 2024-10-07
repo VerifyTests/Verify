@@ -229,23 +229,6 @@ public class ParametersHashSample
     [Test]
     [Arguments("Value1")]
     [Arguments("Value2")]
-    public Task UseHashedParametersUsage(string arg)
-    {
-        var settings = new VerifySettings();
-        settings.UseHashedParameters(arg);
-        return Verify(arg, settings);
-    }
-
-    [Test]
-    [Arguments("Value1")]
-    [Arguments("Value2")]
-    public Task UseHashedParametersUsageFluent(string arg) =>
-        Verify(arg)
-            .UseHashedParameters(arg);
-
-    [Test]
-    [Arguments("Value1")]
-    [Arguments("Value2")]
     public Task HashParametersUsage(string arg)
     {
         var settings = new VerifySettings();
@@ -279,7 +262,7 @@ public class ParametersHashSample
             .HashParameters();
 }
 ```
-<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersHashSample.cs#L1-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashTUnit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersHashSample.cs#L1-L41' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashTUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Note that TUnit can derive the parameters without explicitly passing them.

@@ -1,4 +1,0 @@
-﻿{
-  Name: Net,
-  NameAndVersion: Net4_8
-}

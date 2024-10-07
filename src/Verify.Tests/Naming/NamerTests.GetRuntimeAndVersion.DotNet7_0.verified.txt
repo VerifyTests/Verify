@@ -1,4 +1,0 @@
-﻿{
-  runtime: DotNet,
-  Version: 7.0
-}

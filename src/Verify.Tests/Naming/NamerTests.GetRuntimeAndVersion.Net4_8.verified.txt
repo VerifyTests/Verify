@@ -1,4 +1,0 @@
-﻿{
-  runtime: Net,
-  Version: 4.8
-}

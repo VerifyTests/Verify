@@ -533,23 +533,6 @@ public class NamerTests
     [Theory]
     [InlineData(true, false)]
     [InlineData(false, false)]
-    public Task UseHashedParameters(bool a, bool b)
-    {
-        var settings = new VerifySettings();
-        settings.UseHashedParameters(a, b);
-        return Verify("ContentUseParametersHash", settings);
-    }
-
-    [Theory]
-    [InlineData(true, false)]
-    [InlineData(false, false)]
-    public Task UseHashedParametersFluent(bool a, bool b) =>
-        Verify("ContentUseParametersHashFluent")
-            .UseHashedParameters(a, b);
-
-    [Theory]
-    [InlineData(true, false)]
-    [InlineData(false, false)]
     public Task HashParameters(bool a, bool b)
     {
         var settings = new VerifySettings();

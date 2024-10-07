@@ -1,4 +1,0 @@
-﻿{
-  Name: DotNet,
-  NameAndVersion: DotNet9_0
-}

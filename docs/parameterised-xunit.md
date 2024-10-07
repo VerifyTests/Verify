@@ -242,7 +242,6 @@ For the fluent case:
  * TheTest.UseTextForParametersFluent_Value1.verified.txt
  * TheTest.UseTextForParametersFluent_Value2.verified.txt<!-- endInclude -->
 
-
 <!-- snippet: UseTextForParameters -->
 <a id='snippet-UseTextForParameters'></a>
 ```cs
@@ -321,7 +320,6 @@ public Task IgnoreParametersForVerifiedFluent(string arg) =>
 ```
 <sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L25-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedFluentXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
-
 
 
 ## IgnoreParametersForVerified with override parameters

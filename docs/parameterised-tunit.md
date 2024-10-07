@@ -221,7 +221,6 @@ Hashing parameter is achieved by using `UseParameters` in combination with `Hash
 
 [XxHash64](https://learn.microsoft.com/en-us/dotnet/api/system.io.hashing.xxhash64) is used to perform the hash.<!-- endInclude -->
 
-
 <!-- snippet: UseParametersHashTUnit -->
 <a id='snippet-UseParametersHashTUnit'></a>
 ```cs

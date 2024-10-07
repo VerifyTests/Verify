@@ -1,1 +1,4 @@
-﻿
+﻿{
+  runtime: DotNet,
+  Version: 8.0
+}

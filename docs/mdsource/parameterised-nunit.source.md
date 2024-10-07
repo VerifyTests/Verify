@@ -73,7 +73,6 @@ snippet: IgnoreParametersForVerifiedCustomParamsFluentNunit
 
 include: hashing-parameters
 
-
 snippet: UseParametersHashNunit
 
 Note that NUnit can derive the parameters without explicitly passing them.

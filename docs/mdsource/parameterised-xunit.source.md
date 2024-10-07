@@ -44,7 +44,6 @@ snippet: xunitComplexMemberData
 
 include: override-parameters-text
 
-
 snippet: UseTextForParameters
 
 
@@ -61,7 +60,6 @@ snippet: IgnoreParametersForVerifiedXunit
 ### Fluent
 
 snippet: IgnoreParametersForVerifiedFluentXunit
-
 
 
 ## IgnoreParametersForVerified with override parameters

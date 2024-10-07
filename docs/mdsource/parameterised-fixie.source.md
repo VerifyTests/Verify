@@ -5,12 +5,10 @@
 
 `UseParameters()` controls what parameters are used when naming files.
 
-Verify.Fixie automatically detects the method parameters via a [custom ITestProject]( docs/parameterised.md#fixie).
+Verify.Fixie automatically detects the method parameters via a [custom ITestProject](#custom-parameterisation).
 
 
 ### Usage:
-
-For the above scenarios where parameters are not automatically detected:
 
 snippet: UseParameters
 
@@ -21,7 +19,7 @@ snippet: UseParametersSubSet
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
 
 
-## Fixie
+## Custom parameterisation
 
 Fixie has no build in test parameterisation. Test parameterisation need to be implemented by the consuming library. See [Attribute-Based Parameterization](https://github.com/fixie/fixie/wiki/Customizing-the-Test-Project-Lifecycle#recipe-attribute-based-parameterization) for an example.
 

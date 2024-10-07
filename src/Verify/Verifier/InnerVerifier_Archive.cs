@@ -1,6 +1,4 @@
-﻿using System.IO.Compression;
-
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 partial class InnerVerifier
 {
@@ -47,10 +45,13 @@ partial class InnerVerifier
 
         include ??= _ => true;
 
-        var paths = new List<string>();
+        if (includeStructure)
+        {
+            targets.Add(new("md", ZipStructure.Build(archive), "structure"));
+        }
+
         foreach (var entry in archive.Entries)
         {
-            paths.Add(entry.FullName);
             if (!include(entry))
             {
                 continue;
@@ -73,11 +74,6 @@ partial class InnerVerifier
             }
 
             targets.Add(await TargetFromFile(fullName, pathWithoutExtension, scrubber, () => entry.Open()));
-        }
-
-        if (includeStructure)
-        {
-            targets.Insert(0, new("txt", string.Join("\n", paths), "structure"));
         }
 
         return await VerifyInner(targets);

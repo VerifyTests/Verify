@@ -682,8 +682,8 @@ For example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` 
 
 ### Xunit
 
-<!-- snippet: DerivePathInfoXUnit -->
-<a id='snippet-DerivePathInfoXUnit'></a>
+<!-- snippet: DerivePathInfoXUnitV3 -->
+<a id='snippet-DerivePathInfoXUnitV3'></a>
 ```cs
 Verifier.DerivePathInfo(
     (sourceFile, projectDirectory, type, method) => new(
@@ -691,7 +691,7 @@ Verifier.DerivePathInfo(
         typeName: type.Name,
         methodName: method.Name));
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L8-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoXUnit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L8-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoXUnitV3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

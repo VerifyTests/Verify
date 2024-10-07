@@ -19,6 +19,11 @@
 
             foreach (var part in parts)
             {
+                if (part.Length == 0)
+                {
+                    continue;
+                }
+
                 if (!current.Children.TryGetValue(part, out var next))
                 {
                     next = new(part);

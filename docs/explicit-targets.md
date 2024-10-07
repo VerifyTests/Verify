@@ -37,8 +37,8 @@ public Task WithTargets() =>
 
 ## Xunit
 
-<!-- snippet: ExplicitTargetsXunit -->
-<a id='snippet-ExplicitTargetsXunit'></a>
+<!-- snippet: ExplicitTargetsXunitV3 -->
+<a id='snippet-ExplicitTargetsXunitV3'></a>
 ```cs
 [Fact]
 public Task WithTargets() =>
@@ -54,7 +54,7 @@ public Task WithTargets() =>
                 name: "targetName")
         ]);
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L39-L55' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExplicitTargetsXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L39-L55' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExplicitTargetsXunitV3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

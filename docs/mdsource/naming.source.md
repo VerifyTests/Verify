@@ -196,7 +196,7 @@ For example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` 
 
 ### Xunit
 
-snippet: DerivePathInfoXUnit
+snippet: DerivePathInfoXUnitV3
 
 
 ### NUnit

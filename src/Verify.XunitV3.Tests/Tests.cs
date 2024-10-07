@@ -5,7 +5,7 @@ public class Tests
 {
     // ReSharper disable once UnusedMember.Local
     static void DerivePathInfo() =>
-    #region DerivePathInfoXUnit
+    #region DerivePathInfoXUnitV3
         Verifier.DerivePathInfo(
             (sourceFile, projectDirectory, type, method) => new(
                 directory: Path.Combine(projectDirectory, "Snapshots"),
@@ -36,7 +36,7 @@ public class Tests
     public Task StringTarget() =>
         Verify(new Target("txt", "Value"));
 
-    #region ExplicitTargetsXunit
+    #region ExplicitTargetsXunitV3
 
     [Fact]
     public Task WithTargets() =>
@@ -89,7 +89,7 @@ public class Tests
 
     static string directoryToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
 
-    #region VerifyDirectoryXunit
+    #region VerifyDirectoryXunitV3
 
     [Fact]
     public Task WithDirectory() =>
@@ -97,7 +97,7 @@ public class Tests
 
     #endregion
 
-    #region VerifyDirectoryWithInfo
+    #region VerifyDirectoryWithInfoXunitV3
 
     [Fact]
     public Task VerifyDirectoryWithInfo() =>
@@ -107,7 +107,7 @@ public class Tests
 
     #endregion
 
-    #region VerifyDirectoryWithFileScrubber
+    #region VerifyDirectoryWithFileScrubberXunitV3
 
     [Fact]
     public Task VerifyDirectoryWithFileScrubber() =>
@@ -126,7 +126,7 @@ public class Tests
 
 #if !NET48
 
-    #region VerifyDirectoryFilterXunit
+    #region VerifyDirectoryFilterXunitV3
 
     [Fact]
     public Task WithDirectoryFiltered() =>
@@ -145,7 +145,7 @@ public class Tests
 
     static string zipPath = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify.zip");
 
-    #region VerifyZipXunit
+    #region VerifyZipXunitV3
 
     [Fact]
     public Task WithZip() =>
@@ -153,7 +153,7 @@ public class Tests
 
     #endregion
 
-    #region VerifyZipWithStructureXunit
+    #region VerifyZipWithStructureXunitV3
 
     [Fact]
     public Task WithZipAndStructure() =>
@@ -161,7 +161,7 @@ public class Tests
 
     #endregion
 
-    #region VerifyZipWithInfo
+    #region VerifyZipWithInfoXunitV3
 
     [Fact]
     public Task VerifyZipWithInfo() =>
@@ -171,7 +171,7 @@ public class Tests
 
     #endregion
 
-    #region VerifyZipWithFileScrubber
+    #region VerifyZipWithFileScrubberXunitV3
 
     [Fact]
     public Task VerifyZipWithFileScrubber() =>
@@ -188,7 +188,7 @@ public class Tests
 
     #endregion
 
-    #region VerifyZipFilterXunit
+    #region VerifyZipFilterXunitV3
 
     [Fact]
     public Task WithZipFiltered() =>

@@ -1,9 +1,7 @@
 ﻿* .TextDocStartingWithDot
 * nested
-  * 
   * TextDoc2.txt
 * nested.with.dot
-  * 
   * .TextDocStartingWithDot
   * TextDoc2.txt
   * TextDocWithoutExtension

@@ -153,6 +153,14 @@ public class Tests
 
     #endregion
 
+    #region VerifyZipWithStructureXunit
+
+    [Fact]
+    public Task WithZipAndStructure() =>
+        VerifyZip(zipPath, includeStructure: true);
+
+    #endregion
+
     #region VerifyZipWithInfo
 
     [Fact]

@@ -19,7 +19,7 @@ snippet: VerifyZipWithInfo
 
 ## FileScrubber
 
-`VerifyDirectory` has an optional parameter `fileScrubber` that allows file specific scrubbing:
+`VerifyZip` has an optional parameter `fileScrubber` that allows file specific scrubbing:
 
 snippet: VerifyZipWithFileScrubber
 

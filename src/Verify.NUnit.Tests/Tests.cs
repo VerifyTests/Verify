@@ -82,6 +82,14 @@ public class Tests
 
     #endregion
 
+    #region VerifyZipWithStructureNunit
+
+    [Test]
+    public Task WithZipAndStructure() =>
+        VerifyZip(pathToArchive, includeStructure: true);
+
+    #endregion
+
     static List<TestAttachment> GetAttachments() =>
         TestExecutionContext.CurrentContext.CurrentResult.TestAttachments.ToList();
 

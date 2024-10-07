@@ -1,0 +1,32 @@
+﻿* _rels
+  * .rels
+* Verify.Xunit.nuspec
+* lib
+  * net472
+    * Verify.Xunit.dll
+    * Verify.Xunit.xml
+  * net48
+    * Verify.Xunit.dll
+    * Verify.Xunit.xml
+  * net6.0
+    * Verify.Xunit.dll
+    * Verify.Xunit.xml
+  * net7.0
+    * Verify.Xunit.dll
+    * Verify.Xunit.xml
+  * net8.0
+    * Verify.Xunit.dll
+    * Verify.Xunit.xml
+  * net9.0
+    * Verify.Xunit.dll
+    * Verify.Xunit.xml
+* icon.png
+* buildTransitive
+  * Verify.Xunit.props
+* build
+  * Verify.Xunit.props
+* [Content_Types].xml
+* package
+  * services
+    * metadata
+      * core-properties

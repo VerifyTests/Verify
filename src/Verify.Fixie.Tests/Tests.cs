@@ -54,7 +54,7 @@ public class Tests
                     name: "targetName")
         ]);
 
-#if DEBUG
+#if NET9_0
     static string directoryPathToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
     static string pathToArchive = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify.zip");
 
@@ -69,6 +69,13 @@ public class Tests
 
     public Task WithZip() =>
         VerifyZip(pathToArchive);
+
+    #endregion
+
+    #region VerifyZipWithStructureFixie
+
+    public Task WithZipAndStructure() =>
+        VerifyZip(pathToArchive, includeStructure: true);
 
     #endregion
 

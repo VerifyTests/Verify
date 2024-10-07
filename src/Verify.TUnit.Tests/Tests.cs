@@ -78,6 +78,14 @@ public class Tests
 
     #endregion
 
+    #region VerifyZipWithStructureTunit
+
+    [Test]
+    public Task WithZipAndStructure() =>
+        VerifyZip(pathToArchive, includeStructure: true);
+
+    #endregion
+
     static List<Artifact> GetAttachments()
     {
         var context = TestContext.Current!;

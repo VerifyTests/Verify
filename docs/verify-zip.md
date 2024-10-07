@@ -9,21 +9,21 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 Verifies all files in a zip archive. This approach combines [UseUniqueDirectory](/docs/naming.md#useuniquedirectory) with a target per file, to snapshot test all files in a zip archive.
 
-<!-- snippet: VerifyZipXunit -->
-<a id='snippet-VerifyZipXunit'></a>
+<!-- snippet: VerifyZipXunitV3 -->
+<a id='snippet-VerifyZipXunitV3'></a>
 ```cs
 [Fact]
 public Task WithZip() =>
     VerifyZip(zipPath);
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L148-L154' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L148-L154' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipXunitV3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## Filtering
 
-<!-- snippet: VerifyZipFilterXunit -->
-<a id='snippet-VerifyZipFilterXunit'></a>
+<!-- snippet: VerifyZipFilterXunitV3 -->
+<a id='snippet-VerifyZipFilterXunitV3'></a>
 ```cs
 [Fact]
 public Task WithZipFiltered() =>
@@ -31,7 +31,7 @@ public Task WithZipFiltered() =>
         zipPath,
         include: filePath => filePath.FullName.Contains("Doc"));
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L183-L191' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipFilterXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L191-L199' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipFilterXunitV3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -39,8 +39,8 @@ public Task WithZipFiltered() =>
 
 An optional `info` parameter can be supplied to add more context to the test. The instance passed will be json serialized.
 
-<!-- snippet: VerifyZipWithInfo -->
-<a id='snippet-VerifyZipWithInfo'></a>
+<!-- snippet: VerifyZipWithInfoXunitV3 -->
+<a id='snippet-VerifyZipWithInfoXunitV3'></a>
 ```cs
 [Fact]
 public Task VerifyZipWithInfo() =>
@@ -48,16 +48,16 @@ public Task VerifyZipWithInfo() =>
         zipPath,
         info: "the info");
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L156-L164' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithInfo' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L164-L172' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithInfoXunitV3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## FileScrubber
 
-`VerifyDirectory` has an optional parameter `fileScrubber` that allows file specific scrubbing:
+`VerifyZip` has an optional parameter `fileScrubber` that allows file specific scrubbing:
 
-<!-- snippet: VerifyZipWithFileScrubber -->
-<a id='snippet-VerifyZipWithFileScrubber'></a>
+<!-- snippet: VerifyZipWithFileScrubberXunitV3 -->
+<a id='snippet-VerifyZipWithFileScrubberXunitV3'></a>
 ```cs
 [Fact]
 public Task VerifyZipWithFileScrubber() =>
@@ -72,7 +72,22 @@ public Task VerifyZipWithFileScrubber() =>
             }
         });
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L166-L181' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithFileScrubber' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L174-L189' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithFileScrubberXunitV3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-This applies to files where the extensins is a known text file as defined by [FileExtensions.IsText](https://github.com/VerifyTests/EmptyFiles#istext).
+This applies to files where the extensions is a known text file as defined by [FileExtensions.IsText](https://github.com/VerifyTests/EmptyFiles#istext).
+
+
+## Including structure
+
+Use `includeStructure: true` to include a file `structure.verified.md` that contains the zip directory structure.
+
+<!-- snippet: VerifyZipWithStructureXunitV3 -->
+<a id='snippet-VerifyZipWithStructureXunitV3'></a>
+```cs
+[Fact]
+public Task WithZipAndStructure() =>
+    VerifyZip(zipPath, includeStructure: true);
+```
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L156-L162' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithStructureXunitV3' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->

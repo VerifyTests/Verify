@@ -1,0 +1,20 @@
+﻿* _rels
+  * .rels
+* Verify.TUnit.nuspec
+* lib
+  * net8.0
+    * Verify.TUnit.dll
+    * Verify.TUnit.xml
+  * net9.0
+    * Verify.TUnit.dll
+    * Verify.TUnit.xml
+* icon.png
+* buildTransitive
+  * Verify.TUnit.props
+* build
+  * Verify.TUnit.props
+* [Content_Types].xml
+* package
+  * services
+    * metadata
+      * core-properties

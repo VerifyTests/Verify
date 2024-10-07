@@ -1,0 +1,34 @@
+﻿* _rels
+  * .rels
+* Verify.nuspec
+* lib
+  * net472
+    * Verify.dll
+    * Verify.xml
+  * net48
+    * Verify.dll
+    * Verify.xml
+  * net6.0
+    * Verify.dll
+    * Verify.xml
+  * net7.0
+    * Verify.dll
+    * Verify.xml
+  * net8.0
+    * Verify.dll
+    * Verify.xml
+  * net9.0
+    * Verify.dll
+    * Verify.xml
+* icon.png
+* buildTransitive
+  * Verify.props
+  * Verify.targets
+* build
+  * Verify.props
+  * Verify.targets
+* [Content_Types].xml
+* package
+  * services
+    * metadata
+      * core-properties

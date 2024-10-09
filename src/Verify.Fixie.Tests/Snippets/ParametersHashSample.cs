@@ -4,21 +4,6 @@ public class ParametersHashSample
 {
     [TestCase("Value1")]
     [TestCase("Value2")]
-    public Task UseHashedParametersUsage(string arg)
-    {
-        var settings = new VerifySettings();
-        settings.UseHashedParameters(arg);
-        return Verify(arg, settings);
-    }
-
-    [TestCase("Value1")]
-    [TestCase("Value2")]
-    public Task UseHashedParametersUsageFluent(string arg) =>
-        Verify(arg)
-            .UseHashedParameters(arg);
-
-    [TestCase("Value1")]
-    [TestCase("Value2")]
     public Task HashParametersUsage(string arg)
     {
         var settings = new VerifySettings();

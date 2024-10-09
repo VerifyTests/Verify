@@ -1,0 +1,30 @@
+﻿* _rels
+  * .rels
+* Verify.Fixie.nuspec
+* lib
+  * net6.0
+    * Verify.Fixie.runtimeconfig.json
+    * Verify.Fixie.dll
+    * Verify.Fixie.xml
+  * net7.0
+    * Verify.Fixie.runtimeconfig.json
+    * Verify.Fixie.dll
+    * Verify.Fixie.xml
+  * net8.0
+    * Verify.Fixie.runtimeconfig.json
+    * Verify.Fixie.dll
+    * Verify.Fixie.xml
+  * net9.0
+    * Verify.Fixie.runtimeconfig.json
+    * Verify.Fixie.dll
+    * Verify.Fixie.xml
+* icon.png
+* buildTransitive
+  * Verify.Fixie.props
+* build
+  * Verify.Fixie.props
+* [Content_Types].xml
+* package
+  * services
+    * metadata
+      * core-properties

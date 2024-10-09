@@ -215,7 +215,7 @@ public Task IgnoreParametersForVerifiedCustomParamsFluent(string arg) =>
 
 Parameters can be hashed as an alternative to being stringified. This is useful when the parameters are large and could potentially generate file names that exceed allowances of the OS.<!-- include: hashing-parameters. path: /docs/mdsource/hashing-parameters.include.md -->
 
-Hashing parameter is achieved by using `UseParameters` in combination with `HashParameters`. Alternatively `UseHashedParameters` can be used as a wrapper for those two method calls.
+Hashing parameter is achieved by using `HashParameters`.
 
 [Overriding text used for parameters](#overriding-text-used-for-parameters) is respected when generating the hash.
 
@@ -226,23 +226,6 @@ Hashing parameter is achieved by using `UseParameters` in combination with `Hash
 ```cs
 public class ParametersHashSample
 {
-    [Test]
-    [Arguments("Value1")]
-    [Arguments("Value2")]
-    public Task UseHashedParametersUsage(string arg)
-    {
-        var settings = new VerifySettings();
-        settings.UseHashedParameters(arg);
-        return Verify(arg, settings);
-    }
-
-    [Test]
-    [Arguments("Value1")]
-    [Arguments("Value2")]
-    public Task UseHashedParametersUsageFluent(string arg) =>
-        Verify(arg)
-            .UseHashedParameters(arg);
-
     [Test]
     [Arguments("Value1")]
     [Arguments("Value2")]
@@ -279,7 +262,7 @@ public class ParametersHashSample
             .HashParameters();
 }
 ```
-<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersHashSample.cs#L1-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashTUnit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersHashSample.cs#L1-L41' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashTUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Note that TUnit can derive the parameters without explicitly passing them.

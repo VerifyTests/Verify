@@ -111,15 +111,4 @@ public partial class VerifySettings
         ThrowIfParametersTextDefined();
         hashParameters = true;
     }
-
-    /// <summary>
-    /// Provide parameters to hash together and pass to <see cref="UseTextForParameters" />.
-    /// Used to get a deterministic file name while avoiding long paths.
-    /// Combines <see cref="UseParameters" /> and <see cref="HashParameters" />.
-    /// </summary>
-    public void UseHashedParameters(params object?[] parameters)
-    {
-        UseParameters(parameters);
-        HashParameters();
-    }
 }

@@ -302,6 +302,8 @@ resharper_braces_for_for = required
 
 resharper_return_value_of_pure_method_is_not_used_highlighting = error
 
+resharper_all_underscore_local_parameter_name_highlighting = none
+
 # Xml files
 [*.{xml,config,nuspec,resx,vsixmanifest,csproj,targets,props,fsproj}]
 indent_size = 2

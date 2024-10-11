@@ -1,7 +1,7 @@
 [TestClass]
 public partial class ParametersSample
 {
-    #region MSTestDataRow
+    #region DataRowMSTest
 
     [DataTestMethod]
     [DataRow("Value1")]

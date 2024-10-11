@@ -17,12 +17,11 @@ Verify.Fixie automatically detects the method parameters via a [custom ITestProj
 
 ### Usage:
 
-<!-- snippet: UseParameters -->
-<a id='snippet-UseParameters'></a>
+<!-- snippet: UseParametersFixie -->
+<a id='snippet-UseParametersFixie'></a>
 ```cs
-[Theory]
-[InlineData("Value1")]
-[InlineData("Value2")]
+[TestCase("Value1")]
+[TestCase("Value2")]
 public Task UseParametersUsage(string arg)
 {
     var somethingToVerify = $"{arg} some text";
@@ -30,16 +29,15 @@ public Task UseParametersUsage(string arg)
         .UseParameters(arg);
 }
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L140-L152' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L19-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersFixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If not all parameters are required, a subset can be passed in. In this scenario, the parameters passed in will match with the method parameter names from the start. For example the following will result in a file named `ParametersSample.UseParametersSubSet_arg1=Value1_arg2=Value2.verified.txt`
 
-<!-- snippet: UseParametersSubSet -->
-<a id='snippet-UseParametersSubSet'></a>
+<!-- snippet: UseParametersSubSetFixie -->
+<a id='snippet-UseParametersSubSetFixie'></a>
 ```cs
-[Theory]
-[InlineData("Value1", "Value2", "Value3")]
+[TestCase("Value1", "Value2", "Value3")]
 public Task UseParametersSubSet(string arg1, string arg2, string arg3)
 {
     var somethingToVerify = $"{arg1} {arg2} {arg3} some text";
@@ -47,7 +45,7 @@ public Task UseParametersSubSet(string arg1, string arg2, string arg3)
         .UseParameters(arg1, arg2);
 }
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L154-L165' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSet' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L51-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSetFixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
@@ -112,15 +110,15 @@ public class TestProject :
 
 Resulting usage:
 
-<!-- snippet: FixieTestCase -->
-<a id='snippet-FixieTestCase'></a>
+<!-- snippet: TestCaseFixie -->
+<a id='snippet-TestCaseFixie'></a>
 ```cs
 [TestCase("Value1")]
 [TestCase("Value2")]
 public Task TestCaseUsage(string arg) =>
     Verify(arg);
 ```
-<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L19-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-FixieTestCase' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L63-L70' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestCaseFixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -145,12 +143,11 @@ For the fluent case:
  * TheTest.UseTextForParametersFluent_Value2.verified.txt<!-- endInclude -->
 
 
-<!-- snippet: UseTextForParameters -->
-<a id='snippet-UseTextForParameters'></a>
+<!-- snippet: UseTextForParametersFixie -->
+<a id='snippet-UseTextForParametersFixie'></a>
 ```cs
-[Theory]
-[InlineData("Value1")]
-[InlineData("Value2")]
+[TestCase("Value1")]
+[TestCase("Value2")]
 public Task UseTextForParameters(string arg)
 {
     var settings = new VerifySettings();
@@ -158,14 +155,13 @@ public Task UseTextForParameters(string arg)
     return Verify(arg + "UseTextForParameters", settings);
 }
 
-[Theory]
-[InlineData("Value1")]
-[InlineData("Value2")]
+[TestCase("Value1")]
+[TestCase("Value2")]
 public Task UseTextForParametersFluent(string arg) =>
     Verify(arg + "UseTextForParametersFluent")
         .UseTextForParameters(arg);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L381-L400' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L32-L49' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersFixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -14,12 +14,11 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 Verify.MSTest does not detect the parametrised arguments, as such `UseParameters()` is required.
 
-<!-- snippet: UseParameters -->
-<a id='snippet-UseParameters'></a>
+<!-- snippet: UseParametersFixie -->
+<a id='snippet-UseParametersFixie'></a>
 ```cs
-[Theory]
-[InlineData("Value1")]
-[InlineData("Value2")]
+[TestCase("Value1")]
+[TestCase("Value2")]
 public Task UseParametersUsage(string arg)
 {
     var somethingToVerify = $"{arg} some text";
@@ -27,16 +26,15 @@ public Task UseParametersUsage(string arg)
         .UseParameters(arg);
 }
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L140-L152' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L19-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersFixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If not all parameters are required, a subset can be passed in. In this scenario, the parameters passed in will match with the method parameter names from the start. For example the following will result in a file named `ParametersSample.UseParametersSubSet_arg1=Value1_arg2=Value2.verified.txt`
 
-<!-- snippet: UseParametersSubSet -->
-<a id='snippet-UseParametersSubSet'></a>
+<!-- snippet: UseParametersSubSetFixie -->
+<a id='snippet-UseParametersSubSetFixie'></a>
 ```cs
-[Theory]
-[InlineData("Value1", "Value2", "Value3")]
+[TestCase("Value1", "Value2", "Value3")]
 public Task UseParametersSubSet(string arg1, string arg2, string arg3)
 {
     var somethingToVerify = $"{arg1} {arg2} {arg3} some text";
@@ -44,7 +42,7 @@ public Task UseParametersSubSet(string arg1, string arg2, string arg3)
         .UseParameters(arg1, arg2);
 }
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L154-L165' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSet' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L51-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSetFixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.

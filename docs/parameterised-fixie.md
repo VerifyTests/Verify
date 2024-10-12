@@ -45,7 +45,7 @@ public Task UseParametersSubSet(string arg1, string arg2, string arg3)
         .UseParameters(arg1, arg2);
 }
 ```
-<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L51-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSetFixie' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L55-L65' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSetFixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
@@ -118,7 +118,7 @@ Resulting usage:
 public Task TestCaseUsage(string arg) =>
     Verify(arg);
 ```
-<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L63-L70' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestCaseFixie' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L67-L74' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestCaseFixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -143,8 +143,10 @@ For the fluent case:
  * TheTest.UseTextForParametersFluent_Value2.verified.txt<!-- endInclude -->
 
 
-<!-- snippet: UseTextForParametersFixie -->
-<a id='snippet-UseTextForParametersFixie'></a>
+### Instance
+
+<!-- snippet: UseTextForParametersInstanceFixie -->
+<a id='snippet-UseTextForParametersInstanceFixie'></a>
 ```cs
 [TestCase("Value1")]
 [TestCase("Value2")]
@@ -154,14 +156,23 @@ public Task UseTextForParameters(string arg)
     settings.UseTextForParameters(arg);
     return Verify(arg + "UseTextForParameters", settings);
 }
+```
+<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L32-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersInstanceFixie' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
+
+### Fluent
+
+<!-- snippet: UseTextForParametersFluentFixie -->
+<a id='snippet-UseTextForParametersFluentFixie'></a>
+```cs
 [TestCase("Value1")]
 [TestCase("Value2")]
 public Task UseTextForParametersFluent(string arg) =>
     Verify(arg + "UseTextForParametersFluent")
         .UseTextForParameters(arg);
 ```
-<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L32-L49' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersFixie' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L45-L53' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersFluentFixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

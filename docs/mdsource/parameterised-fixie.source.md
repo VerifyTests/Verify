@@ -42,7 +42,14 @@ snippet: TestCaseFixie
 include: override-parameters-text
 
 
-snippet: UseTextForParametersFixie
+### Instance
+
+snippet: UseTextForParametersInstanceFixie
+
+
+### Fluent
+
+snippet: UseTextForParametersFluentFixie
 
 
 ## Ignore parameters for verified filename

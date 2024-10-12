@@ -29,7 +29,7 @@ public class ParametersSample
 
     #endregion
 
-    #region UseTextForParametersFixie
+    #region UseTextForParametersInstanceFixie
 
     [TestCase("Value1")]
     [TestCase("Value2")]
@@ -39,6 +39,10 @@ public class ParametersSample
         settings.UseTextForParameters(arg);
         return Verify(arg + "UseTextForParameters", settings);
     }
+
+    #endregion
+
+    #region UseTextForParametersFluentFixie
 
     [TestCase("Value1")]
     [TestCase("Value2")]

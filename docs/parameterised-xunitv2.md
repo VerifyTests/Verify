@@ -242,8 +242,11 @@ For the fluent case:
  * TheTest.UseTextForParametersFluent_Value1.verified.txt
  * TheTest.UseTextForParametersFluent_Value2.verified.txt<!-- endInclude -->
 
-<!-- snippet: UseTextForParametersXunit -->
-<a id='snippet-UseTextForParametersXunit'></a>
+
+### Instance
+
+<!-- snippet: UseTextForParametersInstanceXunit -->
+<a id='snippet-UseTextForParametersInstanceXunit'></a>
 ```cs
 [Theory]
 [InlineData("Value1")]
@@ -254,7 +257,16 @@ public Task UseTextForParameters(string arg)
     settings.UseTextForParameters(arg);
     return Verify(arg + "UseTextForParameters", settings);
 }
+```
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L196-L208' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersInstanceXunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
+
+### Fluent
+
+<!-- snippet: UseTextForParametersFluentXunit -->
+<a id='snippet-UseTextForParametersFluentXunit'></a>
+```cs
 [Theory]
 [InlineData("Value1")]
 [InlineData("Value2")]
@@ -262,7 +274,7 @@ public Task UseTextForParametersFluent(string arg) =>
     Verify(arg + "UseTextForParametersFluent")
         .UseTextForParameters(arg);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L196-L215' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L210-L219' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersFluentXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

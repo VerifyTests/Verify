@@ -44,7 +44,15 @@ snippet: ComplexMemberDataXunit
 
 include: override-parameters-text
 
-snippet: UseTextForParametersXunit
+
+### Instance
+
+snippet: UseTextForParametersInstanceXunit
+
+
+### Fluent
+
+snippet: UseTextForParametersFluentXunit
 
 
 ## Ignore parameters for verified filename

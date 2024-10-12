@@ -1,7 +1,17 @@
 [TestClass]
 public partial class ParametersSample
 {
-    #region MSTestDataRow
+    #region UseTextForParametersMSTest
+
+    [DataTestMethod]
+    [DataRow("Value1")]
+    public Task UseTextForParameters(string arg) =>
+        Verify(arg)
+            .UseTextForParameters("TextForParameter");
+
+    #endregion
+
+    #region DataRowMSTest
 
     [DataTestMethod]
     [DataRow("Value1")]
@@ -22,7 +32,7 @@ public partial class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersForVerifiedMsTest
+    #region IgnoreParametersForVerifiedMSTest
 
     [DataTestMethod]
     [DataRow("One")]
@@ -36,7 +46,7 @@ public partial class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersForVerifiedFluentMsTest
+    #region IgnoreParametersForVerifiedFluentMSTest
 
     [DataTestMethod]
     [DataRow("One")]
@@ -47,7 +57,7 @@ public partial class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersForVerifiedCustomParamsMsTest
+    #region IgnoreParametersForVerifiedCustomParamsMSTest
 
     [DataTestMethod]
     [DataRow("One")]
@@ -61,7 +71,7 @@ public partial class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersForVerifiedCustomParamsFluentMsTest
+    #region IgnoreParametersForVerifiedCustomParamsFluentMSTest
 
     [DataTestMethod]
     [DataRow("One")]
@@ -72,7 +82,7 @@ public partial class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersMsTest
+    #region IgnoreParametersMSTest
 
     [DataTestMethod]
     [DataRow("One")]
@@ -87,7 +97,7 @@ public partial class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersFluentMsTest
+    #region IgnoreParametersFluentMSTest
 
     [DataTestMethod]
     [DataRow("One")]
@@ -99,7 +109,7 @@ public partial class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersCustomParamsMsTest
+    #region IgnoreParametersCustomParamsMSTest
 
     [DataTestMethod]
     [DataRow("One")]
@@ -114,7 +124,34 @@ public partial class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersCustomParamsFluentMsTest
+    #region UseParametersMSTest
+
+    [DataTestMethod]
+    [DataRow("Value1")]
+    [DataRow("Value2")]
+    public Task UseParametersUsage(string arg)
+    {
+        var somethingToVerify = $"{arg} some text";
+        return Verify(somethingToVerify)
+            .UseParameters(arg);
+    }
+
+    #endregion
+
+    #region UseParametersSubSetMSTest
+
+    [DataTestMethod]
+    [DataRow("Value1", "Value2", "Value3")]
+    public Task UseParametersSubSet(string arg1, string arg2, string arg3)
+    {
+        var somethingToVerify = $"{arg1} {arg2} {arg3} some text";
+        return Verify(somethingToVerify)
+            .UseParameters(arg1, arg2);
+    }
+
+    #endregion
+
+    #region IgnoreParametersCustomParamsFluentMSTest
 
     [DataTestMethod]
     [DataRow("One")]

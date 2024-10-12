@@ -94,7 +94,7 @@ public class ExceptionParsingTests
     }
 
     [Fact]
-    public Task MsTest()
+    public Task MSTest()
     {
         var exceptionMessage =
             $"""

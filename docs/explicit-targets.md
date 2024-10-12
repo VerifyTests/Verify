@@ -82,8 +82,8 @@ public Task WithTargets() =>
 
 ## MsTest
 
-<!-- snippet: ExplicitTargetsMsTest -->
-<a id='snippet-ExplicitTargetsMsTest'></a>
+<!-- snippet: ExplicitTargetsMSTest -->
+<a id='snippet-ExplicitTargetsMSTest'></a>
 ```cs
 [TestMethod]
 public Task WithTargets() =>
@@ -100,7 +100,7 @@ public Task WithTargets() =>
                 name: "targetName")
         ]);
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L136-L153' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExplicitTargetsMsTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L130-L147' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExplicitTargetsMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

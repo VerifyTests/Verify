@@ -12,30 +12,30 @@ Verify.Xunit does not detect the parametrised arguments, as such `UseParameters(
 
 For the above scenarios where parameters are not automatically detected: 
 
-snippet: UseParameters
+snippet: UseParametersXunit
 
 If not all parameters are required, a subset can be passed in. In this scenario, the parameters passed in will match with the method parameter names from the start. For example the following will result in a file named `ParametersSample.UseParametersSubSet_arg1=Value1_arg2=Value2.verified.txt`
 
-snippet: UseParametersSubSet
+snippet: UseParametersSubSetXunit
 
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
 
 
 ### InlineData
 
-snippet: xunitInlineData
+snippet: InlineDataXunit
 
 
 ### MemberData
 
-snippet: xunitMemberData
+snippet: MemberDataXunit
 
 
 ### Complex MemberData
 
 xUnit only exposes parameter information for certain types. For unknown types the information cannot be retrieved from the xUnit context, and instead the text for the parameter value needs to be explicitly specified. This is done by calling `NameForParameter()`.
 
-snippet: xunitComplexMemberData
+snippet: ComplexMemberDataXunit
 
 `VerifierSettings.NameForParameter()` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
 
@@ -44,7 +44,7 @@ snippet: xunitComplexMemberData
 
 include: override-parameters-text
 
-snippet: UseTextForParameters
+snippet: UseTextForParametersXunit
 
 
 ## Ignore parameters for verified filename

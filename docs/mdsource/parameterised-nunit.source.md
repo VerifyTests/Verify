@@ -9,7 +9,7 @@ Verify.NUnit automatically detects the method parameters. So `UseParameters()` i
 
 If not all parameters are required, a subset can be passed in. In this scenario, the parameters passed in will match with the method parameter names from the start. For example the following will result in a file named `ParametersSample.UseParametersSubSet_arg1=Value1_arg2=Value2.verified.txt`
 
-snippet: UseParametersSubSet
+snippet: UseParametersSubSetNunit
 
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
 

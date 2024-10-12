@@ -22,7 +22,7 @@ snippet: ExplicitTargetsFixie
 
 ## MsTest
 
-snippet: ExplicitTargetsMsTest
+snippet: ExplicitTargetsMSTest
 
 
 ## TUnit

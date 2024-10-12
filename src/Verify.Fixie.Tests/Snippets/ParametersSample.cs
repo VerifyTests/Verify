@@ -6,7 +6,7 @@ public class ParametersSample
         Verify(arg)
             .UseParameters(arg);
 
-    [TestCase((float)1.1)]
+    [TestCase((float) 1.1)]
     public Task Float(float arg) =>
         Verify(arg)
             .UseParameters(arg);
@@ -16,7 +16,51 @@ public class ParametersSample
         Verify(arg)
             .UseParameters(arg);
 
-    #region FixieTestCase
+    #region UseParametersFixie
+
+    [TestCase("Value1")]
+    [TestCase("Value2")]
+    public Task UseParametersUsage(string arg)
+    {
+        var somethingToVerify = $"{arg} some text";
+        return Verify(somethingToVerify)
+            .UseParameters(arg);
+    }
+
+    #endregion
+
+    #region UseTextForParametersFixie
+
+    [TestCase("Value1")]
+    [TestCase("Value2")]
+    public Task UseTextForParameters(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseTextForParameters(arg);
+        return Verify(arg + "UseTextForParameters", settings);
+    }
+
+    [TestCase("Value1")]
+    [TestCase("Value2")]
+    public Task UseTextForParametersFluent(string arg) =>
+        Verify(arg + "UseTextForParametersFluent")
+            .UseTextForParameters(arg);
+
+    #endregion
+
+    #region UseParametersSubSetFixie
+
+    [TestCase("Value1", "Value2", "Value3")]
+    public Task UseParametersSubSet(string arg1, string arg2, string arg3)
+    {
+        var somethingToVerify = $"{arg1} {arg2} {arg3} some text";
+        return Verify(somethingToVerify)
+            .UseParameters(arg1, arg2);
+    }
+
+    #endregion
+
+    #region TestCaseFixie
 
     [TestCase("Value1")]
     [TestCase("Value2")]

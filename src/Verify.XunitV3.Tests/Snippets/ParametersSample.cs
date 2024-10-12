@@ -7,8 +7,27 @@ public class ParametersSample
             (decimal) 1.1
         ];
     }
+    #region UseTextForParametersXunitV3
 
-    #region IgnoreParametersForVerifiedXunit
+    [Theory]
+    [InlineData("Value1")]
+    [InlineData("Value2")]
+    public Task UseTextForParameters(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseTextForParameters(arg);
+        return Verify(arg + "UseTextForParameters", settings);
+    }
+
+    [Theory]
+    [InlineData("Value1")]
+    [InlineData("Value2")]
+    public Task UseTextForParametersFluent(string arg) =>
+        Verify(arg + "UseTextForParametersFluent")
+            .UseTextForParameters(arg);
+
+    #endregion
+    #region IgnoreParametersForVerifiedXunitV3
 
     [Theory]
     [InlineData("One")]
@@ -22,7 +41,7 @@ public class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersForVerifiedFluentXunit
+    #region IgnoreParametersForVerifiedFluentXunitV3
 
     [Theory]
     [InlineData("One")]
@@ -33,7 +52,7 @@ public class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersForVerifiedCustomParamsXunit
+    #region IgnoreParametersForVerifiedCustomParamsXunitV3
 
     [Theory]
     [InlineData("One")]
@@ -47,7 +66,7 @@ public class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersForVerifiedCustomParamsFluentXunit
+    #region IgnoreParametersForVerifiedCustomParamsFluentXunitV3
 
     [Theory]
     [InlineData("One")]
@@ -58,7 +77,7 @@ public class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersXunit
+    #region IgnoreParametersXunitV3
 
     [Theory]
     [InlineData("One")]
@@ -73,7 +92,7 @@ public class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersFluentXunit
+    #region IgnoreParametersFluentXunitV3
 
     [Theory]
     [InlineData("One")]
@@ -85,7 +104,7 @@ public class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersCustomParamsXunit
+    #region IgnoreParametersCustomParamsXunitV3
 
     [Theory]
     [InlineData("One")]
@@ -100,7 +119,7 @@ public class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersCustomParamsFluentXunit
+    #region IgnoreParametersCustomParamsFluentXunitV3
 
     [Theory]
     [InlineData("One")]
@@ -127,7 +146,7 @@ public class ParametersSample
     public Task Double(double arg) =>
         Verify(arg);
 
-    #region xunitV3InlineData
+    #region InlineDataXunitV3
 
     [Theory]
     [InlineData("Value1")]
@@ -137,7 +156,7 @@ public class ParametersSample
 
     #endregion
 
-    #region UseParameters
+    #region UseParametersXunitV3
 
     [Theory]
     [InlineData("Value1")]
@@ -151,7 +170,7 @@ public class ParametersSample
 
     #endregion
 
-    #region UseParametersSubSet
+    #region UseParametersSubSetXunitV3
 
     [Theory]
     [InlineData("Value1", "Value2", "Value3")]
@@ -164,7 +183,7 @@ public class ParametersSample
 
     #endregion
 
-    #region xunitV3MemberData
+    #region MemberDataXunitV3
 
     [Theory]
     [MemberData(nameof(GetData))]

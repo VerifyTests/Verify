@@ -31,12 +31,6 @@ public partial class Tests
         Verify(arg)
             .UseFileName("UseFileNameWithParam");
 
-    [DataTestMethod]
-    [DataRow("Value1")]
-    public Task UseTextForParameters(string arg) =>
-        Verify(arg)
-            .UseTextForParameters("TextForParameter");
-
     [TestMethod]
     public Task StringTarget() =>
         Verify(new Target("txt", "Value"));
@@ -133,7 +127,7 @@ public partial class Tests
             () => Verify("Bar", [new("txt", "Value")], settings));
     }
 
-    #region ExplicitTargetsMsTest
+    #region ExplicitTargetsMSTest
 
     [TestMethod]
     public Task WithTargets() =>
@@ -164,7 +158,7 @@ public partial class Tests
 
     static string directoryPathToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
 
-    #region VerifyDirectoryMsTest
+    #region VerifyDirectoryMSTest
 
     [TestMethod]
     public Task WithDirectory() =>
@@ -174,7 +168,7 @@ public partial class Tests
 
     static string zipPath = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify.zip");
 
-    #region WithZipMsTest
+    #region WithZipMSTest
 
     [TestMethod]
     public Task WithZip() =>

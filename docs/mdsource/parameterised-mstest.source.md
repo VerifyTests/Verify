@@ -7,18 +7,18 @@
 
 Verify.MSTest does not detect the parametrised arguments, as such `UseParameters()` is required.
 
-snippet: UseParameters
+snippet: UseParametersMSTest
 
 If not all parameters are required, a subset can be passed in. In this scenario, the parameters passed in will match with the method parameter names from the start. For example the following will result in a file named `ParametersSample.UseParametersSubSet_arg1=Value1_arg2=Value2.verified.txt`
 
-snippet: UseParametersSubSet
+snippet: UseParametersSubSetMSTest
 
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
 
 
 ### DataRow
 
-snippet: MSTestDataRow
+snippet: DataRowMSTest
 
 
 ## Overriding text used for parameters
@@ -26,7 +26,7 @@ snippet: MSTestDataRow
 include: override-parameters-text
 
 
-snippet: UseTextForParameters
+snippet: UseTextForParametersMSTest
 
 
 ## Ignore parameters for verified filename
@@ -36,12 +36,12 @@ include: ignore-parameters
 
 ### Instance
 
-snippet: IgnoreParametersForVerifiedMsTest
+snippet: IgnoreParametersForVerifiedMSTest
 
 
 ### Fluent
 
-snippet: IgnoreParametersForVerifiedFluentMsTest
+snippet: IgnoreParametersForVerifiedFluentMSTest
 
 
 ## IgnoreParametersForVerified with override parameters
@@ -51,12 +51,12 @@ The parameters passed to IgnoreParametersForVerified can be used pass custom par
 
 ### Instance
 
-snippet: IgnoreParametersForVerifiedCustomParamsMsTest
+snippet: IgnoreParametersForVerifiedCustomParamsMSTest
 
 
 ### Fluent
 
-snippet: IgnoreParametersForVerifiedCustomParamsFluentMsTest
+snippet: IgnoreParametersForVerifiedCustomParamsFluentMSTest
 
 
 ## Hashing parameters

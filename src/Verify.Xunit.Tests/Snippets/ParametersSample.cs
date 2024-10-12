@@ -8,6 +8,8 @@ public class ParametersSample
         ];
     }
 
+    #region IgnoreParametersForVerifiedXunit
+
     [Theory]
     [InlineData("One")]
     [InlineData("Two")]
@@ -18,12 +20,20 @@ public class ParametersSample
         return Verify("value", settings);
     }
 
+    #endregion
+
+    #region IgnoreParametersForVerifiedFluentXunit
+
     [Theory]
     [InlineData("One")]
     [InlineData("Two")]
     public Task IgnoreParametersForVerifiedFluent(string arg) =>
         Verify("value")
             .IgnoreParametersForVerified(arg);
+
+    #endregion
+
+    #region IgnoreParametersForVerifiedCustomParamsXunit
 
     [Theory]
     [InlineData("One")]
@@ -35,12 +45,18 @@ public class ParametersSample
         return Verify("value", settings);
     }
 
+    #endregion
+
+    #region IgnoreParametersForVerifiedCustomParamsFluentXunit
+
     [Theory]
     [InlineData("One")]
     [InlineData("Two")]
     public Task IgnoreParametersForVerifiedCustomParamsFluent(string arg) =>
         Verify("value")
             .IgnoreParametersForVerified($"Number{arg}");
+
+    #endregion
 
     [Theory]
     [InlineData("One")]
@@ -98,7 +114,7 @@ public class ParametersSample
         Verify(arg)
             .UseParameters(arg);
 
-    #region xunitInlineData
+    #region InlineDataXunit
 
     [Theory]
     [InlineData("Value1")]
@@ -119,6 +135,8 @@ public class ParametersSample
 
     #endregion
 
+    #region UseParametersXunit
+
     [Theory]
     [InlineData("Value1")]
     [InlineData("Value2")]
@@ -129,6 +147,10 @@ public class ParametersSample
             .UseParameters(arg);
     }
 
+    #endregion
+
+    #region UseParametersSubSetXunit
+
     [Theory]
     [InlineData("Value1", "Value2", "Value3")]
     public Task UseParametersSubSet(string arg1, string arg2, string arg3)
@@ -138,7 +160,9 @@ public class ParametersSample
             .UseParameters(arg1, arg2);
     }
 
-    #region xunitMemberData
+    #endregion
+
+    #region MemberDataXunit
 
     [Theory]
     [MemberData(nameof(GetData))]
@@ -166,6 +190,27 @@ public class ParametersSample
             "Value2"
         ];
     }
+
+    #endregion
+
+    #region UseTextForParametersXunit
+
+    [Theory]
+    [InlineData("Value1")]
+    [InlineData("Value2")]
+    public Task UseTextForParameters(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseTextForParameters(arg);
+        return Verify(arg + "UseTextForParameters", settings);
+    }
+
+    [Theory]
+    [InlineData("Value1")]
+    [InlineData("Value2")]
+    public Task UseTextForParametersFluent(string arg) =>
+        Verify(arg + "UseTextForParametersFluent")
+            .UseTextForParameters(arg);
 
     #endregion
 

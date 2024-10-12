@@ -1,4 +1,4 @@
-#region UseParametersHashMsTest
+#region UseParametersHashMSTest
 
 [TestClass]
 public partial class ParametersHashSample

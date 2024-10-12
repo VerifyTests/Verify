@@ -90,8 +90,10 @@ For the fluent case:
  * TheTest.UseTextForParametersFluent_Value2.verified.txt<!-- endInclude -->
 
 
-<!-- snippet: UseTextForParametersTUnit -->
-<a id='snippet-UseTextForParametersTUnit'></a>
+### Instance
+
+<!-- snippet: UseTextForParametersInstanceTUnit -->
+<a id='snippet-UseTextForParametersInstanceTUnit'></a>
 ```cs
 [Test]
 [Arguments("Value1")]
@@ -102,7 +104,16 @@ public Task UseTextForParameters(string arg)
     settings.UseTextForParameters(arg);
     return Verify(arg + "UseTextForParameters", settings);
 }
+```
+<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersSample.cs#L155-L167' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersInstanceTUnit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
+
+### Fluent
+
+<!-- snippet: UseTextForParametersFluentTUnit -->
+<a id='snippet-UseTextForParametersFluentTUnit'></a>
+```cs
 [Test]
 [Arguments("Value1")]
 [Arguments("Value2")]
@@ -110,7 +121,7 @@ public Task UseTextForParametersFluent(string arg) =>
     Verify(arg + "UseTextForParametersFluent")
         .UseTextForParameters(arg);
 ```
-<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersSample.cs#L155-L174' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersTUnit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersSample.cs#L169-L178' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersFluentTUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

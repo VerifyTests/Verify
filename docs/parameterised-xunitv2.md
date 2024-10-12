@@ -372,30 +372,42 @@ Hashing parameter is achieved by using `HashParameters`.
 
 [XxHash64](https://learn.microsoft.com/en-us/dotnet/api/system.io.hashing.xxhash64) is used to perform the hash.<!-- endInclude -->
 
-<!-- snippet: UseParametersHashXunit -->
-<a id='snippet-UseParametersHashXunit'></a>
-```cs
-public class ParametersHashSample
-{
-    [Theory]
-    [InlineData("Value1")]
-    [InlineData("Value2")]
-    public Task HashParametersUsage(string arg)
-    {
-        var settings = new VerifySettings();
-        settings.UseParameters(arg);
-        settings.HashParameters();
-        return Verify(arg, settings);
-    }
 
-    [Theory]
-    [InlineData("Value1")]
-    [InlineData("Value2")]
-    public Task HashParametersUsageFluent(string arg) =>
-        Verify(arg)
-            .UseParameters(arg)
-            .HashParameters();
+### Instance
+
+<!-- snippet: UseParametersHashInstanceXunit -->
+<a id='snippet-UseParametersHashInstanceXunit'></a>
+```cs
+[Theory]
+[InlineData("Value1")]
+[InlineData("Value2")]
+public Task HashParametersUsage(string arg)
+{
+    var settings = new VerifySettings();
+    settings.UseParameters(arg);
+    settings.HashParameters();
+    return Verify(arg, settings);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersHashSample.cs#L1-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersHashSample.cs#L3-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashInstanceXunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Fluent
+
+<!-- snippet: UseParametersHashInstanceXunit -->
+<a id='snippet-UseParametersHashInstanceXunit'></a>
+```cs
+[Theory]
+[InlineData("Value1")]
+[InlineData("Value2")]
+public Task HashParametersUsage(string arg)
+{
+    var settings = new VerifySettings();
+    settings.UseParameters(arg);
+    settings.HashParameters();
+    return Verify(arg, settings);
+}
+```
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersHashSample.cs#L3-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashInstanceXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

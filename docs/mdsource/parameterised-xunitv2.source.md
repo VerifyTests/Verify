@@ -81,4 +81,12 @@ snippet: IgnoreParametersForVerifiedCustomParamsFluentXunit
 
 include: hashing-parameters
 
-snippet: UseParametersHashXunit
+
+### Instance
+
+snippet: UseParametersHashInstanceXunit
+
+
+### Fluent
+
+snippet: UseParametersHashInstanceXunit

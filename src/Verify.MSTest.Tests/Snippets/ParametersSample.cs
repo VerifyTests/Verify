@@ -11,7 +11,7 @@ public partial class ParametersSample
 
     #endregion
 
-    #region DataRowMSTest
+    #region DataRowInstanceMSTest
 
     [DataTestMethod]
     [DataRow("Value1")]
@@ -22,6 +22,10 @@ public partial class ParametersSample
         settings.UseParameters(arg);
         return Verify(arg, settings);
     }
+
+    #endregion
+
+    #region DataRowFluentMSTest
 
     [DataTestMethod]
     [DataRow("Value1")]

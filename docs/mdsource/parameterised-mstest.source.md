@@ -18,7 +18,15 @@ If the number of parameters passed to `UseParameters()` is greater than the numb
 
 ### DataRow
 
-snippet: DataRowMSTest
+
+#### Instance
+
+snippet: DataRowInstanceMSTest
+
+
+#### Fluent
+
+snippet: DataRowFluentMSTest
 
 
 ## Overriding text used for parameters

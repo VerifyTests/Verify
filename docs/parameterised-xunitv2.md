@@ -32,7 +32,7 @@ public Task UseParametersUsage(string arg)
         .UseParameters(arg);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L138-L150' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L142-L154' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If not all parameters are required, a subset can be passed in. In this scenario, the parameters passed in will match with the method parameter names from the start. For example the following will result in a file named `ParametersSample.UseParametersSubSet_arg1=Value1_arg2=Value2.verified.txt`
@@ -49,7 +49,7 @@ public Task UseParametersSubSet(string arg1, string arg2, string arg3)
         .UseParameters(arg1, arg2);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L152-L163' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSetXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L156-L167' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSetXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
@@ -57,8 +57,11 @@ If the number of parameters passed to `UseParameters()` is greater than the numb
 
 ### InlineData
 
-<!-- snippet: InlineDataXunit -->
-<a id='snippet-InlineDataXunit'></a>
+
+#### Instance
+
+<!-- snippet: InlineDataInstanceXunit -->
+<a id='snippet-InlineDataInstanceXunit'></a>
 ```cs
 [Theory]
 [InlineData("Value1")]
@@ -69,7 +72,16 @@ public Task InlineDataUsage(string arg)
     settings.UseParameters(arg);
     return Verify(arg, settings);
 }
+```
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L117-L129' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineDataInstanceXunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
+
+#### Fluent
+
+<!-- snippet: InlineDataFluentXunit -->
+<a id='snippet-InlineDataFluentXunit'></a>
+```cs
 [Theory]
 [InlineData("Value1")]
 [InlineData("Value2")]
@@ -77,7 +89,7 @@ public Task InlineDataUsageFluent(string arg) =>
     Verify(arg)
         .UseParameters(arg);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L117-L136' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineDataXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L131-L140' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineDataFluentXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -100,7 +112,7 @@ public static IEnumerable<object[]> GetData()
     ];
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L188-L202' title='Snippet source file'>snippet source</a> | <a href='#snippet-MemberDataGetDataXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L192-L206' title='Snippet source file'>snippet source</a> | <a href='#snippet-MemberDataGetDataXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -118,7 +130,7 @@ public Task MemberDataUsage(string arg)
     return Verify(arg, settings);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L165-L176' title='Snippet source file'>snippet source</a> | <a href='#snippet-MemberDataInstanceXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L169-L180' title='Snippet source file'>snippet source</a> | <a href='#snippet-MemberDataInstanceXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -133,7 +145,7 @@ public Task MemberDataUsageFluent(string arg) =>
     Verify(arg)
         .UseParameters(arg);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L178-L186' title='Snippet source file'>snippet source</a> | <a href='#snippet-MemberDataFluentXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L182-L190' title='Snippet source file'>snippet source</a> | <a href='#snippet-MemberDataFluentXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -278,7 +290,7 @@ public Task UseTextForParameters(string arg)
     return Verify(arg + "UseTextForParameters", settings);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L204-L216' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersInstanceXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L208-L220' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersInstanceXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -294,7 +306,7 @@ public Task UseTextForParametersFluent(string arg) =>
     Verify(arg + "UseTextForParametersFluent")
         .UseTextForParameters(arg);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L218-L227' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersFluentXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L222-L231' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersFluentXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

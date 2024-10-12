@@ -23,7 +23,15 @@ If the number of parameters passed to `UseParameters()` is greater than the numb
 
 ### InlineData
 
-snippet: InlineDataXunit
+
+#### Instance
+
+snippet: InlineDataInstanceXunit
+
+
+#### Fluent
+
+snippet: InlineDataFluentXunit
 
 
 ### MemberData

@@ -114,7 +114,7 @@ public class ParametersSample
         Verify(arg)
             .UseParameters(arg);
 
-    #region InlineDataXunit
+    #region InlineDataInstanceXunit
 
     [Theory]
     [InlineData("Value1")]
@@ -125,6 +125,10 @@ public class ParametersSample
         settings.UseParameters(arg);
         return Verify(arg, settings);
     }
+
+    #endregion
+
+    #region InlineDataFluentXunit
 
     [Theory]
     [InlineData("Value1")]

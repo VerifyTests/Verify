@@ -22,12 +22,6 @@ public class Tests
             .UseFileName("UseFileNameWithParam");
 
     [Test]
-    [Arguments("Value1")]
-    public Task UseTextForParameters(string arg) =>
-        Verify(arg)
-            .UseTextForParameters("TextForParameter");
-
-    [Test]
     public Task StringTarget() =>
         Verify(new Target("txt", "Value"));
 

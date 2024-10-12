@@ -31,7 +31,14 @@ snippet: TestCaseTUnit
 include: override-parameters-text
 
 
-snippet: UseTextForParametersTUnit
+### Instance
+
+snippet: UseTextForParametersInstanceTUnit
+
+
+### Fluent
+
+snippet: UseTextForParametersFluentTUnit
 
 
 ## Ignore parameters for verified filename

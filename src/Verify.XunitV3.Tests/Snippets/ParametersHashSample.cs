@@ -1,7 +1,7 @@
-﻿#region UseParametersHashXunitV3
-
-public class ParametersHashSample
+﻿public class ParametersHashSample
 {
+    #region UseParametersHashInstanceXunitV3
+
     [Theory]
     [InlineData("Value1")]
     [InlineData("Value2")]
@@ -12,12 +12,16 @@ public class ParametersHashSample
         return Verify(arg, settings);
     }
 
+    #endregion
+
+    #region UseParametersHashFluentXunitV3
+
     [Theory]
     [InlineData("Value1")]
     [InlineData("Value2")]
     public Task HashParametersUsageFluent(string arg) =>
         Verify(arg)
             .HashParameters();
-}
 
-#endregion
+    #endregion
+}

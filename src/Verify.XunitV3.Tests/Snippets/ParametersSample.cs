@@ -7,7 +7,8 @@ public class ParametersSample
             (decimal) 1.1
         ];
     }
-    #region UseTextForParametersXunitV3
+
+    #region UseTextForParametersInstanceXunitV3
 
     [Theory]
     [InlineData("Value1")]
@@ -19,6 +20,10 @@ public class ParametersSample
         return Verify(arg + "UseTextForParameters", settings);
     }
 
+    #endregion
+
+    #region UseTextForParametersFluentXunitV3
+
     [Theory]
     [InlineData("Value1")]
     [InlineData("Value2")]
@@ -27,6 +32,7 @@ public class ParametersSample
             .UseTextForParameters(arg);
 
     #endregion
+
     #region IgnoreParametersForVerifiedXunitV3
 
     [Theory]

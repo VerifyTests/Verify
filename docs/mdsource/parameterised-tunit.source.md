@@ -75,6 +75,12 @@ snippet: IgnoreParametersForVerifiedCustomParamsFluentTUnit
 
 include: hashing-parameters
 
-snippet: UseParametersHashTUnit
 
-Note that TUnit can derive the parameters without explicitly passing them.
+### Instance
+
+snippet: UseParametersHashInstanceTUnit
+
+
+### Fluent
+
+snippet: UseParametersHashFluentTUnit

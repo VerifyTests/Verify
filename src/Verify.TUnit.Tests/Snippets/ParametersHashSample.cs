@@ -1,41 +1,27 @@
-﻿#region UseParametersHashTUnit
-
-public class ParametersHashSample
+﻿public class ParametersHashSample
 {
-    [Test]
-    [Arguments("Value1")]
-    [Arguments("Value2")]
-    public Task HashParametersUsage(string arg)
-    {
-        var settings = new VerifySettings();
-        settings.UseParameters(arg);
-        settings.HashParameters();
-        return Verify(arg, settings);
-    }
+    #region UseParametersHashInstanceTUnit
 
     [Test]
     [Arguments("Value1")]
     [Arguments("Value2")]
-    public Task HashParametersUsageFluent(string arg) =>
-        Verify(arg)
-            .HashParameters();
-
-    [Test]
-    [Arguments("Value1")]
-    [Arguments("Value2")]
-    public Task HashParametersOmitPassingParameters(string arg)
+    public Task HashParameters(string arg)
     {
         var settings = new VerifySettings();
         settings.HashParameters();
         return Verify(arg, settings);
     }
 
+    #endregion
+
+    #region UseParametersHashFluentTUnit
+
     [Test]
     [Arguments("Value1")]
     [Arguments("Value2")]
-    public Task HashParametersOmitPassingParametersFluent(string arg) =>
+    public Task HashParametersFluent(string arg) =>
         Verify(arg)
             .HashParameters();
+
+    #endregion
 }
-
-#endregion

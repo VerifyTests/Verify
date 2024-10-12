@@ -90,8 +90,10 @@ For the fluent case:
  * TheTest.UseTextForParametersFluent_Value2.verified.txt<!-- endInclude -->
 
 
-<!-- snippet: UseTextForParametersTUnit -->
-<a id='snippet-UseTextForParametersTUnit'></a>
+### Instance
+
+<!-- snippet: UseTextForParametersInstanceTUnit -->
+<a id='snippet-UseTextForParametersInstanceTUnit'></a>
 ```cs
 [Test]
 [Arguments("Value1")]
@@ -102,7 +104,16 @@ public Task UseTextForParameters(string arg)
     settings.UseTextForParameters(arg);
     return Verify(arg + "UseTextForParameters", settings);
 }
+```
+<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersSample.cs#L155-L167' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersInstanceTUnit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
+
+### Fluent
+
+<!-- snippet: UseTextForParametersFluentTUnit -->
+<a id='snippet-UseTextForParametersFluentTUnit'></a>
+```cs
 [Test]
 [Arguments("Value1")]
 [Arguments("Value2")]
@@ -110,7 +121,7 @@ public Task UseTextForParametersFluent(string arg) =>
     Verify(arg + "UseTextForParametersFluent")
         .UseTextForParameters(arg);
 ```
-<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersSample.cs#L155-L174' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersTUnit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersSample.cs#L169-L178' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersFluentTUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -220,48 +231,37 @@ Hashing parameter is achieved by using `HashParameters`.
 
 [XxHash64](https://learn.microsoft.com/en-us/dotnet/api/system.io.hashing.xxhash64) is used to perform the hash.<!-- endInclude -->
 
-<!-- snippet: UseParametersHashTUnit -->
-<a id='snippet-UseParametersHashTUnit'></a>
+
+### Instance
+
+<!-- snippet: UseParametersHashInstanceTUnit -->
+<a id='snippet-UseParametersHashInstanceTUnit'></a>
 ```cs
-public class ParametersHashSample
+[Test]
+[Arguments("Value1")]
+[Arguments("Value2")]
+public Task HashParameters(string arg)
 {
-    [Test]
-    [Arguments("Value1")]
-    [Arguments("Value2")]
-    public Task HashParametersUsage(string arg)
-    {
-        var settings = new VerifySettings();
-        settings.UseParameters(arg);
-        settings.HashParameters();
-        return Verify(arg, settings);
-    }
-
-    [Test]
-    [Arguments("Value1")]
-    [Arguments("Value2")]
-    public Task HashParametersUsageFluent(string arg) =>
-        Verify(arg)
-            .HashParameters();
-
-    [Test]
-    [Arguments("Value1")]
-    [Arguments("Value2")]
-    public Task HashParametersOmitPassingParameters(string arg)
-    {
-        var settings = new VerifySettings();
-        settings.HashParameters();
-        return Verify(arg, settings);
-    }
-
-    [Test]
-    [Arguments("Value1")]
-    [Arguments("Value2")]
-    public Task HashParametersOmitPassingParametersFluent(string arg) =>
-        Verify(arg)
-            .HashParameters();
+    var settings = new VerifySettings();
+    settings.HashParameters();
+    return Verify(arg, settings);
 }
 ```
-<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersHashSample.cs#L1-L41' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashTUnit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersHashSample.cs#L3-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashInstanceTUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Note that TUnit can derive the parameters without explicitly passing them.
+
+### Fluent
+
+<!-- snippet: UseParametersHashFluentTUnit -->
+<a id='snippet-UseParametersHashFluentTUnit'></a>
+```cs
+[Test]
+[Arguments("Value1")]
+[Arguments("Value2")]
+public Task HashParametersFluent(string arg) =>
+    Verify(arg)
+        .HashParameters();
+```
+<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersHashSample.cs#L17-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashFluentTUnit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->

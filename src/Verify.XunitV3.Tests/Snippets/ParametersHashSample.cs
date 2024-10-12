@@ -1,4 +1,4 @@
-﻿#region UseParametersHashXunit
+﻿#region UseParametersHashXunitV3
 
 public class ParametersHashSample
 {

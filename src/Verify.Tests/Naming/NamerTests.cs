@@ -378,27 +378,6 @@ public class NamerTests
             .UniqueForRuntimeAndVersion();
     }
 
-    #region UseTextForParameters
-
-    [Theory]
-    [InlineData("Value1")]
-    [InlineData("Value2")]
-    public Task UseTextForParameters(string arg)
-    {
-        var settings = new VerifySettings();
-        settings.UseTextForParameters(arg);
-        return Verify(arg + "UseTextForParameters", settings);
-    }
-
-    [Theory]
-    [InlineData("Value1")]
-    [InlineData("Value2")]
-    public Task UseTextForParametersFluent(string arg) =>
-        Verify(arg + "UseTextForParametersFluent")
-            .UseTextForParameters(arg);
-
-    #endregion
-
     [Fact]
     public Task UseTextForParametersNoParam() =>
         Verify("ValueUseTextForParametersNoParam")

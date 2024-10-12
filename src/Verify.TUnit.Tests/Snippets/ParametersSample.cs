@@ -10,6 +10,32 @@
     public Task Double(double arg) =>
         Verify(arg);
 
+    #region UseParametersTUnit
+
+    [Test]
+    [Arguments("Value1")]
+    public Task UseParametersUsage(string arg)
+    {
+        var somethingToVerify = $"{arg} some text";
+        return Verify(somethingToVerify)
+            .UseParameters(arg);
+    }
+
+    #endregion
+
+    #region UseParametersSubSetTUnit
+
+    [Test]
+    [Arguments("Value1", "Value2", "Value3")]
+    public Task UseParametersSubSet(string arg1, string arg2, string arg3)
+    {
+        var somethingToVerify = $"{arg1} {arg2} {arg3} some text";
+        return Verify(somethingToVerify)
+            .UseParameters(arg1, arg2);
+    }
+
+    #endregion
+
     #region IgnoreParametersForVerifiedTUnit
 
     [Test]
@@ -110,7 +136,7 @@
 
     #endregion
 
-    #region TUnitTestCase
+    #region TestCaseTUnit
 
     [Test]
     [Arguments("Value1")]
@@ -126,6 +152,26 @@
         Verify("Foo")
             .UseParameters("notTheArg");
 
+    #region UseTextForParametersTUnit
+
+    [Test]
+    [Arguments("Value1")]
+    [Arguments("Value2")]
+    public Task UseTextForParameters(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseTextForParameters(arg);
+        return Verify(arg + "UseTextForParameters", settings);
+    }
+
+    [Test]
+    [Arguments("Value1")]
+    [Arguments("Value2")]
+    public Task UseTextForParametersFluent(string arg) =>
+        Verify(arg + "UseTextForParametersFluent")
+            .UseTextForParameters(arg);
+
+    #endregion
     // #region TUnitAutoFixture
     //
     // [Theory]

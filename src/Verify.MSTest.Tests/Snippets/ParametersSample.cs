@@ -1,6 +1,16 @@
 [TestClass]
 public partial class ParametersSample
 {
+    #region UseTextForParametersMSTest
+
+    [DataTestMethod]
+    [DataRow("Value1")]
+    public Task UseTextForParameters(string arg) =>
+        Verify(arg)
+            .UseTextForParameters("TextForParameter");
+
+    #endregion
+
     #region DataRowMSTest
 
     [DataTestMethod]
@@ -22,7 +32,7 @@ public partial class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersForVerifiedMsTest
+    #region IgnoreParametersForVerifiedMSTest
 
     [DataTestMethod]
     [DataRow("One")]
@@ -36,7 +46,7 @@ public partial class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersForVerifiedFluentMsTest
+    #region IgnoreParametersForVerifiedFluentMSTest
 
     [DataTestMethod]
     [DataRow("One")]
@@ -47,7 +57,7 @@ public partial class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersForVerifiedCustomParamsMsTest
+    #region IgnoreParametersForVerifiedCustomParamsMSTest
 
     [DataTestMethod]
     [DataRow("One")]
@@ -61,7 +71,7 @@ public partial class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersForVerifiedCustomParamsFluentMsTest
+    #region IgnoreParametersForVerifiedCustomParamsFluentMSTest
 
     [DataTestMethod]
     [DataRow("One")]
@@ -72,7 +82,7 @@ public partial class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersMsTest
+    #region IgnoreParametersMSTest
 
     [DataTestMethod]
     [DataRow("One")]
@@ -87,7 +97,7 @@ public partial class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersFluentMsTest
+    #region IgnoreParametersFluentMSTest
 
     [DataTestMethod]
     [DataRow("One")]
@@ -99,7 +109,7 @@ public partial class ParametersSample
 
     #endregion
 
-    #region IgnoreParametersCustomParamsMsTest
+    #region IgnoreParametersCustomParamsMSTest
 
     [DataTestMethod]
     [DataRow("One")]
@@ -113,7 +123,8 @@ public partial class ParametersSample
     }
 
     #endregion
-    #region UseParametersMsTest
+
+    #region UseParametersMSTest
 
     [DataTestMethod]
     [DataRow("Value1")]
@@ -127,7 +138,7 @@ public partial class ParametersSample
 
     #endregion
 
-    #region UseParametersSubSetMsTest
+    #region UseParametersSubSetMSTest
 
     [DataTestMethod]
     [DataRow("Value1", "Value2", "Value3")]
@@ -139,7 +150,8 @@ public partial class ParametersSample
     }
 
     #endregion
-    #region IgnoreParametersCustomParamsFluentMsTest
+
+    #region IgnoreParametersCustomParamsFluentMSTest
 
     [DataTestMethod]
     [DataRow("One")]

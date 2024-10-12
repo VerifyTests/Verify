@@ -6,7 +6,7 @@ public class ParametersSample
         Verify(arg)
             .UseParameters(arg);
 
-    [TestCase((float)1.1)]
+    [TestCase((float) 1.1)]
     public Task Float(float arg) =>
         Verify(arg)
             .UseParameters(arg);

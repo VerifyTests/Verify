@@ -19,8 +19,8 @@ Verify.Xunit does not detect the parametrised arguments, as such `UseParameters(
 
 For the above scenarios where parameters are not automatically detected: 
 
-<!-- snippet: UseParameters -->
-<a id='snippet-UseParameters'></a>
+<!-- snippet: UseParametersXunit -->
+<a id='snippet-UseParametersXunit'></a>
 ```cs
 [Theory]
 [InlineData("Value1")]
@@ -32,13 +32,13 @@ public Task UseParametersUsage(string arg)
         .UseParameters(arg);
 }
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L140-L152' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L138-L150' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If not all parameters are required, a subset can be passed in. In this scenario, the parameters passed in will match with the method parameter names from the start. For example the following will result in a file named `ParametersSample.UseParametersSubSet_arg1=Value1_arg2=Value2.verified.txt`
 
-<!-- snippet: UseParametersSubSet -->
-<a id='snippet-UseParametersSubSet'></a>
+<!-- snippet: UseParametersSubSetXunit -->
+<a id='snippet-UseParametersSubSetXunit'></a>
 ```cs
 [Theory]
 [InlineData("Value1", "Value2", "Value3")]
@@ -49,7 +49,7 @@ public Task UseParametersSubSet(string arg1, string arg2, string arg3)
         .UseParameters(arg1, arg2);
 }
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L154-L165' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSet' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L152-L163' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSetXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
@@ -57,8 +57,8 @@ If the number of parameters passed to `UseParameters()` is greater than the numb
 
 ### InlineData
 
-<!-- snippet: xunitInlineData -->
-<a id='snippet-xunitInlineData'></a>
+<!-- snippet: InlineDataXunit -->
+<a id='snippet-InlineDataXunit'></a>
 ```cs
 [Theory]
 [InlineData("Value1")]
@@ -77,14 +77,14 @@ public Task InlineDataUsageFluent(string arg) =>
     Verify(arg)
         .UseParameters(arg);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L101-L120' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitInlineData' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L117-L136' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineDataXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### MemberData
 
-<!-- snippet: xunitMemberData -->
-<a id='snippet-xunitMemberData'></a>
+<!-- snippet: MemberDataXunit -->
+<a id='snippet-MemberDataXunit'></a>
 ```cs
 [Theory]
 [MemberData(nameof(GetData))]
@@ -113,7 +113,7 @@ public static IEnumerable<object[]> GetData()
     ];
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L141-L170' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitMemberData' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L165-L194' title='Snippet source file'>snippet source</a> | <a href='#snippet-MemberDataXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -121,8 +121,8 @@ public static IEnumerable<object[]> GetData()
 
 xUnit only exposes parameter information for certain types. For unknown types the information cannot be retrieved from the xUnit context, and instead the text for the parameter value needs to be explicitly specified. This is done by calling `NameForParameter()`.
 
-<!-- snippet: xunitComplexMemberData -->
-<a id='snippet-xunitComplexMemberData'></a>
+<!-- snippet: ComplexMemberDataXunit -->
+<a id='snippet-ComplexMemberDataXunit'></a>
 ```cs
 public class ComplexParametersSample
 {
@@ -216,7 +216,7 @@ public class ComplexParametersSample
     public record ComplexStructData(string Value);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L1-L95' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitComplexMemberData' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L1-L95' title='Snippet source file'>snippet source</a> | <a href='#snippet-ComplexMemberDataXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `VerifierSettings.NameForParameter()` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
@@ -242,8 +242,8 @@ For the fluent case:
  * TheTest.UseTextForParametersFluent_Value1.verified.txt
  * TheTest.UseTextForParametersFluent_Value2.verified.txt<!-- endInclude -->
 
-<!-- snippet: UseTextForParameters -->
-<a id='snippet-UseTextForParameters'></a>
+<!-- snippet: UseTextForParametersXunit -->
+<a id='snippet-UseTextForParametersXunit'></a>
 ```cs
 [Theory]
 [InlineData("Value1")]
@@ -262,7 +262,7 @@ public Task UseTextForParametersFluent(string arg) =>
     Verify(arg + "UseTextForParametersFluent")
         .UseTextForParameters(arg);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L381-L400' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L196-L215' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -302,7 +302,7 @@ public Task IgnoreParametersForVerified(string arg)
     return Verify("value", settings);
 }
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L11-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L11-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -318,7 +318,7 @@ public Task IgnoreParametersForVerifiedFluent(string arg) =>
     Verify("value")
         .IgnoreParametersForVerified(arg);
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L25-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedFluentXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L25-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedFluentXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -342,7 +342,7 @@ public Task IgnoreParametersForVerifiedCustomParams(string arg)
     return Verify("value", settings);
 }
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L36-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedCustomParamsXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L36-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedCustomParamsXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -358,7 +358,7 @@ public Task IgnoreParametersForVerifiedCustomParamsFluent(string arg) =>
     Verify("value")
         .IgnoreParametersForVerified($"Number{arg}");
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L50-L59' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedCustomParamsFluentXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L50-L59' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedCustomParamsFluentXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -383,6 +383,7 @@ public class ParametersHashSample
     public Task HashParametersUsage(string arg)
     {
         var settings = new VerifySettings();
+        settings.UseParameters(arg);
         settings.HashParameters();
         return Verify(arg, settings);
     }
@@ -392,8 +393,9 @@ public class ParametersHashSample
     [InlineData("Value2")]
     public Task HashParametersUsageFluent(string arg) =>
         Verify(arg)
+            .UseParameters(arg)
             .HashParameters();
 }
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersHashSample.cs#L1-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersHashSample.cs#L1-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

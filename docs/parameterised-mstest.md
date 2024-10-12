@@ -14,11 +14,12 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 Verify.MSTest does not detect the parametrised arguments, as such `UseParameters()` is required.
 
-<!-- snippet: UseParametersFixie -->
-<a id='snippet-UseParametersFixie'></a>
+<!-- snippet: UseParametersMSTest -->
+<a id='snippet-UseParametersMSTest'></a>
 ```cs
-[TestCase("Value1")]
-[TestCase("Value2")]
+[DataTestMethod]
+[DataRow("Value1")]
+[DataRow("Value2")]
 public Task UseParametersUsage(string arg)
 {
     var somethingToVerify = $"{arg} some text";
@@ -26,15 +27,16 @@ public Task UseParametersUsage(string arg)
         .UseParameters(arg);
 }
 ```
-<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L19-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersFixie' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L127-L139' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If not all parameters are required, a subset can be passed in. In this scenario, the parameters passed in will match with the method parameter names from the start. For example the following will result in a file named `ParametersSample.UseParametersSubSet_arg1=Value1_arg2=Value2.verified.txt`
 
-<!-- snippet: UseParametersSubSetFixie -->
-<a id='snippet-UseParametersSubSetFixie'></a>
+<!-- snippet: UseParametersSubSetMSTest -->
+<a id='snippet-UseParametersSubSetMSTest'></a>
 ```cs
-[TestCase("Value1", "Value2", "Value3")]
+[DataTestMethod]
+[DataRow("Value1", "Value2", "Value3")]
 public Task UseParametersSubSet(string arg1, string arg2, string arg3)
 {
     var somethingToVerify = $"{arg1} {arg2} {arg3} some text";
@@ -42,7 +44,7 @@ public Task UseParametersSubSet(string arg1, string arg2, string arg3)
         .UseParameters(arg1, arg2);
 }
 ```
-<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L51-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSetFixie' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L141-L152' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSetMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
@@ -50,8 +52,8 @@ If the number of parameters passed to `UseParameters()` is greater than the numb
 
 ### DataRow
 
-<!-- snippet: MSTestDataRow -->
-<a id='snippet-MSTestDataRow'></a>
+<!-- snippet: DataRowMSTest -->
+<a id='snippet-DataRowMSTest'></a>
 ```cs
 [DataTestMethod]
 [DataRow("Value1")]
@@ -70,7 +72,7 @@ public Task DataRowUsageFluent(string arg) =>
     Verify(arg)
         .UseParameters(arg);
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L4-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-MSTestDataRow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L14-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-DataRowMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -95,27 +97,16 @@ For the fluent case:
  * TheTest.UseTextForParametersFluent_Value2.verified.txt<!-- endInclude -->
 
 
-<!-- snippet: UseTextForParameters -->
-<a id='snippet-UseTextForParameters'></a>
+<!-- snippet: UseTextForParametersMSTest -->
+<a id='snippet-UseTextForParametersMSTest'></a>
 ```cs
-[Theory]
-[InlineData("Value1")]
-[InlineData("Value2")]
-public Task UseTextForParameters(string arg)
-{
-    var settings = new VerifySettings();
-    settings.UseTextForParameters(arg);
-    return Verify(arg + "UseTextForParameters", settings);
-}
-
-[Theory]
-[InlineData("Value1")]
-[InlineData("Value2")]
-public Task UseTextForParametersFluent(string arg) =>
-    Verify(arg + "UseTextForParametersFluent")
-        .UseTextForParameters(arg);
+[DataTestMethod]
+[DataRow("Value1")]
+public Task UseTextForParameters(string arg) =>
+    Verify(arg)
+        .UseTextForParameters("TextForParameter");
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L381-L400' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L4-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -142,8 +133,8 @@ For the fluent case:
 
 ### Instance
 
-<!-- snippet: IgnoreParametersForVerifiedMsTest -->
-<a id='snippet-IgnoreParametersForVerifiedMsTest'></a>
+<!-- snippet: IgnoreParametersForVerifiedMSTest -->
+<a id='snippet-IgnoreParametersForVerifiedMSTest'></a>
 ```cs
 [DataTestMethod]
 [DataRow("One")]
@@ -155,14 +146,14 @@ public Task IgnoreParametersForVerified(string arg)
     return Verify("value", settings);
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L25-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedMsTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L35-L47' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### Fluent
 
-<!-- snippet: IgnoreParametersForVerifiedFluentMsTest -->
-<a id='snippet-IgnoreParametersForVerifiedFluentMsTest'></a>
+<!-- snippet: IgnoreParametersForVerifiedFluentMSTest -->
+<a id='snippet-IgnoreParametersForVerifiedFluentMSTest'></a>
 ```cs
 [DataTestMethod]
 [DataRow("One")]
@@ -171,7 +162,7 @@ public Task IgnoreParametersForVerifiedFluent(string arg) =>
     Verify("value")
         .IgnoreParametersForVerified(arg);
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L39-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedFluentMsTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L49-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedFluentMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -182,8 +173,8 @@ The parameters passed to IgnoreParametersForVerified can be used pass custom par
 
 ### Instance
 
-<!-- snippet: IgnoreParametersForVerifiedCustomParamsMsTest -->
-<a id='snippet-IgnoreParametersForVerifiedCustomParamsMsTest'></a>
+<!-- snippet: IgnoreParametersForVerifiedCustomParamsMSTest -->
+<a id='snippet-IgnoreParametersForVerifiedCustomParamsMSTest'></a>
 ```cs
 [DataTestMethod]
 [DataRow("One")]
@@ -195,14 +186,14 @@ public Task IgnoreParametersForVerifiedCustomParams(string arg)
     return Verify("value", settings);
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L50-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedCustomParamsMsTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L60-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedCustomParamsMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### Fluent
 
-<!-- snippet: IgnoreParametersForVerifiedCustomParamsFluentMsTest -->
-<a id='snippet-IgnoreParametersForVerifiedCustomParamsFluentMsTest'></a>
+<!-- snippet: IgnoreParametersForVerifiedCustomParamsFluentMSTest -->
+<a id='snippet-IgnoreParametersForVerifiedCustomParamsFluentMSTest'></a>
 ```cs
 [DataTestMethod]
 [DataRow("One")]
@@ -211,7 +202,7 @@ public Task IgnoreParametersForVerifiedFluentCustomParams(string arg) =>
     Verify("value")
         .IgnoreParametersForVerified($"Number{arg}");
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L64-L73' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedCustomParamsFluentMsTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L74-L83' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedCustomParamsFluentMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

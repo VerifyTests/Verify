@@ -36,12 +36,12 @@ include: ignore-parameters
 
 ### Instance
 
-snippet: IgnoreParametersForVerifiedMsTest
+snippet: IgnoreParametersForVerifiedMSTest
 
 
 ### Fluent
 
-snippet: IgnoreParametersForVerifiedFluentMsTest
+snippet: IgnoreParametersForVerifiedFluentMSTest
 
 
 ## IgnoreParametersForVerified with override parameters
@@ -51,12 +51,12 @@ The parameters passed to IgnoreParametersForVerified can be used pass custom par
 
 ### Instance
 
-snippet: IgnoreParametersForVerifiedCustomParamsMsTest
+snippet: IgnoreParametersForVerifiedCustomParamsMSTest
 
 
 ### Fluent
 
-snippet: IgnoreParametersForVerifiedCustomParamsFluentMsTest
+snippet: IgnoreParametersForVerifiedCustomParamsFluentMSTest
 
 
 ## Hashing parameters

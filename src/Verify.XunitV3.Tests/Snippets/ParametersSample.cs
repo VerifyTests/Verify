@@ -7,7 +7,26 @@ public class ParametersSample
             (decimal) 1.1
         ];
     }
+    #region UseTextForParametersXunitV3
 
+    [Theory]
+    [InlineData("Value1")]
+    [InlineData("Value2")]
+    public Task UseTextForParameters(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseTextForParameters(arg);
+        return Verify(arg + "UseTextForParameters", settings);
+    }
+
+    [Theory]
+    [InlineData("Value1")]
+    [InlineData("Value2")]
+    public Task UseTextForParametersFluent(string arg) =>
+        Verify(arg + "UseTextForParametersFluent")
+            .UseTextForParameters(arg);
+
+    #endregion
     #region IgnoreParametersForVerifiedXunitV3
 
     [Theory]

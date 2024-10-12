@@ -13,6 +13,37 @@ public class ParametersSample
     public Task Double(double arg) =>
         Verify(arg);
 
+    #region UseTextForParameters
+
+    [TestCase("Value1")]
+    [TestCase("Value2")]
+    public Task UseTextForParameters(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseTextForParameters(arg);
+        return Verify(arg + "UseTextForParameters", settings);
+    }
+
+    [TestCase("Value1")]
+    [TestCase("Value2")]
+    public Task UseTextForParametersFluent(string arg) =>
+        Verify(arg + "UseTextForParametersFluent")
+            .UseTextForParameters(arg);
+
+    #endregion
+
+    #region UseParametersSubSetNunit
+
+    [TestCase("Value1", "Value2", "Value3")]
+    public Task UseParametersSubSet(string arg1, string arg2, string arg3)
+    {
+        var somethingToVerify = $"{arg1} {arg2} {arg3} some text";
+        return Verify(somethingToVerify)
+            .UseParameters(arg1, arg2);
+    }
+
+    #endregion
+
     #region IgnoreParametersForVerifiedNunit
 
     [TestCase("One")]

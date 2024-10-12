@@ -12,23 +12,23 @@ Verify.XunitV3 Automatically detect the method parameters for built in types (st
 
 For the above scenarios where parameters are not automatically detected: 
 
-snippet: UseParameters
+snippet: UseParametersXunitV3
 
 If not all parameters are required, a subset can be passed in. In this scenario, the parameters passed in will match with the method parameter names from the start. For example the following will result in a file named `ParametersSample.UseParametersSubSet_arg1=Value1_arg2=Value2.verified.txt`
 
-snippet: UseParametersSubSet
+snippet: UseParametersSubSetXunitV3
 
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
 
 
 ### InlineData
 
-snippet: xunitV3InlineData
+snippet: InlineDataXunitV3
 
 
 ### MemberData
 
-snippet: xunitV3MemberData
+snippet: MemberDataXunitV3
 
 
 ### Complex MemberData
@@ -44,7 +44,7 @@ snippet: xunitV3ComplexMemberData
 
 include: override-parameters-text
 
-snippet: UseTextForParameters
+snippet: UseTextForParametersXunitV3
 
 
 ## Ignore parameters for verified filename
@@ -54,7 +54,7 @@ include: ignore-parameters
 
 ### Instance
 
-snippet: IgnoreParametersForVerifiedXunit
+snippet: IgnoreParametersForVerifiedXunitV3
 
 
 ### Fluent
@@ -81,4 +81,4 @@ snippet: IgnoreParametersForVerifiedCustomParamsFluentXunit
 
 include: hashing-parameters
 
-snippet: UseParametersHashXunit
+snippet: UseParametersHashXunitV3

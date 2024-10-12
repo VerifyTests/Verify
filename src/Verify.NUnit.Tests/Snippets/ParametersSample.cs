@@ -13,7 +13,7 @@ public class ParametersSample
     public Task Double(double arg) =>
         Verify(arg);
 
-    #region UseTextForParameters
+    #region UseTextForParametersInstanceNunit
 
     [TestCase("Value1")]
     [TestCase("Value2")]
@@ -23,6 +23,10 @@ public class ParametersSample
         settings.UseTextForParameters(arg);
         return Verify(arg + "UseTextForParameters", settings);
     }
+
+    #endregion
+
+    #region UseTextForParametersFluentNunit
 
     [TestCase("Value1")]
     [TestCase("Value2")]
@@ -149,21 +153,4 @@ public class ParametersSample
     public Task SuppliedDoesNotMatchArg(string arg) =>
         Verify("Foo")
             .UseParameters("notTheArg");
-
-    // #region nunitAutoFixture
-    //
-    // [Theory]
-    // [InlineAutoData(42)]
-    // public Task AutoFixtureUsage(int stable, string random1, string random2)
-    // {
-    //     var result = MethodBeingTested(stable, random1, random2);
-    //     return Verify(result)
-    //         .UseParameters(stable);
-    // }
-    //
-    // #endregion
-    //
-    // // ReSharper disable UnusedParameter.Local
-    // static int MethodBeingTested(int stable, string random1, string random2) =>
-    //     stable;
 }

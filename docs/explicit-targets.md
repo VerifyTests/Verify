@@ -31,7 +31,7 @@ public Task WithTargets() =>
                 name: "targetName")
         ]);
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Tests.cs#L38-L54' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExplicitTargetsNunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Tests.cs#L33-L49' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExplicitTargetsNunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

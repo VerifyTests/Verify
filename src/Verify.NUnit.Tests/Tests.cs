@@ -18,11 +18,6 @@ public class Tests
         Verify(arg)
             .UseFileName("UseFileNameWithParam");
 
-    [TestCase("Value1")]
-    public Task UseTextForParameters(string arg) =>
-        Verify(arg)
-            .UseTextForParameters("TextForParameter");
-
     [TestCase("Value1", TestName = "CustomName")]
     public Task TestCaseWithName(string arg) =>
         Verify(arg);

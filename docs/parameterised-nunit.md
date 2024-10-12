@@ -27,7 +27,7 @@ public Task UseParametersSubSet(string arg1, string arg2, string arg3)
         .UseParameters(arg1, arg2);
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L35-L45' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSetNunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L39-L49' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSetNunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
@@ -43,7 +43,7 @@ If the number of parameters passed to `UseParameters()` is greater than the numb
 public Task TestCaseUsage(string arg) =>
     Verify(arg);
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L139-L146' title='Snippet source file'>snippet source</a> | <a href='#snippet-NUnitTestCase' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L143-L150' title='Snippet source file'>snippet source</a> | <a href='#snippet-NUnitTestCase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -111,8 +111,10 @@ For the fluent case:
  * TheTest.UseTextForParametersFluent_Value2.verified.txt<!-- endInclude -->
 
 
-<!-- snippet: UseTextForParameters -->
-<a id='snippet-UseTextForParameters'></a>
+### Instance
+
+<!-- snippet: UseTextForParametersInstanceNunit -->
+<a id='snippet-UseTextForParametersInstanceNunit'></a>
 ```cs
 [TestCase("Value1")]
 [TestCase("Value2")]
@@ -122,14 +124,23 @@ public Task UseTextForParameters(string arg)
     settings.UseTextForParameters(arg);
     return Verify(arg + "UseTextForParameters", settings);
 }
+```
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L16-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersInstanceNunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
+
+### Fluent
+
+<!-- snippet: UseTextForParametersFluentNunit -->
+<a id='snippet-UseTextForParametersFluentNunit'></a>
+```cs
 [TestCase("Value1")]
 [TestCase("Value2")]
 public Task UseTextForParametersFluent(string arg) =>
     Verify(arg + "UseTextForParametersFluent")
         .UseTextForParameters(arg);
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L16-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L29-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersFluentNunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -168,7 +179,7 @@ public Task IgnoreParametersForVerified(string arg)
     return Verify("value", settings);
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L47-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedNunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L51-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedNunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -183,7 +194,7 @@ public Task IgnoreParametersForVerifiedFluent(string arg) =>
     Verify("value")
         .IgnoreParametersForVerified();
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L60-L68' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedFluentNunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L64-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedFluentNunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -206,7 +217,7 @@ public Task IgnoreParametersForVerifiedCustomParams(string arg)
     return Verify("value", settings);
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L70-L81' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedCustomParamsNunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L74-L85' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedCustomParamsNunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -221,7 +232,7 @@ public Task IgnoreParametersForVerifiedCustomParamsFluent(string arg) =>
     Verify("value")
         .IgnoreParametersForVerified($"Number{arg}");
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L83-L91' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedCustomParamsFluentNunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L87-L95' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedCustomParamsFluentNunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

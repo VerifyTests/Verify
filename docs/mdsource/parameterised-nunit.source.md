@@ -36,7 +36,14 @@ Produces:
 include: override-parameters-text
 
 
-snippet: UseTextForParameters
+### Instance
+
+snippet: UseTextForParametersInstanceNunit
+
+
+### Fluent
+
+snippet: UseTextForParametersFluentNunit
 
 
 ## Ignore parameters for verified filename

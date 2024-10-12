@@ -83,24 +83,11 @@ public Task InlineDataUsageFluent(string arg) =>
 
 ### MemberData
 
-<!-- snippet: MemberDataXunit -->
-<a id='snippet-MemberDataXunit'></a>
+Given the following MemberData
+
+<!-- snippet: MemberDataGetDataXunit -->
+<a id='snippet-MemberDataGetDataXunit'></a>
 ```cs
-[Theory]
-[MemberData(nameof(GetData))]
-public Task MemberDataUsage(string arg)
-{
-    var settings = new VerifySettings();
-    settings.UseParameters(arg);
-    return Verify(arg, settings);
-}
-
-[Theory]
-[MemberData(nameof(GetData))]
-public Task MemberDataUsageFluent(string arg) =>
-    Verify(arg)
-        .UseParameters(arg);
-
 public static IEnumerable<object[]> GetData()
 {
     yield return
@@ -113,7 +100,40 @@ public static IEnumerable<object[]> GetData()
     ];
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L165-L194' title='Snippet source file'>snippet source</a> | <a href='#snippet-MemberDataXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L188-L202' title='Snippet source file'>snippet source</a> | <a href='#snippet-MemberDataGetDataXunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### Instance 
+
+<!-- snippet: MemberDataInstanceXunit -->
+<a id='snippet-MemberDataInstanceXunit'></a>
+```cs
+[Theory]
+[MemberData(nameof(GetData))]
+public Task MemberDataUsage(string arg)
+{
+    var settings = new VerifySettings();
+    settings.UseParameters(arg);
+    return Verify(arg, settings);
+}
+```
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L165-L176' title='Snippet source file'>snippet source</a> | <a href='#snippet-MemberDataInstanceXunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### Fluent 
+
+<!-- snippet: MemberDataFluentXunit -->
+<a id='snippet-MemberDataFluentXunit'></a>
+```cs
+[Theory]
+[MemberData(nameof(GetData))]
+public Task MemberDataUsageFluent(string arg) =>
+    Verify(arg)
+        .UseParameters(arg);
+```
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L178-L186' title='Snippet source file'>snippet source</a> | <a href='#snippet-MemberDataFluentXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -258,7 +278,7 @@ public Task UseTextForParameters(string arg)
     return Verify(arg + "UseTextForParameters", settings);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L196-L208' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersInstanceXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L204-L216' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersInstanceXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -274,7 +294,7 @@ public Task UseTextForParametersFluent(string arg) =>
     Verify(arg + "UseTextForParametersFluent")
         .UseTextForParameters(arg);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L210-L219' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersFluentXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L218-L227' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParametersFluentXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

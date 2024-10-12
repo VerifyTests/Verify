@@ -28,7 +28,19 @@ snippet: InlineDataXunit
 
 ### MemberData
 
-snippet: MemberDataXunit
+Given the following MemberData
+
+snippet: MemberDataGetDataXunit
+
+
+#### Instance 
+
+snippet: MemberDataInstanceXunit
+
+
+#### Fluent 
+
+snippet: MemberDataFluentXunit
 
 
 ### Complex MemberData

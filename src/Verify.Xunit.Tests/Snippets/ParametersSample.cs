@@ -162,7 +162,7 @@ public class ParametersSample
 
     #endregion
 
-    #region MemberDataXunit
+    #region MemberDataInstanceXunit
 
     [Theory]
     [MemberData(nameof(GetData))]
@@ -173,11 +173,19 @@ public class ParametersSample
         return Verify(arg, settings);
     }
 
+    #endregion
+
+    #region MemberDataFluentXunit
+
     [Theory]
     [MemberData(nameof(GetData))]
     public Task MemberDataUsageFluent(string arg) =>
         Verify(arg)
             .UseParameters(arg);
+
+    #endregion
+
+    #region MemberDataGetDataXunit
 
     public static IEnumerable<object[]> GetData()
     {

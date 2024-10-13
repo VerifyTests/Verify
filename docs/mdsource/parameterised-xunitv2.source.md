@@ -117,4 +117,4 @@ snippet: UseParametersHashInstanceXunit
 
 ### Fluent
 
-snippet: UseParametersHashInstanceXunit
+snippet: UseParametersHashFluentXunit

@@ -439,19 +439,16 @@ public Task HashParametersUsage(string arg)
 
 ### Fluent
 
-<!-- snippet: UseParametersHashInstanceXunit -->
-<a id='snippet-UseParametersHashInstanceXunit'></a>
+<!-- snippet: UseParametersHashFluentXunit -->
+<a id='snippet-UseParametersHashFluentXunit'></a>
 ```cs
 [Theory]
 [InlineData("Value1")]
 [InlineData("Value2")]
-public Task HashParametersUsage(string arg)
-{
-    var settings = new VerifySettings();
-    settings.UseParameters(arg);
-    settings.HashParameters();
-    return Verify(arg, settings);
-}
+public Task HashParametersUsageFluent(string arg) =>
+    Verify(arg)
+        .UseParameters(arg)
+        .HashParameters();
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersHashSample.cs#L3-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashInstanceXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersHashSample.cs#L18-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashFluentXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

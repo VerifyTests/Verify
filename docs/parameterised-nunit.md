@@ -257,7 +257,6 @@ public class ParametersHashSample
     public Task HashParametersUsage(string arg)
     {
         var settings = new VerifySettings();
-        settings.UseParameters(arg);
         settings.HashParameters();
         return Verify(arg, settings);
     }
@@ -267,24 +266,9 @@ public class ParametersHashSample
     public Task HashParametersUsageFluent(string arg) =>
         Verify(arg)
             .HashParameters();
-
-    [TestCase("Value1")]
-    [TestCase("Value2")]
-    public Task HashParametersOmitPassingParameters(string arg)
-    {
-        var settings = new VerifySettings();
-        settings.HashParameters();
-        return Verify(arg, settings);
-    }
-
-    [TestCase("Value1")]
-    [TestCase("Value2")]
-    public Task HashParametersOmitPassingParametersFluent(string arg) =>
-        Verify(arg)
-            .HashParameters();
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersHashSample.cs#L1-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashNunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersHashSample.cs#L1-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashNunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Note that NUnit can derive the parameters without explicitly passing them.

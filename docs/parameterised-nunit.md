@@ -246,29 +246,35 @@ Hashing parameter is achieved by using `HashParameters`.
 
 [XxHash64](https://learn.microsoft.com/en-us/dotnet/api/system.io.hashing.xxhash64) is used to perform the hash.<!-- endInclude -->
 
-<!-- snippet: UseParametersHashNunit -->
-<a id='snippet-UseParametersHashNunit'></a>
-```cs
-[TestFixture]
-public class ParametersHashSample
-{
-    [TestCase("Value1")]
-    [TestCase("Value2")]
-    public Task HashParametersUsage(string arg)
-    {
-        var settings = new VerifySettings();
-        settings.HashParameters();
-        return Verify(arg, settings);
-    }
 
-    [TestCase("Value1")]
-    [TestCase("Value2")]
-    public Task HashParametersUsageFluent(string arg) =>
-        Verify(arg)
-            .HashParameters();
+### Instance
+
+<!-- snippet: UseParametersHashInstanceNunit -->
+<a id='snippet-UseParametersHashInstanceNunit'></a>
+```cs
+[TestCase("Value1")]
+[TestCase("Value2")]
+public Task HashParametersUsage(string arg)
+{
+    var settings = new VerifySettings();
+    settings.HashParameters();
+    return Verify(arg, settings);
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersHashSample.cs#L1-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashNunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersHashSample.cs#L4-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashInstanceNunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Note that NUnit can derive the parameters without explicitly passing them.
+
+### Fluent
+
+<!-- snippet: UseParametersHashFluentNunit -->
+<a id='snippet-UseParametersHashFluentNunit'></a>
+```cs
+[TestCase("Value1")]
+[TestCase("Value2")]
+public Task HashParametersUsageFluent(string arg) =>
+    Verify(arg)
+        .HashParameters();
+```
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersHashSample.cs#L17-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashFluentNunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->

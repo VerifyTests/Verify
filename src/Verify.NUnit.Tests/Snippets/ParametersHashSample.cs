@@ -1,8 +1,8 @@
-﻿#region UseParametersHashNunit
-
-[TestFixture]
+﻿[TestFixture]
 public class ParametersHashSample
 {
+    #region UseParametersHashInstanceNunit
+
     [TestCase("Value1")]
     [TestCase("Value2")]
     public Task HashParametersUsage(string arg)
@@ -12,11 +12,15 @@ public class ParametersHashSample
         return Verify(arg, settings);
     }
 
+    #endregion
+
+    #region UseParametersHashFluentNunit
+
     [TestCase("Value1")]
     [TestCase("Value2")]
     public Task HashParametersUsageFluent(string arg) =>
         Verify(arg)
             .HashParameters();
-}
 
-#endregion
+    #endregion
+}

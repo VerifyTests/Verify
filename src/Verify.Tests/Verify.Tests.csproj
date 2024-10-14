@@ -29,10 +29,6 @@
     <None Update="sample.level1" CopyToOutputDirectory="PreserveNewest" />
     <None Update=".sample" CopyToOutputDirectory="PreserveNewest" />
     <None Update="sample.recursive" CopyToOutputDirectory="PreserveNewest" />
-    <None Update="AutoVerify.DelegateFalse.received.txt">
-      <ParentFile>AutoVerify</ParentFile>
-      <DependentUpon>AutoVerify.cs</DependentUpon>
-    </None>
     <None Update="InnerVerifyChecksTests\InnerVerifyChecksTests2.Invalid.verified.txt">
       <ParentFile>InnerVerifyChecksTests</ParentFile>
       <DependentUpon>InnerVerifyChecksTests2.cs</DependentUpon>

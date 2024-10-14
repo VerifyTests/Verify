@@ -8,7 +8,7 @@ Add the following packages to the test project:
 
 ```
 dotnet add package Microsoft.NET.Test.Sdk
-dotnet add package Verify.XunitV3 --prerelease
+dotnet add package Verify.XunitV3
 dotnet add package xunit.v3 --prerelease
 dotnet add package xunit.runner.visualstudio --prerelease
 ```

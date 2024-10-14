@@ -12,7 +12,7 @@
     <PackageVersion Include="Fixie" Version="3.4.0" />
     <PackageVersion Include="Fixie.TestAdapter" Version="3.4.0" />
     <PackageVersion Include="Fody" Version="6.8.2" />
-    <PackageVersion Include="FSharp.Core" Version="8.0.400" />
+    <PackageVersion Include="FSharp.Core" Version="8.0.401" />
     <PackageVersion Include="InfoOf.Fody" Version="2.2.0" />
     <PackageVersion Include="MarkdownSnippets.MsBuild" Version="27.0.2" />
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />

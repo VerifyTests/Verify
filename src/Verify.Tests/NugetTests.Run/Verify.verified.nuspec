@@ -14,7 +14,7 @@
     <dependencies>
       <group targetFramework=".NETFramework4.7.2">
         <dependency id="Argon" version="0.21.0" exclude="Build,Analyzers" />
-        <dependency id="DiffEngine" version="15.5.1" exclude="Build,Analyzers" />
+        <dependency id="DiffEngine" version="15.5.2" exclude="Build,Analyzers" />
         <dependency id="Microsoft.Bcl.AsyncInterfaces" version="8.0.0" exclude="Build,Analyzers" />
         <dependency id="SimpleInfoName" version="2.3.0" exclude="Build,Analyzers" />
         <dependency id="System.IO.Hashing" version="8.0.0" exclude="Build,Analyzers" />
@@ -22,7 +22,7 @@
       </group>
       <group targetFramework=".NETFramework4.8">
         <dependency id="Argon" version="0.21.0" exclude="Build,Analyzers" />
-        <dependency id="DiffEngine" version="15.5.1" exclude="Build,Analyzers" />
+        <dependency id="DiffEngine" version="15.5.2" exclude="Build,Analyzers" />
         <dependency id="Microsoft.Bcl.AsyncInterfaces" version="8.0.0" exclude="Build,Analyzers" />
         <dependency id="SimpleInfoName" version="2.3.0" exclude="Build,Analyzers" />
         <dependency id="System.IO.Hashing" version="8.0.0" exclude="Build,Analyzers" />
@@ -30,25 +30,25 @@
       </group>
       <group targetFramework="net6.0">
         <dependency id="Argon" version="0.21.0" exclude="Build,Analyzers" />
-        <dependency id="DiffEngine" version="15.5.1" exclude="Build,Analyzers" />
+        <dependency id="DiffEngine" version="15.5.2" exclude="Build,Analyzers" />
         <dependency id="SimpleInfoName" version="2.3.0" exclude="Build,Analyzers" />
         <dependency id="System.IO.Hashing" version="8.0.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework="net7.0">
         <dependency id="Argon" version="0.21.0" exclude="Build,Analyzers" />
-        <dependency id="DiffEngine" version="15.5.1" exclude="Build,Analyzers" />
+        <dependency id="DiffEngine" version="15.5.2" exclude="Build,Analyzers" />
         <dependency id="SimpleInfoName" version="2.3.0" exclude="Build,Analyzers" />
         <dependency id="System.IO.Hashing" version="8.0.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework="net8.0">
         <dependency id="Argon" version="0.21.0" exclude="Build,Analyzers" />
-        <dependency id="DiffEngine" version="15.5.1" exclude="Build,Analyzers" />
+        <dependency id="DiffEngine" version="15.5.2" exclude="Build,Analyzers" />
         <dependency id="SimpleInfoName" version="2.3.0" exclude="Build,Analyzers" />
         <dependency id="System.IO.Hashing" version="8.0.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework="net9.0">
         <dependency id="Argon" version="0.21.0" exclude="Build,Analyzers" />
-        <dependency id="DiffEngine" version="15.5.1" exclude="Build,Analyzers" />
+        <dependency id="DiffEngine" version="15.5.2" exclude="Build,Analyzers" />
         <dependency id="SimpleInfoName" version="2.3.0" exclude="Build,Analyzers" />
         <dependency id="System.IO.Hashing" version="8.0.0" exclude="Build,Analyzers" />
       </group>

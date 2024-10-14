@@ -17,7 +17,7 @@
         <dependency id="xunit.abstractions" version="2.0.3" exclude="Build,Analyzers" />
         <dependency id="xunit.extensibility.execution" version="2.9.2" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.21.0" exclude="Analyzers" />
-        <dependency id="DiffEngine" version="15.5.1" exclude="Analyzers" />
+        <dependency id="DiffEngine" version="15.5.2" exclude="Analyzers" />
         <dependency id="Microsoft.Bcl.AsyncInterfaces" version="8.0.0" exclude="Analyzers" />
         <dependency id="SimpleInfoName" version="2.3.0" exclude="Analyzers" />
         <dependency id="System.IO.Hashing" version="8.0.0" exclude="Analyzers" />
@@ -28,7 +28,7 @@
         <dependency id="xunit.abstractions" version="2.0.3" exclude="Build,Analyzers" />
         <dependency id="xunit.extensibility.execution" version="2.9.2" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.21.0" exclude="Analyzers" />
-        <dependency id="DiffEngine" version="15.5.1" exclude="Analyzers" />
+        <dependency id="DiffEngine" version="15.5.2" exclude="Analyzers" />
         <dependency id="Microsoft.Bcl.AsyncInterfaces" version="8.0.0" exclude="Analyzers" />
         <dependency id="SimpleInfoName" version="2.3.0" exclude="Analyzers" />
         <dependency id="System.IO.Hashing" version="8.0.0" exclude="Analyzers" />
@@ -39,7 +39,7 @@
         <dependency id="xunit.abstractions" version="2.0.3" exclude="Build,Analyzers" />
         <dependency id="xunit.extensibility.execution" version="2.9.2" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.21.0" exclude="Analyzers" />
-        <dependency id="DiffEngine" version="15.5.1" exclude="Analyzers" />
+        <dependency id="DiffEngine" version="15.5.2" exclude="Analyzers" />
         <dependency id="SimpleInfoName" version="2.3.0" exclude="Analyzers" />
         <dependency id="System.IO.Hashing" version="8.0.0" exclude="Analyzers" />
       </group>
@@ -48,7 +48,7 @@
         <dependency id="xunit.abstractions" version="2.0.3" exclude="Build,Analyzers" />
         <dependency id="xunit.extensibility.execution" version="2.9.2" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.21.0" exclude="Analyzers" />
-        <dependency id="DiffEngine" version="15.5.1" exclude="Analyzers" />
+        <dependency id="DiffEngine" version="15.5.2" exclude="Analyzers" />
         <dependency id="SimpleInfoName" version="2.3.0" exclude="Analyzers" />
         <dependency id="System.IO.Hashing" version="8.0.0" exclude="Analyzers" />
       </group>
@@ -57,7 +57,7 @@
         <dependency id="xunit.abstractions" version="2.0.3" exclude="Build,Analyzers" />
         <dependency id="xunit.extensibility.execution" version="2.9.2" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.21.0" exclude="Analyzers" />
-        <dependency id="DiffEngine" version="15.5.1" exclude="Analyzers" />
+        <dependency id="DiffEngine" version="15.5.2" exclude="Analyzers" />
         <dependency id="SimpleInfoName" version="2.3.0" exclude="Analyzers" />
         <dependency id="System.IO.Hashing" version="8.0.0" exclude="Analyzers" />
       </group>
@@ -66,7 +66,7 @@
         <dependency id="xunit.abstractions" version="2.0.3" exclude="Build,Analyzers" />
         <dependency id="xunit.extensibility.execution" version="2.9.2" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.21.0" exclude="Analyzers" />
-        <dependency id="DiffEngine" version="15.5.1" exclude="Analyzers" />
+        <dependency id="DiffEngine" version="15.5.2" exclude="Analyzers" />
         <dependency id="SimpleInfoName" version="2.3.0" exclude="Analyzers" />
         <dependency id="System.IO.Hashing" version="8.0.0" exclude="Analyzers" />
       </group>

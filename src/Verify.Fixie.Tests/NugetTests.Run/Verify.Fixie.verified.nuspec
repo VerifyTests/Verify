@@ -16,7 +16,7 @@
         <dependency id="Verify" version="version" include="All" />
         <dependency id="Fixie" version="3.4.0" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.21.0" exclude="Analyzers" />
-        <dependency id="DiffEngine" version="15.5.1" exclude="Analyzers" />
+        <dependency id="DiffEngine" version="15.5.2" exclude="Analyzers" />
         <dependency id="SimpleInfoName" version="2.3.0" exclude="Analyzers" />
         <dependency id="System.IO.Hashing" version="8.0.0" exclude="Analyzers" />
       </group>
@@ -24,7 +24,7 @@
         <dependency id="Verify" version="version" include="All" />
         <dependency id="Fixie" version="3.4.0" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.21.0" exclude="Analyzers" />
-        <dependency id="DiffEngine" version="15.5.1" exclude="Analyzers" />
+        <dependency id="DiffEngine" version="15.5.2" exclude="Analyzers" />
         <dependency id="SimpleInfoName" version="2.3.0" exclude="Analyzers" />
         <dependency id="System.IO.Hashing" version="8.0.0" exclude="Analyzers" />
       </group>
@@ -32,7 +32,7 @@
         <dependency id="Verify" version="version" include="All" />
         <dependency id="Fixie" version="3.4.0" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.21.0" exclude="Analyzers" />
-        <dependency id="DiffEngine" version="15.5.1" exclude="Analyzers" />
+        <dependency id="DiffEngine" version="15.5.2" exclude="Analyzers" />
         <dependency id="SimpleInfoName" version="2.3.0" exclude="Analyzers" />
         <dependency id="System.IO.Hashing" version="8.0.0" exclude="Analyzers" />
       </group>
@@ -40,7 +40,7 @@
         <dependency id="Verify" version="version" include="All" />
         <dependency id="Fixie" version="3.4.0" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.21.0" exclude="Analyzers" />
-        <dependency id="DiffEngine" version="15.5.1" exclude="Analyzers" />
+        <dependency id="DiffEngine" version="15.5.2" exclude="Analyzers" />
         <dependency id="SimpleInfoName" version="2.3.0" exclude="Analyzers" />
         <dependency id="System.IO.Hashing" version="8.0.0" exclude="Analyzers" />
       </group>

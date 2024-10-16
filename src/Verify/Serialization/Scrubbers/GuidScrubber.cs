@@ -16,16 +16,12 @@
         var value = builder.ToString().AsSpan();
 
         var builderIndex = 0;
-        for (var index = 0; index <= value.Length; index++)
+        for (var index = 0; index <= value.Length - 36; index++)
         {
-            var end = index + 36;
-            if (end > value.Length)
-            {
-                return;
-            }
-
-            if ((index == 0 || !IsInvalidStartingChar(value[index - 1])) &&
-                (end == value.Length || !IsInvalidEndingChar(value[end])))
+            if (value[index + 8] == '-' &&
+                value[index + 13] == '-' &&
+                value[index + 18] == '-' &&
+                value[index + 23] == '-')
             {
                 var slice = value.Slice(index, 36);
                 if (!slice.ContainsNewline() && TryParse(slice, out var guid))
@@ -49,18 +45,4 @@
 #else
         Guid.TryParseExact(slice.ToString(), "D", out guid);
 #endif
-
-    static bool IsInvalidEndingChar(char ch) =>
-        IsInvalidChar(ch) &&
-        ch != '}' &&
-        ch != ')';
-
-    static bool IsInvalidChar(char ch) =>
-        char.IsLetter(ch) ||
-        char.IsNumber(ch);
-
-    static bool IsInvalidStartingChar(char ch) =>
-        IsInvalidChar(ch) &&
-        ch != '{' &&
-        ch != '(';
 }

@@ -14,7 +14,7 @@
     <dependencies>
       <group targetFramework=".NETFramework4.7.2">
         <dependency id="Verify" version="version" include="All" />
-        <dependency id="xunit.v3.extensibility.core" version="0.4.0-pre.20" exclude="Build,Analyzers" />
+        <dependency id="xunit.v3.extensibility.core" version="0.5.0-pre.27" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.22.0" exclude="Analyzers" />
         <dependency id="DiffEngine" version="15.5.3" exclude="Analyzers" />
         <dependency id="Microsoft.Bcl.AsyncInterfaces" version="8.0.0" />
@@ -24,7 +24,7 @@
       </group>
       <group targetFramework=".NETFramework4.8">
         <dependency id="Verify" version="version" include="All" />
-        <dependency id="xunit.v3.extensibility.core" version="0.4.0-pre.20" exclude="Build,Analyzers" />
+        <dependency id="xunit.v3.extensibility.core" version="0.5.0-pre.27" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.22.0" exclude="Analyzers" />
         <dependency id="DiffEngine" version="15.5.3" exclude="Analyzers" />
         <dependency id="Microsoft.Bcl.AsyncInterfaces" version="8.0.0" />
@@ -34,7 +34,7 @@
       </group>
       <group targetFramework="net6.0">
         <dependency id="Verify" version="version" include="All" />
-        <dependency id="xunit.v3.extensibility.core" version="0.4.0-pre.20" exclude="Build,Analyzers" />
+        <dependency id="xunit.v3.extensibility.core" version="0.5.0-pre.27" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.22.0" exclude="Analyzers" />
         <dependency id="DiffEngine" version="15.5.3" exclude="Analyzers" />
         <dependency id="Microsoft.Bcl.AsyncInterfaces" version="8.0.0" exclude="Build,Analyzers" />
@@ -43,7 +43,7 @@
       </group>
       <group targetFramework="net7.0">
         <dependency id="Verify" version="version" include="All" />
-        <dependency id="xunit.v3.extensibility.core" version="0.4.0-pre.20" exclude="Build,Analyzers" />
+        <dependency id="xunit.v3.extensibility.core" version="0.5.0-pre.27" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.22.0" exclude="Analyzers" />
         <dependency id="DiffEngine" version="15.5.3" exclude="Analyzers" />
         <dependency id="Microsoft.Bcl.AsyncInterfaces" version="8.0.0" exclude="Build,Analyzers" />
@@ -52,7 +52,7 @@
       </group>
       <group targetFramework="net8.0">
         <dependency id="Verify" version="version" include="All" />
-        <dependency id="xunit.v3.extensibility.core" version="0.4.0-pre.20" exclude="Build,Analyzers" />
+        <dependency id="xunit.v3.extensibility.core" version="0.5.0-pre.27" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.22.0" exclude="Analyzers" />
         <dependency id="DiffEngine" version="15.5.3" exclude="Analyzers" />
         <dependency id="Microsoft.Bcl.AsyncInterfaces" version="8.0.0" exclude="Build,Analyzers" />
@@ -61,7 +61,7 @@
       </group>
       <group targetFramework="net9.0">
         <dependency id="Verify" version="version" include="All" />
-        <dependency id="xunit.v3.extensibility.core" version="0.4.0-pre.20" exclude="Build,Analyzers" />
+        <dependency id="xunit.v3.extensibility.core" version="0.5.0-pre.27" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.22.0" exclude="Analyzers" />
         <dependency id="DiffEngine" version="15.5.3" exclude="Analyzers" />
         <dependency id="Microsoft.Bcl.AsyncInterfaces" version="8.0.0" exclude="Build,Analyzers" />

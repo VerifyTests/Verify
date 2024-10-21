@@ -41,13 +41,12 @@
             {
                 if (a == "b")
                 {
-                    throw new("Some exception");
+                    throw new ArgumentException("B is not allowed");
                 }
 
                 return a.ToLower() + b + c;
             },
-            a, b, c)
-            .IgnoreStackTrace();
+            a, b, c);
     }
 
     [Fact]

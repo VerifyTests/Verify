@@ -176,15 +176,22 @@ partial class InnerVerifier
                 {
                     value = processCall(combo);
                 }
+                catch (TargetInvocationException exception)
+                {
+                    value = ExceptionToString(exception.InnerException!);
+                }
                 catch (Exception exception)
                 {
-                    value = exception;
+                    value = ExceptionToString(exception);
                 }
                 items.Add(BuildKeys(combo), value);
             });
         combinationGenerator.Run();
         return items;
     }
+
+    static string ExceptionToString(Exception exception) =>
+        $"{exception.GetType().Name}: {exception.Message}";
 
     static StringBuilder BuildKeys(object?[] combo)
     {

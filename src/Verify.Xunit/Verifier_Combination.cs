@@ -34,6 +34,26 @@ public static partial class Verifier
         return Verify(settings, sourceFile, _ => _.Verify(target));
     }
 
+    [Pure]
+    public static SettingsTask VerifyCombinations<A, B, C>(
+        Func<A, B, C, object> processCall,
+        IEnumerable<A> a,
+        IEnumerable<B> b,
+        IEnumerable<C> c,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "")
+    {
+        var target = GetCombinationString(
+            processCall.DynamicInvoke,
+            null,
+            [
+                a.Cast<object?>().ToList(),
+                b.Cast<object?>().ToList(),
+                c.Cast<object?>().ToList()
+            ]);
+        return Verify(settings, sourceFile, _ => _.Verify(target));
+    }
+
     static StringBuilder GetCombinationString(
         Func<object?[], object?> processCall,
         Func<object, string>? resultFormatter,

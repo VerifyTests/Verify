@@ -5,7 +5,7 @@ public static partial class Verifier
 {
     [Pure]
     public static SettingsTask VerifyCombinations<A>(
-        Func<A, string?> processCall,
+        Func<A, object?> processCall,
         IEnumerable<A> a,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
@@ -16,7 +16,7 @@ public static partial class Verifier
 
     [Pure]
     public static SettingsTask VerifyCombinations<A, B>(
-        Func<A, B, string?> processCall,
+        Func<A, B, object?> processCall,
         IEnumerable<A> a,
         IEnumerable<B> b,
         VerifySettings? settings = null,
@@ -28,7 +28,7 @@ public static partial class Verifier
 
     [Pure]
     public static SettingsTask VerifyCombinations<A, B, C>(
-        Func<A, B, C, string?> processCall,
+        Func<A, B, C, object?> processCall,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -41,7 +41,7 @@ public static partial class Verifier
 
     [Pure]
     public static SettingsTask VerifyCombinations<A, B, C, D>(
-        Func<A, B, C, D, string?> processCall,
+        Func<A, B, C, D, object?> processCall,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -55,7 +55,7 @@ public static partial class Verifier
 
     [Pure]
     public static SettingsTask VerifyCombinations<A, B, C, D, E>(
-        Func<A, B, C, D, E, string?> processCall,
+        Func<A, B, C, D, E, object?> processCall,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -70,7 +70,7 @@ public static partial class Verifier
 
     [Pure]
     public static SettingsTask VerifyCombinations<A, B, C, D, E, F>(
-        Func<A, B, C, D, E, F, string?> processCall,
+        Func<A, B, C, D, E, F, object?> processCall,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -86,7 +86,7 @@ public static partial class Verifier
 
     [Pure]
     public static SettingsTask VerifyCombinations<A, B, C, D, E, F, G>(
-        Func<A, B, C, D, E, F, G, string?> processCall,
+        Func<A, B, C, D, E, F, G, object?> processCall,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -103,7 +103,7 @@ public static partial class Verifier
 
     [Pure]
     public static SettingsTask VerifyCombinations<A, B, C, D, E, F, G, H>(
-        Func<A, B, C, D, E, F, G, H, string?> processCall,
+        Func<A, B, C, D, E, F, G, H, object?> processCall,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -121,7 +121,7 @@ public static partial class Verifier
 
     [Pure]
     public static SettingsTask VerifyCombinations(
-        Func<object?[], string?> processCall,
+        Func<object?[], object?> processCall,
         List<IEnumerable<object?>> lists,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>

@@ -4,17 +4,17 @@ namespace VerifyTests;
 partial class InnerVerifier
 {
     public Task<VerifyResult> VerifyCombinations<A>(
-        Func<A, string?> processCall,
+        Func<A, object?> processCall,
         IEnumerable<A> a)
     {
         var target = GetCombinationString(
             processCall.DynamicInvoke,
             [a.Cast<object?>()]);
-        return Verify(target.ToString());
+        return Verify(target);
     }
 
     public Task<VerifyResult> VerifyCombinations<A, B>(
-        Func<A, B, string?> processCall,
+        Func<A, B, object?> processCall,
         IEnumerable<A> a,
         IEnumerable<B> b)
     {
@@ -24,11 +24,11 @@ partial class InnerVerifier
                 a.Cast<object?>(),
                 b.Cast<object?>()
             ]);
-        return Verify(target.ToString());
+        return Verify(target);
     }
 
     public Task<VerifyResult> VerifyCombinations<A, B, C>(
-        Func<A, B, C, string?> processCall,
+        Func<A, B, C, object?> processCall,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c)
@@ -40,11 +40,11 @@ partial class InnerVerifier
                 b.Cast<object?>(),
                 c.Cast<object?>()
             ]);
-        return Verify(target.ToString());
+        return Verify(target);
     }
 
     public Task<VerifyResult> VerifyCombinations<A, B, C, D>(
-        Func<A, B, C, D, string?> processCall,
+        Func<A, B, C, D, object?> processCall,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -58,11 +58,11 @@ partial class InnerVerifier
                 c.Cast<object?>(),
                 d.Cast<object?>()
             ]);
-        return Verify(target.ToString());
+        return Verify(target);
     }
 
     public Task<VerifyResult> VerifyCombinations<A, B, C, D, E>(
-        Func<A, B, C, D, E, string?> processCall,
+        Func<A, B, C, D, E, object?> processCall,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -78,11 +78,11 @@ partial class InnerVerifier
                 d.Cast<object?>(),
                 e.Cast<object?>()
             ]);
-        return Verify(target.ToString());
+        return Verify(target);
     }
 
     public Task<VerifyResult> VerifyCombinations<A, B, C, D, E, F>(
-        Func<A, B, C, D, E, F, string?> processCall,
+        Func<A, B, C, D, E, F, object?> processCall,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -100,11 +100,11 @@ partial class InnerVerifier
                 e.Cast<object?>(),
                 f.Cast<object?>()
             ]);
-        return Verify(target.ToString());
+        return Verify(target);
     }
 
     public Task<VerifyResult> VerifyCombinations<A, B, C, D, E, F, G>(
-        Func<A, B, C, D, E, F, G, string?> processCall,
+        Func<A, B, C, D, E, F, G, object?> processCall,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -124,11 +124,11 @@ partial class InnerVerifier
                 f.Cast<object?>(),
                 g.Cast<object?>()
             ]);
-        return Verify(target.ToString());
+        return Verify(target);
     }
 
     public Task<VerifyResult> VerifyCombinations<A, B, C, D, E, F, G, H>(
-        Func<A, B, C, D, E, F, G, H, string?> processCall,
+        Func<A, B, C, D, E, F, G, H, object?> processCall,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -150,65 +150,45 @@ partial class InnerVerifier
                 g.Cast<object?>(),
                 h.Cast<object?>()
             ]);
-        return Verify(target.ToString());
+        return Verify(target);
     }
 
     public Task<VerifyResult> VerifyCombinations(
-        Func<object?[], string?> processCall,
-        List<IEnumerable<object?>> lists)
-    {
-        var target = GetCombinationString(processCall, lists);
-        return Verify(target.ToString());
-    }
-
-    StringBuilder GetCombinationString(
         Func<object?[], object?> processCall,
         List<IEnumerable<object?>> lists)
     {
-        var builder = new StringBuilder();
+        var target = GetCombinationString(processCall, lists);
+        return Verify(target);
+    }
+
+    static List<Item> GetCombinationString(
+        Func<object?[], object?> processCall,
+        List<IEnumerable<object?>> lists)
+    {
+        var items = new List<Item>();
         var listCopy = lists.Select(_ => _.ToList()).ToList();
         var combinationGenerator = new CombinationGenerator(
             listCopy,
             combo =>
             {
-                AppendKeys(builder, combo);
-
-                string? result;
-
+                object? value;
                 try
                 {
-                    result = (string?)processCall(combo);
+                    value = processCall(combo);
                 }
                 catch (Exception exception)
                 {
-                    builder.AppendLineN($"Exception: {exception.Message}");
-                    return;
+                    value = $"Exception: {exception.Message}";
                 }
-
-                if (result == null)
-                {
-                    builder.AppendLineN("null");
-                    return;
-                }
-
-                var span = result.AsSpan();
-                if (settings.serialization.TryConvertString(counter, span, out result))
-                {
-                    builder.AppendLineN(result);
-                    return;
-                }
-
-                result =  ApplyScrubbers.ApplyForPropertyValue(span, settings, counter).ToString();
-                builder.AppendLineN(result);
+                items.Add(new(BuildKeys(combo), value));
             });
         combinationGenerator.Run();
-        return builder;
+        return items;
     }
 
-    static void AppendKeys(StringBuilder builder, object?[] combo)
+    static StringBuilder BuildKeys(object?[] combo)
     {
-        builder.Append('[');
-
+        var builder = new StringBuilder();
         for (var index = 0; index < combo.Length; index++)
         {
             var item = combo[index];
@@ -219,6 +199,13 @@ partial class InnerVerifier
             }
         }
 
-        builder.Append("] => ");
+        return builder;
+    }
+
+    public class Item(StringBuilder keys, object? value)
+    {
+        public StringBuilder Keys { get; } = keys;
+        public object? Value { get; } = value;
     }
 }
+

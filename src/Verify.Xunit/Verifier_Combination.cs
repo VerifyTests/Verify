@@ -10,13 +10,14 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "")
     {
         var target = GetCombinationString(
-            _ => processCall.DynamicInvoke(_.ToArray()),
-            null, [a.Cast<object?>().ToList()]);
+            processCall.DynamicInvoke,
+            null,
+            [a.Cast<object?>().ToList()]);
         return Verify(settings, sourceFile, _ => _.Verify(target));
     }
 
     [Pure]
-    public static SettingsTask VerifyCombinations<A,B>(
+    public static SettingsTask VerifyCombinations<A, B>(
         Func<A, B, object> processCall,
         IEnumerable<A> a,
         IEnumerable<B> b,
@@ -24,7 +25,7 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "")
     {
         var target = GetCombinationString(
-            _ => processCall.DynamicInvoke(_.ToArray()),
+            processCall.DynamicInvoke,
             null,
             [
                 a.Cast<object?>().ToList(),
@@ -34,22 +35,21 @@ public static partial class Verifier
     }
 
     static StringBuilder GetCombinationString(
-        Func<List<object?>, object?> processCall,
+        Func<object?[], object?> processCall,
         Func<object, string>? resultFormatter,
         List<List<object?>> lists)
     {
         var builder = new StringBuilder();
-        var result = new List<object?>();
         var combinationGenerator = new CombinationGenerator(lists,
             combo =>
             {
                 builder.Append('[');
 
-                for (var index = 0; index < combo.Count; index++)
+                for (var index = 0; index < combo.Length; index++)
                 {
                     var item = combo[index];
                     VerifierSettings.AppendParameter(item, builder, true);
-                    if (index + 1 != combo.Count)
+                    if (index + 1 != combo.Length)
                     {
                         builder.Append(", ");
                     }
@@ -88,29 +88,23 @@ public static partial class Verifier
     }
 }
 
-class CombinationGenerator
+class CombinationGenerator(List<List<object?>> lists, Action<object?[]> action)
 {
-    readonly List<List<object?>> lists;
-    readonly Action<List<object?>> action;
+    object?[] parameters = new object[lists.Count];
 
-    public CombinationGenerator(List<List<object?>> lists, Action<List<object?>> action)
-    {
-        this.lists = lists;
-        this.action = action;
-    }
     public void Run()
     {
         var indices = new int[lists.Count];
 
         while (true)
         {
-            var combination = new List<object?>();
             for (var i = 0; i < lists.Count; i++)
             {
-                combination.Add(lists[i][indices[i]]);
+                var list = lists[i];
+                parameters[i] = list[indices[i]];
             }
 
-            action(combination);
+            action(parameters);
 
             var incrementIndex = lists.Count - 1;
             while (incrementIndex >= 0 && ++indices[incrementIndex] >= lists[incrementIndex].Count)
@@ -124,6 +118,5 @@ class CombinationGenerator
                 break;
             }
         }
-
     }
 }

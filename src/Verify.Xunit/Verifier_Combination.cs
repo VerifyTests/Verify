@@ -12,7 +12,7 @@ public static partial class Verifier
         var target = GetCombinationString(
             processCall.DynamicInvoke,
             null,
-            [a.Cast<object?>().ToList()]);
+            [a.Cast<object?>()]);
         return Verify(settings, sourceFile, _ => _.Verify(target));
     }
 
@@ -28,8 +28,8 @@ public static partial class Verifier
             processCall.DynamicInvoke,
             null,
             [
-                a.Cast<object?>().ToList(),
-                b.Cast<object?>().ToList()
+                a.Cast<object?>(),
+                b.Cast<object?>()
             ]);
         return Verify(settings, sourceFile, _ => _.Verify(target));
     }
@@ -47,9 +47,9 @@ public static partial class Verifier
             processCall.DynamicInvoke,
             null,
             [
-                a.Cast<object?>().ToList(),
-                b.Cast<object?>().ToList(),
-                c.Cast<object?>().ToList()
+                a.Cast<object?>(),
+                b.Cast<object?>(),
+                c.Cast<object?>()
             ]);
         return Verify(settings, sourceFile, _ => _.Verify(target));
     }
@@ -57,10 +57,12 @@ public static partial class Verifier
     static StringBuilder GetCombinationString(
         Func<object?[], object?> processCall,
         Func<object, string>? resultFormatter,
-        List<List<object?>> lists)
+        List<IEnumerable<object?>> lists)
     {
         var builder = new StringBuilder();
-        var combinationGenerator = new CombinationGenerator(lists,
+        var listCopy = lists.Select(_=>_.ToList()).ToList();
+        var combinationGenerator = new CombinationGenerator(
+            listCopy,
             combo =>
             {
                 builder.Append('[');

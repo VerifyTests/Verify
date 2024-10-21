@@ -19,17 +19,11 @@ public static partial class Verifier
         IEnumerable<A> a,
         IEnumerable<B> b,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
-    {
-        var target = GetCombinationString(
-            processCall.DynamicInvoke,
-            null,
-            [
-                a.Cast<object?>(),
-                b.Cast<object?>()
-            ]);
-        return Verify(settings, sourceFile, _ => _.Verify(target));
-    }
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(
+            settings,
+            sourceFile,
+            _ => _.VerifyCombinations(processCall, a, b));
 
     [Pure]
     public static SettingsTask VerifyCombinations<A, B, C>(
@@ -38,71 +32,9 @@ public static partial class Verifier
         IEnumerable<B> b,
         IEnumerable<C> c,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
-    {
-        var target = GetCombinationString(
-            processCall.DynamicInvoke,
-            null,
-            [
-                a.Cast<object?>(),
-                b.Cast<object?>(),
-                c.Cast<object?>()
-            ]);
-        return Verify(settings, sourceFile, _ => _.Verify(target));
-    }
-
-    static StringBuilder GetCombinationString(
-        Func<object?[], object?> processCall,
-        Func<object, string>? resultFormatter,
-        List<IEnumerable<object?>> lists)
-    {
-        var builder = new StringBuilder();
-        var listCopy = lists.Select(_=>_.ToList()).ToList();
-        var combinationGenerator = new CombinationGenerator(
-            listCopy,
-            combo =>
-            {
-                builder.Append('[');
-
-                for (var index = 0; index < combo.Length; index++)
-                {
-                    var item = combo[index];
-                    VerifierSettings.AppendParameter(item, builder, true);
-                    if (index + 1 != combo.Length)
-                    {
-                        builder.Append(", ");
-                    }
-                }
-
-                builder.Append("] => ");
-
-                object? result;
-
-                try
-                {
-                    result = processCall(combo);
-                }
-                catch (Exception exception)
-                {
-                    builder.AppendLineN($"Exception: {exception.Message}");
-                    return;
-                }
-
-                if (result == null)
-                {
-                    builder.AppendLineN("null");
-                    return;
-                }
-
-                if (resultFormatter == null)
-                {
-                    builder.AppendLineN(result.ToString());
-                    return;
-                }
-
-                builder.AppendLineN(resultFormatter(result));
-            });
-        combinationGenerator.Run();
-        return builder;
-    }
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(
+            settings,
+            sourceFile,
+            _ => _.VerifyCombinations(processCall, a, b, c));
 }

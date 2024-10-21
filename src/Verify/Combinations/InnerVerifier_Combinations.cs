@@ -13,6 +13,38 @@ partial class InnerVerifier
         return Verify(target.ToString());
     }
 
+    public Task<VerifyResult> VerifyCombinations<A, B>(
+        Func<A, B, object> processCall,
+        IEnumerable<A> a,
+        IEnumerable<B> b)
+    {
+        var target = GetCombinationString(
+            processCall.DynamicInvoke,
+            null,
+            [
+                a.Cast<object?>(),
+                b.Cast<object?>()
+            ]);
+        return Verify(target.ToString());
+    }
+
+    public Task<VerifyResult> VerifyCombinations<A, B, C>(
+        Func<A, B, C, object> processCall,
+        IEnumerable<A> a,
+        IEnumerable<B> b,
+        IEnumerable<C> c)
+    {
+        var target = GetCombinationString(
+            processCall.DynamicInvoke,
+            null,
+            [
+                a.Cast<object?>(),
+                b.Cast<object?>(),
+                c.Cast<object?>()
+            ]);
+        return Verify(target.ToString());
+    }
+
     static StringBuilder GetCombinationString(
         Func<object?[], object?> processCall,
         Func<object, string>? resultFormatter,

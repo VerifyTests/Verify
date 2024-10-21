@@ -1,4 +1,5 @@
-﻿namespace VerifyXunit;
+﻿// ReSharper disable InconsistentNaming
+namespace VerifyXunit;
 
 public static partial class Verifier
 {

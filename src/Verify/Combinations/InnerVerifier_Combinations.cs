@@ -1,26 +1,25 @@
-﻿namespace VerifyTests;
+﻿// ReSharper disable InconsistentNaming
+namespace VerifyTests;
 
 partial class InnerVerifier
 {
     public Task<VerifyResult> VerifyCombinations<A>(
-        Func<A, object> processCall,
+        Func<A, string?> processCall,
         IEnumerable<A> a)
     {
         var target = GetCombinationString(
             processCall.DynamicInvoke,
-            null,
             [a.Cast<object?>()]);
         return Verify(target.ToString());
     }
 
     public Task<VerifyResult> VerifyCombinations<A, B>(
-        Func<A, B, object> processCall,
+        Func<A, B, string?> processCall,
         IEnumerable<A> a,
         IEnumerable<B> b)
     {
         var target = GetCombinationString(
             processCall.DynamicInvoke,
-            null,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>()
@@ -29,14 +28,13 @@ partial class InnerVerifier
     }
 
     public Task<VerifyResult> VerifyCombinations<A, B, C>(
-        Func<A, B, C, object> processCall,
+        Func<A, B, C, string?> processCall,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c)
     {
         var target = GetCombinationString(
             processCall.DynamicInvoke,
-            null,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -47,7 +45,6 @@ partial class InnerVerifier
 
     static StringBuilder GetCombinationString(
         Func<object?[], object?> processCall,
-        Func<object, string>? resultFormatter,
         List<IEnumerable<object?>> lists)
     {
         var builder = new StringBuilder();
@@ -70,11 +67,11 @@ partial class InnerVerifier
 
                 builder.Append("] => ");
 
-                object? result;
+                string? result;
 
                 try
                 {
-                    result = processCall(combo);
+                    result = (string?) processCall(combo);
                 }
                 catch (Exception exception)
                 {
@@ -88,13 +85,7 @@ partial class InnerVerifier
                     return;
                 }
 
-                if (resultFormatter == null)
-                {
-                    builder.AppendLineN(result.ToString());
-                    return;
-                }
-
-                builder.AppendLineN(resultFormatter(result));
+                builder.AppendLineN(result);
             });
         combinationGenerator.Run();
         return builder;

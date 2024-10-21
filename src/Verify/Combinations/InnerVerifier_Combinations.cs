@@ -166,7 +166,7 @@ partial class InnerVerifier
         List<IEnumerable<object?>> lists)
     {
         var builder = new StringBuilder();
-        var listCopy = lists.Select(_=>_.ToList()).ToList();
+        var listCopy = lists.Select(_ => _.ToList()).ToList();
         var combinationGenerator = new CombinationGenerator(
             listCopy,
             combo =>
@@ -189,7 +189,7 @@ partial class InnerVerifier
 
                 try
                 {
-                    result = (string?) processCall(combo);
+                    result = (string?)processCall(combo);
                 }
                 catch (Exception exception)
                 {

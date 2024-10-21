@@ -1,6 +1,4 @@
-﻿namespace VerifyXunit;
-
-class CombinationGenerator(List<List<object?>> lists, Action<object?[]> action)
+﻿class CombinationGenerator(List<List<object?>> lists, Action<object?[]> action)
 {
     object?[] parameters = new object[lists.Count];
     int[] indices = new int[lists.Count];

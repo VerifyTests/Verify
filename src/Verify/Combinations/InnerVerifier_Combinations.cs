@@ -1,54 +1,16 @@
-﻿namespace VerifyXunit;
+﻿namespace VerifyTests;
 
-public static partial class Verifier
+partial class InnerVerifier
 {
-    [Pure]
-    public static SettingsTask VerifyCombinations<A>(
+    public Task<VerifyResult> VerifyCombinations<A>(
         Func<A, object> processCall,
-        IEnumerable<A> a,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(
-            settings,
-            sourceFile,
-            _ => _.VerifyCombinations(processCall, a));
-
-    [Pure]
-    public static SettingsTask VerifyCombinations<A, B>(
-        Func<A, B, object> processCall,
-        IEnumerable<A> a,
-        IEnumerable<B> b,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
+        IEnumerable<A> a)
     {
         var target = GetCombinationString(
             processCall.DynamicInvoke,
             null,
-            [
-                a.Cast<object?>(),
-                b.Cast<object?>()
-            ]);
-        return Verify(settings, sourceFile, _ => _.Verify(target));
-    }
-
-    [Pure]
-    public static SettingsTask VerifyCombinations<A, B, C>(
-        Func<A, B, C, object> processCall,
-        IEnumerable<A> a,
-        IEnumerable<B> b,
-        IEnumerable<C> c,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
-    {
-        var target = GetCombinationString(
-            processCall.DynamicInvoke,
-            null,
-            [
-                a.Cast<object?>(),
-                b.Cast<object?>(),
-                c.Cast<object?>()
-            ]);
-        return Verify(settings, sourceFile, _ => _.Verify(target));
+            [a.Cast<object?>()]);
+        return Verify(target.ToString());
     }
 
     static StringBuilder GetCombinationString(

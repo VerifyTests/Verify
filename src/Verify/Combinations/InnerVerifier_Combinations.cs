@@ -161,7 +161,7 @@ partial class InnerVerifier
         return Verify(target.ToString());
     }
 
-    static StringBuilder GetCombinationString(
+    StringBuilder GetCombinationString(
         Func<object?[], object?> processCall,
         List<IEnumerable<object?>> lists)
     {
@@ -171,19 +171,7 @@ partial class InnerVerifier
             listCopy,
             combo =>
             {
-                builder.Append('[');
-
-                for (var index = 0; index < combo.Length; index++)
-                {
-                    var item = combo[index];
-                    VerifierSettings.AppendParameter(item, builder, true);
-                    if (index + 1 != combo.Length)
-                    {
-                        builder.Append(", ");
-                    }
-                }
-
-                builder.Append("] => ");
+                AppendKeys(builder, combo);
 
                 string? result;
 
@@ -203,9 +191,34 @@ partial class InnerVerifier
                     return;
                 }
 
+                var span = result.AsSpan();
+                if (settings.serialization.TryConvertString(counter, span, out result))
+                {
+                    builder.AppendLineN(result);
+                    return;
+                }
+
+                result =  ApplyScrubbers.ApplyForPropertyValue(span, settings, counter).ToString();
                 builder.AppendLineN(result);
             });
         combinationGenerator.Run();
         return builder;
+    }
+
+    static void AppendKeys(StringBuilder builder, object?[] combo)
+    {
+        builder.Append('[');
+
+        for (var index = 0; index < combo.Length; index++)
+        {
+            var item = combo[index];
+            VerifierSettings.AppendParameter(item, builder, true);
+            if (index + 1 != combo.Length)
+            {
+                builder.Append(", ");
+            }
+        }
+
+        builder.Append("] => ");
     }
 }

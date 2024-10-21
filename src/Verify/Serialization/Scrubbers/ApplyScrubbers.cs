@@ -144,6 +144,12 @@ static class ApplyScrubbers
     {
         var builder = new StringBuilder(value.Length);
         builder.Append(value);
+        ApplyForPropertyValue(settings, counter, builder);
+        return builder.AsSpan();
+    }
+
+    public static void ApplyForPropertyValue(VerifySettings settings, Counter counter, StringBuilder builder)
+    {
         foreach (var scrubber in settings.InstanceScrubbers)
         {
             scrubber(builder, counter);
@@ -160,7 +166,6 @@ static class ApplyScrubbers
         }
 
         builder.FixNewlines();
-        return builder.AsSpan();
     }
 
     static string CleanPath(string directory) =>

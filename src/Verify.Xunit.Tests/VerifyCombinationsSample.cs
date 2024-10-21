@@ -18,6 +18,7 @@
             (a, b) => a.ToLower() + b,
             a, b);
     }
+
     [Fact]
     public Task Three()
     {
@@ -27,6 +28,26 @@
         return VerifyCombinations(
             (a, b, c) => a.ToLower() + b + c,
             a, b, c);
+    }
+
+    [Fact]
+    public Task WithException()
+    {
+        List<string> a = ["A", "b", "C"];
+        List<int> b = [1, 2, 3];
+        List<bool> c = [true, false];
+        return VerifyCombinations(
+            (a, b, c) =>
+            {
+                if (a == "b")
+                {
+                    throw new("Some exception");
+                }
+
+                return a.ToLower() + b + c;
+            },
+            a, b, c)
+            .IgnoreStackTrace();
     }
 
     [Fact]

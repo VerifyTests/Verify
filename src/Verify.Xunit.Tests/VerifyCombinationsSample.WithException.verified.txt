@@ -1,0 +1,38 @@
+﻿{
+  A, 1, True: a1True,
+  A, 1, False: a1False,
+  A, 2, True: a2True,
+  A, 2, False: a2False,
+  A, 3, True: a3True,
+  A, 3, False: a3False,
+  b, 1, True: {
+    Type: Exception,
+    Message: Some exception
+  },
+  b, 1, False: {
+    Type: Exception,
+    Message: Some exception
+  },
+  b, 2, True: {
+    Type: Exception,
+    Message: Some exception
+  },
+  b, 2, False: {
+    Type: Exception,
+    Message: Some exception
+  },
+  b, 3, True: {
+    Type: Exception,
+    Message: Some exception
+  },
+  b, 3, False: {
+    Type: Exception,
+    Message: Some exception
+  },
+  C, 1, True: c1True,
+  C, 1, False: c1False,
+  C, 2, True: c2True,
+  C, 2, False: c2False,
+  C, 3, True: c3True,
+  C, 3, False: c3False
+}

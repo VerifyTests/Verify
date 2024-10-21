@@ -161,11 +161,11 @@ partial class InnerVerifier
         return Verify(target);
     }
 
-    static List<Item> GetCombinationString(
+    static Dictionary<StringBuilder, object?> GetCombinationString(
         Func<object?[], object?> processCall,
         List<IEnumerable<object?>> lists)
     {
-        var items = new List<Item>();
+        var items = new Dictionary<StringBuilder,object?>();
         var listCopy = lists.Select(_ => _.ToList()).ToList();
         var combinationGenerator = new CombinationGenerator(
             listCopy,
@@ -178,9 +178,9 @@ partial class InnerVerifier
                 }
                 catch (Exception exception)
                 {
-                    value = $"Exception: {exception.Message}";
+                    value = exception;
                 }
-                items.Add(new(BuildKeys(combo), value));
+                items.Add(BuildKeys(combo), value);
             });
         combinationGenerator.Run();
         return items;

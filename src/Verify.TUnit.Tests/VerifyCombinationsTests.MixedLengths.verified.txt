@@ -1,0 +1,20 @@
+﻿{
+  A     , 100, True : a100True,
+  A     , 100, False: a100False,
+  A     ,   2, True : a2True,
+  A     ,   2, False: a2False,
+  A     ,  30, True : a30True,
+  A     ,  30, False: a30False,
+  bcc   , 100, True : bcc100True,
+  bcc   , 100, False: bcc100False,
+  bcc   ,   2, True : bcc2True,
+  bcc   ,   2, False: bcc2False,
+  bcc   ,  30, True : bcc30True,
+  bcc   ,  30, False: bcc30False,
+  sssssC, 100, True : sssssc100True,
+  sssssC, 100, False: sssssc100False,
+  sssssC,   2, True : sssssc2True,
+  sssssC,   2, False: sssssc2False,
+  sssssC,  30, True : sssssc30True,
+  sssssC,  30, False: sssssc30False
+}

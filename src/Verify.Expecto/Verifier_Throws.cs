@@ -4,6 +4,7 @@ namespace VerifyExpecto;
 
 public static partial class Verifier
 {
+    [Pure]
     public static Task<VerifyResult> Throws(
         string name,
         Action target,
@@ -14,6 +15,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.Throws(target));
     }
 
+    [Pure]
     public static Task<VerifyResult> Throws(
         string name,
         Func<object?> target,
@@ -24,6 +26,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.Throws(target));
     }
 
+    [Pure]
     public static Task<VerifyResult> ThrowsTask(
         string name,
         Func<Task> target,
@@ -34,6 +37,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.ThrowsTask(target));
     }
 
+    [Pure]
     public static Task<VerifyResult> ThrowsTask<T>(
         string name,
         Func<Task<T>> target,
@@ -44,6 +48,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.ThrowsTask(target));
     }
 
+    [Pure]
     public static Task<VerifyResult> ThrowsValueTask(
         string name,
         Func<ValueTask> target,
@@ -54,6 +59,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.ThrowsValueTask(target));
     }
 
+    [Pure]
     public static Task<VerifyResult> ThrowsValueTask<T>(
         string name,
         Func<ValueTask<T>> target,

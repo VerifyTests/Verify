@@ -3,6 +3,7 @@ namespace VerifyExpecto;
 // ReSharper disable RedundantSuppressNullableWarningExpression
 public static partial class Verifier
 {
+    [Pure]
     public static Task<VerifyResult> VerifyJson(
         string name,
         string? target,
@@ -10,6 +11,7 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyJson(target));
 
+    [Pure]
     public static Task<VerifyResult> VerifyJson(
         string name,
         Task<string> target,
@@ -17,6 +19,7 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyJson(target));
 
+    [Pure]
     public static Task<VerifyResult> VerifyJson(
         string name,
         ValueTask<string> target,
@@ -24,6 +27,7 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyJson(target));
 
+    [Pure]
     public static Task<VerifyResult> VerifyJson(
         string name,
         Stream? target,
@@ -31,6 +35,7 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyJson(target));
 
+    [Pure]
     public static Task<VerifyResult> VerifyJson(
         string name,
         Task<Stream> target,
@@ -38,6 +43,7 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyJson(target));
 
+    [Pure]
     public static Task<VerifyResult> VerifyJson(
         string name,
         ValueTask<Stream> target,

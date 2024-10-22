@@ -4,6 +4,7 @@ namespace VerifyExpecto;
 
 public static partial class Verifier
 {
+    [Pure]
     public static Task<VerifyResult> Verify(
         string name,
         byte[]? target,
@@ -16,6 +17,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, extension, info));
     }
 
+    [Pure]
     public static Task<VerifyResult> Verify(
         string name,
         byte[]? target,
@@ -27,6 +29,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, info));
     }
 
+    [Pure]
     public static Task<VerifyResult> Verify(
         string name,
         Task<byte[]> target,
@@ -39,6 +42,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, extension, info));
     }
 
+    [Pure]
     public static Task<VerifyResult> Verify(
         string name,
         ValueTask<byte[]> target,
@@ -51,6 +55,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, extension, info));
     }
 
+    [Pure]
     public static Task<VerifyResult> Verify(
         string name,
         FileStream? target,
@@ -62,6 +67,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, info));
     }
 
+    [Pure]
     public static Task<VerifyResult> Verify(
         string name,
         Stream? target,
@@ -73,6 +79,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, info));
     }
 
+    [Pure]
     public static Task<VerifyResult> Verify(
         string name,
         Stream? target,
@@ -85,6 +92,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, extension, info));
     }
 
+    [Pure]
     public static Task<VerifyResult> Verify<T>(
         string name,
         Task<T> target,
@@ -98,6 +106,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, extension, info));
     }
 
+    [Pure]
     public static Task<VerifyResult> Verify<T>(
         string name,
         ValueTask<T> target,
@@ -111,6 +120,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, extension, info));
     }
 
+    [Pure]
     public static Task<VerifyResult> Verify<T>(
         string name,
         IEnumerable<T> targets,

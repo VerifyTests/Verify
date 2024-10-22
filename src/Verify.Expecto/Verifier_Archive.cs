@@ -7,6 +7,7 @@ public static partial class Verifier
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive" />
     /// </summary>
+    [Pure]
     public static Task<VerifyResult> Verify(
         string name,
         ZipArchive archive,
@@ -24,6 +25,7 @@ public static partial class Verifier
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive" />
     /// </summary>
+    [Pure]
     public static Task<VerifyResult> VerifyZip(
         string name,
         string path,
@@ -41,6 +43,7 @@ public static partial class Verifier
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive" />
     /// </summary>
+    [Pure]
     public static Task<VerifyResult> VerifyZip(
         string name,
         Stream stream,

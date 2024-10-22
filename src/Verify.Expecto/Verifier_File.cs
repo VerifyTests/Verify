@@ -7,6 +7,7 @@ public static partial class Verifier
     /// <summary>
     /// Verifies the contents of <paramref name="path" />.
     /// </summary>
+    [Pure]
     public static Task<VerifyResult> VerifyFile(
         string name,
         string path,
@@ -23,6 +24,7 @@ public static partial class Verifier
     /// Verifies the contents of <paramref name="path" />.
     /// Differs from passing <see cref="FileInfo" /> to <code>Verify(object? target)</code> which will verify the full path.
     /// </summary>
+    [Pure]
     public static Task<VerifyResult> VerifyFile(
         string name,
         FileInfo path,

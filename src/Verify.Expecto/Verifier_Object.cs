@@ -3,6 +3,7 @@ namespace VerifyExpecto;
 // ReSharper disable RedundantSuppressNullableWarningExpression
 public static partial class Verifier
 {
+    [Pure]
     public static Task<VerifyResult> Verify(
         string name,
         VerifySettings? settings = null,
@@ -12,6 +13,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.Verify());
     }
 
+    [Pure]
     public static Task<VerifyResult> Verify<T>(
         string name,
         Func<Task<T>> target,
@@ -22,6 +24,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target()));
     }
 
+    [Pure]
     public static Task<VerifyResult> Verify<T>(
         string name,
         Task<T> target,
@@ -32,6 +35,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
     }
 
+    [Pure]
     public static Task<VerifyResult> Verify<T>(
         string name,
         ValueTask<T> target,
@@ -42,6 +46,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
     }
 
+    [Pure]
     public static Task<VerifyResult> Verify<T>(
         string name,
         IAsyncEnumerable<T> target,
@@ -52,6 +57,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
     }
 
+    [Pure]
     public static Task<VerifyResult> Verify(
         string name,
         object? target,

@@ -161,16 +161,17 @@ partial class InnerVerifier
         return Verify(target);
     }
 
-    static Dictionary<StringBuilder, object?> GetCombinationString(
+    static List<CombinationResult> GetCombinationString(
         Func<object?[], object?> processCall,
         List<IEnumerable<object?>> lists)
     {
-        var items = new Dictionary<StringBuilder,object?>();
+        var items = new List<CombinationResult>();
         var listCopy = lists.Select(_ => _.ToList()).ToList();
         var combinationGenerator = new CombinationGenerator(
             listCopy,
             combo =>
             {
+                var keys = combo.ToArray();
                 object? value;
                 try
                 {
@@ -178,41 +179,18 @@ partial class InnerVerifier
                 }
                 catch (TargetInvocationException exception)
                 {
-                    value = ExceptionToString(exception.InnerException!);
+                    items.Add(new(keys, exception.InnerException!));
+                    return;
                 }
                 catch (Exception exception)
                 {
-                    value = ExceptionToString(exception);
+                    items.Add(new(keys, exception));
+                    return;
                 }
-                items.Add(BuildKeys(combo), value);
+
+                items.Add(new(keys, value));
             });
         combinationGenerator.Run();
         return items;
     }
-
-    static string ExceptionToString(Exception exception) =>
-        $"{exception.GetType().Name}: {exception.Message}";
-
-    static StringBuilder BuildKeys(object?[] combo)
-    {
-        var builder = new StringBuilder();
-        for (var index = 0; index < combo.Length; index++)
-        {
-            var item = combo[index];
-            VerifierSettings.AppendParameter(item, builder, true);
-            if (index + 1 != combo.Length)
-            {
-                builder.Append(", ");
-            }
-        }
-
-        return builder;
-    }
-
-    public class Item(StringBuilder keys, object? value)
-    {
-        public StringBuilder Keys { get; } = keys;
-        public object? Value { get; } = value;
-    }
 }
-

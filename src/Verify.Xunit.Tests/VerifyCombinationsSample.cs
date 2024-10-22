@@ -20,6 +20,29 @@
     }
 
     [Fact]
+    public Task WithScrubbed()
+    {
+        List<int> years = [2020, 2022];
+        List<int> months = [2, 3];
+        List<int> dates = [12, 15];
+        return VerifyCombinations(
+            (year, month, date) => new DateTime(year, month, date),
+            years, months, dates);
+    }
+
+    [Fact]
+    public Task WithDontScrub()
+    {
+        List<int> years = [2020, 2022];
+        List<int> months = [2, 3];
+        List<int> dates = [12, 15];
+        return VerifyCombinations(
+            (year, month, date) => new DateTime(year, month, date),
+            years, months, dates)
+            .DontScrubDateTimes();
+    }
+
+    [Fact]
     public Task Three()
     {
         List<string> a = ["A", "b", "C"];

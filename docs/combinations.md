@@ -69,7 +69,9 @@ public Task BuildAddressTest()
   -1, Wallace St, null  : ArgumentNullException: Value cannot be null. (Parameter 'city'),
   -1, Wallace St,       : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'city'),
   -1, Wallace St,       : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'city'),
-  -1, Wallace St, Sydney: ArgumentOutOfRangeException: Specified argument was out of the range of valid values. (Parameter 'streetNumber'),
+  -1, Wallace St, Sydney:
+ArgumentOutOfRangeException: streetNumber ('-1') must be greater than or equal to '1'. (Parameter 'streetNumber')
+Actual value was -1.,
    0, null      , null  : ArgumentNullException: Value cannot be null. (Parameter 'street'),
    0, null      ,       : ArgumentNullException: Value cannot be null. (Parameter 'street'),
    0, null      ,       : ArgumentNullException: Value cannot be null. (Parameter 'street'),
@@ -85,7 +87,9 @@ public Task BuildAddressTest()
    0, Wallace St, null  : ArgumentNullException: Value cannot be null. (Parameter 'city'),
    0, Wallace St,       : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'city'),
    0, Wallace St,       : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'city'),
-   0, Wallace St, Sydney: ArgumentOutOfRangeException: Specified argument was out of the range of valid values. (Parameter 'streetNumber'),
+   0, Wallace St, Sydney:
+ArgumentOutOfRangeException: streetNumber ('0') must be greater than or equal to '1'. (Parameter 'streetNumber')
+Actual value was 0.,
   10, null      , null  : ArgumentNullException: Value cannot be null. (Parameter 'street'),
   10, null      ,       : ArgumentNullException: Value cannot be null. (Parameter 'street'),
   10, null      ,       : ArgumentNullException: Value cannot be null. (Parameter 'street'),
@@ -104,5 +108,5 @@ public Task BuildAddressTest()
   10, Wallace St, Sydney: 10 Wallace St, Sydney
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.BuildAddressTest.verified.txt#L1-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyCombinationsSample.BuildAddressTest.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.BuildAddressTest.verified.txt#L1-L54' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyCombinationsSample.BuildAddressTest.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

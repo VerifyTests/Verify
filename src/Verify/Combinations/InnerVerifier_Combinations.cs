@@ -4,11 +4,11 @@ namespace VerifyTests;
 partial class InnerVerifier
 {
     public Task<VerifyResult> VerifyCombinations<A>(
-        Func<A, object?> processCall,
+        Func<A, object?> method,
         IEnumerable<A> a)
     {
         var target = GetCombinations(
-            processCall.DynamicInvoke,
+            method.DynamicInvoke,
             [a.Cast<object?>()],
             [
                 typeof(A)
@@ -17,12 +17,12 @@ partial class InnerVerifier
     }
 
     public Task<VerifyResult> VerifyCombinations<A, B>(
-        Func<A, B, object?> processCall,
+        Func<A, B, object?> method,
         IEnumerable<A> a,
         IEnumerable<B> b)
     {
         var target = GetCombinations(
-            processCall.DynamicInvoke,
+            method.DynamicInvoke,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>()
@@ -35,13 +35,13 @@ partial class InnerVerifier
     }
 
     public Task<VerifyResult> VerifyCombinations<A, B, C>(
-        Func<A, B, C, object?> processCall,
+        Func<A, B, C, object?> method,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c)
     {
         var target = GetCombinations(
-            processCall.DynamicInvoke,
+            method.DynamicInvoke,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -56,14 +56,14 @@ partial class InnerVerifier
     }
 
     public Task<VerifyResult> VerifyCombinations<A, B, C, D>(
-        Func<A, B, C, D, object?> processCall,
+        Func<A, B, C, D, object?> method,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
         IEnumerable<D> d)
     {
         var target = GetCombinations(
-            processCall.DynamicInvoke,
+            method.DynamicInvoke,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -80,7 +80,7 @@ partial class InnerVerifier
     }
 
     public Task<VerifyResult> VerifyCombinations<A, B, C, D, E>(
-        Func<A, B, C, D, E, object?> processCall,
+        Func<A, B, C, D, E, object?> method,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -88,7 +88,7 @@ partial class InnerVerifier
         IEnumerable<E> e)
     {
         var target = GetCombinations(
-            processCall.DynamicInvoke,
+            method.DynamicInvoke,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -107,7 +107,7 @@ partial class InnerVerifier
     }
 
     public Task<VerifyResult> VerifyCombinations<A, B, C, D, E, F>(
-        Func<A, B, C, D, E, F, object?> processCall,
+        Func<A, B, C, D, E, F, object?> method,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -116,7 +116,7 @@ partial class InnerVerifier
         IEnumerable<F> f)
     {
         var target = GetCombinations(
-            processCall.DynamicInvoke,
+            method.DynamicInvoke,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -137,7 +137,7 @@ partial class InnerVerifier
     }
 
     public Task<VerifyResult> VerifyCombinations<A, B, C, D, E, F, G>(
-        Func<A, B, C, D, E, F, G, object?> processCall,
+        Func<A, B, C, D, E, F, G, object?> method,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -147,7 +147,7 @@ partial class InnerVerifier
         IEnumerable<G> g)
     {
         var target = GetCombinations(
-            processCall.DynamicInvoke,
+            method.DynamicInvoke,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -170,7 +170,7 @@ partial class InnerVerifier
     }
 
     public Task<VerifyResult> VerifyCombinations<A, B, C, D, E, F, G, H>(
-        Func<A, B, C, D, E, F, G, H, object?> processCall,
+        Func<A, B, C, D, E, F, G, H, object?> method,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -181,7 +181,7 @@ partial class InnerVerifier
         IEnumerable<H> h)
     {
         var target = GetCombinations(
-            processCall.DynamicInvoke,
+            method.DynamicInvoke,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -206,15 +206,15 @@ partial class InnerVerifier
     }
 
     public Task<VerifyResult> VerifyCombinations(
-        Func<object?[], object?> processCall,
+        Func<object?[], object?> method,
         List<IEnumerable<object?>> lists)
     {
-        var target = GetCombinations(processCall, lists, null);
+        var target = GetCombinations(method, lists, null);
         return Verify(target);
     }
 
     static CombinationResults GetCombinations(
-        Func<object?[], object?> processCall,
+        Func<object?[], object?> method,
         List<IEnumerable<object?>> lists,
         Type[]? keyTypes)
     {
@@ -228,7 +228,7 @@ partial class InnerVerifier
                 object? value;
                 try
                 {
-                    value = processCall(combo);
+                    value = method(combo);
                 }
                 catch (TargetInvocationException exception)
                 {

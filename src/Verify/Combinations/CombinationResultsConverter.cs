@@ -6,35 +6,65 @@ public class CombinationResultsConverter :
     public override void Write(VerifyJsonWriter writer, List<CombinationResult> items)
     {
         writer.WriteStartObject();
-        foreach (var item in items)
+
+        if (items.Count == 0)
         {
-            writer.WritePropertyName(BuildKeys(item.Keys).ToString());
-            var exception = item.Exception;
-            if (exception == null)
+            return;
+        }
+
+        var keysLength = items.First().Keys.Length;
+
+        var maxKeyLengths = new int[keysLength];
+        var keyValues = new string[items.Count, keysLength];
+
+        for (var itemIndex = 0; itemIndex < items.Count; itemIndex++)
+        {
+            var item = items[itemIndex];
+            for (var keyIndex = 0; keyIndex < keysLength; keyIndex++)
             {
-                writer.WriteValue(item.Value);
-            }
-            else
-            {
-                writer.WriteValue($"{exception.GetType().Name}: {exception.Message}");
+                var key = item.Keys[keyIndex];
+                var name = VerifierSettings.GetNameForParameter(key);
+                keyValues[itemIndex, keyIndex] = name;
+                var currentKeyLength = maxKeyLengths[keyIndex];
+                if (name.Length > currentKeyLength)
+                {
+                    maxKeyLengths[keyIndex] = name.Length;
+                }
             }
         }
+
+        for (var itemIndex = 0; itemIndex < items.Count; itemIndex++)
+        {
+            var item = items[itemIndex];
+            var builder = new StringBuilder();
+            for (var keyIndex = 0; keyIndex < keysLength; keyIndex++)
+            {
+                var keyValue = keyValues[itemIndex, keyIndex];
+                var maxKeyLength = maxKeyLengths[keyIndex];
+                builder.Append(keyValue);
+                builder.Append(' ', maxKeyLength - keyValue.Length);
+                if (keyIndex + 1 != keysLength)
+                {
+                    builder.Append(", ");
+                }
+            }
+
+            writer.WritePropertyName(builder.ToString());
+            WriteValue(writer, item);
+        }
+
         writer.WriteEndObject();
     }
 
-    static StringBuilder BuildKeys(object?[] combo)
+    static void WriteValue(VerifyJsonWriter writer, CombinationResult item)
     {
-        var builder = new StringBuilder();
-        for (var index = 0; index < combo.Length; index++)
+        var exception = item.Exception;
+        if (exception == null)
         {
-            var item = combo[index];
-            VerifierSettings.AppendParameter(item, builder, true);
-            if (index + 1 != combo.Length)
-            {
-                builder.Append(", ");
-            }
+            writer.WriteValue(item.Value);
+            return;
         }
 
-        return builder;
+        writer.WriteValue($"{exception.GetType().Name}: {exception.Message}");
     }
 }

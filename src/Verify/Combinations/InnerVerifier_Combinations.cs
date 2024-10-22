@@ -7,7 +7,7 @@ partial class InnerVerifier
         Func<A, object?> processCall,
         IEnumerable<A> a)
     {
-        var target = GetCombinationString(
+        var target = GetCombinations(
             processCall.DynamicInvoke,
             [a.Cast<object?>()]);
         return Verify(target);
@@ -18,7 +18,7 @@ partial class InnerVerifier
         IEnumerable<A> a,
         IEnumerable<B> b)
     {
-        var target = GetCombinationString(
+        var target = GetCombinations(
             processCall.DynamicInvoke,
             [
                 a.Cast<object?>(),
@@ -33,7 +33,7 @@ partial class InnerVerifier
         IEnumerable<B> b,
         IEnumerable<C> c)
     {
-        var target = GetCombinationString(
+        var target = GetCombinations(
             processCall.DynamicInvoke,
             [
                 a.Cast<object?>(),
@@ -50,7 +50,7 @@ partial class InnerVerifier
         IEnumerable<C> c,
         IEnumerable<D> d)
     {
-        var target = GetCombinationString(
+        var target = GetCombinations(
             processCall.DynamicInvoke,
             [
                 a.Cast<object?>(),
@@ -69,7 +69,7 @@ partial class InnerVerifier
         IEnumerable<D> d,
         IEnumerable<E> e)
     {
-        var target = GetCombinationString(
+        var target = GetCombinations(
             processCall.DynamicInvoke,
             [
                 a.Cast<object?>(),
@@ -90,7 +90,7 @@ partial class InnerVerifier
         IEnumerable<E> e,
         IEnumerable<F> f)
     {
-        var target = GetCombinationString(
+        var target = GetCombinations(
             processCall.DynamicInvoke,
             [
                 a.Cast<object?>(),
@@ -113,7 +113,7 @@ partial class InnerVerifier
         IEnumerable<F> f,
         IEnumerable<G> g)
     {
-        var target = GetCombinationString(
+        var target = GetCombinations(
             processCall.DynamicInvoke,
             [
                 a.Cast<object?>(),
@@ -138,7 +138,7 @@ partial class InnerVerifier
         IEnumerable<G> g,
         IEnumerable<H> h)
     {
-        var target = GetCombinationString(
+        var target = GetCombinations(
             processCall.DynamicInvoke,
             [
                 a.Cast<object?>(),
@@ -157,11 +157,11 @@ partial class InnerVerifier
         Func<object?[], object?> processCall,
         List<IEnumerable<object?>> lists)
     {
-        var target = GetCombinationString(processCall, lists);
+        var target = GetCombinations(processCall, lists);
         return Verify(target);
     }
 
-    static List<CombinationResult> GetCombinationString(
+    static CombinationResults GetCombinations(
         Func<object?[], object?> processCall,
         List<IEnumerable<object?>> lists)
     {
@@ -191,6 +191,6 @@ partial class InnerVerifier
                 items.Add(new(keys, value));
             });
         combinationGenerator.Run();
-        return items;
+        return new( items);
     }
 }

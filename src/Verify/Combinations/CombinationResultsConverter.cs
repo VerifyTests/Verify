@@ -1,12 +1,13 @@
 ﻿namespace VerifyTests;
 
 public class CombinationResultsConverter :
-    WriteOnlyJsonConverter<List<CombinationResult>>
+    WriteOnlyJsonConverter<CombinationResults>
 {
-    public override void Write(VerifyJsonWriter writer, List<CombinationResult> items)
+    public override void Write(VerifyJsonWriter writer, CombinationResults results)
     {
         writer.WriteStartObject();
 
+        var items = results.Items;
         if (items.Count == 0)
         {
             return;

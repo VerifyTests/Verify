@@ -3,11 +3,14 @@ namespace VerifyMSTest;
 
 public partial class VerifyBase
 {
+#pragma warning disable CA1822 // Mark members as static
+
     [Pure]
     public SettingsTask VerifyCombinations<A>(
         Func<A, object?> processCall,
         IEnumerable<A> a,
-        VerifySettings? settings = null) =>
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
         Verifier.VerifyCombinations(processCall, a, settings, sourceFile);
 
     [Pure]
@@ -15,8 +18,9 @@ public partial class VerifyBase
         Func<A, B, object?> processCall,
         IEnumerable<A> a,
         IEnumerable<B> b,
-        VerifySettings? settings = null) =>
-        Verifier.VerifyCombinations(processCall, a, b, settings ?? this.settings, sourceFile);
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verifier.VerifyCombinations(processCall, a, b, settings, sourceFile);
 
     [Pure]
     public SettingsTask VerifyCombinations<A, B, C>(
@@ -24,8 +28,9 @@ public partial class VerifyBase
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
-        VerifySettings? settings = null) =>
-        Verifier.VerifyCombinations(processCall, a, b, c, settings ?? this.settings, sourceFile);
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verifier.VerifyCombinations(processCall, a, b, c, settings, sourceFile);
 
     [Pure]
     public SettingsTask VerifyCombinations<A, B, C, D>(
@@ -34,8 +39,9 @@ public partial class VerifyBase
         IEnumerable<B> b,
         IEnumerable<C> c,
         IEnumerable<D> d,
-        VerifySettings? settings = null) =>
-        Verifier.VerifyCombinations(processCall, a, b, c, d, settings ?? this.settings, sourceFile);
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verifier.VerifyCombinations(processCall, a, b, c, d, settings, sourceFile);
 
     [Pure]
     public SettingsTask VerifyCombinations<A, B, C, D, E>(
@@ -45,8 +51,9 @@ public partial class VerifyBase
         IEnumerable<C> c,
         IEnumerable<D> d,
         IEnumerable<E> e,
-        VerifySettings? settings = null) =>
-        Verifier.VerifyCombinations(processCall, a, b, c, d, e, settings ?? this.settings, sourceFile);
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verifier.VerifyCombinations(processCall, a, b, c, d, e, settings, sourceFile);
 
     [Pure]
     public SettingsTask VerifyCombinations<A, B, C, D, E, F>(
@@ -57,8 +64,9 @@ public partial class VerifyBase
         IEnumerable<D> d,
         IEnumerable<E> e,
         IEnumerable<F> f,
-        VerifySettings? settings = null) =>
-        Verifier.VerifyCombinations(processCall, a, b, c, d, e, f, settings ?? this.settings, sourceFile);
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verifier.VerifyCombinations(processCall, a, b, c, d, e, f, settings, sourceFile);
 
     [Pure]
     public SettingsTask VerifyCombinations<A, B, C, D, E, F, G>(
@@ -70,8 +78,9 @@ public partial class VerifyBase
         IEnumerable<E> e,
         IEnumerable<F> f,
         IEnumerable<G> g,
-        VerifySettings? settings = null) =>
-        Verifier.VerifyCombinations(processCall, a, b, c, d, e, f, g, settings ?? this.settings, sourceFile);
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verifier.VerifyCombinations(processCall, a, b, c, d, e, f, g, settings, sourceFile);
 
     [Pure]
     public SettingsTask VerifyCombinations<A, B, C, D, E, F, G, H>(
@@ -84,13 +93,15 @@ public partial class VerifyBase
         IEnumerable<F> f,
         IEnumerable<G> g,
         IEnumerable<H> h,
-        VerifySettings? settings = null) =>
-        Verifier.VerifyCombinations(processCall, a, b, c, d, e, f, g, h, settings ?? this.settings, sourceFile);
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verifier.VerifyCombinations(processCall, a, b, c, d, e, f, g, h, settings, sourceFile);
 
     [Pure]
     public SettingsTask VerifyCombinations(
         Func<object?[], object?> processCall,
         List<IEnumerable<object?>> lists,
-        VerifySettings? settings = null) =>
-        Verifier.VerifyCombinations(processCall, lists, settings ?? this.settings, sourceFile);
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verifier.VerifyCombinations(processCall, lists, settings, sourceFile);
 }

@@ -13,7 +13,7 @@ public class CombinationResultsConverter :
             return;
         }
 
-        var keysLength = items.First().Keys.Length;
+        var keysLength = items[0].Keys.Count;
 
         var maxKeyLengths = new int[keysLength];
         var keyValues = new string[items.Count, keysLength];
@@ -41,10 +41,19 @@ public class CombinationResultsConverter :
             for (var keyIndex = 0; keyIndex < keysLength; keyIndex++)
             {
                 var keyValue = keyValues[itemIndex, keyIndex];
-                var key = item.Keys[keyIndex];
                 var maxKeyLength = maxKeyLengths[keyIndex];
-                builder.Append(keyValue);
-                builder.Append(' ', maxKeyLength - keyValue.Length);
+                var keyType = results.KeyTypes?[keyIndex];
+                if (keyType != null &&
+                    keyType.IsNumeric())
+                {
+                    builder.Append(' ', maxKeyLength - keyValue.Length);
+                    builder.Append(keyValue);
+                }
+                else
+                {
+                    builder.Append(keyValue);
+                    builder.Append(' ', maxKeyLength - keyValue.Length);
+                }
                 if (keyIndex + 1 != keysLength)
                 {
                     builder.Append(", ");

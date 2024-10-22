@@ -778,7 +778,7 @@ public static string NameWithParent(this Type type)
     return type.Name;
 }
 ```
-<sup><a href='/src/Verify/Extensions.cs#L100-L112' title='Snippet source file'>snippet source</a> | <a href='#snippet-NameWithParent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Extensions.cs#L118-L130' title='Snippet source file'>snippet source</a> | <a href='#snippet-NameWithParent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Any path calculated in `DerivePathInfo` should be fully qualified to remove the inconsistency of the current directory.

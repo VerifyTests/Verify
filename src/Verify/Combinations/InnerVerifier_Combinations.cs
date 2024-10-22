@@ -9,7 +9,10 @@ partial class InnerVerifier
     {
         var target = GetCombinations(
             processCall.DynamicInvoke,
-            [a.Cast<object?>()]);
+            [a.Cast<object?>()],
+            [
+                typeof(A)
+            ]);
         return Verify(target);
     }
 
@@ -23,6 +26,10 @@ partial class InnerVerifier
             [
                 a.Cast<object?>(),
                 b.Cast<object?>()
+            ],
+            [
+                typeof(A),
+                typeof(B)
             ]);
         return Verify(target);
     }
@@ -39,6 +46,11 @@ partial class InnerVerifier
                 a.Cast<object?>(),
                 b.Cast<object?>(),
                 c.Cast<object?>()
+            ],
+            [
+                typeof(A),
+                typeof(B),
+                typeof(C)
             ]);
         return Verify(target);
     }
@@ -57,6 +69,12 @@ partial class InnerVerifier
                 b.Cast<object?>(),
                 c.Cast<object?>(),
                 d.Cast<object?>()
+            ],
+            [
+                typeof(A),
+                typeof(B),
+                typeof(C),
+                typeof(D)
             ]);
         return Verify(target);
     }
@@ -77,6 +95,13 @@ partial class InnerVerifier
                 c.Cast<object?>(),
                 d.Cast<object?>(),
                 e.Cast<object?>()
+            ],
+            [
+                typeof(A),
+                typeof(B),
+                typeof(C),
+                typeof(D),
+                typeof(E)
             ]);
         return Verify(target);
     }
@@ -99,6 +124,14 @@ partial class InnerVerifier
                 d.Cast<object?>(),
                 e.Cast<object?>(),
                 f.Cast<object?>()
+            ],
+            [
+                typeof(A),
+                typeof(B),
+                typeof(C),
+                typeof(D),
+                typeof(E),
+                typeof(F)
             ]);
         return Verify(target);
     }
@@ -123,6 +156,15 @@ partial class InnerVerifier
                 e.Cast<object?>(),
                 f.Cast<object?>(),
                 g.Cast<object?>()
+            ],
+            [
+                typeof(A),
+                typeof(B),
+                typeof(C),
+                typeof(D),
+                typeof(E),
+                typeof(F),
+                typeof(G)
             ]);
         return Verify(target);
     }
@@ -149,6 +191,16 @@ partial class InnerVerifier
                 f.Cast<object?>(),
                 g.Cast<object?>(),
                 h.Cast<object?>()
+            ],
+            [
+                typeof(A),
+                typeof(B),
+                typeof(C),
+                typeof(D),
+                typeof(E),
+                typeof(F),
+                typeof(G),
+                typeof(H)
             ]);
         return Verify(target);
     }
@@ -157,13 +209,14 @@ partial class InnerVerifier
         Func<object?[], object?> processCall,
         List<IEnumerable<object?>> lists)
     {
-        var target = GetCombinations(processCall, lists);
+        var target = GetCombinations(processCall, lists, null);
         return Verify(target);
     }
 
     static CombinationResults GetCombinations(
         Func<object?[], object?> processCall,
-        List<IEnumerable<object?>> lists)
+        List<IEnumerable<object?>> lists,
+        Type[]? keyTypes)
     {
         var items = new List<CombinationResult>();
         var listCopy = lists.Select(_ => _.ToList()).ToList();
@@ -191,6 +244,6 @@ partial class InnerVerifier
                 items.Add(new(keys, value));
             });
         combinationGenerator.Run();
-        return new( items);
+        return new(items, keyTypes);
     }
 }

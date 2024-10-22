@@ -1,6 +1,6 @@
-﻿public class VerifyCombinationsSample
+﻿public class VerifyCombinationsTests
 {
-    [Fact]
+    [Tests]
     public Task One()
     {
         List<string> list = ["A", "b", "C"];
@@ -9,7 +9,7 @@
             list);
     }
 
-    [Fact]
+    [Tests]
     public Task KeysWithInvalidPathChars()
     {
         List<string> list = ["/", "\\"];
@@ -18,7 +18,7 @@
             list);
     }
 
-    [Fact]
+    [Tests]
     public Task Two()
     {
         List<string> a = ["A", "b", "C"];
@@ -28,7 +28,7 @@
             a, b);
     }
 
-    [Fact]
+    [Tests]
     public Task WithScrubbed()
     {
         List<int> years = [2020, 2022];
@@ -39,7 +39,7 @@
             years, months, dates);
     }
 
-    [Fact]
+    [Tests]
     public Task WithDontScrub()
     {
         List<int> years = [2020, 2022];
@@ -51,7 +51,7 @@
             .DontScrubDateTimes();
     }
 
-    [Fact]
+    [Tests]
     public Task Three()
     {
         List<string> a = ["A", "b", "C"];
@@ -62,7 +62,18 @@
             a, b, c);
     }
 
-    [Fact]
+    [Tests]
+    public Task MixedLengths()
+    {
+        List<string> a = ["A", "bcc", "sssssC"];
+        List<int> b = [100, 2, 30];
+        List<bool> c = [true, false];
+        return VerifyCombinations(
+            (a, b, c) => a.ToLower() + b + c,
+            a, b, c);
+    }
+
+    [Tests]
     public Task WithException()
     {
         List<string> a = ["A", "b", "C"];
@@ -81,7 +92,7 @@
             a, b, c);
     }
 
-    [Fact]
+    [Tests]
     public Task UnBound()
     {
         List<string> a = ["A", "b", "C"];

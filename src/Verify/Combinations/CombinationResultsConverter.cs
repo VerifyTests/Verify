@@ -1,4 +1,6 @@
-﻿namespace VerifyTests;
+﻿using StringBuilder = System.Text.StringBuilder;
+
+namespace VerifyTests;
 
 public class CombinationResultsConverter :
     WriteOnlyJsonConverter<CombinationResults>
@@ -54,6 +56,7 @@ public class CombinationResultsConverter :
                     builder.Append(keyValue);
                     builder.Append(' ', maxKeyLength - keyValue.Length);
                 }
+
                 if (keyIndex + 1 != keysLength)
                 {
                     builder.Append(", ");
@@ -76,6 +79,24 @@ public class CombinationResultsConverter :
             return;
         }
 
-        writer.WriteValue($"{exception.GetType().Name}: {exception.Message}");
+        var message = exception.Message;
+        var builder = new StringBuilder();
+        var split = message.Split('\r', '\n', StringSplitOptions.RemoveEmptyEntries);
+
+        foreach (var line in split)
+        {
+            var trimmed = line.TrimEnd();
+            if (trimmed.EndsWith('.'))
+            {
+                builder.Append(trimmed);
+            }
+            else
+            {
+                builder.Append(trimmed);
+                builder.Append(". ");
+            }
+        }
+        builder.TrimEnd();
+        writer.WriteValue($"{exception.GetType().Name}: {builder}");
     }
 }

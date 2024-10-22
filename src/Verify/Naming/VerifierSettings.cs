@@ -63,14 +63,18 @@ public static partial class VerifierSettings
         parameterToNameLookup[typeof(T)] = o => func((T) o);
     }
 
-    public static string GetNameForParameter(object? parameter)
+    public static string GetNameForParameter(object? parameter) =>
+        GetNameForParameter(parameter, true);
+
+    // ReSharper disable once MethodOverloadWithOptionalParameter
+    public static string GetNameForParameter(object? parameter, bool pathFriendly = true)
     {
         var builder = new StringBuilder();
-        AppendParameter(parameter, builder, true);
+        AppendParameter(parameter, builder, true, pathFriendly);
         return builder.ToString();
     }
 
-    internal static void AppendParameter(object? parameter, StringBuilder builder, bool isRoot)
+    internal static void AppendParameter(object? parameter, StringBuilder builder, bool isRoot, bool pathFriendly = true)
     {
         while (true)
         {
@@ -82,7 +86,15 @@ public static partial class VerifierSettings
 
             if (parameter is string stringParameter)
             {
-                FileNameCleaner.AppendValid(builder, stringParameter);
+                if (pathFriendly)
+                {
+                    FileNameCleaner.AppendValid(builder, stringParameter);
+                }
+                else
+                {
+                    builder.Append(stringParameter);
+                }
+
                 return;
             }
 
@@ -136,7 +148,7 @@ public static partial class VerifierSettings
             {
                 var key = type.GetProperty("Key")!.GetMethod!.Invoke(parameter, null);
                 var value = type.GetProperty("Value")!.GetMethod!.Invoke(parameter, null);
-                AppendParameter(key, builder, true);
+                AppendParameter(key, builder, true, pathFriendly);
                 builder.Append('=');
                 parameter = value;
                 isRoot = true;
@@ -150,7 +162,14 @@ public static partial class VerifierSettings
                 throw new($"{type.FullName} returned a null for `ToString()`.");
             }
 
-            FileNameCleaner.AppendValid(builder, nameForParameter);
+            if (pathFriendly)
+            {
+                FileNameCleaner.AppendValid(builder, nameForParameter);
+            }
+            else
+            {
+                builder.Append(nameForParameter);
+            }
             break;
         }
     }

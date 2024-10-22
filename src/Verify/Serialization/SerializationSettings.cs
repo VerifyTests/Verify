@@ -32,6 +32,7 @@ partial class SerializationSettings
     static StringDictionaryConverter stringDictionaryConverter = new();
     static TaskConverter taskConverter = new();
     static ValueTaskConverter valueTaskConverter = new();
+    static CombinationResultsConverter combinationResultsConverter = new();
 
     JsonSerializerSettings jsonSettings;
 
@@ -122,6 +123,7 @@ partial class SerializationSettings
         converters.Add(nameValueCollectionConverter);
         converters.Add(stringDictionaryConverter);
         converters.Add(keyValuePairConverter);
+        converters.Add(combinationResultsConverter);
         foreach (var extraSetting in extraSettings)
         {
             extraSetting(settings);

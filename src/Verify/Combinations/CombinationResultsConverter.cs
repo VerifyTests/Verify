@@ -86,16 +86,13 @@ public class CombinationResultsConverter :
         foreach (var line in split)
         {
             var trimmed = line.TrimEnd();
-            if (trimmed.EndsWith('.'))
+            builder.Append(trimmed);
+            if (!trimmed.EndsWith('.'))
             {
-                builder.Append(trimmed);
-            }
-            else
-            {
-                builder.Append(trimmed);
                 builder.Append(". ");
             }
         }
+
         builder.TrimEnd();
         writer.WriteValue($"{exception.GetType().Name}: {builder}");
     }

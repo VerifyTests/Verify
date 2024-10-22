@@ -10,6 +10,15 @@
     }
 
     [Fact]
+    public Task KeysWithInvalidPathChars()
+    {
+        List<string> list = ["/", "\\"];
+        return VerifyCombinations(
+            _ => _.ToLower(),
+            list);
+    }
+
+    [Fact]
     public Task Two()
     {
         List<string> a = ["A", "b", "C"];

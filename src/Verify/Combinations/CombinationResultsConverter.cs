@@ -23,7 +23,7 @@ public class CombinationResultsConverter :
             for (var keyIndex = 0; keyIndex < keysLength; keyIndex++)
             {
                 var key = item.Keys[keyIndex];
-                var name = VerifierSettings.GetNameForParameter(key);
+                var name = VerifierSettings.GetNameForParameter(key, false);
                 keyValues[itemIndex, keyIndex] = name;
                 var currentKeyLength = maxKeyLengths[keyIndex];
                 if (name.Length > currentKeyLength)
@@ -40,6 +40,7 @@ public class CombinationResultsConverter :
             for (var keyIndex = 0; keyIndex < keysLength; keyIndex++)
             {
                 var keyValue = keyValues[itemIndex, keyIndex];
+                var key = item.Keys[keyIndex];
                 var maxKeyLength = maxKeyLengths[keyIndex];
                 builder.Append(keyValue);
                 builder.Append(' ', maxKeyLength - keyValue.Length);

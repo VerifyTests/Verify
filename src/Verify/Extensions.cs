@@ -2,6 +2,24 @@
 
 static class Extensions
 {
+    static HashSet<Type> numericTypes =
+    [
+        typeof(int),
+        typeof(double),
+        typeof(decimal),
+        typeof(long),
+        typeof(short),
+        typeof(sbyte),
+        typeof(byte),
+        typeof(ulong),
+        typeof(ushort),
+        typeof(uint),
+        typeof(float)
+    ];
+
+    public static bool IsNumeric(this Type type) =>
+        numericTypes.Contains(Nullable.GetUnderlyingType(type) ?? type);
+
     public static string Extension(this FileStream file) =>
         Path.GetExtension(file.Name)[1..];
 

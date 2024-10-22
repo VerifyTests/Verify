@@ -4,7 +4,7 @@ public partial class VerifyCombinationsTests
     [TestMethod]
     public Task One()
     {
-        List<string> list = ["A", "b", "C"];
+        string[] list = ["A", "b", "C"];
         return VerifyCombinations(
             _ => _.ToLower(),
             list);
@@ -13,7 +13,7 @@ public partial class VerifyCombinationsTests
     [TestMethod]
     public Task KeysWithInvalidPathChars()
     {
-        List<string> list = ["/", "\\"];
+        string[] list = ["/", "\\"];
         return VerifyCombinations(
             _ => _.ToLower(),
             list);
@@ -22,8 +22,8 @@ public partial class VerifyCombinationsTests
     [TestMethod]
     public Task Two()
     {
-        List<string> a = ["A", "b", "C"];
-        List<int> b = [1, 2, 3];
+        string[] a = ["A", "b", "C"];
+        int[] b = [1, 2, 3];
         return VerifyCombinations(
             (a, b) => a.ToLower() + b,
             a, b);
@@ -32,9 +32,9 @@ public partial class VerifyCombinationsTests
     [TestMethod]
     public Task WithScrubbed()
     {
-        List<int> years = [2020, 2022];
-        List<int> months = [2, 3];
-        List<int> dates = [12, 15];
+        int[] years = [2020, 2022];
+        int[] months = [2, 3];
+        int[] dates = [12, 15];
         return VerifyCombinations(
             (year, month, date) => new DateTime(year, month, date),
             years, months, dates);
@@ -43,9 +43,9 @@ public partial class VerifyCombinationsTests
     [TestMethod]
     public Task WithDontScrub()
     {
-        List<int> years = [2020, 2022];
-        List<int> months = [2, 3];
-        List<int> dates = [12, 15];
+        int[] years = [2020, 2022];
+        int[] months = [2, 3];
+        int[] dates = [12, 15];
         return VerifyCombinations(
             (year, month, date) => new DateTime(year, month, date),
             years, months, dates)
@@ -55,9 +55,9 @@ public partial class VerifyCombinationsTests
     [TestMethod]
     public Task Three()
     {
-        List<string> a = ["A", "b", "C"];
-        List<int> b = [1, 2, 3];
-        List<bool> c = [true, false];
+        string[] a = ["A", "b", "C"];
+        int[] b = [1, 2, 3];
+        bool[] c = [true, false];
         return VerifyCombinations(
             (a, b, c) => a.ToLower() + b + c,
             a, b, c);
@@ -66,9 +66,9 @@ public partial class VerifyCombinationsTests
     [TestMethod]
     public Task MixedLengths()
     {
-        List<string> a = ["A", "bcc", "sssssC"];
-        List<int> b = [100, 2, 30];
-        List<bool> c = [true, false];
+        string[] a = ["A", "bcc", "sssssC"];
+        int[] b = [100, 2, 30];
+        bool[] c = [true, false];
         return VerifyCombinations(
             (a, b, c) => a.ToLower() + b + c,
             a, b, c);
@@ -77,9 +77,9 @@ public partial class VerifyCombinationsTests
     [TestMethod]
     public Task WithException()
     {
-        List<string> a = ["A", "b", "C"];
-        List<int> b = [1, 2, 3];
-        List<bool> c = [true, false];
+        string[] a = ["A", "b", "C"];
+        int[] b = [1, 2, 3];
+        bool[] c = [true, false];
         return VerifyCombinations(
             (a, b, c) =>
             {
@@ -96,9 +96,9 @@ public partial class VerifyCombinationsTests
     [TestMethod]
     public Task UnBound()
     {
-        List<string> a = ["A", "b", "C"];
-        List<int> b = [1, 2, 3];
-        List<bool> c = [true, false];
+        string[] a = ["A", "b", "C"];
+        int[] b = [1, 2, 3];
+        bool[] c = [true, false];
         var list = new List<IEnumerable<object?>>
         {
             a.Cast<object?>(),

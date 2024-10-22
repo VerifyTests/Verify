@@ -1,30 +1,34 @@
 ﻿#if NET8_0_OR_GREATER
 public class VerifyCombinationsSample
 {
+    #region CombinationTargetMethod
+
     public string BuildAddress(int streetNumber, string street, string city)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(street);
         ArgumentException.ThrowIfNullOrWhiteSpace(city);
-
-        if (streetNumber < 1)
-        {
-            throw new ArgumentOutOfRangeException(nameof(streetNumber));
-        }
+        ArgumentOutOfRangeException.ThrowIfLessThan(streetNumber, 1);
 
         return $"{streetNumber} {street}, {city}";
     }
 
+    #endregion
+
+    #region CombinationSample
+
     [Fact]
     public Task BuildAddressTest()
     {
-        List<int> streetNumbers = [-1, 0, 10];
-        List<string> streets = [null!, "", " ", "Wallace St"];
-        List<string> cities = [null!, "", " ", "Sydney"];
+        int[] streetNumbers = [-1, 0, 10];
+        string[] streets = [null!, "", " ", "Wallace St"];
+        string[] cities = [null!, "", " ", "Sydney"];
         return VerifyCombinations(
             BuildAddress,
             streetNumbers,
             streets,
             cities);
     }
+
+    #endregion
 }
 #endif

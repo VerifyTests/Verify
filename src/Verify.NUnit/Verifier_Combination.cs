@@ -32,6 +32,7 @@ public static partial class Verifier
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
+        bool captureExceptions = false,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(

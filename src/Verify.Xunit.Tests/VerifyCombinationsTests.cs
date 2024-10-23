@@ -90,7 +90,8 @@ public class VerifyCombinationsTests
 
                 return a.ToLower() + b + c;
             },
-            a, b, c);
+            a, b, c,
+            captureExceptions: true);
     }
 
     [Fact]

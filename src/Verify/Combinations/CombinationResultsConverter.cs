@@ -79,11 +79,9 @@ public class CombinationResultsConverter :
             return;
         }
 
-        var message = exception.Message;
         var builder = new StringBuilder();
-        var split = message.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries);
 
-        foreach (var line in split)
+        foreach (var line in exception.Message.AsSpan().EnumerateLines())
         {
             var trimmed = line.TrimEnd();
             builder.Append(trimmed);

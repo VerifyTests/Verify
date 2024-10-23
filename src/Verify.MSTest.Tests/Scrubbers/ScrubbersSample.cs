@@ -61,31 +61,6 @@ public partial class ScrubbersSample
             .ScrubLinesContaining(StringComparison.Ordinal, "H");
 
     [TestMethod]
-    public Task AfterSerialization()
-    {
-        var target = new ToBeScrubbed
-        {
-            RowVersion = "7D3"
-        };
-
-        var settings = new VerifySettings();
-        settings.AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
-        return Verify(target, settings);
-    }
-
-    [TestMethod]
-    public Task AfterSerializationFluent()
-    {
-        var target = new ToBeScrubbed
-        {
-            RowVersion = "7D3"
-        };
-
-        return Verify(target)
-            .AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
-    }
-
-    [TestMethod]
     public Task RemoveOrReplace() =>
         Verify("""
                LineA

@@ -205,31 +205,6 @@ public class ScrubbersSample
             .ScrubLinesContaining(StringComparison.Ordinal, "H");
 
     [Test]
-    public Task AfterSerialization()
-    {
-        var target = new ToBeScrubbed
-        {
-            RowVersion = "7D3"
-        };
-
-        var settings = new VerifySettings();
-        settings.AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
-        return Verify(target, settings);
-    }
-
-    [Test]
-    public Task AfterSerializationFluent()
-    {
-        var target = new ToBeScrubbed
-        {
-            RowVersion = "7D3"
-        };
-
-        return Verify(target)
-            .AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
-    }
-
-    [Test]
     public Task RemoveOrReplace() =>
         Verify("""
                LineA
@@ -259,7 +234,7 @@ public class ScrubbersSample
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L1-L118' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleNUnit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L1-L93' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleNUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -339,32 +314,6 @@ public class ScrubbersSample
             .ScrubLinesContaining(StringComparison.Ordinal, "H");
 
     [Fact]
-    public Task AfterSerialization()
-    {
-        var target = new ToBeScrubbed
-        {
-            RowVersion = "7D3"
-        };
-
-        var settings = new VerifySettings();
-        settings.AddScrubber(
-            _ => _.Replace("7D3", "TheRowVersion"));
-        return Verify(target, settings);
-    }
-
-    [Fact]
-    public Task AfterSerializationFluent()
-    {
-        var target = new ToBeScrubbed
-        {
-            RowVersion = "7D3"
-        };
-
-        return Verify(target)
-            .AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
-    }
-
-    [Fact]
     public Task RemoveOrReplace() =>
         Verify("""
                LineA
@@ -394,7 +343,7 @@ public class ScrubbersSample
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Scrubbers/ScrubbersSample.cs#L1-L129' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Scrubbers/ScrubbersSample.cs#L1-L103' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -460,29 +409,6 @@ public class ScrubbersSample
             .ScrubLinesContaining("b", "D")
             .ScrubLinesContaining(StringComparison.Ordinal, "H");
 
-    public Task AfterSerialization()
-    {
-        var target = new ToBeScrubbed
-        {
-            RowVersion = "7D3"
-        };
-
-        var settings = new VerifySettings();
-        settings.AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
-        return Verify(target, settings);
-    }
-
-    public Task AfterSerializationFluent()
-    {
-        var target = new ToBeScrubbed
-        {
-            RowVersion = "7D3"
-        };
-
-        return Verify(target)
-            .AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
-    }
-
     public Task RemoveOrReplace() =>
         Verify("""
                LineA
@@ -511,7 +437,7 @@ public class ScrubbersSample
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.Fixie.Tests/Scrubbers/ScrubbersSample.cs#L1-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleFixie' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Scrubbers/ScrubbersSample.cs#L1-L88' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleFixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -581,31 +507,6 @@ public partial class ScrubbersSample
             .ScrubLinesContaining(StringComparison.Ordinal, "H");
 
     [TestMethod]
-    public Task AfterSerialization()
-    {
-        var target = new ToBeScrubbed
-        {
-            RowVersion = "7D3"
-        };
-
-        var settings = new VerifySettings();
-        settings.AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
-        return Verify(target, settings);
-    }
-
-    [TestMethod]
-    public Task AfterSerializationFluent()
-    {
-        var target = new ToBeScrubbed
-        {
-            RowVersion = "7D3"
-        };
-
-        return Verify(target)
-            .AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
-    }
-
-    [TestMethod]
     public Task RemoveOrReplace() =>
         Verify("""
                LineA
@@ -635,7 +536,7 @@ public partial class ScrubbersSample
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L1-L118' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleMSTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L1-L93' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -704,31 +605,6 @@ public class ScrubbersSample
             .ScrubLinesContaining(StringComparison.Ordinal, "H");
 
     [Test]
-    public Task AfterSerialization()
-    {
-        var target = new ToBeScrubbed
-        {
-            RowVersion = "7D3"
-        };
-
-        var settings = new VerifySettings();
-        settings.AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
-        return Verify(target, settings);
-    }
-
-    [Test]
-    public Task AfterSerializationFluent()
-    {
-        var target = new ToBeScrubbed
-        {
-            RowVersion = "7D3"
-        };
-
-        return Verify(target)
-            .AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
-    }
-
-    [Test]
     public Task RemoveOrReplace() =>
         Verify("""
                LineA
@@ -758,7 +634,7 @@ public class ScrubbersSample
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.TUnit.Tests/Scrubbers/ScrubbersSample.cs#L1-L117' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleTUnit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.TUnit.Tests/Scrubbers/ScrubbersSample.cs#L1-L92' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleTUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -773,16 +649,6 @@ NoMoreLineE
 LineI
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-<!-- snippet: Verify.Xunit.Tests/Scrubbers/ScrubbersSample.AfterSerialization.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.AfterSerialization.verified.txt'></a>
-```txt
-{
-  RowVersion: TheRowVersion
-}
-```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.AfterSerialization.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.AfterSerialization.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

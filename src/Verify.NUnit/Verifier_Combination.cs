@@ -12,7 +12,7 @@ public static partial class Verifier
         Verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, a));
+            _ => _.VerifyCombinations(method, captureExceptions, a));
 
     [Pure]
     public static SettingsTask VerifyCombinations<A, B>(
@@ -24,7 +24,7 @@ public static partial class Verifier
         Verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, a, b));
+            _ => _.VerifyCombinations(method, captureExceptions, a, b));
 
     [Pure]
     public static SettingsTask VerifyCombinations<A, B, C>(
@@ -38,7 +38,7 @@ public static partial class Verifier
         Verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, a, b, c));
+            _ => _.VerifyCombinations(method, captureExceptions, a, b, c));
 
     [Pure]
     public static SettingsTask VerifyCombinations<A, B, C, D>(
@@ -52,7 +52,7 @@ public static partial class Verifier
         Verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, a, b, c, d));
+            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d));
 
     [Pure]
     public static SettingsTask VerifyCombinations<A, B, C, D, E>(
@@ -67,7 +67,7 @@ public static partial class Verifier
         Verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, a, b, c, d, e));
+            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e));
 
     [Pure]
     public static SettingsTask VerifyCombinations<A, B, C, D, E, F>(
@@ -83,7 +83,7 @@ public static partial class Verifier
         Verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, a, b, c, d, e, f));
+            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f));
 
     [Pure]
     public static SettingsTask VerifyCombinations<A, B, C, D, E, F, G>(
@@ -100,7 +100,7 @@ public static partial class Verifier
         Verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, a, b, c, d, e, f, g));
+            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f, g));
 
     [Pure]
     public static SettingsTask VerifyCombinations<A, B, C, D, E, F, G, H>(
@@ -118,7 +118,7 @@ public static partial class Verifier
         Verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, a, b, c, d, e, f, g, h));
+            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f, g, h));
 
     [Pure]
     public static SettingsTask VerifyCombinations(

@@ -90,7 +90,8 @@ public partial class VerifyCombinationsTests
 
                 return a.ToLower() + b + c;
             },
-            a, b, c);
+            a, b, c,
+            captureExceptions: true);
     }
 
     [TestMethod]

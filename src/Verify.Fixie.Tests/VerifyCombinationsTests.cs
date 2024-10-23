@@ -81,7 +81,8 @@
 
                 return a.ToLower() + b + c;
             },
-            a, b, c);
+            a, b, c,
+            captureExceptions: true);
     }
 
     public Task UnBound()

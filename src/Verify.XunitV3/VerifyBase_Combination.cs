@@ -7,16 +7,18 @@ public partial class VerifyBase
     public SettingsTask VerifyCombinations<A>(
         Func<A, object?> method,
         IEnumerable<A> a,
+        bool captureExceptions = false,
         VerifySettings? settings = null) =>
-        Verifier.VerifyCombinations(method, a, settings ?? this.settings, sourceFile);
+        Verifier.VerifyCombinations(method, a, captureExceptions, settings ?? this.settings, sourceFile);
 
     [Pure]
     public SettingsTask VerifyCombinations<A, B>(
         Func<A, B, object?> method,
         IEnumerable<A> a,
         IEnumerable<B> b,
+        bool captureExceptions = false,
         VerifySettings? settings = null) =>
-        Verifier.VerifyCombinations(method, a, b, settings ?? this.settings, sourceFile);
+        Verifier.VerifyCombinations(method, a, b, captureExceptions, settings ?? this.settings, sourceFile);
 
     [Pure]
     public SettingsTask VerifyCombinations<A, B, C>(
@@ -24,8 +26,9 @@ public partial class VerifyBase
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
+        bool captureExceptions = false,
         VerifySettings? settings = null) =>
-        Verifier.VerifyCombinations(method, a, b, c, settings ?? this.settings, sourceFile);
+        Verifier.VerifyCombinations(method, a, b, c, captureExceptions, settings ?? this.settings, sourceFile);
 
     [Pure]
     public SettingsTask VerifyCombinations<A, B, C, D>(
@@ -34,8 +37,9 @@ public partial class VerifyBase
         IEnumerable<B> b,
         IEnumerable<C> c,
         IEnumerable<D> d,
+        bool captureExceptions = false,
         VerifySettings? settings = null) =>
-        Verifier.VerifyCombinations(method, a, b, c, d, settings ?? this.settings, sourceFile);
+        Verifier.VerifyCombinations(method, a, b, c, d, captureExceptions, settings ?? this.settings, sourceFile);
 
     [Pure]
     public SettingsTask VerifyCombinations<A, B, C, D, E>(
@@ -45,8 +49,9 @@ public partial class VerifyBase
         IEnumerable<C> c,
         IEnumerable<D> d,
         IEnumerable<E> e,
+        bool captureExceptions = false,
         VerifySettings? settings = null) =>
-        Verifier.VerifyCombinations(method, a, b, c, d, e, settings ?? this.settings, sourceFile);
+        Verifier.VerifyCombinations(method, a, b, c, d, e, captureExceptions, settings ?? this.settings, sourceFile);
 
     [Pure]
     public SettingsTask VerifyCombinations<A, B, C, D, E, F>(
@@ -57,8 +62,9 @@ public partial class VerifyBase
         IEnumerable<D> d,
         IEnumerable<E> e,
         IEnumerable<F> f,
+        bool captureExceptions = false,
         VerifySettings? settings = null) =>
-        Verifier.VerifyCombinations(method, a, b, c, d, e, f, settings ?? this.settings, sourceFile);
+        Verifier.VerifyCombinations(method, a, b, c, d, e, f, captureExceptions, settings ?? this.settings, sourceFile);
 
     [Pure]
     public SettingsTask VerifyCombinations<A, B, C, D, E, F, G>(
@@ -70,8 +76,9 @@ public partial class VerifyBase
         IEnumerable<E> e,
         IEnumerable<F> f,
         IEnumerable<G> g,
+        bool captureExceptions = false,
         VerifySettings? settings = null) =>
-        Verifier.VerifyCombinations(method, a, b, c, d, e, f, g, settings ?? this.settings, sourceFile);
+        Verifier.VerifyCombinations(method, a, b, c, d, e, f, g, captureExceptions, settings ?? this.settings, sourceFile);
 
     [Pure]
     public SettingsTask VerifyCombinations<A, B, C, D, E, F, G, H>(
@@ -84,13 +91,15 @@ public partial class VerifyBase
         IEnumerable<F> f,
         IEnumerable<G> g,
         IEnumerable<H> h,
+        bool captureExceptions = false,
         VerifySettings? settings = null) =>
-        Verifier.VerifyCombinations(method, a, b, c, d, e, f, g, h, settings ?? this.settings, sourceFile);
+        Verifier.VerifyCombinations(method, a, b, c, d, e, f, g, h, captureExceptions, settings ?? this.settings, sourceFile);
 
     [Pure]
     public SettingsTask VerifyCombinations(
         Func<object?[], object?> method,
         List<IEnumerable<object?>> lists,
+        bool captureExceptions = false,
         VerifySettings? settings = null) =>
-        Verifier.VerifyCombinations(method, lists, settings ?? this.settings, sourceFile);
+        Verifier.VerifyCombinations(method, lists, captureExceptions, settings ?? this.settings, sourceFile);
 }

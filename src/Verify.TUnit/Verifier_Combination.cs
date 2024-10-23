@@ -137,5 +137,5 @@ public static partial class Verifier
         Verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, lists));
+            _ => _.VerifyCombinations(method, captureExceptions, lists));
 }

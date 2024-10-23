@@ -131,11 +131,11 @@ public static partial class Verifier
     public static SettingsTask VerifyCombinations(
         Func<object?[], object?> method,
         List<IEnumerable<object?>> lists,
-        VerifySettings? settings = null,
         bool captureExceptions = false,
+        VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, lists));
+            _ => _.VerifyCombinations(method, captureExceptions, lists));
 }

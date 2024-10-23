@@ -29,6 +29,7 @@ public static partial class Verifier
             _ => _.VerifyCombinations(method, captureExceptions, a, b));
 
     [Pure]
+    [Experimental("VerifyCombinations")]
     public static SettingsTask VerifyCombinations<A, B, C>(
         Func<A, B, C, object?> method,
         IEnumerable<A> a,
@@ -137,5 +138,5 @@ public static partial class Verifier
         Verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, lists));
+            _ => _.VerifyCombinations(method, captureExceptions, lists));
 }

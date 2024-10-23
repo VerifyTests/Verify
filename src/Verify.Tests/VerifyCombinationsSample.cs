@@ -1,4 +1,5 @@
-﻿#if NET8_0_OR_GREATER
+﻿#pragma warning disable VerifyCombinations
+#if NET8_0_OR_GREATER
 public class VerifyCombinationsSample
 {
     #region CombinationTargetMethod
@@ -19,14 +20,32 @@ public class VerifyCombinationsSample
     [Fact]
     public Task BuildAddressTest()
     {
-        int[] streetNumbers = [-1, 0, 10];
-        string[] streets = [null!, "", " ", "Wallace St"];
-        string[] cities = [null!, "", " ", "Sydney"];
+        int[] streetNumbers = [1, 10];
+        string[] streets = ["Smith St", "Wallace St"];
+        string[] cities = ["Sydney", "Chicago"];
         return VerifyCombinations(
             BuildAddress,
             streetNumbers,
             streets,
             cities);
+    }
+
+    #endregion
+
+    #region CombinationSample_CaptureExceptions
+
+    [Fact]
+    public Task BuildAddressExceptionsTest()
+    {
+        int[] streetNumbers = [-1, 0, 10];
+        string[] streets = [null!, "", " ", "Valid St"];
+        string[] cities = [null!, "", " ", "Valid City"];
+        return VerifyCombinations(
+            BuildAddress,
+            streetNumbers,
+            streets,
+            cities,
+            captureExceptions: true);
     }
 
     #endregion

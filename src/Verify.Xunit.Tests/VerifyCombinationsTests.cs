@@ -1,4 +1,5 @@
-﻿public class VerifyCombinationsTests
+﻿#pragma warning disable VerifyCombinations
+public class VerifyCombinationsTests
 {
     [Fact]
     public Task One()
@@ -89,7 +90,8 @@
 
                 return a.ToLower() + b + c;
             },
-            a, b, c);
+            a, b, c,
+            captureExceptions: true);
     }
 
     [Fact]

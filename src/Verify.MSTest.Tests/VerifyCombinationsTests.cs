@@ -1,4 +1,5 @@
-﻿[TestClass]
+﻿#pragma warning disable VerifyCombinations
+[TestClass]
 public partial class VerifyCombinationsTests
 {
     [TestMethod]
@@ -90,7 +91,8 @@ public partial class VerifyCombinationsTests
 
                 return a.ToLower() + b + c;
             },
-            a, b, c);
+            a, b, c,
+            captureExceptions: true);
     }
 
     [TestMethod]

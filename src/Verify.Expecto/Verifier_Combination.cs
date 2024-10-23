@@ -1,4 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
+// ReSharper disable RedundantSuppressNullableWarningExpression
 namespace VerifyExpecto;
 
 public static partial class Verifier
@@ -8,6 +9,7 @@ public static partial class Verifier
         string name,
         Func<A, object?> method,
         IEnumerable<A> a,
+        bool captureExceptions = false,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(
@@ -15,7 +17,7 @@ public static partial class Verifier
             Assembly.GetCallingAssembly()!,
             sourceFile,
             name,
-            _ => _.VerifyCombinations(method, a));
+            _ => _.VerifyCombinations(method, captureExceptions, a));
 
     [Pure]
     public static Task<VerifyResult> VerifyCombinations<A, B>(
@@ -23,6 +25,7 @@ public static partial class Verifier
         Func<A, B, object?> method,
         IEnumerable<A> a,
         IEnumerable<B> b,
+        bool captureExceptions = false,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(
@@ -30,7 +33,7 @@ public static partial class Verifier
             Assembly.GetCallingAssembly()!,
             sourceFile,
             name,
-            _ => _.VerifyCombinations(method, a, b));
+            _ => _.VerifyCombinations(method, captureExceptions, a, b));
 
     [Pure]
     public static Task<VerifyResult> VerifyCombinations<A, B, C>(
@@ -39,6 +42,7 @@ public static partial class Verifier
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
+        bool captureExceptions = false,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(
@@ -46,7 +50,7 @@ public static partial class Verifier
             Assembly.GetCallingAssembly()!,
             sourceFile,
             name,
-            _ => _.VerifyCombinations(method, a, b, c));
+            _ => _.VerifyCombinations(method, captureExceptions, a, b, c));
 
     [Pure]
     public static Task<VerifyResult> VerifyCombinations<A, B, C, D>(
@@ -56,6 +60,7 @@ public static partial class Verifier
         IEnumerable<B> b,
         IEnumerable<C> c,
         IEnumerable<D> d,
+        bool captureExceptions = false,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(
@@ -63,7 +68,7 @@ public static partial class Verifier
             Assembly.GetCallingAssembly()!,
             sourceFile,
             name,
-            _ => _.VerifyCombinations(method, a, b, c, d));
+            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d));
 
     [Pure]
     public static Task<VerifyResult> VerifyCombinations<A, B, C, D, E>(
@@ -74,6 +79,7 @@ public static partial class Verifier
         IEnumerable<C> c,
         IEnumerable<D> d,
         IEnumerable<E> e,
+        bool captureExceptions = false,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(
@@ -81,7 +87,7 @@ public static partial class Verifier
             Assembly.GetCallingAssembly()!,
             sourceFile,
             name,
-            _ => _.VerifyCombinations(method, a, b, c, d, e));
+            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e));
 
     [Pure]
     public static Task<VerifyResult> VerifyCombinations<A, B, C, D, E, F>(
@@ -93,6 +99,7 @@ public static partial class Verifier
         IEnumerable<D> d,
         IEnumerable<E> e,
         IEnumerable<F> f,
+        bool captureExceptions = false,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(
@@ -100,7 +107,7 @@ public static partial class Verifier
             Assembly.GetCallingAssembly()!,
             sourceFile,
             name,
-            _ => _.VerifyCombinations(method, a, b, c, d, e, f));
+            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f));
 
     [Pure]
     public static Task<VerifyResult> VerifyCombinations<A, B, C, D, E, F, G>(
@@ -113,6 +120,7 @@ public static partial class Verifier
         IEnumerable<E> e,
         IEnumerable<F> f,
         IEnumerable<G> g,
+        bool captureExceptions = false,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(
@@ -120,7 +128,7 @@ public static partial class Verifier
             Assembly.GetCallingAssembly()!,
             sourceFile,
             name,
-            _ => _.VerifyCombinations(method, a, b, c, d, e, f, g));
+            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f, g));
 
     [Pure]
     public static Task<VerifyResult> VerifyCombinations<A, B, C, D, E, F, G, H>(
@@ -134,6 +142,7 @@ public static partial class Verifier
         IEnumerable<F> f,
         IEnumerable<G> g,
         IEnumerable<H> h,
+        bool captureExceptions = false,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(
@@ -141,13 +150,14 @@ public static partial class Verifier
             Assembly.GetCallingAssembly()!,
             sourceFile,
             name,
-            _ => _.VerifyCombinations(method, a, b, c, d, e, f, g, h));
+            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f, g, h));
 
     [Pure]
     public static Task<VerifyResult> VerifyCombinations(
         string name,
         Func<object?[], object?> method,
         List<IEnumerable<object?>> lists,
+        bool captureExceptions = false,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(
@@ -155,5 +165,5 @@ public static partial class Verifier
             Assembly.GetCallingAssembly()!,
             sourceFile,
             name,
-            _ => _.VerifyCombinations(method, lists));
+            _ => _.VerifyCombinations(method, captureExceptions, lists));
 }

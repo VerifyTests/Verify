@@ -1,4 +1,5 @@
-﻿[TestFixture]
+﻿#pragma warning disable VerifyCombinations
+[TestFixture]
 public class VerifyCombinationsTests
 {
     [Test]
@@ -90,7 +91,8 @@ public class VerifyCombinationsTests
 
                 return a.ToLower() + b + c;
             },
-            a, b, c);
+            a, b, c,
+            captureExceptions: true);
     }
 
     [Test]

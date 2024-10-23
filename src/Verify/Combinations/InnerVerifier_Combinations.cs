@@ -5,10 +5,12 @@ partial class InnerVerifier
 {
     public Task<VerifyResult> VerifyCombinations<A>(
         Func<A, object?> method,
+        bool captureExceptions,
         IEnumerable<A> a)
     {
         var target = GetCombinations(
             method.DynamicInvoke,
+            captureExceptions,
             [a.Cast<object?>()],
             [
                 typeof(A)
@@ -18,11 +20,13 @@ partial class InnerVerifier
 
     public Task<VerifyResult> VerifyCombinations<A, B>(
         Func<A, B, object?> method,
+        bool captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b)
     {
         var target = GetCombinations(
             method.DynamicInvoke,
+            captureExceptions,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>()
@@ -36,12 +40,14 @@ partial class InnerVerifier
 
     public Task<VerifyResult> VerifyCombinations<A, B, C>(
         Func<A, B, C, object?> method,
+        bool captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c)
     {
         var target = GetCombinations(
             method.DynamicInvoke,
+            captureExceptions,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -57,6 +63,7 @@ partial class InnerVerifier
 
     public Task<VerifyResult> VerifyCombinations<A, B, C, D>(
         Func<A, B, C, D, object?> method,
+        bool captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -64,6 +71,7 @@ partial class InnerVerifier
     {
         var target = GetCombinations(
             method.DynamicInvoke,
+            captureExceptions,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -81,6 +89,7 @@ partial class InnerVerifier
 
     public Task<VerifyResult> VerifyCombinations<A, B, C, D, E>(
         Func<A, B, C, D, E, object?> method,
+        bool captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -89,6 +98,7 @@ partial class InnerVerifier
     {
         var target = GetCombinations(
             method.DynamicInvoke,
+            captureExceptions,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -108,6 +118,7 @@ partial class InnerVerifier
 
     public Task<VerifyResult> VerifyCombinations<A, B, C, D, E, F>(
         Func<A, B, C, D, E, F, object?> method,
+        bool captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -117,6 +128,7 @@ partial class InnerVerifier
     {
         var target = GetCombinations(
             method.DynamicInvoke,
+            captureExceptions,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -138,6 +150,7 @@ partial class InnerVerifier
 
     public Task<VerifyResult> VerifyCombinations<A, B, C, D, E, F, G>(
         Func<A, B, C, D, E, F, G, object?> method,
+        bool captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -148,6 +161,7 @@ partial class InnerVerifier
     {
         var target = GetCombinations(
             method.DynamicInvoke,
+            captureExceptions,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -171,6 +185,7 @@ partial class InnerVerifier
 
     public Task<VerifyResult> VerifyCombinations<A, B, C, D, E, F, G, H>(
         Func<A, B, C, D, E, F, G, H, object?> method,
+        bool captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -182,6 +197,7 @@ partial class InnerVerifier
     {
         var target = GetCombinations(
             method.DynamicInvoke,
+            captureExceptions,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -207,14 +223,16 @@ partial class InnerVerifier
 
     public Task<VerifyResult> VerifyCombinations(
         Func<object?[], object?> method,
+        bool captureExceptions,
         List<IEnumerable<object?>> lists)
     {
-        var target = GetCombinations(method, lists, null);
+        var target = GetCombinations(method, captureExceptions, lists, null);
         return Verify(target);
     }
 
     static CombinationResults GetCombinations(
         Func<object?[], object?> method,
+        bool captureExceptions,
         List<IEnumerable<object?>> lists,
         Type[]? keyTypes)
     {
@@ -231,11 +249,13 @@ partial class InnerVerifier
                     value = method(combo);
                 }
                 catch (TargetInvocationException exception)
+                    when (captureExceptions)
                 {
                     items.Add(new(keys, exception.InnerException!));
                     return;
                 }
                 catch (Exception exception)
+                    when (captureExceptions)
                 {
                     items.Add(new(keys, exception));
                     return;

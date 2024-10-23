@@ -81,7 +81,7 @@ public class CombinationResultsConverter :
 
         var message = exception.Message;
         var builder = new StringBuilder();
-        var split = message.Split('\r', '\n', StringSplitOptions.RemoveEmptyEntries);
+        var split = message.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries);
 
         foreach (var line in split)
         {

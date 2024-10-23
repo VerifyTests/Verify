@@ -7,6 +7,7 @@ public static partial class Verifier
     public static SettingsTask VerifyCombinations<A>(
         Func<A, object?> method,
         IEnumerable<A> a,
+        bool captureExceptions = false,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(
@@ -19,6 +20,7 @@ public static partial class Verifier
         Func<A, B, object?> method,
         IEnumerable<A> a,
         IEnumerable<B> b,
+        bool captureExceptions = false,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(
@@ -47,6 +49,7 @@ public static partial class Verifier
         IEnumerable<B> b,
         IEnumerable<C> c,
         IEnumerable<D> d,
+        bool captureExceptions = false,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(
@@ -62,6 +65,7 @@ public static partial class Verifier
         IEnumerable<C> c,
         IEnumerable<D> d,
         IEnumerable<E> e,
+        bool captureExceptions = false,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(
@@ -78,6 +82,7 @@ public static partial class Verifier
         IEnumerable<D> d,
         IEnumerable<E> e,
         IEnumerable<F> f,
+        bool captureExceptions = false,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(
@@ -95,6 +100,7 @@ public static partial class Verifier
         IEnumerable<E> e,
         IEnumerable<F> f,
         IEnumerable<G> g,
+        bool captureExceptions = false,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(
@@ -113,6 +119,7 @@ public static partial class Verifier
         IEnumerable<F> f,
         IEnumerable<G> g,
         IEnumerable<H> h,
+        bool captureExceptions = false,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(
@@ -125,6 +132,7 @@ public static partial class Verifier
         Func<object?[], object?> method,
         List<IEnumerable<object?>> lists,
         VerifySettings? settings = null,
+        bool captureExceptions = false,
         [CallerFilePath] string sourceFile = "") =>
         Verify(
             settings,

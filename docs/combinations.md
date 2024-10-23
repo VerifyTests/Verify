@@ -22,7 +22,7 @@ public string BuildAddress(int streetNumber, string street, string city)
     return $"{streetNumber} {street}, {city}";
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L4-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationTargetMethod' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L5-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationTargetMethod' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -44,7 +44,7 @@ public Task BuildAddressTest()
         cities);
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L17-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L18-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -87,7 +87,7 @@ public Task BuildAddressExceptionsTest()
         captureExceptions: true);
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L34-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L35-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

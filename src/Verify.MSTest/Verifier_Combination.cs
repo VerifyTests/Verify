@@ -4,6 +4,7 @@ namespace VerifyMSTest;
 public static partial class Verifier
 {
     [Pure]
+    [Experimental("VerifyCombinations")]
     public static SettingsTask VerifyCombinations<A>(
         Func<A, object?> method,
         IEnumerable<A> a,
@@ -16,6 +17,7 @@ public static partial class Verifier
             _ => _.VerifyCombinations(method, captureExceptions, a));
 
     [Pure]
+    [Experimental("VerifyCombinations")]
     public static SettingsTask VerifyCombinations<A, B>(
         Func<A, B, object?> method,
         IEnumerable<A> a,
@@ -29,6 +31,7 @@ public static partial class Verifier
             _ => _.VerifyCombinations(method, captureExceptions, a, b));
 
     [Pure]
+    [Experimental("VerifyCombinations")]
     public static SettingsTask VerifyCombinations<A, B, C>(
         Func<A, B, C, object?> method,
         IEnumerable<A> a,
@@ -43,6 +46,7 @@ public static partial class Verifier
             _ => _.VerifyCombinations(method, captureExceptions, a, b, c));
 
     [Pure]
+    [Experimental("VerifyCombinations")]
     public static SettingsTask VerifyCombinations<A, B, C, D>(
         Func<A, B, C, D, object?> method,
         IEnumerable<A> a,
@@ -58,6 +62,7 @@ public static partial class Verifier
             _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d));
 
     [Pure]
+    [Experimental("VerifyCombinations")]
     public static SettingsTask VerifyCombinations<A, B, C, D, E>(
         Func<A, B, C, D, E, object?> method,
         IEnumerable<A> a,
@@ -74,6 +79,7 @@ public static partial class Verifier
             _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e));
 
     [Pure]
+    [Experimental("VerifyCombinations")]
     public static SettingsTask VerifyCombinations<A, B, C, D, E, F>(
         Func<A, B, C, D, E, F, object?> method,
         IEnumerable<A> a,
@@ -91,6 +97,7 @@ public static partial class Verifier
             _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f));
 
     [Pure]
+    [Experimental("VerifyCombinations")]
     public static SettingsTask VerifyCombinations<A, B, C, D, E, F, G>(
         Func<A, B, C, D, E, F, G, object?> method,
         IEnumerable<A> a,
@@ -109,6 +116,7 @@ public static partial class Verifier
             _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f, g));
 
     [Pure]
+    [Experimental("VerifyCombinations")]
     public static SettingsTask VerifyCombinations<A, B, C, D, E, F, G, H>(
         Func<A, B, C, D, E, F, G, H, object?> method,
         IEnumerable<A> a,
@@ -128,6 +136,7 @@ public static partial class Verifier
             _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f, g, h));
 
     [Pure]
+    [Experimental("VerifyCombinations")]
     public static SettingsTask VerifyCombinations(
         Func<object?[], object?> method,
         List<IEnumerable<object?>> lists,

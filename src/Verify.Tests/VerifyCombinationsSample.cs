@@ -1,4 +1,5 @@
-﻿#if NET8_0_OR_GREATER
+﻿#pragma warning disable VerifyCombinations
+#if NET8_0_OR_GREATER
 public class VerifyCombinationsSample
 {
     #region CombinationTargetMethod

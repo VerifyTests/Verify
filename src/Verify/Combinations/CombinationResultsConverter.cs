@@ -79,19 +79,6 @@ public class CombinationResultsConverter :
             return;
         }
 
-        var builder = new StringBuilder();
-
-        foreach (var line in exception.Message.AsSpan().EnumerateLines())
-        {
-            var trimmed = line.TrimEnd();
-            builder.Append(trimmed);
-            if (!trimmed.EndsWith('.'))
-            {
-                builder.Append(". ");
-            }
-        }
-
-        builder.TrimEnd();
-        writer.WriteValue($"{exception.GetType().Name}: {builder}");
+        writer.WriteValue($"{exception.GetType().Name}: {exception.Message}");
     }
 }

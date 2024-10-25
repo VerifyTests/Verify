@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # VerifyCombinations
 
-VerifyCombinations allows all combinations of the given input lists to be executed, and the results all written to one file.
+VerifyCombinations allows all combinations of the given input lists to be executed, and the results all written to a single file.
 
 
 ## Method being tested
@@ -80,7 +80,9 @@ Key value are aligned based on type.
 
 ## CaptureExceptions
 
-By default exceptions are not captured.
+By default exceptions are not captured. So if an exception is thrown by the method being tested, it will bubble up.
+
+Exceptions can be optionally "captured". This apporach uses the `Exception.Message` as the result of the method being tested.
 
 To enable exception capture use `captureExceptions = true`:
 
@@ -91,8 +93,8 @@ To enable exception capture use `captureExceptions = true`:
 public Task BuildAddressExceptionsTest()
 {
     int[] streetNumbers = [-1, 0, 10];
-    string[] streets = [null!, "", " ", "Valid St"];
-    string[] cities = [null!, "", " ", "Valid City"];
+    string[] streets = ["", " ", "Valid St"];
+    string[] cities = [null!, "Valid City"];
     return VerifyCombinations(
         BuildAddress,
         streetNumbers,
@@ -111,61 +113,31 @@ public Task BuildAddressExceptionsTest()
 <a id='snippet-VerifyCombinationsSample.BuildAddressExceptionsTest.verified.txt'></a>
 ```txt
 {
-  -1, null    , null      : ArgumentNullException: Value cannot be null. (Parameter 'street'),
-  -1, null    ,           : ArgumentNullException: Value cannot be null. (Parameter 'street'),
-  -1, null    ,           : ArgumentNullException: Value cannot be null. (Parameter 'street'),
-  -1, null    , Valid City: ArgumentNullException: Value cannot be null. (Parameter 'street'),
   -1,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-  -1,         ,           : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-  -1,         ,           : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
   -1,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
   -1,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-  -1,         ,           : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-  -1,         ,           : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
   -1,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
   -1, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city'),
-  -1, Valid St,           : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'city'),
-  -1, Valid St,           : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'city'),
   -1, Valid St, Valid City:
 ArgumentOutOfRangeException: streetNumber ('-1') must be greater than or equal to '1'. (Parameter 'streetNumber')
 Actual value was -1.,
-   0, null    , null      : ArgumentNullException: Value cannot be null. (Parameter 'street'),
-   0, null    ,           : ArgumentNullException: Value cannot be null. (Parameter 'street'),
-   0, null    ,           : ArgumentNullException: Value cannot be null. (Parameter 'street'),
-   0, null    , Valid City: ArgumentNullException: Value cannot be null. (Parameter 'street'),
    0,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-   0,         ,           : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-   0,         ,           : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
    0,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
    0,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-   0,         ,           : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-   0,         ,           : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
    0,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
    0, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city'),
-   0, Valid St,           : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'city'),
-   0, Valid St,           : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'city'),
    0, Valid St, Valid City:
 ArgumentOutOfRangeException: streetNumber ('0') must be greater than or equal to '1'. (Parameter 'streetNumber')
 Actual value was 0.,
-  10, null    , null      : ArgumentNullException: Value cannot be null. (Parameter 'street'),
-  10, null    ,           : ArgumentNullException: Value cannot be null. (Parameter 'street'),
-  10, null    ,           : ArgumentNullException: Value cannot be null. (Parameter 'street'),
-  10, null    , Valid City: ArgumentNullException: Value cannot be null. (Parameter 'street'),
   10,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-  10,         ,           : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-  10,         ,           : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
   10,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
   10,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-  10,         ,           : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-  10,         ,           : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
   10,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
   10, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city'),
-  10, Valid St,           : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'city'),
-  10, Valid St,           : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'city'),
   10, Valid St, Valid City: 10 Valid St, Valid City
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.BuildAddressExceptionsTest.verified.txt#L1-L54' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyCombinationsSample.BuildAddressExceptionsTest.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.BuildAddressExceptionsTest.verified.txt#L1-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyCombinationsSample.BuildAddressExceptionsTest.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

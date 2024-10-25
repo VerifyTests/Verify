@@ -56,8 +56,8 @@ public class VerifyCombinationsSample
     public Task BuildAddressExceptionsTest()
     {
         int[] streetNumbers = [-1, 0, 10];
-        string[] streets = [null!, "", " ", "Valid St"];
-        string[] cities = [null!, "", " ", "Valid City"];
+        string[] streets = ["", " ", "Valid St"];
+        string[] cities = [null!, "Valid City"];
         return VerifyCombinations(
             BuildAddress,
             streetNumbers,

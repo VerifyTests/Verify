@@ -1,6 +1,6 @@
 # VerifyCombinations
 
-VerifyCombinations allows all combinations of the given input lists to be executed, and the results all written to one file.
+VerifyCombinations allows all combinations of the given input lists to be executed, and the results all written to a single file.
 
 
 ## Method being tested
@@ -28,7 +28,9 @@ Key value are aligned based on type.
 
 ## CaptureExceptions
 
-By default exceptions are not captured.
+By default exceptions are not captured. So if an exception is thrown by the method being tested, it will bubble up.
+
+Exceptions can be optionally "captured". This apporach uses the `Exception.Message` as the result of the method being tested.
 
 To enable exception capture use `captureExceptions = true`:
 

@@ -2,8 +2,8 @@
 
 public static class VerifyCombinationSettings
 {
-    internal static bool captureExceptions;
+    public static bool CaptureExceptionsEnabled { get; private set; }
 
     public static void CaptureExceptions() =>
-        captureExceptions = true;
+        CaptureExceptionsEnabled = true;
 }

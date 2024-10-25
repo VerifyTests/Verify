@@ -1,5 +1,4 @@
-﻿#pragma warning disable VerifyCombinations
-public class VerifyCombinationsTests
+﻿public class VerifyCombinationsTests
 {
     [Test]
     public Task One()

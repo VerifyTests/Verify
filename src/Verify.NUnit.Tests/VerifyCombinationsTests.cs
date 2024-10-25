@@ -1,5 +1,4 @@
-﻿#pragma warning disable VerifyCombinations
-[TestFixture]
+﻿[TestFixture]
 public class VerifyCombinationsTests
 {
     [Test]

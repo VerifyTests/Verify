@@ -6,7 +6,6 @@ public partial class VerifyBase
 #pragma warning disable CA1822 // Mark members as static
 
     [Pure]
-    [Experimental("VerifyCombinations")]
     public SettingsTask VerifyCombinations<A>(
         Func<A, object?> method,
         IEnumerable<A> a,
@@ -16,7 +15,6 @@ public partial class VerifyBase
         Verifier.VerifyCombinations(method, a, captureExceptions, settings, sourceFile);
 
     [Pure]
-    [Experimental("VerifyCombinations")]
     public SettingsTask VerifyCombinations<A, B>(
         Func<A, B, object?> method,
         IEnumerable<A> a,
@@ -27,7 +25,6 @@ public partial class VerifyBase
         Verifier.VerifyCombinations(method, a, b, captureExceptions, settings, sourceFile);
 
     [Pure]
-    [Experimental("VerifyCombinations")]
     public SettingsTask VerifyCombinations<A, B, C>(
         Func<A, B, C, object?> method,
         IEnumerable<A> a,
@@ -39,7 +36,6 @@ public partial class VerifyBase
         Verifier.VerifyCombinations(method, a, b, c, captureExceptions, settings, sourceFile);
 
     [Pure]
-    [Experimental("VerifyCombinations")]
     public SettingsTask VerifyCombinations<A, B, C, D>(
         Func<A, B, C, D, object?> method,
         IEnumerable<A> a,
@@ -52,7 +48,6 @@ public partial class VerifyBase
         Verifier.VerifyCombinations(method, a, b, c, d, captureExceptions, settings, sourceFile);
 
     [Pure]
-    [Experimental("VerifyCombinations")]
     public SettingsTask VerifyCombinations<A, B, C, D, E>(
         Func<A, B, C, D, E, object?> method,
         IEnumerable<A> a,
@@ -66,7 +61,6 @@ public partial class VerifyBase
         Verifier.VerifyCombinations(method, a, b, c, d, e, captureExceptions, settings, sourceFile);
 
     [Pure]
-    [Experimental("VerifyCombinations")]
     public SettingsTask VerifyCombinations<A, B, C, D, E, F>(
         Func<A, B, C, D, E, F, object?> method,
         IEnumerable<A> a,
@@ -81,7 +75,6 @@ public partial class VerifyBase
         Verifier.VerifyCombinations(method, a, b, c, d, e, f, captureExceptions, settings, sourceFile);
 
     [Pure]
-    [Experimental("VerifyCombinations")]
     public SettingsTask VerifyCombinations<A, B, C, D, E, F, G>(
         Func<A, B, C, D, E, F, G, object?> method,
         IEnumerable<A> a,
@@ -97,7 +90,6 @@ public partial class VerifyBase
         Verifier.VerifyCombinations(method, a, b, c, d, e, f, g, captureExceptions, settings, sourceFile);
 
     [Pure]
-    [Experimental("VerifyCombinations")]
     public SettingsTask VerifyCombinations<A, B, C, D, E, F, G, H>(
         Func<A, B, C, D, E, F, G, H, object?> method,
         IEnumerable<A> a,
@@ -114,7 +106,6 @@ public partial class VerifyBase
         Verifier.VerifyCombinations(method, a, b, c, d, e, f, g, h, captureExceptions, settings, sourceFile);
 
     [Pure]
-    [Experimental("VerifyCombinations")]
     public SettingsTask VerifyCombinations(
         Func<object?[], object?> method,
         List<IEnumerable<object?>> lists,

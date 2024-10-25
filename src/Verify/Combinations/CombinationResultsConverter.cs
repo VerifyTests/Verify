@@ -88,6 +88,30 @@ public class CombinationResultsConverter :
             return;
         }
 
-        writer.WriteValue($"{exception.GetType().Name}: {exception.Message}");
+        var message = exception.Message;
+        if (exception is ArgumentException)
+        {
+            message = FlattenMessage(message);
+        }
+
+        writer.WriteValue($"{exception.GetType().Name}: {message}");
+    }
+
+    static string FlattenMessage(string message)
+    {
+        var builder = new StringBuilder();
+
+        foreach (var line in message.AsSpan().EnumerateLines())
+        {
+            var trimmed = line.TrimEnd();
+            builder.Append(trimmed);
+            if (!trimmed.EndsWith('.'))
+            {
+                builder.Append(". ");
+            }
+        }
+
+        builder.TrimEnd();
+        return builder.ToString();
     }
 }

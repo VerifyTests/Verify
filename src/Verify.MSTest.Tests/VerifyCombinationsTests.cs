@@ -1,5 +1,4 @@
-﻿#pragma warning disable VerifyCombinations
-[TestClass]
+﻿[TestClass]
 public partial class VerifyCombinationsTests
 {
     [TestMethod]

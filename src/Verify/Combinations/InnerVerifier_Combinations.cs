@@ -240,7 +240,7 @@ partial class InnerVerifier
         var listCopy = lists.Select(_ => _.ToList()).ToList();
         keyTypes = BuildKeyTypes(lists, keyTypes);
 
-        var resolvedCaptureException = captureExceptions ?? VerifyCombinationSettings.captureExceptions;
+        var resolvedCaptureException = captureExceptions ?? VerifyCombinationSettings.CaptureExceptionsEnabled;
 
         var combinationGenerator = new CombinationGenerator(
             listCopy,

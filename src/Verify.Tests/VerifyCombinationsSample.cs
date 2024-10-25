@@ -1,5 +1,4 @@
 ﻿// ReSharper disable MemberCanBePrivate.Global
-#pragma warning disable VerifyCombinations
 #if NET8_0_OR_GREATER
 public class VerifyCombinationsSample
 {

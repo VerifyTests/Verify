@@ -25,7 +25,7 @@ public static string BuildAddress(int streetNumber, string street, string city)
     return $"{streetNumber} {street}, {city}";
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L6-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationTargetMethod' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L5-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationTargetMethod' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -47,7 +47,7 @@ public Task BuildAddressTest()
         cities);
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L19-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L18-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -104,7 +104,7 @@ public Task BuildAddressExceptionsTest()
         captureExceptions: true);
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L53-L69' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L52-L68' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -114,31 +114,27 @@ public Task BuildAddressExceptionsTest()
 <a id='snippet-VerifyCombinationsSample.BuildAddressExceptionsTest.verified.txt'></a>
 ```txt
 {
-  -1,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-  -1,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-  -1,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-  -1,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-  -1, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city'),
-  -1, Valid St, Valid City:
-ArgumentOutOfRangeException: streetNumber ('-1') must be greater than or equal to '1'. (Parameter 'streetNumber')
-Actual value was -1.,
-   0,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-   0,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-   0,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-   0,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-   0, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city'),
-   0, Valid St, Valid City:
-ArgumentOutOfRangeException: streetNumber ('0') must be greater than or equal to '1'. (Parameter 'streetNumber')
-Actual value was 0.,
-  10,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-  10,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-  10,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-  10,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street'),
-  10, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city'),
+  -1,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+  -1,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+  -1,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+  -1,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+  -1, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city').,
+  -1, Valid St, Valid City: ArgumentOutOfRangeException: streetNumber ('-1') must be greater than or equal to '1'. (Parameter 'streetNumber'). Actual value was -1.,
+   0,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+   0,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+   0,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+   0,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+   0, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city').,
+   0, Valid St, Valid City: ArgumentOutOfRangeException: streetNumber ('0') must be greater than or equal to '1'. (Parameter 'streetNumber'). Actual value was 0.,
+  10,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+  10,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+  10,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+  10,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+  10, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city').,
   10, Valid St, Valid City: 10 Valid St, Valid City
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.BuildAddressExceptionsTest.verified.txt#L1-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyCombinationsSample.BuildAddressExceptionsTest.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.BuildAddressExceptionsTest.verified.txt#L1-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyCombinationsSample.BuildAddressExceptionsTest.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -153,7 +149,7 @@ Exception capture can be enable globally:
 public static void Initialize() =>
     VerifyCombinationSettings.CaptureExceptions();
 ```
-<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L4-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-GlobalCaptureExceptions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L3-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-GlobalCaptureExceptions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If exception capture has been enabled globally, it can be disable at the method test level using `captureExceptions: false`.
@@ -175,7 +171,7 @@ public Task BuildAddressExceptionsDisabledTest()
         captureExceptions: false);
 }
 ```
-<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L69-L85' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptionsFalse' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L68-L84' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptionsFalse' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -276,11 +272,35 @@ public class CombinationResultsConverter :
             return;
         }
 
-        writer.WriteValue($"{exception.GetType().Name}: {exception.Message}");
+        var message = exception.Message;
+        if (exception is ArgumentException)
+        {
+            message = FlattenMessage(message);
+        }
+
+        writer.WriteValue($"{exception.GetType().Name}: {message}");
+    }
+
+    static string FlattenMessage(string message)
+    {
+        var builder = new StringBuilder();
+
+        foreach (var line in message.AsSpan().EnumerateLines())
+        {
+            var trimmed = line.TrimEnd();
+            builder.Append(trimmed);
+            if (!trimmed.EndsWith('.'))
+            {
+                builder.Append(". ");
+            }
+        }
+
+        builder.TrimEnd();
+        return builder.ToString();
     }
 }
 ```
-<sup><a href='/src/Verify/Combinations/CombinationResultsConverter.cs#L1-L93' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationResultsConverter.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Combinations/CombinationResultsConverter.cs#L1-L117' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationResultsConverter.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -306,7 +326,7 @@ class CustomCombinationConverter :
         string.Join(", ", keys.Select(_ => _.Value));
 }
 ```
-<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L114-L124' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationConverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L113-L123' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationConverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Full control of serialization can be achieved by inheriting from `WriteOnlyJsonConverter<CombinationResults>`.
@@ -325,7 +345,7 @@ static CustomCombinationConverter customConverter = new();
 public static void Init() =>
     VerifierSettings.AddExtraSettings(_ => _.Converters.Insert(0, customConverter));
 ```
-<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L87-L95' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationModuleInitializer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L86-L94' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationModuleInitializer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

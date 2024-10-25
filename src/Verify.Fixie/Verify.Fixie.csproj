@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
     <SignAssembly>false</SignAssembly>
     <TestProject>false</TestProject>
     <IsTestProject>false</IsTestProject>
@@ -19,10 +19,6 @@
 
     <Compile Include="..\Verify\Guards.cs" />
     <Compile Include="..\Verify\Extensions.cs" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
-    <Reference Include="System.IO.Compression" />
   </ItemGroup>
 
 </Project>

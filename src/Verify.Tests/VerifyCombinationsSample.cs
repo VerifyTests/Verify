@@ -41,7 +41,7 @@ public class VerifyCombinationsSample
         string[] strings = ["a", "bbbb"];
         Date?[] dates = [new(2020, 10, 1), null, Date.MinValue];
         return VerifyCombinations(
-            (number, text, date) => string.Join(" ", number, text, date),
+            (number, text, date) => string.Join(" ", number, text, date?.ToString("yyyy-MM-dd")),
             numbers,
             strings,
             dates);

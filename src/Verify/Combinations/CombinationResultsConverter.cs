@@ -1,6 +1,4 @@
-﻿using StringBuilder = System.Text.StringBuilder;
-
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 public class CombinationResultsConverter :
     WriteOnlyJsonConverter<CombinationResults>
@@ -38,15 +36,15 @@ public class CombinationResultsConverter :
 
         for (var itemIndex = 0; itemIndex < items.Count; itemIndex++)
         {
-            var keys = new string[keysLength];
+            var keys = new (string value, int maxLength)[keysLength];
             for (var keyIndex = 0; keyIndex < keysLength; keyIndex++)
             {
                 var keyValue = keyValues[itemIndex, keyIndex];
-                keys[keyIndex] = keyValue;
+                keys[keyIndex] = new(keyValue, maxKeyLengths[keyIndex]);
             }
 
             var item = items[itemIndex];
-            var name = BuildPropertyName(results, keys, maxKeyLengths);
+            var name = BuildPropertyName(results, keys);
             writer.WritePropertyName(name);
             WriteValue(writer, item);
         }
@@ -54,24 +52,23 @@ public class CombinationResultsConverter :
         writer.WriteEndObject();
     }
 
-    protected virtual string BuildPropertyName(CombinationResults results, IReadOnlyList<string> keys, IReadOnlyList<int> maxKeyLengths)
+    protected virtual string BuildPropertyName(CombinationResults results, IReadOnlyList<(string value, int maxLength)> keys)
     {
         var builder = new StringBuilder();
         for (var index = 0; index < keys.Count; index++)
         {
             var key = keys[index];
-            var maxLength = maxKeyLengths[index];
             var type = results.KeyTypes?[index];
-            var padding = maxLength - key.Length;
+            var padding = key.maxLength - key.value.Length;
             if (type != null &&
                 type.IsNumeric())
             {
                 builder.Append(' ', padding);
-                builder.Append(key);
+                builder.Append(key.value);
             }
             else
             {
-                builder.Append(key);
+                builder.Append(key.value);
                 builder.Append(' ', padding);
             }
 

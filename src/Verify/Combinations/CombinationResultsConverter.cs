@@ -34,17 +34,19 @@ public class CombinationResultsConverter :
             }
         }
 
+        var keys = new CombinationKey[keysLength];
         for (var itemIndex = 0; itemIndex < items.Count; itemIndex++)
         {
-            var keys = new (string value, int maxLength)[keysLength];
             for (var keyIndex = 0; keyIndex < keysLength; keyIndex++)
             {
-                var keyValue = keyValues[itemIndex, keyIndex];
-                keys[keyIndex] = new(keyValue, maxKeyLengths[keyIndex]);
+                keys[keyIndex] = new(
+                    Value: keyValues[itemIndex, keyIndex],
+                    MaxLength: maxKeyLengths[keyIndex],
+                    Type: results.KeyTypes?[keyIndex]);
             }
 
             var item = items[itemIndex];
-            var name = BuildPropertyName(results, keys);
+            var name = BuildPropertyName(keys);
             writer.WritePropertyName(name);
             WriteValue(writer, item);
         }
@@ -52,23 +54,21 @@ public class CombinationResultsConverter :
         writer.WriteEndObject();
     }
 
-    protected virtual string BuildPropertyName(CombinationResults results, IReadOnlyList<(string value, int maxLength)> keys)
+    protected virtual string BuildPropertyName(IReadOnlyList<CombinationKey> keys)
     {
         var builder = new StringBuilder();
-        for (var index = 0; index < keys.Count; index++)
+        foreach (var (value, maxLength, type) in keys)
         {
-            var key = keys[index];
-            var type = results.KeyTypes?[index];
-            var padding = key.maxLength - key.value.Length;
+            var padding = maxLength - value.Length;
             if (type != null &&
                 type.IsNumeric())
             {
                 builder.Append(' ', padding);
-                builder.Append(key.value);
+                builder.Append(value);
             }
             else
             {
-                builder.Append(key.value);
+                builder.Append(value);
                 builder.Append(' ', padding);
             }
 

@@ -38,44 +38,56 @@ public class CombinationResultsConverter :
 
         for (var itemIndex = 0; itemIndex < items.Count; itemIndex++)
         {
-            var item = items[itemIndex];
-            var builder = new StringBuilder();
+            var keys = new string[keysLength];
             for (var keyIndex = 0; keyIndex < keysLength; keyIndex++)
             {
                 var keyValue = keyValues[itemIndex, keyIndex];
-                var maxKeyLength = maxKeyLengths[keyIndex];
-                var keyType = results.KeyTypes?[keyIndex];
-                if (keyType != null &&
-                    keyType.IsNumeric())
-                {
-                    builder.Append(' ', maxKeyLength - keyValue.Length);
-                    builder.Append(keyValue);
-                }
-                else
-                {
-                    builder.Append(keyValue);
-                    builder.Append(' ', maxKeyLength - keyValue.Length);
-                }
-
-                if (keyIndex + 1 != keysLength)
-                {
-                    builder.Append(", ");
-                }
+                keys[keyIndex] = keyValue;
             }
 
-            writer.WritePropertyName(builder.ToString());
+            var item = items[itemIndex];
+            var name = BuildPropertyName(results, keys, maxKeyLengths);
+            writer.WritePropertyName(name);
             WriteValue(writer, item);
         }
 
         writer.WriteEndObject();
     }
 
-    static void WriteValue(VerifyJsonWriter writer, CombinationResult item)
+    protected virtual string BuildPropertyName(CombinationResults results, IReadOnlyList<string> keys, IReadOnlyList<int> maxKeyLengths)
     {
-        var exception = item.Exception;
+        var builder = new StringBuilder();
+        for (var index = 0; index < keys.Count; index++)
+        {
+            var key = keys[index];
+            var maxLength = maxKeyLengths[index];
+            var type = results.KeyTypes?[index];
+            var padding = maxLength - key.Length;
+            if (type != null &&
+                type.IsNumeric())
+            {
+                builder.Append(' ', padding);
+                builder.Append(key);
+            }
+            else
+            {
+                builder.Append(key);
+                builder.Append(' ', padding);
+            }
+
+            builder.Append(", ");
+        }
+
+        builder.Length -= 2;
+        return builder.ToString();
+    }
+
+    protected virtual void WriteValue(VerifyJsonWriter writer, CombinationResult result)
+    {
+        var exception = result.Exception;
         if (exception == null)
         {
-            writer.WriteValue(item.Value);
+            writer.WriteValue(result.Value);
             return;
         }
 

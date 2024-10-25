@@ -9,8 +9,9 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 VerifyCombinations allows all combinations of the given input lists to be executed, and the results all written to a single file.
 
+## Example
 
-## Method being tested
+### Method being tested
 
 <!-- snippet: CombinationTargetMethod -->
 <a id='snippet-CombinationTargetMethod'></a>
@@ -28,7 +29,7 @@ public static string BuildAddress(int streetNumber, string street, string city)
 <!-- endSnippet -->
 
 
-## Test
+### Test
 
 <!-- snippet: CombinationSample -->
 <a id='snippet-CombinationSample'></a>
@@ -50,7 +51,7 @@ public Task BuildAddressTest()
 <!-- endSnippet -->
 
 
-## Result
+### Result
 
 <!-- snippet: VerifyCombinationsSample.BuildAddressTest.verified.txt -->
 <a id='snippet-VerifyCombinationsSample.BuildAddressTest.verified.txt'></a>

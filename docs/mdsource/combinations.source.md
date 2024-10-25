@@ -2,18 +2,19 @@
 
 VerifyCombinations allows all combinations of the given input lists to be executed, and the results all written to a single file.
 
+## Example
 
-## Method being tested
+### Method being tested
 
 snippet: CombinationTargetMethod
 
 
-## Test
+### Test
 
 snippet: CombinationSample
 
 
-## Result
+### Result
 
 snippet: VerifyCombinationsSample.BuildAddressTest.verified.txt
 

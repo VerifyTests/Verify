@@ -10,7 +10,7 @@ public partial class VerifyBase
     public SettingsTask VerifyCombinations<A>(
         Func<A, object?> method,
         IEnumerable<A> a,
-        bool captureExceptions = false,
+        bool? captureExceptions = null,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verifier.VerifyCombinations(method, a, captureExceptions, settings, sourceFile);
@@ -21,7 +21,7 @@ public partial class VerifyBase
         Func<A, B, object?> method,
         IEnumerable<A> a,
         IEnumerable<B> b,
-        bool captureExceptions = false,
+        bool? captureExceptions = null,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verifier.VerifyCombinations(method, a, b, captureExceptions, settings, sourceFile);
@@ -33,7 +33,7 @@ public partial class VerifyBase
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
-        bool captureExceptions = false,
+        bool? captureExceptions = null,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verifier.VerifyCombinations(method, a, b, c, captureExceptions, settings, sourceFile);
@@ -46,7 +46,7 @@ public partial class VerifyBase
         IEnumerable<B> b,
         IEnumerable<C> c,
         IEnumerable<D> d,
-        bool captureExceptions = false,
+        bool? captureExceptions = null,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verifier.VerifyCombinations(method, a, b, c, d, captureExceptions, settings, sourceFile);
@@ -60,7 +60,7 @@ public partial class VerifyBase
         IEnumerable<C> c,
         IEnumerable<D> d,
         IEnumerable<E> e,
-        bool captureExceptions = false,
+        bool? captureExceptions = null,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verifier.VerifyCombinations(method, a, b, c, d, e, captureExceptions, settings, sourceFile);
@@ -75,7 +75,7 @@ public partial class VerifyBase
         IEnumerable<D> d,
         IEnumerable<E> e,
         IEnumerable<F> f,
-        bool captureExceptions = false,
+        bool? captureExceptions = null,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verifier.VerifyCombinations(method, a, b, c, d, e, f, captureExceptions, settings, sourceFile);
@@ -91,7 +91,7 @@ public partial class VerifyBase
         IEnumerable<E> e,
         IEnumerable<F> f,
         IEnumerable<G> g,
-        bool captureExceptions = false,
+        bool? captureExceptions = null,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verifier.VerifyCombinations(method, a, b, c, d, e, f, g, captureExceptions, settings, sourceFile);
@@ -108,7 +108,7 @@ public partial class VerifyBase
         IEnumerable<F> f,
         IEnumerable<G> g,
         IEnumerable<H> h,
-        bool captureExceptions = false,
+        bool? captureExceptions = null,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verifier.VerifyCombinations(method, a, b, c, d, e, f, g, h, captureExceptions, settings, sourceFile);
@@ -118,7 +118,7 @@ public partial class VerifyBase
     public SettingsTask VerifyCombinations(
         Func<object?[], object?> method,
         List<IEnumerable<object?>> lists,
-        bool captureExceptions = false,
+        bool? captureExceptions = null,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verifier.VerifyCombinations(method, lists, captureExceptions, settings, sourceFile);

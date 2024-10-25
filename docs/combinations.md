@@ -7,6 +7,8 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # VerifyCombinations
 
+VerifyCombinations allows all combinations of the given input lists to be executed, and the results all written to one file.
+
 
 ## Method being tested
 
@@ -69,6 +71,10 @@ public Task BuildAddressTest()
 
 
 ## CaptureExceptions
+
+By default exceptions are not captured.
+
+To enable exception capture use `captureExceptions = true`
 
 <!-- snippet: CombinationSample_CaptureExceptions -->
 <a id='snippet-CombinationSample_CaptureExceptions'></a>
@@ -152,4 +158,41 @@ Actual value was 0.,
 }
 ```
 <sup><a href='/src/Verify.Tests/VerifyCombinationsSample.BuildAddressExceptionsTest.verified.txt#L1-L54' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyCombinationsSample.BuildAddressExceptionsTest.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Global CaptureExceptions
+
+Exception capture can be enable globally:
+
+<!-- snippet: GlobalCaptureExceptions -->
+<a id='snippet-GlobalCaptureExceptions'></a>
+```cs
+[ModuleInitializer]
+public static void Initialize() =>
+    VerifyCombinationSettings.CaptureExceptions();
+```
+<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L4-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-GlobalCaptureExceptions' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+If exception capture has been enabled globally, it can be disable at the method test level using `captureExceptions: false`.
+
+<!-- snippet: CombinationSample_CaptureExceptionsFalse -->
+<a id='snippet-CombinationSample_CaptureExceptionsFalse'></a>
+```cs
+[Fact]
+public Task BuildAddressExceptionsDisabledTest()
+{
+    int[] streetNumbers = [1, 10];
+    string[] streets = ["Smith St", "Wallace St"];
+    string[] cities = ["Sydney", "Chicago"];
+    return VerifyCombinations(
+        BuildAddress,
+        streetNumbers,
+        streets,
+        cities,
+        captureExceptions: false);
+}
+```
+<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L68-L84' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptionsFalse' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

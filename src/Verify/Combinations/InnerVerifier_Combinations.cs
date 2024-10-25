@@ -5,7 +5,7 @@ partial class InnerVerifier
 {
     public Task<VerifyResult> VerifyCombinations<A>(
         Func<A, object?> method,
-        bool captureExceptions,
+        bool? captureExceptions,
         IEnumerable<A> a)
     {
         var target = GetCombinations(
@@ -20,7 +20,7 @@ partial class InnerVerifier
 
     public Task<VerifyResult> VerifyCombinations<A, B>(
         Func<A, B, object?> method,
-        bool captureExceptions,
+        bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b)
     {
@@ -40,7 +40,7 @@ partial class InnerVerifier
 
     public Task<VerifyResult> VerifyCombinations<A, B, C>(
         Func<A, B, C, object?> method,
-        bool captureExceptions,
+        bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c)
@@ -63,7 +63,7 @@ partial class InnerVerifier
 
     public Task<VerifyResult> VerifyCombinations<A, B, C, D>(
         Func<A, B, C, D, object?> method,
-        bool captureExceptions,
+        bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -89,7 +89,7 @@ partial class InnerVerifier
 
     public Task<VerifyResult> VerifyCombinations<A, B, C, D, E>(
         Func<A, B, C, D, E, object?> method,
-        bool captureExceptions,
+        bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -118,7 +118,7 @@ partial class InnerVerifier
 
     public Task<VerifyResult> VerifyCombinations<A, B, C, D, E, F>(
         Func<A, B, C, D, E, F, object?> method,
-        bool captureExceptions,
+        bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -150,7 +150,7 @@ partial class InnerVerifier
 
     public Task<VerifyResult> VerifyCombinations<A, B, C, D, E, F, G>(
         Func<A, B, C, D, E, F, G, object?> method,
-        bool captureExceptions,
+        bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -185,7 +185,7 @@ partial class InnerVerifier
 
     public Task<VerifyResult> VerifyCombinations<A, B, C, D, E, F, G, H>(
         Func<A, B, C, D, E, F, G, H, object?> method,
-        bool captureExceptions,
+        bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -223,7 +223,7 @@ partial class InnerVerifier
 
     public Task<VerifyResult> VerifyCombinations(
         Func<object?[], object?> method,
-        bool captureExceptions,
+        bool? captureExceptions,
         List<IEnumerable<object?>> lists)
     {
         var target = GetCombinations(method, captureExceptions, lists, null);
@@ -232,12 +232,16 @@ partial class InnerVerifier
 
     static CombinationResults GetCombinations(
         Func<object?[], object?> method,
-        bool captureExceptions,
+        bool? captureExceptions,
         List<IEnumerable<object?>> lists,
         Type[]? keyTypes)
     {
         var items = new List<CombinationResult>();
         var listCopy = lists.Select(_ => _.ToList()).ToList();
+        keyTypes = BuildKeyTypes(lists, keyTypes);
+
+        var resolvedCaptureException = captureExceptions ?? VerifyCombinationSettings.captureExceptions;
+
         var combinationGenerator = new CombinationGenerator(
             listCopy,
             combo =>
@@ -249,13 +253,13 @@ partial class InnerVerifier
                     value = method(combo);
                 }
                 catch (TargetInvocationException exception)
-                    when (captureExceptions)
+                    when (resolvedCaptureException)
                 {
                     items.Add(new(keys, exception.InnerException!));
                     return;
                 }
                 catch (Exception exception)
-                    when (captureExceptions)
+                    when (resolvedCaptureException)
                 {
                     items.Add(new(keys, exception));
                     return;
@@ -265,5 +269,46 @@ partial class InnerVerifier
             });
         combinationGenerator.Run();
         return new(items, keyTypes);
+    }
+
+    static Type[] BuildKeyTypes(List<IEnumerable<object?>> lists, Type[]? types)
+    {
+        if (types != null)
+        {
+            return types;
+        }
+
+        types = new Type[lists.Count];
+        for (var index = 0; index < lists.Count; index++)
+        {
+            var keys = lists[index];
+            Type? type = null;
+            foreach (var key in keys)
+            {
+                if (key == null)
+                {
+                    continue;
+                }
+
+                var current = key.GetType();
+                if (type == null)
+                {
+                    type = current;
+                    continue;
+                }
+
+                if (type != current)
+                {
+                    type = null;
+                    break;
+                }
+
+                type = current;
+            }
+
+            types[index] = type ?? typeof(object);
+        }
+
+        return types;
     }
 }

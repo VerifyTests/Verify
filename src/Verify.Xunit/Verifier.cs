@@ -67,7 +67,15 @@ public static partial class Verifier
             async settings =>
             {
                 using var verifier = BuildVerifier(settings, sourceFile, useUniqueDirectory);
-                return await verify(verifier);
+                try
+                {
+                    return await verify(verifier);
+                }
+                catch (TargetInvocationException exception)
+                    when (exception.InnerException != null)
+                {
+                    throw exception.InnerException!;
+                }
             });
     }
 }

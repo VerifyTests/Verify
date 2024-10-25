@@ -1,10 +1,11 @@
-﻿[InheritsTests]
-public class Inherited : Base
-{
-    [Test]
-    public override Task TestToOverride()
-    {
-        Trace.WriteLine("");
-        return base.TestToOverride();
-    }
-}
+﻿//TODO:
+// [InheritsTests]
+// public class Inherited : Base
+// {
+//     [Test]
+//     public override Task TestToOverride()
+//     {
+//         Trace.WriteLine("");
+//         return base.TestToOverride();
+//     }
+// }

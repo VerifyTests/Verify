@@ -15,7 +15,7 @@ VerifyCombinations allows all combinations of the given input lists to be execut
 <!-- snippet: CombinationTargetMethod -->
 <a id='snippet-CombinationTargetMethod'></a>
 ```cs
-public string BuildAddress(int streetNumber, string street, string city)
+public static string BuildAddress(int streetNumber, string street, string city)
 {
     ArgumentException.ThrowIfNullOrWhiteSpace(street);
     ArgumentException.ThrowIfNullOrWhiteSpace(city);
@@ -24,7 +24,7 @@ public string BuildAddress(int streetNumber, string street, string city)
     return $"{streetNumber} {street}, {city}";
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L5-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationTargetMethod' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L6-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationTargetMethod' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -46,7 +46,7 @@ public Task BuildAddressTest()
         cities);
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L18-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L19-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -70,11 +70,19 @@ public Task BuildAddressTest()
 <!-- endSnippet -->
 
 
+## Column Alignment
+
+Key value are aligned based on type.
+
+ * Numbers (int, double, float etc) are aligned right
+ * All other types are aligned left
+
+
 ## CaptureExceptions
 
 By default exceptions are not captured.
 
-To enable exception capture use `captureExceptions = true`
+To enable exception capture use `captureExceptions = true`:
 
 <!-- snippet: CombinationSample_CaptureExceptions -->
 <a id='snippet-CombinationSample_CaptureExceptions'></a>
@@ -93,7 +101,7 @@ public Task BuildAddressExceptionsTest()
         captureExceptions: true);
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L35-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L53-L69' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -194,5 +202,175 @@ public Task BuildAddressExceptionsDisabledTest()
         captureExceptions: false);
 }
 ```
-<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L68-L84' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptionsFalse' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L69-L85' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptionsFalse' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## Result serialization
+
+Serialization of results is done using `CombinationResultsConverter`
+
+<!-- snippet: CombinationResultsConverter.cs -->
+<a id='snippet-CombinationResultsConverter.cs'></a>
+```cs
+namespace VerifyTests;
+
+public class CombinationResultsConverter :
+    WriteOnlyJsonConverter<CombinationResults>
+{
+    public override void Write(VerifyJsonWriter writer, CombinationResults results)
+    {
+        writer.WriteStartObject();
+
+        var items = results.Items;
+        if (items.Count == 0)
+        {
+            return;
+        }
+
+        var keysLength = items[0].Keys.Count;
+
+        var maxKeyLengths = new int[keysLength];
+        var keyValues = new string[items.Count, keysLength];
+
+        for (var itemIndex = 0; itemIndex < items.Count; itemIndex++)
+        {
+            var item = items[itemIndex];
+            for (var keyIndex = 0; keyIndex < keysLength; keyIndex++)
+            {
+                var key = item.Keys[keyIndex];
+                var name = VerifierSettings.GetNameForParameter(key, pathFriendly: false);
+                keyValues[itemIndex, keyIndex] = name;
+                var currentKeyLength = maxKeyLengths[keyIndex];
+                if (name.Length > currentKeyLength)
+                {
+                    maxKeyLengths[keyIndex] = name.Length;
+                }
+            }
+        }
+
+        var keys = new CombinationKey[keysLength];
+        for (var itemIndex = 0; itemIndex < items.Count; itemIndex++)
+        {
+            for (var keyIndex = 0; keyIndex < keysLength; keyIndex++)
+            {
+                keys[keyIndex] = new(
+                    Value: keyValues[itemIndex, keyIndex],
+                    MaxLength: maxKeyLengths[keyIndex],
+                    Type: results.KeyTypes?[keyIndex]);
+            }
+
+            var item = items[itemIndex];
+            var name = BuildPropertyName(keys);
+            writer.WritePropertyName(name);
+            WriteValue(writer, item);
+        }
+
+        writer.WriteEndObject();
+    }
+
+    protected virtual string BuildPropertyName(IReadOnlyList<CombinationKey> keys)
+    {
+        var builder = new StringBuilder();
+        foreach (var (value, maxLength, type) in keys)
+        {
+            var padding = maxLength - value.Length;
+            if (type != null &&
+                type.IsNumeric())
+            {
+                builder.Append(' ', padding);
+                builder.Append(value);
+            }
+            else
+            {
+                builder.Append(value);
+                builder.Append(' ', padding);
+            }
+
+            builder.Append(", ");
+        }
+
+        builder.Length -= 2;
+        return builder.ToString();
+    }
+
+    protected virtual void WriteValue(VerifyJsonWriter writer, CombinationResult result)
+    {
+        var exception = result.Exception;
+        if (exception == null)
+        {
+            writer.WriteValue(result.Value);
+            return;
+        }
+
+        writer.WriteValue($"{exception.GetType().Name}: {exception.Message}");
+    }
+}
+```
+<sup><a href='/src/Verify/Combinations/CombinationResultsConverter.cs#L1-L93' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationResultsConverter.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Custom
+
+Combination serialization can be customized using a Converter.
+
+
+#### Converter
+
+Inherit from `CombinationResultsConverter` and override the desired members.
+
+The below sample override `BuildPropertyName` to customize the property name. It bypasses the default implementation and hence does not pad columns or use VerifierSettings.GetNameForParameter for key conversion.
+
+<!-- snippet: CombinationSample_CustomSerializationConverter -->
+<a id='snippet-CombinationSample_CustomSerializationConverter'></a>
+```cs
+class CustomCombinationConverter :
+    CombinationResultsConverter
+{
+
+    protected override string BuildPropertyName(IReadOnlyList<CombinationKey> keys) =>
+        string.Join(", ", keys.Select(_ => _.Value));
+}
+```
+<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L114-L124' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationConverter' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Full control of serialization can be achieved by inheriting from `WriteOnlyJsonConverter<CombinationResults>`.
+
+
+#### Insert Converter
+
+Insert the new converter at the top of the converter stack.
+
+<!-- snippet: CombinationSample_CustomSerializationModuleInitializer -->
+<a id='snippet-CombinationSample_CustomSerializationModuleInitializer'></a>
+```cs
+static CustomCombinationConverter customConverter = new();
+
+[ModuleInitializer]
+public static void Init() =>
+    VerifierSettings.AddExtraSettings(_ => _.Converters.Insert(0, customConverter));
+```
+<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L87-L95' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationModuleInitializer' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### Result
+
+<!-- snippet: VerifyCombinationsTests.Combination_CustomSerialization.verified.txt -->
+<a id='snippet-VerifyCombinationsTests.Combination_CustomSerialization.verified.txt'></a>
+```txt
+{
+  1, Smith St, Sydney: 1 Smith St, Sydney,
+  1, Smith St, Chicago: 1 Smith St, Chicago,
+  1, Wallace St, Sydney: 1 Wallace St, Sydney,
+  1, Wallace St, Chicago: 1 Wallace St, Chicago,
+  10, Smith St, Sydney: 10 Smith St, Sydney,
+  10, Smith St, Chicago: 10 Smith St, Chicago,
+  10, Wallace St, Sydney: 10 Wallace St, Sydney,
+  10, Wallace St, Chicago: 10 Wallace St, Chicago
+}
+```
+<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.Combination_CustomSerialization.verified.txt#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyCombinationsTests.Combination_CustomSerialization.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

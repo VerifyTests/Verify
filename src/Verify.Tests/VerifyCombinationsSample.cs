@@ -1,10 +1,11 @@
-﻿#pragma warning disable VerifyCombinations
+﻿// ReSharper disable MemberCanBePrivate.Global
+#pragma warning disable VerifyCombinations
 #if NET8_0_OR_GREATER
 public class VerifyCombinationsSample
 {
     #region CombinationTargetMethod
 
-    public string BuildAddress(int streetNumber, string street, string city)
+    public static string BuildAddress(int streetNumber, string street, string city)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(street);
         ArgumentException.ThrowIfNullOrWhiteSpace(city);
@@ -28,6 +29,23 @@ public class VerifyCombinationsSample
             streetNumbers,
             streets,
             cities);
+    }
+
+    #endregion
+
+    #region CombinationAlignment
+
+    [Fact]
+    public Task CombinationAlignment()
+    {
+        int[] numbers = [1, 100];
+        string[] strings = ["a", "bbbb"];
+        Date?[] dates = [new(2020, 10, 1), null, Date.MinValue];
+        return VerifyCombinations(
+            (number, text, date) => string.Join(" ", number, text, date),
+            numbers,
+            strings,
+            dates);
     }
 
     #endregion

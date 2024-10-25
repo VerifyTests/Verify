@@ -24,7 +24,7 @@ public class CombinationResultsConverter :
             for (var keyIndex = 0; keyIndex < keysLength; keyIndex++)
             {
                 var key = item.Keys[keyIndex];
-                var name = VerifierSettings.GetNameForParameter(key, false);
+                var name = VerifierSettings.GetNameForParameter(key, pathFriendly: false);
                 keyValues[itemIndex, keyIndex] = name;
                 var currentKeyLength = maxKeyLengths[keyIndex];
                 if (name.Length > currentKeyLength)

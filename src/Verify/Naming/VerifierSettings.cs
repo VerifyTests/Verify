@@ -69,6 +69,11 @@ public static partial class VerifierSettings
     // ReSharper disable once MethodOverloadWithOptionalParameter
     public static string GetNameForParameter(object? parameter, bool pathFriendly = true)
     {
+        if (parameter is null)
+        {
+            return "null";
+        }
+
         var builder = new StringBuilder();
         AppendParameter(parameter, builder, true, pathFriendly);
         return builder.ToString();

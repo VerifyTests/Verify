@@ -21,14 +21,6 @@ updated to the new result.
 **See [Milestones](../../milestones?state=closed) for release notes.**
 
 
-## Sponsors
-
-A HUGE Thank-You to [AWS](https://github.com/aws) for sponsoring this project in September 2023 as part of
-the [AWS Open Source Software Fund](https://github.com/aws/dotnet-foss).
-
-Thanks to [DataDog](https://github.com/DataDog) for the generous monthly sponsorship.
-
-
 ## Requirements
 
  * Supported runtimes: net472, net48, net481, net6, net8, and net9.

@@ -83,7 +83,7 @@ Key value are aligned based on type.
 
 By default exceptions are not captured. So if an exception is thrown by the method being tested, it will bubble up.
 
-Exceptions can be optionally "captured". This apporach uses the `Exception.Message` as the result of the method being tested.
+Exceptions can be optionally "captured". This approach uses the `Exception.Message` as the result of the method being tested.
 
 To enable exception capture use `captureExceptions = true`:
 

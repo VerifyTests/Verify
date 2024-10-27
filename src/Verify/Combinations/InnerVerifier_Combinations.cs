@@ -12,9 +12,7 @@ partial class InnerVerifier
             method.DynamicInvoke,
             captureExceptions,
             [a.Cast<object?>()],
-            [
-                typeof(A)
-            ]);
+            [typeof(A)]);
         return Verify(target);
     }
 

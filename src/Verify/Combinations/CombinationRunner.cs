@@ -1,4 +1,4 @@
-﻿class CombinationGenerator(List<List<object?>> lists, Action<object?[]> action)
+﻿class CombinationRunner(List<List<object?>> lists, Action<object?[]> action)
 {
     object?[] parameters = new object[lists.Count];
     int[] indices = new int[lists.Count];

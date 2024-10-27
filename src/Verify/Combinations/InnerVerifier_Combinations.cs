@@ -8,7 +8,7 @@ partial class InnerVerifier
         bool? captureExceptions,
         IEnumerable<A> a)
     {
-        var target = GetCombinations(
+        var target = RunCombinations(
             method.DynamicInvoke,
             captureExceptions,
             [a.Cast<object?>()],
@@ -24,7 +24,7 @@ partial class InnerVerifier
         IEnumerable<A> a,
         IEnumerable<B> b)
     {
-        var target = GetCombinations(
+        var target = RunCombinations(
             method.DynamicInvoke,
             captureExceptions,
             [
@@ -45,7 +45,7 @@ partial class InnerVerifier
         IEnumerable<B> b,
         IEnumerable<C> c)
     {
-        var target = GetCombinations(
+        var target = RunCombinations(
             method.DynamicInvoke,
             captureExceptions,
             [
@@ -69,7 +69,7 @@ partial class InnerVerifier
         IEnumerable<C> c,
         IEnumerable<D> d)
     {
-        var target = GetCombinations(
+        var target = RunCombinations(
             method.DynamicInvoke,
             captureExceptions,
             [
@@ -96,7 +96,7 @@ partial class InnerVerifier
         IEnumerable<D> d,
         IEnumerable<E> e)
     {
-        var target = GetCombinations(
+        var target = RunCombinations(
             method.DynamicInvoke,
             captureExceptions,
             [
@@ -126,7 +126,7 @@ partial class InnerVerifier
         IEnumerable<E> e,
         IEnumerable<F> f)
     {
-        var target = GetCombinations(
+        var target = RunCombinations(
             method.DynamicInvoke,
             captureExceptions,
             [
@@ -159,7 +159,7 @@ partial class InnerVerifier
         IEnumerable<F> f,
         IEnumerable<G> g)
     {
-        var target = GetCombinations(
+        var target = RunCombinations(
             method.DynamicInvoke,
             captureExceptions,
             [
@@ -195,7 +195,7 @@ partial class InnerVerifier
         IEnumerable<G> g,
         IEnumerable<H> h)
     {
-        var target = GetCombinations(
+        var target = RunCombinations(
             method.DynamicInvoke,
             captureExceptions,
             [
@@ -226,11 +226,11 @@ partial class InnerVerifier
         bool? captureExceptions,
         List<IEnumerable<object?>> lists)
     {
-        var target = GetCombinations(method, captureExceptions, lists, null);
+        var target = RunCombinations(method, captureExceptions, lists, null);
         return Verify(target);
     }
 
-    static CombinationResults GetCombinations(
+    static CombinationResults RunCombinations(
         Func<object?[], object?> method,
         bool? captureExceptions,
         List<IEnumerable<object?>> lists,
@@ -242,7 +242,7 @@ partial class InnerVerifier
 
         var resolvedCaptureException = captureExceptions ?? VerifyCombinationSettings.CaptureExceptionsEnabled;
 
-        var combinationGenerator = new CombinationGenerator(
+        var combinationGenerator = new CombinationRunner(
             listCopy,
             combo =>
             {

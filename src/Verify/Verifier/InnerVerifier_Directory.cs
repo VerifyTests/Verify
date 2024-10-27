@@ -94,7 +94,8 @@ partial class InnerVerifier
 
             // This is a case of file without filename contained inside a directory
             // so let's not mix directory name with filename
-            if (fileNameWithoutExtension.Length == 0 && relativePath.Length != 0)
+            if (fileNameWithoutExtension.Length == 0 &&
+                relativePath.Length != 0)
             {
                 relativePath += Path.DirectorySeparatorChar;
             }

@@ -68,7 +68,8 @@ partial class InnerVerifier
             var pathWithoutExtension = Path.Combine(fileDirectoryPath, fileNameWithoutExtension);
             // This is a case of file without filename contained inside a directory
             // so let's not mix directory name with filename
-            if (fileNameWithoutExtension.Length == 0 && pathWithoutExtension.Length != 0)
+            if (fileNameWithoutExtension.Length == 0 &&
+                pathWithoutExtension.Length != 0)
             {
                 pathWithoutExtension += Path.DirectorySeparatorChar;
             }

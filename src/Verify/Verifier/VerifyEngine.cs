@@ -11,7 +11,8 @@ class VerifyEngine(
     string? typeName,
     string? methodName)
 {
-    bool diffEnabled = !DiffRunner.Disabled && settings.diffEnabled;
+    bool diffEnabled = !DiffRunner.Disabled &&
+                       settings.diffEnabled;
     List<NewResult> @new = [];
     List<NotEqualResult> notEquals = [];
     List<FilePair> equal = [];
@@ -131,7 +132,9 @@ class VerifyEngine(
 
         var allNotEqualsVerified = await ProcessNotEquals();
 
-        if (allDeletesVerified && allNewVerified && allNotEqualsVerified)
+        if (allDeletesVerified &&
+            allNewVerified &&
+            allNotEqualsVerified)
         {
             return;
         }

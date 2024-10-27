@@ -65,7 +65,8 @@
             return;
         }
 
-        if (@new.Count == 0 && notEquals.Count == 0)
+        if (@new.Count == 0 &&
+            notEquals.Count == 0)
         {
             return;
         }

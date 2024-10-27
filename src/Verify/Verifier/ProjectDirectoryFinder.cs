@@ -2,21 +2,17 @@ static class ProjectDirectoryFinder
 {
     public static string Find(string testDirectory)
     {
-        var currentDirectory = testDirectory;
+        var current = testDirectory;
         do
         {
-            if (ContainsProject(currentDirectory))
+            if (ContainsProject(current))
             {
-                return currentDirectory;
+                return current;
             }
 
-            var parent = Path.GetDirectoryName(currentDirectory);
-            if (parent == null)
-            {
-                throw new("Could not find project directory");
-            }
+            var parent = Path.GetDirectoryName(current);
 
-            currentDirectory = parent;
+            current = parent ?? throw new("Could not find project directory");
         } while (true);
     }
 

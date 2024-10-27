@@ -60,7 +60,7 @@ public static partial class VerifierSettings
     public static void NameForParameter<T>(ParameterToName<T> func)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        parameterToNameLookup[typeof(T)] = o => func((T) o);
+        parameterToNameLookup[typeof(T)] = _ => func((T) _);
     }
 
     public static string GetNameForParameter(object? parameter) =>
@@ -100,19 +100,10 @@ public static partial class VerifierSettings
 
             var type = parameter.GetType();
 
-            if (parameterToNameLookup.TryGetValue(type, out var lookup))
+            if (TryGetParameterToNameLookup(type, out var lookup))
             {
                 builder.Append(lookup(parameter));
                 return;
-            }
-
-            foreach (var (key, value) in parameterToNameLookup)
-            {
-                if (key.IsAssignableFrom(type))
-                {
-                    builder.Append(value(parameter));
-                    return;
-                }
             }
 
             if (parameter.TryGetCollectionOrDictionary(out var isEmpty, out var enumerable))
@@ -144,10 +135,8 @@ public static partial class VerifierSettings
                 return;
             }
 
-            if (type.IsGeneric(typeof(KeyValuePair<,>)))
+            if (TryGetKeyValue(type, parameter, out var key, out var value))
             {
-                var key = type.GetProperty("Key")!.GetMethod!.Invoke(parameter, null);
-                var value = type.GetProperty("Value")!.GetMethod!.Invoke(parameter, null);
                 AppendParameter(key, builder, true, pathFriendly);
                 builder.Append('=');
                 parameter = value;
@@ -172,6 +161,47 @@ public static partial class VerifierSettings
             }
             break;
         }
+    }
+
+    static bool TryGetKeyValue(Type type, object target, out object? key, out object? value)
+    {
+        if (!type.IsGeneric(typeof(KeyValuePair<,>)))
+        {
+            key = null;
+            value = null;
+            return false;
+        }
+
+#if NETFRAMEWORK
+        key = type.GetProperty("Key")!.GetMethod!.Invoke(target, null);
+        value = type.GetProperty("Value")!.GetMethod!.Invoke(target, null);
+#else
+        var parameters = new object?[] { null, null };
+        type.GetMethod("Deconstruct")!.Invoke(target, parameters);
+        key = parameters[0];
+        value = parameters[1];
+#endif
+
+        return true;
+    }
+
+    static bool TryGetParameterToNameLookup(Type type, [NotNullWhen(true)] out Func<object, string>? lookup)
+    {
+        if (parameterToNameLookup.TryGetValue(type, out lookup))
+        {
+            return true;
+        }
+
+        foreach (var (key, value) in parameterToNameLookup)
+        {
+            if (key.IsAssignableFrom(type))
+            {
+                lookup = value;
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /// <summary>

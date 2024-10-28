@@ -238,7 +238,7 @@ partial class InnerVerifier
     {
         var items = new List<CombinationResult>();
         var listCopy = lists.Select(_ => _.ToList()).ToList();
-        keyTypes = BuildKeyTypes(lists, keyTypes);
+        keyTypes = KeyTypes.Build(lists, keyTypes);
 
         var resolvedCaptureException = captureExceptions ?? VerifyCombinationSettings.CaptureExceptionsEnabled;
 
@@ -269,46 +269,5 @@ partial class InnerVerifier
             });
         combinationGenerator.Run();
         return new(items, keyTypes);
-    }
-
-    static Type[] BuildKeyTypes(List<IEnumerable<object?>> lists, Type[]? types)
-    {
-        if (types != null)
-        {
-            return types;
-        }
-
-        types = new Type[lists.Count];
-        for (var index = 0; index < lists.Count; index++)
-        {
-            var keys = lists[index];
-            Type? type = null;
-            foreach (var key in keys)
-            {
-                if (key == null)
-                {
-                    continue;
-                }
-
-                var current = key.GetType();
-                if (type == null)
-                {
-                    type = current;
-                    continue;
-                }
-
-                if (type != current)
-                {
-                    type = null;
-                    break;
-                }
-
-                type = current;
-            }
-
-            types[index] = type ?? typeof(object);
-        }
-
-        return types;
     }
 }

@@ -23,11 +23,12 @@ public class VerifyCombinationsSample
         int[] streetNumbers = [1, 10];
         string[] streets = ["Smith St", "Wallace St"];
         string[] cities = ["Sydney", "Chicago"];
-        return VerifyCombinations(
-            BuildAddress,
-            streetNumbers,
-            streets,
-            cities);
+        return Combination()
+            .Verify(
+                BuildAddress,
+                streetNumbers,
+                streets,
+                cities);
     }
 
     #endregion
@@ -40,11 +41,12 @@ public class VerifyCombinationsSample
         int[] numbers = [1, 100];
         string[] strings = ["a", "bbbb"];
         Date?[] dates = [new(2020, 10, 1), null, Date.MinValue];
-        return VerifyCombinations(
-            (number, text, date) => string.Join(" ", number, text, date?.ToString("yyyy-MM-dd")),
-            numbers,
-            strings,
-            dates);
+        return Combination()
+            .Verify(
+                (number, text, date) => string.Join(" ", number, text, date?.ToString("yyyy-MM-dd")),
+                numbers,
+                strings,
+                dates);
     }
 
     #endregion
@@ -57,12 +59,11 @@ public class VerifyCombinationsSample
         int[] streetNumbers = [-1, 0, 10];
         string[] streets = ["", " ", "Valid St"];
         string[] cities = [null!, "Valid City"];
-        return VerifyCombinations(
+        return Combination(captureExceptions: true).Verify(
             BuildAddress,
             streetNumbers,
             streets,
-            cities,
-            captureExceptions: true);
+            cities);
     }
 
     #endregion

@@ -18,8 +18,11 @@ public partial class VerifySettings
 
     internal JsonSerializer Serializer => serialization.Serializer;
 
-    public void UseStrictJson() =>
+    public VerifySettings UseStrictJson()
+    {
         strictJson = true;
+        return this;
+    }
 
     public bool StrictJson => VerifierSettings.StrictJson ||
                               strictJson;
@@ -31,36 +34,45 @@ public partial class VerifySettings
     /// <summary>
     /// Append a key-value pair to the serialized target.
     /// </summary>
-    public void AppendValue(string name, object data) =>
+    public VerifySettings AppendValue(string name, object data)
+    {
         Appends.Add(new(name, data));
-
-    /// <summary>
-    /// Append key-value pairs to the serialized target.
-    /// </summary>
-    public void AppendValues(IEnumerable<KeyValuePair<string, object>> values)
-    {
-        foreach (var pair in values)
-        {
-            AppendValue(pair.Key, pair.Value);
-        }
+        return this;
     }
 
     /// <summary>
     /// Append key-value pairs to the serialized target.
     /// </summary>
-    public void AppendValues(params KeyValuePair<string, object>[] values)
+    public VerifySettings AppendValues(IEnumerable<KeyValuePair<string, object>> values)
     {
         foreach (var pair in values)
         {
             AppendValue(pair.Key, pair.Value);
         }
+
+        return this;
     }
 
-    public void AddExtraSettings(Action<JsonSerializerSettings> action)
+    /// <summary>
+    /// Append key-value pairs to the serialized target.
+    /// </summary>
+    public VerifySettings AppendValues(params KeyValuePair<string, object>[] values)
+    {
+        foreach (var pair in values)
+        {
+            AppendValue(pair.Key, pair.Value);
+        }
+
+        return this;
+    }
+
+    public VerifySettings AddExtraSettings(Action<JsonSerializerSettings> action)
     {
         CloneSettings();
 
         serialization.AddExtraSettings(action);
+
+        return this;
     }
 
     bool dateCountingEnable = true;
@@ -78,6 +90,9 @@ public partial class VerifySettings
         }
     }
 
-    public void DisableDateCounting() =>
+    public VerifySettings DisableDateCounting()
+    {
         dateCountingEnable = false;
+        return this;
+    }
 }

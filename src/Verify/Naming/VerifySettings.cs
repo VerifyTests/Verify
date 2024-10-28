@@ -8,58 +8,73 @@ public partial class VerifySettings
     /// Use the current runtime to make the test results unique.
     /// Used when a test produces different results based on runtime.
     /// </summary>
-    public void UniqueForRuntime() =>
+    public VerifySettings UniqueForRuntime()
+    {
         Namer.UniqueForRuntime = true;
+        return this;
+    }
 
     /// <summary>
     /// Use the current test assembly TargetFrameworkAttribute to make the test results unique.
     /// Used when a test produces different results based on TargetFramework.
     /// </summary>
-    public void UniqueForTargetFramework() =>
+    public VerifySettings UniqueForTargetFramework()
+    {
         Namer.UniqueForTargetFramework = true;
+        return this;
+    }
 
     /// <summary>
     /// Use the current test assembly TargetFrameworkAttribute name and version to make the test results unique.
     /// Used when a test produces different results based on TargetFramework and TargetFramework version.
     /// </summary>
-    public void UniqueForTargetFrameworkAndVersion() =>
+    public VerifySettings UniqueForTargetFrameworkAndVersion()
+    {
         Namer.UniqueForTargetFrameworkAndVersion = true;
+        return this;
+    }
 
     /// <summary>
     /// Use the current test assembly configuration (debug/release) to make the test results unique.
     /// Used when a test produces different results based on assembly configuration.
     /// </summary>
-    public void UniqueForAssemblyConfiguration() =>
+    public VerifySettings UniqueForAssemblyConfiguration()
+    {
         Namer.UniqueForAssemblyConfiguration = true;
+        return this;
+    }
 
     /// <summary>
     /// Use <paramref name="assembly" /> TargetFrameworkAttribute to make the test results unique.
     /// Used when a test produces different results based on TargetFramework.
     /// </summary>
-    public void UniqueForTargetFramework(Assembly assembly)
+    public VerifySettings UniqueForTargetFramework(Assembly assembly)
     {
         Namer.UniqueForTargetFramework = true;
         Namer.SetUniqueForAssemblyFrameworkName(assembly);
+        return this;
     }
 
     /// <summary>
     /// Use the <paramref name="assembly" /> TargetFrameworkAttribute name and version to make the test results unique.
     /// Used when a test produces different results based on TargetFramework and TargetFramework version.
     /// </summary>
-    public void UniqueForTargetFrameworkAndVersion(Assembly assembly)
+    public VerifySettings UniqueForTargetFrameworkAndVersion(Assembly assembly)
     {
         Namer.UniqueForTargetFrameworkAndVersion = true;
         Namer.SetUniqueForAssemblyFrameworkName(assembly);
+        return this;
     }
 
     /// <summary>
     /// Use the <paramref name="assembly" /> configuration (debug/release) to make the test results unique.
     /// Used when a test produces different results based on assembly configuration.
     /// </summary>
-    public void UniqueForAssemblyConfiguration(Assembly assembly)
+    public VerifySettings UniqueForAssemblyConfiguration(Assembly assembly)
     {
         Namer.UniqueForAssemblyConfiguration = true;
         Namer.SetUniqueForAssemblyConfiguration(assembly);
+        return this;
     }
 
     public string? Directory { get; internal set; }
@@ -67,10 +82,11 @@ public partial class VerifySettings
     /// <summary>
     /// Use a custom directory for the test results.
     /// </summary>
-    public void UseDirectory(string directory)
+    public VerifySettings UseDirectory(string directory)
     {
         Guards.BadDirectoryName(directory);
         Directory = directory;
+        return this;
     }
 
     internal string? typeName;
@@ -80,12 +96,13 @@ public partial class VerifySettings
     /// Where the file format is `{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
     /// </summary>
     /// <remarks>Not compatible with <see cref="UseFileName" />.</remarks>
-    public void UseTypeName(string name)
+    public VerifySettings UseTypeName(string name)
     {
         Guards.BadFileName(name);
         ThrowIfFileNameDefined();
 
         typeName = name;
+        return this;
     }
 
     internal string? methodName;
@@ -95,12 +112,13 @@ public partial class VerifySettings
     /// Where the file format is `{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
     /// </summary>
     /// <remarks>Not compatible with <see cref="UseFileName" />.</remarks>
-    public void UseMethodName(string name)
+    public VerifySettings UseMethodName(string name)
     {
         Guards.BadFileName(name);
         ThrowIfFileNameDefined();
 
         methodName = name;
+        return this;
     }
 
     void ThrowIfFileNameDefined([CallerMemberName] string caller = "")
@@ -119,12 +137,13 @@ public partial class VerifySettings
     /// Where the new file format is `{CurrentDirectory}/{FileName}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
     /// </summary>
     /// <remarks>Not compatible with <see cref="UseTypeName" />, <see cref="UseMethodName" />, or <see cref="UseParameters" />.</remarks>
-    public void UseFileName(string fileName)
+    public VerifySettings UseFileName(string fileName)
     {
         Guards.BadFileName(fileName);
         ThrowIfMethodOrTypeNameDefined();
 
         this.fileName = fileName;
+        return this;
     }
 
     void ThrowIfMethodOrTypeNameDefined()
@@ -142,51 +161,72 @@ public partial class VerifySettings
     /// Use a directory for the test results.
     /// Where the file format is `{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}/{targetName}.verified.{extension}`.
     /// </summary>
-    public void UseUniqueDirectory() =>
+    public VerifySettings UseUniqueDirectory()
+    {
         useUniqueDirectory = true;
+        return this;
+    }
 
     /// <summary>
     /// Use the current runtime and runtime version to make the test results unique.
     /// Used when a test produces different results based on runtime and runtime version.
     /// </summary>
-    public void UniqueForRuntimeAndVersion() =>
+    public VerifySettings UniqueForRuntimeAndVersion()
+    {
         Namer.UniqueForRuntimeAndVersion = true;
+        return this;
+    }
 
     /// <summary>
     /// Use the current processor architecture (x86/x64/arm/arm64) to make the test results unique.
     /// Used when a test produces different results based on processor architecture.
     /// </summary>
-    public void UniqueForArchitecture() =>
+    public VerifySettings UniqueForArchitecture()
+    {
         Namer.UniqueForArchitecture = true;
+        return this;
+    }
 
     /// <summary>
     /// Use the operating system family (Linux/Windows/OSX) to make the test results unique.
     /// Used when a test produces different results based on operating system family.
     /// </summary>
-    public void UniqueForOSPlatform() =>
+    public VerifySettings UniqueForOSPlatform()
+    {
         Namer.UniqueForOSPlatform = true;
+        return this;
+    }
 
     internal bool UniquePrefixDisabled;
 
     /// <summary>
     /// Allow multiple tests to map to the same snapshot file prefix.
     /// </summary>
-    public void DisableRequireUniquePrefix() =>
+    public VerifySettings DisableRequireUniquePrefix()
+    {
         UniquePrefixDisabled = true;
+        return this;
+    }
 
     /// <summary>
     /// Use the current runtime to make the test results unique.
     /// Used when a test produces different results based on runtime.
     /// </summary>
-    public void UseSplitModeForUniqueDirectory() =>
+    public VerifySettings UseSplitModeForUniqueDirectory()
+    {
         UseUniqueDirectorySplitMode = true;
+        return this;
+    }
 
     /// <summary>
     /// Dont use the current runtime to make the test results unique.
     /// Overrides <see cref="VerifierSettings.UseSplitModeForUniqueDirectory" />.
     /// </summary>
-    public void DontUseSplitModeForUniqueDirectory() =>
+    public VerifySettings DontUseSplitModeForUniqueDirectory()
+    {
         UseUniqueDirectorySplitMode = false;
+        return this;
+    }
 
     internal bool? UseUniqueDirectorySplitMode;
 }

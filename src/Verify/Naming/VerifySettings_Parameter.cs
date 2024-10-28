@@ -19,7 +19,7 @@ public partial class VerifySettings
     public bool HasParameters => parameters != null;
 
     /// <inheritdoc cref="UseParameters(object?[])"/>
-    public void UseParameters<T>(T[] parameters) =>
+    public VerifySettings UseParameters<T>(T[] parameters) =>
         UseParameters(
             new object?[]
             {
@@ -27,7 +27,7 @@ public partial class VerifySettings
             });
 
     /// <inheritdoc cref="UseParameters(object?[])"/>
-    public void UseParameters<T>(T parameter) =>
+    public VerifySettings UseParameters<T>(T parameter) =>
         UseParameters(
             new object?[]
             {
@@ -52,17 +52,21 @@ public partial class VerifySettings
     /// In the scenarios where parameters are not automatically detected, an exception will be thrown instructing the potential need for <see cref="UseParameters" />
     /// Not compatible with <see cref="UseTextForParameters" />.
     /// </summary>
-    public void UseParameters(params object?[] parameters)
+    public VerifySettings UseParameters(params object?[] parameters)
     {
         Guard.NotNullOrEmpty(parameters);
         ThrowIfFileNameDefined();
         ThrowIfParametersTextDefined();
         this.parameters = parameters;
+        return this;
     }
 
     [Experimental("VerifySetParameters")]
-    public void SetParameters(object?[] parameters) =>
+    public VerifySettings SetParameters(object?[] parameters)
+    {
         this.parameters = parameters;
+        return this;
+    }
 
     void ThrowIfParametersTextDefined([CallerMemberName] string caller = "")
     {
@@ -79,8 +83,11 @@ public partial class VerifySettings
     /// Note that UseParameters has still been called for test frameworks that don't support automatic parameter detection and the 'received' files still contains the parameters.
     /// </summary>
     /// <param name="parameterNames">The names of the parameters to be ignored. When passing an empty list all parameters will be ignored.</param>
-    public void IgnoreParameters(params string[] parameterNames) =>
+    public VerifySettings IgnoreParameters(params string[] parameterNames)
+    {
         ignoredParameters = parameterNames.ToHashSet();
+        return this;
+    }
 
     internal bool ignoreParametersForVerified;
 
@@ -89,7 +96,7 @@ public partial class VerifySettings
     /// Note that the 'received' files still contain the parameters.
     /// </summary>
     /// <param name="parameters">The parameters as you would have passed them to the UseParameters function.</param>
-    public void IgnoreParametersForVerified(params object?[] parameters)
+    public VerifySettings IgnoreParametersForVerified(params object?[] parameters)
     {
         if (parameters.Length > 0)
         {
@@ -97,6 +104,7 @@ public partial class VerifySettings
         }
 
         ignoreParametersForVerified = true;
+        return this;
     }
 
     internal bool hashParameters;
@@ -105,10 +113,11 @@ public partial class VerifySettings
     /// Hash parameters together and pass to <see cref="UseTextForParameters" />.
     /// Used to get a deterministic file name while avoiding long paths.
     /// </summary>
-    public void HashParameters()
+    public VerifySettings HashParameters()
     {
         ThrowIfFileNameDefined();
         ThrowIfParametersTextDefined();
         hashParameters = true;
+        return this;
     }
 }

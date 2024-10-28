@@ -2,240 +2,277 @@
 
 public partial class VerifySettings
 {
-    public void DontScrubGuids()
+    public VerifySettings DontScrubGuids()
     {
         CloneSettings();
         serialization.DontScrubGuids();
+        return this;
     }
 
-    public void DontScrubDateTimes()
+    public VerifySettings DontScrubDateTimes()
     {
         CloneSettings();
         serialization.DontScrubDateTimes();
+        return this;
     }
 
-    public void DontSortDictionaries()
+    public VerifySettings DontSortDictionaries()
     {
         CloneSettings();
         serialization.DontSortDictionaries();
+        return this;
     }
 
-    public void IgnoreStackTrace()
+    public VerifySettings IgnoreStackTrace()
     {
         CloneSettings();
         serialization.IgnoreMember("StackTrace");
+        return this;
     }
 
-    public void IncludeObsoletes()
+    public VerifySettings IncludeObsoletes()
     {
         CloneSettings();
         serialization.IncludeObsoletes();
+        return this;
     }
 
-    public void DontIgnoreEmptyCollections()
+    public VerifySettings DontIgnoreEmptyCollections()
     {
         CloneSettings();
         serialization.DontIgnoreEmptyCollections();
+        return this;
     }
 
-    public void IgnoreMembers<T>(params Expression<Func<T, object?>>[] expressions)
+    public VerifySettings IgnoreMembers<T>(params Expression<Func<T, object?>>[] expressions)
         where T : notnull
     {
         CloneSettings();
         serialization.IgnoreMembers(expressions);
+        return this;
     }
 
-    public void ScrubMembers<T>(params Expression<Func<T, object?>>[] expressions)
+    public VerifySettings ScrubMembers<T>(params Expression<Func<T, object?>>[] expressions)
         where T : notnull
     {
         CloneSettings();
         serialization.ScrubMembers(expressions);
+        return this;
     }
 
-    public void IgnoreMember<T>(Expression<Func<T, object?>> expression)
+    public VerifySettings IgnoreMember<T>(Expression<Func<T, object?>> expression)
         where T : notnull
     {
         CloneSettings();
         serialization.IgnoreMembers(expression);
+        return this;
     }
 
-    public void ScrubMember<T>(Expression<Func<T, object?>> expression)
+    public VerifySettings ScrubMember<T>(Expression<Func<T, object?>> expression)
         where T : notnull
     {
         CloneSettings();
         serialization.ScrubMembers(expression);
+        return this;
     }
 
-    public void IgnoreMembers<T>(params string[] names)
+    public VerifySettings IgnoreMembers<T>(params string[] names)
         where T : notnull
     {
         CloneSettings();
         serialization.IgnoreMembers<T>(names);
+        return this;
     }
 
-    public void ScrubMembers<T>(params string[] names)
+    public VerifySettings ScrubMembers<T>(params string[] names)
         where T : notnull
     {
         CloneSettings();
         serialization.ScrubMembers<T>(names);
+        return this;
     }
 
-    public void IgnoreMember<T>(string name)
+    public VerifySettings IgnoreMember<T>(string name)
         where T : notnull
     {
         CloneSettings();
         serialization.IgnoreMember<T>(name);
+        return this;
     }
 
-    public void ScrubMember<T>(string name)
+    public VerifySettings ScrubMember<T>(string name)
         where T : notnull
     {
         CloneSettings();
         serialization.ScrubMember<T>(name);
+        return this;
     }
 
-    public void IgnoreMembers(Type declaringType, params string[] names)
+    public VerifySettings IgnoreMembers(Type declaringType, params string[] names)
     {
         CloneSettings();
         serialization.IgnoreMembers(declaringType, names);
+        return this;
     }
 
-    public void ScrubMembers(Type declaringType, params string[] names)
+    public VerifySettings ScrubMembers(Type declaringType, params string[] names)
     {
         CloneSettings();
         serialization.ScrubMembers(declaringType, names);
+        return this;
     }
 
-    public void IgnoreMember(Type declaringType, string name)
+    public VerifySettings IgnoreMember(Type declaringType, string name)
     {
         CloneSettings();
         serialization.IgnoreMember(declaringType, name);
+        return this;
     }
 
-    public void ScrubMember(Type declaringType, string name)
+    public VerifySettings ScrubMember(Type declaringType, string name)
     {
         CloneSettings();
         serialization.ScrubMember(declaringType, name);
+        return this;
     }
 
-    public void IgnoreMember(string name)
+    public VerifySettings IgnoreMember(string name)
     {
         CloneSettings();
         serialization.IgnoreMember(name);
+        return this;
     }
 
-    public void ScrubMember(string name)
+    public VerifySettings ScrubMember(string name)
     {
         CloneSettings();
         serialization.ScrubMember(name);
+        return this;
     }
 
-    public void IgnoreMembers(params string[] names)
+    public VerifySettings IgnoreMembers(params string[] names)
     {
         CloneSettings();
         serialization.IgnoreMembers(names);
+        return this;
     }
 
-    public void ScrubMembers(params string[] names)
+    public VerifySettings ScrubMembers(params string[] names)
     {
         CloneSettings();
         serialization.ScrubMembers(names);
+        return this;
     }
 
-    public void IgnoreInstance<T>(Func<T, bool> shouldIgnore)
+    public VerifySettings IgnoreInstance<T>(Func<T, bool> shouldIgnore)
         where T : notnull
     {
         CloneSettings();
         serialization.IgnoreInstance(shouldIgnore);
+        return this;
     }
 
-    public void ScrubInstance<T>(Func<T, bool> shouldScrub)
+    public VerifySettings ScrubInstance<T>(Func<T, bool> shouldScrub)
         where T : notnull
     {
         CloneSettings();
         serialization.ScrubInstance(shouldScrub);
+        return this;
     }
 
-    public void OrderEnumerableBy<T>(Func<T, object?> keySelector)
+    public VerifySettings OrderEnumerableBy<T>(Func<T, object?> keySelector)
     {
         CloneSettings();
         serialization.OrderEnumerableBy(keySelector);
+        return this;
     }
 
-    public void OrderEnumerableByDescending<T>(Func<T, object?> keySelector)
+    public VerifySettings OrderEnumerableByDescending<T>(Func<T, object?> keySelector)
     {
         CloneSettings();
         serialization.OrderEnumerableByDescending(keySelector);
+        return this;
     }
 
-    public void IgnoreInstance(Type type, ShouldIgnore shouldIgnore)
+    public VerifySettings IgnoreInstance(Type type, ShouldIgnore shouldIgnore)
     {
         CloneSettings();
         serialization.IgnoreInstance(type, shouldIgnore);
+        return this;
     }
 
-    public void ScrubInstance(Type type, ShouldScrub shouldScrub)
+    public VerifySettings ScrubInstance(Type type, ShouldScrub shouldScrub)
     {
         CloneSettings();
         serialization.ScrubInstance(type, shouldScrub);
+        return this;
     }
 
-    public void IgnoreMembersWithType<T>()
+    public VerifySettings IgnoreMembersWithType<T>()
         where T : notnull
     {
         CloneSettings();
         serialization.IgnoreMembersWithType<T>();
+        return this;
     }
 
-    public void ScrubMembersWithType<T>()
+    public VerifySettings ScrubMembersWithType<T>()
         where T : notnull
     {
         CloneSettings();
         serialization.ScrubMembersWithType<T>();
+        return this;
     }
 
-    public void AlwaysIncludeMembersWithType<T>()
+    public VerifySettings AlwaysIncludeMembersWithType<T>()
         where T : notnull
     {
         CloneSettings();
         serialization.AlwaysIncludeMembersWithType<T>();
+        return this;
     }
 
-    public void IgnoreMembersWithType(Type type)
+    public VerifySettings IgnoreMembersWithType(Type type)
     {
         CloneSettings();
         serialization.IgnoreMembersWithType(type);
+        return this;
     }
 
-    public void ScrubMembersWithType(Type type)
+    public VerifySettings ScrubMembersWithType(Type type)
     {
         CloneSettings();
         serialization.ScrubMembersWithType(type);
+        return this;
     }
 
-    public void AlwaysIncludeMembersWithType(Type type)
+    public VerifySettings AlwaysIncludeMembersWithType(Type type)
     {
         CloneSettings();
         serialization.AlwaysIncludeMembersWithType(type);
+        return this;
     }
 
-    public void IgnoreMembersThatThrow<T>()
+    public VerifySettings IgnoreMembersThatThrow<T>()
         where T : Exception
     {
         CloneSettings();
         serialization.IgnoreMembersThatThrow<T>();
+        return this;
     }
 
-    public void IgnoreMembersThatThrow(Func<Exception, bool> item)
+    public VerifySettings IgnoreMembersThatThrow(Func<Exception, bool> item)
     {
         CloneSettings();
         serialization.IgnoreMembersThatThrow(item);
+        return this;
     }
 
-    public void IgnoreMembersThatThrow<T>(Func<T, bool> item)
+    public VerifySettings IgnoreMembersThatThrow<T>(Func<T, bool> item)
         where T : Exception
     {
         CloneSettings();
         serialization.IgnoreMembersThatThrow(item);
+        return this;
     }
 }

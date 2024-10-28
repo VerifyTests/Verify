@@ -4,11 +4,17 @@ public partial class VerifySettings
 {
     FirstVerify? handleOnFirstVerify;
 
-    public void OnFirstVerify(FirstVerify firstVerify) =>
+    public VerifySettings OnFirstVerify(FirstVerify firstVerify)
+    {
         handleOnFirstVerify += firstVerify;
+        return this;
+    }
 
-    public void OnDelete(VerifyDelete verifyDelete) =>
+    public VerifySettings OnDelete(VerifyDelete verifyDelete)
+    {
         handleOnVerifyDelete += verifyDelete;
+        return this;
+    }
 
     VerifyDelete? handleOnVerifyDelete;
 
@@ -44,13 +50,17 @@ public partial class VerifySettings
         await VerifierSettings.RunOnVerifyMismatch(item, message, autoVerify);
     }
 
-    public void OnVerifyMismatch(VerifyMismatch verifyMismatch) =>
+    public VerifySettings OnVerifyMismatch(VerifyMismatch verifyMismatch)
+    {
         handleOnVerifyMismatch += verifyMismatch;
+        return this;
+    }
 
-    public void OnVerify(Action before, Action after)
+    public VerifySettings OnVerify(Action before, Action after)
     {
         beforeVerify += before;
         afterVerify += after;
+        return this;
     }
 
     Action? beforeVerify;

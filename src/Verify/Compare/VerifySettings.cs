@@ -5,11 +5,17 @@ public partial class VerifySettings
     StreamCompare? streamComparer;
     StringCompare? stringComparer;
 
-    public void UseStreamComparer(StreamCompare compare) =>
+    public VerifySettings UseStreamComparer(StreamCompare compare)
+    {
         streamComparer = compare;
+        return this;
+    }
 
-    public void UseStringComparer(StringCompare compare) =>
+    public VerifySettings UseStringComparer(StringCompare compare)
+    {
         stringComparer = compare;
+        return this;
+    }
 
     // Dont use this.extension since a converter may have
     // changed the extension for the current compare operation

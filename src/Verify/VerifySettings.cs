@@ -93,7 +93,7 @@ public partial class VerifySettings
     /// Not compatible with <see cref="UseParameters" />.
     /// Where the file format is `{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
     /// </summary>
-    public void UseTextForParameters(string parametersText)
+    public VerifySettings UseTextForParameters(string parametersText)
     {
         Guards.AgainstBadExtension(parametersText);
 
@@ -103,6 +103,8 @@ public partial class VerifySettings
         }
 
         this.parametersText = parametersText;
+
+        return this;
     }
 
     internal AutoVerify? autoVerify;
@@ -110,13 +112,13 @@ public partial class VerifySettings
     /// <summary>
     /// Automatically accept the results of the current test.
     /// </summary>
-    public void AutoVerify(bool includeBuildServer = true) =>
+    public VerifySettings AutoVerify(bool includeBuildServer = true) =>
         AutoVerify(_ => true, includeBuildServer);
 
     /// <summary>
     /// Automatically accept the results of the current test.
     /// </summary>
-    public void AutoVerify(AutoVerify autoVerify, bool includeBuildServer = true)
+    public VerifySettings AutoVerify(AutoVerify autoVerify, bool includeBuildServer = true)
     {
         if (includeBuildServer)
         {
@@ -129,5 +131,7 @@ public partial class VerifySettings
                 this.autoVerify = autoVerify;
             }
         }
+
+        return this;
     }
 }

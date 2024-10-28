@@ -32,13 +32,19 @@ public partial class VerifySettings
 {
     internal List<Target> appendedFiles = [];
 
-    public void AppendContentAsFile(string content, string extension = "txt", string? name = null) =>
+    public VerifySettings AppendContentAsFile(string content, string extension = "txt", string? name = null)
+    {
         appendedFiles.Add(new(extension, content, name));
+        return this;
+    }
 
-    public void AppendContentAsFile(StringBuilder content, string extension = "txt", string? name = null) =>
+    public VerifySettings AppendContentAsFile(StringBuilder content, string extension = "txt", string? name = null)
+    {
         appendedFiles.Add(new(extension, content, name));
+        return this;
+    }
 
-    public void AppendContentAsFile(byte[] content, string extension = "txt", string? name = null)
+    public VerifySettings AppendContentAsFile(byte[] content, string extension = "txt", string? name = null)
     {
         if (FileExtensions.IsTextExtension(extension))
         {
@@ -48,18 +54,29 @@ public partial class VerifySettings
         {
             appendedFiles.Add(new(extension, new MemoryStream(content), name));
         }
+
+        return this;
     }
 
-    public void AppendFile(string file, string? name = null) =>
+    public VerifySettings AppendFile(string file, string? name = null)
+    {
         AppendFile(IoHelpers.OpenRead(file), name);
+        return this;
+    }
 
-    public void AppendFile(FileInfo file, string? name = null) =>
+    public VerifySettings AppendFile(FileInfo file, string? name = null)
+    {
         AppendFile(file.FullName, name);
+        return this;
+    }
 
-    public void AppendFile(FileStream stream, string? name = null) =>
+    public VerifySettings AppendFile(FileStream stream, string? name = null)
+    {
         AppendFile(stream, stream.Extension(), name ?? Path.GetFileNameWithoutExtension(stream.Name));
+        return this;
+    }
 
-    public void AppendFile(Stream stream, string extension = "txt", string? name = null)
+    public VerifySettings AppendFile(Stream stream, string extension = "txt", string? name = null)
     {
         stream.MoveToStart();
         if (FileExtensions.IsTextExtension(extension))
@@ -71,6 +88,8 @@ public partial class VerifySettings
         {
             appendedFiles.Add(new(extension, stream, name));
         }
+
+        return this;
     }
 }
 

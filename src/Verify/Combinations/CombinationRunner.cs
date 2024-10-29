@@ -53,7 +53,8 @@
         IEnumerable<A> a,
         IEnumerable<B> b)
     {
-        var generator = new CombinationRunner(captureExceptions,
+        var generator = new CombinationRunner(
+            captureExceptions,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>()
@@ -235,7 +236,8 @@
     }
 
     public static CombinationResults Run<A, B, C, D, E, F, G, H>(
-        Func<A, B, C, D, E, F, G, H, object?> method, bool? captureExceptions,
+        Func<A, B, C, D, E, F, G, H, object?> method,
+        bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,

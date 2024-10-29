@@ -1,6 +1,6 @@
 ﻿// ReSharper disable MemberCanBePrivate.Global
 #if NET8_0_OR_GREATER
-public class VerifyCombinationsSample
+public class CombinationsSample
 {
     #region CombinationTargetMethod
 

@@ -1,32 +1,40 @@
-﻿class CombinationRunner(List<List<object?>> lists, Action<object?[]> action)
+﻿partial class CombinationRunner
 {
-    object?[] parameters = new object[lists.Count];
-    int[] indices = new int[lists.Count];
+    Type[] keyTypes;
+    int[] indices;
+    object?[][] lists;
+    bool captureExceptions;
 
-    public void Run()
+    public CombinationRunner(bool? captureExceptions, List<IEnumerable<object?>> lists, Type[] keyTypes)
     {
-        while (true)
+        this.keyTypes = keyTypes;
+        this.captureExceptions = captureExceptions ?? VerifyCombinationSettings.CaptureExceptionsEnabled;
+        this.lists = lists.Select(_ => _.ToArray()).ToArray();
+        indices = new int[lists.Count];
+    }
+
+    object?[] BuildParameters()
+    {
+        var parameters = new object?[lists.Length];
+        for (var i = 0; i < lists.Length; i++)
         {
-            for (var i = 0; i < lists.Count; i++)
-            {
-                var list = lists[i];
-                parameters[i] = list[indices[i]];
-            }
-
-            action(parameters);
-
-            var incrementIndex = lists.Count - 1;
-            while (incrementIndex >= 0 &&
-                   ++indices[incrementIndex] >= lists[incrementIndex].Count)
-            {
-                indices[incrementIndex] = 0;
-                incrementIndex--;
-            }
-
-            if (incrementIndex < 0)
-            {
-                break;
-            }
+            var list = lists[i];
+            parameters[i] = list[indices[i]];
         }
+
+        return parameters;
+    }
+
+    bool Increment()
+    {
+        var incrementIndex = lists.Length - 1;
+        while (incrementIndex >= 0 &&
+               ++indices[incrementIndex] >= lists[incrementIndex].Length)
+        {
+            indices[incrementIndex] = 0;
+            incrementIndex--;
+        }
+
+        return incrementIndex < 0;
     }
 }

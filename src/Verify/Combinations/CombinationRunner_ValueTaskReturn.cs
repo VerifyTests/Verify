@@ -1,31 +1,50 @@
-﻿// ReSharper disable InconsistentNaming
-namespace VerifyTests;
-
-partial class InnerVerifier
+﻿partial class CombinationRunner
 {
-    public Task<VerifyResult> VerifyCombinations<A>(
-        Func<A, object?> method,
+    async Task<CombinationResults> Run<TReturn>(Func<object?[], ValueTask<TReturn>> method)
+    {
+        var items = new List<CombinationResult>();
+        while (true)
+        {
+            var keys = BuildParameters();
+            try
+            {
+                var value = await method(keys);
+                items.Add(new(keys, value));
+            }
+            catch (Exception exception)
+                when (captureExceptions)
+            {
+                items.Add(new(keys, exception));
+            }
+
+            if (Increment())
+            {
+                break;
+            }
+        }
+
+        return new(items, keyTypes);
+    }
+
+    public static Task<CombinationResults> Run<A, TReturn>(
+        Func<A, ValueTask<TReturn>> method,
         bool? captureExceptions,
         IEnumerable<A> a)
     {
-        var target = RunCombinations(
-            method.DynamicInvoke,
+        var generator = new CombinationRunner(
             captureExceptions,
             [a.Cast<object?>()],
-            [
-                typeof(A)
-            ]);
-        return Verify(target);
+            [typeof(A)]);
+        return generator.Run(_ => method((A)_[0]!));
     }
 
-    public Task<VerifyResult> VerifyCombinations<A, B>(
-        Func<A, B, object?> method,
+    public static Task<CombinationResults> Run<A, B, TReturn>(
+        Func<A, B, ValueTask<TReturn>> method,
         bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b)
     {
-        var target = RunCombinations(
-            method.DynamicInvoke,
+        var generator = new CombinationRunner(
             captureExceptions,
             [
                 a.Cast<object?>(),
@@ -35,18 +54,20 @@ partial class InnerVerifier
                 typeof(A),
                 typeof(B)
             ]);
-        return Verify(target);
+        return generator.Run(
+            _ => method(
+                (A)_[0]!,
+                (B)_[1]!));
     }
 
-    public Task<VerifyResult> VerifyCombinations<A, B, C>(
-        Func<A, B, C, object?> method,
+    public static Task<CombinationResults> Run<A, B, C, TReturn>(
+        Func<A, B, C, ValueTask<TReturn>> method,
         bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c)
     {
-        var target = RunCombinations(
-            method.DynamicInvoke,
+        var generator = new CombinationRunner(
             captureExceptions,
             [
                 a.Cast<object?>(),
@@ -58,19 +79,22 @@ partial class InnerVerifier
                 typeof(B),
                 typeof(C)
             ]);
-        return Verify(target);
+        return generator.Run(
+            _ => method(
+                (A)_[0]!,
+                (B)_[1]!,
+                (C)_[2]!));
     }
 
-    public Task<VerifyResult> VerifyCombinations<A, B, C, D>(
-        Func<A, B, C, D, object?> method,
+    public static Task<CombinationResults> Run<A, B, C, D, TReturn>(
+        Func<A, B, C, D, ValueTask<TReturn>> method,
         bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
         IEnumerable<D> d)
     {
-        var target = RunCombinations(
-            method.DynamicInvoke,
+        var generator = new CombinationRunner(
             captureExceptions,
             [
                 a.Cast<object?>(),
@@ -84,11 +108,16 @@ partial class InnerVerifier
                 typeof(C),
                 typeof(D)
             ]);
-        return Verify(target);
+        return generator.Run(
+            _ => method(
+                (A)_[0]!,
+                (B)_[1]!,
+                (C)_[2]!,
+                (D)_[3]!));
     }
 
-    public Task<VerifyResult> VerifyCombinations<A, B, C, D, E>(
-        Func<A, B, C, D, E, object?> method,
+    public static Task<CombinationResults> Run<A, B, C, D, E, TReturn>(
+        Func<A, B, C, D, E, ValueTask<TReturn>> method,
         bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
@@ -96,8 +125,7 @@ partial class InnerVerifier
         IEnumerable<D> d,
         IEnumerable<E> e)
     {
-        var target = RunCombinations(
-            method.DynamicInvoke,
+        var generator = new CombinationRunner(
             captureExceptions,
             [
                 a.Cast<object?>(),
@@ -113,11 +141,17 @@ partial class InnerVerifier
                 typeof(D),
                 typeof(E)
             ]);
-        return Verify(target);
+        return generator.Run(
+            _ => method(
+                (A)_[0]!,
+                (B)_[1]!,
+                (C)_[2]!,
+                (D)_[3]!,
+                (E)_[4]!));
     }
 
-    public Task<VerifyResult> VerifyCombinations<A, B, C, D, E, F>(
-        Func<A, B, C, D, E, F, object?> method,
+    public static Task<CombinationResults> Run<A, B, C, D, E, F, TReturn>(
+        Func<A, B, C, D, E, F, ValueTask<TReturn>> method,
         bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
@@ -126,8 +160,7 @@ partial class InnerVerifier
         IEnumerable<E> e,
         IEnumerable<F> f)
     {
-        var target = RunCombinations(
-            method.DynamicInvoke,
+        var generator = new CombinationRunner(
             captureExceptions,
             [
                 a.Cast<object?>(),
@@ -145,11 +178,18 @@ partial class InnerVerifier
                 typeof(E),
                 typeof(F)
             ]);
-        return Verify(target);
+        return generator.Run(
+            _ => method(
+                (A)_[0]!,
+                (B)_[1]!,
+                (C)_[2]!,
+                (D)_[3]!,
+                (E)_[4]!,
+                (F)_[5]!));
     }
 
-    public Task<VerifyResult> VerifyCombinations<A, B, C, D, E, F, G>(
-        Func<A, B, C, D, E, F, G, object?> method,
+    public static Task<CombinationResults> Run<A, B, C, D, E, F, G, TReturn>(
+        Func<A, B, C, D, E, F, G, ValueTask<TReturn>> method,
         bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
@@ -159,8 +199,7 @@ partial class InnerVerifier
         IEnumerable<F> f,
         IEnumerable<G> g)
     {
-        var target = RunCombinations(
-            method.DynamicInvoke,
+        var generator = new CombinationRunner(
             captureExceptions,
             [
                 a.Cast<object?>(),
@@ -180,11 +219,19 @@ partial class InnerVerifier
                 typeof(F),
                 typeof(G)
             ]);
-        return Verify(target);
+        return generator.Run(
+            _ => method(
+                (A)_[0]!,
+                (B)_[1]!,
+                (C)_[2]!,
+                (D)_[3]!,
+                (E)_[4]!,
+                (F)_[5]!,
+                (G)_[6]!));
     }
 
-    public Task<VerifyResult> VerifyCombinations<A, B, C, D, E, F, G, H>(
-        Func<A, B, C, D, E, F, G, H, object?> method,
+    public static Task<CombinationResults> Run<A, B, C, D, E, F, G, H, TReturn>(
+        Func<A, B, C, D, E, F, G, H, ValueTask<TReturn>> method,
         bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
@@ -195,8 +242,7 @@ partial class InnerVerifier
         IEnumerable<G> g,
         IEnumerable<H> h)
     {
-        var target = RunCombinations(
-            method.DynamicInvoke,
+        var generator = new CombinationRunner(
             captureExceptions,
             [
                 a.Cast<object?>(),
@@ -218,56 +264,15 @@ partial class InnerVerifier
                 typeof(G),
                 typeof(H)
             ]);
-        return Verify(target);
-    }
-
-    public Task<VerifyResult> VerifyCombinations(
-        Func<object?[], object?> method,
-        bool? captureExceptions,
-        List<IEnumerable<object?>> lists)
-    {
-        var target = RunCombinations(method, captureExceptions, lists, null);
-        return Verify(target);
-    }
-
-    static CombinationResults RunCombinations(
-        Func<object?[], object?> method,
-        bool? captureExceptions,
-        List<IEnumerable<object?>> lists,
-        Type[]? keyTypes)
-    {
-        var items = new List<CombinationResult>();
-        var listCopy = lists.Select(_ => _.ToList()).ToList();
-        keyTypes = KeyTypes.Build(lists, keyTypes);
-
-        var resolvedCaptureException = captureExceptions ?? VerifyCombinationSettings.CaptureExceptionsEnabled;
-
-        var combinationGenerator = new CombinationRunner(
-            listCopy,
-            combo =>
-            {
-                var keys = combo.ToArray();
-                object? value;
-                try
-                {
-                    value = method(combo);
-                }
-                catch (TargetInvocationException exception)
-                    when (resolvedCaptureException)
-                {
-                    items.Add(new(keys, exception.InnerException!));
-                    return;
-                }
-                catch (Exception exception)
-                    when (resolvedCaptureException)
-                {
-                    items.Add(new(keys, exception));
-                    return;
-                }
-
-                items.Add(new(keys, value));
-            });
-        combinationGenerator.Run();
-        return new(items, keyTypes);
+        return generator.Run(
+            _ => method(
+                (A)_[0]!,
+                (B)_[1]!,
+                (C)_[2]!,
+                (D)_[3]!,
+                (E)_[4]!,
+                (F)_[5]!,
+                (G)_[6]!,
+                (H)_[7]!));
     }
 }

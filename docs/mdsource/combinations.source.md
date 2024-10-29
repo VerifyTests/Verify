@@ -16,7 +16,7 @@ snippet: CombinationSample
 
 ### Result
 
-snippet: VerifyCombinationsSample.BuildAddressTest.verified.txt
+snippet: CombinationsSample.BuildAddressTest.verified.txt
 
 
 ## Column Alignment
@@ -40,7 +40,7 @@ snippet: CombinationSample_CaptureExceptions
 
 ### Result
 
-snippet: VerifyCombinationsSample.BuildAddressExceptionsTest.verified.txt
+snippet: CombinationsSample.BuildAddressExceptionsTest.verified.txt
 
 
 ### Global CaptureExceptions

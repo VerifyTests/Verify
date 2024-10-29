@@ -5,7 +5,7 @@ namespace VerifyExpecto;
 public static partial class Verifier
 {
     [Pure]
-    public static Task<VerifyResult> VerifyTuple(
+    public static SettingsTask VerifyTuple(
         string name,
         Expression<Func<ITuple>> expression,
         VerifySettings? settings = null,

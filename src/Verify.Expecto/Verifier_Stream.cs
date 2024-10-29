@@ -5,7 +5,7 @@ namespace VerifyExpecto;
 public static partial class Verifier
 {
     [Pure]
-    public static Task<VerifyResult> Verify(
+    public static SettingsTask Verify(
         string name,
         byte[]? target,
         string extension,
@@ -18,7 +18,7 @@ public static partial class Verifier
     }
 
     [Pure]
-    public static Task<VerifyResult> Verify(
+    public static SettingsTask Verify(
         string name,
         byte[]? target,
         VerifySettings? settings = null,
@@ -30,7 +30,7 @@ public static partial class Verifier
     }
 
     [Pure]
-    public static Task<VerifyResult> Verify(
+    public static SettingsTask Verify(
         string name,
         Task<byte[]> target,
         string extension,
@@ -43,7 +43,7 @@ public static partial class Verifier
     }
 
     [Pure]
-    public static Task<VerifyResult> Verify(
+    public static SettingsTask Verify(
         string name,
         ValueTask<byte[]> target,
         string extension,
@@ -56,7 +56,7 @@ public static partial class Verifier
     }
 
     [Pure]
-    public static Task<VerifyResult> Verify(
+    public static SettingsTask Verify(
         string name,
         FileStream? target,
         VerifySettings? settings = null,
@@ -68,7 +68,7 @@ public static partial class Verifier
     }
 
     [Pure]
-    public static Task<VerifyResult> Verify(
+    public static SettingsTask Verify(
         string name,
         Stream? target,
         VerifySettings? settings = null,
@@ -80,7 +80,7 @@ public static partial class Verifier
     }
 
     [Pure]
-    public static Task<VerifyResult> Verify(
+    public static SettingsTask Verify(
         string name,
         Stream? target,
         string extension,
@@ -93,7 +93,7 @@ public static partial class Verifier
     }
 
     [Pure]
-    public static Task<VerifyResult> Verify<T>(
+    public static SettingsTask Verify<T>(
         string name,
         Task<T> target,
         string extension,
@@ -107,7 +107,7 @@ public static partial class Verifier
     }
 
     [Pure]
-    public static Task<VerifyResult> Verify<T>(
+    public static SettingsTask Verify<T>(
         string name,
         ValueTask<T> target,
         string extension,
@@ -121,7 +121,7 @@ public static partial class Verifier
     }
 
     [Pure]
-    public static Task<VerifyResult> Verify<T>(
+    public static SettingsTask Verify<T>(
         string name,
         IEnumerable<T> targets,
         string extension,

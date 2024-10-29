@@ -2,14 +2,14 @@
 {
     Type[] keyTypes;
     int[] indices;
-    List<List<object?>> lists;
+    object?[][] lists;
     bool captureExceptions;
 
-    public CombinationRunner(bool? captureExceptions, List<IEnumerable<object?>> lists, Type[] keyTypes)
+    CombinationRunner(bool? captureExceptions, List<IEnumerable<object?>> lists, Type[] keyTypes)
     {
         this.keyTypes = keyTypes;
         this.captureExceptions = captureExceptions ?? VerifyCombinationSettings.CaptureExceptionsEnabled;
-        this.lists = lists.Select(_ => _.ToList()).ToList();
+        this.lists = lists.Select(_ => _.ToArray()).ToArray();
         indices = new int[lists.Count];
     }
 
@@ -45,7 +45,7 @@
             captureExceptions,
             [a.Cast<object?>()],
             [typeof(A)]);
-        return generator.Run(keys => method((A)keys[0]!));
+        return generator.Run(_ => method((A)_[0]!));
     }
 
     public static CombinationResults Run<A, B>(
@@ -283,8 +283,8 @@
 
     object?[] BuildParameters()
     {
-        var parameters = new object?[lists.Count];
-        for (var i = 0; i < lists.Count; i++)
+        var parameters = new object?[lists.Length];
+        for (var i = 0; i < lists.Length; i++)
         {
             var list = lists[i];
             parameters[i] = list[indices[i]];
@@ -295,9 +295,9 @@
 
     bool Increment()
     {
-        var incrementIndex = lists.Count - 1;
+        var incrementIndex = lists.Length - 1;
         while (incrementIndex >= 0 &&
-               ++indices[incrementIndex] >= lists[incrementIndex].Count)
+               ++indices[incrementIndex] >= lists[incrementIndex].Length)
         {
             indices[incrementIndex] = 0;
             incrementIndex--;

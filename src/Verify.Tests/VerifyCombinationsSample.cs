@@ -59,11 +59,13 @@ public class VerifyCombinationsSample
         int[] streetNumbers = [-1, 0, 10];
         string[] streets = ["", " ", "Valid St"];
         string[] cities = [null!, "Valid City"];
-        return Combination(captureExceptions: true).Verify(
-            BuildAddress,
-            streetNumbers,
-            streets,
-            cities);
+        return Combination(captureExceptions: true)
+            .Verify(
+                BuildAddress,
+                streetNumbers,
+                streets,
+                cities
+            );
     }
 
     #endregion

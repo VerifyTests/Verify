@@ -97,14 +97,16 @@ public Task BuildAddressExceptionsTest()
     int[] streetNumbers = [-1, 0, 10];
     string[] streets = ["", " ", "Valid St"];
     string[] cities = [null!, "Valid City"];
-    return Combination(captureExceptions: true).Verify(
-        BuildAddress,
-        streetNumbers,
-        streets,
-        cities);
+    return Combination(captureExceptions: true)
+        .Verify(
+            BuildAddress,
+            streetNumbers,
+            streets,
+            cities
+        );
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L54-L69' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L54-L71' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

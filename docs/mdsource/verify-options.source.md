@@ -51,7 +51,6 @@ snippet: StaticAutoVerifyDelegate
 OnHandlers are called before AutoVerify logic being applied. So for example in the case of `OnVerifyMismatch`, both the received and verified file will exist at the point `OnVerifyMismatch` is called. Immediately after received will be used to overwrite verified.
 
 
-
 ### Globally
 
 snippet: OnStaticHandlers
@@ -60,6 +59,11 @@ snippet: OnStaticHandlers
 ### Instance
 
 snippet: OnInstanceHandlers
+
+
+### Fluent
+
+snippet: OnFluentHandlers
 
 
 ## OmitContentFromException

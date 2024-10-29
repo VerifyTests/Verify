@@ -25,7 +25,7 @@ public static string BuildAddress(int streetNumber, string street, string city)
     return $"{streetNumber} {street}, {city}";
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L5-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationTargetMethod' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L51-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationTargetMethod' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -48,7 +48,7 @@ public Task BuildAddressTest()
             cities);
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L18-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L64-L80' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -97,14 +97,16 @@ public Task BuildAddressExceptionsTest()
     int[] streetNumbers = [-1, 0, 10];
     string[] streets = ["", " ", "Valid St"];
     string[] cities = [null!, "Valid City"];
-    return Combination(captureExceptions: true).Verify(
-        BuildAddress,
-        streetNumbers,
-        streets,
-        cities);
+    return Combination(captureExceptions: true)
+        .Verify(
+            BuildAddress,
+            streetNumbers,
+            streets,
+            cities
+        );
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L54-L69' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L100-L117' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

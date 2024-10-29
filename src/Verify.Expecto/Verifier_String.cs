@@ -5,7 +5,7 @@ namespace VerifyExpecto;
 public static partial class Verifier
 {
     [Pure]
-    public static Task<VerifyResult> Verify(
+    public static SettingsTask Verify(
         string name,
         string? target,
         VerifySettings? settings = null,
@@ -16,7 +16,7 @@ public static partial class Verifier
     }
 
     [Pure]
-    public static Task<VerifyResult> Verify(
+    public static SettingsTask Verify(
         string name,
         Task<string> target,
         VerifySettings? settings = null,
@@ -27,7 +27,7 @@ public static partial class Verifier
     }
 
     [Pure]
-    public static Task<VerifyResult> Verify(
+    public static SettingsTask Verify(
         string name,
         string? target,
         string extension,
@@ -39,7 +39,7 @@ public static partial class Verifier
     }
 
     [Pure]
-    public static Task<VerifyResult> Verify(
+    public static SettingsTask Verify(
         string name,
         Task<string> target,
         string extension,

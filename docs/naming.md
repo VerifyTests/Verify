@@ -487,7 +487,7 @@ let uniqueTests =
     testTask "unique" {
         let settings = VerifySettings()
         settings.UniqueForRuntime()
-        do! Verifier.Verify("unique", "value", settings)
+        do! Verifier.Verify("unique", "value", settings).ToTask()
     }
 ```
 <sup><a href='/src/Verify.Expecto.FSharpTests/Tests.fs#L16-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-UniqueForSampleExpecto' title='Start of snippet'>anchor</a></sup>

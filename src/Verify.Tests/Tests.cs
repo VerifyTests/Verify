@@ -1,5 +1,6 @@
 // Non-nullable field is uninitialized.
 
+// ReSharper disable UnusedParameter.Local
 #pragma warning disable CS8618
 
 public class Tests
@@ -118,7 +119,7 @@ public class Tests
         Assert.True(onVerifyMismatchCalled2);
     }
 
-#region OnInstanceHandlers
+    #region OnInstanceHandlers
 
     [Fact]
     public Task OnCallbacks()
@@ -146,8 +147,35 @@ public class Tests
         return Verify("value", settings);
     }
 
-#endregion
-// ReSharper restore UnusedParameter.Local
+    #endregion
+
+    #region OnFluentHandlers
+
+    [Fact]
+    public Task OnFluentCallbacks() =>
+        Verify("value")
+            .OnVerify(
+                before: () => Debug.WriteLine("before"),
+                after: () => Debug.WriteLine("after"))
+            .OnFirstVerify(
+                (receivedFile, receivedText, autoVerify) =>
+                {
+                    Debug.WriteLine(receivedFile);
+                    Debug.WriteLine(receivedText);
+                    return Task.CompletedTask;
+                })
+            .OnVerifyMismatch(
+                (filePair, message, autoVerify) =>
+                {
+                    Debug.WriteLine(filePair.ReceivedPath);
+                    Debug.WriteLine(filePair.VerifiedPath);
+                    Debug.WriteLine(message);
+                    return Task.CompletedTask;
+                });
+
+    #endregion
+
+    // ReSharper restore UnusedParameter.Local
 
 #if NET6_0_OR_GREATER
     static bool onFirstVerifyCalled;

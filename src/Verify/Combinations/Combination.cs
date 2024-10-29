@@ -14,7 +14,11 @@ public class Combination(
         verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, captureExceptions, a));
+            _ =>
+            {
+                var target = CombinationRunner.Run(method, captureExceptions, a);
+                return _.Verify(target);
+            });
 
     [Pure]
     public SettingsTask Verify<A, B>(
@@ -24,7 +28,11 @@ public class Combination(
         verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, captureExceptions, a, b));
+            _ =>
+            {
+                var target = CombinationRunner.Run(method, captureExceptions,a, b);
+                return _.Verify(target);
+            });
 
     [Pure]
     public SettingsTask Verify<A, B, C>(
@@ -35,7 +43,11 @@ public class Combination(
         verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, captureExceptions, a, b, c));
+            _ =>
+            {
+                var target = CombinationRunner.Run(method, captureExceptions,a, b, c);
+                return _.Verify(target);
+            });
 
     [Pure]
     public SettingsTask Verify<A, B, C, D>(
@@ -47,7 +59,11 @@ public class Combination(
         verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d));
+            _ =>
+            {
+                var target = CombinationRunner.Run(method, captureExceptions,a, b, c, d);
+                return _.Verify(target);
+            });
 
     [Pure]
     public SettingsTask Verify<A, B, C, D, E>(
@@ -60,7 +76,11 @@ public class Combination(
         verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e));
+            _ =>
+            {
+                var target = CombinationRunner.Run(method, captureExceptions,a, b, c, d, e);
+                return _.Verify(target);
+            });
 
     [Pure]
     public SettingsTask Verify<A, B, C, D, E, F>(
@@ -74,7 +94,11 @@ public class Combination(
         verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f));
+            _ =>
+            {
+                var target = CombinationRunner.Run(method, captureExceptions,a, b, c, d, e, f);
+                return _.Verify(target);
+            });
 
     [Pure]
     public SettingsTask Verify<A, B, C, D, E, F, G>(
@@ -89,7 +113,11 @@ public class Combination(
         verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f, g));
+            _ =>
+            {
+                var target = CombinationRunner.Run(method, captureExceptions,a, b, c, d, e, f, g);
+                return _.Verify(target);
+            });
 
     [Pure]
     public SettingsTask Verify<A, B, C, D, E, F, G, H>(
@@ -105,14 +133,9 @@ public class Combination(
         verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f, g, h));
-
-    [Pure]
-    public SettingsTask Verify(
-        Func<object?[], object?> method,
-        List<IEnumerable<object?>> lists) =>
-        verify(
-            settings,
-            sourceFile,
-            _ => _.VerifyCombinations(method, captureExceptions, lists));
+            _ =>
+            {
+                var target = CombinationRunner.Run(method, captureExceptions,a, b, c, d, e, f, g, h);
+                return _.Verify(target);
+            });
 }

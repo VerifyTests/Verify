@@ -100,28 +100,4 @@ public class VerifyCombinationsTests
                 },
                 a, b, c);
     }
-
-    [Test]
-    public Task UnBound()
-    {
-        string[] a = ["A", "b", "C"];
-        int[] b = [1, 2, 3];
-        bool[] c = [true, false];
-        var list = new List<IEnumerable<object?>>
-        {
-            a.Cast<object?>(),
-            b.Cast<object?>(),
-            c.Cast<object?>()
-        };
-        return Combination()
-            .Verify(
-                _ =>
-                {
-                    var a = (string)_[0]!;
-                    var b = (int)_[1]!;
-                    var c = (bool)_[2]!;
-                    return a.ToLower() + b + c;
-                },
-                list);
-    }
 }

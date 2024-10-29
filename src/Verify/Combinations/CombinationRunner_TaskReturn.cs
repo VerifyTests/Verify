@@ -1,8 +1,5 @@
 ﻿partial class CombinationRunner
 {
-    Task<CombinationResults> Run<TReturn>(Func<object?[], Task<TReturn>> method) =>
-        InnerRun(method);
-
     public static Task<CombinationResults> Run<A, TReturn>(
         Func<A, Task<TReturn>> method,
         bool? captureExceptions,
@@ -12,7 +9,7 @@
             captureExceptions,
             [a.Cast<object?>()],
             [typeof(A)]);
-        return generator.Run(_ => method((A)_[0]!));
+        return generator.InnerRun(_ => method((A)_[0]!));
     }
 
     public static Task<CombinationResults> Run<A, B, TReturn>(
@@ -31,7 +28,7 @@
                 typeof(A),
                 typeof(B)
             ]);
-        return generator.Run(
+        return generator.InnerRun(
             _ => method(
                 (A)_[0]!,
                 (B)_[1]!));
@@ -56,7 +53,7 @@
                 typeof(B),
                 typeof(C)
             ]);
-        return generator.Run(
+        return generator.InnerRun(
             _ => method(
                 (A)_[0]!,
                 (B)_[1]!,
@@ -85,7 +82,7 @@
                 typeof(C),
                 typeof(D)
             ]);
-        return generator.Run(
+        return generator.InnerRun(
             _ => method(
                 (A)_[0]!,
                 (B)_[1]!,
@@ -118,7 +115,7 @@
                 typeof(D),
                 typeof(E)
             ]);
-        return generator.Run(
+        return generator.InnerRun(
             _ => method(
                 (A)_[0]!,
                 (B)_[1]!,
@@ -155,7 +152,7 @@
                 typeof(E),
                 typeof(F)
             ]);
-        return generator.Run(
+        return generator.InnerRun(
             _ => method(
                 (A)_[0]!,
                 (B)_[1]!,
@@ -196,7 +193,7 @@
                 typeof(F),
                 typeof(G)
             ]);
-        return generator.Run(
+        return generator.InnerRun(
             _ => method(
                 (A)_[0]!,
                 (B)_[1]!,
@@ -241,7 +238,7 @@
                 typeof(G),
                 typeof(H)
             ]);
-        return generator.Run(
+        return generator.InnerRun(
             _ => method(
                 (A)_[0]!,
                 (B)_[1]!,

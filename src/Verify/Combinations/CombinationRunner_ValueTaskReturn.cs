@@ -1,30 +1,7 @@
 ﻿partial class CombinationRunner
 {
-    async Task<CombinationResults> Run<TReturn>(Func<object?[], ValueTask<TReturn>> method)
-    {
-        var items = new List<CombinationResult>();
-        while (true)
-        {
-            var keys = BuildParameters();
-            try
-            {
-                var value = await method(keys);
-                items.Add(new(keys, value));
-            }
-            catch (Exception exception)
-                when (captureExceptions)
-            {
-                items.Add(new(keys, exception));
-            }
-
-            if (Increment())
-            {
-                break;
-            }
-        }
-
-        return new(items, keyTypes);
-    }
+    Task<CombinationResults> Run<TReturn>(Func<object?[], ValueTask<TReturn>> method) =>
+        InnerRun(_ => method(_).AsTask());
 
     public static Task<CombinationResults> Run<A, TReturn>(
         Func<A, ValueTask<TReturn>> method,

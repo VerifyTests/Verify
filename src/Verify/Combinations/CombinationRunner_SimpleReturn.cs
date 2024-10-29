@@ -3,7 +3,7 @@
     Task<CombinationResults> Run<TReturn>(Func<object?[], TReturn> method) =>
         InnerRun(_ => Task.FromResult(method(_)));
 
-    public static CombinationResults Run<A, TReturn>(
+    public static Task<CombinationResults> Run<A, TReturn>(
         Func<A, TReturn> method,
         bool? captureExceptions,
         IEnumerable<A> a)

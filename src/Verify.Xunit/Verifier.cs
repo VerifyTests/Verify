@@ -67,6 +67,8 @@ public static partial class Verifier
             async settings =>
             {
                 using var verifier = BuildVerifier(settings, sourceFile, useUniqueDirectory);
+
+                //TODO: rest and replicate try in other projects
                 try
                 {
                     return await verify(verifier);

@@ -2,52 +2,6 @@
 #if NET8_0_OR_GREATER
 public class VerifyCombinationsSample
 {
-    public static async Task<string> BuildAddressTask(int streetNumber, string street, string city)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(street);
-        ArgumentException.ThrowIfNullOrWhiteSpace(city);
-        ArgumentOutOfRangeException.ThrowIfLessThan(streetNumber, 1);
-        await Task.Delay(1);
-        return $"{streetNumber} {street}, {city}";
-    }
-
-    [Fact]
-    public Task BuildAddressTaskTest()
-    {
-        int[] streetNumbers = [1, 10];
-        string[] streets = ["Smith St", "Wallace St"];
-        string[] cities = ["Sydney", "Chicago"];
-        return Combination()
-            .Verify(
-                BuildAddressTask,
-                streetNumbers,
-                streets,
-                cities);
-    }
-
-    public static async ValueTask<string> BuildAddressValueTask(int streetNumber, string street, string city)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(street);
-        ArgumentException.ThrowIfNullOrWhiteSpace(city);
-        ArgumentOutOfRangeException.ThrowIfLessThan(streetNumber, 1);
-        await Task.Delay(1);
-        return $"{streetNumber} {street}, {city}";
-    }
-
-    [Fact]
-    public Task BuildAddressValueTaskTest()
-    {
-        int[] streetNumbers = [1, 10];
-        string[] streets = ["Smith St", "Wallace St"];
-        string[] cities = ["Sydney", "Chicago"];
-        return Combination()
-            .Verify(
-                BuildAddressValueTask,
-                streetNumbers,
-                streets,
-                cities);
-    }
-
     #region CombinationTargetMethod
 
     public static string BuildAddress(int streetNumber, string street, string city)

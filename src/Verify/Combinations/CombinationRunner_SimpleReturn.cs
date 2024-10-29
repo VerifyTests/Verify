@@ -1,32 +1,9 @@
 ﻿partial class CombinationRunner
 {
-    CombinationResults Run<TReturn>(Func<object?[], TReturn> method)
-    {
-        var items = new List<CombinationResult>();
-        while (true)
-        {
-            var keys = BuildParameters();
-            try
-            {
-                var value = method(keys);
-                items.Add(new(keys, value));
-            }
-            catch (Exception exception)
-                when (captureExceptions)
-            {
-                items.Add(new(keys, exception));
-            }
+    Task<CombinationResults> Run<TReturn>(Func<object?[], TReturn> method) =>
+        InnerRun(_ => Task.FromResult(method(_)));
 
-            if (Increment())
-            {
-                break;
-            }
-        }
-
-        return new(items, keyTypes);
-    }
-
-    public static CombinationResults Run<A, TReturn>(
+    public static Task<CombinationResults> Run<A, TReturn>(
         Func<A, TReturn> method,
         bool? captureExceptions,
         IEnumerable<A> a)
@@ -38,7 +15,7 @@
         return generator.Run(_ => method((A)_[0]!));
     }
 
-    public static CombinationResults Run<A, B, TReturn>(
+    public static Task<CombinationResults> Run<A, B, TReturn>(
         Func<A, B, TReturn> method,
         bool? captureExceptions,
         IEnumerable<A> a,
@@ -60,7 +37,7 @@
                 (B)_[1]!));
     }
 
-    public static CombinationResults Run<A, B, C, TReturn>(
+    public static Task<CombinationResults> Run<A, B, C, TReturn>(
         Func<A, B, C, TReturn> method,
         bool? captureExceptions,
         IEnumerable<A> a,
@@ -86,7 +63,7 @@
                 (C)_[2]!));
     }
 
-    public static CombinationResults Run<A, B, C, D, TReturn>(
+    public static Task<CombinationResults> Run<A, B, C, D, TReturn>(
         Func<A, B, C, D, TReturn> method,
         bool? captureExceptions,
         IEnumerable<A> a,
@@ -116,7 +93,7 @@
                 (D)_[3]!));
     }
 
-    public static CombinationResults Run<A, B, C, D, E, TReturn>(
+    public static Task<CombinationResults> Run<A, B, C, D, E, TReturn>(
         Func<A, B, C, D, E, TReturn> method,
         bool? captureExceptions,
         IEnumerable<A> a,
@@ -150,7 +127,7 @@
                 (E)_[4]!));
     }
 
-    public static CombinationResults Run<A, B, C, D, E, F, TReturn>(
+    public static Task<CombinationResults> Run<A, B, C, D, E, F, TReturn>(
         Func<A, B, C, D, E, F, TReturn> method,
         bool? captureExceptions,
         IEnumerable<A> a,
@@ -188,7 +165,7 @@
                 (F)_[5]!));
     }
 
-    public static CombinationResults Run<A, B, C, D, E, F, G, TReturn>(
+    public static Task<CombinationResults> Run<A, B, C, D, E, F, G, TReturn>(
         Func<A, B, C, D, E, F, G, TReturn> method,
         bool? captureExceptions,
         IEnumerable<A> a,
@@ -230,7 +207,7 @@
                 (G)_[6]!));
     }
 
-    public static CombinationResults Run<A, B, C, D, E, F, G, H, TReturn>(
+    public static Task<CombinationResults> Run<A, B, C, D, E, F, G, H, TReturn>(
         Func<A, B, C, D, E, F, G, H, TReturn> method,
         bool? captureExceptions,
         IEnumerable<A> a,

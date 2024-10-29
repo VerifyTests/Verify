@@ -8,5 +8,5 @@ public static partial class Verifier
         bool? captureExceptions = null,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
-        new(captureExceptions, settings, sourceFile, false, Verify);
+        new(captureExceptions, settings, sourceFile, Verify);
 }

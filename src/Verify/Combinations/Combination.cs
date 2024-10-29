@@ -5,7 +5,6 @@ public class Combination(
     bool? captureExceptions,
     VerifySettings? settings,
     string sourceFile,
-    bool useUniqueDirectory,
     Func<VerifySettings?, string, Func<InnerVerifier, Task<VerifyResult>>, bool, SettingsTask> verify)
 {
     [Pure]
@@ -16,7 +15,7 @@ public class Combination(
             settings,
             sourceFile,
             _ => _.VerifyCombinations(method, captureExceptions, a),
-            useUniqueDirectory);
+            false);
 
     [Pure]
     public SettingsTask Verify<A, B>(
@@ -27,7 +26,7 @@ public class Combination(
             settings,
             sourceFile,
             _ => _.VerifyCombinations(method, captureExceptions, a, b),
-            useUniqueDirectory);
+            false);
 
     [Pure]
     public SettingsTask Verify<A, B, C>(
@@ -39,7 +38,7 @@ public class Combination(
             settings,
             sourceFile,
             _ => _.VerifyCombinations(method, captureExceptions, a, b, c),
-            useUniqueDirectory);
+            false);
 
     [Pure]
     public SettingsTask Verify<A, B, C, D>(
@@ -52,7 +51,7 @@ public class Combination(
             settings,
             sourceFile,
             _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d),
-            useUniqueDirectory);
+            false);
 
     [Pure]
     public SettingsTask Verify<A, B, C, D, E>(
@@ -66,7 +65,7 @@ public class Combination(
             settings,
             sourceFile,
             _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e),
-            useUniqueDirectory);
+            false);
 
     [Pure]
     public SettingsTask Verify<A, B, C, D, E, F>(
@@ -81,7 +80,7 @@ public class Combination(
             settings,
             sourceFile,
             _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f),
-            useUniqueDirectory);
+            false);
 
     [Pure]
     public SettingsTask Verify<A, B, C, D, E, F, G>(
@@ -97,7 +96,7 @@ public class Combination(
             settings,
             sourceFile,
             _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f, g),
-            useUniqueDirectory);
+            false);
 
     [Pure]
     public SettingsTask Verify<A, B, C, D, E, F, G, H>(
@@ -114,7 +113,7 @@ public class Combination(
             settings,
             sourceFile,
             _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f, g, h),
-            useUniqueDirectory);
+            false);
 
     [Pure]
     public SettingsTask Verify(
@@ -124,5 +123,5 @@ public class Combination(
             settings,
             sourceFile,
             _ => _.VerifyCombinations(method, captureExceptions, lists),
-            useUniqueDirectory);
+            false);
 }

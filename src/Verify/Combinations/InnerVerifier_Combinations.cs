@@ -166,13 +166,12 @@ partial class InnerVerifier
 
         var combinationGenerator = new CombinationRunner(
             listCopy,
-            combo =>
+            keys =>
             {
-                var keys = combo.ToArray();
                 object? value;
                 try
                 {
-                    value = method(combo);
+                    value = method(keys);
                 }
                 catch (TargetInvocationException exception)
                     when (resolvedCaptureException)

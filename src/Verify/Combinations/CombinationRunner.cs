@@ -1,17 +1,12 @@
 ﻿class CombinationRunner(List<List<object?>> lists, Action<object?[]> action)
 {
-    object?[] parameters = new object[lists.Count];
     int[] indices = new int[lists.Count];
 
     public void Run()
     {
         while (true)
         {
-            for (var i = 0; i < lists.Count; i++)
-            {
-                var list = lists[i];
-                parameters[i] = list[indices[i]];
-            }
+            var parameters = BuildParameters();
 
             action(parameters);
 
@@ -20,6 +15,18 @@
                 break;
             }
         }
+    }
+
+    object?[] BuildParameters()
+    {
+        var parameters = new object?[lists.Count];
+        for (var i = 0; i < lists.Count; i++)
+        {
+            var list = lists[i];
+            parameters[i] = list[indices[i]];
+        }
+
+        return parameters;
     }
 
     bool Increment()
@@ -32,11 +39,6 @@
             incrementIndex--;
         }
 
-        if (incrementIndex < 0)
-        {
-            return true;
-        }
-
-        return false;
+        return incrementIndex < 0;
     }
 }

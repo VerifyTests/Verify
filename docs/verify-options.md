@@ -182,7 +182,7 @@ public Task OnCallbacks()
             return Task.CompletedTask;
         });
 
-    return Verify("value");
+    return Verify("value", settings);
 }
 ```
 <sup><a href='/src/Verify.Tests/Tests.cs#L122-L150' title='Snippet source file'>snippet source</a> | <a href='#snippet-OnInstanceHandlers' title='Start of snippet'>anchor</a></sup>

@@ -1,21 +1,46 @@
-﻿class CombinationRunner(List<List<object?>> lists, Action<object?[]> action)
+﻿class CombinationRunner
 {
-    int[] indices = new int[lists.Count];
+    int[] indices;
+    List<List<object?>> lists;
+    bool captureExceptions;
 
-    public void Run()
+    public CombinationRunner(bool? captureExceptions, List<List<object?>> lists)
     {
+        this.captureExceptions = captureExceptions ?? VerifyCombinationSettings.CaptureExceptionsEnabled;
+        this.lists = lists;
+        indices = new int[lists.Count];
+    }
+
+    public CombinationResults Run(Func<object?[], object?> method, Type[] keyTypes)
+    {
+        var items = new List<CombinationResult>();
         while (true)
         {
-            var parameters = BuildParameters();
-
-            action(parameters);
+            var keys = BuildParameters();
+            try
+            {
+                var value = method(keys);
+                items.Add(new(keys, value));
+            }
+            catch (TargetInvocationException exception)
+                when (captureExceptions)
+            {
+                items.Add(new(keys, exception.InnerException!));
+            }
+            catch (Exception exception)
+                when (captureExceptions)
+            {
+                items.Add(new(keys, exception));
+            }
 
             if (Increment())
             {
                 break;
             }
         }
+        return new(items, keyTypes);
     }
+
 
     object?[] BuildParameters()
     {

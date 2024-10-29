@@ -160,35 +160,10 @@ partial class InnerVerifier
         Type[] keyTypes)
     {
         var listCopy = lists.Select(_ => _.ToList()).ToList();
-        var items = new List<CombinationResult>();
-
-        var resolvedCaptureException = captureExceptions ?? VerifyCombinationSettings.CaptureExceptionsEnabled;
 
         var combinationGenerator = new CombinationRunner(
-            listCopy,
-            keys =>
-            {
-                object? value;
-                try
-                {
-                    value = method(keys);
-                }
-                catch (TargetInvocationException exception)
-                    when (resolvedCaptureException)
-                {
-                    items.Add(new(keys, exception.InnerException!));
-                    return;
-                }
-                catch (Exception exception)
-                    when (resolvedCaptureException)
-                {
-                    items.Add(new(keys, exception));
-                    return;
-                }
-
-                items.Add(new(keys, value));
-            });
-        combinationGenerator.Run();
-        return new(items, keyTypes);
+            captureExceptions,
+            listCopy);
+        return combinationGenerator.Run(method, keyTypes);
     }
 }

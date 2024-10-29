@@ -118,7 +118,6 @@ public class Tests
         Assert.True(onVerifyMismatchCalled2);
     }
 
-    // ReSharper disable UnusedParameter.Local
 #region OnInstanceHandlers
 
     [Fact]
@@ -144,7 +143,7 @@ public class Tests
                 return Task.CompletedTask;
             });
 
-        return Verify("value");
+        return Verify("value", settings);
     }
 
 #endregion

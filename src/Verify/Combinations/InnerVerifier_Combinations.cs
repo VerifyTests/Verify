@@ -148,7 +148,8 @@ partial class InnerVerifier
         bool? captureExceptions,
         List<IEnumerable<object?>> lists)
     {
-        var target = RunCombinations(method, captureExceptions, lists, null);
+        var keyTypes = KeyTypes.Build(lists);
+        var target = RunCombinations(method, captureExceptions, lists, keyTypes);
         return Verify(target);
     }
 
@@ -156,11 +157,10 @@ partial class InnerVerifier
         Func<object?[], object?> method,
         bool? captureExceptions,
         List<IEnumerable<object?>> lists,
-        Type[]? keyTypes)
+        Type[] keyTypes)
     {
-        var items = new List<CombinationResult>();
         var listCopy = lists.Select(_ => _.ToList()).ToList();
-        keyTypes = KeyTypes.Build(lists, keyTypes);
+        var items = new List<CombinationResult>();
 
         var resolvedCaptureException = captureExceptions ?? VerifyCombinationSettings.CaptureExceptionsEnabled;
 

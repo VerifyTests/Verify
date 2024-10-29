@@ -15,18 +15,28 @@
 
             action(parameters);
 
-            var incrementIndex = lists.Count - 1;
-            while (incrementIndex >= 0 &&
-                   ++indices[incrementIndex] >= lists[incrementIndex].Count)
-            {
-                indices[incrementIndex] = 0;
-                incrementIndex--;
-            }
-
-            if (incrementIndex < 0)
+            if (Increment())
             {
                 break;
             }
         }
+    }
+
+    bool Increment()
+    {
+        var incrementIndex = lists.Count - 1;
+        while (incrementIndex >= 0 &&
+               ++indices[incrementIndex] >= lists[incrementIndex].Count)
+        {
+            indices[incrementIndex] = 0;
+            incrementIndex--;
+        }
+
+        if (incrementIndex < 0)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

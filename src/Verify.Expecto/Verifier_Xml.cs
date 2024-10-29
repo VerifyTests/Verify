@@ -4,7 +4,7 @@ namespace VerifyExpecto;
 public static partial class Verifier
 {
     [Pure]
-    public static Task<VerifyResult> VerifyXml(
+    public static SettingsTask VerifyXml(
         string name,
         [StringSyntax(StringSyntaxAttribute.Xml)]
         string? target,
@@ -13,7 +13,7 @@ public static partial class Verifier
         Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyXml(target));
 
     [Pure]
-    public static Task<VerifyResult> VerifyXml(
+    public static SettingsTask VerifyXml(
         string name,
         [StringSyntax(StringSyntaxAttribute.Xml)]
         Task<string> target,
@@ -22,7 +22,7 @@ public static partial class Verifier
         Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyXml(target));
 
     [Pure]
-    public static Task<VerifyResult> VerifyXml(
+    public static SettingsTask VerifyXml(
         string name,
         [StringSyntax(StringSyntaxAttribute.Xml)]
         ValueTask<string> target,
@@ -31,7 +31,7 @@ public static partial class Verifier
         Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyXml(target));
 
     [Pure]
-    public static Task<VerifyResult> VerifyXml(
+    public static SettingsTask VerifyXml(
         string name,
         Stream? target,
         VerifySettings? settings = null,
@@ -39,7 +39,7 @@ public static partial class Verifier
         Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyXml(target));
 
     [Pure]
-    public static Task<VerifyResult> VerifyXml(
+    public static SettingsTask VerifyXml(
         string name,
         Task<Stream> target,
         VerifySettings? settings = null,
@@ -47,7 +47,7 @@ public static partial class Verifier
         Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyXml(target));
 
     [Pure]
-    public static Task<VerifyResult> VerifyXml(
+    public static SettingsTask VerifyXml(
         string name,
         ValueTask<Stream> target,
         VerifySettings? settings = null,

@@ -12,7 +12,7 @@
     public Task Defaults()
     {
         string[] list = ["A", "b", "C"];
-        return VerifyCombinations(
+        return Combination().Verify(
             _ => _.ToLower(),
             list);
     }
@@ -21,27 +21,8 @@
     public Task WithCaptureExceptions()
     {
         string[] a = ["A", "b", "C"];
-        return VerifyCombinations(
-            a =>
-            {
-                if (a == "b")
-                {
-                    throw new ArgumentException("B is not allowed");
-                }
-
-                return a.ToLower();
-            },
-            a,
-            captureExceptions: true);
-    }
-
-    [Fact]
-    public Task WithNoCaptureExceptions()
-    {
-        string[] a = ["A", "b", "C"];
-        return Assert.ThrowsAsync<ArgumentException>(() =>
-        {
-            return VerifyCombinations(
+        return Combination(captureExceptions: true)
+            .Verify(
                 a =>
                 {
                     if (a == "b")
@@ -51,8 +32,27 @@
 
                     return a.ToLower();
                 },
-                a,
-                captureExceptions: false);
+                a);
+    }
+
+    [Fact]
+    public Task WithNoCaptureExceptions()
+    {
+        string[] a = ["A", "b", "C"];
+        return Assert.ThrowsAsync<ArgumentException>(() =>
+        {
+            return Combination(captureExceptions: false)
+                .Verify(
+                    a =>
+                    {
+                        if (a == "b")
+                        {
+                            throw new ArgumentException("B is not allowed");
+                        }
+
+                        return a.ToLower();
+                    },
+                    a);
         });
     }
 
@@ -73,12 +73,12 @@
         int[] streetNumbers = [1, 10];
         string[] streets = ["Smith St", "Wallace St"];
         string[] cities = ["Sydney", "Chicago"];
-        return VerifyCombinations(
-            BuildAddress,
-            streetNumbers,
-            streets,
-            cities,
-            captureExceptions: false);
+        return Combination(captureExceptions: false)
+            .Verify(
+                BuildAddress,
+                streetNumbers,
+                streets,
+                cities);
     }
 
     #endregion
@@ -101,11 +101,12 @@
         int[] streetNumbers = [1, 10];
         string[] streets = ["Smith St", "Wallace St"];
         string[] cities = ["Sydney", "Chicago"];
-        return VerifyCombinations(
-            BuildAddress,
-            streetNumbers,
-            streets,
-            cities);
+        return Combination()
+            .Verify(
+                BuildAddress,
+                streetNumbers,
+                streets,
+                cities);
     }
 
     #endregion
@@ -115,7 +116,6 @@
     class CustomCombinationConverter :
         CombinationResultsConverter
     {
-
         protected override string BuildPropertyName(IReadOnlyList<CombinationKey> keys) =>
             string.Join(", ", keys.Select(_ => _.Value));
     }

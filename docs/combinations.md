@@ -25,7 +25,7 @@ public static string BuildAddress(int streetNumber, string street, string city)
     return $"{streetNumber} {street}, {city}";
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L5-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationTargetMethod' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/CombinationsSample.cs#L5-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationTargetMethod' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -40,21 +40,22 @@ public Task BuildAddressTest()
     int[] streetNumbers = [1, 10];
     string[] streets = ["Smith St", "Wallace St"];
     string[] cities = ["Sydney", "Chicago"];
-    return VerifyCombinations(
-        BuildAddress,
-        streetNumbers,
-        streets,
-        cities);
+    return Combination()
+        .Verify(
+            BuildAddress,
+            streetNumbers,
+            streets,
+            cities);
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L18-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/CombinationsSample.cs#L18-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### Result
 
-<!-- snippet: VerifyCombinationsSample.BuildAddressTest.verified.txt -->
-<a id='snippet-VerifyCombinationsSample.BuildAddressTest.verified.txt'></a>
+<!-- snippet: CombinationsSample.BuildAddressTest.verified.txt -->
+<a id='snippet-CombinationsSample.BuildAddressTest.verified.txt'></a>
 ```txt
 {
    1, Smith St  , Sydney : 1 Smith St, Sydney,
@@ -67,7 +68,7 @@ public Task BuildAddressTest()
   10, Wallace St, Chicago: 10 Wallace St, Chicago
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.BuildAddressTest.verified.txt#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyCombinationsSample.BuildAddressTest.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/CombinationsSample.BuildAddressTest.verified.txt#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationsSample.BuildAddressTest.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -96,22 +97,23 @@ public Task BuildAddressExceptionsTest()
     int[] streetNumbers = [-1, 0, 10];
     string[] streets = ["", " ", "Valid St"];
     string[] cities = [null!, "Valid City"];
-    return VerifyCombinations(
-        BuildAddress,
-        streetNumbers,
-        streets,
-        cities,
-        captureExceptions: true);
+    return Combination(captureExceptions: true)
+        .Verify(
+            BuildAddress,
+            streetNumbers,
+            streets,
+            cities
+        );
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.cs#L52-L68' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/CombinationsSample.cs#L54-L71' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### Result
 
-<!-- snippet: VerifyCombinationsSample.BuildAddressExceptionsTest.verified.txt -->
-<a id='snippet-VerifyCombinationsSample.BuildAddressExceptionsTest.verified.txt'></a>
+<!-- snippet: CombinationsSample.BuildAddressExceptionsTest.verified.txt -->
+<a id='snippet-CombinationsSample.BuildAddressExceptionsTest.verified.txt'></a>
 ```txt
 {
   -1,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
@@ -134,7 +136,7 @@ public Task BuildAddressExceptionsTest()
   10, Valid St, Valid City: 10 Valid St, Valid City
 }
 ```
-<sup><a href='/src/Verify.Tests/VerifyCombinationsSample.BuildAddressExceptionsTest.verified.txt#L1-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyCombinationsSample.BuildAddressExceptionsTest.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/CombinationsSample.BuildAddressExceptionsTest.verified.txt#L1-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationsSample.BuildAddressExceptionsTest.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -163,12 +165,12 @@ public Task BuildAddressExceptionsDisabledTest()
     int[] streetNumbers = [1, 10];
     string[] streets = ["Smith St", "Wallace St"];
     string[] cities = ["Sydney", "Chicago"];
-    return VerifyCombinations(
-        BuildAddress,
-        streetNumbers,
-        streets,
-        cities,
-        captureExceptions: false);
+    return Combination(captureExceptions: false)
+        .Verify(
+            BuildAddress,
+            streetNumbers,
+            streets,
+            cities);
 }
 ```
 <sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L68-L84' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptionsFalse' title='Start of snippet'>anchor</a></sup>
@@ -268,7 +270,15 @@ public class CombinationResultsConverter :
         var exception = result.Exception;
         if (exception == null)
         {
-            writer.WriteValue(result.Value);
+            if (result.Value == null)
+            {
+                writer.WriteNull();
+            }
+            else
+            {
+                writer.Serialize(result.Value);
+            }
+
             return;
         }
 
@@ -300,7 +310,7 @@ public class CombinationResultsConverter :
     }
 }
 ```
-<sup><a href='/src/Verify/Combinations/CombinationResultsConverter.cs#L1-L117' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationResultsConverter.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Combinations/CombinationResultsConverter.cs#L1-L125' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationResultsConverter.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -321,12 +331,11 @@ The below sample override `BuildPropertyName` to customize the property name. It
 class CustomCombinationConverter :
     CombinationResultsConverter
 {
-
     protected override string BuildPropertyName(IReadOnlyList<CombinationKey> keys) =>
         string.Join(", ", keys.Select(_ => _.Value));
 }
 ```
-<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L113-L123' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationConverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L114-L123' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationConverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Full control of serialization can be achieved by inheriting from `WriteOnlyJsonConverter<CombinationResults>`.

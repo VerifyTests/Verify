@@ -84,7 +84,15 @@ public class CombinationResultsConverter :
         var exception = result.Exception;
         if (exception == null)
         {
-            writer.WriteValue(result.Value);
+            if (result.Value == null)
+            {
+                writer.WriteNull();
+            }
+            else
+            {
+                writer.Serialize(result.Value);
+            }
+
             return;
         }
 

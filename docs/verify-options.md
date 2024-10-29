@@ -118,7 +118,6 @@ public static class ModuleInitializer
 OnHandlers are called before AutoVerify logic being applied. So for example in the case of `OnVerifyMismatch`, both the received and verified file will exist at the point `OnVerifyMismatch` is called. Immediately after received will be used to overwrite verified.
 
 
-
 ### Globally
 
 <!-- snippet: OnStaticHandlers -->
@@ -182,10 +181,41 @@ public Task OnCallbacks()
             return Task.CompletedTask;
         });
 
-    return Verify("value");
+    return Verify("value", settings);
 }
 ```
 <sup><a href='/src/Verify.Tests/Tests.cs#L122-L150' title='Snippet source file'>snippet source</a> | <a href='#snippet-OnInstanceHandlers' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Fluent
+
+<!-- snippet: OnFluentHandlers -->
+<a id='snippet-OnFluentHandlers'></a>
+```cs
+[Fact]
+public Task OnFluentCallbacks() =>
+    Verify("value")
+        .OnVerify(
+            before: () => Debug.WriteLine("before"),
+            after: () => Debug.WriteLine("after"))
+        .OnFirstVerify(
+            (receivedFile, receivedText, autoVerify) =>
+            {
+                Debug.WriteLine(receivedFile);
+                Debug.WriteLine(receivedText);
+                return Task.CompletedTask;
+            })
+        .OnVerifyMismatch(
+            (filePair, message, autoVerify) =>
+            {
+                Debug.WriteLine(filePair.ReceivedPath);
+                Debug.WriteLine(filePair.VerifiedPath);
+                Debug.WriteLine(message);
+                return Task.CompletedTask;
+            });
+```
+<sup><a href='/src/Verify.Tests/Tests.cs#L152-L176' title='Snippet source file'>snippet source</a> | <a href='#snippet-OnFluentHandlers' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

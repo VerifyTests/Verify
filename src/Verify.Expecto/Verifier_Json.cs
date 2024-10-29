@@ -4,7 +4,7 @@ namespace VerifyExpecto;
 public static partial class Verifier
 {
     [Pure]
-    public static Task<VerifyResult> VerifyJson(
+    public static SettingsTask VerifyJson(
         string name,
         string? target,
         VerifySettings? settings = null,
@@ -12,7 +12,7 @@ public static partial class Verifier
         Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyJson(target));
 
     [Pure]
-    public static Task<VerifyResult> VerifyJson(
+    public static SettingsTask VerifyJson(
         string name,
         Task<string> target,
         VerifySettings? settings = null,
@@ -20,7 +20,7 @@ public static partial class Verifier
         Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyJson(target));
 
     [Pure]
-    public static Task<VerifyResult> VerifyJson(
+    public static SettingsTask VerifyJson(
         string name,
         ValueTask<string> target,
         VerifySettings? settings = null,
@@ -28,7 +28,7 @@ public static partial class Verifier
         Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyJson(target));
 
     [Pure]
-    public static Task<VerifyResult> VerifyJson(
+    public static SettingsTask VerifyJson(
         string name,
         Stream? target,
         VerifySettings? settings = null,
@@ -36,7 +36,7 @@ public static partial class Verifier
         Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyJson(target));
 
     [Pure]
-    public static Task<VerifyResult> VerifyJson(
+    public static SettingsTask VerifyJson(
         string name,
         Task<Stream> target,
         VerifySettings? settings = null,
@@ -44,7 +44,7 @@ public static partial class Verifier
         Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyJson(target));
 
     [Pure]
-    public static Task<VerifyResult> VerifyJson(
+    public static SettingsTask VerifyJson(
         string name,
         ValueTask<Stream> target,
         VerifySettings? settings = null,

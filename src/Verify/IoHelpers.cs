@@ -16,7 +16,7 @@
     public static char DirectorySeparator { get; }
     public static char AltDirectorySeparator { get; }
 
-    static readonly char[] Separators =
+    static readonly char[] separators =
     [
         '\\',
         '/'
@@ -202,7 +202,7 @@
     {
         var mappedFile = GetMappedBuildPath(sourceFile);
 
-        var index = mappedFile.LastIndexOfAny(Separators);
+        var index = mappedFile.LastIndexOfAny(separators);
         if (index > 0)
         {
             return mappedFile[..index];

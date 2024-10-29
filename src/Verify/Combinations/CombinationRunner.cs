@@ -39,7 +39,10 @@
         return new(items, keyTypes);
     }
 
-    public static CombinationResults Run<A>(Func<A, object?> method, bool? captureExceptions, IEnumerable<A> a)
+    public static CombinationResults Run<A>(
+        Func<A, object?> method,
+        bool? captureExceptions,
+        IEnumerable<A> a)
     {
         var generator = new CombinationRunner(
             captureExceptions,
@@ -49,7 +52,8 @@
     }
 
     public static CombinationResults Run<A, B>(
-        Func<A, B, object?> method, bool? captureExceptions,
+        Func<A, B, object?> method,
+        bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b)
     {
@@ -70,7 +74,8 @@
     }
 
     public static CombinationResults Run<A, B, C>(
-        Func<A, B, C, object?> method, bool? captureExceptions,
+        Func<A, B, C, object?> method,
+        bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c)
@@ -95,7 +100,8 @@
     }
 
     public static CombinationResults Run<A, B, C, D>(
-        Func<A, B, C, D, object?> method, bool? captureExceptions,
+        Func<A, B, C, D, object?> method,
+        bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -124,7 +130,8 @@
     }
 
     public static CombinationResults Run<A, B, C, D, E>(
-        Func<A, B, C, D, E, object?> method, bool? captureExceptions,
+        Func<A, B, C, D, E, object?> method,
+        bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -195,7 +202,8 @@
     }
 
     public static CombinationResults Run<A, B, C, D, E, F, G>(
-        Func<A, B, C, D, E, F, G, object?> method, bool? captureExceptions,
+        Func<A, B, C, D, E, F, G, object?> method,
+        bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,

@@ -270,7 +270,7 @@ public class CombinationResultsConverter :
         var exception = result.Exception;
         if (exception == null)
         {
-            if(result.Value == null)
+            if (result.Value == null)
             {
                 writer.WriteNull();
             }

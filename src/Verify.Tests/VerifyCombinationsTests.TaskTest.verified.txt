@@ -1,10 +1,6 @@
 ﻿{
-   1, Smith St  , Sydney : 1 Smith St, Sydney,
-   1, Smith St  , Chicago: 1 Smith St, Chicago,
-   1, Wallace St, Sydney : 1 Wallace St, Sydney,
-   1, Wallace St, Chicago: 1 Wallace St, Chicago,
-  10, Smith St  , Sydney : 10 Smith St, Sydney,
-  10, Smith St  , Chicago: 10 Smith St, Chicago,
-  10, Wallace St, Sydney : 10 Wallace St, Sydney,
-  10, Wallace St, Chicago: 10 Wallace St, Chicago
+   1, Smith St  : 1 Smith St,
+   1, Wallace St: 1 Wallace St,
+  10, Smith St  : 10 Smith St,
+  10, Wallace St: 10 Wallace St
 }

@@ -48,7 +48,7 @@
             captureExceptions,
             [a.Cast<object?>()],
             [typeof(A)]);
-        return generator.Run(keys => method((A)keys[0]!));
+        return generator.Run(_ => method((A)_[0]!));
     }
 
     public static CombinationResults Run<A, B>(

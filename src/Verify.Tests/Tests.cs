@@ -1,5 +1,5 @@
 // Non-nullable field is uninitialized.
-
+// ReSharper disable UnusedParameter.Local
 #pragma warning disable CS8618
 
 public class Tests

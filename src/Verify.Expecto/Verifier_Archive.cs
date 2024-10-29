@@ -8,7 +8,7 @@ public static partial class Verifier
     /// Verifies the contents of a <see cref="ZipArchive" />
     /// </summary>
     [Pure]
-    public static Task<VerifyResult> Verify(
+    public static SettingsTask Verify(
         string name,
         ZipArchive archive,
         Func<ZipArchiveEntry, bool>? include = null,
@@ -26,7 +26,7 @@ public static partial class Verifier
     /// Verifies the contents of a <see cref="ZipArchive" />
     /// </summary>
     [Pure]
-    public static Task<VerifyResult> VerifyZip(
+    public static SettingsTask VerifyZip(
         string name,
         string path,
         Func<ZipArchiveEntry, bool>? include = null,
@@ -44,7 +44,7 @@ public static partial class Verifier
     /// Verifies the contents of a <see cref="ZipArchive" />
     /// </summary>
     [Pure]
-    public static Task<VerifyResult> VerifyZip(
+    public static SettingsTask VerifyZip(
         string name,
         Stream stream,
         Func<ZipArchiveEntry, bool>? include = null,

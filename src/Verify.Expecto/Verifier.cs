@@ -30,7 +30,7 @@ public static partial class Verifier
     static void ThrowNotSupported(string api) =>
         throw new($"Expect does not support `{api}()`. Change the `name` parameter instead.");
 
-    static async Task<VerifyResult> Verify(
+    static SettingsTask Verify(
         VerifySettings? settings,
         Assembly assembly,
         string sourceFile,
@@ -41,11 +41,26 @@ public static partial class Verifier
         VerifierSettings.AssignTargetAssembly(assembly);
         settings ??= new();
         Guards.AgainstBadSourceFile(sourceFile);
-        using var verifier = BuildVerifier(settings, sourceFile, name, useUniqueDirectory);
-        return await verify(verifier);
+        return new(
+            settings,
+            async settings =>
+            {
+                using var verifier = BuildVerifier(settings, sourceFile, name, useUniqueDirectory);
+
+                //TODO: rest and replicate try in other projects
+                try
+                {
+                    return await verify(verifier);
+                }
+                catch (TargetInvocationException exception)
+                    when (exception.InnerException != null)
+                {
+                    throw exception.InnerException!;
+                }
+            });
     }
 
-    public static Task<VerifyResult> Verify(
+    public static SettingsTask Verify(
         string name,
         object? target,
         IEnumerable<Target> rawTargets,
@@ -56,7 +71,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target, rawTargets));
     }
 
-    public static Task<VerifyResult> Verify(
+    public static SettingsTask Verify(
         string name,
         IEnumerable<Target> targets,
         VerifySettings? settings = null,
@@ -66,7 +81,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.Verify(targets));
     }
 
-    public static Task<VerifyResult> Verify(
+    public static SettingsTask Verify(
         string name,
         Target target,
         VerifySettings? settings = null,

@@ -8,11 +8,12 @@ partial class InnerVerifier
         bool? captureExceptions,
         IEnumerable<A> a)
     {
+        var (lists, keyTypes) = KeyTypes.Build(a);
         var target = RunCombinations(
             method.DynamicInvoke,
             captureExceptions,
-            [a.Cast<object?>()],
-            [typeof(A)]);
+            lists,
+            keyTypes);
         return Verify(target);
     }
 
@@ -22,17 +23,12 @@ partial class InnerVerifier
         IEnumerable<A> a,
         IEnumerable<B> b)
     {
+        var (lists, keyTypes) = KeyTypes.Build(a, b);
         var target = RunCombinations(
             method.DynamicInvoke,
             captureExceptions,
-            [
-                a.Cast<object?>(),
-                b.Cast<object?>()
-            ],
-            [
-                typeof(A),
-                typeof(B)
-            ]);
+            lists,
+            keyTypes);
         return Verify(target);
     }
 
@@ -43,19 +39,12 @@ partial class InnerVerifier
         IEnumerable<B> b,
         IEnumerable<C> c)
     {
+        var (lists, keyTypes) = KeyTypes.Build(a, b, c);
         var target = RunCombinations(
             method.DynamicInvoke,
             captureExceptions,
-            [
-                a.Cast<object?>(),
-                b.Cast<object?>(),
-                c.Cast<object?>()
-            ],
-            [
-                typeof(A),
-                typeof(B),
-                typeof(C)
-            ]);
+            lists,
+            keyTypes);
         return Verify(target);
     }
 
@@ -67,21 +56,12 @@ partial class InnerVerifier
         IEnumerable<C> c,
         IEnumerable<D> d)
     {
+        var (lists, keyTypes) = KeyTypes.Build(a, b, c, d);
         var target = RunCombinations(
             method.DynamicInvoke,
             captureExceptions,
-            [
-                a.Cast<object?>(),
-                b.Cast<object?>(),
-                c.Cast<object?>(),
-                d.Cast<object?>()
-            ],
-            [
-                typeof(A),
-                typeof(B),
-                typeof(C),
-                typeof(D)
-            ]);
+            lists,
+            keyTypes);
         return Verify(target);
     }
 
@@ -94,23 +74,12 @@ partial class InnerVerifier
         IEnumerable<D> d,
         IEnumerable<E> e)
     {
+        var (lists, keyTypes) = KeyTypes.Build(a, b, c, d, e);
         var target = RunCombinations(
             method.DynamicInvoke,
             captureExceptions,
-            [
-                a.Cast<object?>(),
-                b.Cast<object?>(),
-                c.Cast<object?>(),
-                d.Cast<object?>(),
-                e.Cast<object?>()
-            ],
-            [
-                typeof(A),
-                typeof(B),
-                typeof(C),
-                typeof(D),
-                typeof(E)
-            ]);
+            lists,
+            keyTypes);
         return Verify(target);
     }
 
@@ -124,25 +93,12 @@ partial class InnerVerifier
         IEnumerable<E> e,
         IEnumerable<F> f)
     {
+        var (lists, keyTypes) = KeyTypes.Build(a, b, c, d, e, f);
         var target = RunCombinations(
             method.DynamicInvoke,
             captureExceptions,
-            [
-                a.Cast<object?>(),
-                b.Cast<object?>(),
-                c.Cast<object?>(),
-                d.Cast<object?>(),
-                e.Cast<object?>(),
-                f.Cast<object?>()
-            ],
-            [
-                typeof(A),
-                typeof(B),
-                typeof(C),
-                typeof(D),
-                typeof(E),
-                typeof(F)
-            ]);
+            lists,
+            keyTypes);
         return Verify(target);
     }
 
@@ -157,27 +113,12 @@ partial class InnerVerifier
         IEnumerable<F> f,
         IEnumerable<G> g)
     {
+        var (lists, keyTypes) = KeyTypes.Build(a, b, c, d, e, f, g);
         var target = RunCombinations(
             method.DynamicInvoke,
             captureExceptions,
-            [
-                a.Cast<object?>(),
-                b.Cast<object?>(),
-                c.Cast<object?>(),
-                d.Cast<object?>(),
-                e.Cast<object?>(),
-                f.Cast<object?>(),
-                g.Cast<object?>()
-            ],
-            [
-                typeof(A),
-                typeof(B),
-                typeof(C),
-                typeof(D),
-                typeof(E),
-                typeof(F),
-                typeof(G)
-            ]);
+            lists,
+            keyTypes);
         return Verify(target);
     }
 
@@ -193,29 +134,12 @@ partial class InnerVerifier
         IEnumerable<G> g,
         IEnumerable<H> h)
     {
+        var (lists, keyTypes) = KeyTypes.Build(a, b, c, d, e, f, g, h);
         var target = RunCombinations(
             method.DynamicInvoke,
             captureExceptions,
-            [
-                a.Cast<object?>(),
-                b.Cast<object?>(),
-                c.Cast<object?>(),
-                d.Cast<object?>(),
-                e.Cast<object?>(),
-                f.Cast<object?>(),
-                g.Cast<object?>(),
-                h.Cast<object?>()
-            ],
-            [
-                typeof(A),
-                typeof(B),
-                typeof(C),
-                typeof(D),
-                typeof(E),
-                typeof(F),
-                typeof(G),
-                typeof(H)
-            ]);
+            lists,
+            keyTypes);
         return Verify(target);
     }
 

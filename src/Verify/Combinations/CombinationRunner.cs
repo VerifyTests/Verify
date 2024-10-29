@@ -13,6 +13,32 @@
         indices = new int[lists.Count];
     }
 
+    async Task<CombinationResults> InnerRun<TReturn>(Func<object?[], Task<TReturn>> method)
+    {
+        var items = new List<CombinationResult>();
+        while (true)
+        {
+            var keys = BuildParameters();
+            try
+            {
+                var value = await method(keys);
+                items.Add(new(keys, value));
+            }
+            catch (Exception exception)
+                when (captureExceptions)
+            {
+                items.Add(new(keys, exception));
+            }
+
+            if (Increment())
+            {
+                break;
+            }
+        }
+
+        return new(items, keyTypes);
+    }
+
     object?[] BuildParameters()
     {
         var parameters = new object?[lists.Length];

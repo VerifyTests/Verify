@@ -8,7 +8,7 @@
     public CombinationRunner(bool? captureExceptions, List<IEnumerable<object?>> lists, Type[] keyTypes)
     {
         this.keyTypes = keyTypes;
-        this.captureExceptions = captureExceptions ?? VerifyCombinationSettings.CaptureExceptionsEnabled;
+        this.captureExceptions = captureExceptions ?? CombinationSettings.CaptureExceptionsEnabled;
         this.lists = lists.Select(_ => _.ToArray()).ToArray();
         indices = new int[lists.Count];
     }

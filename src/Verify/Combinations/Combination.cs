@@ -5,7 +5,7 @@ public class Combination(
     bool? captureExceptions,
     VerifySettings? settings,
     string sourceFile,
-    Func<VerifySettings?, string, Func<InnerVerifier, Task<VerifyResult>>, bool, SettingsTask> verify)
+    Func<VerifySettings?, string, Func<InnerVerifier, Task<VerifyResult>>, SettingsTask> verify)
 {
     [Pure]
     public SettingsTask Verify<A>(
@@ -14,8 +14,7 @@ public class Combination(
         verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, captureExceptions, a),
-            false);
+            _ => _.VerifyCombinations(method, captureExceptions, a));
 
     [Pure]
     public SettingsTask Verify<A, B>(
@@ -25,8 +24,7 @@ public class Combination(
         verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, captureExceptions, a, b),
-            false);
+            _ => _.VerifyCombinations(method, captureExceptions, a, b));
 
     [Pure]
     public SettingsTask Verify<A, B, C>(
@@ -37,8 +35,7 @@ public class Combination(
         verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, captureExceptions, a, b, c),
-            false);
+            _ => _.VerifyCombinations(method, captureExceptions, a, b, c));
 
     [Pure]
     public SettingsTask Verify<A, B, C, D>(
@@ -50,8 +47,7 @@ public class Combination(
         verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d),
-            false);
+            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d));
 
     [Pure]
     public SettingsTask Verify<A, B, C, D, E>(
@@ -64,8 +60,7 @@ public class Combination(
         verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e),
-            false);
+            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e));
 
     [Pure]
     public SettingsTask Verify<A, B, C, D, E, F>(
@@ -79,8 +74,7 @@ public class Combination(
         verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f),
-            false);
+            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f));
 
     [Pure]
     public SettingsTask Verify<A, B, C, D, E, F, G>(
@@ -95,8 +89,7 @@ public class Combination(
         verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f, g),
-            false);
+            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f, g));
 
     [Pure]
     public SettingsTask Verify<A, B, C, D, E, F, G, H>(
@@ -112,8 +105,7 @@ public class Combination(
         verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f, g, h),
-            false);
+            _ => _.VerifyCombinations(method, captureExceptions, a, b, c, d, e, f, g, h));
 
     [Pure]
     public SettingsTask Verify(
@@ -122,6 +114,5 @@ public class Combination(
         verify(
             settings,
             sourceFile,
-            _ => _.VerifyCombinations(method, captureExceptions, lists),
-            false);
+            _ => _.VerifyCombinations(method, captureExceptions, lists));
 }

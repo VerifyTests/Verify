@@ -1,7 +1,7 @@
-﻿[TestClass]
-public partial class VerifyCombinationsTests
+﻿[TestFixture]
+public class CombinationsTests
 {
-    [TestMethod]
+    [Test]
     public Task One()
     {
         string[] list = ["A", "b", "C"];
@@ -11,7 +11,7 @@ public partial class VerifyCombinationsTests
                 list);
     }
 
-    [TestMethod]
+    [Test]
     public Task KeysWithInvalidPathChars()
     {
         string[] list = ["/", "\\"];
@@ -21,7 +21,7 @@ public partial class VerifyCombinationsTests
                 list);
     }
 
-    [TestMethod]
+    [Test]
     public Task Two()
     {
         string[] a = ["A", "b", "C"];
@@ -32,7 +32,7 @@ public partial class VerifyCombinationsTests
                 a, b);
     }
 
-    [TestMethod]
+    [Test]
     public Task WithScrubbed()
     {
         int[] years = [2020, 2022];
@@ -44,7 +44,7 @@ public partial class VerifyCombinationsTests
                 years, months, dates);
     }
 
-    [TestMethod]
+    [Test]
     public Task WithDontScrub()
     {
         int[] years = [2020, 2022];
@@ -57,7 +57,7 @@ public partial class VerifyCombinationsTests
             .DontScrubDateTimes();
     }
 
-    [TestMethod]
+    [Test]
     public Task Three()
     {
         string[] a = ["A", "b", "C"];
@@ -69,7 +69,7 @@ public partial class VerifyCombinationsTests
                 a, b, c);
     }
 
-    [TestMethod]
+    [Test]
     public Task MixedLengths()
     {
         string[] a = ["A", "bcc", "sssssC"];
@@ -81,7 +81,7 @@ public partial class VerifyCombinationsTests
                 a, b, c);
     }
 
-    [TestMethod]
+    [Test]
     public Task WithException()
     {
         string[] a = ["A", "b", "C"];

@@ -1,6 +1,7 @@
-﻿public class VerifyCombinationsTests
+﻿[TestClass]
+public partial class CombinationTests
 {
-    [Fact]
+    [TestMethod]
     public Task One()
     {
         string[] list = ["A", "b", "C"];
@@ -10,7 +11,7 @@
                 list);
     }
 
-    [Fact]
+    [TestMethod]
     public Task KeysWithInvalidPathChars()
     {
         string[] list = ["/", "\\"];
@@ -20,7 +21,7 @@
                 list);
     }
 
-    [Fact]
+    [TestMethod]
     public Task Two()
     {
         string[] a = ["A", "b", "C"];
@@ -31,7 +32,7 @@
                 a, b);
     }
 
-    [Fact]
+    [TestMethod]
     public Task WithScrubbed()
     {
         int[] years = [2020, 2022];
@@ -43,7 +44,7 @@
                 years, months, dates);
     }
 
-    [Fact]
+    [TestMethod]
     public Task WithDontScrub()
     {
         int[] years = [2020, 2022];
@@ -56,7 +57,7 @@
             .DontScrubDateTimes();
     }
 
-    [Fact]
+    [TestMethod]
     public Task Three()
     {
         string[] a = ["A", "b", "C"];
@@ -68,7 +69,7 @@
                 a, b, c);
     }
 
-    [Fact]
+    [TestMethod]
     public Task MixedLengths()
     {
         string[] a = ["A", "bcc", "sssssC"];
@@ -80,7 +81,7 @@
                 a, b, c);
     }
 
-    [Fact]
+    [TestMethod]
     public Task WithException()
     {
         string[] a = ["A", "b", "C"];

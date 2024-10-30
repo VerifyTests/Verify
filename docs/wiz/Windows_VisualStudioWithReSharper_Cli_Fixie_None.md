@@ -186,7 +186,7 @@ File | Settings | Manage Layers | This computer | Edit Layer | Build, Execution,
 ## Treat "return value of pure method is not used" as error
 
 Verify uses the [PureAttribute](https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.contracts.pureattribute) to mark methods where the result of the method is expected to be used. For example awaiting the call to `Verify()`.<!-- include: pure. path: /docs/mdsource/pure.include.md -->
-Rider and ReSharper can be configured to treat the return value of these methods as an error.
+Rider and ReSharper can be configured to treat an un-used return value as an error.
 Add the following to the `.editorconfig` file:
 
 ```

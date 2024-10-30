@@ -31,8 +31,8 @@
     <PackageVersion Include="System.IO.Hashing" Version="8.0.0" />
     <PackageVersion Include="System.Memory" Version="4.5.5" />
     <PackageVersion Include="TextCopy" Version="6.2.1" />
-    <PackageVersion Include="TUnit" Version="0.2.63" />
-    <PackageVersion Include="TUnit.Core" Version="0.2.63" />
+    <PackageVersion Include="TUnit" Version="0.2.131" />
+    <PackageVersion Include="TUnit.Core" Version="0.2.131" />
     <PackageVersion Include="Xunit" Version="2.9.2" />
     <PackageVersion Include="xunit.abstractions" Version="2.0.3" />
     <PackageVersion Include="xunit.extensibility.execution" Version="2.9.2" />

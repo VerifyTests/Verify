@@ -76,6 +76,7 @@ eg add the following to `.gitattributes`
 *.verified.json text eol=lf working-tree-encoding=UTF-8
 ```
 
+
 #### EditorConfig settings
 
 If modifying text verified/received files in an editor, it is desirable for the editor to respect the above conventions. For [EditorConfig](https://editorconfig.org/) enabled the following can be used:
@@ -91,7 +92,6 @@ insert_final_newline = false
 tab_width = unset
 trim_trailing_whitespace = false
 ```
-
 
 **Note that the above are suggested for subset of text extension. Add others as required based on the text file types being verified.**<!-- endInclude -->
 

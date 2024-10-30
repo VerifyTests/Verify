@@ -573,6 +573,10 @@ public class WizardGen
 
             include: rider-resharper-orphaned-process
 
+
+            ## Treat "return value of pure method is not used" as error
+
+            include: pure
             """);
     }
 
@@ -596,6 +600,10 @@ public class WizardGen
 
             include: rider-resharper-orphaned-process
 
+
+            ## Treat "return value of pure method is not used" as error
+
+            include: pure
             """);
     }
 

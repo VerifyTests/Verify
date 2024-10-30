@@ -66,6 +66,10 @@ This is optional, but recommended.
 
 include: rider-resharper-orphaned-process
 
+
+## Treat "return value of pure method is not used" as error
+
+include: pure
 ## DiffPlex
 
 The text comparison behavior of Verify is pluggable. The default behaviour, on failure, is to output both the received

@@ -78,6 +78,7 @@ eg add the following to `.gitattributes`
 *.verified.json text eol=lf working-tree-encoding=UTF-8
 ```
 
+
 #### EditorConfig settings
 
 If modifying text verified/received files in an editor, it is desirable for the editor to respect the above conventions. For [EditorConfig](https://editorconfig.org/) enabled the following can be used:
@@ -93,7 +94,6 @@ insert_final_newline = false
 tab_width = unset
 trim_trailing_whitespace = false
 ```
-
 
 **Note that the above are suggested for subset of text extension. Add others as required based on the text file types being verified.**<!-- endInclude -->
 
@@ -186,6 +186,18 @@ File | Settings | Manage Layers | This computer | Edit Layer | Build, Execution,
 
 <img src="/docs/rider-ignore-spawned.png" alt="Disable R# orphaned processes detection" width="500"><!-- endInclude -->
 
+
+## Treat "return value of pure method is not used" as error
+
+Verify uses the [PureAttribute](https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.contracts.pureattribute) to mark methods where the result of the method is expected to be used. For example awaiting the call to `Verify()`.<!-- include: pure. path: /docs/mdsource/pure.include.md -->
+Rider and ReSharper can be configured to treat the return value of these methods as an error.
+Add the following to the `.editorconfig` file:
+
+```
+[*.cs]
+resharper_return_value_of_pure_method_is_not_used_highlighting = error
+```
+<!-- endInclude -->
 ## DiffPlex
 
 The text comparison behavior of Verify is pluggable. The default behaviour, on failure, is to output both the received

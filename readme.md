@@ -998,7 +998,7 @@ information sources and warn about particular gotchas:
   * [File naming](/docs/naming.md)
   * [AppendFile](/docs/append-file.md)
   * [Parameterised tests](/docs/parameterised.md)
-  * [VerifyCombinations](/docs/combinations.md)
+  * [Combinations](/docs/combinations.md)
   * [Named Tuples](/docs/named-tuples.md)
   * [Scrubbers](/docs/scrubbers.md)
   * [Diff Engine](https://github.com/VerifyTests/DiffEngine)

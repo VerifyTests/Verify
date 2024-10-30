@@ -1,4 +1,5 @@
-﻿public class CombinationsTests
+﻿[TestFixture]
+public class CombinationTests
 {
     [Test]
     public Task One()

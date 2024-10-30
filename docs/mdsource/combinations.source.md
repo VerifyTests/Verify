@@ -1,6 +1,6 @@
-# VerifyCombinations
+# Combinations
 
-VerifyCombinations allows all combinations of the given input lists to be executed, and the results all written to a single file.
+Combinations allows all combinations of the given input lists to be executed, and the results all written to a single file.
 
 ## Example
 
@@ -16,7 +16,7 @@ snippet: CombinationSample
 
 ### Result
 
-snippet: CombinationsSample.BuildAddressTest.verified.txt
+snippet: CombinationSample.BuildAddressTest.verified.txt
 
 
 ## Column Alignment
@@ -40,7 +40,7 @@ snippet: CombinationSample_CaptureExceptions
 
 ### Result
 
-snippet: CombinationsSample.BuildAddressExceptionsTest.verified.txt
+snippet: CombinationSample.BuildAddressExceptionsTest.verified.txt
 
 
 ### Global CaptureExceptions
@@ -86,4 +86,4 @@ snippet: CombinationSample_CustomSerializationModuleInitializer
 
 #### Result
 
-snippet: CombinationsTests.Combination_CustomSerialization.verified.txt
+snippet: CombinationTests.Combination_CustomSerialization.verified.txt

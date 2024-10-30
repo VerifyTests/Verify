@@ -5,9 +5,9 @@ Source File: /docs/mdsource/combinations.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
-# VerifyCombinations
+# Combinations
 
-VerifyCombinations allows all combinations of the given input lists to be executed, and the results all written to a single file.
+Combinations allows all combinations of the given input lists to be executed, and the results all written to a single file.
 
 ## Example
 
@@ -25,7 +25,7 @@ public static string BuildAddress(int streetNumber, string street, string city)
     return $"{streetNumber} {street}, {city}";
 }
 ```
-<sup><a href='/src/Verify.Tests/CombinationsSample.cs#L5-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationTargetMethod' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/CombinationSample.cs#L5-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationTargetMethod' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -48,14 +48,14 @@ public Task BuildAddressTest()
             cities);
 }
 ```
-<sup><a href='/src/Verify.Tests/CombinationsSample.cs#L18-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/CombinationSample.cs#L18-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### Result
 
-<!-- snippet: CombinationsSample.BuildAddressTest.verified.txt -->
-<a id='snippet-CombinationsSample.BuildAddressTest.verified.txt'></a>
+<!-- snippet: CombinationSample.BuildAddressTest.verified.txt -->
+<a id='snippet-CombinationSample.BuildAddressTest.verified.txt'></a>
 ```txt
 {
    1, Smith St  , Sydney : 1 Smith St, Sydney,
@@ -68,7 +68,7 @@ public Task BuildAddressTest()
   10, Wallace St, Chicago: 10 Wallace St, Chicago
 }
 ```
-<sup><a href='/src/Verify.Tests/CombinationsSample.BuildAddressTest.verified.txt#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationsSample.BuildAddressTest.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/CombinationSample.BuildAddressTest.verified.txt#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample.BuildAddressTest.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -106,14 +106,14 @@ public Task BuildAddressExceptionsTest()
         );
 }
 ```
-<sup><a href='/src/Verify.Tests/CombinationsSample.cs#L54-L71' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/CombinationSample.cs#L54-L71' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### Result
 
-<!-- snippet: CombinationsSample.BuildAddressExceptionsTest.verified.txt -->
-<a id='snippet-CombinationsSample.BuildAddressExceptionsTest.verified.txt'></a>
+<!-- snippet: CombinationSample.BuildAddressExceptionsTest.verified.txt -->
+<a id='snippet-CombinationSample.BuildAddressExceptionsTest.verified.txt'></a>
 ```txt
 {
   -1,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
@@ -136,7 +136,7 @@ public Task BuildAddressExceptionsTest()
   10, Valid St, Valid City: 10 Valid St, Valid City
 }
 ```
-<sup><a href='/src/Verify.Tests/CombinationsSample.BuildAddressExceptionsTest.verified.txt#L1-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationsSample.BuildAddressExceptionsTest.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/CombinationSample.BuildAddressExceptionsTest.verified.txt#L1-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample.BuildAddressExceptionsTest.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -151,7 +151,7 @@ Exception capture can be enabled globally:
 public static void Initialize() =>
     CombinationSettings.CaptureExceptions();
 ```
-<sup><a href='/src/StaticSettingsTests/CombinationsTests.cs#L3-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-GlobalCaptureExceptions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L3-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-GlobalCaptureExceptions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If exception capture has been enabled globally, it can be disable at the method test level using `captureExceptions: false`.
@@ -173,7 +173,7 @@ public Task BuildAddressExceptionsDisabledTest()
             cities);
 }
 ```
-<sup><a href='/src/StaticSettingsTests/CombinationsTests.cs#L177-L193' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptionsFalse' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L177-L193' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptionsFalse' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -335,7 +335,7 @@ class CustomCombinationConverter :
         string.Join(", ", keys.Select(_ => _.Value));
 }
 ```
-<sup><a href='/src/StaticSettingsTests/CombinationsTests.cs#L223-L232' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationConverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L223-L232' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationConverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Full control of serialization can be achieved by inheriting from `WriteOnlyJsonConverter<CombinationResults>`.
@@ -354,14 +354,14 @@ static CustomCombinationConverter customConverter = new();
 public static void Init() =>
     VerifierSettings.AddExtraSettings(_ => _.Converters.Insert(0, customConverter));
 ```
-<sup><a href='/src/StaticSettingsTests/CombinationsTests.cs#L195-L203' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationModuleInitializer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L195-L203' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationModuleInitializer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 #### Result
 
-<!-- snippet: CombinationsTests.Combination_CustomSerialization.verified.txt -->
-<a id='snippet-CombinationsTests.Combination_CustomSerialization.verified.txt'></a>
+<!-- snippet: CombinationTests.Combination_CustomSerialization.verified.txt -->
+<a id='snippet-CombinationTests.Combination_CustomSerialization.verified.txt'></a>
 ```txt
 {
   1, Smith St, Sydney: 1 Smith St, Sydney,
@@ -374,5 +374,5 @@ public static void Init() =>
   10, Wallace St, Chicago: 10 Wallace St, Chicago
 }
 ```
-<sup><a href='/src/StaticSettingsTests/CombinationsTests.Combination_CustomSerialization.verified.txt#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationsTests.Combination_CustomSerialization.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationTests.Combination_CustomSerialization.verified.txt#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationTests.Combination_CustomSerialization.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

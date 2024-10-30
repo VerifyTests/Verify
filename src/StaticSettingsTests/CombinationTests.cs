@@ -1,4 +1,4 @@
-﻿public class CombinationsTests
+﻿public class CombinationTests
 {
     #region GlobalCaptureExceptions
 

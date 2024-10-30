@@ -1,5 +1,5 @@
 ﻿// ReSharper disable MemberCanBePrivate.Global
-public class CombinationsTests
+public class CombinationTests
 {
     static int[] params1 = [1, 10];
     static string[] params2 = ["Smith St", "Wallace St"];

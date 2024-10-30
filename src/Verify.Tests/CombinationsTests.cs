@@ -2,7 +2,7 @@
 public class CombinationsTests
 {
     static int[] params1 = [1, 10];
-    static  string[] params2 = ["Smith St", "Wallace St"];
+    static string[] params2 = ["Smith St", "Wallace St"];
 
     public static async IAsyncEnumerable<string> AsyncEnumerableMethod(int param1, string param2)
     {

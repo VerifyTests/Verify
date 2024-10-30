@@ -8,7 +8,7 @@
     public CombinationRunner(bool? captureExceptions, List<IEnumerable<object?>> lists, Type[] keyTypes)
     {
         this.keyTypes = keyTypes;
-        this.captureExceptions = captureExceptions ?? VerifyCombinationSettings.CaptureExceptionsEnabled;
+        this.captureExceptions = captureExceptions ?? CombinationSettings.CaptureExceptionsEnabled;
         this.lists = lists.Select(_ => _.ToArray()).ToArray();
         indices = new int[lists.Count];
     }
@@ -21,12 +21,15 @@
             var keys = BuildParameters();
             try
             {
+                await CombinationSettings.RunBeforeCallbacks(keys);
                 var value = await method(keys);
+                await CombinationSettings.RunAfterCallbacks(keys, value);
                 items.Add(new(keys, value));
             }
             catch (Exception exception)
                 when (captureExceptions)
             {
+                await CombinationSettings.RunExceptionCallbacks(keys, exception);
                 items.Add(new(keys, exception));
             }
 

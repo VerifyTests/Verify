@@ -7,6 +7,9 @@
 
 public abstract class BaseTest
 {
-    protected BaseTest() =>
+    protected BaseTest()
+    {
         VerifierSettings.Reset();
+        CombinationSettings.Reset();
+    }
 }

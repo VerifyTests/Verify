@@ -149,9 +149,9 @@ Exception capture can be enable globally:
 ```cs
 [ModuleInitializer]
 public static void Initialize() =>
-    VerifyCombinationSettings.CaptureExceptions();
+    CombinationSettings.CaptureExceptions();
 ```
-<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L3-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-GlobalCaptureExceptions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationsTests.cs#L3-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-GlobalCaptureExceptions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If exception capture has been enabled globally, it can be disable at the method test level using `captureExceptions: false`.
@@ -173,7 +173,7 @@ public Task BuildAddressExceptionsDisabledTest()
             cities);
 }
 ```
-<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L68-L84' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptionsFalse' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationsTests.cs#L177-L193' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptionsFalse' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -335,7 +335,7 @@ class CustomCombinationConverter :
         string.Join(", ", keys.Select(_ => _.Value));
 }
 ```
-<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L114-L123' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationConverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationsTests.cs#L223-L232' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationConverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Full control of serialization can be achieved by inheriting from `WriteOnlyJsonConverter<CombinationResults>`.
@@ -354,14 +354,14 @@ static CustomCombinationConverter customConverter = new();
 public static void Init() =>
     VerifierSettings.AddExtraSettings(_ => _.Converters.Insert(0, customConverter));
 ```
-<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.cs#L86-L94' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationModuleInitializer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationsTests.cs#L195-L203' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationModuleInitializer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 #### Result
 
-<!-- snippet: VerifyCombinationsTests.Combination_CustomSerialization.verified.txt -->
-<a id='snippet-VerifyCombinationsTests.Combination_CustomSerialization.verified.txt'></a>
+<!-- snippet: CombinationsTests.Combination_CustomSerialization.verified.txt -->
+<a id='snippet-CombinationsTests.Combination_CustomSerialization.verified.txt'></a>
 ```txt
 {
   1, Smith St, Sydney: 1 Smith St, Sydney,
@@ -374,5 +374,5 @@ public static void Init() =>
   10, Wallace St, Chicago: 10 Wallace St, Chicago
 }
 ```
-<sup><a href='/src/StaticSettingsTests/VerifyCombinationsTests.Combination_CustomSerialization.verified.txt#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyCombinationsTests.Combination_CustomSerialization.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationsTests.Combination_CustomSerialization.verified.txt#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationsTests.Combination_CustomSerialization.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

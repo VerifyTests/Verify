@@ -86,4 +86,4 @@ snippet: CombinationSample_CustomSerializationModuleInitializer
 
 #### Result
 
-snippet: VerifyCombinationsTests.Combination_CustomSerialization.verified.txt
+snippet: CombinationsTests.Combination_CustomSerialization.verified.txt

@@ -1,0 +1,15 @@
+﻿{
+  beforeKeys: [
+    10,
+    value2
+  ],
+  exceptionKeys: [
+    10,
+    value2
+  ],
+  exceptionResult: {
+    $type: Exception,
+    Type: Exception,
+    Message: Message
+  }
+}

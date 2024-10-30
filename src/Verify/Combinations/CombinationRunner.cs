@@ -21,14 +21,15 @@
             var keys = BuildParameters();
             try
             {
-                await CombinationSettings.RunBeforeCallbacks();
+                await CombinationSettings.RunBeforeCallbacks(keys);
                 var value = await method(keys);
-                await CombinationSettings.RunAfterCallbacks();
+                await CombinationSettings.RunAfterCallbacks(keys, value);
                 items.Add(new(keys, value));
             }
             catch (Exception exception)
                 when (captureExceptions)
             {
+                await CombinationSettings.RunExceptionCallbacks(keys, exception);
                 items.Add(new(keys, exception));
             }
 

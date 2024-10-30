@@ -45,7 +45,7 @@ snippet: CombinationsSample.BuildAddressExceptionsTest.verified.txt
 
 ### Global CaptureExceptions
 
-Exception capture can be enable globally:
+Exception capture can be enabled globally:
 
 snippet: GlobalCaptureExceptions
 

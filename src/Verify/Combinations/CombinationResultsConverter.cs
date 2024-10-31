@@ -81,28 +81,34 @@ public class CombinationResultsConverter :
 
     protected virtual void WriteValue(VerifyJsonWriter writer, CombinationResult result)
     {
-        var exception = result.Exception;
-        if (exception == null)
+        switch (result.Type)
         {
-            if (result.Value == null)
-            {
-                writer.WriteNull();
-            }
-            else
-            {
-                writer.Serialize(result.Value);
-            }
+            case CombinationResultType.Void:
+                writer.WriteValue("void");
+                break;
+            case CombinationResultType.Value:
+                if (result.Value == null)
+                {
+                    writer.WriteNull();
+                }
+                else
+                {
+                    writer.Serialize(result.Value);
+                }
+                break;
+            case CombinationResultType.Exception:
+                var exception = result.Exception;
+                var message = exception.Message;
+                if (exception is ArgumentException)
+                {
+                    message = FlattenMessage(message);
+                }
 
-            return;
+                writer.WriteValue($"{exception.GetType().Name}: {message}");
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
-
-        var message = exception.Message;
-        if (exception is ArgumentException)
-        {
-            message = FlattenMessage(message);
-        }
-
-        writer.WriteValue($"{exception.GetType().Name}: {message}");
     }
 
     static string FlattenMessage(string message)

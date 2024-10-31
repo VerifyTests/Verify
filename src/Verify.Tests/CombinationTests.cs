@@ -45,6 +45,17 @@ public class CombinationTests
                 params1,
                 params2);
 
+    public static Task VoidTaskMethod(int param1, string param2) =>
+        Task.Delay(1);
+
+    [Fact]
+    public Task VoidTaskTest() =>
+        Combination()
+            .Verify(
+                VoidTaskMethod,
+                params1,
+                params2);
+
     public static async ValueTask<string> ValueTaskMethod(int param1, string param2)
     {
         await Task.Delay(1);
@@ -56,6 +67,17 @@ public class CombinationTests
         Combination()
             .Verify(
                 ValueTaskMethod,
+                params1,
+                params2);
+
+    public static async ValueTask VoidValueTaskMethod(int param1, string param2) =>
+        await Task.Delay(1);
+
+    [Fact]
+    public Task VoidValueTaskTest() =>
+        Combination()
+            .Verify(
+                VoidValueTaskMethod,
                 params1,
                 params2);
 

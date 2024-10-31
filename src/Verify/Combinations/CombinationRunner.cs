@@ -24,13 +24,42 @@
                 await CombinationSettings.RunBeforeCallbacks(keys);
                 var value = await method(keys);
                 await CombinationSettings.RunAfterCallbacks(keys, value);
-                items.Add(new(keys, value));
+                items.Add(CombinationResult.ForValue(keys, value));
             }
             catch (Exception exception)
                 when (captureExceptions)
             {
                 await CombinationSettings.RunExceptionCallbacks(keys, exception);
-                items.Add(new(keys, exception));
+                items.Add(CombinationResult.ForException(keys, exception));
+            }
+
+            if (Increment())
+            {
+                break;
+            }
+        }
+
+        return new(items, keyTypes);
+    }
+
+    async Task<CombinationResults> InnerRun(Func<object?[], Task> method)
+    {
+        var items = new List<CombinationResult>();
+        while (true)
+        {
+            var keys = BuildParameters();
+            try
+            {
+                await CombinationSettings.RunBeforeCallbacks(keys);
+                await method(keys);
+                await CombinationSettings.RunAfterCallbacks(keys, null);
+                items.Add(CombinationResult.ForVoid(keys));
+            }
+            catch (Exception exception)
+                when (captureExceptions)
+            {
+                await CombinationSettings.RunExceptionCallbacks(keys, exception);
+                items.Add(CombinationResult.ForException(keys, exception));
             }
 
             if (Increment())

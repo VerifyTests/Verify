@@ -2,19 +2,65 @@
 
 public class CombinationResult
 {
-    public CombinationResult(IReadOnlyList<object?> keys, Exception exception)
+    public static CombinationResult ForException(IReadOnlyList<object?> keys, Exception exception) =>
+        new(keys, exception);
+
+    CombinationResult(IReadOnlyList<object?> keys, Exception exception)
     {
         Keys = keys;
-        Exception = exception;
+        Type = CombinationResultType.Exception;
+        this.exception = exception;
     }
 
-    public CombinationResult(IReadOnlyList<object?> keys, object? value)
+    public static CombinationResult ForValue(IReadOnlyList<object?> keys, object? value) =>
+        new(keys, value);
+
+    CombinationResult(IReadOnlyList<object?> keys, object? value)
     {
         Keys = keys;
-        Value = value;
+        Type = CombinationResultType.Value;
+        this.value = value;
     }
 
+    public static CombinationResult ForVoid(IReadOnlyList<object?> keys) =>
+        new(keys);
+
+    CombinationResult(IReadOnlyList<object?> keys)
+    {
+        Keys = keys;
+        Type = CombinationResultType.Void;
+    }
+
+    public CombinationResultType Type { get; }
     public IReadOnlyList<object?> Keys { get; }
-    public object? Value { get; }
-    public Exception? Exception { get; }
+
+    readonly object? value;
+
+    public object? Value
+    {
+        get
+        {
+            if (Type != CombinationResultType.Value)
+            {
+                throw new($"Invalid CombinationResultType: {Type}");
+            }
+
+            return value;
+        }
+    }
+
+    Exception? exception;
+
+    public Exception Exception
+    {
+        get
+        {
+            if (Type != CombinationResultType.Exception)
+            {
+                throw new($"Invalid CombinationResultType: {Type}");
+            }
+
+            return exception!;
+        }
+    }
 }

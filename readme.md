@@ -746,7 +746,6 @@ public class VerifyChecksTests
 <!-- snippet: VerifyChecksTUnit -->
 <a id='snippet-VerifyChecksTUnit'></a>
 ```cs
-[TestFixture]
 public class VerifyChecksTests
 {
     [Test]
@@ -754,7 +753,7 @@ public class VerifyChecksTests
         VerifyChecks.Run();
 }
 ```
-<sup><a href='/src/Verify.TUnit.Tests/VerifyChecksTests.cs#L2-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksTUnit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.TUnit.Tests/VerifyChecksTests.cs#L2-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksTUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

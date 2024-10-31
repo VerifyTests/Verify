@@ -1,6 +1,5 @@
 ﻿/**
 #region VerifyChecksTUnit
-[TestFixture]
 public class VerifyChecksTests
 {
     [Test]

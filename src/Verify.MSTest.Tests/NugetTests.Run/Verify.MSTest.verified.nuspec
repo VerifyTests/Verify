@@ -14,7 +14,7 @@
     <dependencies>
       <group targetFramework=".NETFramework4.7.2">
         <dependency id="Verify" version="version" include="All" />
-        <dependency id="MSTest.TestFramework" version="3.6.1" exclude="Build,Analyzers" />
+        <dependency id="MSTest.TestFramework" version="3.6.2" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.22.0" exclude="Analyzers" />
         <dependency id="DiffEngine" version="15.5.3" exclude="Analyzers" />
         <dependency id="Microsoft.Bcl.AsyncInterfaces" version="8.0.0" exclude="Analyzers" />
@@ -24,7 +24,7 @@
       </group>
       <group targetFramework=".NETFramework4.8">
         <dependency id="Verify" version="version" include="All" />
-        <dependency id="MSTest.TestFramework" version="3.6.1" exclude="Build,Analyzers" />
+        <dependency id="MSTest.TestFramework" version="3.6.2" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.22.0" exclude="Analyzers" />
         <dependency id="DiffEngine" version="15.5.3" exclude="Analyzers" />
         <dependency id="Microsoft.Bcl.AsyncInterfaces" version="8.0.0" exclude="Analyzers" />
@@ -34,7 +34,7 @@
       </group>
       <group targetFramework="net6.0">
         <dependency id="Verify" version="version" include="All" />
-        <dependency id="MSTest.TestFramework" version="3.6.1" exclude="Build,Analyzers" />
+        <dependency id="MSTest.TestFramework" version="3.6.2" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.22.0" exclude="Analyzers" />
         <dependency id="DiffEngine" version="15.5.3" exclude="Analyzers" />
         <dependency id="SimpleInfoName" version="3.0.1" exclude="Analyzers" />
@@ -42,7 +42,7 @@
       </group>
       <group targetFramework="net8.0">
         <dependency id="Verify" version="version" include="All" />
-        <dependency id="MSTest.TestFramework" version="3.6.1" exclude="Build,Analyzers" />
+        <dependency id="MSTest.TestFramework" version="3.6.2" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.22.0" exclude="Analyzers" />
         <dependency id="DiffEngine" version="15.5.3" exclude="Analyzers" />
         <dependency id="SimpleInfoName" version="3.0.1" exclude="Analyzers" />
@@ -50,7 +50,7 @@
       </group>
       <group targetFramework="net9.0">
         <dependency id="Verify" version="version" include="All" />
-        <dependency id="MSTest.TestFramework" version="3.6.1" exclude="Build,Analyzers" />
+        <dependency id="MSTest.TestFramework" version="3.6.2" exclude="Build,Analyzers" />
         <dependency id="Argon" version="0.22.0" exclude="Analyzers" />
         <dependency id="DiffEngine" version="15.5.3" exclude="Analyzers" />
         <dependency id="SimpleInfoName" version="3.0.1" exclude="Analyzers" />

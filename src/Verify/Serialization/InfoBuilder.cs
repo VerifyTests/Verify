@@ -70,6 +70,11 @@
 
             foreach (var item in value.inner)
             {
+                if (writer.serialization.ShouldIgnoreByName(item.Key))
+                {
+                    continue;
+                }
+
                 writer.WritePropertyName(item.Key);
                 if (writer.serialization.ShouldScrubByName(item.Key))
                 {

@@ -91,4 +91,19 @@ public class CombinationTests
                 SimpleReturnMethod,
                 params1,
                 params2);
+
+    [Fact]
+    public Task RecordingTest()
+    {
+        Recording.Start();
+        return Combination()
+            .Verify(
+                (param1, param2) =>
+                {
+                    Recording.Add("key", $"{param1} {param2}");
+                    return SimpleReturnMethod(param1, param2);
+                },
+                params1,
+                params2);
+    }
 }

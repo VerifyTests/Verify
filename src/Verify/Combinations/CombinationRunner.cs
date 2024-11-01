@@ -16,7 +16,14 @@
     Task<CombinationResults> RunWithReturn<TReturn>(Func<object?[], Task<TReturn>> method) =>
         InnerRun(async keys =>
         {
-            var value = await method(keys);
+            object? value = await method(keys);
+            if (Recording.IsRecording())
+            {
+                var appends = Recording.Values().ToList();
+                value = new InfoBuilder(value, appends);
+                Recording.Clear();
+            }
+
             return (CombinationResult.ForValue(keys, value), value);
         });
 
@@ -25,6 +32,13 @@
         InnerRun(async keys =>
         {
             await method(keys);
+            if (Recording.IsRecording())
+            {
+                var appends = Recording.Values().ToList();
+                var value = new InfoBuilder("void", appends);
+                Recording.Clear();
+                return (CombinationResult.ForValue(keys, value), null);
+            }
             return (CombinationResult.ForVoid(keys), null);
         });
 

@@ -1,14 +1,18 @@
 ﻿{
-  target: {
-     1, Smith St  : 1 Smith St,
-     1, Wallace St: 1 Wallace St,
-    10, Smith St  : 10 Smith St,
-    10, Wallace St: 10 Wallace St
+   1, Smith St  : {
+    target: 1 Smith St,
+    key: recorded 1 Smith St
   },
-  key: [
-    1 Smith St,
-    1 Wallace St,
-    10 Smith St,
-    10 Wallace St
-  ]
+   1, Wallace St: {
+    target: 1 Wallace St,
+    key: recorded 1 Wallace St
+  },
+  10, Smith St  : {
+    target: 10 Smith St,
+    key: recorded 10 Smith St
+  },
+  10, Wallace St: {
+    target: 10 Wallace St,
+    key: recorded 10 Wallace St
+  }
 }

@@ -100,7 +100,7 @@ public class CombinationTests
             .Verify(
                 (param1, param2) =>
                 {
-                    Recording.Add("key", $"{param1} {param2}");
+                    Recording.Add("key", $"recorded {param1} {param2}");
                     return SimpleReturnMethod(param1, param2);
                 },
                 params1,

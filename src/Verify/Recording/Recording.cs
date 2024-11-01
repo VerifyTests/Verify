@@ -62,6 +62,30 @@ public static partial class Recording
         return true;
     }
 
+    public static IReadOnlyCollection<ToAppend> Values()
+    {
+        if (TryGetValues(out var values))
+        {
+            return values;
+        }
+
+        throw new("Recording.Start must be called prior to Recording.Values.");
+    }
+
+    public static bool TryGetValues([NotNullWhen(true)] out IReadOnlyCollection<ToAppend>? recorded)
+    {
+        var value = asyncLocal.Value;
+
+        if (value == null)
+        {
+            recorded = null;
+            return false;
+        }
+
+        recorded = value.Items;
+        return true;
+    }
+
     static State CurrentState([CallerMemberName] string caller = "")
     {
         var value = asyncLocal.Value;

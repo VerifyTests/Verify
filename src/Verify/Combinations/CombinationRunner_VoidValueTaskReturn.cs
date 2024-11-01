@@ -1,7 +1,7 @@
 ﻿partial class CombinationRunner
 {
     Task<CombinationResults> Run(Func<object?[], ValueTask> method) =>
-        InnerRun(_ => method(_).AsTask());
+        RunWithVoid(_ => method(_).AsTask());
 
     public static Task<CombinationResults> Run<A>(
         Func<A, ValueTask> method,

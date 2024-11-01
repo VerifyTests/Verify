@@ -1,7 +1,7 @@
 ﻿partial class CombinationRunner
 {
     Task<CombinationResults> Run<TReturn>(Func<object?[], ValueTask<TReturn>> method) =>
-        InnerRun(_ => method(_).AsTask());
+        RunWithReturn(_ => method(_).AsTask());
 
     public static Task<CombinationResults> Run<A, TReturn>(
         Func<A, ValueTask<TReturn>> method,

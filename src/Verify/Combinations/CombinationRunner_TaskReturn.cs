@@ -9,7 +9,7 @@
             captureExceptions,
             [a.Cast<object?>()],
             [typeof(A)]);
-        return generator.InnerRun(_ => method((A)_[0]!));
+        return generator.RunWithReturn(_ => method((A)_[0]!));
     }
 
     public static Task<CombinationResults> Run<A, B, TReturn>(
@@ -28,7 +28,7 @@
                 typeof(A),
                 typeof(B)
             ]);
-        return generator.InnerRun(
+        return generator.RunWithReturn(
             _ => method(
                 (A)_[0]!,
                 (B)_[1]!));
@@ -53,7 +53,7 @@
                 typeof(B),
                 typeof(C)
             ]);
-        return generator.InnerRun(
+        return generator.RunWithReturn(
             _ => method(
                 (A)_[0]!,
                 (B)_[1]!,
@@ -82,7 +82,7 @@
                 typeof(C),
                 typeof(D)
             ]);
-        return generator.InnerRun(
+        return generator.RunWithReturn(
             _ => method(
                 (A)_[0]!,
                 (B)_[1]!,
@@ -115,7 +115,7 @@
                 typeof(D),
                 typeof(E)
             ]);
-        return generator.InnerRun(
+        return generator.RunWithReturn(
             _ => method(
                 (A)_[0]!,
                 (B)_[1]!,
@@ -152,7 +152,7 @@
                 typeof(E),
                 typeof(F)
             ]);
-        return generator.InnerRun(
+        return generator.RunWithReturn(
             _ => method(
                 (A)_[0]!,
                 (B)_[1]!,
@@ -193,7 +193,7 @@
                 typeof(F),
                 typeof(G)
             ]);
-        return generator.InnerRun(
+        return generator.RunWithReturn(
             _ => method(
                 (A)_[0]!,
                 (B)_[1]!,
@@ -238,7 +238,7 @@
                 typeof(G),
                 typeof(H)
             ]);
-        return generator.InnerRun(
+        return generator.RunWithReturn(
             _ => method(
                 (A)_[0]!,
                 (B)_[1]!,

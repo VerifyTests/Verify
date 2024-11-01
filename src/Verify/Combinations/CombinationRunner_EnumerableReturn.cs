@@ -1,7 +1,7 @@
 ﻿partial class CombinationRunner
 {
     Task<CombinationResults> Run<TReturn>(Func<object?[], IEnumerable<TReturn>> method) =>
-        InnerRun(_ => Task.FromResult(method(_).ToList()));
+        RunWithReturn(_ => Task.FromResult(method(_).ToList()));
 
     public static Task<CombinationResults> Run<A, TReturn>(
         Func<A, IEnumerable<TReturn>> method,

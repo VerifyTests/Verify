@@ -13,7 +13,22 @@
         indices = new int[lists.Count];
     }
 
-    async Task<CombinationResults> InnerRun<TReturn>(Func<object?[], Task<TReturn>> method)
+    Task<CombinationResults> RunWithReturn<TReturn>(Func<object?[], Task<TReturn>> method) =>
+        InnerRun(async keys =>
+        {
+            var value = await method(keys);
+            return (CombinationResult.ForValue(keys, value), value);
+        });
+
+
+    Task<CombinationResults> RunWithVoid(Func<object?[], Task> method) =>
+        InnerRun(async keys =>
+        {
+            await method(keys);
+            return (CombinationResult.ForVoid(keys), null);
+        });
+
+    async Task<CombinationResults> InnerRun(Func<object?[], Task<(CombinationResult result, object? value)>> method)
     {
         var items = new List<CombinationResult>();
         while (true)
@@ -22,38 +37,9 @@
             try
             {
                 await CombinationSettings.RunBeforeCallbacks(keys);
-                var value = await method(keys);
+                var (result, value) = await method(keys);
                 await CombinationSettings.RunAfterCallbacks(keys, value);
-                items.Add(CombinationResult.ForValue(keys, value));
-            }
-            catch (Exception exception)
-                when (captureExceptions)
-            {
-                await CombinationSettings.RunExceptionCallbacks(keys, exception);
-                items.Add(CombinationResult.ForException(keys, exception));
-            }
-
-            if (Increment())
-            {
-                break;
-            }
-        }
-
-        return new(items, keyTypes);
-    }
-
-    async Task<CombinationResults> InnerRun(Func<object?[], Task> method)
-    {
-        var items = new List<CombinationResult>();
-        while (true)
-        {
-            var keys = BuildParameters();
-            try
-            {
-                await CombinationSettings.RunBeforeCallbacks(keys);
-                await method(keys);
-                await CombinationSettings.RunAfterCallbacks(keys, null);
-                items.Add(CombinationResult.ForVoid(keys));
+                items.Add(result);
             }
             catch (Exception exception)
                 when (captureExceptions)

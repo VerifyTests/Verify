@@ -106,4 +106,20 @@ public class CombinationTests
                 params1,
                 params2);
     }
+
+    [Fact]
+    public Task RecordingPausedTest()
+    {
+        Recording.Start();
+        return Combination()
+            .Verify(
+                (param1, param2) =>
+                {
+                    Recording.Add("key", $"recorded {param1} {param2}");
+                    Recording.Pause();
+                    return SimpleReturnMethod(param1, param2);
+                },
+                params1,
+                params2);
+    }
 }

@@ -122,6 +122,13 @@ public static partial class Recording
         CurrentState()
             .Pause();
 
+    public static bool IsPaused()
+    {
+        var value = asyncLocal.Value;
+
+        return value is {Paused: true};
+    }
+
     public static void TryPause() =>
         asyncLocal.Value?.Pause();
 

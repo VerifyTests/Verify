@@ -17,11 +17,16 @@
         InnerRun(async keys =>
         {
             object? value = await method(keys);
-            if (Recording.IsRecording())
+            var paused = Recording.IsPaused();
+            if (Recording.IsRecording() || paused)
             {
                 var appends = Recording.Values().ToList();
                 value = new InfoBuilder(value, appends);
                 Recording.Clear();
+                if (paused)
+                {
+                    Recording.Resume();
+                }
             }
 
             return (CombinationResult.ForValue(keys, value), value);

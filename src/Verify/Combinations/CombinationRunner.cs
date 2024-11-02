@@ -37,11 +37,16 @@
         InnerRun(async keys =>
         {
             await method(keys);
-            if (Recording.IsRecording())
+            var paused = Recording.IsPaused();
+            if (Recording.IsRecording() || paused)
             {
                 var appends = Recording.Values().ToList();
                 var value = new InfoBuilder("void", appends);
                 Recording.Clear();
+                if (paused)
+                {
+                    Recording.Resume();
+                }
                 return (CombinationResult.ForValue(keys, value), null);
             }
             return (CombinationResult.ForVoid(keys), null);
@@ -64,7 +69,23 @@
                 when (captureExceptions)
             {
                 await CombinationSettings.RunExceptionCallbacks(keys, exception);
-                items.Add(CombinationResult.ForException(keys, exception));
+
+                var paused = Recording.IsPaused();
+                if (Recording.IsRecording() || paused)
+                {
+                    var appends = Recording.Values().ToList();
+                    var value = new InfoBuilder(exception, appends);
+                    items.Add(CombinationResult.ForValue(keys, value));
+                    Recording.Clear();
+                    if (paused)
+                    {
+                        Recording.Resume();
+                    }
+                }
+                else
+                {
+                    items.Add(CombinationResult.ForException(keys, exception));
+                }
             }
 
             if (Increment())

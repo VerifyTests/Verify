@@ -108,6 +108,49 @@ public class CombinationTests
     }
 
     [Fact]
+    public Task RecordingWithExceptionTest()
+    {
+        Recording.Start();
+        return Combination(captureExceptions: true)
+            .Verify(
+                (param1, param2) =>
+                {
+                    Recording.Add("key", $"recorded {param1} {param2}");
+                    if (param1 == 1)
+                    {
+                        throw new("boom");
+                    }
+
+                    return $"{param1} {param2}";
+                },
+                params1,
+                params2)
+            .IgnoreStackTrace();
+    }
+
+    [Fact]
+    public Task RecordingWithExceptionPausedTest()
+    {
+        Recording.Start();
+        return Combination(captureExceptions: true)
+            .Verify(
+                (param1, param2) =>
+                {
+                    Recording.Add("key", $"recorded {param1} {param2}");
+                    Recording.Pause();
+                    if (param1 == 1)
+                    {
+                        throw new("boom");
+                    }
+
+                    return $"{param1} {param2}";
+                },
+                params1,
+                params2)
+            .IgnoreStackTrace();
+    }
+
+    [Fact]
     public Task RecordingPausedTest()
     {
         Recording.Start();

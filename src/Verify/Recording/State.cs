@@ -1,6 +1,6 @@
 ﻿class State
 {
-    List<ToAppend> items = [];
+    ConcurrentQueue<ToAppend> items = [];
 
     internal IReadOnlyCollection<ToAppend> Items => items;
 
@@ -20,10 +20,7 @@
         }
 
         var append = new ToAppend(name, item);
-        lock (items)
-        {
-            items.Add(append);
-        }
+        items.Enqueue(append);
     }
 
     public void Pause() =>
@@ -32,11 +29,6 @@
     public void Resume() =>
         Paused = false;
 
-    public void Clear()
-    {
-        lock (items)
-        {
-            items.Clear();
-        }
-    }
+    public void Clear() =>
+        items.Clear();
 }

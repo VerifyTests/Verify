@@ -1,5 +1,4 @@
-﻿// ReSharper disable InconsistentNaming
-namespace VerifyNUnit;
+﻿namespace VerifyNUnit;
 
 public partial class VerifyBase
 {

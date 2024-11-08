@@ -1,5 +1,4 @@
-﻿// ReSharper disable InconsistentNaming
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 public partial class Combination(
     bool? captureExceptions,

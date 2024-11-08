@@ -47,8 +47,10 @@
                 {
                     Recording.Resume();
                 }
+
                 return (CombinationResult.ForValue(keys, value), null);
             }
+
             return (CombinationResult.ForVoid(keys), null);
         });
 

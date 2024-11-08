@@ -26,11 +26,7 @@
     {
         if (scrubGuids)
         {
-#if NET47_OR_GREATER
-            if (Guid.TryParse(value.ToString(), out var guid))
-#else
-            if (Guid.TryParse(value, out var guid))
-#endif
+            if (GuidPolyfill.TryParse(value, out var guid))
             {
                 result = Convert(counter, guid);
                 return true;

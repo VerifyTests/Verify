@@ -4,13 +4,13 @@
     protected override JsonDictionaryContract CreateDictionaryContract(Type objectType)
     {
         var contract = base.CreateDictionaryContract(objectType);
-        contract.DictionaryKeyResolver = (name, original) => ResolveDictionaryKey(contract, name, original);
+        contract.DictionaryKeyResolver = (_, name, original) => ResolveDictionaryKey(contract, name, original);
         if (settings.SortDictionaries)
         {
             contract.OrderByKey = true;
         }
 
-        contract.InterceptSerializeItem = (key, value) =>
+        contract.InterceptSerializeItem = (_, key, value) =>
         {
             if (key is string stringKey &&
                 settings.TryGetScrubOrIgnoreByName(stringKey, out var scrubOrIgnore))

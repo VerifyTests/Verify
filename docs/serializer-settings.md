@@ -205,8 +205,8 @@ public Task AddExtraSettings()
     var settings = new VerifySettings();
     settings
         .AddExtraSettings(
-            _ => _.SerializeError = (currentObject, originalObject, location, exception, handled) =>
-                Console.WriteLine(location.Member));
+            _ => _.SerializeError = (currentObject, originalObject, location, member, exception, handled) =>
+                Console.WriteLine(member));
     return Verify("Value", settings);
 }
 ```
@@ -223,8 +223,8 @@ public Task AddExtraSettings()
 public Task AddExtraSettingsFluent() =>
     Verify("Value")
         .AddExtraSettings(
-            _ => _.SerializeError = (currentObject, originalObject, location, exception, handled) =>
-                Console.WriteLine(location.Member));
+            _ => _.SerializeError = (currentObject, originalObject, location, member, exception, handled) =>
+                Console.WriteLine(member));
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L492-L501' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddExtraSettingsFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

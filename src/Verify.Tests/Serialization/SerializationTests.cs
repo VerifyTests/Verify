@@ -482,8 +482,8 @@ public class SerializationTests
         var settings = new VerifySettings();
         settings
             .AddExtraSettings(
-                _ => _.SerializeError = (currentObject, originalObject, location, exception, handled) =>
-                    Console.WriteLine(location.Member));
+                _ => _.SerializeError = (currentObject, originalObject, location, member, exception, handled) =>
+                    Console.WriteLine(member));
         return Verify("Value", settings);
     }
 
@@ -495,8 +495,8 @@ public class SerializationTests
     public Task AddExtraSettingsFluent() =>
         Verify("Value")
             .AddExtraSettings(
-                _ => _.SerializeError = (currentObject, originalObject, location, exception, handled) =>
-                    Console.WriteLine(location.Member));
+                _ => _.SerializeError = (currentObject, originalObject, location, member, exception, handled) =>
+                    Console.WriteLine(member));
 
     #endregion
 

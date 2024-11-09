@@ -15,29 +15,39 @@
             if (key is string stringKey &&
                 settings.TryGetScrubOrIgnoreByName(stringKey, out var scrubOrIgnore))
             {
-                return ToInterceptResult(scrubOrIgnore.Value);
+                return ToInterceptKeyValueResult(scrubOrIgnore.Value);
             }
 
             if (value is not null &&
                 settings.TryGetScrubOrIgnoreByInstance(value, out scrubOrIgnore))
             {
-                return ToInterceptResult(scrubOrIgnore.Value);
+                return ToInterceptKeyValueResult(scrubOrIgnore.Value);
             }
 
-            return InterceptResult.Default;
+            return KeyValueInterceptResult.Default;
         };
 
         return contract;
     }
 
-    static InterceptResult ToInterceptResult(ScrubOrIgnore scrubOrIgnore)
+    static KeyValueInterceptResult ToInterceptKeyValueResult(ScrubOrIgnore scrubOrIgnore)
     {
         if (scrubOrIgnore == ScrubOrIgnore.Ignore)
         {
-            return InterceptResult.Ignore;
+            return KeyValueInterceptResult.Ignore;
         }
 
-        return InterceptResult.Replace("{Scrubbed}");
+        return KeyValueInterceptResult.ReplaceValue("{Scrubbed}");
+    }
+
+    static ItemInterceptResult ToInterceptItemResult(ScrubOrIgnore scrubOrIgnore)
+    {
+        if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+        {
+            return ItemInterceptResult.Ignore;
+        }
+
+        return ItemInterceptResult.Replace("{Scrubbed}");
     }
 
     string ResolveDictionaryKey(JsonDictionaryContract contract, string name, object original)
@@ -213,10 +223,10 @@
             if (item is not null &&
                 settings.TryGetScrubOrIgnoreByInstance(item, out var scrubOrIgnore))
             {
-                return ToInterceptResult(scrubOrIgnore.Value);
+                return ToInterceptItemResult(scrubOrIgnore.Value);
             }
 
-            return InterceptResult.Default;
+            return ItemInterceptResult.Default;
         };
 
         if (contract.CollectionItemType != null &&

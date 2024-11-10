@@ -3,7 +3,6 @@
     protected override JsonDictionaryContract CreateDictionaryContract(Type objectType)
     {
         var contract = base.CreateDictionaryContract(objectType);
-        contract.DictionaryKeyResolver = (_, name, original) => ResolveDictionaryKey(name, original);
         if (settings.SortDictionaries)
         {
             contract.OrderByKey = true;
@@ -28,6 +27,11 @@
             return ToInterceptKeyValueResult(scrubOrIgnore.Value);
         }
 
+        if (TryConvertDictionaryKey(key, out var resultKey))
+        {
+            return KeyValueInterceptResult.ReplaceKey(resultKey);
+        }
+
         return KeyValueInterceptResult.Default;
     }
 
@@ -41,7 +45,7 @@
         return KeyValueInterceptResult.ReplaceValue("{Scrubbed}");
     }
 
-    string ResolveDictionaryKey(string name, object original)
+    bool TryConvertDictionaryKey(object original, [NotNullWhen(true)] out string? result)
     {
         var counter = Counter.Current;
 
@@ -49,17 +53,17 @@
 
         if (original is Date date)
         {
-            if (settings.TryConvert(counter, date, out var result))
+            if (settings.TryConvert(counter, date, out result))
             {
-                return result;
+                return true;
             }
         }
 
         if (original is Time time)
         {
-            if (settings.TryConvert(counter, time, out var result))
+            if (settings.TryConvert(counter, time, out result))
             {
-                return result;
+                return true;
             }
         }
 
@@ -67,41 +71,43 @@
 
         if (original is Guid guid)
         {
-            if (settings.TryConvert(counter, guid, out var result))
+            if (settings.TryConvert(counter, guid, out result))
             {
-                return result;
+                return true;
             }
         }
 
         if (original is string stringValue)
         {
-            if (settings.TryParseConvert(counter, stringValue.AsSpan(), out var result))
+            if (settings.TryParseConvert(counter, stringValue.AsSpan(), out result))
             {
-                return result;
+                return true;
             }
         }
 
         if (original is DateTime dateTime)
         {
-            if (settings.TryConvert(counter, dateTime, out var result))
+            if (settings.TryConvert(counter, dateTime, out result))
             {
-                return result;
+                return true;
             }
         }
 
         if (original is DateTimeOffset dateTimeOffset)
         {
-            if (settings.TryConvert(counter, dateTimeOffset, out var result))
+            if (settings.TryConvert(counter, dateTimeOffset, out result))
             {
-                return result;
+                return true;
             }
         }
 
         if (original is Type type)
         {
-            return type.SimpleName();
+            result = type.SimpleName();
+            return true;
         }
 
-        return name;
+        result = null;
+        return false;
     }
 }

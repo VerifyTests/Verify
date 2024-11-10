@@ -3,7 +3,7 @@
     protected override JsonDictionaryContract CreateDictionaryContract(Type objectType)
     {
         var contract = base.CreateDictionaryContract(objectType);
-        contract.DictionaryKeyResolver = (_, name, original) => ResolveDictionaryKey(contract, name, original);
+        contract.DictionaryKeyResolver = (_, name, original) => ResolveDictionaryKey(name, original);
         if (settings.SortDictionaries)
         {
             contract.OrderByKey = true;
@@ -41,10 +41,9 @@
         return KeyValueInterceptResult.ReplaceValue("{Scrubbed}");
     }
 
-    string ResolveDictionaryKey(JsonDictionaryContract contract, string name, object original)
+    string ResolveDictionaryKey(string name, object original)
     {
         var counter = Counter.Current;
-        var keyType = contract.DictionaryKeyType;
 
 #if NET6_0_OR_GREATER
 
@@ -98,14 +97,8 @@
             }
         }
 
-        if (keyType == typeof(Type))
+        if (original is Type type)
         {
-            var type = Type.GetType(name);
-            if (type is null)
-            {
-                throw new($"Could not load type `{name}`.");
-            }
-
             return type.SimpleName();
         }
 

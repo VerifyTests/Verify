@@ -3883,4 +3883,43 @@ public class SerializationTests
         cancelSource.Dispose();
         await Verify(token);
     }
+
+    [Fact]
+    public Task NameValueCollection_ScrubDictionaryKeys() =>
+        Verify(new NameValueCollection
+            {
+                {
+                    Guid.NewGuid().ToString(), "value"
+                },
+                {
+                    "key", "value"
+                },
+            })
+            .AddScrubber(_=>_.Replace("key", "scrubbed"));
+
+    [Fact]
+    public Task StringDictionary_ScrubDictionaryKeys() =>
+        Verify(new StringDictionary
+            {
+                {
+                    Guid.NewGuid().ToString(), "value"
+                },
+                {
+                    "key", "value"
+                },
+            })
+            .AddScrubber(_=>_.Replace("key", "scrubbed"));
+
+    [Fact]
+    public Task Dictionary_ScrubDictionaryKeys() =>
+        Verify(new Dictionary<string,string>
+            {
+                {
+                    Guid.NewGuid().ToString(), "value"
+                },
+                {
+                    "key", "value"
+                },
+            })
+            .AddScrubber(_=>_.Replace("key", "scrubbed"));
 }

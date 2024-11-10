@@ -27,7 +27,7 @@
             return ToInterceptKeyValueResult(scrubOrIgnore.Value);
         }
 
-        if (TryConvertDictionaryKey(key, out var resultKey))
+        if (TryConvertDictionaryKey(writer, key, out var resultKey))
         {
             return KeyValueInterceptResult.ReplaceKey(resultKey);
         }
@@ -45,7 +45,7 @@
         return KeyValueInterceptResult.ReplaceValue("{Scrubbed}");
     }
 
-    bool TryConvertDictionaryKey(object original, [NotNullWhen(true)] out string? result)
+    bool TryConvertDictionaryKey(JsonWriter writer, object original, [NotNullWhen(true)] out string? result)
     {
         var counter = Counter.Current;
 
@@ -83,6 +83,11 @@
             {
                 return true;
             }
+
+            var verifyJsonWriter = (VerifyJsonWriter)writer;
+            result = ApplyScrubbers.ApplyForPropertyValue(stringValue.AsSpan(), verifyJsonWriter.settings, counter).ToString();
+
+            return true;
         }
 
         if (original is DateTime dateTime)

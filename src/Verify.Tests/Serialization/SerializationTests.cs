@@ -502,10 +502,13 @@ public class SerializationTests
 
     // ReSharper disable once UnusedMember.Local
     static void AddExtraSettingsGlobal() =>
-    #region AddExtraSettingsGlobal
+
+        #region AddExtraSettingsGlobal
+
         VerifierSettings
             .AddExtraSettings(_ =>
                 _.TypeNameHandling = TypeNameHandling.All);
+
     #endregion
 
     [Theory]
@@ -642,12 +645,12 @@ public class SerializationTests
         var settings = new VerifySettings();
         settings.UseStrictJson();
         await VerifyJson(
-                """
-                {
-                    "fruit": "Apple"
-                }
-                """,
-                settings);
+            """
+            {
+                "fruit": "Apple"
+            }
+            """,
+            settings);
     }
 
     [Fact]
@@ -1407,7 +1410,7 @@ public class SerializationTests
     {
         var exception = await Assert.ThrowsAsync<Exception>(() => Verify("2020 10 01")
             .ScrubInlineDates("dddd d MMM yyyy 'at' h:mm tt"));
-        Assert.Equal("Format 'dddd d MMM yyyy 'at' h:mm tt' is not valid for DateOnly.ToString(format, culture).",exception.Message);
+        Assert.Equal("Format 'dddd d MMM yyyy 'at' h:mm tt' is not valid for DateOnly.ToString(format, culture).", exception.Message);
     }
 
 #endif
@@ -1522,34 +1525,49 @@ public class SerializationTests
 
     // ReSharper disable once UnusedMember.Local
     static void DontIgnoreEmptyCollections() =>
-    #region DontIgnoreEmptyCollections
+
+        #region DontIgnoreEmptyCollections
+
         VerifierSettings.DontIgnoreEmptyCollections();
+
     #endregion
 
 
     // ReSharper disable once UnusedMember.Local
     static void DontScrubGuids() =>
-    #region DontScrubGuidsGlobal
+
+        #region DontScrubGuidsGlobal
+
         VerifierSettings.DontScrubGuids();
+
     #endregion
 
 
     // ReSharper disable once UnusedMember.Local
     static void DontScrubUserProfile() =>
-    #region DontScrubUserProfile
+
+        #region DontScrubUserProfile
+
         VerifierSettings.DontScrubUserProfile();
+
     #endregion
 
     // ReSharper disable once UnusedMember.Local
     static void DontScrubProjectDirectory() =>
-    #region DontScrubProjectDirectory
+
+        #region DontScrubProjectDirectory
+
         VerifierSettings.DontScrubProjectDirectory();
+
     #endregion
 
     // ReSharper disable once UnusedMember.Local
     static void DontScrubSolutionDirectory() =>
-    #region DontScrubSolutionDirectory
+
+        #region DontScrubSolutionDirectory
+
         VerifierSettings.DontScrubSolutionDirectory();
+
     #endregion
 
     /*
@@ -1917,8 +1935,11 @@ public class SerializationTests
 
     [Fact]
     public async Task NamedTuple() =>
-    #region VerifyTuple
+
+        #region VerifyTuple
+
         await VerifyTuple(() => MethodWithNamedTuple());
+
     #endregion
 
     #region MethodWithNamedTuple
@@ -2321,8 +2342,11 @@ public class SerializationTests
 
     // ReSharper disable once UnusedMember.Local
     static void ExceptionMessagePropGlobal() =>
-    #region IgnoreMembersThatThrowExpressionGlobal
+
+        #region IgnoreMembersThatThrowExpressionGlobal
+
         VerifierSettings.IgnoreMembersThatThrow<Exception>(_ => _.Message == "Ignore");
+
     #endregion
 
 
@@ -3500,8 +3524,11 @@ public class SerializationTests
 
     // ReSharper disable once UnusedMember.Local
     static void CustomExceptionPropGlobal() =>
-    #region IgnoreMembersThatThrowGlobal
+
+        #region IgnoreMembersThatThrowGlobal
+
         VerifierSettings.IgnoreMembersThatThrow<CustomException>();
+
     #endregion
 
     #region IgnoreMembersThatThrow
@@ -3615,8 +3642,11 @@ public class SerializationTests
 
     // ReSharper disable once UnusedMember.Local
     static void WithObsoletePropIncludedGlobally() =>
-    #region WithObsoletePropIncludedGlobally
+
+        #region WithObsoletePropIncludedGlobally
+
         VerifierSettings.IncludeObsoletes();
+
     #endregion
 
     #region WithObsoletePropIncluded
@@ -3772,6 +3802,7 @@ public class SerializationTests
             writer.WriteEnd();
         }
     }
+
     class ConverterIgnoreDefaultTarget
     {
         public string Name { get; set; } = null!;
@@ -3883,4 +3914,43 @@ public class SerializationTests
         cancelSource.Dispose();
         await Verify(token);
     }
+
+    [Fact]
+    public Task NameValueCollection_ScrubDictionaryKeys() =>
+        Verify(new NameValueCollection
+            {
+                {
+                    Guid.NewGuid().ToString(), "value"
+                },
+                {
+                    "key", "value"
+                },
+            })
+            .AddScrubber(_ => _.Replace("key", "scrubbed"));
+
+    [Fact]
+    public Task StringDictionary_ScrubDictionaryKeys() =>
+        Verify(new StringDictionary
+            {
+                {
+                    Guid.NewGuid().ToString(), "value"
+                },
+                {
+                    "key", "value"
+                },
+            })
+            .AddScrubber(_ => _.Replace("key", "scrubbed"));
+
+    [Fact]
+    public Task Dictionary_ScrubDictionaryKeys() =>
+        Verify(new Dictionary<string, string>
+            {
+                {
+                    Guid.NewGuid().ToString(), "value"
+                },
+                {
+                    "key", "value"
+                },
+            })
+            .AddScrubber(_ => _.Replace("key", "scrubbed"));
 }

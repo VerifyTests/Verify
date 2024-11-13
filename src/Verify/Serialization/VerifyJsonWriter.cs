@@ -209,6 +209,26 @@ public class VerifyJsonWriter :
     {
         if (value is null)
         {
+            if (serialization.TryGetScrubOrIgnoreByName(name, out var scrubOrIgnoreByName))
+            {
+                if (scrubOrIgnoreByName == ScrubOrIgnore.Ignore)
+                {
+                    return;
+                }
+
+                WritePropertyName(name);
+                WriteRawValueIfNoStrict("Scrubbed");
+
+                return;
+            }
+
+            if (serialization.Serializer.NullValueHandling.GetValueOrDefault(NullValueHandling.Ignore) == NullValueHandling.Ignore)
+            {
+                return;
+            }
+
+            WritePropertyName(name);
+            WriteNull();
             return;
         }
 

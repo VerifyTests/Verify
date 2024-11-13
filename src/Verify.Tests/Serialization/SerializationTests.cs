@@ -922,6 +922,28 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task NullProperty() =>
+        Verify(
+            new
+            {
+                property ="value1",
+                nullProperty = (string?)null
+            });
+
+    [Fact]
+    public Task NullPropertyInclude() =>
+        Verify(
+            new
+            {
+                nullProperty = (string?)null
+            })
+            .AddExtraSettings(_=>
+            {
+                _.DefaultValueHandling = DefaultValueHandling.Include;
+                _.NullValueHandling = NullValueHandling.Include;
+            });
+
+    [Fact]
     public Task BoolFalse()
     {
         var target = new BoolModel
@@ -3771,7 +3793,32 @@ public class SerializationTests
         }
     }
 
-    record ConverterTarget(string Name);
+    [Fact]
+    public Task WithWriteMemberNull() =>
+        Verify(new ConverterTarget(null))
+            .AddExtraSettings(_ => _.Converters.Add(new NullConverter()));
+
+    [Fact]
+    public Task WithWriteMemberNull_Include() =>
+        Verify(new ConverterTarget(null))
+            .AddExtraSettings(_ =>
+            {
+                _.Converters.Add(new NullConverter());
+                _.NullValueHandling = NullValueHandling.Include;
+            });
+
+    class NullConverter :
+        WriteOnlyJsonConverter<ConverterTarget>
+    {
+        public override void Write(VerifyJsonWriter writer, ConverterTarget target)
+        {
+            writer.WriteStartObject();
+            writer.WriteMember(target, target.Name, "Name");
+            writer.WriteEnd();
+        }
+    }
+
+    record ConverterTarget(string? Name);
 
     [Fact]
     public Task WithConverterIgnoreDefault() =>

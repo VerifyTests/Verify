@@ -3807,6 +3807,38 @@ public class SerializationTests
                 _.NullValueHandling = NullValueHandling.Include;
             });
 
+    [Fact]
+    public Task WithWriteMemberNullScrubbed() =>
+        Verify(new ConverterTarget(null))
+            .AddExtraSettings(_ => _.Converters.Add(new NullConverter()))
+            .ScrubMember("Name");
+
+    [Fact]
+    public Task WithWriteMemberNullScrubbed_Include() =>
+        Verify(new ConverterTarget(null))
+            .AddExtraSettings(_ =>
+            {
+                _.Converters.Add(new NullConverter());
+                _.NullValueHandling = NullValueHandling.Include;
+            })
+            .ScrubMember("Name");
+
+    [Fact]
+    public Task WithWriteMemberNullIgnored() =>
+        Verify(new ConverterTarget(null))
+            .AddExtraSettings(_ => _.Converters.Add(new NullConverter()))
+            .IgnoreMember("Name");
+
+    [Fact]
+    public Task WithWriteMemberNullIgnored_Include() =>
+        Verify(new ConverterTarget(null))
+            .AddExtraSettings(_ =>
+            {
+                _.Converters.Add(new NullConverter());
+                _.NullValueHandling = NullValueHandling.Include;
+            })
+            .IgnoreMember("Name");
+
     class NullConverter :
         WriteOnlyJsonConverter<ConverterTarget>
     {

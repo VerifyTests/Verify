@@ -9,7 +9,7 @@ public class CombinationResult
     {
         Keys = keys;
         Type = CombinationResultType.Exception;
-        this.exception = exception;
+        Exception = exception;
     }
 
     public static CombinationResult ForValue(IReadOnlyList<object?> keys, object? value) =>
@@ -19,7 +19,7 @@ public class CombinationResult
     {
         Keys = keys;
         Type = CombinationResultType.Value;
-        this.value = value;
+        Value = value;
     }
 
     public static CombinationResult ForVoid(IReadOnlyList<object?> keys) =>
@@ -34,8 +34,6 @@ public class CombinationResult
     public CombinationResultType Type { get; }
     public IReadOnlyList<object?> Keys { get; }
 
-    readonly object? value;
-
     public object? Value
     {
         get
@@ -45,12 +43,11 @@ public class CombinationResult
                 throw new($"Invalid CombinationResultType: {Type}");
             }
 
-            return value;
+            return field;
         }
     }
 
-    Exception? exception;
-
+    [field: AllowNull, MaybeNull]
     public Exception Exception
     {
         get
@@ -60,7 +57,7 @@ public class CombinationResult
                 throw new($"Invalid CombinationResultType: {Type}");
             }
 
-            return exception!;
+            return field!;
         }
     }
 }

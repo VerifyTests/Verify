@@ -2,7 +2,6 @@ namespace VerifyTests;
 
 public partial class SettingsTask
 {
-    VerifySettings? settings;
     Func<VerifySettings, Task<VerifyResult>> buildTask;
     Task<VerifyResult>? task;
 
@@ -10,7 +9,7 @@ public partial class SettingsTask
     {
         if (settings is not null)
         {
-            this.settings = new(settings);
+            CurrentSettings = new(settings);
         }
 
         this.buildTask = buildTask;
@@ -304,7 +303,8 @@ public partial class SettingsTask
         return this;
     }
 
-    public VerifySettings CurrentSettings => settings ??= new();
+    [field: AllowNull, MaybeNull]
+    public VerifySettings CurrentSettings => field ??= new();
 
     [Pure]
     public Task<VerifyResult> ToTask() =>

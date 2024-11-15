@@ -1,6 +1,6 @@
 image:
   - Visual Studio 2022
-  - macOS
+#  - macOS
 # - Ubuntu
 environment:
   DOTNET_NOLOGO: true

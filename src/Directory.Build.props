@@ -14,6 +14,7 @@
     <NuGetAuditLevel>low</NuGetAuditLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <PolyGuard>true</PolyGuard>
   </PropertyGroup>
   <ItemGroup>
     <Using Include="System.Diagnostics.CodeAnalysis" />

@@ -7,7 +7,7 @@
     <PackageVersion Include="Argon" Version="0.25.0" />
     <PackageVersion Include="Argon.FSharp" Version="0.25.0" />
     <PackageVersion Include="BenchmarkDotNet" Version="0.14.0" />
-    <PackageVersion Include="DiffEngine" Version="15.5.4" />
+    <PackageVersion Include="DiffEngine" Version="15.5.5" />
     <PackageVersion Include="Expecto" Version="10.2.1" />
     <PackageVersion Include="Fixie" Version="4.0.0" />
     <PackageVersion Include="Fixie.TestAdapter" Version="4.0.0" />

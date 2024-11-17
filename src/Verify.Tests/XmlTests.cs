@@ -27,6 +27,22 @@ public class XmlTests
             </body>
             """);
 
+    [Fact]
+    public Task CData() =>
+        VerifyXml(
+            """
+            <?xml version="1.0" encoding="utf-8" standalone="yes"?>
+              <person><![CDATA[name is John Doe]]></person>
+            """);
+
+    [Fact]
+    public Task CDataMix() =>
+        VerifyXml(
+            """
+            <?xml version="1.0" encoding="utf-8" standalone="yes"?>
+              <person><![CDATA[name is John Doe]]>value</person>
+            """);
+
     #region XmlIgnoreMember
 
     [Fact]

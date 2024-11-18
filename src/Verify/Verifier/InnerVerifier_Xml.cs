@@ -87,7 +87,16 @@ partial class InnerVerifier
 
         foreach (var node in target.DescendantNodes())
         {
-            Debug.WriteLine(node);
+            if (node is XText text)
+            {
+                text.Value = ConvertValue(serialization, text.Value);
+                continue;
+            }
+            if (node is XCData cdata)
+            {
+                cdata.Value = ConvertValue(serialization, cdata.Value);
+                continue;
+            }
         }
 
         return VerifyString(target.ToString(), "xml");

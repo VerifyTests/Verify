@@ -36,12 +36,30 @@ public class XmlTests
             """);
 
     [Fact]
+    public Task CData_WithScrub() =>
+        VerifyXml(
+                """
+                <?xml version="1.0" encoding="utf-8" standalone="yes"?>
+                  <person><![CDATA[value]]></person>
+                """)
+            .AddScrubber(_ => _.Replace("value", "replaced"));
+
+    [Fact]
     public Task CDataMix() =>
         VerifyXml(
             """
             <?xml version="1.0" encoding="utf-8" standalone="yes"?>
               <person><![CDATA[name is John Doe]]>value</person>
             """);
+
+    [Fact]
+    public Task CDataMix_WithScrub() =>
+        VerifyXml(
+                """
+                <?xml version="1.0" encoding="utf-8" standalone="yes"?>
+                  <person><![CDATA[value]]>value</person>
+                """)
+            .AddScrubber(_ => _.Replace("value", "replaced"));
 
     #region XmlIgnoreMember
 

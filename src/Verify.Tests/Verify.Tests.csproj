@@ -9,8 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fody" PrivateAssets="all" />
-    <PackageReference Include="InfoOf.Fody" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="MarkdownSnippets.MsBuild" PrivateAssets="all" />
     <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />

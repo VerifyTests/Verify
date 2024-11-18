@@ -9,8 +9,8 @@
     <PackageVersion Include="BenchmarkDotNet" Version="0.14.0" />
     <PackageVersion Include="DiffEngine" Version="15.5.5" />
     <PackageVersion Include="Expecto" Version="10.2.1" />
-    <PackageVersion Include="Fixie" Version="4.0.0" />
-    <PackageVersion Include="Fixie.TestAdapter" Version="4.0.0" />
+    <PackageVersion Include="Fixie" Version="4.1.0" />
+    <PackageVersion Include="Fixie.TestAdapter" Version="4.1.0" />
     <PackageVersion Include="FSharp.Core" Version="9.0.100" />
     <PackageVersion Include="MarkdownSnippets.MsBuild" Version="27.0.2" />
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.0" />
@@ -29,8 +29,8 @@
     <PackageVersion Include="System.IO.Hashing" Version="9.0.0" />
     <PackageVersion Include="System.Memory" Version="4.6.0" />
     <PackageVersion Include="TextCopy" Version="6.2.1" />
-    <PackageVersion Include="TUnit" Version="0.2.212" />
-    <PackageVersion Include="TUnit.Core" Version="0.2.212" />
+    <PackageVersion Include="TUnit" Version="0.3.29" />
+    <PackageVersion Include="TUnit.Core" Version="0.3.29" />
     <PackageVersion Include="Xunit" Version="2.9.2" />
     <PackageVersion Include="xunit.abstractions" Version="2.0.3" />
     <PackageVersion Include="xunit.extensibility.execution" Version="2.9.2" />

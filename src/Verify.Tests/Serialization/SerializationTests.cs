@@ -3037,7 +3037,7 @@ public class SerializationTests
     [Fact]
     public Task Field()
     {
-        var target = Info.OfField<SerializationTests>("MyField");
+        var target = typeof(SerializationTests).GetField("MyField");
         return Verify(target);
     }
 
@@ -3046,14 +3046,14 @@ public class SerializationTests
     [Fact]
     public Task GetProperty()
     {
-        var target = Info.OfPropertyGet<SerializationTests>("MyProperty");
+        var target = typeof(SerializationTests).GetProperty("MyProperty")!.GetMethod;
         return Verify(target);
     }
 
     [Fact]
     public Task SetProperty()
     {
-        var target = Info.OfPropertySet<SerializationTests>("MyProperty");
+        var target = typeof(SerializationTests).GetProperty("MyProperty")!.SetMethod;
         return Verify(target);
     }
 
@@ -3068,16 +3068,16 @@ public class SerializationTests
 
     [Fact]
     public Task Method() =>
-        Verify(Info.OfMethod<SerializationTests>("Method"));
+        Verify(typeof(SerializationTests).GetMethod("Method"));
 
     [Fact]
     public Task Constructor() =>
-        Verify(Info.OfConstructor<SerializationTests>());
+        Verify(typeof(SerializationTests).GetConstructor([]));
 
     [Fact]
     public Task Parameter()
     {
-        var method = Info.OfMethod<SerializationTests>("MyMethodWithParameters");
+        var method = typeof(SerializationTests).GetMethod("MyMethodWithParameters")!;
         return Verify(method
             .GetParameters()
             .First());
@@ -3085,10 +3085,10 @@ public class SerializationTests
 
     [Fact]
     public Task MethodWithParameters() =>
-        Verify(Info.OfMethod<SerializationTests>("MyMethodWithParameters"));
+        Verify(typeof(SerializationTests).GetMethod("MyMethodWithParameters"));
 
     // ReSharper disable once UnusedMember.Local
-    static void MyMethodWithParameters(int x, string y)
+    public static void MyMethodWithParameters(int x, string y)
     {
     }
 

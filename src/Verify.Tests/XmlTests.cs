@@ -28,6 +28,37 @@ public class XmlTests
             """);
 
     [Fact]
+    public Task Comment() =>
+        VerifyXml(
+            """
+            <?xml version="1.0" encoding="utf-8" standalone="yes"?>
+            <person><!-- name is John Doe --></person>
+            """);
+
+    [Fact]
+    public Task Comment_WithScrub() =>
+        VerifyXml(
+            """
+            <?xml version="1.0" encoding="utf-8" standalone="yes"?>
+            <person><!-- value --></person>
+            """);
+    [Fact]
+    public Task Comment_Mix() =>
+        VerifyXml(
+            """
+            <?xml version="1.0" encoding="utf-8" standalone="yes"?>
+            <person><!-- name is John Doe -->value</person>
+            """);
+    [Fact]
+    public Task Comment_Mix_WithScrub() =>
+        VerifyXml(
+            """
+            <?xml version="1.0" encoding="utf-8" standalone="yes"?>
+            <person><!-- value -->value</person>
+            """)
+            .AddScrubber(_ => _.Replace("value", "replaced"));
+
+    [Fact]
     public Task CData() =>
         VerifyXml(
             """
@@ -40,7 +71,7 @@ public class XmlTests
         VerifyXml(
                 """
                 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-                  <person><![CDATA[value]]></person>
+                <person><![CDATA[value]]></person>
                 """)
             .AddScrubber(_ => _.Replace("value", "replaced"));
 
@@ -49,7 +80,7 @@ public class XmlTests
         VerifyXml(
             """
             <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-              <person><![CDATA[name is John Doe]]>value</person>
+            <person><![CDATA[name is John Doe]]>value</person>
             """);
 
     [Fact]
@@ -57,7 +88,7 @@ public class XmlTests
         VerifyXml(
                 """
                 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-                  <person><![CDATA[value]]>value</person>
+                <person><![CDATA[value]]>value</person>
                 """)
             .AddScrubber(_ => _.Replace("value", "replaced"));
 

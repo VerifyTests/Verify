@@ -66,6 +66,7 @@ partial class InnerVerifier
         var elements = target
             .Descendants()
             .ToList();
+
         foreach (var element in elements)
         {
             if (serialization.TryGetScrubOrIgnoreByName(element.Name.LocalName, out var scrubOrIgnore))
@@ -87,15 +88,14 @@ partial class InnerVerifier
 
         foreach (var node in target.DescendantNodes())
         {
-            if (node is XText text)
+            switch (node)
             {
-                text.Value = ConvertValue(serialization, text.Value);
-                continue;
-            }
-            if (node is XCData cdata)
-            {
-                cdata.Value = ConvertValue(serialization, cdata.Value);
-                continue;
+                case XText text:
+                    text.Value = ConvertValue(serialization, text.Value);
+                    continue;
+                case XComment comment:
+                    comment.Value = ConvertValue(serialization, comment.Value);
+                    continue;
             }
         }
 

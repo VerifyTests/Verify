@@ -66,7 +66,7 @@ public Task XmlIgnoreMember() =>
     VerifyXml(xml)
         .IgnoreMember("node");
 ```
-<sup><a href='/src/Verify.Tests/XmlTests.cs#L64-L71' title='Snippet source file'>snippet source</a> | <a href='#snippet-XmlIgnoreMember' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/XmlTests.cs#L95-L102' title='Snippet source file'>snippet source</a> | <a href='#snippet-XmlIgnoreMember' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will produce
@@ -92,7 +92,7 @@ public Task XmlScrubMember() =>
     VerifyXml(xml)
         .ScrubMember("node");
 ```
-<sup><a href='/src/Verify.Tests/XmlTests.cs#L73-L80' title='Snippet source file'>snippet source</a> | <a href='#snippet-XmlScrubMember' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/XmlTests.cs#L104-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-XmlScrubMember' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will produce

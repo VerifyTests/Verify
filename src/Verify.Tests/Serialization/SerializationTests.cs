@@ -3448,6 +3448,144 @@ public class SerializationTests
 
     #endregion
 
+    #region ScrubMemberByPredicate
+
+    [Fact]
+    public Task ScrubMemberByPredicate()
+    {
+        var target = new IgnoreExplicitTarget
+        {
+            Include = "Value",
+            Field = "Value",
+            Property = "Value",
+            PropertyByName = "Value"
+        };
+        var settings = new VerifySettings();
+
+        settings.ScrubMembers(name => name is "Field" or "Property");
+        settings.ScrubMembers(member => member.Name is "PropertyByName" or "PropertyThatThrows");
+
+        return Verify(target, settings);
+    }
+
+    [Fact]
+    public Task ScrubMemberByPredicateFluent()
+    {
+        var target = new IgnoreExplicitTarget
+        {
+            Include = "Value",
+            Field = "Value",
+            Property = "Value",
+            PropertyByName = "Value"
+        };
+        var settings = new VerifySettings();
+
+        return Verify(target, settings)
+            .ScrubMembers(name => name is "Field" or "Property")
+            .ScrubMembers(member => member.Name is "PropertyByName" or "PropertyThatThrows");
+    }
+
+
+    [Fact]
+    public Task ScrubDictionaryByPredicate()
+    {
+        var settings = new VerifySettings();
+
+        settings.ScrubMembers(name => name is "Ignore");
+
+        var target = new Dictionary<string, object>
+        {
+            {
+                "Include", new Dictionary<string, string>
+                {
+                    {
+                        "Ignore", "Value1"
+                    },
+                    {
+                        "Key1", "Value2"
+                    }
+                }
+            },
+            {
+                "Ignore", "Value3"
+            },
+            {
+                "Key2", "Value4"
+            }
+        };
+        return Verify(target, settings);
+    }
+
+    #endregion
+
+    #region IgnoreMemberByPredicate
+
+    [Fact]
+    public Task IgnoreMemberByPredicate()
+    {
+        var target = new IgnoreExplicitTarget
+        {
+            Include = "Value",
+            Field = "Value",
+            Property = "Value",
+            PropertyByName = "Value"
+        };
+        var settings = new VerifySettings();
+
+        settings.IgnoreMembers(name => name is "Field" or "Property");
+        settings.IgnoreMembers(member => member.Name is "PropertyByName" or "PropertyThatThrows");
+
+        return Verify(target, settings);
+    }
+
+    [Fact]
+    public Task IgnoreMemberByPredicateFluent()
+    {
+        var target = new IgnoreExplicitTarget
+        {
+            Include = "Value",
+            Field = "Value",
+            Property = "Value",
+            PropertyByName = "Value"
+        };
+        var settings = new VerifySettings();
+
+        return Verify(target, settings)
+            .IgnoreMembers(name => name is "Field" or "Property")
+            .IgnoreMembers(member => member.Name is "PropertyByName" or "PropertyThatThrows");
+    }
+
+    [Fact]
+    public Task IgnoreDictionaryByPredicate()
+    {
+        var settings = new VerifySettings();
+
+        settings.IgnoreMembers(name => name is "Ignore");
+
+        var target = new Dictionary<string, object>
+        {
+            {
+                "Include", new Dictionary<string, string>
+                {
+                    {
+                        "Ignore", "Value1"
+                    },
+                    {
+                        "Key1", "Value2"
+                    }
+                }
+            },
+            {
+                "Ignore", "Value3"
+            },
+            {
+                "Key2", "Value4"
+            }
+        };
+        return Verify(target, settings);
+    }
+    #endregion
+
     public class IgnoreTargetBase
     {
         public string Property { get; set; }

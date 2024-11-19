@@ -270,4 +270,28 @@ public static partial class VerifierSettings
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         serialization.IgnoreMembersThatThrow(item);
     }
+
+    public static void IgnoreMembers(Func<MemberInfo, bool> predicate)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        serialization.IgnoreMembers(predicate);
+    }
+
+    public static void ScrubMembers(Func<MemberInfo, bool> predicate)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        serialization.ScrubMembers(predicate);
+    }
+
+    public static void IgnoreMembers(Func<string, bool> predicate)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        serialization.IgnoreMembers(predicate);
+    }
+
+    public static void ScrubMembers(Func<string, bool> predicate)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        serialization.ScrubMembers(predicate);
+    }
 }

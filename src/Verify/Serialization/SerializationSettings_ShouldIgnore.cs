@@ -8,13 +8,15 @@
             return true;
         }
 
-        return TryGetScrubOrIgnore(member.DeclaringType!, member.MemberType(), member.Name, out scrubOrIgnore);
+        return TryGetScrubOrIgnore(member.DeclaringType!, member.MemberType(), member.Name, member, out scrubOrIgnore);
     }
 
-    internal bool TryGetScrubOrIgnore(Type declaringType, Type memberType, string name, [NotNullWhen(true)] out ScrubOrIgnore? scrubOrIgnore) =>
+    internal bool TryGetScrubOrIgnore(Type declaringType, Type memberType, string name, MemberInfo? memberInfo, [NotNullWhen(true)] out ScrubOrIgnore? scrubOrIgnore) =>
         TryGetScrubOrIgnoreByType(memberType, out scrubOrIgnore) ||
         TryGetScrubOrIgnoreByName(name, out scrubOrIgnore) ||
-        TryGetScrubOrIgnoreByMemberOfType(declaringType, name, out scrubOrIgnore);
+        TryGetScrubOrIgnoreByMemberOfType(declaringType, name, out scrubOrIgnore) ||
+        TryGetScrubOrIgnorePredicateByName(name, memberInfo, out scrubOrIgnore);
+
 
     internal bool TryGetScrubOrIgnoreByInstance(object value, [NotNullWhen(true)] out ScrubOrIgnore? scrubOrIgnore)
     {

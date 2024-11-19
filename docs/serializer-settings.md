@@ -174,7 +174,7 @@ var settings = new JsonSerializerSettings
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup><a href='/src/Verify/Serialization/SerializationSettings.cs#L83-L92' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultSerialization' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/SerializationSettings.cs#L85-L94' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultSerialization' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -347,7 +347,7 @@ public Task ScopedSerializerFluent()
         .AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3738-L3765' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScopedSerializer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3876-L3903' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScopedSerializer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -838,7 +838,7 @@ public Task WithObsoleteProp()
     return Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3703-L3724' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithObsoleteProp' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3841-L3862' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithObsoleteProp' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -886,7 +886,7 @@ public Task WithObsoletePropIncludedFluent()
         .IncludeObsoletes();
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3674-L3701' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithObsoletePropIncluded' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3812-L3839' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithObsoletePropIncluded' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -896,7 +896,7 @@ Or globally:
 ```cs
 VerifierSettings.IncludeObsoletes();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3668-L3672' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithObsoletePropIncludedGlobally' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3806-L3810' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithObsoletePropIncludedGlobally' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -1292,7 +1292,7 @@ public Task CustomExceptionPropFluent()
         .IgnoreMembersThatThrow<CustomException>();
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3556-L3575' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3694-L3713' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -1302,7 +1302,7 @@ Or globally:
 ```cs
 VerifierSettings.IgnoreMembersThatThrow<CustomException>();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3550-L3554' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrowGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3688-L3692' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrowGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:

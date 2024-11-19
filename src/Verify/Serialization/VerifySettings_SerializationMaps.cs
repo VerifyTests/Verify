@@ -238,4 +238,28 @@ public partial class VerifySettings
         CloneSettings();
         serialization.IgnoreMembersThatThrow(item);
     }
+
+    public void ScrubMembers(Func<MemberInfo, bool> predicate)
+    {
+        CloneSettings();
+        serialization.ScrubMembers(predicate);
+    }
+
+    public void ScrubMembers(Func<string, bool> predicate)
+    {
+        CloneSettings();
+        serialization.ScrubMembers(predicate);
+    }
+
+    public void IgnoreMembers(Func<MemberInfo, bool> predicate)
+    {
+        CloneSettings();
+        serialization.IgnoreMembers(predicate);
+    }
+
+    public void IgnoreMembers(Func<string, bool> predicate)
+    {
+        CloneSettings();
+        serialization.IgnoreMembers(predicate);
+    }
 }

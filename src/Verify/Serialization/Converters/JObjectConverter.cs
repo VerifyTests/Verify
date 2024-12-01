@@ -3,7 +3,7 @@
 {
     public override void Write(VerifyJsonWriter writer, JObject value)
     {
-        if (VerifierSettings.sortJsonObjects)
+        if (VerifierSettings.orderJsonObjects)
         {
             var dictionary = new Dictionary<string, object?>();
             foreach (var item in value)

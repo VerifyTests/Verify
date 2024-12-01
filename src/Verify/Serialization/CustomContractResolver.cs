@@ -32,7 +32,7 @@
                 });
         }
 
-        if (VerifierSettings.sortPropertiesAlphabetically)
+        if (VerifierSettings.orderPropertiesAlphabetically)
         {
             properties = properties
                 // Still honor explicit ordering

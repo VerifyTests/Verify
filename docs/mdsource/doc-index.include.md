@@ -6,6 +6,7 @@
   * [VerifyFile](/docs/verify-file.md)
   * [VerifyXml](/docs/verify-xml.md)
   * [Serializer Settings](/docs/serializer-settings.md)
+  * [Obsolete members](/docs/obsolete-members.source.md)
   * [Guid behavior](/docs/guids.md)
   * [Date behavior](/docs/dates.md)
   * [File naming](/docs/naming.md)

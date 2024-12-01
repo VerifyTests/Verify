@@ -12,6 +12,7 @@
     * [Scrubbing](/docs/scrubbers.md)
     * [Members that throw](/docs/members-throw.md)
     * [Ordering](/docs/ordering.md)
+    * [Encoding](/docs/encoding.md)
   * [File naming](/docs/naming.md)
   * [AppendFile](/docs/append-file.md)
   * [Parameterised tests](/docs/parameterised.md)

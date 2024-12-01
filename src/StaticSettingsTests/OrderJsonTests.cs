@@ -1,10 +1,10 @@
-﻿public class SortedJsonTests :
+﻿public class OrderJsonTests :
     BaseTest
 {
-    public SortedJsonTests() =>
+    public OrderJsonTests() =>
         VerifierSettings.SortJsonObjects();
 
-    #region SortJsonObjectsUsage
+    #region OrderJsonObjectsUsage
 
     [Fact]
     public Task Alphabetically()

@@ -278,39 +278,6 @@ Result:
 snippet: SerializationTests.ScrubMemberByName.verified.txt
 
 
-## Members that throw
-
-Members that throw exceptions can be excluded from serialization based on the exception type or properties.
-
-By default members that throw `NotImplementedException` or `NotSupportedException` are ignored.
-
-Note that this is global for all members on all types.
-
-Ignore by exception type:
-
-snippet: IgnoreMembersThatThrow
-
-Or globally:
-
-snippet: IgnoreMembersThatThrowGlobal
-
-Result:
-
-snippet: SerializationTests.CustomExceptionProp.verified.txt
-
-Ignore by exception type and expression:
-
-snippet: IgnoreMembersThatThrowExpression
-
-Or globally:
-
-snippet: IgnoreMembersThatThrowExpressionGlobal
-
-Result:
-
-snippet: SerializationTests.ExceptionMessageProp.verified.txt
-
-
 ## TreatAsString
 
 Certain types, when passed directly in to Verify, are written directly without going through json serialization.
@@ -331,88 +298,6 @@ snippet: TreatAsString
 The value of a member can be mutated before serialization:
 
 snippet: MemberConverter
-
-
-## SortPropertiesAlphabetically
-
-Serialized properties can optionally be sorted alphabetically, ie ignoring the order they are defined when using reflection.
-
-snippet: SortProperties
-
-
-## Dictionary sorting
-
-Dictionaries are sorted by key.
-
-To disable use:
-
-snippet: DontSortDictionaries
-
-
-## Json/JObject sorting
-
-Json and JObject are not sorted.
-
-To enable sorting use:
-
-snippet: SortJsonObjects
-
-
-## Ordering IEnumerable items
-
-Items in an instance of an IEnumerable can be ordered.
-
-This is helpful when verifying items that can have an inconsistent order, for example reading items from a database.
-
-
-### OrderEnumerableBy
-
-
-#### Globally
-
-snippet: OrderEnumerableByGlobal
-
-
-#### Instance
-
-snippet: OrderEnumerableBy
-
-
-#### Fluent
-
-snippet: OrderEnumerableByFluent
-
-
-#### Result
-
-The resulting file will be:
-
-snippet: OrderTests.EnumerableOrder.verified.txt
-
-
-### OrderEnumerableByDescending
-
-
-#### Globally
-
-snippet: OrderEnumerableByDescendingGlobal
-
-
-#### Instance
-
-snippet: OrderEnumerableByDescending
-
-
-#### Fluent
-
-snippet: OrderEnumerableByDescendingFluent
-
-
-#### Result
-
-The resulting file will be:
-
-snippet: OrderTests.OrderEnumerableByDescending.verified.txt
 
 
 ## JsonAppender
@@ -446,5 +331,9 @@ Examples of extensions using JsonAppenders are [Recorders in Verify.SqlServer](h
 
 ## See also
 
- * [Guid behavior](guids.md)
- * [Date behavior](dates.md)
+ * [Obsolete members](/docs/obsolete-members.md)
+ * [Guids](/docs/guids.md)
+ * [Dates](/docs/dates.md)
+ * [Scrubbing](/docs/scrubbers.md)
+ * [Members that throw](/docs/members-throw.md)
+ * [Ordering](/docs/ordering.md)

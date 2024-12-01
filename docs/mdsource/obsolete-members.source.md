@@ -1,8 +1,5 @@
 # Obsolete members
 
-
-## Obsolete members ignored
-
 Members with an [ObsoleteAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.obsoleteattribute) are ignored:
 
 snippet: WithObsoleteProp

@@ -1,12 +1,12 @@
-﻿public class SortedJson
+﻿class OrderProperties
 {
-    #region SortJsonObjects
+    #region OrderProperties
 
     public static class ModuleInitializer
     {
         [ModuleInitializer]
         public static void Init() =>
-            VerifierSettings.SortJsonObjects();
+            VerifierSettings.SortPropertiesAlphabetically();
     }
 
     #endregion

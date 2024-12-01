@@ -135,10 +135,10 @@ public class SerializationTests
             .IgnoreMember("ignored");
     }
 
-    #region DontSortDictionaries
+    #region DontOrderDictionaries
 
     [Fact]
-    public Task DontSortDictionaries()
+    public Task DontOrderDictionaries()
     {
         var dictionary = new Dictionary<string, string>
         {

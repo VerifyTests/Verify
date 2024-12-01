@@ -800,7 +800,7 @@ var result = await Verify(
     });
 Assert.Contains("Value To Check", result.Text);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L410-L419' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyResult' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L414-L423' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyResult' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If using `Verifier.Throws`, the resulting `Exception` will also be accessible
@@ -993,10 +993,12 @@ information sources and warn about particular gotchas:
   * [VerifyFile](/docs/verify-file.md)
   * [VerifyXml](/docs/verify-xml.md)
   * [Serializer Settings](/docs/serializer-settings.md)
-    * [Obsolete members](/docs/obsolete-members.source.md)
+    * [Obsolete members](/docs/obsolete-members.md)
     * [Guids](/docs/guids.md)
     * [Dates](/docs/dates.md)
-    * [Scrubbers](/docs/scrubbers.md)
+    * [Scrubbing](/docs/scrubbers.md)
+    * [Members that throw](/docs/members-throw.md)
+    * [Ordering](/docs/ordering.md)
   * [File naming](/docs/naming.md)
   * [AppendFile](/docs/append-file.md)
   * [Parameterised tests](/docs/parameterised.md)

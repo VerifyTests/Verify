@@ -1,7 +1,7 @@
 ﻿{
-  $type: Person,
+  $type: OrderPropertiesTests.Person,
   Address: {
-    $type: Address,
+    $type: OrderPropertiesTests.Address,
     Country: USA,
     Street: 1 Puddle Lane
   },

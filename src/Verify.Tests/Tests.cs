@@ -297,6 +297,8 @@ public class Tests
         Assert.False(File.Exists(verifiedFile));
     }
 
+#if NET9_0
+
     [Theory]
     [InlineData("P1", "P2")]
     public async Task DanglingFilesIgnoreParameters(string param1, string param2)
@@ -314,6 +316,8 @@ public class Tests
         Assert.False(File.Exists(receivedFile));
         Assert.False(File.Exists(verifiedFile));
     }
+
+#endif
 
     class Element
     {

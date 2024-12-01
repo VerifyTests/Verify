@@ -156,8 +156,8 @@ partial class SerializationSettings
         }
     }
 
-    internal bool SortDictionaries = true;
+    internal bool OrderDictionaries = true;
 
     public void DontSortDictionaries() =>
-        SortDictionaries = false;
+        OrderDictionaries = false;
 }

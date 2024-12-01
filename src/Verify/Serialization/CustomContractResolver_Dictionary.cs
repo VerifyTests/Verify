@@ -3,7 +3,7 @@
     protected override JsonDictionaryContract CreateDictionaryContract(Type objectType)
     {
         var contract = base.CreateDictionaryContract(objectType);
-        if (settings.SortDictionaries)
+        if (settings.OrderDictionaries)
         {
             contract.OrderByKey = true;
         }

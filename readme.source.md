@@ -57,7 +57,7 @@ approach(s) selected is a personal preference.
 * Manually making the change in the [launched diff tool](https://github.com/VerifyTests/DiffEngine#supported-tools).
   Either with a copy paste, or some tools have commands to automate this via a shortcut or a button.
 * Manually on the file system, by renaming the `.received.` file to `.verified.`. This can be automated via scripts
-  to bulk accept all (by matching a pattern) `.received.` files.
+  to bulk accept all `.received.` files by matching a pattern.
 * Using the dotnet tool [Verify.Terminal](https://github.com/VerifyTests/Verify.Terminal).
 
 

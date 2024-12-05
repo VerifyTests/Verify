@@ -44,6 +44,11 @@ partial class SerializationSettings
             return scrubOrIgnore == ScrubOrIgnore.Ignore;
         }
 
+        if (TryGetScrubOrIgnorePredicateByName(name, null, out scrubOrIgnore))
+        {
+            return scrubOrIgnore == ScrubOrIgnore.Ignore;
+        }
+
         return false;
     }
 
@@ -54,9 +59,15 @@ partial class SerializationSettings
             return scrubOrIgnore == ScrubOrIgnore.Scrub;
         }
 
+        if (TryGetScrubOrIgnorePredicateByName(name, null, out scrubOrIgnore))
+        {
+            return scrubOrIgnore == ScrubOrIgnore.Scrub;
+        }
+
         return false;
     }
 
     internal bool TryGetScrubOrIgnoreByName(string name, [NotNullWhen(true)] out ScrubOrIgnore? scrubOrIgnore) =>
-        ignoredByNameMembers.TryGetValue(name, out scrubOrIgnore);
+        ignoredByNameMembers.TryGetValue(name, out scrubOrIgnore)
+        || TryGetScrubOrIgnorePredicateByName(name, null, out scrubOrIgnore);
 }

@@ -64,6 +64,8 @@ partial class SerializationSettings
         enumerableInterceptors = new(settings.enumerableInterceptors);
         scrubGuids = settings.scrubGuids;
         includeObsoletes = settings.includeObsoletes;
+        ignoredMemberPredicatesByString = settings.ignoredMemberPredicatesByString.Clone();
+        ignoredMemberPredicatesByMember = settings.ignoredMemberPredicatesByMember.Clone();
 
         jsonSettings = BuildSettings();
     }

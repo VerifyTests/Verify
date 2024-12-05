@@ -275,4 +275,32 @@ public partial class SettingsTask
         CurrentSettings.IgnoreMembersThatThrow(item);
         return this;
     }
+
+    [Pure]
+    public SettingsTask ScrubMembers(Func<string, bool> predicate)
+    {
+        CurrentSettings.ScrubMembers(predicate);
+        return this;
+    }
+
+    [Pure]
+    public SettingsTask ScrubMembers(Func<MemberInfo, bool> predicate)
+    {
+        CurrentSettings.ScrubMembers(predicate);
+        return this;
+    }
+
+    [Pure]
+    public SettingsTask IgnoreMembers(Func<string, bool> predicate)
+    {
+        CurrentSettings.IgnoreMembers(predicate);
+        return this;
+    }
+
+    [Pure]
+    public SettingsTask IgnoreMembers(Func<MemberInfo, bool> predicate)
+    {
+        CurrentSettings.IgnoreMembers(predicate);
+        return this;
+    }
 }

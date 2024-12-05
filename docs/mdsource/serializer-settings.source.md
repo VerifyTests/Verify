@@ -56,20 +56,6 @@ The resulting file will be:
 snippet: Tests.Object.verified.json
 
 
-## UseUtf8NoBom
-
-The default encoding for snapshot files uses UTF-8 with byte order marks (BOM) enable. To disable UTF-8 BOMs, call `VerifierSettings.UseUtf8NoBom`.
-
-snippet: UseUtf8NoBom
-
-
-## UseEncoding
-
-To override the encoding used for snapshot files, replacing the default UTF-8 encoding, call `VerifierSettings.UseEncoding` providing a `System.Text.Encoding` instance.
-
-snippet: UseEncoding
-
-
 ## Default settings
 
 Verify uses [Argon](https://github.com/SimonCropp/Argon) for serialization.
@@ -218,32 +204,6 @@ Result:
 snippet: SerializationTests.AddScrubInstance.verified.txt
 
 
-## Obsolete members ignored
-
-Members with an [ObsoleteAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.obsoleteattribute) are ignored:
-
-snippet: WithObsoleteProp
-
-Result:
-
-snippet: SerializationTests.WithObsoleteProp.verified.txt
-
-
-### Including Obsolete members
-
-Obsolete members can be included using `IncludeObsoletes`:
-
-snippet: WithObsoletePropIncluded
-
-Or globally:
-
-snippet: WithObsoletePropIncludedGlobally
-
-Result:
-
-snippet: SerializationTests.WithObsoletePropIncluded.verified.txt
-
-
 ## Ignore member by expressions
 
 To ignore members of a certain type using an expression:
@@ -304,39 +264,6 @@ Result:
 snippet: SerializationTests.ScrubMemberByName.verified.txt
 
 
-## Members that throw
-
-Members that throw exceptions can be excluded from serialization based on the exception type or properties.
-
-By default members that throw `NotImplementedException` or `NotSupportedException` are ignored.
-
-Note that this is global for all members on all types.
-
-Ignore by exception type:
-
-snippet: IgnoreMembersThatThrow
-
-Or globally:
-
-snippet: IgnoreMembersThatThrowGlobal
-
-Result:
-
-snippet: SerializationTests.CustomExceptionProp.verified.txt
-
-Ignore by exception type and expression:
-
-snippet: IgnoreMembersThatThrowExpression
-
-Or globally:
-
-snippet: IgnoreMembersThatThrowExpressionGlobal
-
-Result:
-
-snippet: SerializationTests.ExceptionMessageProp.verified.txt
-
-
 ## TreatAsString
 
 Certain types, when passed directly in to Verify, are written directly without going through json serialization.
@@ -359,118 +286,13 @@ The value of a member can be mutated before serialization:
 snippet: MemberConverter
 
 
-## SortPropertiesAlphabetically
-
-Serialized properties can optionally be sorted alphabetically, ie ignoring the order they are defined when using reflection.
-
-snippet: SortProperties
-
-
-## Dictionary sorting
-
-Dictionaries are sorted by key.
-
-To disable use:
-
-snippet: DontSortDictionaries
-
-
-## Json/JObject sorting
-
-Json and JObject are not sorted.
-
-To enable sorting use:
-
-snippet: SortJsonObjects
-
-
-## Ordering IEnumerable items
-
-Items in an instance of an IEnumerable can be ordered.
-
-This is helpful when verifying items that can have an inconsistent order, for example reading items from a database.
-
-
-### OrderEnumerableBy
-
-
-#### Globally
-
-snippet: OrderEnumerableByGlobal
-
-
-#### Instance
-
-snippet: OrderEnumerableBy
-
-
-#### Fluent
-
-snippet: OrderEnumerableByFluent
-
-
-#### Result
-
-The resulting file will be:
-
-snippet: OrderTests.EnumerableOrder.verified.txt
-
-
-### OrderEnumerableByDescending
-
-
-#### Globally
-
-snippet: OrderEnumerableByDescendingGlobal
-
-
-#### Instance
-
-snippet: OrderEnumerableByDescending
-
-
-#### Fluent
-
-snippet: OrderEnumerableByDescendingFluent
-
-
-#### Result
-
-The resulting file will be:
-
-snippet: OrderTests.OrderEnumerableByDescending.verified.txt
-
-
-## JsonAppender
-
-A JsonAppender allows extra content (key value pairs) to be optionally appended to the output being verified. JsonAppenders can use the current context to determine what should be appended or if anything should be appended.
-
-Register a JsonAppender:
-
-snippet: RegisterJsonAppender
-
-When when content is verified:
-
-snippet: JsonAppender
-
-The content from RegisterJsonAppender will be included in the output:
-
-snippet: JsonAppenderTests.WithJsonAppender.verified.txt
-
-If the target is a stream or binary file:
-
-snippet: JsonAppenderStream
-
-Then the appended content will be added to the `.verified.txt` file:
-
-snippet: JsonAppenderTests.Stream#00.verified.txt
-
-See [Converters](/docs/converter.md) for more information on `*.00.verified.txt` files.
-
-Examples of extensions using JsonAppenders are [Recorders in Verify.SqlServer](https://github.com/VerifyTests/Verify.SqlServer#recording) and  [Recorders in Verify.EntityFramework](https://github.com/VerifyTests/Verify.EntityFramework#recording).
-
-
 ## See also
 
- * [Guid behavior](guids.md)
- * [Date behavior](dates.md)
+ * [Obsolete members](/docs/obsolete-members.md)
+ * [Guids](/docs/guids.md)
+ * [Dates](/docs/dates.md)
+ * [Scrubbing](/docs/scrubbers.md)
+ * [Members that throw](/docs/members-throw.md)
+ * [Ordering](/docs/ordering.md)
+ * [Encoding](/docs/encoding.md)
+ * [JsonAppender](/docs/jsonappender.md)

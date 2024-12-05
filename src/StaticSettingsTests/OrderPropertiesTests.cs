@@ -1,10 +1,10 @@
-﻿public class SortedPropertiesTests :
+﻿public class OrderPropertiesTests :
     BaseTest
 {
-    public SortedPropertiesTests() =>
+    public OrderPropertiesTests() =>
         VerifierSettings.SortPropertiesAlphabetically();
 
-    #region SortPropertiesUsage
+    #region OrderPropertiesUsage
 
     [Fact]
     public Task Alphabetically()
@@ -59,30 +59,29 @@
             .AddExtraSettings(
                 _ => _.TypeNameHandling = TypeNameHandling.All);
     }
-}
-
 #pragma warning disable CS8618
-public class Person
-{
-    public string? GivenNames;
-    public string FamilyName;
-    public string Spouse;
-    public Address Address;
-    public List<string> Children;
-    public Title Title;
-    public Guid Id;
-    public DateTimeOffset Dob;
-}
+    public class Person
+    {
+        public string? GivenNames;
+        public string FamilyName;
+        public string Spouse;
+        public Address Address;
+        public List<string> Children;
+        public Title Title;
+        public Guid Id;
+        public DateTimeOffset Dob;
+    }
 
-public class Address
-{
-    public string Street;
-    public string Suburb;
-    public string Country;
-}
+    public class Address
+    {
+        public string Street;
+        public string Suburb;
+        public string Country;
+    }
 
-public enum Title
-{
-    Mr,
-    Mrs
+    public enum Title
+    {
+        Mr,
+        Mrs
+    }
 }

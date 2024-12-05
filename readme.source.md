@@ -56,8 +56,8 @@ approach(s) selected is a personal preference.
 * [Via the clipboard](/docs/clipboard.md).
 * Manually making the change in the [launched diff tool](https://github.com/VerifyTests/DiffEngine#supported-tools).
   Either with a copy paste, or some tools have commands to automate this via a shortcut or a button.
-* Manually on the file system. By renaming the `.received.` file to `.verified.`. This can be automated via a scripted
-  to bulk accept all (by matching a pattern) `.received.` files.
+* Manually on the file system, by renaming the `.received.` file to `.verified.`. This can be automated via scripts
+  to bulk accept all `.received.` files by matching a pattern.
 * Using the dotnet tool [Verify.Terminal](https://github.com/VerifyTests/Verify.Terminal).
 
 
@@ -160,8 +160,8 @@ accept-->closeDiff
 discard-->closeDiff
 ```
 
-When the test is initially run will fail. If a [Diff Tool](https://github.com/VerifyTests/DiffEngine) is detected it
-will display the diff.
+When the test is initially run it will fail. If a [Diff Tool](https://github.com/VerifyTests/DiffEngine) is detected it
+will be used to display the diff.
 
 ![InitialDiff](/docs/InitialDiff.png)
 
@@ -211,7 +211,7 @@ If the implementation of `ClassBeingTested` changes:
 
 snippet: ClassBeingTestedChanged
 
-And the test is re run it will fail.
+And the test is re-run it will fail.
 
 
 #### The [Diff Tool](https://github.com/VerifyTests/DiffEngine) will display the diff:
@@ -335,11 +335,11 @@ Verify follows [Semantic Versioning](https://semver.org/). The same applies for 
 Small changes in the resulting snapshot files may be deployed in a minor version. As such nuget updates to `Verify.*`
 should be done as follows:
 
-* Updates all `Verify.*`packages in isolation
+* Update all `Verify.*`packages in isolation
 * Re-run all tests.
 * If there are changes, ensure they look correct given the release notes. If the changes do not look correct, raise an
   issue.
-* Accept those changes.
+* Accept the changes.
 
 Snapshot changes do not trigger a major version change to avoid
 causing [Diamond dependency](https://en.wikipedia.org/wiki/Dependency_hell#Problems) issues for downstream extensions.
@@ -400,6 +400,7 @@ information sources and warn about particular gotchas:
 
 ### Videos
 
+* [The Only Type of Testing U Need - Nick Chapsas (12 Nov 2024)](https://www.youtube.com/watch?v=JG4zt9CnIl4)
 * [Introduction to Snapshot testing and using Verify.Xunit - Betatalks (11 Oct 2023)](https://www.youtube.com/watch?v=RVmz3FZFIBU)
 * [The Way to Test Legacy Code in C# - Gui Ferreira (19 Sep 2023)](https://www.youtube.com/watch?v=UC-AUnuTh0I)
 * [Snapshot Testing in .NET with Verify - Dan Clarke (21 Jul 2022)](https://www.youtube.com/watch?v=wA7oJDyvn4c&t=1s)

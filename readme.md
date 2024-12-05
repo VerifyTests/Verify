@@ -63,8 +63,8 @@ approach(s) selected is a personal preference.
 * [Via the clipboard](/docs/clipboard.md).
 * Manually making the change in the [launched diff tool](https://github.com/VerifyTests/DiffEngine#supported-tools).
   Either with a copy paste, or some tools have commands to automate this via a shortcut or a button.
-* Manually on the file system. By renaming the `.received.` file to `.verified.`. This can be automated via a scripted
-  to bulk accept all (by matching a pattern) `.received.` files.
+* Manually on the file system, by renaming the `.received.` file to `.verified.`. This can be automated via scripts
+  to bulk accept all `.received.` files by matching a pattern.
 * Using the dotnet tool [Verify.Terminal](https://github.com/VerifyTests/Verify.Terminal).
 
 
@@ -388,8 +388,8 @@ accept-->closeDiff
 discard-->closeDiff
 ```
 
-When the test is initially run will fail. If a [Diff Tool](https://github.com/VerifyTests/DiffEngine) is detected it
-will display the diff.
+When the test is initially run it will fail. If a [Diff Tool](https://github.com/VerifyTests/DiffEngine) is detected it
+will be used to display the diff.
 
 ![InitialDiff](/docs/InitialDiff.png)
 
@@ -487,7 +487,7 @@ public static class ClassBeingTested
 <sup><a href='/src/TargetLibrary/ClassBeingTestedChanged.cs#L3-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-ClassBeingTestedChanged' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-And the test is re run it will fail.
+And the test is re-run it will fail.
 
 
 #### The [Diff Tool](https://github.com/VerifyTests/DiffEngine) will display the diff:
@@ -800,7 +800,7 @@ var result = await Verify(
     });
 Assert.Contains("Value To Check", result.Text);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L410-L419' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyResult' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L414-L423' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyResult' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If using `Verifier.Throws`, the resulting `Exception` will also be accessible
@@ -851,11 +851,11 @@ Verify follows [Semantic Versioning](https://semver.org/). The same applies for 
 Small changes in the resulting snapshot files may be deployed in a minor version. As such nuget updates to `Verify.*`
 should be done as follows:
 
-* Updates all `Verify.*`packages in isolation
+* Update all `Verify.*`packages in isolation
 * Re-run all tests.
 * If there are changes, ensure they look correct given the release notes. If the changes do not look correct, raise an
   issue.
-* Accept those changes.
+* Accept the changes.
 
 Snapshot changes do not trigger a major version change to avoid
 causing [Diamond dependency](https://en.wikipedia.org/wiki/Dependency_hell#Problems) issues for downstream extensions.
@@ -916,6 +916,7 @@ information sources and warn about particular gotchas:
 
 ### Videos
 
+* [The Only Type of Testing U Need - Nick Chapsas (12 Nov 2024)](https://www.youtube.com/watch?v=JG4zt9CnIl4)
 * [Introduction to Snapshot testing and using Verify.Xunit - Betatalks (11 Oct 2023)](https://www.youtube.com/watch?v=RVmz3FZFIBU)
 * [The Way to Test Legacy Code in C# - Gui Ferreira (19 Sep 2023)](https://www.youtube.com/watch?v=UC-AUnuTh0I)
 * [Snapshot Testing in .NET with Verify - Dan Clarke (21 Jul 2022)](https://www.youtube.com/watch?v=wA7oJDyvn4c&t=1s)
@@ -992,14 +993,19 @@ information sources and warn about particular gotchas:
   * [VerifyFile](/docs/verify-file.md)
   * [VerifyXml](/docs/verify-xml.md)
   * [Serializer Settings](/docs/serializer-settings.md)
-  * [Guid behavior](/docs/guids.md)
-  * [Date behavior](/docs/dates.md)
+    * [Obsolete members](/docs/obsolete-members.md)
+    * [Guids](/docs/guids.md)
+    * [Dates](/docs/dates.md)
+    * [Scrubbing](/docs/scrubbers.md)
+    * [Members that throw](/docs/members-throw.md)
+    * [Ordering](/docs/ordering.md)
+    * [Encoding](/docs/encoding.md)
+    * [JsonAppender](/docs/jsonappender.md)
   * [File naming](/docs/naming.md)
   * [AppendFile](/docs/append-file.md)
   * [Parameterised tests](/docs/parameterised.md)
   * [Combinations](/docs/combinations.md)
   * [Named Tuples](/docs/named-tuples.md)
-  * [Scrubbers](/docs/scrubbers.md)
   * [Diff Engine](https://github.com/VerifyTests/DiffEngine)
   * [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.md)
   * [Diff Tool Order](https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.order.md)

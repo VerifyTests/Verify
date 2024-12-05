@@ -5,8 +5,8 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- begin-snippet: fixie-nugets -->
-    <PackageReference Include="Fixie" Version="4.0.0" />
-    <PackageReference Include="Verify.Fixie" Version="28.1.3" />
+    <PackageReference Include="Fixie" Version="4.1.0" />
+    <PackageReference Include="Verify.Fixie" Version="28.4.0" />
     <!-- end-snippet -->
   </ItemGroup>
 </Project>

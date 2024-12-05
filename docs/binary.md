@@ -39,7 +39,7 @@ public Task FileStream() =>
 
 ## DiffTool
 
-A [Diff Tool](diff-tool.md) will only be displayed if one can be found that supports the defined extension.
+A [Diff Tool](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md) will only be displayed if one can be found that supports the defined extension.
 
 For example if Beyond Compare is detected the following will be displayed:
 

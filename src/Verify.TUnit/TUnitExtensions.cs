@@ -4,51 +4,34 @@ static class TUnitExtensions
     {
         var methodParameterNames = details.MethodInfo.ParameterNames();
 
-        var names = GetConstructorParameterNames(details.ClassType, details.TestClassArguments.Length)
-            .ToList();
+        var constructorParameterNames = GetConstructorParameterNames(details);
         if (methodParameterNames == null)
         {
-            if (names.Count == 0)
+            if (constructorParameterNames.Count == 0)
             {
                 return null;
             }
 
-            return names;
+            return constructorParameterNames;
         }
 
-        if (names.Count == 0 &&
-             methodParameterNames.Count == 0)
+        if (constructorParameterNames.Count == 0 &&
+            methodParameterNames.Count == 0)
         {
             return null;
         }
 
-        return [.. names, .. methodParameterNames];
+        return [.. constructorParameterNames, .. methodParameterNames];
     }
 
-    public static IEnumerable<string> GetConstructorParameterNames(this Type type, int argumentsLength)
+    static List<string> GetConstructorParameterNames(TestDetails details)
     {
-        IEnumerable<string>? names = null;
-        foreach (var constructor in type.GetConstructors(BindingFlags.Instance | BindingFlags.Public))
+        var constructors = details.ClassType.GetConstructors(BindingFlags.Instance | BindingFlags.Public);
+        if (constructors.Length <= 1)
         {
-            var parameters = constructor.GetParameters();
-            if (parameters.Length != argumentsLength)
-            {
-                continue;
-            }
-
-            if (names != null)
-            {
-                throw new($"Found multiple constructors with {argumentsLength} parameters. Unable to derive names of parameters. Instead use UseParameters to pass in explicit parameter.");
-            }
-
-            names = parameters.Select(_ => _.Name!);
+            return constructors[0].GetParameters().Select(_ => _.Name!).ToList();
         }
 
-        if (names == null)
-        {
-            throw new($"Could not find constructor with {argumentsLength} parameters.");
-        }
-
-        return names;
+        throw new("Found multiple constructors. Unable to derive names of parameters. Instead use UseParameters to pass in explicit parameter.");
     }
 }

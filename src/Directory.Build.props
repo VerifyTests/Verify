@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <PropertyGroup>
-    <NoWarn>CS1591;CS0649;xUnit1026;xUnit1013;CS1573;VerifyTestsProjectDir;VerifySetParameters;PolyFillTargetsForNuget</NoWarn>
-    <Version>28.2.1</Version>
+    <NoWarn>CA1822;CS1591;CS0649;xUnit1026;xUnit1013;CS1573;VerifyTestsProjectDir;VerifySetParameters;PolyFillTargetsForNuget</NoWarn>
+    <Version>28.4.0</Version>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>preview</LangVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>
@@ -14,6 +14,8 @@
     <NuGetAuditLevel>low</NuGetAuditLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <PolyGuard>true</PolyGuard>
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
   <ItemGroup>
     <Using Include="System.Diagnostics.CodeAnalysis" />

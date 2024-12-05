@@ -305,7 +305,7 @@ public Task ScopedSerializerFluent()
         .AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3876-L3903' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScopedSerializer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3892-L3919' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScopedSerializer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -983,7 +983,7 @@ public Task IgnoreMemberByNameFluent()
         .IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3341-L3394' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMemberByName' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3357-L3410' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMemberByName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -1078,7 +1078,7 @@ public Task ScrubMemberByNameFluent()
         .ScrubMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3396-L3449' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMemberByName' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3412-L3465' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMemberByName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -1116,6 +1116,212 @@ Result:
 }
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ScrubMemberByName.verified.txt#L1-L8' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.ScrubMemberByName.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## Ignore member by predicate
+
+To ignore members of a certain type using a predicate function:
+
+<!-- snippet: IgnoreMemberByPredicate -->
+<a id='snippet-IgnoreMemberByPredicate'></a>
+```cs
+[Fact]
+public Task IgnoreMemberByPredicate()
+{
+    var target = new IgnoreExplicitTarget
+    {
+        Include = "Value",
+        Field = "Value",
+        Property = "Value",
+        PropertyByName = "Value"
+    };
+    var settings = new VerifySettings();
+
+    settings.IgnoreMembers(name => name is "Field" or "Property");
+    settings.IgnoreMembers(member => member.Name is "PropertyByName" or "PropertyThatThrows");
+
+    return Verify(target, settings);
+}
+
+[Fact]
+public Task IgnoreMemberByPredicateFluent()
+{
+    var target = new IgnoreExplicitTarget
+    {
+        Include = "Value",
+        Field = "Value",
+        Property = "Value",
+        PropertyByName = "Value"
+    };
+    var settings = new VerifySettings();
+
+    return Verify(target, settings)
+        .IgnoreMembers(name => name is "Field" or "Property")
+        .IgnoreMembers(member => member.Name is "PropertyByName" or "PropertyThatThrows");
+}
+
+[Fact]
+public Task IgnoreDictionaryByPredicate()
+{
+    var settings = new VerifySettings();
+
+    settings.IgnoreMembers(name => name is "Ignore");
+
+    var target = new Dictionary<string, object>
+    {
+        {
+            "Include", new Dictionary<string, string>
+            {
+                {
+                    "Ignore", "Value1"
+                },
+                {
+                    "Key1", "Value2"
+                }
+            }
+        },
+        {
+            "Ignore", "Value3"
+        },
+        {
+            "Key2", "Value4"
+        }
+    };
+    return Verify(target, settings);
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3537-L3603' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMemberByPredicate' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Or globally:
+
+<!-- snippet: IgnoreMemberByPredicateGlobal -->
+<a id='snippet-IgnoreMemberByPredicateGlobal'></a>
+```cs
+VerifierSettings.IgnoreMembers(
+    _=>_.DeclaringType == typeof(TargetClass) &&
+       _.Name == "Proprty");
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3347-L3353' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMemberByPredicateGlobal' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Result:
+
+<!-- snippet: SerializationTests.IgnoreMemberByPredicate.verified.txt -->
+<a id='snippet-SerializationTests.IgnoreMemberByPredicate.verified.txt'></a>
+```txt
+{
+  Include: Value,
+  GetOnlyProperty: asd
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.IgnoreMemberByPredicate.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.IgnoreMemberByPredicate.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## Scrub member by predicate
+
+To scrub members of a certain type using a predicate function:
+
+<!-- snippet: ScrubMemberByPredicate -->
+<a id='snippet-ScrubMemberByPredicate'></a>
+```cs
+[Fact]
+public Task ScrubMemberByPredicate()
+{
+    var target = new IgnoreExplicitTarget
+    {
+        Include = "Value",
+        Field = "Value",
+        Property = "Value",
+        PropertyByName = "Value"
+    };
+    var settings = new VerifySettings();
+
+    settings.ScrubMembers(name => name is "Field" or "Property");
+    settings.ScrubMembers(member => member.Name is "PropertyByName" or "PropertyThatThrows");
+
+    return Verify(target, settings);
+}
+
+[Fact]
+public Task ScrubMemberByPredicateFluent()
+{
+    var target = new IgnoreExplicitTarget
+    {
+        Include = "Value",
+        Field = "Value",
+        Property = "Value",
+        PropertyByName = "Value"
+    };
+    var settings = new VerifySettings();
+
+    return Verify(target, settings)
+        .ScrubMembers(name => name is "Field" or "Property")
+        .ScrubMembers(member => member.Name is "PropertyByName" or "PropertyThatThrows");
+}
+
+[Fact]
+public Task ScrubDictionaryByPredicate()
+{
+    var settings = new VerifySettings();
+
+    settings.ScrubMembers(name => name is "Ignore");
+
+    var target = new Dictionary<string, object>
+    {
+        {
+            "Include", new Dictionary<string, string>
+            {
+                {
+                    "Ignore", "Value1"
+                },
+                {
+                    "Key1", "Value2"
+                }
+            }
+        },
+        {
+            "Ignore", "Value3"
+        },
+        {
+            "Key2", "Value4"
+        }
+    };
+    return Verify(target, settings);
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3467-L3535' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMemberByPredicate' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Or globally:
+
+<!-- snippet: ScrubMemberByPredicateGlobal -->
+<a id='snippet-ScrubMemberByPredicateGlobal'></a>
+```cs
+VerifierSettings.ScrubMembers(
+    _=>_.DeclaringType == typeof(TargetClass) &&
+       _.Name == "Proprty");
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3340-L3346' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMemberByPredicateGlobal' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Result:
+
+<!-- snippet: SerializationTests.ScrubMemberByPredicate.verified.txt -->
+<a id='snippet-SerializationTests.ScrubMemberByPredicate.verified.txt'></a>
+```txt
+{
+  Include: Value,
+  Field: {Scrubbed},
+  Property: {Scrubbed},
+  PropertyByName: {Scrubbed},
+  GetOnlyProperty: asd,
+  PropertyThatThrows: {Scrubbed}
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ScrubMemberByPredicate.verified.txt#L1-L8' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.ScrubMemberByPredicate.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

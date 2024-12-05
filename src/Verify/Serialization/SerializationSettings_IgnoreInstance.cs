@@ -8,11 +8,7 @@
         var type = typeof(T);
         IgnoreInstance(
             type,
-            target =>
-            {
-                var arg = (T) target;
-                return shouldIgnore(arg);
-            });
+            _ => shouldIgnore((T) _));
     }
 
     public void IgnoreInstance(Type type, ShouldIgnore shouldIgnore)
@@ -39,11 +35,7 @@
         var type = typeof(T);
         ScrubInstance(
             type,
-            target =>
-            {
-                var arg = (T) target;
-                return shouldScrub(arg);
-            });
+            _ => shouldScrub((T) _));
     }
 
     public void ScrubInstance(Type type, ShouldScrub shouldScrub)

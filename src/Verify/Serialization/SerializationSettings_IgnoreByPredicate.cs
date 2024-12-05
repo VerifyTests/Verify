@@ -6,25 +6,25 @@
     public void IgnoreMembers(Func<MemberInfo, bool> predicate)
     {
         Guard.NotNull(predicate);
-        ignoredMemberPredicatesByMember.Add(member => predicate(member) ? ScrubOrIgnore.Ignore : null);
+        ignoredMemberPredicatesByMember.Add(_ => predicate(_) ? ScrubOrIgnore.Ignore : null);
     }
 
     public void IgnoreMembers(Func<string, bool> predicate)
     {
         Guard.NotNull(predicate);
-        ignoredMemberPredicatesByString.Add(member => predicate(member) ? ScrubOrIgnore.Ignore : null);
+        ignoredMemberPredicatesByString.Add(_ => predicate(_) ? ScrubOrIgnore.Ignore : null);
     }
 
     public void ScrubMembers(Func<MemberInfo, bool> predicate)
     {
         Guard.NotNull(predicate);
-        ignoredMemberPredicatesByMember.Add(member => predicate(member) ? ScrubOrIgnore.Scrub : null);
+        ignoredMemberPredicatesByMember.Add(_ => predicate(_) ? ScrubOrIgnore.Scrub : null);
     }
 
     public void ScrubMembers(Func<string, bool> predicate)
     {
         Guard.NotNull(predicate);
-        ignoredMemberPredicatesByString.Add(member => predicate(member) ? ScrubOrIgnore.Scrub : null);
+        ignoredMemberPredicatesByString.Add(_ => predicate(_) ? ScrubOrIgnore.Scrub : null);
     }
 
     internal bool TryGetScrubOrIgnorePredicateByName(string name, MemberInfo? memberInfo, [NotNullWhen(true)] out ScrubOrIgnore? scrubOrIgnore)

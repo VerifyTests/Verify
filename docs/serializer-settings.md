@@ -1138,8 +1138,8 @@ public Task IgnoreMemberByPredicate()
     };
     var settings = new VerifySettings();
 
-    settings.IgnoreMembers(name => name is "Field" or "Property");
-    settings.IgnoreMembers(member => member.Name is "PropertyByName" or "PropertyThatThrows");
+    settings.IgnoreMembers(_ => _ is "Field" or "Property");
+    settings.IgnoreMembers(_ => _.Name is "PropertyByName" or "PropertyThatThrows");
 
     return Verify(target, settings);
 }
@@ -1157,8 +1157,8 @@ public Task IgnoreMemberByPredicateFluent()
     var settings = new VerifySettings();
 
     return Verify(target, settings)
-        .IgnoreMembers(name => name is "Field" or "Property")
-        .IgnoreMembers(member => member.Name is "PropertyByName" or "PropertyThatThrows");
+        .IgnoreMembers(_ => _ is "Field" or "Property")
+        .IgnoreMembers(_ => _.Name is "PropertyByName" or "PropertyThatThrows");
 }
 
 [Fact]
@@ -1239,8 +1239,8 @@ public Task ScrubMemberByPredicate()
     };
     var settings = new VerifySettings();
 
-    settings.ScrubMembers(name => name is "Field" or "Property");
-    settings.ScrubMembers(member => member.Name is "PropertyByName" or "PropertyThatThrows");
+    settings.ScrubMembers(_ => _ is "Field" or "Property");
+    settings.ScrubMembers(_ => _.Name is "PropertyByName" or "PropertyThatThrows");
 
     return Verify(target, settings);
 }
@@ -1449,7 +1449,7 @@ public static void MemberConverterByExpressionInit()
     // using only the member
     VerifierSettings.MemberConverter<MemberTarget, string>(
         expression: _ => _.Field,
-        converter: member => $"{member}_Suffix");
+        converter: _ => $"{_}_Suffix");
 
     // using target and member
     VerifierSettings.MemberConverter<MemberTarget, string>(

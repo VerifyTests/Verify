@@ -3336,8 +3336,24 @@ public class SerializationTests
         VerifierSettings.ScrubMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
 
         #endregion
+
+        #region ScrubMemberByPredicateGlobal
+
+        VerifierSettings.ScrubMembers(
+            _=>_.DeclaringType == typeof(TargetClass) &&
+               _.Name == "Proprty");
+
+        #endregion
+        #region IgnoreMemberByPredicateGlobal
+
+        VerifierSettings.IgnoreMembers(
+            _=>_.DeclaringType == typeof(TargetClass) &&
+               _.Name == "Proprty");
+
+        #endregion
     }
 
+    class TargetClass;
     #region IgnoreMemberByName
 
     [Fact]

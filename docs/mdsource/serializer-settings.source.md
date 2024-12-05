@@ -264,6 +264,36 @@ Result:
 snippet: SerializationTests.ScrubMemberByName.verified.txt
 
 
+## Ignore member by predicate
+
+To ignore members of a certain type using a predicate function:
+
+snippet: IgnoreMemberByPredicate
+
+Or globally:
+
+snippet: IgnoreMemberByPredicateGlobal
+
+Result:
+
+snippet: SerializationTests.IgnoreMemberByPredicate.verified.txt
+
+
+## Scrub member by predicate
+
+To scrub members of a certain type using a predicate function:
+
+snippet: ScrubMemberByPredicate
+
+Or globally:
+
+snippet: ScrubMemberByPredicateGlobal
+
+Result:
+
+snippet: SerializationTests.ScrubMemberByPredicate.verified.txt
+
+
 ## TreatAsString
 
 Certain types, when passed directly in to Verify, are written directly without going through json serialization.

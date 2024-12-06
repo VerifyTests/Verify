@@ -84,27 +84,6 @@ public static partial class Verifier
             [.. parent.Arguments, .. adapter.Arguments]);
     }
 
-    static object?[] GetParameters(TestAdapter adapter, IReadOnlyList<string>? methodParameterNames)
-    {
-        if (!adapter.TryGetParent(out var parent))
-        {
-            return adapter.Arguments;
-        }
-
-        var argumentsLength = parent.Arguments.Length;
-        if (argumentsLength == 0)
-        {
-            return adapter.Arguments;
-        }
-
-        if (methodParameterNames == null)
-        {
-            return parent.Arguments;
-        }
-
-        return [.. parent.Arguments, .. adapter.Arguments];
-    }
-
     static SettingsTask Verify(
         VerifySettings? settings,
         string sourceFile,

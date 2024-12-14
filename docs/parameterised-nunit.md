@@ -90,6 +90,42 @@ Produces:
  * `TestFixtureSourceUsage.Test_arg1=Value2_arg2=2.verified.txt`
 
 
+### Unknown parameter types
+
+For unknown types the parameter information cannot be derived. In these scenarios `ToString()` is used. To use custom text for a parameter use `NameForParameter()`.<!-- singleLineInclude: name-for-parameters. path: /docs/mdsource/name-for-parameters.include.md -->
+
+<!-- snippet: NameForParametersNunit -->
+<a id='snippet-NameForParametersNunit'></a>
+```cs
+public class ComplexParametersSample
+{
+    [ModuleInitializer]
+    public static void Initialize() =>
+        VerifierSettings.NameForParameter<ComplexData>(_ => _.Value);
+
+    [TestCaseSource(nameof(GetData))]
+    public Task ComplexTestCaseSource(ComplexData arg) =>
+        Verify(arg);
+
+    public static IEnumerable<object[]> GetData()
+    {
+        yield return
+        [
+            new ComplexData("Value1")
+        ];
+        yield return
+        [
+            new ComplexData("Value2")
+        ];
+    }
+
+    public record ComplexData(string Value);
+}
+```
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ComplexParametersSample.cs#L1-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-NameForParametersNunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ## Overriding text used for parameters
 
 `UseTextForParameters()` can be used to override the substitution text used for the `{Parameters}` part of the file convention.<!-- include: override-parameters-text. path: /docs/mdsource/override-parameters-text.include.md -->

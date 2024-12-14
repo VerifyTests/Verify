@@ -96,12 +96,12 @@ public static IEnumerable<object[]> GetData()
 <!-- endSnippet -->
 
 
-### Complex MemberData
+### Unknown parameter types
 
-xUnit only exposes parameter information for certain types. For unknown types the information cannot be retrieved from the xUnit context, and instead the text for the parameter value needs to be explicitly specified. This is done by calling `NameForParameter()`.
+For unknown types the parameter information cannot be derived. In these scenarios `ToString()` is used. To use custom text for a parameter use `NameForParameter()`.<!-- singleLineInclude: name-for-parameters. path: /docs/mdsource/name-for-parameters.include.md -->
 
-<!-- snippet: xunitV3ComplexMemberData -->
-<a id='snippet-xunitV3ComplexMemberData'></a>
+<!-- snippet: NameForParametersXunitV3 -->
+<a id='snippet-NameForParametersXunitV3'></a>
 ```cs
 public class ComplexParametersSample
 {
@@ -113,7 +113,7 @@ public class ComplexParametersSample
     }
 
     [Theory]
-    [MemberData(nameof(GetComplexMemberData))]
+    [MemberData(nameof(GetData))]
     public Task ComplexMemberData(ComplexData arg)
     {
         var settings = new VerifySettings();
@@ -122,13 +122,13 @@ public class ComplexParametersSample
     }
 
     [Theory]
-    [MemberData(nameof(GetComplexMemberData))]
+    [MemberData(nameof(GetData))]
     public Task ComplexMemberDataFluent(ComplexData arg) =>
         Verify(arg)
             .UseParameters(arg);
 
     [Theory]
-    [MemberData(nameof(GetComplexMemberData))]
+    [MemberData(nameof(GetData))]
     public Task ComplexMemberNullableData(ComplexData arg)
     {
         var settings = new VerifySettings();
@@ -137,12 +137,12 @@ public class ComplexParametersSample
     }
 
     [Theory]
-    [MemberData(nameof(GetComplexMemberData))]
+    [MemberData(nameof(GetData))]
     public Task ComplexMemberNullableDataFluent(ComplexData arg) =>
         Verify(arg)
             .UseParameters(arg);
 
-    public static IEnumerable<object[]> GetComplexMemberData()
+    public static IEnumerable<object[]> GetData()
     {
         yield return
         [
@@ -157,7 +157,7 @@ public class ComplexParametersSample
     public record ComplexData(string Value);
 
     [Theory]
-    [MemberData(nameof(GetComplexMemberStructData))]
+    [MemberData(nameof(GetStructData))]
     public Task ComplexMemberStructData(ComplexStructData arg)
     {
         var settings = new VerifySettings();
@@ -166,13 +166,13 @@ public class ComplexParametersSample
     }
 
     [Theory]
-    [MemberData(nameof(GetComplexMemberStructData))]
+    [MemberData(nameof(GetStructData))]
     public Task ComplexMemberStructDataFluent(ComplexStructData arg) =>
         Verify(arg)
             .UseParameters(arg);
 
     [Theory]
-    [MemberData(nameof(GetComplexMemberStructData))]
+    [MemberData(nameof(GetStructData))]
     public Task ComplexMemberNullableStructData(ComplexStructData arg)
     {
         var settings = new VerifySettings();
@@ -181,12 +181,12 @@ public class ComplexParametersSample
     }
 
     [Theory]
-    [MemberData(nameof(GetComplexMemberStructData))]
+    [MemberData(nameof(GetStructData))]
     public Task ComplexMemberNullableStructDataFluent(ComplexStructData arg) =>
         Verify(arg)
             .UseParameters(arg);
 
-    public static IEnumerable<object[]> GetComplexMemberStructData()
+    public static IEnumerable<object[]> GetStructData()
     {
         yield return [new ComplexStructData("Value1")];
         yield return [new ComplexStructData("Value2")];
@@ -195,10 +195,8 @@ public class ComplexParametersSample
     public record ComplexStructData(string Value);
 }
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ComplexParametersSample.cs#L1-L95' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitV3ComplexMemberData' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ComplexParametersSample.cs#L1-L95' title='Snippet source file'>snippet source</a> | <a href='#snippet-NameForParametersXunitV3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
-
-`VerifierSettings.NameForParameter()` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
 
 
 ## Overriding text used for parameters

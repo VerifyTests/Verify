@@ -1,4 +1,4 @@
-﻿#region ComplexMemberDataXunit
+﻿#region NameForParametersXunit
 
 public class ComplexParametersSample
 {
@@ -10,7 +10,7 @@ public class ComplexParametersSample
     }
 
     [Theory]
-    [MemberData(nameof(GetComplexMemberData))]
+    [MemberData(nameof(GetData))]
     public Task ComplexMemberData(ComplexData arg)
     {
         var settings = new VerifySettings();
@@ -19,13 +19,13 @@ public class ComplexParametersSample
     }
 
     [Theory]
-    [MemberData(nameof(GetComplexMemberData))]
+    [MemberData(nameof(GetData))]
     public Task ComplexMemberDataFluent(ComplexData arg) =>
         Verify(arg)
             .UseParameters(arg);
 
     [Theory]
-    [MemberData(nameof(GetComplexMemberData))]
+    [MemberData(nameof(GetData))]
     public Task ComplexMemberNullableData(ComplexData arg)
     {
         var settings = new VerifySettings();
@@ -34,12 +34,12 @@ public class ComplexParametersSample
     }
 
     [Theory]
-    [MemberData(nameof(GetComplexMemberData))]
+    [MemberData(nameof(GetData))]
     public Task ComplexMemberNullableDataFluent(ComplexData arg) =>
         Verify(arg)
             .UseParameters(arg);
 
-    public static IEnumerable<object[]> GetComplexMemberData()
+    public static IEnumerable<object[]> GetData()
     {
         yield return
         [
@@ -54,7 +54,7 @@ public class ComplexParametersSample
     public record ComplexData(string Value);
 
     [Theory]
-    [MemberData(nameof(GetComplexMemberStructData))]
+    [MemberData(nameof(GetStructData))]
     public Task ComplexMemberStructData(ComplexStructData arg)
     {
         var settings = new VerifySettings();
@@ -63,13 +63,13 @@ public class ComplexParametersSample
     }
 
     [Theory]
-    [MemberData(nameof(GetComplexMemberStructData))]
+    [MemberData(nameof(GetStructData))]
     public Task ComplexMemberStructDataFluent(ComplexStructData arg) =>
         Verify(arg)
             .UseParameters(arg);
 
     [Theory]
-    [MemberData(nameof(GetComplexMemberStructData))]
+    [MemberData(nameof(GetStructData))]
     public Task ComplexMemberNullableStructData(ComplexStructData arg)
     {
         var settings = new VerifySettings();
@@ -78,12 +78,12 @@ public class ComplexParametersSample
     }
 
     [Theory]
-    [MemberData(nameof(GetComplexMemberStructData))]
+    [MemberData(nameof(GetStructData))]
     public Task ComplexMemberNullableStructDataFluent(ComplexStructData arg) =>
         Verify(arg)
             .UseParameters(arg);
 
-    public static IEnumerable<object[]> GetComplexMemberStructData()
+    public static IEnumerable<object[]> GetStructData()
     {
         yield return [new ComplexStructData("Value1")];
         yield return [new ComplexStructData("Value2")];

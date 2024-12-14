@@ -31,13 +31,11 @@ snippet: InlineDataXunitV3
 snippet: MemberDataXunitV3
 
 
-### Complex MemberData
+### Unknown parameter types
 
-xUnit only exposes parameter information for certain types. For unknown types the information cannot be retrieved from the xUnit context, and instead the text for the parameter value needs to be explicitly specified. This is done by calling `NameForParameter()`.
+include: name-for-parameters
 
-snippet: xunitV3ComplexMemberData
-
-`VerifierSettings.NameForParameter()` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
+snippet: NameForParametersXunitV3
 
 
 ## Overriding text used for parameters

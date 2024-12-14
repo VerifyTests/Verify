@@ -329,7 +329,7 @@ Combination serialization can be customized using a Converter.
 
 Inherit from `CombinationResultsConverter` and override the desired members.
 
-The below sample override `BuildPropertyName` to customize the property name. It bypasses the default implementation and hence does not pad columns or use VerifierSettings.GetNameForParameter for key conversion.
+The below sample override `BuildPropertyName` to customize the property name. It bypasses the default implementation and hence does not pad columns or use `VerifierSettings.GetNameForParameter` for key conversion.
 
 <!-- snippet: CombinationSample_CustomSerializationConverter -->
 <a id='snippet-CombinationSample_CustomSerializationConverter'></a>

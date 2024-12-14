@@ -41,23 +41,21 @@ Given the following MemberData
 snippet: MemberDataGetDataXunit
 
 
-#### Instance 
+#### Instance
 
 snippet: MemberDataInstanceXunit
 
 
-#### Fluent 
+#### Fluent
 
 snippet: MemberDataFluentXunit
 
 
-### Complex MemberData
+### Unknown parameter types
 
-xUnit only exposes parameter information for certain types. For unknown types the information cannot be retrieved from the xUnit context, and instead the text for the parameter value needs to be explicitly specified. This is done by calling `NameForParameter()`.
+include: name-for-parameters
 
-snippet: ComplexMemberDataXunit
-
-`VerifierSettings.NameForParameter()` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
+snippet: NameForParametersXunit
 
 
 ## Overriding text used for parameters

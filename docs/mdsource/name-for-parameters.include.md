@@ -1,0 +1,1 @@
+For unknown types the parameter information cannot be derived. In these scenarios `ToString()` is used. To use custom text for a parameter use `NameForParameter()`.

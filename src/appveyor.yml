@@ -41,9 +41,8 @@ build_script:
       dotnet test src/Verify.Tests --configuration Release --no-build --no-restore --verbosity quiet
       dotnet test src/Verify.Xunit.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity quiet
       dotnet test src/Verify.Xunit.Tests --configuration Release --no-build --no-restore --verbosity quiet
-      #TODO: re enable when updating XunitV3
-      #dotnet test src/Verify.XunitV3.Tests --configuration Release --no-build --no-restore --verbosity quiet
-      #dotnet test src/Verify.XunitV3.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity quiet
+      dotnet test src/Verify.XunitV3.Tests --configuration Release --no-build --no-restore --verbosity quiet
+      dotnet test src/Verify.XunitV3.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity quiet
       dotnet test src/Verify.TUnit.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity quiet
       dotnet test src/Verify.TUnit.Tests --configuration Release --no-build --no-restore --verbosity quiet
       if ($isWindows) {

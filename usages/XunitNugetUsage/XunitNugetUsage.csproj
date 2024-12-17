@@ -6,9 +6,9 @@
   <ItemGroup>
     <!-- begin-snippet: xunit-nugets -->
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
-    <PackageReference Include="Verify.Xunit" Version="28.5.0" />
+    <PackageReference Include="Verify.Xunit" Version="28.6.0" />
     <PackageReference Include="xunit" Version="2.9.2" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.0-pre.49" PrivateAssets="all" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.0" PrivateAssets="all" />
     <!-- end-snippet -->
   </ItemGroup>
 </Project>

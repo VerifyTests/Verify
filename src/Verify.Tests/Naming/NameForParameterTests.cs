@@ -16,7 +16,7 @@
     public Task Int() =>
         Verify(VerifierSettings.GetNameForParameter(10));
 
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
     [Fact]
     public Task Half() =>
         Verify(VerifierSettings.GetNameForParameter((Half) 10));

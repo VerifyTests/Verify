@@ -23,7 +23,7 @@
             return string.Empty;
         }
 
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
         return '.' + string.Join('.', inner);
 #else
         return '.' + string.Join(".", inner);

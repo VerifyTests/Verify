@@ -72,7 +72,7 @@ public partial class SettingsTask
         return this;
     }
 
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
 
     /// <summary>
     /// Replace inline <see cref="Date" />s with a placeholder.

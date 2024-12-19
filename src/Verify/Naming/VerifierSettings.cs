@@ -30,7 +30,7 @@ public static partial class VerifierSettings
         {
             typeof(decimal), _ => ((decimal) _).ToString(Culture.InvariantCulture)
         },
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
         {
             typeof(Half), _ => ((Half) _).ToString(Culture.InvariantCulture)
         },

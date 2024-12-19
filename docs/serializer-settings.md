@@ -1367,7 +1367,7 @@ The default mapping is:
 {
     typeof(BigInteger), (target, _) => ((BigInteger) target).ToString(Culture.InvariantCulture)
 },
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
 {
     typeof(Half), (target, _) => ((Half) target).ToString(Culture.InvariantCulture)
 },

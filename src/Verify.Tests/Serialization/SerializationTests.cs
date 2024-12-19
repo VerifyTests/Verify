@@ -58,7 +58,7 @@ public class SerializationTests
 
     #endregion
 
-#if NET5_0_OR_GREATER || net48
+#if NET6_0_OR_GREATER || net48
     [Fact]
     public Task ValueTasks()
     {
@@ -1425,7 +1425,7 @@ public class SerializationTests
             .ScrubInlineDateTimes("f");
     }
 
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
 
     [Fact]
     public async Task ScrubInlineDateTimesInValidFormat()
@@ -1893,7 +1893,7 @@ public class SerializationTests
         return Verify(target);
     }
 
-#if !NET5_0_OR_GREATER
+#if !NET6_0_OR_GREATER
     [Fact]
     public Task ScrubCodeBaseLocation()
     {

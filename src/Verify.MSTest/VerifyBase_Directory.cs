@@ -3,7 +3,7 @@ namespace VerifyMSTest;
 partial class VerifyBase
 {
 #pragma warning disable CA1822 // Mark members as static
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
 
     /// <summary>
     /// Verifies the contents of <paramref name="path" />.

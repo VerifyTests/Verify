@@ -2,7 +2,7 @@
 
 public partial class VerifyBase
 {
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
 
     /// <summary>
     /// Verifies the contents of <paramref name="path" />.

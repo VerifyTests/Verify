@@ -23,7 +23,7 @@ static class ApplyScrubbers
         replacements[currentDir] = "{CurrentDirectory}";
         replacements[altCurrentDir + IoHelpers.AltDirectorySeparator] = "{CurrentDirectory}";
         replacements[altCurrentDir] = "{CurrentDirectory}";
-#if !NET5_0_OR_GREATER
+#if !NET6_0_OR_GREATER
         if (CodeBaseLocation.CurrentDirectory is not null)
         {
             var codeBaseLocation = CleanPath(CodeBaseLocation.CurrentDirectory);

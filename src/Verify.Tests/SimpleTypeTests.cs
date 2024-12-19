@@ -1,6 +1,6 @@
 ﻿public class SimpleTypeTests
 {
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
     [Theory]
     [MemberData(nameof(GetData))]
     public Task Run(object arg)
@@ -39,7 +39,7 @@
     public Task NullWrappedInTask() =>
         Verify(Task.FromResult<int?>(null!));
 
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
     [Fact]
     public Task DateTimeWrappedInTask() =>
         Verify(Task.FromResult(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)));

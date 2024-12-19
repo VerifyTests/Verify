@@ -2,7 +2,7 @@
 
 partial class InnerVerifier
 {
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
 
     public async Task<VerifyResult> VerifyDirectory(
         string path,

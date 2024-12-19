@@ -119,6 +119,21 @@ public class Tests
         Assert.True(onVerifyMismatchCalled2);
     }
 
+    [Fact]
+    public async Task OnCallbacksTest()
+    {
+        var onVerifyBeforeCalled = false;
+        var onVerifyAfterCalled = false;
+        var settings = new VerifySettings();
+        settings.OnVerify(
+            before: () => onVerifyBeforeCalled = true,
+            after: () => onVerifyAfterCalled = true);
+
+        await Verify("value", settings);
+        Assert.True(onVerifyBeforeCalled);
+        Assert.True(onVerifyAfterCalled);
+    }
+
     #region OnInstanceHandlers
 
     [Fact]

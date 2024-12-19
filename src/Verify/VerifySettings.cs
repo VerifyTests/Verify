@@ -42,6 +42,9 @@ public partial class VerifySettings
         hashParameters = settings.hashParameters;
         parametersText = settings.parametersText;
         fileName = settings.fileName;
+        handleOnFirstVerify = settings.handleOnFirstVerify;
+        handleOnVerifyDelete = settings.handleOnVerifyDelete;
+        handleOnVerifyMismatch = settings.handleOnVerifyMismatch;
         UniquePrefixDisabled = settings.UniquePrefixDisabled;
         UseUniqueDirectorySplitMode = settings.UseUniqueDirectorySplitMode;
         Namer = new(settings.Namer);

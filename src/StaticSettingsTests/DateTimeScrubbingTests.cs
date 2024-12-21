@@ -14,6 +14,8 @@ public class DateTimeScrubbingTests :
     [Fact]
     public Task Test_Long()
     {
+        CultureInfo.CurrentCulture = new CultureInfo("en-US");
+
         var settings = new VerifySettings();
         settings.ScrubInlineDateTimes("G");
 

@@ -7,8 +7,6 @@
 
 Verify.MSTest automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.
 
-snippet: UseParametersMSTest
-
 If not all parameters are required, a subset can be passed in. In this scenario, the parameters passed in will match with the method parameter names from the start. For example the following will result in a file named `ParametersSample.UseParametersSubSet_arg1=Value1_arg2=Value2.verified.txt`
 
 snippet: UseParametersSubSetMSTest
@@ -24,7 +22,6 @@ snippet: DataRowInstanceMSTest
 ## Overriding text used for parameters
 
 include: override-parameters-text
-
 
 snippet: UseTextForParametersMSTest
 

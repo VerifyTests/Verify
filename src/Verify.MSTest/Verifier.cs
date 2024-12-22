@@ -37,8 +37,6 @@ public static partial class Verifier
         var type = context.TestClass;
         var method = context.Method;
 
-        var parameterNames = method.ParameterNames();
-
         if (!settings.HasParameters)
         {
             var data = context.TestContext.TestData;
@@ -55,7 +53,7 @@ public static partial class Verifier
             settings,
             type.NameWithParent(),
             method.Name,
-            parameterNames,
+            method.ParameterNames(),
             pathInfo);
     }
 

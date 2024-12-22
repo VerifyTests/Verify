@@ -5,9 +5,7 @@
 
 `UseParameters()` controls what parameters are used when naming files.
 
-Verify.MSTest does not detect the parametrised arguments, as such `UseParameters()` is required.
-
-snippet: UseParametersMSTest
+Verify.MSTest automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.
 
 If not all parameters are required, a subset can be passed in. In this scenario, the parameters passed in will match with the method parameter names from the start. For example the following will result in a file named `ParametersSample.UseParametersSubSet_arg1=Value1_arg2=Value2.verified.txt`
 
@@ -18,21 +16,12 @@ If the number of parameters passed to `UseParameters()` is greater than the numb
 
 ### DataRow
 
-
-#### Instance
-
 snippet: DataRowInstanceMSTest
-
-
-#### Fluent
-
-snippet: DataRowFluentMSTest
 
 
 ## Overriding text used for parameters
 
 include: override-parameters-text
-
 
 snippet: UseTextForParametersMSTest
 

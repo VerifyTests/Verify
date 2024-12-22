@@ -16,23 +16,8 @@ public partial class ParametersSample
     [DataTestMethod]
     [DataRow("Value1")]
     [DataRow("Value2")]
-    public Task DataRowUsage(string arg)
-    {
-        var settings = new VerifySettings();
-        settings.UseParameters(arg);
-        return Verify(arg, settings);
-    }
-
-    #endregion
-
-    #region DataRowFluentMSTest
-
-    [DataTestMethod]
-    [DataRow("Value1")]
-    [DataRow("Value2")]
-    public Task DataRowUsageFluent(string arg) =>
-        Verify(arg)
-            .UseParameters(arg);
+    public Task DataRowUsage(string arg) =>
+        Verify(arg);
 
     #endregion
 
@@ -94,7 +79,6 @@ public partial class ParametersSample
     public Task IgnoreParameters(string arg)
     {
         var settings = new VerifySettings();
-        settings.UseParameters(arg);
         settings.IgnoreParameters(nameof(arg));
         return Verify("value", settings);
     }
@@ -108,7 +92,6 @@ public partial class ParametersSample
     [DataRow("Two")]
     public Task IgnoreParametersFluent(string arg) =>
         Verify("value")
-            .UseParameters(arg)
             .IgnoreParameters(nameof(arg));
 
     #endregion
@@ -124,20 +107,6 @@ public partial class ParametersSample
         settings.UseParameters($"Number{arg}");
         settings.IgnoreParameters(nameof(arg));
         return Verify("value", settings);
-    }
-
-    #endregion
-
-    #region UseParametersMSTest
-
-    [DataTestMethod]
-    [DataRow("Value1")]
-    [DataRow("Value2")]
-    public Task UseParametersUsage(string arg)
-    {
-        var somethingToVerify = $"{arg} some text";
-        return Verify(somethingToVerify)
-            .UseParameters(arg);
     }
 
     #endregion

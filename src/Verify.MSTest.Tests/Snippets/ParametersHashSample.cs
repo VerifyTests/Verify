@@ -9,7 +9,6 @@ public partial class ParametersHashSample
     public Task HashParametersUsage(string arg)
     {
         var settings = new VerifySettings();
-        settings.UseParameters(arg);
         settings.HashParameters();
         return Verify(arg, settings);
     }
@@ -19,7 +18,6 @@ public partial class ParametersHashSample
     [DataRow("Value2")]
     public Task HashParametersUsageFluent(string arg) =>
         Verify(arg)
-            .UseParameters(arg)
             .HashParameters();
 }
 

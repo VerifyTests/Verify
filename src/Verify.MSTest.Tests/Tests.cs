@@ -22,11 +22,6 @@ public partial class Tests
 
     [DataTestMethod]
     [DataRow("Value1")]
-    public Task MissingParameter(string arg) =>
-        Verify("Foo");
-
-    [DataTestMethod]
-    [DataRow("Value1")]
     public Task UseFileNameWithParam(string arg) =>
         Verify(arg)
             .UseFileName("UseFileNameWithParam");

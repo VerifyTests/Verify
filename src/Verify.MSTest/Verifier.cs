@@ -37,6 +37,15 @@ public static partial class Verifier
         var type = context.TestClass;
         var method = context.Method;
 
+        if (!settings.HasParameters)
+        {
+            var data = context.TestContext.TestData;
+            if (data != null)
+            {
+                settings.SetParameters(data);
+            }
+        }
+
         VerifierSettings.AssignTargetAssembly(assembly);
         var pathInfo = GetPathInfo(sourceFile, type, method);
         return new(

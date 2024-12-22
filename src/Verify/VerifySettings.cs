@@ -46,6 +46,8 @@ public partial class VerifySettings
         handleOnVerifyDelete = settings.handleOnVerifyDelete;
         handleOnVerifyMismatch = settings.handleOnVerifyMismatch;
         UniquePrefixDisabled = settings.UniquePrefixDisabled;
+        beforeVerify = settings.beforeVerify;
+        afterVerify = settings.afterVerify;
         UseUniqueDirectorySplitMode = settings.UseUniqueDirectorySplitMode;
         Namer = new(settings.Namer);
 #if NET6_0_OR_GREATER

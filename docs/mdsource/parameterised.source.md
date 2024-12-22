@@ -12,6 +12,5 @@ Parameterised test usage differs based on the test framework used.
  * [Xunit V3](parameterised-xunitv3.md)
  * [MSTest](parameterised-mstest.md)
  * [TUnit](parameterised-tunit.md)
- * [MSTest](parameterised-mstest.md)
  * [Fixie](parameterised-fixie.md)
  * [Expecto](parameterised-expecto.md)

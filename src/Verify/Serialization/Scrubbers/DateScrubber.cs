@@ -182,6 +182,26 @@ static partial class DateScrubber
         var longest = Length(cultureDate.Long);
 
         var builderIndex = 0;
+        if (shortest == longest)
+        {
+            for (var index = 0; index <= value.Length-longest; index++)
+            {
+                var slice = value.Slice(index, longest);
+                if (tryConvertDate(slice, format, counter, culture, out var convert))
+                {
+                    builder.Overwrite(convert, builderIndex, longest);
+                    builderIndex += convert.Length;
+                    index += longest - 1;
+                }
+                else
+                {
+                    builderIndex++;
+                }
+            }
+
+            return;
+        }
+
         for (var index = 0; index <= value.Length; index++)
         {
             var found = false;

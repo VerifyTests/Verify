@@ -17,6 +17,12 @@ static partial class DateScrubber
         Culture culture,
         [NotNullWhen(true)] out string? result)
     {
+        if (span.ContainsNewline())
+        {
+            result = null;
+            return false;
+        }
+
         if (Date.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
         {
             result = SerializationSettings.Convert(counter, date);
@@ -80,6 +86,12 @@ static partial class DateScrubber
         Culture culture,
         [NotNullWhen(true)] out string? result)
     {
+        if (span.ContainsNewline())
+        {
+            result = null;
+            return false;
+        }
+
         if (DateTimeOffsetPolyfill.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
         {
             result = SerializationSettings.Convert(counter, date);
@@ -110,6 +122,12 @@ static partial class DateScrubber
         Culture culture,
         [NotNullWhen(true)] out string? result)
     {
+        if (span.ContainsNewline())
+        {
+            result = null;
+            return false;
+        }
+
         if (DateTimePolyfill.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
         {
             result = SerializationSettings.Convert(counter, date);
@@ -176,8 +194,7 @@ static partial class DateScrubber
                 }
 
                 var slice = value.Slice(index, length);
-                if (!slice.ContainsNewline() &&
-                    tryConvertDate(slice, format, counter, culture, out var convert))
+                if (tryConvertDate(slice, format, counter, culture, out var convert))
                 {
                     builder.Overwrite(convert, builderIndex, length);
                     builderIndex += convert.Length;

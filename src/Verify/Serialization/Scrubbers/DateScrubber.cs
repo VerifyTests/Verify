@@ -8,6 +8,21 @@ static partial class DateScrubber
         Culture culture,
         [NotNullWhen(true)] out string? result);
 
+    static IReadOnlyDictionary<string, string> expands = new Dictionary<string, string>
+    {
+        {"d","MM/dd/yyyy"},
+        {"D","dddd, dd MMMM yyyy"},
+        {"g","MM/dd/yyyy HH:mm"},
+        {"G","MM/dd/yyyy HH:mm:ss"},
+        {"O","yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK"},
+        {"r","ddd, dd MMM yyyy HH':'mm':'ss 'GMT'"},
+        {"R","ddd, dd MMM yyyy HH':'mm':'ss 'GMT'"},
+        {"u","yyyy'-'MM'-'dd'T'HH':'mm':'ss"},
+        {"s","yyyy'-'MM'-'dd HH':'mm':'ss'Z'"},
+        {"F","dddd, dd MMMM yyyy HH:mm:ss"},
+        {"U","dddd, dd MMMM yyyy HH:mm:ss"},
+    }.ToFrozenDictionary();
+
 #if NET6_0_OR_GREATER
 
     static bool TryConvertDate(

@@ -352,4 +352,16 @@ public class DateScrubberTests
     [Fact]
     public Task NamedDateTimeOffsetTopLevelGlobal() =>
         Verify(new DateTimeOffset(2020, 10, 1, 10, 15, 30, TimeSpan.Zero));
+
+
+    [Fact]
+    public Task Test_Long()
+    {
+        CultureInfo.CurrentCulture = new("en-US");
+
+        var settings = new VerifySettings();
+        settings.ScrubInlineDateTimes("G");
+
+        return Verify("12/11/2024 10:36:43 AM", settings);
+    }
 }

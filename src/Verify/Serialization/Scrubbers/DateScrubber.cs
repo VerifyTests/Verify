@@ -1,7 +1,12 @@
 ﻿// ReSharper disable ReturnValueOfPureMethodIsNotUsed
 static partial class DateScrubber
 {
-    delegate bool TryConvert(CharSpan span, string format, Counter counter, Culture culture, [NotNullWhen(true)] out string? result);
+    delegate bool TryConvert(
+        CharSpan span,
+        string format,
+        Counter counter,
+        Culture culture,
+        [NotNullWhen(true)] out string? result);
 
 #if NET6_0_OR_GREATER
 
@@ -99,7 +104,8 @@ static partial class DateScrubber
             TryConvertDateTimeOffset);
 
     static bool TryConvertDateTime(
-        CharSpan span, [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        CharSpan span,
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
         Counter counter,
         Culture culture,
         [NotNullWhen(true)] out string? result)

@@ -1,6 +1,21 @@
 ﻿// ReSharper disable ReturnValueOfPureMethodIsNotUsed
 static partial class DateScrubber
 {
+
+    static IReadOnlyDictionary<string, string> expands = new Dictionary<string, string>
+        {
+            {"d","MM/dd/yyyy"},
+            {"D","dddd, dd MMMM yyyy"},
+            {"g","MM/dd/yyyy HH:mm"},
+            {"G","MM/dd/yyyy HH:mm:ss"},
+            {"O","yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK"},
+            {"r","ddd, dd MMM yyyy HH':'mm':'ss 'GMT'"},
+            {"R","ddd, dd MMM yyyy HH':'mm':'ss 'GMT'"},
+            {"u","yyyy'-'MM'-'dd'T'HH':'mm':'ss"},
+            {"s","yyyy'-'MM'-'dd HH':'mm':'ss'Z'"},
+            {"F","dddd, dd MMMM yyyy HH:mm:ss"},
+            {"U","dddd, dd MMMM yyyy HH:mm:ss"},
+        }.ToFrozenDictionary();
     delegate bool TryConvert(CharSpan span, string format, Counter counter, Culture culture, [NotNullWhen(true)] out string? result);
 
 #if NET6_0_OR_GREATER

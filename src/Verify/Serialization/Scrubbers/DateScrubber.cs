@@ -8,26 +8,56 @@ static partial class DateScrubber
         Culture culture,
         [NotNullWhen(true)] out string? result);
 
-    // static IReadOnlyDictionary<string, string> expands = new Dictionary<string, string>
-    // {
-    //     {"d", "MM/dd/yyyy"},
-    //     {"D", "dddd, dd MMMM yyyy"},
-    //     {"g", "MM/dd/yyyy HH:mm"},
-    //     {"G", "MM/dd/yyyy HH:mm:ss"},
-    //     {"O", "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK"},
-    //     {"r", "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'"},
-    //     {"R", "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'"},
-    //     {"u", "yyyy'-'MM'-'dd'T'HH':'mm':'ss"},
-    //     {"s", "yyyy'-'MM'-'dd HH':'mm':'ss'Z'"},
-    //     {"F", "dddd, dd MMMM yyyy HH:mm:ss"},
-    //     {"U", "dddd, dd MMMM yyyy HH:mm:ss"},
-    // }.ToFrozenDictionary();
+    static ConcurrentDictionary<string, int?> fixedLength =
+        new(
+            new Dictionary<string, int?>
+            {
+                // MM/dd/yyyy
+                {"d", 10},
+                // dddd, dd MMMM yyyy
+                {"D", null},
+                //MM/dd/yyyy HH:mm
+                {"g", 16},
+                //MM/dd/yyyy HH:mm:ss tt
+                {"G", null},
+                //yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK
+                {"O", 28},
+                //ddd, dd MMM yyyy HH':'mm':'ss 'GMT'
+                {"r", null},
+                //ddd, dd MMM yyyy HH':'mm':'ss 'GMT'
+                {"R", null},
+                //yyyy'-'MM'-'dd'T'HH':'mm':'ss
+                {"u", 19},
+                //yyyy'-'MM'-'dd HH':'mm':'ss'Z'
+                {"s", 20},
+                //dddd, dd MMMM yyyy HH:mm:ss
+                {"F", null},
+                //dddd, dd MMMM yyyy HH:mm:ss
+                {"U", null},
+            });
+
+    static int? GetFixedLength(string format) =>
+        fixedLength.GetOrAdd(
+            format,
+            _ =>
+            {
+                if (format.Contains("MMMM") ||
+                    format.Contains("MMM") ||
+                    format.Contains("dddd") ||
+                    format.Contains("ddd"))
+                {
+                    return null;
+                }
+
+                return format.Replace("'", "").Length;
+            });
 
 #if NET6_0_OR_GREATER
 
     static bool TryConvertDate(
         CharSpan span,
-        [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)] string format,
+        [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)]
+        string format,
         Counter counter,
         Culture culture,
         [NotNullWhen(true)] out string? result)
@@ -49,7 +79,8 @@ static partial class DateScrubber
     }
 
     public static Action<StringBuilder, Counter> BuildDateScrubber(
-        [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)] string format,
+        [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)]
+        string format,
         Culture? culture)
     {
         try
@@ -66,7 +97,8 @@ static partial class DateScrubber
 
     public static void ReplaceDates(
         StringBuilder builder,
-        [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)] string format,
+        [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)]
+        string format,
         Counter counter,
         Culture culture) =>
         ReplaceInner(
@@ -79,7 +111,8 @@ static partial class DateScrubber
 #endif
 
     public static Action<StringBuilder, Counter> BuildDateTimeOffsetScrubber(
-        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)]
+        string format,
         Culture? culture)
     {
         try
@@ -96,7 +129,8 @@ static partial class DateScrubber
 
     static bool TryConvertDateTimeOffset(
         CharSpan span,
-        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)]
+        string format,
         Counter counter,
         Culture culture,
         [NotNullWhen(true)] out string? result)
@@ -119,7 +153,8 @@ static partial class DateScrubber
 
     public static void ReplaceDateTimeOffsets(
         StringBuilder builder,
-        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)]
+        string format,
         Counter counter,
         Culture culture) =>
         ReplaceInner(
@@ -132,7 +167,8 @@ static partial class DateScrubber
 
     static bool TryConvertDateTime(
         CharSpan span,
-        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)]
+        string format,
         Counter counter,
         Culture culture,
         [NotNullWhen(true)] out string? result)
@@ -178,17 +214,13 @@ static partial class DateScrubber
 
     static void ReplaceInner(StringBuilder builder, string format, Counter counter, Culture culture, Func<DateTime, IFormattable> toDate, TryConvert tryConvertDate)
     {
-        int Length(DateTime dateTime)
+        var length = GetFixedLength(format);
+
+        if (length != null)
         {
-            var date = toDate(dateTime);
-            try
-            {
-                return date.ToString(format, culture).Length;
-            }
-            catch (Exception exception)
-            {
-                throw new($"Failed to get length for {date.GetType()} {date.ToString()} using format '{format}' and culture {culture}.", exception);
-            }
+            ReplaceFixedLength(builder, format, counter, culture, tryConvertDate, length.Value);
+
+            return;
         }
 
         var cultureDate = GetCultureDates(culture);
@@ -200,28 +232,33 @@ static partial class DateScrubber
 
         var longest = Length(cultureDate.Long);
 
-        var value = builder.AsSpan();
-        var builderIndex = 0;
         if (shortest == longest)
         {
-            for (var index = 0; index <= value.Length - longest; index++)
-            {
-                var slice = value.Slice(index, longest);
-                if (tryConvertDate(slice, format, counter, culture, out var convert))
-                {
-                    builder.Overwrite(convert, builderIndex, longest);
-                    builderIndex += convert.Length;
-                    index += longest - 1;
-                }
-                else
-                {
-                    builderIndex++;
-                }
-            }
+            ReplaceFixedLength(builder, format, counter, culture, tryConvertDate, longest);
 
             return;
         }
 
+        ReplaceVariableLength(builder, format, counter, culture, tryConvertDate, longest, shortest);
+
+        int Length(DateTime dateTime)
+        {
+            var date = toDate(dateTime);
+            try
+            {
+                return date.ToString(format, culture).Length;
+            }
+            catch (Exception exception)
+            {
+                throw new($"Failed to get length for {date.GetType()} {date} using format '{format}' and culture {culture}.", exception);
+            }
+        }
+    }
+
+    static void ReplaceVariableLength(StringBuilder builder, string format, Counter counter, Culture culture, TryConvert tryConvertDate, int longest, int shortest)
+    {
+        var value = builder.AsSpan();
+        var builderIndex = 0;
         for (var index = 0; index <= value.Length; index++)
         {
             var found = false;
@@ -250,6 +287,28 @@ static partial class DateScrubber
             }
 
             builderIndex++;
+        }
+    }
+
+    static void ReplaceFixedLength(StringBuilder builder, string format, Counter counter, Culture culture, TryConvert tryConvertDate, int length)
+    {
+        var value = builder.AsSpan();
+        var builderIndex = 0;
+        var increment = length - 1;
+        for (var index = 0; index <= value.Length - length; index++)
+        {
+            var slice = value.Slice(index, length);
+            var s = slice.ToString();
+            if (tryConvertDate(slice, format, counter, culture, out var convert))
+            {
+                builder.Overwrite(convert, builderIndex, length);
+                builderIndex += convert.Length;
+                index += increment;
+            }
+            else
+            {
+                builderIndex++;
+            }
         }
     }
 

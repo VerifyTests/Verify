@@ -9,7 +9,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                3)
         },
         {
             "aa",
@@ -17,7 +19,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "af",
@@ -25,6 +29,8 @@ static partial class DateScrubber
                 new(2023, 2, 23, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 3,
+                3,
+                9,
                 3)
         },
         {
@@ -33,7 +39,9 @@ static partial class DateScrubber
                 new(2023, 9, 23, 12, 10, 10, 10),
                 new(2023, 5, 4, 1, 0, 0),
                 3,
-                3)
+                3,
+                23,
+                10)
         },
         {
             "ak",
@@ -41,7 +49,9 @@ static partial class DateScrubber
                 new(2023, 5, 20, 12, 10, 10, 10),
                 new(2023, 9, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                26,
+                10)
         },
         {
             "am",
@@ -49,7 +59,9 @@ static partial class DateScrubber
                 new(2023, 9, 26, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 4,
-                3)
+                3,
+                6,
+                2)
         },
         {
             "ar",
@@ -57,7 +69,9 @@ static partial class DateScrubber
                 new(2023, 2, 21, 12, 10, 10, 10),
                 new(2023, 3, 4, 1, 0, 0),
                 1,
-                1)
+                1,
+                6,
+                4)
         },
         {
             "ar-DZ",
@@ -65,7 +79,9 @@ static partial class DateScrubber
                 new(2023, 7, 25, 12, 10, 10, 10),
                 new(2023, 5, 6, 1, 0, 0),
                 1,
-                1)
+                1,
+                6,
+                3)
         },
         {
             "ar-IQ",
@@ -73,7 +89,9 @@ static partial class DateScrubber
                 new(2023, 1, 24, 12, 10, 10, 10),
                 new(2023, 8, 5, 1, 0, 0),
                 1,
-                1)
+                1,
+                12,
+                2)
         },
         {
             "ar-JO",
@@ -81,7 +99,9 @@ static partial class DateScrubber
                 new(2023, 1, 24, 12, 10, 10, 10),
                 new(2023, 8, 5, 1, 0, 0),
                 1,
-                1)
+                1,
+                12,
+                2)
         },
         {
             "ar-LB",
@@ -89,7 +109,9 @@ static partial class DateScrubber
                 new(2023, 1, 24, 12, 10, 10, 10),
                 new(2023, 8, 5, 1, 0, 0),
                 1,
-                1)
+                1,
+                12,
+                2)
         },
         {
             "ar-MA",
@@ -97,7 +119,9 @@ static partial class DateScrubber
                 new(2023, 2, 21, 12, 10, 10, 10),
                 new(2023, 5, 6, 1, 0, 0),
                 1,
-                1)
+                1,
+                6,
+                3)
         },
         {
             "ar-PS",
@@ -105,7 +129,9 @@ static partial class DateScrubber
                 new(2023, 1, 24, 12, 10, 10, 10),
                 new(2023, 8, 5, 1, 0, 0),
                 1,
-                1)
+                1,
+                12,
+                2)
         },
         {
             "ar-SA",
@@ -113,7 +139,9 @@ static partial class DateScrubber
                 new(2023, 11, 21, 12, 10, 10, 10),
                 new(2023, 2, 4, 1, 0, 0),
                 1,
-                1)
+                1,
+                12,
+                3)
         },
         {
             "ar-SY",
@@ -121,7 +149,9 @@ static partial class DateScrubber
                 new(2023, 1, 24, 12, 10, 10, 10),
                 new(2023, 8, 5, 1, 0, 0),
                 1,
-                1)
+                1,
+                12,
+                2)
         },
         {
             "ar-TN",
@@ -129,7 +159,9 @@ static partial class DateScrubber
                 new(2023, 7, 25, 12, 10, 10, 10),
                 new(2023, 5, 6, 1, 0, 0),
                 1,
-                1)
+                1,
+                6,
+                3)
         },
         {
             "arn",
@@ -137,7 +169,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "as",
@@ -145,7 +179,9 @@ static partial class DateScrubber
                 new(2023, 2, 23, 1, 10, 10, 10),
                 new(2023, 5, 1, 13, 0, 0),
                 9,
-                7)
+                7,
+                10,
+                3)
         },
         {
             "asa",
@@ -153,7 +189,9 @@ static partial class DateScrubber
                 new(2023, 2, 20, 1, 10, 10, 10),
                 new(2023, 5, 5, 13, 0, 0),
                 9,
-                8)
+                8,
+                8,
+                3)
         },
         {
             "ast",
@@ -161,7 +199,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 1, 10, 10, 10),
                 new(2023, 5, 1, 13, 0, 0),
                 12,
-                11)
+                11,
+                9,
+                4)
         },
         {
             "az",
@@ -169,7 +209,9 @@ static partial class DateScrubber
                 new(2023, 9, 26, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 2,
-                2)
+                2,
+                8,
+                3)
         },
         {
             "ba",
@@ -177,7 +219,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "bas",
@@ -185,7 +229,9 @@ static partial class DateScrubber
                 new(2023, 12, 25, 1, 10, 10, 10),
                 new(2023, 4, 4, 13, 0, 0),
                 10,
-                9)
+                9,
+                13,
+                5)
         },
         {
             "be",
@@ -193,7 +239,9 @@ static partial class DateScrubber
                 new(2023, 10, 23, 12, 10, 10, 10),
                 new(2023, 5, 3, 1, 0, 0),
                 2,
-                2)
+                2,
+                10,
+                3)
         },
         {
             "bem",
@@ -201,7 +249,9 @@ static partial class DateScrubber
                 new(2023, 2, 25, 1, 10, 10, 10),
                 new(2023, 5, 1, 13, 0, 0),
                 8,
-                7)
+                7,
+                8,
+                3)
         },
         {
             "bez",
@@ -209,7 +259,9 @@ static partial class DateScrubber
                 new(2023, 12, 23, 12, 10, 10, 10),
                 new(2023, 6, 1, 1, 0, 0),
                 7,
-                7)
+                7,
+                27,
+                18)
         },
         {
             "bg",
@@ -217,7 +269,9 @@ static partial class DateScrubber
                 new(2023, 9, 25, 12, 10, 10, 10),
                 new(2023, 5, 3, 1, 0, 0),
                 6,
-                6)
+                6,
+                9,
+                3)
         },
         {
             "bgc",
@@ -225,7 +279,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 5, 7, 1, 0, 0),
                 4,
-                4)
+                4,
+                7,
+                2)
         },
         {
             "bho",
@@ -233,7 +289,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 5, 6, 1, 0, 0),
                 4,
-                3)
+                3,
+                7,
+                2)
         },
         {
             "bin",
@@ -241,7 +299,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "bm",
@@ -249,6 +309,8 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 2,
+                2,
+                9,
                 2)
         },
         {
@@ -257,6 +319,8 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
+                2,
+                11,
                 2)
         },
         {
@@ -265,7 +329,9 @@ static partial class DateScrubber
                 new(2023, 11, 21, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 8,
-                7)
+                7,
+                16,
+                10)
         },
         {
             "br",
@@ -273,7 +339,9 @@ static partial class DateScrubber
                 new(2023, 2, 22, 12, 10, 10, 10),
                 new(2023, 11, 5, 1, 0, 0),
                 4,
-                4)
+                4,
+                9,
+                2)
         },
         {
             "brx",
@@ -281,7 +349,9 @@ static partial class DateScrubber
                 new(2023, 2, 23, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 6,
-                3)
+                3,
+                10,
+                2)
         },
         {
             "bs",
@@ -289,7 +359,9 @@ static partial class DateScrubber
                 new(2023, 9, 25, 1, 10, 10, 10),
                 new(2023, 5, 5, 13, 0, 0),
                 10,
-                7)
+                7,
+                9,
+                3)
         },
         {
             "bs-Cyrl",
@@ -297,7 +369,9 @@ static partial class DateScrubber
                 new(2023, 9, 25, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 13,
-                11)
+                11,
+                9,
+                3)
         },
         {
             "byn",
@@ -305,7 +379,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "ca",
@@ -313,7 +389,9 @@ static partial class DateScrubber
                 new(2023, 9, 22, 12, 10, 10, 10),
                 new(2023, 3, 2, 1, 0, 0),
                 5,
-                5)
+                5,
+                8,
+                4)
         },
         {
             "ccp",
@@ -321,7 +399,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                24,
+                4)
         },
         {
             "ce",
@@ -329,7 +409,9 @@ static partial class DateScrubber
                 new(2023, 9, 22, 12, 10, 10, 10),
                 new(2023, 5, 4, 1, 0, 0),
                 2,
-                2)
+                2,
+                8,
+                3)
         },
         {
             "ceb",
@@ -337,7 +419,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                4)
         },
         {
             "cgg",
@@ -345,7 +429,9 @@ static partial class DateScrubber
                 new(2023, 11, 20, 12, 10, 10, 10),
                 new(2023, 4, 2, 1, 0, 0),
                 2,
-                2)
+                2,
+                18,
+                8)
         },
         {
             "chr",
@@ -353,6 +439,8 @@ static partial class DateScrubber
                 new(2023, 1, 21, 12, 10, 10, 10),
                 new(2023, 2, 1, 1, 0, 0),
                 6,
+                3,
+                5,
                 3)
         },
         {
@@ -361,6 +449,8 @@ static partial class DateScrubber
                 new(2023, 1, 25, 12, 10, 10, 10),
                 new(2023, 8, 4, 1, 0, 0),
                 3,
+                3,
+                13,
                 3)
         },
         {
@@ -369,7 +459,9 @@ static partial class DateScrubber
                 new(2023, 10, 25, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 3,
-                3)
+                3,
+                9,
+                5)
         },
         {
             "co",
@@ -377,7 +469,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "cs",
@@ -385,6 +479,8 @@ static partial class DateScrubber
                 new(2023, 7, 20, 12, 10, 10, 10),
                 new(2023, 2, 3, 1, 0, 0),
                 4,
+                4,
+                8,
                 4)
         },
         {
@@ -393,7 +489,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "cv",
@@ -401,6 +499,8 @@ static partial class DateScrubber
                 new(2023, 1, 22, 12, 10, 10, 10),
                 new(2023, 5, 3, 1, 0, 0),
                 2,
+                2,
+                6,
                 2)
         },
         {
@@ -409,7 +509,9 @@ static partial class DateScrubber
                 new(2023, 7, 26, 12, 10, 10, 10),
                 new(2023, 5, 4, 1, 0, 0),
                 2,
-                2)
+                2,
+                10,
+                3)
         },
         {
             "da",
@@ -417,7 +519,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                3)
         },
         {
             "dav",
@@ -425,7 +529,9 @@ static partial class DateScrubber
                 new(2023, 11, 20, 12, 10, 10, 10),
                 new(2023, 2, 4, 1, 0, 0),
                 10,
-                10)
+                10,
+                25,
+                14)
         },
         {
             "de",
@@ -433,7 +539,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                3)
         },
         {
             "dje",
@@ -441,7 +549,9 @@ static partial class DateScrubber
                 new(2023, 2, 21, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 10,
-                8)
+                8,
+                9,
+                2)
         },
         {
             "doi",
@@ -449,7 +559,9 @@ static partial class DateScrubber
                 new(2023, 10, 20, 12, 10, 10, 10),
                 new(2023, 5, 7, 1, 0, 0),
                 9,
-                4)
+                4,
+                7,
+                3)
         },
         {
             "dsb",
@@ -457,7 +569,9 @@ static partial class DateScrubber
                 new(2023, 9, 25, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 10,
-                9)
+                9,
+                9,
+                3)
         },
         {
             "dua",
@@ -465,7 +579,9 @@ static partial class DateScrubber
                 new(2023, 7, 22, 12, 10, 10, 10),
                 new(2023, 3, 5, 1, 0, 0),
                 6,
-                5)
+                5,
+                12,
+                4)
         },
         {
             "dv",
@@ -473,7 +589,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "dyo",
@@ -481,6 +599,8 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 8, 6, 1, 0, 0),
                 2,
+                2,
+                9,
                 2)
         },
         {
@@ -489,7 +609,9 @@ static partial class DateScrubber
                 new(2023, 11, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 6,
-                5)
+                5,
+                19,
+                12)
         },
         {
             "ebu",
@@ -497,7 +619,9 @@ static partial class DateScrubber
                 new(2023, 12, 23, 12, 10, 10, 10),
                 new(2023, 4, 2, 1, 0, 0),
                 2,
-                2)
+                2,
+                23,
+                13)
         },
         {
             "ee",
@@ -505,7 +629,9 @@ static partial class DateScrubber
                 new(2023, 11, 25, 12, 10, 10, 10),
                 new(2023, 5, 3, 1, 0, 0),
                 5,
-                3)
+                3,
+                11,
+                4)
         },
         {
             "el",
@@ -513,7 +639,9 @@ static partial class DateScrubber
                 new(2023, 2, 24, 12, 10, 10, 10),
                 new(2023, 5, 2, 1, 0, 0),
                 4,
-                4)
+                4,
+                11,
+                5)
         },
         {
             "en",
@@ -521,7 +649,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                3)
         },
         {
             "eo",
@@ -529,7 +659,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 3,
-                3)
+                3,
+                9,
+                4)
         },
         {
             "es",
@@ -537,7 +669,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 5,
-                5)
+                5,
+                10,
+                4)
         },
         {
             "et",
@@ -545,7 +679,9 @@ static partial class DateScrubber
                 new(2023, 2, 20, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                3)
         },
         {
             "eu",
@@ -553,7 +689,9 @@ static partial class DateScrubber
                 new(2023, 1, 23, 12, 10, 10, 10),
                 new(2023, 10, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                5)
         },
         {
             "ewo",
@@ -561,7 +699,9 @@ static partial class DateScrubber
                 new(2023, 11, 21, 12, 10, 10, 10),
                 new(2023, 1, 6, 1, 0, 0),
                 9,
-                7)
+                7,
+                17,
+                8)
         },
         {
             "fa",
@@ -569,7 +709,9 @@ static partial class DateScrubber
                 new(2023, 4, 26, 1, 10, 10, 10),
                 new(2023, 1, 6, 13, 0, 0),
                 9,
-                8)
+                8,
+                8,
+                2)
         },
         {
             "ff",
@@ -577,7 +719,9 @@ static partial class DateScrubber
                 new(2023, 10, 21, 12, 10, 10, 10),
                 new(2023, 8, 6, 1, 0, 0),
                 7,
-                6)
+                6,
+                8,
+                4)
         },
         {
             "ff-Adlm",
@@ -585,7 +729,9 @@ static partial class DateScrubber
                 new(2023, 3, 23, 12, 10, 10, 10),
                 new(2023, 8, 4, 1, 0, 0),
                 4,
-                4)
+                4,
+                12,
+                8)
         },
         {
             "fi",
@@ -593,7 +739,9 @@ static partial class DateScrubber
                 new(2023, 3, 22, 12, 10, 10, 10),
                 new(2023, 8, 1, 1, 0, 0),
                 3,
-                3)
+                3,
+                9,
+                6)
         },
         {
             "fil",
@@ -601,7 +749,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                4)
         },
         {
             "fo",
@@ -609,7 +759,9 @@ static partial class DateScrubber
                 new(2023, 9, 22, 12, 10, 10, 10),
                 new(2023, 5, 2, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                3)
         },
         {
             "fr",
@@ -617,7 +769,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                3)
         },
         {
             "fr-CM",
@@ -625,7 +779,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 1, 10, 10, 10),
                 new(2023, 5, 1, 13, 0, 0),
                 5,
-                4)
+                4,
+                9,
+                3)
         },
         {
             "fur",
@@ -633,7 +789,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                8,
+                3)
         },
         {
             "fy",
@@ -641,7 +799,9 @@ static partial class DateScrubber
                 new(2023, 1, 26, 12, 10, 10, 10),
                 new(2023, 6, 2, 1, 0, 0),
                 2,
-                2)
+                2,
+                10,
+                4)
         },
         {
             "ga",
@@ -649,6 +809,8 @@ static partial class DateScrubber
                 new(2023, 10, 22, 12, 10, 10, 10),
                 new(2023, 7, 3, 1, 0, 0),
                 4,
+                4,
+                16,
                 4)
         },
         {
@@ -657,7 +819,9 @@ static partial class DateScrubber
                 new(2023, 1, 21, 12, 10, 10, 10),
                 new(2023, 3, 6, 1, 0, 0),
                 1,
-                1)
+                1,
+                13,
+                7)
         },
         {
             "gl",
@@ -665,6 +829,8 @@ static partial class DateScrubber
                 new(2023, 2, 22, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 4,
+                4,
+                8,
                 4)
         },
         {
@@ -673,7 +839,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 5, 4, 1, 0, 0),
                 2,
-                2)
+                2,
+                11,
+                6)
         },
         {
             "gsw",
@@ -681,7 +849,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 1, 10, 10, 10),
                 new(2023, 5, 1, 13, 0, 0),
                 12,
-                11)
+                11,
+                9,
+                3)
         },
         {
             "gu",
@@ -689,6 +859,8 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
+                2,
+                9,
                 2)
         },
         {
@@ -697,6 +869,8 @@ static partial class DateScrubber
                 new(2023, 1, 22, 1, 10, 10, 10),
                 new(2023, 5, 5, 13, 0, 0),
                 6,
+                3,
+                8,
                 3)
         },
         {
@@ -705,7 +879,9 @@ static partial class DateScrubber
                 new(2023, 12, 20, 12, 10, 10, 10),
                 new(2023, 3, 4, 1, 0, 0),
                 4,
-                4)
+                4,
+                15,
+                6)
         },
         {
             "ha",
@@ -713,7 +889,9 @@ static partial class DateScrubber
                 new(2023, 2, 20, 1, 10, 10, 10),
                 new(2023, 5, 2, 13, 0, 0),
                 6,
-                5)
+                5,
+                9,
+                4)
         },
         {
             "haw",
@@ -721,7 +899,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 5, 4, 1, 0, 0),
                 2,
-                2)
+                2,
+                10,
+                3)
         },
         {
             "he",
@@ -729,7 +909,9 @@ static partial class DateScrubber
                 new(2023, 10, 22, 1, 10, 10, 10),
                 new(2023, 3, 4, 13, 0, 0),
                 6,
-                5)
+                5,
+                7,
+                3)
         },
         {
             "hi",
@@ -737,6 +919,8 @@ static partial class DateScrubber
                 new(2023, 10, 20, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
+                2,
+                7,
                 2)
         },
         {
@@ -745,7 +929,9 @@ static partial class DateScrubber
                 new(2023, 9, 22, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                3)
         },
         {
             "hr",
@@ -753,7 +939,9 @@ static partial class DateScrubber
                 new(2023, 1, 23, 12, 10, 10, 10),
                 new(2023, 9, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                8,
+                5)
         },
         {
             "hsb",
@@ -761,7 +949,9 @@ static partial class DateScrubber
                 new(2023, 9, 24, 12, 10, 10, 10),
                 new(2023, 3, 3, 1, 0, 0),
                 9,
-                9)
+                9,
+                9,
+                4)
         },
         {
             "hu",
@@ -769,7 +959,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 5, 2, 1, 0, 0),
                 3,
-                3)
+                3,
+                10,
+                5)
         },
         {
             "hy",
@@ -777,7 +969,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 3, 4, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                4)
         },
         {
             "ia",
@@ -785,7 +979,9 @@ static partial class DateScrubber
                 new(2023, 2, 22, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                4)
         },
         {
             "ibb",
@@ -793,7 +989,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "id",
@@ -801,7 +999,9 @@ static partial class DateScrubber
                 new(2023, 9, 24, 12, 10, 10, 10),
                 new(2023, 5, 3, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                3)
         },
         {
             "ig",
@@ -809,7 +1009,9 @@ static partial class DateScrubber
                 new(2023, 2, 22, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 7,
-                7)
+                7,
+                9,
+                3)
         },
         {
             "ii",
@@ -817,6 +1019,8 @@ static partial class DateScrubber
                 new(2023, 11, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
+                2,
+                3,
                 2)
         },
         {
@@ -825,7 +1029,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 4,
-                4)
+                4,
+                9,
+                3)
         },
         {
             "it",
@@ -833,7 +1039,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 3, 4, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                5)
         },
         {
             "iu",
@@ -841,7 +1049,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "ja",
@@ -849,6 +1059,8 @@ static partial class DateScrubber
                 new(2023, 10, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
+                2,
+                3,
                 2)
         },
         {
@@ -857,7 +1069,9 @@ static partial class DateScrubber
                 new(2023, 6, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 13,
-                8)
+                8,
+                17,
+                11)
         },
         {
             "jmc",
@@ -865,7 +1079,9 @@ static partial class DateScrubber
                 new(2023, 2, 20, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 9,
-                5)
+                5,
+                8,
+                3)
         },
         {
             "jv",
@@ -873,7 +1089,9 @@ static partial class DateScrubber
                 new(2023, 9, 26, 12, 10, 10, 10),
                 new(2023, 5, 3, 1, 0, 0),
                 5,
-                4)
+                4,
+                9,
+                3)
         },
         {
             "ka",
@@ -881,7 +1099,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 3, 5, 1, 0, 0),
                 2,
-                2)
+                2,
+                10,
+                5)
         },
         {
             "kab",
@@ -889,7 +1109,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 8, 2, 1, 0, 0),
                 9,
-                7)
+                7,
+                8,
+                4)
         },
         {
             "kam",
@@ -897,7 +1119,9 @@ static partial class DateScrubber
                 new(2023, 11, 20, 1, 10, 10, 10),
                 new(2023, 1, 3, 13, 0, 0),
                 9,
-                7)
+                7,
+                21,
+                12)
         },
         {
             "kde",
@@ -905,7 +1129,9 @@ static partial class DateScrubber
                 new(2023, 11, 24, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 5,
-                4)
+                4,
+                30,
+                12)
         },
         {
             "kea",
@@ -913,7 +1139,9 @@ static partial class DateScrubber
                 new(2023, 9, 25, 12, 10, 10, 10),
                 new(2023, 5, 6, 1, 0, 0),
                 2,
-                2)
+                2,
+                8,
+                4)
         },
         {
             "kgp",
@@ -921,7 +1149,9 @@ static partial class DateScrubber
                 new(2023, 10, 26, 12, 10, 10, 10),
                 new(2023, 1, 7, 1, 0, 0),
                 2,
-                2)
+                2,
+                7,
+                6)
         },
         {
             "khq",
@@ -929,7 +1159,9 @@ static partial class DateScrubber
                 new(2023, 2, 23, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 6,
-                6)
+                6,
+                9,
+                2)
         },
         {
             "ki",
@@ -937,7 +1169,9 @@ static partial class DateScrubber
                 new(2023, 11, 25, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 8,
-                6)
+                6,
+                22,
+                8)
         },
         {
             "kk",
@@ -945,7 +1179,9 @@ static partial class DateScrubber
                 new(2023, 12, 20, 12, 10, 10, 10),
                 new(2023, 2, 3, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                5)
         },
         {
             "kkj",
@@ -953,6 +1189,8 @@ static partial class DateScrubber
                 new(2023, 6, 24, 12, 10, 10, 10),
                 new(2023, 8, 3, 1, 0, 0),
                 2,
+                2,
+                15,
                 2)
         },
         {
@@ -961,7 +1199,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 3, 5, 1, 0, 0),
                 2,
-                2)
+                2,
+                10,
+                5)
         },
         {
             "kln",
@@ -969,7 +1209,9 @@ static partial class DateScrubber
                 new(2023, 12, 21, 12, 10, 10, 10),
                 new(2023, 6, 3, 1, 0, 0),
                 10,
-                6)
+                6,
+                20,
+                5)
         },
         {
             "km",
@@ -977,7 +1219,9 @@ static partial class DateScrubber
                 new(2023, 11, 23, 12, 10, 10, 10),
                 new(2023, 1, 4, 1, 0, 0),
                 2,
-                2)
+                2,
+                8,
+                4)
         },
         {
             "kn",
@@ -985,7 +1229,9 @@ static partial class DateScrubber
                 new(2023, 9, 22, 1, 10, 10, 10),
                 new(2023, 5, 1, 13, 0, 0),
                 9,
-                7)
+                7,
+                10,
+                2)
         },
         {
             "ko",
@@ -993,6 +1239,8 @@ static partial class DateScrubber
                 new(2023, 10, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
+                2,
+                3,
                 2)
         },
         {
@@ -1001,7 +1249,9 @@ static partial class DateScrubber
                 new(2023, 2, 23, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 4,
-                4)
+                4,
+                10,
+                2)
         },
         {
             "kr",
@@ -1009,7 +1259,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "ks",
@@ -1017,7 +1269,9 @@ static partial class DateScrubber
                 new(2023, 7, 24, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 6,
-                6)
+                6,
+                7,
+                3)
         },
         {
             "ks-Deva",
@@ -1025,7 +1279,9 @@ static partial class DateScrubber
                 new(2023, 10, 23, 12, 10, 10, 10),
                 new(2023, 5, 2, 1, 0, 0),
                 5,
-                5)
+                5,
+                8,
+                2)
         },
         {
             "ksb",
@@ -1033,7 +1289,9 @@ static partial class DateScrubber
                 new(2023, 2, 20, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 8,
-                5)
+                5,
+                8,
+                3)
         },
         {
             "ksf",
@@ -1041,7 +1299,9 @@ static partial class DateScrubber
                 new(2023, 11, 22, 12, 10, 10, 10),
                 new(2023, 3, 2, 1, 0, 0),
                 7,
-                6)
+                6,
+                21,
+                12)
         },
         {
             "ksh",
@@ -1049,7 +1309,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 5, 3, 1, 0, 0),
                 16,
-                16)
+                16,
+                9,
+                3)
         },
         {
             "kw",
@@ -1057,7 +1319,9 @@ static partial class DateScrubber
                 new(2023, 7, 21, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 4,
-                4)
+                4,
+                13,
+                6)
         },
         {
             "ky",
@@ -1065,7 +1329,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 14,
-                5)
+                5,
+                8,
+                3)
         },
         {
             "la",
@@ -1073,7 +1339,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "lag",
@@ -1081,7 +1349,9 @@ static partial class DateScrubber
                 new(2023, 5, 20, 12, 10, 10, 10),
                 new(2023, 10, 6, 1, 0, 0),
                 3,
-                3)
+                3,
+                12,
+                7)
         },
         {
             "lb",
@@ -1089,7 +1359,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 8,
-                5)
+                5,
+                9,
+                3)
         },
         {
             "lg",
@@ -1097,7 +1369,9 @@ static partial class DateScrubber
                 new(2023, 9, 22, 12, 10, 10, 10),
                 new(2023, 4, 3, 1, 0, 0),
                 2,
-                2)
+                2,
+                10,
+                5)
         },
         {
             "lkt",
@@ -1105,7 +1379,9 @@ static partial class DateScrubber
                 new(2023, 6, 24, 12, 10, 10, 10),
                 new(2023, 4, 6, 1, 0, 0),
                 2,
-                2)
+                2,
+                18,
+                11)
         },
         {
             "ln",
@@ -1113,7 +1389,9 @@ static partial class DateScrubber
                 new(2023, 11, 21, 1, 10, 10, 10),
                 new(2023, 10, 1, 13, 0, 0),
                 8,
-                6)
+                6,
+                23,
+                13)
         },
         {
             "lo",
@@ -1121,7 +1399,9 @@ static partial class DateScrubber
                 new(2023, 5, 23, 12, 10, 10, 10),
                 new(2023, 3, 1, 1, 0, 0),
                 8,
-                8)
+                8,
+                7,
+                4)
         },
         {
             "lrc",
@@ -1129,7 +1409,9 @@ static partial class DateScrubber
                 new(2023, 4, 21, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                11,
+                3)
         },
         {
             "lrc-IQ",
@@ -1137,7 +1419,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                7,
+                3)
         },
         {
             "lt",
@@ -1145,7 +1429,9 @@ static partial class DateScrubber
                 new(2023, 11, 23, 1, 10, 10, 10),
                 new(2023, 3, 4, 13, 0, 0),
                 9,
-                6)
+                6,
+                9,
+                5)
         },
         {
             "lu",
@@ -1153,6 +1439,8 @@ static partial class DateScrubber
                 new(2023, 7, 22, 12, 10, 10, 10),
                 new(2023, 4, 6, 1, 0, 0),
                 6,
+                5,
+                11,
                 5)
         },
         {
@@ -1161,7 +1449,9 @@ static partial class DateScrubber
                 new(2023, 12, 21, 12, 10, 10, 10),
                 new(2023, 3, 4, 1, 0, 0),
                 2,
-                2)
+                2,
+                21,
+                12)
         },
         {
             "luy",
@@ -1169,7 +1459,9 @@ static partial class DateScrubber
                 new(2023, 2, 24, 12, 10, 10, 10),
                 new(2023, 5, 2, 1, 0, 0),
                 4,
-                4)
+                4,
+                8,
+                3)
         },
         {
             "lv",
@@ -1177,7 +1469,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 1, 10, 10, 10),
                 new(2023, 3, 7, 13, 0, 0),
                 14,
-                11)
+                11,
+                10,
+                5)
         },
         {
             "mai",
@@ -1185,7 +1479,9 @@ static partial class DateScrubber
                 new(2023, 10, 26, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 4,
-                3)
+                3,
+                7,
+                2)
         },
         {
             "mas",
@@ -1193,7 +1489,9 @@ static partial class DateScrubber
                 new(2023, 5, 20, 1, 10, 10, 10),
                 new(2023, 2, 3, 13, 0, 0),
                 9,
-                6)
+                6,
+                20,
+                4)
         },
         {
             "mer",
@@ -1201,7 +1499,9 @@ static partial class DateScrubber
                 new(2023, 2, 20, 12, 10, 10, 10),
                 new(2023, 5, 4, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                3)
         },
         {
             "mfe",
@@ -1209,6 +1509,8 @@ static partial class DateScrubber
                 new(2023, 2, 22, 12, 10, 10, 10),
                 new(2023, 5, 4, 1, 0, 0),
                 2,
+                2,
+                7,
                 2)
         },
         {
@@ -1217,7 +1519,9 @@ static partial class DateScrubber
                 new(2023, 8, 21, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                3)
         },
         {
             "mgh",
@@ -1225,7 +1529,9 @@ static partial class DateScrubber
                 new(2023, 6, 22, 12, 10, 10, 10),
                 new(2023, 7, 2, 1, 0, 0),
                 10,
-                8)
+                8,
+                23,
+                13)
         },
         {
             "mgo",
@@ -1233,7 +1539,9 @@ static partial class DateScrubber
                 new(2023, 3, 20, 12, 10, 10, 10),
                 new(2023, 11, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                14,
+                7)
         },
         {
             "mi",
@@ -1241,7 +1549,9 @@ static partial class DateScrubber
                 new(2023, 4, 26, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                8,
+                3)
         },
         {
             "mk",
@@ -1249,7 +1559,9 @@ static partial class DateScrubber
                 new(2023, 9, 25, 1, 10, 10, 10),
                 new(2023, 5, 3, 13, 0, 0),
                 7,
-                5)
+                5,
+                9,
+                3)
         },
         {
             "ml",
@@ -1257,7 +1569,9 @@ static partial class DateScrubber
                 new(2023, 9, 22, 12, 10, 10, 10),
                 new(2023, 6, 3, 1, 0, 0),
                 2,
-                2)
+                2,
+                10,
+                3)
         },
         {
             "mn",
@@ -1265,7 +1579,9 @@ static partial class DateScrubber
                 new(2023, 12, 20, 12, 10, 10, 10),
                 new(2023, 9, 3, 1, 0, 0),
                 4,
-                4)
+                4,
+                20,
+                12)
         },
         {
             "mn-Mong",
@@ -1273,7 +1589,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "mn-Mong-MN",
@@ -1281,7 +1599,9 @@ static partial class DateScrubber
                 new(2023, 11, 21, 12, 10, 10, 10),
                 new(2023, 1, 2, 1, 0, 0),
                 5,
-                4)
+                4,
+                21,
+                15)
         },
         {
             "mni",
@@ -1289,7 +1609,9 @@ static partial class DateScrubber
                 new(2023, 2, 21, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 5,
-                4)
+                4,
+                10,
+                2)
         },
         {
             "moh",
@@ -1297,7 +1619,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "mr",
@@ -1305,6 +1629,8 @@ static partial class DateScrubber
                 new(2023, 2, 24, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
+                2,
+                10,
                 2)
         },
         {
@@ -1313,7 +1639,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 3, 1, 1, 0, 0),
                 3,
-                2)
+                2,
+                9,
+                3)
         },
         {
             "mt",
@@ -1321,7 +1649,9 @@ static partial class DateScrubber
                 new(2023, 9, 22, 12, 10, 10, 10),
                 new(2023, 2, 4, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                4)
         },
         {
             "mua",
@@ -1329,7 +1659,9 @@ static partial class DateScrubber
                 new(2023, 6, 22, 12, 10, 10, 10),
                 new(2023, 1, 4, 1, 0, 0),
                 5,
-                5)
+                5,
+                15,
+                7)
         },
         {
             "my",
@@ -1337,7 +1669,9 @@ static partial class DateScrubber
                 new(2023, 10, 22, 1, 10, 10, 10),
                 new(2023, 5, 6, 13, 0, 0),
                 5,
-                3)
+                3,
+                10,
+                2)
         },
         {
             "mzn",
@@ -1345,7 +1679,9 @@ static partial class DateScrubber
                 new(2023, 4, 21, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                11,
+                3)
         },
         {
             "naq",
@@ -1353,7 +1689,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 1, 10, 10, 10),
                 new(2023, 1, 2, 13, 0, 0),
                 7,
-                5)
+                5,
+                16,
+                7)
         },
         {
             "nb",
@@ -1361,7 +1699,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 4,
-                4)
+                4,
+                9,
+                3)
         },
         {
             "nd",
@@ -1369,7 +1709,9 @@ static partial class DateScrubber
                 new(2023, 1, 21, 12, 10, 10, 10),
                 new(2023, 11, 2, 1, 0, 0),
                 2,
-                2)
+                2,
+                10,
+                5)
         },
         {
             "nds",
@@ -1377,7 +1719,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "ne",
@@ -1385,7 +1729,9 @@ static partial class DateScrubber
                 new(2023, 9, 22, 1, 10, 10, 10),
                 new(2023, 5, 1, 13, 0, 0),
                 9,
-                7)
+                7,
+                10,
+                2)
         },
         {
             "nl",
@@ -1393,7 +1739,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 5, 7, 1, 0, 0),
                 4,
-                4)
+                4,
+                9,
+                3)
         },
         {
             "nmg",
@@ -1401,7 +1749,9 @@ static partial class DateScrubber
                 new(2023, 11, 22, 12, 10, 10, 10),
                 new(2023, 4, 1, 1, 0, 0),
                 4,
-                4)
+                4,
+                15,
+                8)
         },
         {
             "nn",
@@ -1409,7 +1759,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 4,
-                4)
+                4,
+                9,
+                3)
         },
         {
             "nnh",
@@ -1417,7 +1769,9 @@ static partial class DateScrubber
                 new(2023, 7, 20, 1, 10, 10, 10),
                 new(2023, 4, 1, 13, 0, 0),
                 9,
-                8)
+                8,
+                21,
+                7)
         },
         {
             "no",
@@ -1425,7 +1779,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 4,
-                4)
+                4,
+                9,
+                3)
         },
         {
             "nqo",
@@ -1433,7 +1789,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 3, 2, 1, 0, 0),
                 1,
-                1)
+                1,
+                10,
+                5)
         },
         {
             "nr",
@@ -1441,7 +1799,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "nso",
@@ -1449,7 +1809,9 @@ static partial class DateScrubber
                 new(2023, 1, 23, 12, 10, 10, 10),
                 new(2023, 6, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                11,
+                5)
         },
         {
             "nus",
@@ -1457,7 +1819,9 @@ static partial class DateScrubber
                 new(2023, 12, 22, 12, 10, 10, 10),
                 new(2023, 2, 5, 1, 0, 0),
                 2,
-                2)
+                2,
+                15,
+                3)
         },
         {
             "nyn",
@@ -1465,7 +1829,9 @@ static partial class DateScrubber
                 new(2023, 11, 20, 12, 10, 10, 10),
                 new(2023, 4, 2, 1, 0, 0),
                 2,
-                2)
+                2,
+                18,
+                8)
         },
         {
             "oc",
@@ -1473,7 +1839,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "om",
@@ -1481,7 +1849,9 @@ static partial class DateScrubber
                 new(2023, 10, 20, 12, 10, 10, 10),
                 new(2023, 4, 5, 1, 0, 0),
                 2,
-                2)
+                2,
+                12,
+                4)
         },
         {
             "or",
@@ -1489,6 +1859,8 @@ static partial class DateScrubber
                 new(2023, 9, 22, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
+                2,
+                10,
                 2)
         },
         {
@@ -1497,7 +1869,9 @@ static partial class DateScrubber
                 new(2023, 9, 22, 12, 10, 10, 10),
                 new(2023, 5, 6, 1, 0, 0),
                 15,
-                15)
+                15,
+                8,
+                3)
         },
         {
             "pa",
@@ -1505,7 +1879,9 @@ static partial class DateScrubber
                 new(2023, 4, 22, 12, 10, 10, 10),
                 new(2023, 5, 7, 1, 0, 0),
                 6,
-                6)
+                6,
+                6,
+                2)
         },
         {
             "pa-Arab",
@@ -1513,6 +1889,8 @@ static partial class DateScrubber
                 new(2023, 7, 20, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
+                2,
+                6,
                 2)
         },
         {
@@ -1521,7 +1899,9 @@ static partial class DateScrubber
                 new(2023, 9, 24, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                3)
         },
         {
             "pcm",
@@ -1529,7 +1909,9 @@ static partial class DateScrubber
                 new(2023, 2, 22, 1, 10, 10, 10),
                 new(2023, 5, 2, 13, 0, 0),
                 9,
-                8)
+                8,
+                9,
+                3)
         },
         {
             "pl",
@@ -1537,7 +1919,9 @@ static partial class DateScrubber
                 new(2023, 10, 23, 12, 10, 10, 10),
                 new(2023, 5, 3, 1, 0, 0),
                 2,
-                2)
+                2,
+                11,
+                3)
         },
         {
             "prg",
@@ -1545,7 +1929,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "ps",
@@ -1553,7 +1939,9 @@ static partial class DateScrubber
                 new(2023, 5, 25, 12, 10, 10, 10),
                 new(2023, 3, 3, 1, 0, 0),
                 4,
-                4)
+                4,
+                7,
+                2)
         },
         {
             "ps-PK",
@@ -1561,7 +1949,9 @@ static partial class DateScrubber
                 new(2023, 2, 23, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 4,
-                4)
+                4,
+                7,
+                2)
         },
         {
             "pt",
@@ -1569,7 +1959,9 @@ static partial class DateScrubber
                 new(2023, 2, 20, 12, 10, 10, 10),
                 new(2023, 5, 6, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                4)
         },
         {
             "qu",
@@ -1577,6 +1969,8 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 4,
+                4,
+                9,
                 4)
         },
         {
@@ -1585,7 +1979,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "raj",
@@ -1593,7 +1989,9 @@ static partial class DateScrubber
                 new(2023, 9, 22, 1, 10, 10, 10),
                 new(2023, 5, 1, 13, 0, 0),
                 5,
-                4)
+                4,
+                7,
+                2)
         },
         {
             "rm",
@@ -1601,7 +1999,9 @@ static partial class DateScrubber
                 new(2023, 6, 26, 12, 10, 10, 10),
                 new(2023, 3, 4, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                4)
         },
         {
             "rn",
@@ -1609,6 +2009,8 @@ static partial class DateScrubber
                 new(2023, 8, 26, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 5,
+                5,
+                10,
                 5)
         },
         {
@@ -1617,7 +2019,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 5, 4, 1, 0, 0),
                 4,
-                4)
+                4,
+                10,
+                3)
         },
         {
             "rof",
@@ -1625,7 +2029,9 @@ static partial class DateScrubber
                 new(2023, 12, 20, 1, 10, 10, 10),
                 new(2023, 5, 5, 13, 0, 0),
                 8,
-                7)
+                7,
+                23,
+                13)
         },
         {
             "ru",
@@ -1633,7 +2039,9 @@ static partial class DateScrubber
                 new(2023, 9, 24, 12, 10, 10, 10),
                 new(2023, 5, 3, 1, 0, 0),
                 2,
-                2)
+                2,
+                8,
+                3)
         },
         {
             "rw",
@@ -1641,7 +2049,9 @@ static partial class DateScrubber
                 new(2023, 2, 25, 12, 10, 10, 10),
                 new(2023, 4, 6, 1, 0, 0),
                 2,
-                2)
+                2,
+                11,
+                4)
         },
         {
             "rwk",
@@ -1649,7 +2059,9 @@ static partial class DateScrubber
                 new(2023, 2, 20, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 9,
-                5)
+                5,
+                8,
+                3)
         },
         {
             "sa",
@@ -1657,7 +2069,9 @@ static partial class DateScrubber
                 new(2023, 10, 20, 1, 10, 10, 10),
                 new(2023, 5, 1, 13, 0, 0),
                 9,
-                7)
+                7,
+                11,
+                6)
         },
         {
             "sah",
@@ -1665,7 +2079,9 @@ static partial class DateScrubber
                 new(2023, 8, 20, 12, 10, 10, 10),
                 new(2023, 7, 5, 1, 0, 0),
                 2,
-                2)
+                2,
+                12,
+                6)
         },
         {
             "saq",
@@ -1673,7 +2089,9 @@ static partial class DateScrubber
                 new(2023, 12, 26, 1, 10, 10, 10),
                 new(2023, 1, 1, 13, 0, 0),
                 7,
-                5)
+                5,
+                19,
+                11)
         },
         {
             "sat",
@@ -1681,7 +2099,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 5,
-                5)
+                5,
+                9,
+                2)
         },
         {
             "sbp",
@@ -1689,7 +2109,9 @@ static partial class DateScrubber
                 new(2023, 5, 25, 12, 10, 10, 10),
                 new(2023, 4, 7, 1, 0, 0),
                 9,
-                9)
+                9,
+                15,
+                5)
         },
         {
             "sc",
@@ -1697,7 +2119,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                10,
+                4)
         },
         {
             "sd",
@@ -1705,7 +2129,9 @@ static partial class DateScrubber
                 new(2023, 2, 21, 12, 10, 10, 10),
                 new(2023, 5, 7, 1, 0, 0),
                 11,
-                11)
+                11,
+                7,
+                3)
         },
         {
             "sd-Deva",
@@ -1713,7 +2139,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 1, 10, 10, 10),
                 new(2023, 5, 1, 13, 0, 0),
                 8,
-                6)
+                6,
+                8,
+                2)
         },
         {
             "se",
@@ -1721,7 +2149,9 @@ static partial class DateScrubber
                 new(2023, 1, 22, 12, 10, 10, 10),
                 new(2023, 4, 1, 1, 0, 0),
                 13,
-                11)
+                11,
+                13,
+                10)
         },
         {
             "se-FI",
@@ -1729,7 +2159,9 @@ static partial class DateScrubber
                 new(2023, 1, 22, 12, 10, 10, 10),
                 new(2023, 4, 4, 1, 0, 0),
                 2,
-                2)
+                2,
+                13,
+                10)
         },
         {
             "seh",
@@ -1737,7 +2169,9 @@ static partial class DateScrubber
                 new(2023, 2, 24, 12, 10, 10, 10),
                 new(2023, 5, 4, 1, 0, 0),
                 2,
-                2)
+                2,
+                8,
+                4)
         },
         {
             "ses",
@@ -1745,7 +2179,9 @@ static partial class DateScrubber
                 new(2023, 2, 23, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 6,
-                6)
+                6,
+                9,
+                2)
         },
         {
             "sg",
@@ -1753,7 +2189,9 @@ static partial class DateScrubber
                 new(2023, 2, 22, 12, 10, 10, 10),
                 new(2023, 6, 2, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                5)
         },
         {
             "shi",
@@ -1761,7 +2199,9 @@ static partial class DateScrubber
                 new(2023, 9, 23, 12, 10, 10, 10),
                 new(2023, 3, 1, 1, 0, 0),
                 8,
-                6)
+                6,
+                8,
+                4)
         },
         {
             "shi-Latn",
@@ -1769,7 +2209,9 @@ static partial class DateScrubber
                 new(2023, 9, 22, 12, 10, 10, 10),
                 new(2023, 3, 1, 1, 0, 0),
                 8,
-                6)
+                6,
+                8,
+                4)
         },
         {
             "si",
@@ -1777,6 +2219,8 @@ static partial class DateScrubber
                 new(2023, 4, 20, 1, 10, 10, 10),
                 new(2023, 1, 1, 13, 0, 0),
                 5,
+                4,
+                11,
                 4)
         },
         {
@@ -1785,7 +2229,9 @@ static partial class DateScrubber
                 new(2023, 9, 25, 12, 10, 10, 10),
                 new(2023, 5, 2, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                3)
         },
         {
             "sl",
@@ -1793,7 +2239,9 @@ static partial class DateScrubber
                 new(2023, 9, 25, 12, 10, 10, 10),
                 new(2023, 5, 2, 1, 0, 0),
                 4,
-                4)
+                4,
+                9,
+                3)
         },
         {
             "sma",
@@ -1801,7 +2249,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "smj",
@@ -1809,7 +2259,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "smn",
@@ -1817,7 +2269,9 @@ static partial class DateScrubber
                 new(2023, 10, 20, 12, 10, 10, 10),
                 new(2023, 6, 3, 1, 0, 0),
                 3,
-                3)
+                3,
+                12,
+                9)
         },
         {
             "sms",
@@ -1825,7 +2279,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "sn",
@@ -1833,7 +2289,9 @@ static partial class DateScrubber
                 new(2023, 8, 25, 12, 10, 10, 10),
                 new(2023, 1, 5, 1, 0, 0),
                 2,
-                2)
+                2,
+                11,
+                5)
         },
         {
             "so",
@@ -1841,7 +2299,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 5, 7, 1, 0, 0),
                 2,
-                2)
+                2,
+                10,
+                3)
         },
         {
             "sq",
@@ -1849,7 +2309,9 @@ static partial class DateScrubber
                 new(2023, 6, 21, 1, 10, 10, 10),
                 new(2023, 5, 1, 13, 0, 0),
                 11,
-                10)
+                10,
+                7,
+                3)
         },
         {
             "sr",
@@ -1857,7 +2319,9 @@ static partial class DateScrubber
                 new(2023, 9, 25, 12, 10, 10, 10),
                 new(2023, 5, 3, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                3)
         },
         {
             "sr-Cyrl-BA",
@@ -1865,7 +2329,9 @@ static partial class DateScrubber
                 new(2023, 9, 25, 1, 10, 10, 10),
                 new(2023, 5, 5, 13, 0, 0),
                 11,
-                8)
+                8,
+                9,
+                3)
         },
         {
             "sr-Cyrl-ME",
@@ -1873,7 +2339,9 @@ static partial class DateScrubber
                 new(2023, 9, 25, 1, 10, 10, 10),
                 new(2023, 5, 5, 13, 0, 0),
                 11,
-                8)
+                8,
+                9,
+                3)
         },
         {
             "sr-Latn-BA",
@@ -1881,7 +2349,9 @@ static partial class DateScrubber
                 new(2023, 9, 25, 1, 10, 10, 10),
                 new(2023, 5, 5, 13, 0, 0),
                 11,
-                8)
+                8,
+                9,
+                3)
         },
         {
             "sr-Latn-ME",
@@ -1889,7 +2359,9 @@ static partial class DateScrubber
                 new(2023, 9, 25, 1, 10, 10, 10),
                 new(2023, 5, 5, 13, 0, 0),
                 11,
-                8)
+                8,
+                9,
+                3)
         },
         {
             "ss",
@@ -1897,7 +2369,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "ssy",
@@ -1905,7 +2379,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "st",
@@ -1913,7 +2389,9 @@ static partial class DateScrubber
                 new(2023, 5, 26, 12, 10, 10, 10),
                 new(2023, 4, 6, 1, 0, 0),
                 2,
-                2)
+                2,
+                11,
+                5)
         },
         {
             "su",
@@ -1921,7 +2399,9 @@ static partial class DateScrubber
                 new(2023, 9, 22, 12, 10, 10, 10),
                 new(2023, 5, 3, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                3)
         },
         {
             "sv",
@@ -1929,7 +2409,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                3)
         },
         {
             "sw",
@@ -1937,7 +2419,9 @@ static partial class DateScrubber
                 new(2023, 2, 20, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 2,
-                2)
+                2,
+                8,
+                3)
         },
         {
             "syr",
@@ -1945,6 +2429,8 @@ static partial class DateScrubber
                 new(2023, 11, 20, 12, 10, 10, 10),
                 new(2023, 8, 5, 1, 0, 0),
                 2,
+                2,
+                12,
                 2)
         },
         {
@@ -1953,7 +2439,9 @@ static partial class DateScrubber
                 new(2023, 9, 26, 12, 10, 10, 10),
                 new(2023, 5, 6, 1, 0, 0),
                 8,
-                8)
+                8,
+                10,
+                2)
         },
         {
             "te",
@@ -1961,6 +2449,8 @@ static partial class DateScrubber
                 new(2023, 9, 22, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
+                2,
+                10,
                 2)
         },
         {
@@ -1969,7 +2459,9 @@ static partial class DateScrubber
                 new(2023, 6, 26, 1, 10, 10, 10),
                 new(2023, 2, 1, 13, 0, 0),
                 9,
-                6)
+                6,
+                14,
+                4)
         },
         {
             "tg",
@@ -1977,7 +2469,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 2,
-                2)
+                2,
+                7,
+                3)
         },
         {
             "th",
@@ -1985,7 +2479,9 @@ static partial class DateScrubber
                 new(2023, 2, 23, 12, 10, 10, 10),
                 new(2023, 1, 4, 1, 0, 0),
                 10,
-                10)
+                10,
+                10,
+                6)
         },
         {
             "ti",
@@ -1993,7 +2489,9 @@ static partial class DateScrubber
                 new(2023, 9, 24, 12, 10, 10, 10),
                 new(2023, 1, 2, 1, 0, 0),
                 4,
-                4)
+                4,
+                5,
+                2)
         },
         {
             "tig",
@@ -2001,7 +2499,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "tk",
@@ -2009,7 +2509,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 14,
-                13)
+                13,
+                8,
+                3)
         },
         {
             "tn",
@@ -2017,7 +2519,9 @@ static partial class DateScrubber
                 new(2023, 5, 26, 12, 10, 10, 10),
                 new(2023, 7, 2, 1, 0, 0),
                 2,
-                2)
+                2,
+                12,
+                6)
         },
         {
             "to",
@@ -2025,7 +2529,9 @@ static partial class DateScrubber
                 new(2023, 4, 20, 1, 10, 10, 10),
                 new(2023, 5, 1, 13, 0, 0),
                 10,
-                6)
+                6,
+                8,
+                2)
         },
         {
             "tr",
@@ -2033,7 +2539,9 @@ static partial class DateScrubber
                 new(2023, 6, 24, 12, 10, 10, 10),
                 new(2023, 1, 3, 1, 0, 0),
                 2,
-                2)
+                2,
+                7,
+                4)
         },
         {
             "ts",
@@ -2041,7 +2549,9 @@ static partial class DateScrubber
                 new(2023, 12, 25, 12, 10, 10, 10),
                 new(2023, 11, 5, 1, 0, 0),
                 2,
-                2)
+                2,
+                13,
+                6)
         },
         {
             "tt",
@@ -2049,7 +2559,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 2,
-                2)
+                2,
+                8,
+                3)
         },
         {
             "twq",
@@ -2057,7 +2569,9 @@ static partial class DateScrubber
                 new(2023, 2, 23, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 10,
-                8)
+                8,
+                9,
+                2)
         },
         {
             "tzm",
@@ -2065,7 +2579,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 3, 1, 1, 0, 0),
                 10,
-                9)
+                9,
+                8,
+                4)
         },
         {
             "tzm-DZ",
@@ -2073,7 +2589,9 @@ static partial class DateScrubber
                 new(2023, 1, 23, 12, 10, 10, 10),
                 new(2023, 5, 6, 1, 0, 0),
                 10,
-                9)
+                9,
+                8,
+                4)
         },
         {
             "tzm-Tfng",
@@ -2081,7 +2599,9 @@ static partial class DateScrubber
                 new(2023, 9, 22, 12, 10, 10, 10),
                 new(2023, 3, 1, 1, 0, 0),
                 10,
-                9)
+                9,
+                8,
+                4)
         },
         {
             "ug",
@@ -2089,7 +2609,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 12,
-                12)
+                12,
+                8,
+                3)
         },
         {
             "uk",
@@ -2097,7 +2619,9 @@ static partial class DateScrubber
                 new(2023, 3, 20, 12, 10, 10, 10),
                 new(2023, 2, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                8,
+                5)
         },
         {
             "ur",
@@ -2105,7 +2629,9 @@ static partial class DateScrubber
                 new(2023, 7, 20, 12, 10, 10, 10),
                 new(2023, 5, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                6,
+                3)
         },
         {
             "uz",
@@ -2113,7 +2639,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 2,
-                2)
+                2,
+                7,
+                3)
         },
         {
             "uz-Arab",
@@ -2121,7 +2649,9 @@ static partial class DateScrubber
                 new(2023, 4, 26, 12, 10, 10, 10),
                 new(2023, 1, 6, 1, 0, 0),
                 2,
-                2)
+                2,
+                11,
+                3)
         },
         {
             "vai",
@@ -2129,6 +2659,8 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 3, 1, 1, 0, 0),
                 2,
+                2,
+                10,
                 2)
         },
         {
@@ -2137,7 +2669,9 @@ static partial class DateScrubber
                 new(2023, 11, 20, 12, 10, 10, 10),
                 new(2023, 3, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                15,
+                3)
         },
         {
             "ve",
@@ -2145,7 +2679,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "vi",
@@ -2153,7 +2689,9 @@ static partial class DateScrubber
                 new(2023, 10, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                8,
+                7)
         },
         {
             "vo",
@@ -2161,7 +2699,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "vun",
@@ -2169,7 +2709,9 @@ static partial class DateScrubber
                 new(2023, 2, 20, 12, 10, 10, 10),
                 new(2023, 5, 5, 1, 0, 0),
                 9,
-                5)
+                5,
+                8,
+                3)
         },
         {
             "wae",
@@ -2177,7 +2719,9 @@ static partial class DateScrubber
                 new(2023, 9, 20, 12, 10, 10, 10),
                 new(2023, 3, 3, 1, 0, 0),
                 2,
-                2)
+                2,
+                11,
+                5)
         },
         {
             "wal",
@@ -2185,7 +2729,9 @@ static partial class DateScrubber
                 new(2023, 1, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
-                2)
+                2,
+                3,
+                3)
         },
         {
             "wo",
@@ -2193,7 +2739,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 12, 10, 10, 10),
                 new(2023, 8, 5, 1, 0, 0),
                 3,
-                3)
+                3,
+                9,
+                2)
         },
         {
             "xh",
@@ -2201,7 +2749,9 @@ static partial class DateScrubber
                 new(2023, 1, 25, 12, 10, 10, 10),
                 new(2023, 5, 7, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                4)
         },
         {
             "xog",
@@ -2209,7 +2759,9 @@ static partial class DateScrubber
                 new(2023, 9, 22, 12, 10, 10, 10),
                 new(2023, 4, 3, 1, 0, 0),
                 6,
-                6)
+                6,
+                10,
+                5)
         },
         {
             "yav",
@@ -2217,7 +2769,9 @@ static partial class DateScrubber
                 new(2023, 1, 26, 12, 10, 10, 10),
                 new(2023, 6, 2, 1, 0, 0),
                 8,
-                8)
+                8,
+                26,
+                4)
         },
         {
             "yi",
@@ -2225,7 +2779,9 @@ static partial class DateScrubber
                 new(2023, 9, 21, 1, 10, 10, 10),
                 new(2023, 5, 6, 13, 0, 0),
                 11,
-                10)
+                10,
+                10,
+                3)
         },
         {
             "yo",
@@ -2233,7 +2789,9 @@ static partial class DateScrubber
                 new(2023, 1, 21, 12, 10, 10, 10),
                 new(2023, 4, 3, 1, 0, 0),
                 5,
-                5)
+                5,
+                6,
+                4)
         },
         {
             "yrl",
@@ -2241,6 +2799,8 @@ static partial class DateScrubber
                 new(2023, 10, 25, 12, 10, 10, 10),
                 new(2023, 5, 6, 1, 0, 0),
                 2,
+                2,
+                12,
                 2)
         },
         {
@@ -2249,7 +2809,9 @@ static partial class DateScrubber
                 new(2023, 9, 22, 12, 10, 10, 10),
                 new(2023, 3, 1, 1, 0, 0),
                 8,
-                6)
+                6,
+                8,
+                4)
         },
         {
             "zh",
@@ -2257,6 +2819,8 @@ static partial class DateScrubber
                 new(2023, 11, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
+                2,
+                3,
                 2)
         },
         {
@@ -2265,6 +2829,8 @@ static partial class DateScrubber
                 new(2023, 10, 20, 12, 10, 10, 10),
                 new(2023, 1, 1, 1, 0, 0),
                 2,
+                2,
+                3,
                 2)
         },
         {
@@ -2273,7 +2839,9 @@ static partial class DateScrubber
                 new(2023, 2, 22, 12, 10, 10, 10),
                 new(2023, 5, 7, 1, 0, 0),
                 2,
-                2)
+                2,
+                9,
+                4)
         },
     }.ToFrozenDictionary();
 }

@@ -10,6 +10,7 @@ public class CultureToDateBuilder
         {
             return Task.CompletedTask;
         }
+
         var cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
         var builder = new StringBuilder(
             """
@@ -31,9 +32,16 @@ public class CultureToDateBuilder
                     continue;
                 }
             }
+
             var formatInfo = culture.DateTimeFormat;
             var amLength = formatInfo.AMDesignator.Length;
             var pmLength = formatInfo.PMDesignator.Length;
+            var monthNames = formatInfo.MonthNames
+                .Select(_ => _.Length)
+                .Where(_ => _ > 0)
+                .ToList();
+            var monthNameLong = monthNames.Max();
+            var monthNameShort = monthNames.Min();
             builder.AppendLine(
                 $$"""
                           {
@@ -42,7 +50,9 @@ public class CultureToDateBuilder
                                   new(2023, {{longDate.Month}}, {{longDate.Day}}, {{longDate.Hour}}, 10, 10, 10),
                                   new(2023, {{shortDate.Month}}, {{shortDate.Day}}, {{shortDate.Hour}}, 0, 0),
                                   {{int.Max(amLength, pmLength)}},
-                                  {{int.Min(amLength, pmLength)}})
+                                  {{int.Min(amLength, pmLength)}},
+                                  {{monthNameLong}},
+                                  {{monthNameShort}})
                           },
                   """);
         }

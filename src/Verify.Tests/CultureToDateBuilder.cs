@@ -31,13 +31,18 @@ public class CultureToDateBuilder
                     continue;
                 }
             }
+            var formatInfo = culture.DateTimeFormat;
+            var amLength = formatInfo.AMDesignator.Length;
+            var pmLength = formatInfo.PMDesignator.Length;
             builder.AppendLine(
                 $$"""
                           {
                               "{{culture.Name}}",
                               new(
                                   new(2023, {{longDate.Month}}, {{longDate.Day}}, {{longDate.Hour}}, 10, 10, 10),
-                                  new(2023, {{shortDate.Month}}, {{shortDate.Day}}, {{shortDate.Hour}}, 0, 0))
+                                  new(2023, {{shortDate.Month}}, {{shortDate.Day}}, {{shortDate.Hour}}, 0, 0),
+                                  {{int.Max(amLength, pmLength)}},
+                                  {{int.Min(amLength, pmLength)}})
                           },
                   """);
         }

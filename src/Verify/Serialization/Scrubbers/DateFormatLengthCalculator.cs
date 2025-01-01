@@ -1,122 +1,63 @@
 ﻿static class DateFormatLengthCalculator
 {
+    internal const int MaxSecondsFractionDigits = 7;
 
-    private static void FormatCustomized<TChar>(
-        DateTime dateTime, scoped ReadOnlySpan<char> format, CultureInfo culture, TimeSpan offset, ref ValueListBuilder<TChar> result) where TChar : unmanaged, IUtfChar<TChar>
+    public static (int max, int min) GetLength(scoped CharSpan format, Culture culture)
     {
-        DateTimeFormatInfo dtfi = culture.DateTimeFormat;
-        Calendar cal = dtfi.Calendar;
-        // This is a flag to indicate if we are formatting the dates using Hebrew calendar.
-        bool isHebrewCalendar = (cal.ID == CalendarId.HEBREW);
-        bool isJapaneseCalendar = (cal.ID == CalendarId.JAPAN);
-        // This is a flag to indicate if we are formatting hour/minute/second only.
-        bool bTimeOnly = true;
+        var cultureDates = DateScrubber.GetCultureDates(culture);
+        var dtfi = culture.DateTimeFormat;
 
-        int i = 0;
-        int tokenLen, hour12;
+        var i = 0;
+        int tokenLen;
 
-        int minLength = 0;
-        int maxLength = 0;
+        var minLength = 0;
+        var maxLength = 0;
         while (i < format.Length)
         {
-            char ch = format[i];
+            var ch = format[i];
             int nextChar;
             switch (ch)
             {
                 case 'g':
                     tokenLen = ParseRepeatPattern(format, i, ch);
-                    AppendString(ref result, dtfi.GetEraName(cal.GetEra(dateTime)));
+                    minLength += cultureDates.EraShort;
+                    maxLength += cultureDates.EraLong;
                     break;
 
                 case 'h':
-                    tokenLen = ParseRepeatPattern(format, i, ch);
-                    hour12 = dateTime.Hour;
-                    if (hour12 > 12)
-                    {
-                        hour12 -= 12;
-                    }
-                    else if (hour12 == 0)
-                    {
-                        hour12 = 12;
-                    }
-                    FormatDigits(ref result, hour12, Math.Min(tokenLen, 2));
-                    break;
-
                 case 'H':
-                    tokenLen = ParseRepeatPattern(format, i, ch);
-                    FormatDigits(ref result, dateTime.Hour, Math.Min(tokenLen, 2));
-                    break;
-
                 case 'm':
-                    tokenLen = ParseRepeatPattern(format, i, ch);
-                    FormatDigits(ref result, dateTime.Minute, Math.Min(tokenLen, 2));
-                    break;
-
                 case 's':
                     tokenLen = ParseRepeatPattern(format, i, ch);
-                    FormatDigits(ref result, dateTime.Second, Math.Min(tokenLen, 2));
+                    minLength += Math.Min(tokenLen, 2);
+                    maxLength += 2;
                     break;
 
                 case 'f':
                 case 'F':
                     tokenLen = ParseRepeatPattern(format, i, ch);
-                    if (tokenLen <= MaxSecondsFractionDigits)
+                    if (tokenLen > MaxSecondsFractionDigits)
                     {
-                        int fraction = (int)(dateTime.Ticks % TimeSpan.TicksPerSecond);
-                        fraction /= TimeSpanParse.Pow10UpToMaxFractionDigits(MaxSecondsFractionDigits - tokenLen);
-                        if (ch == 'f')
-                        {
-                            FormatFraction(ref result, fraction, fixedNumberFormats[tokenLen - 1]);
-                        }
-                        else
-                        {
-                            int effectiveDigits = tokenLen;
-                            while (effectiveDigits > 0)
-                            {
-                                if (fraction % 10 == 0)
-                                {
-                                    fraction /= 10;
-                                    effectiveDigits--;
-                                }
-                                else
-                                {
-                                    break;
-                                }
-                            }
-                            if (effectiveDigits > 0)
-                            {
-                                FormatFraction(ref result, fraction, fixedNumberFormats[effectiveDigits - 1]);
-                            }
-                            else
-                            {
-                                // No fraction to emit, so see if we should remove decimal also.
-                                if (result.Length > 0 && result[^1] == TChar.CastFrom('.'))
-                                {
-                                    result.Length--;
-                                }
-                            }
-                        }
+                        throw new FormatException("Too many second fraction digits");
                     }
-                    else
-                    {
-                        throw new FormatException(SR.Format_InvalidString);
-                    }
+
+                    maxLength += tokenLen;
+
                     break;
 
                 case 't':
                     tokenLen = ParseRepeatPattern(format, i, ch);
                     if (tokenLen == 1)
                     {
-                        string designator = dateTime.Hour < 12 ? dtfi.AMDesignator : dtfi.PMDesignator;
-                        if (designator.Length >= 1)
-                        {
-                            AppendChar(ref result, designator[0]);
-                        }
+                        maxLength += 1;
+                        minLength += 1;
                     }
                     else
                     {
-                        result.Append(dateTime.Hour < 12 ? dtfi.AMDesignatorTChar<TChar>() : dtfi.PMDesignatorTChar<TChar>());
+                        maxLength += 2;
+                        minLength += 2;
                     }
+
                     break;
 
                 case 'd':
@@ -127,141 +68,119 @@
                     // tokenLen >= 4 : Day of week as its full name.
                     //
                     tokenLen = ParseRepeatPattern(format, i, ch);
-                    if (tokenLen <= 2)
+                    if (tokenLen == 1)
                     {
-                        int day = cal.GetDayOfMonth(dateTime);
-                        if (isHebrewCalendar)
-                        {
-                            // For Hebrew calendar, we need to convert numbers to Hebrew text for yyyy, MM, and dd values.
-                            HebrewNumber.Append(ref result, day);
-                        }
-                        else
-                        {
-                            FormatDigits(ref result, day, tokenLen);
-                        }
+                        minLength += 1;
+                        maxLength += 2;
+                    }
+                    else if (tokenLen == 2)
+                    {
+                        minLength += 2;
+                        maxLength += 2;
+                    }
+                    else if (tokenLen == 3)
+                    {
+                        minLength += cultureDates.AbbreviatedDayNameShort;
+                        maxLength += cultureDates.AbbreviatedDayNameLong;
                     }
                     else
                     {
-                        int dayOfWeek = (int)cal.GetDayOfWeek(dateTime);
-                        AppendString(ref result, FormatDayOfWeek(dayOfWeek, tokenLen, dtfi));
+                        minLength += cultureDates.DayNameShort;
+                        maxLength += cultureDates.DayNameLong;
                     }
-                    bTimeOnly = false;
-                    break;
 
+                    break;
                 case 'M':
                     // tokenLen == 1 : Month as digits with no leading zero.
                     // tokenLen == 2 : Month as digits with leading zero for single-digit months.
                     // tokenLen == 3 : Month as a three-letter abbreviation.
                     // tokenLen >= 4 : Month as its full name.
                     tokenLen = ParseRepeatPattern(format, i, ch);
-                    int month = cal.GetMonth(dateTime);
-                    if (tokenLen <= 2)
+                    if (tokenLen == 1)
                     {
-                        if (isHebrewCalendar)
-                        {
-                            // For Hebrew calendar, we need to convert numbers to Hebrew text for yyyy, MM, and dd values.
-                            HebrewNumber.Append(ref result, month);
-                        }
-                        else
-                        {
-                            FormatDigits(ref result, month, tokenLen);
-                        }
+                        minLength += 1;
+                        maxLength += 2;
+                    }
+                    else if (tokenLen == 2)
+                    {
+                        minLength += 2;
+                        maxLength += 2;
+                    }
+                    else if (tokenLen == 3)
+                    {
+                        minLength += cultureDates.AbbreviatedMonthNameShort;
+                        maxLength += cultureDates.AbbreviatedMonthNameLong;
                     }
                     else
                     {
-                        if (isHebrewCalendar)
-                        {
-                            AppendString(ref result, FormatHebrewMonthName(dateTime, month, tokenLen, dtfi));
-                        }
-                        else
-                        {
-                            if ((dtfi.FormatFlags & DateTimeFormatFlags.UseGenitiveMonth) != 0)
-                            {
-                                AppendString(ref result,
-                                    dtfi.InternalGetMonthName(
-                                        month,
-                                        IsUseGenitiveForm(format, i, tokenLen, 'd') ? MonthNameStyles.Genitive : MonthNameStyles.Regular,
-                                        tokenLen == 3));
-                            }
-                            else
-                            {
-                                AppendString(ref result, FormatMonth(month, tokenLen, dtfi));
-                            }
-                        }
+                        minLength += cultureDates.MonthNameShort;
+                        maxLength += cultureDates.MonthNameLong;
                     }
-                    bTimeOnly = false;
-                    break;
 
+                    break;
                 case 'y':
                     // Notes about OS behavior:
                     // y: Always print (year % 100). No leading zero.
                     // yy: Always print (year % 100) with leading zero.
                     // yyy/yyyy/yyyyy/... : Print year value.  With leading zeros.
 
-                    int year = cal.GetYear(dateTime);
                     tokenLen = ParseRepeatPattern(format, i, ch);
-                    if (isJapaneseCalendar &&
-                        !LocalAppContextSwitches.FormatJapaneseFirstYearAsANumber &&
-                        year == 1 &&
-                        ((i + tokenLen < format.Length && format[i + tokenLen] == DateTimeFormatInfoScanner.CJKYearSuff) ||
-                         (i + tokenLen < format.Length - 1 && format[i + tokenLen] == '\'' && format[i + tokenLen + 1] == DateTimeFormatInfoScanner.CJKYearSuff)))
+                    if (tokenLen == 1)
                     {
-                        // We are formatting a Japanese date with year equals 1 and the year number is followed by the year sign \u5e74
-                        // In Japanese dates, the first year in the era is not formatted as a number 1 instead it is formatted as \u5143 which means
-                        // first or beginning of the era.
-                        AppendChar(ref result, DateTimeFormatInfo.JapaneseEraStart[0]);
+                        minLength += 1;
+                        maxLength += 4;
                     }
-                    else if (dtfi.HasForceTwoDigitYears)
+                    else if (tokenLen == 2)
                     {
-                        FormatDigits(ref result, year, Math.Min(tokenLen, 2));
-                    }
-                    else if (cal.ID == CalendarId.HEBREW)
-                    {
-                        HebrewNumber.Append(ref result, year);
+                        minLength += 2;
+                        maxLength += 4;
                     }
                     else
                     {
-                        if (tokenLen <= 2)
-                        {
-                            FormatDigits(ref result, year % 100, tokenLen);
-                        }
-                        else if (tokenLen <= 16) // FormatDigits has an implicit 16-digit limit
-                        {
-                            FormatDigits(ref result, year, tokenLen);
-                        }
-                        else
-                        {
-                            AppendString(ref result, year.ToString("D" + tokenLen.ToString(CultureInfo.InvariantCulture), CultureInfo.InvariantCulture));
-                        }
+                        minLength += tokenLen;
+                        maxLength += Math.Max(tokenLen, 4);
                     }
-                    bTimeOnly = false;
-                    break;
 
+                    break;
                 case 'z':
                     tokenLen = ParseRepeatPattern(format, i, ch);
-                    FormatCustomizedTimeZone(dateTime, offset, tokenLen, bTimeOnly, ref result);
-                    break;
+                    if (tokenLen == 1)
+                    {
+                        minLength += 2;
+                        maxLength += 3;
+                    }
+                    else if (tokenLen == 2)
+                    {
+                        minLength += 3;
+                        maxLength += 3;
+                    }
+                    else
+                    {
+                        minLength += 6;
+                        maxLength += 6;
+                    }
 
+                    break;
                 case 'K':
                     tokenLen = 1;
-                    FormatCustomizedRoundripTimeZone(dateTime, offset, ref result);
+                    minLength += 6;
+                    maxLength += 6;
                     break;
-
                 case ':':
-                    result.Append(dtfi.TimeSeparatorTChar<TChar>());
+                    minLength += cultureDates.TimeSeparator;
+                    maxLength += cultureDates.TimeSeparator;
+
                     tokenLen = 1;
                     break;
-
                 case '/':
-                    result.Append(dtfi.DateSeparatorTChar<TChar>());
+                    minLength += cultureDates.DateSeparator;
+                    maxLength += cultureDates.DateSeparator;
                     tokenLen = 1;
                     break;
-
                 case '\'':
                 case '\"':
-                    tokenLen = ParseQuoteString(format, i, ref result);
+                    tokenLen = ParseQuoteString(format, i);
                     break;
-
                 case '%':
                     // Optional format character.
                     // For example, format string "%d" will print day of month
@@ -269,64 +188,117 @@
                     nextChar = ParseNextChar(format, i);
                     // nextChar will be -1 if we have already reached the end of the format string.
                     // Besides, we will not allow "%%" to appear in the pattern.
-                    if (nextChar >= 0 && nextChar != '%')
+                    if (nextChar is < 0 or '%')
                     {
-                        char nextCharChar = (char)nextChar;
-                        FormatCustomized(dateTime, new ReadOnlySpan<char>(in nextCharChar), dtfi, offset, ref result);
-                        tokenLen = 2;
+                        throw new FormatException("Detected '%' at the end of the format string or '%%' appears in the format string");
                     }
-                    else
-                    {
-                        //
-                        // This means that '%' is at the end of the format string or
-                        // "%%" appears in the format string.
-                        //
-                        throw new FormatException(SR.Format_InvalidString);
-                    }
-                    break;
 
+                    var nextCharChar = (char) nextChar;
+                    var innerLength = GetLength([nextCharChar], culture);
+                    maxLength += innerLength.max;
+                    minLength += innerLength.min;
+                    tokenLen = 2;
+
+                    break;
                 case '\\':
                     // Escaped character.  Can be used to insert a character into the format string.
                     // For example, "\d" will insert the character 'd' into the string.
                     //
-                    // NOTENOTE : we can remove this format character if we enforce the enforced quote
+                    // NOTE: we can remove this format character if we enforce the enforced quote
                     // character rule.
                     // That is, we ask everyone to use single quote or double quote to insert characters,
                     // then we can remove this character.
-                    //
                     nextChar = ParseNextChar(format, i);
-                    if (nextChar >= 0)
+                    if (nextChar < 0)
                     {
-                        result.Append(TChar.CastFrom(nextChar));
-                        tokenLen = 2;
-                    }
-                    else
-                    {
-                        //
                         // This means that '\' is at the end of the formatting string.
-                        //
-                        throw new FormatException(SR.Format_InvalidString);
+                        throw new FormatException("Detected a '\\' at the end of the formatting string");
                     }
-                    break;
 
+                    minLength++;
+                    maxLength++;
+                    tokenLen = 2;
+
+                    break;
                 default:
-                    // NOTENOTE : we can remove this rule if we enforce the enforced quote character rule.
-                    // That is, if we ask everyone to use single quote or double quote to insert characters,
-                    // then we can remove this default block.
-                    AppendChar(ref result, ch);
+                    minLength++;
+                    maxLength++;
                     tokenLen = 1;
                     break;
             }
+
             i += tokenLen;
         }
+        return (maxLength, minLength);
     }
-    internal static int ParseRepeatPattern(ReadOnlySpan<char> format, int pos, char patternChar)
+
+    // Get the next character at the index of 'pos' in the 'format' string.
+    // Return value of -1 means 'pos' is already at the end of the 'format' string.
+    // Otherwise, return value is the int value of the next character.
+    internal static int ParseNextChar(CharSpan format, int pos)
     {
-        int index = pos + 1;
-        while ((uint)index < (uint)format.Length && format[index] == patternChar)
+        if (pos + 1 >= format.Length)
+        {
+            return -1;
+        }
+
+        return format[pos + 1];
+    }
+
+    internal static int ParseRepeatPattern(CharSpan format, int pos, char patternChar)
+    {
+        var index = pos + 1;
+        while (index < format.Length && format[index] == patternChar)
         {
             index++;
         }
+
         return index - pos;
+    }
+
+    // The pos should point to a quote character. This method will
+    // append to the result StringBuilder the string enclosed by the quote character.
+    internal static int ParseQuoteString(scoped CharSpan format, int pos)
+    {
+        // NOTE : pos will be the index of the quote character in the 'format' string.
+        var formatLen = format.Length;
+        var beginPos = pos;
+        var quoteChar = format[pos++]; // Get the character used to quote the following string.
+
+        var foundQuote = false;
+        while (pos < formatLen)
+        {
+            var ch = format[pos++];
+            if (ch == quoteChar)
+            {
+                foundQuote = true;
+                break;
+            }
+
+            if (ch != '\\')
+            {
+                continue;
+            }
+
+            if (pos >= formatLen)
+            {
+                throw new FormatException("Invalid that '\\' is at the end of the formatting string.");
+            }
+
+            // The following are used to support escaped character.
+            // Escaped character is also supported in the quoted string.
+            // Therefore, someone can use a format like "'minute:' mm\"" to display:
+            //  minute: 45"
+            // because the second double quote is escaped.
+            pos++;
+        }
+
+        if (!foundQuote)
+        {
+            throw new FormatException($"we can't find the matching quote: {quoteChar}");
+        }
+
+        // Return the character count including the begin/end quote characters and enclosed string.
+        return pos - beginPos;
     }
 }

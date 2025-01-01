@@ -10,6 +10,7 @@ public class CultureToDateBuilder
         {
             return Task.CompletedTask;
         }
+
         var cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
         var builder = new StringBuilder(
             """
@@ -31,13 +32,41 @@ public class CultureToDateBuilder
                     continue;
                 }
             }
+
+            var formatInfo = culture.DateTimeFormat;
+
+            var calendar = culture.Calendar;
+
+            var amLength = formatInfo.AMDesignator.Length;
+            var pmLength = formatInfo.PMDesignator.Length;
+            var dateSeparator = formatInfo.DateSeparator.Length;
+            var timeSeparator = formatInfo.TimeSeparator.Length;
+            var monthNames = Lengths(formatInfo.MonthNames);
+            var abbreviatedMonthNames = Lengths(formatInfo.AbbreviatedMonthNames);
+            var dayNames = Lengths(formatInfo.MonthNames);
+            var abbreviatedDayNames = Lengths(formatInfo.AbbreviatedDayNames);
+            var eras = Lengths(calendar.Eras.Select(_ => formatInfo.GetEraName(_)));
             builder.AppendLine(
                 $$"""
                           {
                               "{{culture.Name}}",
                               new(
                                   new(2023, {{longDate.Month}}, {{longDate.Day}}, {{longDate.Hour}}, 10, 10, 10),
-                                  new(2023, {{shortDate.Month}}, {{shortDate.Day}}, {{shortDate.Hour}}, 0, 0))
+                                  new(2023, {{shortDate.Month}}, {{shortDate.Day}}, {{shortDate.Hour}}, 0, 0),
+                                  {{int.Max(amLength, pmLength)}},
+                                  {{int.Min(amLength, pmLength)}},
+                                  {{monthNames.Long}},
+                                  {{monthNames.Short}},
+                                  {{abbreviatedMonthNames.Long}},
+                                  {{abbreviatedMonthNames.Short}},
+                                  {{dayNames.Long}},
+                                  {{dayNames.Short}},
+                                  {{abbreviatedDayNames.Long}},
+                                  {{abbreviatedDayNames.Short}},
+                                  {{dateSeparator}},
+                                  {{timeSeparator}},
+                                  {{eras.Long}},
+                                  {{eras.Short}})
                           },
                   """);
         }
@@ -50,6 +79,15 @@ public class CultureToDateBuilder
         var file = Path.Combine(AttributeReader.GetSolutionDirectory(), "Verify/Serialization/Scrubbers/DateScrubber_Generated.cs");
         File.Delete(file);
         return File.WriteAllTextAsync(file, builder.ToString());
+    }
+
+    static (int Long, int Short) Lengths(IEnumerable<string> names)
+    {
+        var lengths = names
+            .Select(_ => _.Length)
+            .Where(_ => _ > 0)
+            .ToList();
+        return (lengths.Max(), lengths.Min());
     }
 
     static (DateTime longDate, DateTime shortDate) FindDates(CultureInfo culture)

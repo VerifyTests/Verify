@@ -3,8 +3,10 @@
     DateTime shortDate,
     int amPmLong,
     int amPmShort,
-    int monthNameLong = 0,
-    int monthNameShort = 0)
+    int monthNameLong,
+    int monthNameShort,
+    int abbreviatedMonthNameLong = 0,
+    int abbreviatedMonthNameShort = 0)
 {
     public DateTime Long { get; } = longDate;
     public DateTime Short { get; } = shortDate;
@@ -12,4 +14,6 @@
     public int AmPmShort { get; } = amPmShort;
     public int MonthNameLong { get; } = monthNameLong;
     public int MonthNameShort { get; } = monthNameShort;
+    public int AbbreviatedMonthNameLong { get; } = abbreviatedMonthNameLong;
+    public int AbbreviatedMonthNameShort { get; } = abbreviatedMonthNameShort;
 }

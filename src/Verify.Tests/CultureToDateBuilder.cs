@@ -36,12 +36,8 @@ public class CultureToDateBuilder
             var formatInfo = culture.DateTimeFormat;
             var amLength = formatInfo.AMDesignator.Length;
             var pmLength = formatInfo.PMDesignator.Length;
-            var monthNames = formatInfo.MonthNames
-                .Select(_ => _.Length)
-                .Where(_ => _ > 0)
-                .ToList();
-            var monthNameLong = monthNames.Max();
-            var monthNameShort = monthNames.Min();
+            var monthNames = Lengths(formatInfo.MonthNames);
+            var abbreviatedMonthNames = Lengths(formatInfo.AbbreviatedMonthNames);
             builder.AppendLine(
                 $$"""
                           {
@@ -51,8 +47,10 @@ public class CultureToDateBuilder
                                   new(2023, {{shortDate.Month}}, {{shortDate.Day}}, {{shortDate.Hour}}, 0, 0),
                                   {{int.Max(amLength, pmLength)}},
                                   {{int.Min(amLength, pmLength)}},
-                                  {{monthNameLong}},
-                                  {{monthNameShort}})
+                                  {{monthNames.Long}},
+                                  {{monthNames.Short}},
+                                  {{abbreviatedMonthNames.Long}},
+                                  {{abbreviatedMonthNames.Short}})
                           },
                   """);
         }
@@ -65,6 +63,15 @@ public class CultureToDateBuilder
         var file = Path.Combine(AttributeReader.GetSolutionDirectory(), "Verify/Serialization/Scrubbers/DateScrubber_Generated.cs");
         File.Delete(file);
         return File.WriteAllTextAsync(file, builder.ToString());
+    }
+
+    static (int Long, int Short) Lengths(string[] names)
+    {
+        var lengths = names
+            .Select(_ => _.Length)
+            .Where(_ => _ > 0)
+            .ToList();
+        return (lengths.Max(), lengths.Min());
     }
 
     static (DateTime longDate, DateTime shortDate) FindDates(CultureInfo culture)

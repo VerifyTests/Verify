@@ -2,10 +2,10 @@
 {
 
     private static void FormatCustomized<TChar>(
-        DateTime dateTime, scoped ReadOnlySpan<char> format, DateTimeFormatInfo dtfi, TimeSpan offset, ref ValueListBuilder<TChar> result) where TChar : unmanaged, IUtfChar<TChar>
+        DateTime dateTime, scoped ReadOnlySpan<char> format, CultureInfo culture, TimeSpan offset, ref ValueListBuilder<TChar> result) where TChar : unmanaged, IUtfChar<TChar>
     {
+        DateTimeFormatInfo dtfi = culture.DateTimeFormat;
         Calendar cal = dtfi.Calendar;
-
         // This is a flag to indicate if we are formatting the dates using Hebrew calendar.
         bool isHebrewCalendar = (cal.ID == CalendarId.HEBREW);
         bool isJapaneseCalendar = (cal.ID == CalendarId.JAPAN);
@@ -15,7 +15,8 @@
         int i = 0;
         int tokenLen, hour12;
 
-        int length = 0;
+        int minLength = 0;
+        int maxLength = 0;
         while (i < format.Length)
         {
             char ch = format[i];

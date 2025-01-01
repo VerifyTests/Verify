@@ -45,7 +45,7 @@ public class CultureToDateBuilder
             var abbreviatedMonthNames = Lengths(formatInfo.AbbreviatedMonthNames);
             var dayNames = Lengths(formatInfo.MonthNames);
             var abbreviatedDayNames = Lengths(formatInfo.AbbreviatedDayNames);
-            var eras = Lengths(calendar.Eras.Select(_=>formatInfo.GetEraName(_)));
+            var eras = Lengths(calendar.Eras.Select(_ => formatInfo.GetEraName(_)));
             builder.AppendLine(
                 $$"""
                           {

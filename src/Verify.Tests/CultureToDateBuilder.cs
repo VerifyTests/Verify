@@ -21,6 +21,7 @@ public class CultureToDateBuilder
                 {
 
             """);
+        var list = cultures.Select(_=>_.DateTimeFormat.DateSeparator).Distinct().ToList();
         foreach (var culture in cultures)
         {
             var (longDate, shortDate) = FindDates(culture);
@@ -36,8 +37,12 @@ public class CultureToDateBuilder
             var formatInfo = culture.DateTimeFormat;
             var amLength = formatInfo.AMDesignator.Length;
             var pmLength = formatInfo.PMDesignator.Length;
+            var dateSeparator = formatInfo.DateSeparator.Length;
+            var timeSeparator = formatInfo.TimeSeparator.Length;
             var monthNames = Lengths(formatInfo.MonthNames);
             var abbreviatedMonthNames = Lengths(formatInfo.AbbreviatedMonthNames);
+            var dayNames = Lengths(formatInfo.MonthNames);
+            var abbreviatedDayNames = Lengths(formatInfo.AbbreviatedDayNames);
             builder.AppendLine(
                 $$"""
                           {
@@ -50,7 +55,13 @@ public class CultureToDateBuilder
                                   {{monthNames.Long}},
                                   {{monthNames.Short}},
                                   {{abbreviatedMonthNames.Long}},
-                                  {{abbreviatedMonthNames.Short}})
+                                  {{abbreviatedMonthNames.Short}},
+                                  {{dayNames.Long}},
+                                  {{dayNames.Short}},
+                                  {{abbreviatedDayNames.Long}},
+                                  {{abbreviatedDayNames.Short}},
+                                  {{dateSeparator}},
+                                  {{timeSeparator}})
                           },
                   """);
         }

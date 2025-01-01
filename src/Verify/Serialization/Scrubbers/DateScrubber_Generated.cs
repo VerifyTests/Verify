@@ -13,7 +13,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "aa",
@@ -25,7 +31,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "af",
@@ -37,7 +49,13 @@ static partial class DateScrubber
                 9,
                 3,
                 4,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "agq",
@@ -49,7 +67,13 @@ static partial class DateScrubber
                 23,
                 10,
                 3,
-                3)
+                3,
+                23,
+                10,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ak",
@@ -61,7 +85,13 @@ static partial class DateScrubber
                 26,
                 10,
                 3,
-                3)
+                3,
+                26,
+                10,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "am",
@@ -73,7 +103,13 @@ static partial class DateScrubber
                 6,
                 2,
                 3,
-                2)
+                2,
+                6,
+                2,
+                3,
+                2,
+                1,
+                1)
         },
         {
             "ar",
@@ -85,7 +121,13 @@ static partial class DateScrubber
                 6,
                 4,
                 6,
-                4)
+                4,
+                6,
+                4,
+                8,
+                5,
+                2,
+                1)
         },
         {
             "ar-DZ",
@@ -97,7 +139,13 @@ static partial class DateScrubber
                 6,
                 3,
                 6,
-                3)
+                3,
+                6,
+                3,
+                8,
+                5,
+                2,
+                1)
         },
         {
             "ar-IQ",
@@ -109,7 +157,13 @@ static partial class DateScrubber
                 12,
                 2,
                 12,
-                2)
+                2,
+                12,
+                2,
+                8,
+                5,
+                2,
+                1)
         },
         {
             "ar-JO",
@@ -121,7 +175,13 @@ static partial class DateScrubber
                 12,
                 2,
                 12,
-                2)
+                2,
+                12,
+                2,
+                8,
+                5,
+                2,
+                1)
         },
         {
             "ar-LB",
@@ -133,7 +193,13 @@ static partial class DateScrubber
                 12,
                 2,
                 12,
-                2)
+                2,
+                12,
+                2,
+                8,
+                5,
+                2,
+                1)
         },
         {
             "ar-MA",
@@ -145,7 +211,13 @@ static partial class DateScrubber
                 6,
                 3,
                 6,
-                3)
+                3,
+                6,
+                3,
+                8,
+                5,
+                2,
+                1)
         },
         {
             "ar-PS",
@@ -157,7 +229,13 @@ static partial class DateScrubber
                 12,
                 2,
                 12,
-                2)
+                2,
+                12,
+                2,
+                8,
+                5,
+                2,
+                1)
         },
         {
             "ar-SA",
@@ -169,7 +247,13 @@ static partial class DateScrubber
                 12,
                 3,
                 12,
-                3)
+                3,
+                12,
+                3,
+                8,
+                5,
+                2,
+                1)
         },
         {
             "ar-SY",
@@ -181,7 +265,13 @@ static partial class DateScrubber
                 12,
                 2,
                 12,
-                2)
+                2,
+                12,
+                2,
+                8,
+                5,
+                2,
+                1)
         },
         {
             "ar-TN",
@@ -193,7 +283,13 @@ static partial class DateScrubber
                 6,
                 3,
                 6,
-                3)
+                3,
+                6,
+                3,
+                8,
+                5,
+                2,
+                1)
         },
         {
             "arn",
@@ -205,7 +301,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "as",
@@ -217,7 +319,13 @@ static partial class DateScrubber
                 10,
                 3,
                 6,
-                2)
+                2,
+                10,
+                3,
+                5,
+                3,
+                1,
+                1)
         },
         {
             "asa",
@@ -229,7 +337,13 @@ static partial class DateScrubber
                 8,
                 3,
                 3,
-                3)
+                3,
+                8,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ast",
@@ -241,7 +355,13 @@ static partial class DateScrubber
                 9,
                 4,
                 3,
-                3)
+                3,
+                9,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "az",
@@ -253,7 +373,13 @@ static partial class DateScrubber
                 8,
                 3,
                 3,
-                3)
+                3,
+                8,
+                3,
+                4,
+                2,
+                1,
+                1)
         },
         {
             "ba",
@@ -265,7 +391,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "bas",
@@ -277,7 +409,13 @@ static partial class DateScrubber
                 13,
                 5,
                 3,
-                3)
+                3,
+                13,
+                5,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "be",
@@ -289,7 +427,13 @@ static partial class DateScrubber
                 10,
                 3,
                 3,
-                3)
+                3,
+                10,
+                3,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "bem",
@@ -301,7 +445,13 @@ static partial class DateScrubber
                 8,
                 3,
                 3,
-                3)
+                3,
+                8,
+                3,
+                12,
+                9,
+                1,
+                1)
         },
         {
             "bez",
@@ -313,7 +463,13 @@ static partial class DateScrubber
                 27,
                 18,
                 3,
-                3)
+                3,
+                27,
+                18,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "bg",
@@ -325,7 +481,13 @@ static partial class DateScrubber
                 9,
                 3,
                 4,
-                3)
+                3,
+                9,
+                3,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "bgc",
@@ -337,7 +499,13 @@ static partial class DateScrubber
                 7,
                 2,
                 7,
-                2)
+                2,
+                7,
+                2,
+                10,
+                5,
+                1,
+                1)
         },
         {
             "bho",
@@ -349,7 +517,13 @@ static partial class DateScrubber
                 7,
                 2,
                 7,
-                2)
+                2,
+                7,
+                2,
+                11,
+                5,
+                1,
+                1)
         },
         {
             "bin",
@@ -361,7 +535,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "bm",
@@ -373,7 +553,13 @@ static partial class DateScrubber
                 9,
                 2,
                 3,
-                2)
+                2,
+                9,
+                2,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "bn",
@@ -385,7 +571,13 @@ static partial class DateScrubber
                 11,
                 2,
                 10,
-                2)
+                2,
+                11,
+                2,
+                8,
+                3,
+                1,
+                1)
         },
         {
             "bo",
@@ -397,7 +589,13 @@ static partial class DateScrubber
                 16,
                 10,
                 5,
-                4)
+                4,
+                16,
+                10,
+                8,
+                5,
+                1,
+                1)
         },
         {
             "br",
@@ -409,7 +607,13 @@ static partial class DateScrubber
                 9,
                 2,
                 6,
-                2)
+                2,
+                9,
+                2,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "brx",
@@ -421,7 +625,13 @@ static partial class DateScrubber
                 10,
                 2,
                 5,
-                2)
+                2,
+                10,
+                2,
+                6,
+                2,
+                1,
+                1)
         },
         {
             "bs",
@@ -433,7 +643,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                2,
+                1)
         },
         {
             "bs-Cyrl",
@@ -445,7 +661,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "byn",
@@ -457,7 +679,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ca",
@@ -469,7 +697,13 @@ static partial class DateScrubber
                 8,
                 4,
                 5,
-                3)
+                3,
+                8,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ccp",
@@ -481,7 +715,13 @@ static partial class DateScrubber
                 24,
                 4,
                 24,
-                4)
+                4,
+                24,
+                4,
+                16,
+                8,
+                1,
+                1)
         },
         {
             "ce",
@@ -493,7 +733,13 @@ static partial class DateScrubber
                 8,
                 3,
                 3,
-                3)
+                3,
+                8,
+                3,
+                3,
+                2,
+                1,
+                1)
         },
         {
             "ceb",
@@ -505,7 +751,13 @@ static partial class DateScrubber
                 9,
                 4,
                 3,
-                3)
+                3,
+                9,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "cgg",
@@ -517,7 +769,13 @@ static partial class DateScrubber
                 18,
                 8,
                 3,
-                3)
+                3,
+                18,
+                8,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "chr",
@@ -529,7 +787,13 @@ static partial class DateScrubber
                 5,
                 3,
                 2,
-                2)
+                2,
+                5,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ckb",
@@ -541,7 +805,13 @@ static partial class DateScrubber
                 13,
                 3,
                 13,
-                3)
+                3,
+                13,
+                3,
+                9,
+                5,
+                1,
+                1)
         },
         {
             "ckb-IR",
@@ -553,7 +823,13 @@ static partial class DateScrubber
                 9,
                 5,
                 9,
-                5)
+                5,
+                9,
+                5,
+                9,
+                5,
+                1,
+                1)
         },
         {
             "co",
@@ -565,7 +841,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "cs",
@@ -577,7 +859,13 @@ static partial class DateScrubber
                 8,
                 4,
                 3,
-                3)
+                3,
+                8,
+                4,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "cu",
@@ -589,7 +877,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "cv",
@@ -601,7 +895,13 @@ static partial class DateScrubber
                 6,
                 2,
                 4,
-                2)
+                2,
+                6,
+                2,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "cy",
@@ -613,7 +913,13 @@ static partial class DateScrubber
                 10,
                 3,
                 4,
-                3)
+                3,
+                10,
+                3,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "da",
@@ -625,7 +931,13 @@ static partial class DateScrubber
                 9,
                 3,
                 4,
-                3)
+                3,
+                9,
+                3,
+                5,
+                4,
+                1,
+                1)
         },
         {
             "dav",
@@ -637,7 +949,13 @@ static partial class DateScrubber
                 25,
                 14,
                 3,
-                3)
+                3,
+                25,
+                14,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "de",
@@ -649,7 +967,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "dje",
@@ -661,7 +985,13 @@ static partial class DateScrubber
                 9,
                 2,
                 3,
-                2)
+                2,
+                9,
+                2,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "doi",
@@ -673,7 +1003,13 @@ static partial class DateScrubber
                 7,
                 3,
                 6,
-                3)
+                3,
+                7,
+                3,
+                5,
+                2,
+                1,
+                1)
         },
         {
             "dsb",
@@ -685,7 +1021,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "dua",
@@ -697,7 +1039,13 @@ static partial class DateScrubber
                 12,
                 4,
                 4,
-                2)
+                2,
+                12,
+                4,
+                4,
+                2,
+                1,
+                1)
         },
         {
             "dv",
@@ -709,7 +1057,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "dyo",
@@ -721,7 +1075,13 @@ static partial class DateScrubber
                 9,
                 2,
                 2,
-                2)
+                2,
+                9,
+                2,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "dz",
@@ -733,7 +1093,13 @@ static partial class DateScrubber
                 19,
                 12,
                 5,
-                4)
+                4,
+                19,
+                12,
+                5,
+                3,
+                1,
+                1)
         },
         {
             "ebu",
@@ -745,7 +1111,13 @@ static partial class DateScrubber
                 23,
                 13,
                 3,
-                3)
+                3,
+                23,
+                13,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ee",
@@ -757,7 +1129,13 @@ static partial class DateScrubber
                 11,
                 4,
                 3,
-                3)
+                3,
+                11,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "el",
@@ -769,7 +1147,13 @@ static partial class DateScrubber
                 11,
                 5,
                 4,
-                3)
+                3,
+                11,
+                5,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "en",
@@ -781,7 +1165,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "eo",
@@ -793,7 +1183,13 @@ static partial class DateScrubber
                 9,
                 4,
                 3,
-                3)
+                3,
+                9,
+                4,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "es",
@@ -805,7 +1201,13 @@ static partial class DateScrubber
                 10,
                 4,
                 4,
-                3)
+                3,
+                10,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "et",
@@ -817,7 +1219,13 @@ static partial class DateScrubber
                 9,
                 3,
                 5,
-                3)
+                3,
+                9,
+                3,
+                1,
+                1,
+                1,
+                1)
         },
         {
             "eu",
@@ -829,7 +1237,13 @@ static partial class DateScrubber
                 9,
                 5,
                 4,
-                4)
+                4,
+                9,
+                5,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ewo",
@@ -841,7 +1255,13 @@ static partial class DateScrubber
                 17,
                 8,
                 4,
-                3)
+                3,
+                17,
+                8,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "fa",
@@ -853,7 +1273,13 @@ static partial class DateScrubber
                 8,
                 2,
                 8,
-                2)
+                2,
+                8,
+                2,
+                8,
+                4,
+                1,
+                1)
         },
         {
             "ff",
@@ -865,7 +1291,13 @@ static partial class DateScrubber
                 8,
                 4,
                 3,
-                3)
+                3,
+                8,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ff-Adlm",
@@ -877,7 +1309,13 @@ static partial class DateScrubber
                 12,
                 8,
                 10,
-                6)
+                6,
+                12,
+                8,
+                8,
+                6,
+                1,
+                1)
         },
         {
             "fi",
@@ -889,7 +1327,13 @@ static partial class DateScrubber
                 9,
                 6,
                 6,
-                3)
+                3,
+                9,
+                6,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "fil",
@@ -901,7 +1345,13 @@ static partial class DateScrubber
                 9,
                 4,
                 3,
-                3)
+                3,
+                9,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "fo",
@@ -913,7 +1363,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "fr",
@@ -925,7 +1381,13 @@ static partial class DateScrubber
                 9,
                 3,
                 5,
-                3)
+                3,
+                9,
+                3,
+                4,
+                4,
+                1,
+                1)
         },
         {
             "fr-CM",
@@ -937,7 +1399,13 @@ static partial class DateScrubber
                 9,
                 3,
                 5,
-                3)
+                3,
+                9,
+                3,
+                4,
+                4,
+                1,
+                1)
         },
         {
             "fur",
@@ -949,7 +1417,13 @@ static partial class DateScrubber
                 8,
                 3,
                 3,
-                3)
+                3,
+                8,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "fy",
@@ -961,7 +1435,13 @@ static partial class DateScrubber
                 10,
                 4,
                 3,
-                3)
+                3,
+                10,
+                4,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "ga",
@@ -973,7 +1453,13 @@ static partial class DateScrubber
                 16,
                 4,
                 5,
-                3)
+                3,
+                16,
+                4,
+                5,
+                4,
+                1,
+                1)
         },
         {
             "gd",
@@ -985,7 +1471,13 @@ static partial class DateScrubber
                 13,
                 7,
                 5,
-                4)
+                4,
+                13,
+                7,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "gl",
@@ -997,7 +1489,13 @@ static partial class DateScrubber
                 8,
                 4,
                 4,
-                4)
+                4,
+                8,
+                4,
+                4,
+                4,
+                1,
+                1)
         },
         {
             "gn",
@@ -1009,7 +1507,13 @@ static partial class DateScrubber
                 11,
                 6,
                 11,
-                6)
+                6,
+                11,
+                6,
+                8,
+                5,
+                1,
+                1)
         },
         {
             "gsw",
@@ -1021,7 +1525,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "gu",
@@ -1033,7 +1543,13 @@ static partial class DateScrubber
                 9,
                 2,
                 6,
-                2)
+                2,
+                9,
+                2,
+                5,
+                3,
+                1,
+                1)
         },
         {
             "guz",
@@ -1045,7 +1561,13 @@ static partial class DateScrubber
                 8,
                 3,
                 3,
-                3)
+                3,
+                8,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "gv",
@@ -1057,7 +1579,13 @@ static partial class DateScrubber
                 15,
                 6,
                 9,
-                6)
+                6,
+                15,
+                6,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "ha",
@@ -1069,7 +1597,13 @@ static partial class DateScrubber
                 9,
                 4,
                 3,
-                3)
+                3,
+                9,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "haw",
@@ -1081,7 +1615,13 @@ static partial class DateScrubber
                 10,
                 3,
                 4,
-                3)
+                3,
+                10,
+                3,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "he",
@@ -1093,7 +1633,13 @@ static partial class DateScrubber
                 7,
                 3,
                 4,
-                3)
+                3,
+                7,
+                3,
+                6,
+                3,
+                1,
+                1)
         },
         {
             "hi",
@@ -1105,7 +1651,13 @@ static partial class DateScrubber
                 7,
                 2,
                 6,
-                2)
+                2,
+                7,
+                2,
+                5,
+                3,
+                1,
+                1)
         },
         {
             "hi-Latn",
@@ -1117,7 +1669,13 @@ static partial class DateScrubber
                 9,
                 3,
                 4,
-                3)
+                3,
+                9,
+                3,
+                6,
+                3,
+                1,
+                1)
         },
         {
             "hr",
@@ -1129,7 +1687,13 @@ static partial class DateScrubber
                 8,
                 5,
                 4,
-                3)
+                3,
+                8,
+                5,
+                3,
+                3,
+                2,
+                1)
         },
         {
             "hsb",
@@ -1141,7 +1705,13 @@ static partial class DateScrubber
                 9,
                 4,
                 3,
-                3)
+                3,
+                9,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "hu",
@@ -1153,7 +1723,13 @@ static partial class DateScrubber
                 10,
                 5,
                 6,
-                4)
+                4,
+                10,
+                5,
+                3,
+                1,
+                2,
+                1)
         },
         {
             "hy",
@@ -1165,7 +1741,13 @@ static partial class DateScrubber
                 9,
                 4,
                 3,
-                3)
+                3,
+                9,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ia",
@@ -1177,7 +1759,13 @@ static partial class DateScrubber
                 9,
                 4,
                 3,
-                3)
+                3,
+                9,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ibb",
@@ -1189,7 +1777,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "id",
@@ -1201,7 +1795,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ig",
@@ -1213,7 +1813,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "ii",
@@ -1225,7 +1831,13 @@ static partial class DateScrubber
                 3,
                 2,
                 3,
-                2)
+                2,
+                3,
+                2,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "is",
@@ -1237,7 +1849,13 @@ static partial class DateScrubber
                 9,
                 3,
                 4,
-                3)
+                3,
+                9,
+                3,
+                4,
+                4,
+                1,
+                1)
         },
         {
             "it",
@@ -1249,7 +1867,13 @@ static partial class DateScrubber
                 9,
                 5,
                 3,
-                3)
+                3,
+                9,
+                5,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "iu",
@@ -1261,7 +1885,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ja",
@@ -1273,7 +1903,13 @@ static partial class DateScrubber
                 3,
                 2,
                 3,
-                2)
+                2,
+                3,
+                2,
+                1,
+                1,
+                1,
+                1)
         },
         {
             "jgo",
@@ -1285,7 +1921,13 @@ static partial class DateScrubber
                 17,
                 11,
                 17,
-                11)
+                11,
+                17,
+                11,
+                11,
+                6,
+                1,
+                1)
         },
         {
             "jmc",
@@ -1297,7 +1939,13 @@ static partial class DateScrubber
                 8,
                 3,
                 3,
-                3)
+                3,
+                8,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "jv",
@@ -1309,7 +1957,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "ka",
@@ -1321,7 +1975,13 @@ static partial class DateScrubber
                 10,
                 5,
                 3,
-                3)
+                3,
+                10,
+                5,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "kab",
@@ -1333,7 +1993,13 @@ static partial class DateScrubber
                 8,
                 4,
                 3,
-                3)
+                3,
+                8,
+                4,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "kam",
@@ -1345,7 +2011,13 @@ static partial class DateScrubber
                 21,
                 12,
                 3,
-                3)
+                3,
+                21,
+                12,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "kde",
@@ -1357,7 +2029,13 @@ static partial class DateScrubber
                 30,
                 12,
                 3,
-                3)
+                3,
+                30,
+                12,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "kea",
@@ -1369,7 +2047,13 @@ static partial class DateScrubber
                 8,
                 4,
                 3,
-                3)
+                3,
+                8,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "kgp",
@@ -1381,7 +2065,13 @@ static partial class DateScrubber
                 7,
                 6,
                 5,
-                4)
+                4,
+                7,
+                6,
+                4,
+                4,
+                1,
+                1)
         },
         {
             "khq",
@@ -1393,7 +2083,13 @@ static partial class DateScrubber
                 9,
                 2,
                 3,
-                2)
+                2,
+                9,
+                2,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ki",
@@ -1405,7 +2101,13 @@ static partial class DateScrubber
                 22,
                 8,
                 3,
-                3)
+                3,
+                22,
+                8,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "kk",
@@ -1417,7 +2119,13 @@ static partial class DateScrubber
                 9,
                 5,
                 4,
-                4)
+                4,
+                9,
+                5,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "kkj",
@@ -1429,7 +2137,13 @@ static partial class DateScrubber
                 15,
                 2,
                 15,
-                2)
+                2,
+                15,
+                2,
+                10,
+                4,
+                1,
+                1)
         },
         {
             "kl",
@@ -1441,7 +2155,13 @@ static partial class DateScrubber
                 10,
                 5,
                 4,
-                3)
+                3,
+                10,
+                5,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "kln",
@@ -1453,7 +2173,13 @@ static partial class DateScrubber
                 20,
                 5,
                 4,
-                3)
+                3,
+                20,
+                5,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "km",
@@ -1465,7 +2191,13 @@ static partial class DateScrubber
                 8,
                 4,
                 8,
-                4)
+                4,
+                8,
+                4,
+                7,
+                3,
+                1,
+                1)
         },
         {
             "kn",
@@ -1477,7 +2209,13 @@ static partial class DateScrubber
                 10,
                 2,
                 7,
-                2)
+                2,
+                10,
+                2,
+                5,
+                3,
+                1,
+                1)
         },
         {
             "ko",
@@ -1489,7 +2227,13 @@ static partial class DateScrubber
                 3,
                 2,
                 3,
-                2)
+                2,
+                3,
+                2,
+                1,
+                1,
+                2,
+                1)
         },
         {
             "kok",
@@ -1501,7 +2245,13 @@ static partial class DateScrubber
                 10,
                 2,
                 6,
-                2)
+                2,
+                10,
+                2,
+                9,
+                5,
+                1,
+                1)
         },
         {
             "kr",
@@ -1513,7 +2263,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ks",
@@ -1525,7 +2281,13 @@ static partial class DateScrubber
                 7,
                 3,
                 7,
-                3)
+                3,
+                7,
+                3,
+                9,
+                4,
+                1,
+                1)
         },
         {
             "ks-Deva",
@@ -1537,7 +2299,13 @@ static partial class DateScrubber
                 8,
                 2,
                 8,
-                2)
+                2,
+                8,
+                2,
+                8,
+                5,
+                1,
+                1)
         },
         {
             "ksb",
@@ -1549,7 +2317,13 @@ static partial class DateScrubber
                 8,
                 3,
                 3,
-                3)
+                3,
+                8,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ksf",
@@ -1561,7 +2335,13 @@ static partial class DateScrubber
                 21,
                 12,
                 3,
-                2)
+                2,
+                21,
+                12,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "ksh",
@@ -1573,7 +2353,13 @@ static partial class DateScrubber
                 9,
                 3,
                 4,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                2,
+                1)
         },
         {
             "kw",
@@ -1585,7 +2371,13 @@ static partial class DateScrubber
                 13,
                 6,
                 3,
-                2)
+                2,
+                13,
+                6,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ky",
@@ -1597,7 +2389,13 @@ static partial class DateScrubber
                 8,
                 3,
                 3,
-                3)
+                3,
+                8,
+                3,
+                5,
+                4,
+                1,
+                1)
         },
         {
             "la",
@@ -1609,7 +2407,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "lag",
@@ -1621,7 +2425,13 @@ static partial class DateScrubber
                 12,
                 7,
                 9,
-                4)
+                4,
+                12,
+                7,
+                5,
+                3,
+                1,
+                1)
         },
         {
             "lb",
@@ -1633,7 +2443,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "lg",
@@ -1645,7 +2461,13 @@ static partial class DateScrubber
                 10,
                 5,
                 3,
-                3)
+                3,
+                10,
+                5,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "lkt",
@@ -1657,7 +2479,13 @@ static partial class DateScrubber
                 18,
                 11,
                 18,
-                11)
+                11,
+                18,
+                11,
+                13,
+                10,
+                1,
+                1)
         },
         {
             "ln",
@@ -1669,7 +2497,13 @@ static partial class DateScrubber
                 23,
                 13,
                 3,
-                3)
+                3,
+                23,
+                13,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "lo",
@@ -1681,7 +2515,13 @@ static partial class DateScrubber
                 7,
                 4,
                 5,
-                4)
+                4,
+                7,
+                4,
+                6,
+                3,
+                1,
+                1)
         },
         {
             "lrc",
@@ -1693,7 +2533,13 @@ static partial class DateScrubber
                 11,
                 3,
                 11,
-                3)
+                3,
+                11,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "lrc-IQ",
@@ -1705,7 +2551,13 @@ static partial class DateScrubber
                 7,
                 3,
                 7,
-                3)
+                3,
+                7,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "lt",
@@ -1717,7 +2569,13 @@ static partial class DateScrubber
                 9,
                 5,
                 6,
-                4)
+                4,
+                9,
+                5,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "lu",
@@ -1729,7 +2587,13 @@ static partial class DateScrubber
                 11,
                 5,
                 4,
-                3)
+                3,
+                11,
+                5,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "luo",
@@ -1741,7 +2605,13 @@ static partial class DateScrubber
                 21,
                 12,
                 3,
-                3)
+                3,
+                21,
+                12,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "luy",
@@ -1753,7 +2623,13 @@ static partial class DateScrubber
                 8,
                 3,
                 3,
-                3)
+                3,
+                8,
+                3,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "lv",
@@ -1765,7 +2641,13 @@ static partial class DateScrubber
                 10,
                 5,
                 5,
-                4)
+                4,
+                10,
+                5,
+                8,
+                5,
+                1,
+                1)
         },
         {
             "mai",
@@ -1777,7 +2659,13 @@ static partial class DateScrubber
                 7,
                 2,
                 6,
-                2)
+                2,
+                7,
+                2,
+                5,
+                3,
+                1,
+                1)
         },
         {
             "mas",
@@ -1789,7 +2677,13 @@ static partial class DateScrubber
                 20,
                 4,
                 4,
-                3)
+                3,
+                20,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "mer",
@@ -1801,7 +2695,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "mfe",
@@ -1813,7 +2713,13 @@ static partial class DateScrubber
                 7,
                 2,
                 3,
-                2)
+                2,
+                7,
+                2,
+                3,
+                2,
+                1,
+                1)
         },
         {
             "mg",
@@ -1825,7 +2731,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                5,
+                3,
+                1,
+                1)
         },
         {
             "mgh",
@@ -1837,7 +2749,13 @@ static partial class DateScrubber
                 23,
                 13,
                 3,
-                3)
+                3,
+                23,
+                13,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "mgo",
@@ -1849,7 +2767,13 @@ static partial class DateScrubber
                 14,
                 7,
                 14,
-                7)
+                7,
+                14,
+                7,
+                6,
+                6,
+                1,
+                1)
         },
         {
             "mi",
@@ -1861,7 +2785,13 @@ static partial class DateScrubber
                 8,
                 3,
                 4,
-                3)
+                3,
+                8,
+                3,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "mk",
@@ -1873,7 +2803,13 @@ static partial class DateScrubber
                 9,
                 3,
                 5,
-                3)
+                3,
+                9,
+                3,
+                4,
+                4,
+                1,
+                1)
         },
         {
             "ml",
@@ -1885,7 +2821,13 @@ static partial class DateScrubber
                 10,
                 3,
                 8,
-                2)
+                2,
+                10,
+                3,
+                6,
+                3,
+                1,
+                1)
         },
         {
             "mn",
@@ -1897,7 +2839,13 @@ static partial class DateScrubber
                 20,
                 12,
                 8,
-                7)
+                7,
+                20,
+                12,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "mn-Mong",
@@ -1909,7 +2857,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "mn-Mong-MN",
@@ -1921,7 +2875,13 @@ static partial class DateScrubber
                 21,
                 15,
                 11,
-                9)
+                9,
+                21,
+                15,
+                3,
+                2,
+                1,
+                1)
         },
         {
             "mni",
@@ -1933,7 +2893,13 @@ static partial class DateScrubber
                 10,
                 2,
                 6,
-                2)
+                2,
+                10,
+                2,
+                10,
+                4,
+                1,
+                1)
         },
         {
             "moh",
@@ -1945,7 +2911,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "mr",
@@ -1957,7 +2929,13 @@ static partial class DateScrubber
                 10,
                 2,
                 7,
-                2)
+                2,
+                10,
+                2,
+                5,
+                3,
+                1,
+                1)
         },
         {
             "ms",
@@ -1969,7 +2947,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "mt",
@@ -1981,7 +2965,13 @@ static partial class DateScrubber
                 9,
                 4,
                 3,
-                3)
+                3,
+                9,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "mua",
@@ -1993,7 +2983,13 @@ static partial class DateScrubber
                 15,
                 7,
                 3,
-                3)
+                3,
+                15,
+                7,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "my",
@@ -2005,6 +3001,12 @@ static partial class DateScrubber
                 10,
                 2,
                 5,
+                1,
+                10,
+                2,
+                9,
+                3,
+                1,
                 1)
         },
         {
@@ -2017,7 +3019,13 @@ static partial class DateScrubber
                 11,
                 3,
                 11,
-                3)
+                3,
+                11,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "naq",
@@ -2029,7 +3037,13 @@ static partial class DateScrubber
                 16,
                 7,
                 3,
-                3)
+                3,
+                16,
+                7,
+                3,
+                2,
+                1,
+                1)
         },
         {
             "nb",
@@ -2041,7 +3055,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                4,
+                4,
+                1,
+                1)
         },
         {
             "nd",
@@ -2053,7 +3073,13 @@ static partial class DateScrubber
                 10,
                 5,
                 4,
-                3)
+                3,
+                10,
+                5,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "nds",
@@ -2065,7 +3091,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ne",
@@ -2077,7 +3109,13 @@ static partial class DateScrubber
                 10,
                 2,
                 10,
-                2)
+                2,
+                10,
+                2,
+                5,
+                3,
+                1,
+                1)
         },
         {
             "nl",
@@ -2089,7 +3127,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "nmg",
@@ -2101,7 +3145,13 @@ static partial class DateScrubber
                 15,
                 8,
                 4,
-                3)
+                3,
+                15,
+                8,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "nn",
@@ -2113,7 +3163,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "nnh",
@@ -2125,7 +3181,13 @@ static partial class DateScrubber
                 21,
                 7,
                 21,
-                7)
+                7,
+                21,
+                7,
+                23,
+                10,
+                1,
+                1)
         },
         {
             "no",
@@ -2137,7 +3199,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                4,
+                4,
+                1,
+                1)
         },
         {
             "nqo",
@@ -2149,7 +3217,13 @@ static partial class DateScrubber
                 10,
                 5,
                 7,
-                3)
+                3,
+                10,
+                5,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "nr",
@@ -2161,7 +3235,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "nso",
@@ -2173,7 +3253,13 @@ static partial class DateScrubber
                 11,
                 5,
                 5,
-                4)
+                4,
+                11,
+                5,
+                3,
+                2,
+                1,
+                1)
         },
         {
             "nus",
@@ -2185,7 +3271,13 @@ static partial class DateScrubber
                 15,
                 3,
                 6,
-                3)
+                3,
+                15,
+                3,
+                6,
+                3,
+                1,
+                1)
         },
         {
             "nyn",
@@ -2197,7 +3289,13 @@ static partial class DateScrubber
                 18,
                 8,
                 3,
-                3)
+                3,
+                18,
+                8,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "oc",
@@ -2209,7 +3307,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "om",
@@ -2221,7 +3325,13 @@ static partial class DateScrubber
                 12,
                 4,
                 3,
-                3)
+                3,
+                12,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "or",
@@ -2233,7 +3343,13 @@ static partial class DateScrubber
                 10,
                 2,
                 10,
-                2)
+                2,
+                10,
+                2,
+                5,
+                3,
+                1,
+                1)
         },
         {
             "os",
@@ -2245,7 +3361,13 @@ static partial class DateScrubber
                 8,
                 3,
                 5,
-                3)
+                3,
+                8,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "pa",
@@ -2257,7 +3379,13 @@ static partial class DateScrubber
                 6,
                 2,
                 5,
-                2)
+                2,
+                6,
+                2,
+                7,
+                2,
+                1,
+                1)
         },
         {
             "pa-Arab",
@@ -2269,7 +3397,13 @@ static partial class DateScrubber
                 6,
                 2,
                 6,
-                2)
+                2,
+                6,
+                2,
+                6,
+                3,
+                1,
+                1)
         },
         {
             "pap",
@@ -2281,7 +3415,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "pcm",
@@ -2293,7 +3433,13 @@ static partial class DateScrubber
                 9,
                 3,
                 4,
-                3)
+                3,
+                9,
+                3,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "pl",
@@ -2305,7 +3451,13 @@ static partial class DateScrubber
                 11,
                 3,
                 3,
-                3)
+                3,
+                11,
+                3,
+                6,
+                3,
+                1,
+                1)
         },
         {
             "prg",
@@ -2317,7 +3469,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ps",
@@ -2329,7 +3487,13 @@ static partial class DateScrubber
                 7,
                 2,
                 7,
-                2)
+                2,
+                7,
+                2,
+                6,
+                4,
+                1,
+                1)
         },
         {
             "ps-PK",
@@ -2341,7 +3505,13 @@ static partial class DateScrubber
                 7,
                 2,
                 6,
-                2)
+                2,
+                7,
+                2,
+                6,
+                4,
+                1,
+                1)
         },
         {
             "pt",
@@ -2353,7 +3523,13 @@ static partial class DateScrubber
                 9,
                 4,
                 4,
-                4)
+                4,
+                9,
+                4,
+                4,
+                4,
+                1,
+                1)
         },
         {
             "qu",
@@ -2365,7 +3541,13 @@ static partial class DateScrubber
                 9,
                 4,
                 3,
-                3)
+                3,
+                9,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "quc",
@@ -2377,7 +3559,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "raj",
@@ -2389,7 +3577,13 @@ static partial class DateScrubber
                 7,
                 2,
                 7,
-                2)
+                2,
+                7,
+                2,
+                8,
+                6,
+                1,
+                1)
         },
         {
             "rm",
@@ -2401,7 +3595,13 @@ static partial class DateScrubber
                 9,
                 4,
                 6,
-                4)
+                4,
+                9,
+                4,
+                3,
+                2,
+                1,
+                1)
         },
         {
             "rn",
@@ -2413,7 +3613,13 @@ static partial class DateScrubber
                 10,
                 5,
                 4,
-                4)
+                4,
+                10,
+                5,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "ro",
@@ -2425,7 +3631,13 @@ static partial class DateScrubber
                 10,
                 3,
                 5,
-                3)
+                3,
+                10,
+                3,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "rof",
@@ -2437,7 +3649,13 @@ static partial class DateScrubber
                 23,
                 13,
                 3,
-                2)
+                2,
+                23,
+                13,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "ru",
@@ -2449,7 +3667,13 @@ static partial class DateScrubber
                 8,
                 3,
                 5,
-                3)
+                3,
+                8,
+                3,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "rw",
@@ -2461,7 +3685,13 @@ static partial class DateScrubber
                 11,
                 4,
                 4,
-                4)
+                4,
+                11,
+                4,
+                4,
+                4,
+                1,
+                1)
         },
         {
             "rwk",
@@ -2473,7 +3703,13 @@ static partial class DateScrubber
                 8,
                 3,
                 3,
-                3)
+                3,
+                8,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "sa",
@@ -2485,7 +3721,13 @@ static partial class DateScrubber
                 11,
                 6,
                 8,
-                2)
+                2,
+                11,
+                6,
+                5,
+                3,
+                1,
+                1)
         },
         {
             "sah",
@@ -2497,7 +3739,13 @@ static partial class DateScrubber
                 12,
                 6,
                 4,
-                3)
+                3,
+                12,
+                6,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "saq",
@@ -2509,7 +3757,13 @@ static partial class DateScrubber
                 19,
                 11,
                 3,
-                3)
+                3,
+                19,
+                11,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "sat",
@@ -2521,7 +3775,13 @@ static partial class DateScrubber
                 9,
                 2,
                 3,
-                2)
+                2,
+                9,
+                2,
+                4,
+                2,
+                1,
+                1)
         },
         {
             "sbp",
@@ -2533,7 +3793,13 @@ static partial class DateScrubber
                 15,
                 5,
                 3,
-                3)
+                3,
+                15,
+                5,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "sc",
@@ -2545,7 +3811,13 @@ static partial class DateScrubber
                 10,
                 4,
                 3,
-                3)
+                3,
+                10,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "sd",
@@ -2557,7 +3829,13 @@ static partial class DateScrubber
                 7,
                 3,
                 7,
-                3)
+                3,
+                7,
+                3,
+                5,
+                3,
+                1,
+                1)
         },
         {
             "sd-Deva",
@@ -2569,7 +3847,13 @@ static partial class DateScrubber
                 8,
                 2,
                 5,
-                2)
+                2,
+                8,
+                2,
+                3,
+                1,
+                1,
+                1)
         },
         {
             "se",
@@ -2581,7 +3865,13 @@ static partial class DateScrubber
                 13,
                 10,
                 4,
-                3)
+                3,
+                13,
+                10,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "se-FI",
@@ -2593,7 +3883,13 @@ static partial class DateScrubber
                 13,
                 10,
                 4,
-                4)
+                4,
+                13,
+                10,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "seh",
@@ -2605,7 +3901,13 @@ static partial class DateScrubber
                 8,
                 4,
                 3,
-                3)
+                3,
+                8,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ses",
@@ -2617,7 +3919,13 @@ static partial class DateScrubber
                 9,
                 2,
                 3,
-                2)
+                2,
+                9,
+                2,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "sg",
@@ -2629,7 +3937,13 @@ static partial class DateScrubber
                 9,
                 5,
                 3,
-                3)
+                3,
+                9,
+                5,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "shi",
@@ -2641,7 +3955,13 @@ static partial class DateScrubber
                 8,
                 4,
                 3,
-                3)
+                3,
+                8,
+                4,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "shi-Latn",
@@ -2653,7 +3973,13 @@ static partial class DateScrubber
                 8,
                 4,
                 3,
-                3)
+                3,
+                8,
+                4,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "si",
@@ -2665,7 +3991,13 @@ static partial class DateScrubber
                 11,
                 4,
                 8,
-                2)
+                2,
+                11,
+                4,
+                7,
+                3,
+                1,
+                1)
         },
         {
             "sk",
@@ -2677,7 +4009,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                2,
+                2,
+                2,
+                1)
         },
         {
             "sl",
@@ -2689,7 +4027,13 @@ static partial class DateScrubber
                 9,
                 3,
                 4,
-                3)
+                3,
+                9,
+                3,
+                4,
+                4,
+                2,
+                1)
         },
         {
             "sma",
@@ -2701,7 +4045,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "smj",
@@ -2713,7 +4063,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "smn",
@@ -2725,7 +4081,13 @@ static partial class DateScrubber
                 12,
                 9,
                 7,
-                4)
+                4,
+                12,
+                9,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "sms",
@@ -2737,7 +4099,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "sn",
@@ -2749,7 +4117,13 @@ static partial class DateScrubber
                 11,
                 5,
                 3,
-                3)
+                3,
+                11,
+                5,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "so",
@@ -2761,7 +4135,13 @@ static partial class DateScrubber
                 10,
                 3,
                 3,
-                3)
+                3,
+                10,
+                3,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "sq",
@@ -2773,7 +4153,13 @@ static partial class DateScrubber
                 7,
                 3,
                 4,
-                3)
+                3,
+                7,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "sr",
@@ -2785,7 +4171,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "sr-Cyrl-BA",
@@ -2797,7 +4189,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "sr-Cyrl-ME",
@@ -2809,7 +4207,13 @@ static partial class DateScrubber
                 9,
                 3,
                 4,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "sr-Latn-BA",
@@ -2821,7 +4225,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "sr-Latn-ME",
@@ -2833,7 +4243,13 @@ static partial class DateScrubber
                 9,
                 3,
                 4,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ss",
@@ -2845,7 +4261,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ssy",
@@ -2857,7 +4279,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "st",
@@ -2869,7 +4297,13 @@ static partial class DateScrubber
                 11,
                 5,
                 3,
-                3)
+                3,
+                11,
+                5,
+                3,
+                2,
+                1,
+                1)
         },
         {
             "su",
@@ -2881,7 +4315,13 @@ static partial class DateScrubber
                 9,
                 3,
                 3,
-                3)
+                3,
+                9,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "sv",
@@ -2893,7 +4333,13 @@ static partial class DateScrubber
                 9,
                 3,
                 4,
-                3)
+                3,
+                9,
+                3,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "sw",
@@ -2905,7 +4351,13 @@ static partial class DateScrubber
                 8,
                 3,
                 3,
-                3)
+                3,
+                8,
+                3,
+                8,
+                6,
+                1,
+                1)
         },
         {
             "syr",
@@ -2917,7 +4369,13 @@ static partial class DateScrubber
                 12,
                 2,
                 5,
-                2)
+                2,
+                12,
+                2,
+                4,
+                2,
+                1,
+                1)
         },
         {
             "ta",
@@ -2929,7 +4387,13 @@ static partial class DateScrubber
                 10,
                 2,
                 5,
-                2)
+                2,
+                10,
+                2,
+                5,
+                3,
+                1,
+                1)
         },
         {
             "te",
@@ -2941,7 +4405,13 @@ static partial class DateScrubber
                 10,
                 2,
                 7,
-                2)
+                2,
+                10,
+                2,
+                5,
+                3,
+                1,
+                1)
         },
         {
             "teo",
@@ -2953,7 +4423,13 @@ static partial class DateScrubber
                 14,
                 4,
                 3,
-                3)
+                3,
+                14,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "tg",
@@ -2965,7 +4441,13 @@ static partial class DateScrubber
                 7,
                 3,
                 3,
-                3)
+                3,
+                7,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "th",
@@ -2977,7 +4459,13 @@ static partial class DateScrubber
                 10,
                 6,
                 5,
-                4)
+                4,
+                10,
+                6,
+                3,
+                2,
+                1,
+                1)
         },
         {
             "ti",
@@ -2989,7 +4477,13 @@ static partial class DateScrubber
                 5,
                 2,
                 2,
-                2)
+                2,
+                5,
+                2,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "tig",
@@ -3001,7 +4495,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "tk",
@@ -3013,7 +4513,13 @@ static partial class DateScrubber
                 8,
                 3,
                 4,
-                3)
+                3,
+                8,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "tn",
@@ -3025,7 +4531,13 @@ static partial class DateScrubber
                 12,
                 6,
                 3,
-                3)
+                3,
+                12,
+                6,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "to",
@@ -3037,7 +4549,13 @@ static partial class DateScrubber
                 8,
                 2,
                 4,
-                2)
+                2,
+                8,
+                2,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "tr",
@@ -3049,7 +4567,13 @@ static partial class DateScrubber
                 7,
                 4,
                 3,
-                3)
+                3,
+                7,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ts",
@@ -3061,7 +4585,13 @@ static partial class DateScrubber
                 13,
                 6,
                 3,
-                3)
+                3,
+                13,
+                6,
+                3,
+                2,
+                1,
+                1)
         },
         {
             "tt",
@@ -3073,7 +4603,13 @@ static partial class DateScrubber
                 8,
                 3,
                 5,
-                3)
+                3,
+                8,
+                3,
+                5,
+                4,
+                1,
+                1)
         },
         {
             "twq",
@@ -3085,7 +4621,13 @@ static partial class DateScrubber
                 9,
                 2,
                 3,
-                2)
+                2,
+                9,
+                2,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "tzm",
@@ -3097,7 +4639,13 @@ static partial class DateScrubber
                 8,
                 4,
                 3,
-                3)
+                3,
+                8,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "tzm-DZ",
@@ -3109,7 +4657,13 @@ static partial class DateScrubber
                 8,
                 4,
                 4,
-                3)
+                3,
+                8,
+                4,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "tzm-Tfng",
@@ -3121,7 +4675,13 @@ static partial class DateScrubber
                 8,
                 4,
                 3,
-                3)
+                3,
+                8,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "ug",
@@ -3133,7 +4693,13 @@ static partial class DateScrubber
                 8,
                 3,
                 8,
-                3)
+                3,
+                8,
+                3,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "uk",
@@ -3145,7 +4711,13 @@ static partial class DateScrubber
                 8,
                 5,
                 3,
-                3)
+                3,
+                8,
+                5,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "ur",
@@ -3157,7 +4729,13 @@ static partial class DateScrubber
                 6,
                 3,
                 6,
-                3)
+                3,
+                6,
+                3,
+                6,
+                3,
+                1,
+                1)
         },
         {
             "uz",
@@ -3169,7 +4747,13 @@ static partial class DateScrubber
                 7,
                 3,
                 3,
-                3)
+                3,
+                7,
+                3,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "uz-Arab",
@@ -3181,7 +4765,13 @@ static partial class DateScrubber
                 11,
                 3,
                 11,
-                3)
+                3,
+                11,
+                3,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "vai",
@@ -3193,7 +4783,13 @@ static partial class DateScrubber
                 10,
                 2,
                 3,
-                2)
+                2,
+                10,
+                2,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "vai-Latn",
@@ -3205,7 +4801,13 @@ static partial class DateScrubber
                 15,
                 3,
                 15,
-                3)
+                3,
+                15,
+                3,
+                6,
+                5,
+                1,
+                1)
         },
         {
             "ve",
@@ -3217,7 +4819,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "vi",
@@ -3229,7 +4837,13 @@ static partial class DateScrubber
                 8,
                 7,
                 6,
-                5)
+                5,
+                8,
+                7,
+                4,
+                2,
+                1,
+                1)
         },
         {
             "vo",
@@ -3241,7 +4855,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "vun",
@@ -3253,7 +4873,13 @@ static partial class DateScrubber
                 8,
                 3,
                 3,
-                3)
+                3,
+                8,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "wae",
@@ -3265,7 +4891,13 @@ static partial class DateScrubber
                 11,
                 5,
                 3,
-                3)
+                3,
+                11,
+                5,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "wal",
@@ -3277,7 +4909,13 @@ static partial class DateScrubber
                 3,
                 3,
                 3,
-                3)
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "wo",
@@ -3289,7 +4927,13 @@ static partial class DateScrubber
                 9,
                 2,
                 3,
-                2)
+                2,
+                9,
+                2,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "xh",
@@ -3301,7 +4945,13 @@ static partial class DateScrubber
                 9,
                 4,
                 3,
-                3)
+                3,
+                9,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "xog",
@@ -3313,7 +4963,13 @@ static partial class DateScrubber
                 10,
                 5,
                 3,
-                3)
+                3,
+                10,
+                5,
+                4,
+                4,
+                1,
+                1)
         },
         {
             "yav",
@@ -3325,7 +4981,13 @@ static partial class DateScrubber
                 26,
                 4,
                 4,
-                3)
+                3,
+                26,
+                4,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "yi",
@@ -3337,7 +4999,13 @@ static partial class DateScrubber
                 10,
                 3,
                 5,
-                3)
+                3,
+                10,
+                3,
+                9,
+                3,
+                1,
+                1)
         },
         {
             "yo",
@@ -3349,7 +5017,13 @@ static partial class DateScrubber
                 6,
                 4,
                 3,
-                2)
+                2,
+                6,
+                4,
+                5,
+                2,
+                1,
+                1)
         },
         {
             "yrl",
@@ -3361,7 +5035,13 @@ static partial class DateScrubber
                 12,
                 2,
                 2,
-                2)
+                2,
+                12,
+                2,
+                3,
+                3,
+                1,
+                1)
         },
         {
             "zgh",
@@ -3373,7 +5053,13 @@ static partial class DateScrubber
                 8,
                 4,
                 3,
-                3)
+                3,
+                8,
+                4,
+                4,
+                3,
+                1,
+                1)
         },
         {
             "zh",
@@ -3385,7 +5071,13 @@ static partial class DateScrubber
                 3,
                 2,
                 3,
-                2)
+                2,
+                3,
+                2,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "zh-Hant",
@@ -3397,7 +5089,13 @@ static partial class DateScrubber
                 3,
                 2,
                 3,
-                2)
+                2,
+                3,
+                2,
+                2,
+                2,
+                1,
+                1)
         },
         {
             "zu",
@@ -3409,7 +5107,13 @@ static partial class DateScrubber
                 9,
                 4,
                 3,
-                3)
+                3,
+                9,
+                4,
+                3,
+                3,
+                1,
+                1)
         },
     }.ToFrozenDictionary();
 }

@@ -11,8 +11,10 @@
     int dayNameShort,
     int abbreviatedDayNameLong,
     int abbreviatedDayNameShort,
-    int dateSeparator = 0,
-    int timeSeparator = 0)
+    int dateSeparator,
+    int timeSeparator,
+    int eraLong = 0,
+    int eraShort = 0)
 {
     public DateTime Long { get; } = longDate;
     public DateTime Short { get; } = shortDate;
@@ -28,4 +30,6 @@
     public int AbbreviatedDayNameShort { get; } = abbreviatedDayNameShort;
     public int DateSeparator { get; } = dateSeparator;
     public int TimeSeparator { get; } = timeSeparator;
+    public int EraLong { get; } = eraLong;
+    public int EraShort { get; } = eraShort;
 }

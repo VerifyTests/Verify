@@ -68,7 +68,6 @@ public static partial class Verifier
             {
                 using var verifier = BuildVerifier(settings, sourceFile, useUniqueDirectory);
 
-                //TODO: rest and replicate try in other projects
                 try
                 {
                     return await verify(verifier);

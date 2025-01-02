@@ -55,10 +55,17 @@
     public void Combos(string format, int max, int min)
     {
         var culture = CultureInfo.InvariantCulture;
-        //var s = DateTime.Now.ToString(format,culture);
+
         var length = DateFormatLengthCalculator.GetLength(format.AsSpan(), culture);
         Assert.Equal(max, length.max);
         Assert.Equal(min, length.min);
+
+        if (format.Length > 1)
+        {
+            var result = DateTime.Now.ToString(format, culture);
+            Assert.True(result.Length <= max, $"{result.Length} <= {max}");
+            Assert.True(result.Length >= min, $"{result.Length} >= {min}");
+        }
 
         var padded = $" {format} ";
         length = DateFormatLengthCalculator.GetLength(padded.AsSpan(), culture);

@@ -41,10 +41,10 @@
                         throw new FormatException("Too many second fraction digits");
                     }
 
+                    minLength += tokenLen;
                     maxLength += tokenLen;
 
                     break;
-
                 case 't':
                     tokenLen = ParseRepeatPattern(format, i, ch);
                     if (tokenLen == 1)
@@ -59,7 +59,6 @@
                     }
 
                     break;
-
                 case 'd':
                     //
                     // tokenLen == 1 : Day of month as digits with no leading zero.
@@ -169,7 +168,6 @@
                 case ':':
                     minLength += cultureDates.TimeSeparator;
                     maxLength += cultureDates.TimeSeparator;
-
                     tokenLen = 1;
                     break;
                 case '/':
@@ -180,6 +178,9 @@
                 case '\'':
                 case '\"':
                     tokenLen = ParseQuoteString(format, i);
+                    var unwrapped = tokenLen - 2;
+                    minLength += unwrapped;
+                    maxLength += unwrapped;
                     break;
                 case '%':
                     // Optional format character.

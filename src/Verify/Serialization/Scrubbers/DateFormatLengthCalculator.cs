@@ -22,7 +22,6 @@
                     minLength += cultureDates.EraShort;
                     maxLength += cultureDates.EraLong;
                     break;
-
                 case 'h':
                 case 'H':
                 case 'm':
@@ -31,7 +30,6 @@
                     minLength += Math.Min(tokenLen, 2);
                     maxLength += 2;
                     break;
-
                 case 'f':
                 case 'F':
                     tokenLen = ParseRepeatPattern(format, index, ch);
@@ -297,6 +295,6 @@
             return pos - beginPos;
         }
 
-        throw new FormatException($"we can't find the matching quote: {quoteChar}");
+        throw new FormatException($"Can't find the matching quote: {quoteChar}");
     }
 }

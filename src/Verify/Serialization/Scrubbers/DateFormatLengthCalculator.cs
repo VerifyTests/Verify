@@ -1,25 +1,24 @@
 ﻿static class DateFormatLengthCalculator
 {
-    internal const int MaxSecondsFractionDigits = 7;
+    const int maxSecondsFractionDigits = 7;
 
     public static (int max, int min) GetLength(scoped CharSpan format, Culture culture)
     {
         var cultureDates = DateScrubber.GetCultureDates(culture);
-        var dtfi = culture.DateTimeFormat;
 
-        var i = 0;
-        int tokenLen;
+        var index = 0;
 
         var minLength = 0;
         var maxLength = 0;
-        while (i < format.Length)
+        while (index < format.Length)
         {
-            var ch = format[i];
+            var ch = format[index];
             int nextChar;
+            int tokenLen;
             switch (ch)
             {
                 case 'g':
-                    tokenLen = ParseRepeatPattern(format, i, ch);
+                    tokenLen = ParseRepeatPattern(format, index, ch);
                     minLength += cultureDates.EraShort;
                     maxLength += cultureDates.EraLong;
                     break;
@@ -28,15 +27,15 @@
                 case 'H':
                 case 'm':
                 case 's':
-                    tokenLen = ParseRepeatPattern(format, i, ch);
+                    tokenLen = ParseRepeatPattern(format, index, ch);
                     minLength += Math.Min(tokenLen, 2);
                     maxLength += 2;
                     break;
 
                 case 'f':
                 case 'F':
-                    tokenLen = ParseRepeatPattern(format, i, ch);
-                    if (tokenLen > MaxSecondsFractionDigits)
+                    tokenLen = ParseRepeatPattern(format, index, ch);
+                    if (tokenLen > maxSecondsFractionDigits)
                     {
                         throw new FormatException("Too many second fraction digits");
                     }
@@ -46,7 +45,7 @@
 
                     break;
                 case 't':
-                    tokenLen = ParseRepeatPattern(format, i, ch);
+                    tokenLen = ParseRepeatPattern(format, index, ch);
                     if (tokenLen == 1)
                     {
                         maxLength += 1;
@@ -60,13 +59,11 @@
 
                     break;
                 case 'd':
-                    //
                     // tokenLen == 1 : Day of month as digits with no leading zero.
                     // tokenLen == 2 : Day of month as digits with leading zero for single-digit months.
                     // tokenLen == 3 : Day of week as a three-letter abbreviation.
                     // tokenLen >= 4 : Day of week as its full name.
-                    //
-                    tokenLen = ParseRepeatPattern(format, i, ch);
+                    tokenLen = ParseRepeatPattern(format, index, ch);
                     if (tokenLen == 1)
                     {
                         minLength += 1;
@@ -94,7 +91,7 @@
                     // tokenLen == 2 : Month as digits with leading zero for single-digit months.
                     // tokenLen == 3 : Month as a three-letter abbreviation.
                     // tokenLen >= 4 : Month as its full name.
-                    tokenLen = ParseRepeatPattern(format, i, ch);
+                    tokenLen = ParseRepeatPattern(format, index, ch);
                     if (tokenLen == 1)
                     {
                         minLength += 1;
@@ -122,8 +119,7 @@
                     // y: Always print (year % 100). No leading zero.
                     // yy: Always print (year % 100) with leading zero.
                     // yyy/yyyy/yyyyy/... : Print year value.  With leading zeros.
-
-                    tokenLen = ParseRepeatPattern(format, i, ch);
+                    tokenLen = ParseRepeatPattern(format, index, ch);
                     if (tokenLen == 1)
                     {
                         minLength += 1;
@@ -142,7 +138,7 @@
 
                     break;
                 case 'z':
-                    tokenLen = ParseRepeatPattern(format, i, ch);
+                    tokenLen = ParseRepeatPattern(format, index, ch);
                     if (tokenLen == 1)
                     {
                         minLength += 2;
@@ -177,7 +173,7 @@
                     break;
                 case '\'':
                 case '\"':
-                    tokenLen = ParseQuoteString(format, i);
+                    tokenLen = ParseQuoteString(format, index);
                     var unwrapped = tokenLen - 2;
                     minLength += unwrapped;
                     maxLength += unwrapped;
@@ -186,7 +182,7 @@
                     // Optional format character.
                     // For example, format string "%d" will print day of month
                     // without leading zero.  Most of the cases, "%" can be ignored.
-                    nextChar = ParseNextChar(format, i);
+                    nextChar = ParseNextChar(format, index);
                     // nextChar will be -1 if we have already reached the end of the format string.
                     // Besides, we will not allow "%%" to appear in the pattern.
                     if (nextChar is < 0 or '%')
@@ -209,7 +205,7 @@
                     // character rule.
                     // That is, we ask everyone to use single quote or double quote to insert characters,
                     // then we can remove this character.
-                    nextChar = ParseNextChar(format, i);
+                    nextChar = ParseNextChar(format, index);
                     if (nextChar < 0)
                     {
                         // This means that '\' is at the end of the formatting string.
@@ -228,7 +224,7 @@
                     break;
             }
 
-            i += tokenLen;
+            index += tokenLen;
         }
         return (maxLength, minLength);
     }
@@ -236,7 +232,7 @@
     // Get the next character at the index of 'pos' in the 'format' string.
     // Return value of -1 means 'pos' is already at the end of the 'format' string.
     // Otherwise, return value is the int value of the next character.
-    internal static int ParseNextChar(CharSpan format, int pos)
+    static int ParseNextChar(CharSpan format, int pos)
     {
         if (pos + 1 >= format.Length)
         {
@@ -246,7 +242,7 @@
         return format[pos + 1];
     }
 
-    internal static int ParseRepeatPattern(CharSpan format, int pos, char patternChar)
+    static int ParseRepeatPattern(CharSpan format, int pos, char patternChar)
     {
         var index = pos + 1;
         while (index < format.Length && format[index] == patternChar)
@@ -259,12 +255,13 @@
 
     // The pos should point to a quote character. This method will
     // append to the result StringBuilder the string enclosed by the quote character.
-    internal static int ParseQuoteString(scoped CharSpan format, int pos)
+    static int ParseQuoteString(scoped CharSpan format, int pos)
     {
-        // NOTE : pos will be the index of the quote character in the 'format' string.
+        // pos will be the index of the quote character in the 'format' string.
         var formatLen = format.Length;
         var beginPos = pos;
-        var quoteChar = format[pos++]; // Get the character used to quote the following string.
+        // Get the character used to quote the following string.
+        var quoteChar = format[pos++];
 
         var foundQuote = false;
         while (pos < formatLen)
@@ -294,12 +291,12 @@
             pos++;
         }
 
-        if (!foundQuote)
+        if (foundQuote)
         {
-            throw new FormatException($"we can't find the matching quote: {quoteChar}");
+            // Return the character count including the begin/end quote characters and enclosed string.
+            return pos - beginPos;
         }
 
-        // Return the character count including the begin/end quote characters and enclosed string.
-        return pos - beginPos;
+        throw new FormatException($"we can't find the matching quote: {quoteChar}");
     }
 }

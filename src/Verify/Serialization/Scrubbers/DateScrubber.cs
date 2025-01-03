@@ -177,10 +177,15 @@ static partial class DateScrubber
         }
 
         var cultureDate = GetCultureDates(culture);
-        var value = builder.AsSpan();
         var shortest = Length(cultureDate.Short);
         var longest = Length(cultureDate.Long);
 
+        if (builder.Length < shortest)
+        {
+            return;
+        }
+
+        var value = builder.AsSpan();
         var builderIndex = 0;
         if (shortest == longest)
         {
@@ -233,6 +238,61 @@ static partial class DateScrubber
         }
     }
 
+    static void ReplaceVariableLength(StringBuilder builder, string format, Counter counter, Culture culture, TryConvert tryConvertDate, int longest, int shortest)
+    {
+        var value = builder.AsSpan();
+        var builderIndex = 0;
+        for (var index = 0; index <= value.Length; index++)
+        {
+            var found = false;
+            for (var length = longest; length >= shortest; length--)
+            {
+                var end = index + length;
+                if (end > value.Length)
+                {
+                    continue;
+                }
+
+                var slice = value.Slice(index, length);
+                if (tryConvertDate(slice, format, counter, culture, out var convert))
+                {
+                    builder.Overwrite(convert, builderIndex, length);
+                    builderIndex += convert.Length;
+                    index += length - 1;
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found)
+            {
+                continue;
+            }
+
+            builderIndex++;
+        }
+    }
+
+    static void ReplaceFixedLength(StringBuilder builder, string format, Counter counter, Culture culture, TryConvert tryConvertDate, int length)
+    {
+        var value = builder.AsSpan();
+        var builderIndex = 0;
+        var increment = length - 1;
+        for (var index = 0; index <= value.Length - length; index++)
+        {
+            var slice = value.Slice(index, length);
+            if (tryConvertDate(slice, format, counter, culture, out var convert))
+            {
+                builder.Overwrite(convert, builderIndex, length);
+                builderIndex += convert.Length;
+                index += increment;
+            }
+            else
+            {
+                builderIndex++;
+            }
+        }
+    }
     internal static CultureDate GetCultureDates(Culture culture)
     {
         if (cultureDates.TryGetValue(culture.Name, out var cultureDate) ||

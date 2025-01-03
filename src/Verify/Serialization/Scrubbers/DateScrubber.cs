@@ -172,7 +172,7 @@ static partial class DateScrubber
             }
             catch (Exception exception)
             {
-                throw new($"Failed to get length for {date.GetType()} {date.ToString()} using format '{format}' and culture {culture}.", exception);
+                throw new($"Failed to get length for {date.GetType()} {date} using format '{format}' and culture {culture}.", exception);
             }
         }
 

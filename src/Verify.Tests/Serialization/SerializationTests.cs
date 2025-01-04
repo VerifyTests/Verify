@@ -1524,6 +1524,13 @@ public class SerializationTests
             .ScrubInlineDateTimes("yyyy-MM-dd");
 
     [Fact]
+    public Task ScrubInlineDateTimesPaddedF()
+    {
+        var dateTime = DateTime.Now;
+        return Verify($"a {dateTime:F} b").ScrubInlineDateTimes("F");
+    }
+
+    [Fact]
     public Task ScrubInlineDateTimesWrappedInNumber() =>
         Verify("12020-12-101")
             .ScrubInlineDateTimes("yyyy-MM-dd");

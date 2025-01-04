@@ -19,7 +19,7 @@
 
     public static (int max, int min) InnerGetLength(scoped CharSpan format, Culture culture)
     {
-        var cultureDates = DateScrubber.GetCultureDates(culture);
+        var cultureDates = GetCultureLengthInfo(culture);
 
         var index = 0;
 
@@ -304,5 +304,62 @@
         }
 
         throw new FormatException($"Can't find the matching quote: {quoteChar}");
+    }
+
+    internal static CultureDate GetCultureLengthInfo(Culture culture)
+    {
+        var info = culture.DateTimeFormat;
+
+        var calendar = culture.Calendar;
+
+        var am = info.AMDesignator;
+        var pm = info.PMDesignator;
+        string amPmLong;
+        string amPmShort;
+        if (am.Length < pm.Length)
+        {
+            amPmLong = pm;
+            amPmShort = am;
+        }
+        else
+        {
+            amPmLong = am;
+            amPmShort = pm;
+        }
+
+        var monthNames = Lengths(info.MonthNames);
+        var abbreviatedMonthNames = Lengths(info.AbbreviatedMonthNames);
+        var dayNames = Lengths(info.DayNames);
+        var abbreviatedDayNames = Lengths(info.AbbreviatedDayNames);
+        var eras = Lengths(calendar.Eras.Select(_ => info.GetEraName(_)));
+        var timeSeparator = info.TimeSeparator;
+        var dateSeparator = info.DateSeparator;
+        return new(
+            amPmLong: amPmLong.Length,
+            amPmShort: amPmShort.Length,
+            monthNameLong: monthNames.Long,
+            monthNameShort: monthNames.Short,
+            abbreviatedMonthNameLong: abbreviatedMonthNames.Long,
+            abbreviatedMonthNameShort: abbreviatedMonthNames.Short,
+            dayNameLong: dayNames.Long,
+            dayNameShort: dayNames.Short,
+            abbreviatedDayNameLong: abbreviatedDayNames.Long,
+            abbreviatedDayNameShort: abbreviatedDayNames.Short,
+            dateSeparator: dateSeparator.Length,
+            timeSeparator: timeSeparator.Length,
+            eraLong: eras.Long,
+            eraShort: eras.Short);
+    }
+
+    static (int Long, int Short) Lengths(IEnumerable<string> names)
+    {
+        var lengths = names
+            .Where(_ => _.Length > 0)
+            .OrderBy(_ => _.Length)
+            .ToList();
+        var max = lengths.Last();
+        var min = lengths.First();
+        Debug.Assert(max.Length >= min.Length);
+        return (max.Length, min.Length);
     }
 }

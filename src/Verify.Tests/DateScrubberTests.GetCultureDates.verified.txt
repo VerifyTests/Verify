@@ -1,7 +1,5 @@
 ﻿{
   invarient: {
-    Long: DateTime_1,
-    Short: DateTime_2,
     AmPmLong: 2,
     AmPmShort: 2,
     MonthNameLong: 9,
@@ -18,8 +16,6 @@
     EraShort: 4
   },
   parent: {
-    Long: DateTime_3,
-    Short: DateTime_2,
     AmPmLong: 2,
     AmPmShort: 2,
     MonthNameLong: 9,
@@ -36,8 +32,6 @@
     EraShort: 7
   },
   child: {
-    Long: DateTime_3,
-    Short: DateTime_2,
     AmPmLong: 2,
     AmPmShort: 2,
     MonthNameLong: 9,

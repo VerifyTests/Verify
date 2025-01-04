@@ -20,9 +20,9 @@ public class DateScrubberTests
         Verify(
             new
             {
-                invarient = DateScrubber.GetCultureDates(CultureInfo.InvariantCulture),
-                parent = DateScrubber.GetCultureDates(CultureInfo.GetCultureInfo("de")),
-                child = DateScrubber.GetCultureDates(CultureInfo.GetCultureInfo("de-DE"))
+                invarient = DateFormatLengthCalculator.GetCultureLengthInfo(CultureInfo.InvariantCulture),
+                parent = DateFormatLengthCalculator.GetCultureLengthInfo(CultureInfo.GetCultureInfo("de")),
+                child = DateFormatLengthCalculator.GetCultureLengthInfo(CultureInfo.GetCultureInfo("de-DE"))
             });
 
     [Theory]
@@ -115,36 +115,23 @@ public class DateScrubberTests
     [Fact]
     public void ReplaceDateTimes_AllCultures()
     {
-        var osBuild = Environment.OSVersion.Version.Build;
         var format = "yyyy MMMM MMM MM dddd ddd dd d HH H mm m ss s fffff tt";
         foreach (var culture in CultureInfo.GetCultures(CultureTypes.AllCultures))
         {
-            var displayName = culture.DisplayName;
-            if (osBuild < 22000)
-            {
-                // invalid on old windows
-                if (displayName == "Central Kurdish (Iran)" ||
-                    displayName.StartsWith("Maori"))
-                {
-                    continue;
-                }
-            }
-
             var counter = Counter.Start();
             var dateTime = DateTime.Now;
             var value = dateTime.ToString(format, culture);
             var builder = new StringBuilder(value);
             DateScrubber.ReplaceDateTimes(builder, format, counter, culture);
             var result = builder.ToString();
-            if (result == "DateTime_1" ||
-                result.Contains("M01"))
+            if (result == "DateTime_1")
             {
                 continue;
             }
 
             throw new(
                 $"""
-                 {displayName} {culture.Name}
+                 {culture.DisplayName} {culture.Name}
                  {result}
                  {value}
                  """);

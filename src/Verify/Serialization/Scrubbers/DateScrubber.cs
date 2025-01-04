@@ -232,15 +232,4 @@ static partial class DateScrubber
             }
         }
     }
-
-    internal static CultureDate GetCultureDates(Culture culture)
-    {
-        if (cultureDates.TryGetValue(culture.Name, out var cultureDate) ||
-            cultureDates.TryGetValue(culture.TwoLetterISOLanguageName, out cultureDate))
-        {
-            return cultureDate;
-        }
-
-        throw new($"Could not find culture {culture.Name}");
-    }
 }

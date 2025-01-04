@@ -116,7 +116,7 @@ public class DateScrubberTests
     public void ReplaceDateTimes_AllCultures()
     {
         var osBuild = Environment.OSVersion.Version.Build;
-        var format = "yyyy MMMM MMM MM dddd ddd dd d HH H mm m ss s";
+        var format = "yyyy MMMM MMM MM dddd ddd dd d HH H mm m ss s fffff tt";
         foreach (var culture in CultureInfo.GetCultures(CultureTypes.AllCultures))
         {
             var displayName = culture.DisplayName;

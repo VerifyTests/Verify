@@ -59,16 +59,8 @@
                     break;
                 case 't':
                     tokenLen = ParseRepeatPattern(format, index, ch);
-                    if (tokenLen == 1)
-                    {
-                        maxLength += 1;
-                        minLength += 1;
-                    }
-                    else
-                    {
-                        maxLength += 2;
-                        minLength += 2;
-                    }
+                    maxLength += cultureDates.AmPmLong;
+                    minLength += cultureDates.AmPmShort;
 
                     break;
                 case 'd':

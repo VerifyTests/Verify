@@ -36,7 +36,7 @@
     [InlineData("g", 4, 4)]
     [InlineData("gg", 4, 4)]
     [InlineData("ggg", 4, 4)]
-    [InlineData("t", 1, 1)]
+    [InlineData("t", 2, 2)]
     [InlineData("tt", 2, 2)]
     [InlineData("ttt", 2, 2)]
     [InlineData("z", 3, 2)]

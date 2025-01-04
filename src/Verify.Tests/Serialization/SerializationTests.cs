@@ -1545,6 +1545,15 @@ public class SerializationTests
             .ScrubInlineDateTimes("f");
     }
 
+    [Fact]
+    public Task ScrubInlineDateTimesUsG()
+    {
+        var settings = new VerifySettings();
+        settings.ScrubInlineDateTimes("G", new("en-US"));
+
+        return Verify("12/11/2024 10:36:43 AM", settings);
+    }
+
     // ReSharper disable once UnusedMember.Local
     static void DontIgnoreEmptyCollections() =>
 

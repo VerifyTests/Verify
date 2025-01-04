@@ -98,9 +98,11 @@ public class CultureToDateBuilder
     {
         var lengths = names
             .Where(_ => _.Length > 0)
+            .OrderBy(_ => _.Length)
             .ToList();
-        var max = lengths.Max()!;
-        var min = lengths.Min()!;
+        var max = lengths.Last();
+        var min = lengths.First();
+        Debug.Assert(max.Length >= min.Length);
         return (max.Length, max, min.Length, min);
     }
 }

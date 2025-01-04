@@ -18,7 +18,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // A.D.,
+                eraLong: 4, // A.D.
                 eraShort: 4 // A.D.
                 )
         },
@@ -37,7 +37,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -56,7 +56,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -75,7 +75,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -94,7 +94,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -113,7 +113,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // So.
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 4, // n.C.,
+                eraLong: 4, // n.C.
                 eraShort: 4 // n.C.
                 )
         },
@@ -132,7 +132,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // So.
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 4, // n.C.,
+                eraLong: 4, // n.C.
                 eraShort: 4 // n.C.
                 )
         },
@@ -151,7 +151,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // So.
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 4, // n.C.,
+                eraLong: 4, // n.C.
                 eraShort: 4 // n.C.
                 )
         },
@@ -170,7 +170,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // nts
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -189,7 +189,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // nts
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -208,7 +208,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Kwe
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // KE,
+                eraLong: 2, // KE
                 eraShort: 2 // KE
                 )
         },
@@ -227,7 +227,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Kwe
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // KE,
+                eraLong: 2, // KE
                 eraShort: 2 // KE
                 )
         },
@@ -246,7 +246,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ሰኞ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // ዓ/ም,
+                eraLong: 3, // ዓ/ም
                 eraShort: 3 // ዓ/ም
                 )
         },
@@ -265,7 +265,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ሰኞ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // ዓ/ም,
+                eraLong: 3, // ዓ/ም
                 eraShort: 3 // ዓ/ም
                 )
         },
@@ -284,7 +284,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -303,7 +303,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -322,7 +322,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -341,7 +341,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -360,7 +360,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -379,7 +379,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -398,7 +398,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -417,7 +417,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -436,7 +436,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -455,7 +455,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -474,7 +474,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -493,7 +493,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -512,7 +512,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -531,7 +531,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -550,7 +550,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -569,7 +569,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -588,7 +588,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -607,7 +607,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -626,7 +626,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -645,7 +645,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -664,7 +664,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 10, // بعد الهجرة,
+                eraLong: 10, // بعد الهجرة
                 eraShort: 10 // بعد الهجرة
                 )
         },
@@ -683,7 +683,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -702,7 +702,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -721,7 +721,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -740,7 +740,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -759,7 +759,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -778,7 +778,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -797,7 +797,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // الأحد
                 dateSeparator: 2, // ‏/
                 timeSeparator: 1, // :
-                eraLong: 1, // م,
+                eraLong: 1, // م
                 eraShort: 1 // م
                 )
         },
@@ -816,7 +816,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -835,7 +835,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -854,7 +854,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // দেও
                 dateSeparator: 1, // -
                 timeSeparator: 1, // .
-                eraLong: 5, // খ্ৰীঃ,
+                eraLong: 5, // খ্ৰীঃ
                 eraShort: 5 // খ্ৰীঃ
                 )
         },
@@ -873,7 +873,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // দেও
                 dateSeparator: 1, // -
                 timeSeparator: 1, // .
-                eraLong: 5, // খ্ৰীঃ,
+                eraLong: 5, // খ্ৰীঃ
                 eraShort: 5 // খ্ৰীঃ
                 )
         },
@@ -892,7 +892,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Jpi
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BM,
+                eraLong: 2, // BM
                 eraShort: 2 // BM
                 )
         },
@@ -911,7 +911,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Jpi
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BM,
+                eraLong: 2, // BM
                 eraShort: 2 // BM
                 )
         },
@@ -930,7 +930,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -949,7 +949,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -968,7 +968,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // B.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // y.e.,
+                eraLong: 4, // y.e.
                 eraShort: 4 // y.e.
                 )
         },
@@ -987,7 +987,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // Б.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // ј.е.,
+                eraLong: 4, // ј.е.
                 eraShort: 4 // ј.е.
                 )
         },
@@ -1006,7 +1006,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // Б.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // ј.е.,
+                eraLong: 4, // ј.е.
                 eraShort: 4 // ј.е.
                 )
         },
@@ -1025,7 +1025,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // B.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // y.e.,
+                eraLong: 4, // y.e.
                 eraShort: 4 // y.e.
                 )
         },
@@ -1044,7 +1044,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // B.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // y.e.,
+                eraLong: 4, // y.e.
                 eraShort: 4 // y.e.
                 )
         },
@@ -1063,7 +1063,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -1082,7 +1082,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -1101,7 +1101,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // nɔy
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // m.Y.K,
+                eraLong: 5, // m.Y.K
                 eraShort: 5 // m.Y.K
                 )
         },
@@ -1120,7 +1120,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // nɔy
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // m.Y.K,
+                eraLong: 5, // m.Y.K
                 eraShort: 5 // m.Y.K
                 )
         },
@@ -1139,7 +1139,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // нд
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // н.э.,
+                eraLong: 4, // н.э.
                 eraShort: 4 // н.э.
                 )
         },
@@ -1158,7 +1158,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // нд
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // н.э.,
+                eraLong: 4, // н.э.
                 eraShort: 4 // н.э.
                 )
         },
@@ -1177,7 +1177,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 9, // Palichimo
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -1196,7 +1196,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 9, // Palichimo
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -1215,7 +1215,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Mul
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BM,
+                eraLong: 2, // BM
                 eraShort: 2 // BM
                 )
         },
@@ -1234,7 +1234,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Mul
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BM,
+                eraLong: 2, // BM
                 eraShort: 2 // BM
                 )
         },
@@ -1253,7 +1253,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // нд
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 6, // сл.Хр.,
+                eraLong: 6, // сл.Хр.
                 eraShort: 6 // сл.Хр.
                 )
         },
@@ -1272,7 +1272,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // нд
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 6, // сл.Хр.,
+                eraLong: 6, // сл.Хр.
                 eraShort: 6 // сл.Хр.
                 )
         },
@@ -1291,7 +1291,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // ऐतवार
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -1310,7 +1310,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // ऐतवार
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -1329,7 +1329,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // सनीचर
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -1348,7 +1348,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // सनीचर
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -1367,7 +1367,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -1386,7 +1386,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -1405,7 +1405,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // kar
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 8, // ni J.-C.,
+                eraLong: 8, // ni J.-C.
                 eraShort: 8 // ni J.-C.
                 )
         },
@@ -1424,7 +1424,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // kar
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 8, // ni J.-C.,
+                eraLong: 8, // ni J.-C.
                 eraShort: 8 // ni J.-C.
                 )
         },
@@ -1443,7 +1443,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // রবি
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // খৃষ্টাব্দ,
+                eraLong: 9, // খৃষ্টাব্দ
                 eraShort: 9 // খৃষ্টাব্দ
                 )
         },
@@ -1462,7 +1462,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // রবি
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // খৃষ্টাব্দ,
+                eraLong: 9, // খৃষ্টাব্দ
                 eraShort: 9 // খৃষ্টাব্দ
                 )
         },
@@ -1481,7 +1481,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // রবি
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // খ্রিঃ,
+                eraLong: 5, // খ্রিঃ
                 eraShort: 5 // খ্রিঃ
                 )
         },
@@ -1500,7 +1500,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // ཉི་མ་
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 8, // སྤྱི་ལོ་,
+                eraLong: 8, // སྤྱི་ལོ་
                 eraShort: 8 // སྤྱི་ལོ་
                 )
         },
@@ -1519,7 +1519,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // ཉི་མ་
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 8, // སྤྱི་ལོ་,
+                eraLong: 8, // སྤྱི་ལོ་
                 eraShort: 8 // སྤྱི་ལོ་
                 )
         },
@@ -1538,7 +1538,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // ཉི་མ་
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 8, // སྤྱི་ལོ་,
+                eraLong: 8, // སྤྱི་ལོ་
                 eraShort: 8 // སྤྱི་ལོ་
                 )
         },
@@ -1557,7 +1557,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sul
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 10, // goude J.K.,
+                eraLong: 10, // goude J.K.
                 eraShort: 10 // goude J.K.
                 )
         },
@@ -1576,7 +1576,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sul
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 10, // goude J.K.,
+                eraLong: 10, // goude J.K.
                 eraShort: 10 // goude J.K.
                 )
         },
@@ -1595,7 +1595,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // सम
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 4, // ए.दि,
+                eraLong: 4, // ए.दि
                 eraShort: 4 // ए.दि
                 )
         },
@@ -1614,7 +1614,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // सम
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 4, // ए.दि,
+                eraLong: 4, // ए.दि
                 eraShort: 4 // ए.दि
                 )
         },
@@ -1633,7 +1633,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ned
                 dateSeparator: 2, // . 
                 timeSeparator: 1, // :
-                eraLong: 5, // n. e.,
+                eraLong: 5, // n. e.
                 eraShort: 5 // n. e.
                 )
         },
@@ -1652,7 +1652,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // нед
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // н. е.,
+                eraLong: 5, // н. е.
                 eraShort: 5 // н. е.
                 )
         },
@@ -1671,7 +1671,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // нед
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // н. е.,
+                eraLong: 5, // н. е.
                 eraShort: 5 // н. е.
                 )
         },
@@ -1690,7 +1690,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ned
                 dateSeparator: 2, // . 
                 timeSeparator: 1, // :
-                eraLong: 5, // n. e.,
+                eraLong: 5, // n. e.
                 eraShort: 5 // n. e.
                 )
         },
@@ -1709,7 +1709,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ned
                 dateSeparator: 2, // . 
                 timeSeparator: 1, // :
-                eraLong: 5, // n. e.,
+                eraLong: 5, // n. e.
                 eraShort: 5 // n. e.
                 )
         },
@@ -1728,7 +1728,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -1747,7 +1747,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -1766,7 +1766,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dg.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // dC,
+                eraLong: 2, // dC
                 eraShort: 2 // dC
                 )
         },
@@ -1785,7 +1785,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dg.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // dC,
+                eraLong: 2, // dC
                 eraShort: 2 // dC
                 )
         },
@@ -1804,7 +1804,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dg.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // dC,
+                eraLong: 2, // dC
                 eraShort: 2 // dC
                 )
         },
@@ -1823,7 +1823,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dg.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // dC,
+                eraLong: 2, // dC
                 eraShort: 2 // dC
                 )
         },
@@ -1842,7 +1842,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dg.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // dC,
+                eraLong: 2, // dC
                 eraShort: 2 // dC
                 )
         },
@@ -1861,7 +1861,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 8, // 𑄢𑄧𑄝𑄨
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 22, // 𑄈𑄳𑄢𑄨𑄌𑄴𑄑𑄛𑄴𑄘𑄧,
+                eraLong: 22, // 𑄈𑄳𑄢𑄨𑄌𑄴𑄑𑄛𑄴𑄘𑄧
                 eraShort: 22 // 𑄈𑄳𑄢𑄨𑄌𑄴𑄑𑄛𑄴𑄘𑄧
                 )
         },
@@ -1880,7 +1880,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 8, // 𑄢𑄧𑄝𑄨
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 22, // 𑄈𑄳𑄢𑄨𑄌𑄴𑄑𑄛𑄴𑄘𑄧,
+                eraLong: 22, // 𑄈𑄳𑄢𑄨𑄌𑄴𑄑𑄛𑄴𑄘𑄧
                 eraShort: 22 // 𑄈𑄳𑄢𑄨𑄌𑄴𑄑𑄛𑄴𑄘𑄧
                 )
         },
@@ -1899,7 +1899,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 8, // 𑄢𑄧𑄝𑄨
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 22, // 𑄈𑄳𑄢𑄨𑄌𑄴𑄑𑄛𑄴𑄘𑄧,
+                eraLong: 22, // 𑄈𑄳𑄢𑄨𑄌𑄴𑄑𑄛𑄴𑄘𑄧
                 eraShort: 22 // 𑄈𑄳𑄢𑄨𑄌𑄴𑄑𑄛𑄴𑄘𑄧
                 )
         },
@@ -1918,7 +1918,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ор
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 4, // в. э,
+                eraLong: 4, // в. э
                 eraShort: 4 // в. э
                 )
         },
@@ -1937,7 +1937,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ор
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 4, // в. э,
+                eraLong: 4, // в. э
                 eraShort: 4 // в. э
                 )
         },
@@ -1956,7 +1956,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -1975,7 +1975,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -1994,7 +1994,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // SAN
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -2013,7 +2013,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // SAN
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -2032,7 +2032,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ᏆᏍᎬ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -2051,7 +2051,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ᏆᏍᎬ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -2070,7 +2070,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // ھەینی
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // زایینی,
+                eraLong: 6, // زایینی
                 eraShort: 6 // زایینی
                 )
         },
@@ -2089,7 +2089,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // ھەینی
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // زایینی,
+                eraLong: 6, // زایینی
                 eraShort: 6 // زایینی
                 )
         },
@@ -2108,7 +2108,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // ھەینی
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AP,
+                eraLong: 2, // AP
                 eraShort: 2 // AP
                 )
         },
@@ -2127,7 +2127,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -2146,7 +2146,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -2165,7 +2165,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ne
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // n. l.,
+                eraLong: 5, // n. l.
                 eraShort: 5 // n. l.
                 )
         },
@@ -2184,7 +2184,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ne
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // n. l.,
+                eraLong: 5, // n. l.
                 eraShort: 5 // n. l.
                 )
         },
@@ -2203,7 +2203,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -2222,7 +2222,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -2241,7 +2241,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // юн.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // х. э.,
+                eraLong: 5, // х. э.
                 eraShort: 5 // х. э.
                 )
         },
@@ -2260,7 +2260,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // юн.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // х. э.,
+                eraLong: 5, // х. э.
                 eraShort: 5 // х. э.
                 )
         },
@@ -2279,7 +2279,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sul
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // OC,
+                eraLong: 2, // OC
                 eraShort: 2 // OC
                 )
         },
@@ -2298,7 +2298,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sul
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // OC,
+                eraLong: 2, // OC
                 eraShort: 2 // OC
                 )
         },
@@ -2317,7 +2317,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // søn.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // .
-                eraLong: 5, // e.Kr.,
+                eraLong: 5, // e.Kr.
                 eraShort: 5 // e.Kr.
                 )
         },
@@ -2336,7 +2336,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // søn.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // .
-                eraLong: 5, // e.Kr.,
+                eraLong: 5, // e.Kr.
                 eraShort: 5 // e.Kr.
                 )
         },
@@ -2355,7 +2355,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // søn.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // .
-                eraLong: 5, // e.Kr.,
+                eraLong: 5, // e.Kr.
                 eraShort: 5 // e.Kr.
                 )
         },
@@ -2374,7 +2374,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Jum
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -2393,7 +2393,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Jum
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -2412,7 +2412,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // So
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 7, // n. Chr.,
+                eraLong: 7, // n. Chr.
                 eraShort: 7 // n. Chr.
                 )
         },
@@ -2431,7 +2431,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // So
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 7, // n. Chr.,
+                eraLong: 7, // n. Chr.
                 eraShort: 7 // n. Chr.
                 )
         },
@@ -2450,7 +2450,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // So
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 7, // n. Chr.,
+                eraLong: 7, // n. Chr.
                 eraShort: 7 // n. Chr.
                 )
         },
@@ -2469,7 +2469,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // So
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 7, // n. Chr.,
+                eraLong: 7, // n. Chr.
                 eraShort: 7 // n. Chr.
                 )
         },
@@ -2488,7 +2488,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // So
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 7, // n. Chr.,
+                eraLong: 7, // n. Chr.
                 eraShort: 7 // n. Chr.
                 )
         },
@@ -2507,7 +2507,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // So
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 7, // n. Chr.,
+                eraLong: 7, // n. Chr.
                 eraShort: 7 // n. Chr.
                 )
         },
@@ -2526,7 +2526,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // So
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 7, // n. Chr.,
+                eraLong: 7, // n. Chr.
                 eraShort: 7 // n. Chr.
                 )
         },
@@ -2545,7 +2545,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // So
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 7, // n. Chr.,
+                eraLong: 7, // n. Chr.
                 eraShort: 7 // n. Chr.
                 )
         },
@@ -2564,7 +2564,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Alh
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // IZ,
+                eraLong: 2, // IZ
                 eraShort: 2 // IZ
                 )
         },
@@ -2583,7 +2583,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Alh
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // IZ,
+                eraLong: 2, // IZ
                 eraShort: 2 // IZ
                 )
         },
@@ -2602,7 +2602,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ऐत
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // ईसवी,
+                eraLong: 4, // ईसवी
                 eraShort: 4 // ईसवी
                 )
         },
@@ -2621,7 +2621,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ऐत
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // ईसवी,
+                eraLong: 4, // ईसवी
                 eraShort: 4 // ईसवी
                 )
         },
@@ -2640,7 +2640,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // nje
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 9, // pó Chr.n.,
+                eraLong: 9, // pó Chr.n.
                 eraShort: 9 // pó Chr.n.
                 )
         },
@@ -2659,7 +2659,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // nje
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 9, // pó Chr.n.,
+                eraLong: 9, // pó Chr.n.
                 eraShort: 9 // pó Chr.n.
                 )
         },
@@ -2678,7 +2678,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ét
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // mb.Ys,
+                eraLong: 5, // mb.Ys
                 eraShort: 5 // mb.Ys
                 )
         },
@@ -2697,7 +2697,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ét
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // mb.Ys,
+                eraLong: 5, // mb.Ys
                 eraShort: 5 // mb.Ys
                 )
         },
@@ -2716,7 +2716,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -2735,7 +2735,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -2754,7 +2754,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Dim
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // AtY,
+                eraLong: 3, // AtY
                 eraShort: 3 // AtY
                 )
         },
@@ -2773,7 +2773,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Dim
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // AtY,
+                eraLong: 3, // AtY
                 eraShort: 3 // AtY
                 )
         },
@@ -2792,7 +2792,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ཟླ་
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -2811,7 +2811,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ཟླ་
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -2830,7 +2830,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Kma
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // TK,
+                eraLong: 2, // TK
                 eraShort: 2 // TK
                 )
         },
@@ -2849,7 +2849,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Kma
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // TK,
+                eraLong: 2, // TK
                 eraShort: 2 // TK
                 )
         },
@@ -2868,7 +2868,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // kɔs
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // Yŋ,
+                eraLong: 2, // Yŋ
                 eraShort: 2 // Yŋ
                 )
         },
@@ -2887,7 +2887,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // kɔs
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // Yŋ,
+                eraLong: 2, // Yŋ
                 eraShort: 2 // Yŋ
                 )
         },
@@ -2906,7 +2906,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // kɔs
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // Yŋ,
+                eraLong: 2, // Yŋ
                 eraShort: 2 // Yŋ
                 )
         },
@@ -2925,7 +2925,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Κυρ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // μ.Χ.,
+                eraLong: 4, // μ.Χ.
                 eraShort: 4 // μ.Χ.
                 )
         },
@@ -2944,7 +2944,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Κυρ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // μ.Χ.,
+                eraLong: 4, // μ.Χ.
                 eraShort: 4 // μ.Χ.
                 )
         },
@@ -2963,7 +2963,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Κυρ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // μ.Χ.,
+                eraLong: 4, // μ.Χ.
                 eraShort: 4 // μ.Χ.
                 )
         },
@@ -2982,7 +2982,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3001,7 +3001,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3020,7 +3020,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3039,7 +3039,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3058,7 +3058,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3077,7 +3077,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3096,7 +3096,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3115,7 +3115,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3134,7 +3134,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3153,7 +3153,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3172,7 +3172,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3191,7 +3191,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3210,7 +3210,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3229,7 +3229,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3248,7 +3248,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3267,7 +3267,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3286,7 +3286,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3305,7 +3305,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3324,7 +3324,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3343,7 +3343,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3362,7 +3362,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3381,7 +3381,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3400,7 +3400,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3419,7 +3419,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3438,7 +3438,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3457,7 +3457,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // .
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3476,7 +3476,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3495,7 +3495,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3514,7 +3514,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // .
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3533,7 +3533,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3552,7 +3552,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3571,7 +3571,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3590,7 +3590,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3609,7 +3609,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3628,7 +3628,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3647,7 +3647,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3666,7 +3666,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3685,7 +3685,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3704,7 +3704,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3723,7 +3723,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3742,7 +3742,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3761,7 +3761,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3780,7 +3780,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3799,7 +3799,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3818,7 +3818,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3837,7 +3837,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3856,7 +3856,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3875,7 +3875,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3894,7 +3894,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3913,7 +3913,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3932,7 +3932,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3951,7 +3951,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3970,7 +3970,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -3989,7 +3989,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4008,7 +4008,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4027,7 +4027,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4046,7 +4046,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4065,7 +4065,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4084,7 +4084,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4103,7 +4103,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4122,7 +4122,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4141,7 +4141,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4160,7 +4160,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4179,7 +4179,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4198,7 +4198,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4217,7 +4217,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4236,7 +4236,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4255,7 +4255,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4274,7 +4274,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4293,7 +4293,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4312,7 +4312,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4331,7 +4331,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4350,7 +4350,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4369,7 +4369,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4388,7 +4388,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4407,7 +4407,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4426,7 +4426,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4445,7 +4445,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4464,7 +4464,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4483,7 +4483,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4502,7 +4502,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4521,7 +4521,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4540,7 +4540,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4559,7 +4559,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4578,7 +4578,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4597,7 +4597,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4616,7 +4616,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4635,7 +4635,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4654,7 +4654,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4673,7 +4673,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4692,7 +4692,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4711,7 +4711,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4730,7 +4730,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4749,7 +4749,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4768,7 +4768,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4787,7 +4787,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4806,7 +4806,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4825,7 +4825,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4844,7 +4844,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4863,7 +4863,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4882,7 +4882,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4901,7 +4901,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4920,7 +4920,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4939,7 +4939,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4958,7 +4958,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4977,7 +4977,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -4996,7 +4996,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -5015,7 +5015,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -5034,7 +5034,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -5053,7 +5053,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // di
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // pK,
+                eraLong: 2, // pK
                 eraShort: 2 // pK
                 )
         },
@@ -5072,7 +5072,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // di
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // pK,
+                eraLong: 2, // pK
                 eraShort: 2 // pK
                 )
         },
@@ -5091,7 +5091,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // d. C.,
+                eraLong: 5, // d. C.
                 eraShort: 5 // d. C.
                 )
         },
@@ -5110,7 +5110,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5129,7 +5129,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5148,7 +5148,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5167,7 +5167,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5186,7 +5186,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5205,7 +5205,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5224,7 +5224,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5243,7 +5243,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5262,7 +5262,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5281,7 +5281,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5300,7 +5300,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5319,7 +5319,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // d. C.,
+                eraLong: 5, // d. C.
                 eraShort: 5 // d. C.
                 )
         },
@@ -5338,7 +5338,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // d. C.,
+                eraLong: 5, // d. C.
                 eraShort: 5 // d. C.
                 )
         },
@@ -5357,7 +5357,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5376,7 +5376,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5395,7 +5395,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5414,7 +5414,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5433,7 +5433,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5452,7 +5452,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5471,7 +5471,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // d. C.,
+                eraLong: 5, // d. C.
                 eraShort: 5 // d. C.
                 )
         },
@@ -5490,7 +5490,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5509,7 +5509,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5528,7 +5528,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5547,7 +5547,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5566,7 +5566,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5585,7 +5585,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -5604,7 +5604,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 1, // P
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 3, // pKr,
+                eraLong: 3, // pKr
                 eraShort: 3 // pKr
                 )
         },
@@ -5623,7 +5623,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 1, // P
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 3, // pKr,
+                eraLong: 3, // pKr
                 eraShort: 3 // pKr
                 )
         },
@@ -5642,7 +5642,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ig.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // K.o.,
+                eraLong: 4, // K.o.
                 eraShort: 4 // K.o.
                 )
         },
@@ -5661,7 +5661,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ig.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // K.o.,
+                eraLong: 4, // K.o.
                 eraShort: 4 // K.o.
                 )
         },
@@ -5680,7 +5680,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // smb
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // ayk,
+                eraLong: 3, // ayk
                 eraShort: 3 // ayk
                 )
         },
@@ -5699,7 +5699,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // smb
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // ayk,
+                eraLong: 3, // ayk
                 eraShort: 3 // ayk
                 )
         },
@@ -5718,7 +5718,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // جمعه
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // ه‍.ش.,
+                eraLong: 5, // ه‍.ش.
                 eraShort: 5 // ه‍.ش.
                 )
         },
@@ -5737,7 +5737,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // جمعه
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // ه‍.ش.,
+                eraLong: 5, // ه‍.ش.
                 eraShort: 5 // ه‍.ش.
                 )
         },
@@ -5756,7 +5756,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // جمعه
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // ه‍.ش.,
+                eraLong: 5, // ه‍.ش.
                 eraShort: 5 // ه‍.ش.
                 )
         },
@@ -5775,7 +5775,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dew
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // C-I,
+                eraLong: 3, // C-I
                 eraShort: 3 // C-I
                 )
         },
@@ -5794,7 +5794,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // 𞤈𞤫𞤬
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // 𞤇𞤀𞤋,
+                eraLong: 6, // 𞤇𞤀𞤋
                 eraShort: 6 // 𞤇𞤀𞤋
                 )
         },
@@ -5813,7 +5813,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // 𞤈𞤫𞤬
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // 𞤇𞤀𞤋,
+                eraLong: 6, // 𞤇𞤀𞤋
                 eraShort: 6 // 𞤇𞤀𞤋
                 )
         },
@@ -5832,7 +5832,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // 𞤈𞤫𞤬
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // 𞤇𞤀𞤋,
+                eraLong: 6, // 𞤇𞤀𞤋
                 eraShort: 6 // 𞤇𞤀𞤋
                 )
         },
@@ -5851,7 +5851,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // 𞤈𞤫𞤬
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // 𞤇𞤀𞤋,
+                eraLong: 6, // 𞤇𞤀𞤋
                 eraShort: 6 // 𞤇𞤀𞤋
                 )
         },
@@ -5870,7 +5870,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // 𞤈𞤫𞤬
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // 𞤇𞤀𞤋,
+                eraLong: 6, // 𞤇𞤀𞤋
                 eraShort: 6 // 𞤇𞤀𞤋
                 )
         },
@@ -5889,7 +5889,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // 𞤈𞤫𞤬
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // 𞤇𞤀𞤋,
+                eraLong: 6, // 𞤇𞤀𞤋
                 eraShort: 6 // 𞤇𞤀𞤋
                 )
         },
@@ -5908,7 +5908,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // 𞤈𞤫𞤬
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // 𞤇𞤀𞤋,
+                eraLong: 6, // 𞤇𞤀𞤋
                 eraShort: 6 // 𞤇𞤀𞤋
                 )
         },
@@ -5927,7 +5927,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // 𞤈𞤫𞤬
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // 𞤇𞤀𞤋,
+                eraLong: 6, // 𞤇𞤀𞤋
                 eraShort: 6 // 𞤇𞤀𞤋
                 )
         },
@@ -5946,7 +5946,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // 𞤈𞤫𞤬
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // 𞤇𞤀𞤋,
+                eraLong: 6, // 𞤇𞤀𞤋
                 eraShort: 6 // 𞤇𞤀𞤋
                 )
         },
@@ -5965,7 +5965,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // 𞤈𞤫𞤬
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // 𞤇𞤀𞤋,
+                eraLong: 6, // 𞤇𞤀𞤋
                 eraShort: 6 // 𞤇𞤀𞤋
                 )
         },
@@ -5984,7 +5984,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // 𞤈𞤫𞤬
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // 𞤇𞤀𞤋,
+                eraLong: 6, // 𞤇𞤀𞤋
                 eraShort: 6 // 𞤇𞤀𞤋
                 )
         },
@@ -6003,7 +6003,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // 𞤈𞤫𞤬
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // 𞤇𞤀𞤋,
+                eraLong: 6, // 𞤇𞤀𞤋
                 eraShort: 6 // 𞤇𞤀𞤋
                 )
         },
@@ -6022,7 +6022,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // 𞤈𞤫𞤬
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // 𞤇𞤀𞤋,
+                eraLong: 6, // 𞤇𞤀𞤋
                 eraShort: 6 // 𞤇𞤀𞤋
                 )
         },
@@ -6041,7 +6041,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dew
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // C-I,
+                eraLong: 3, // C-I
                 eraShort: 3 // C-I
                 )
         },
@@ -6060,7 +6060,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dew
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // C-I,
+                eraLong: 3, // C-I
                 eraShort: 3 // C-I
                 )
         },
@@ -6079,7 +6079,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dew
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // C-I,
+                eraLong: 3, // C-I
                 eraShort: 3 // C-I
                 )
         },
@@ -6098,7 +6098,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dew
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // C-I,
+                eraLong: 3, // C-I
                 eraShort: 3 // C-I
                 )
         },
@@ -6117,7 +6117,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dew
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // C-I,
+                eraLong: 3, // C-I
                 eraShort: 3 // C-I
                 )
         },
@@ -6136,7 +6136,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dew
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // C-I,
+                eraLong: 3, // C-I
                 eraShort: 3 // C-I
                 )
         },
@@ -6155,7 +6155,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dew
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // C-I,
+                eraLong: 3, // C-I
                 eraShort: 3 // C-I
                 )
         },
@@ -6174,7 +6174,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dew
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // C-I,
+                eraLong: 3, // C-I
                 eraShort: 3 // C-I
                 )
         },
@@ -6193,7 +6193,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dew
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // C-I,
+                eraLong: 3, // C-I
                 eraShort: 3 // C-I
                 )
         },
@@ -6212,7 +6212,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dew
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // C-I,
+                eraLong: 3, // C-I
                 eraShort: 3 // C-I
                 )
         },
@@ -6231,7 +6231,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dew
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // C-I,
+                eraLong: 3, // C-I
                 eraShort: 3 // C-I
                 )
         },
@@ -6250,7 +6250,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dew
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // C-I,
+                eraLong: 3, // C-I
                 eraShort: 3 // C-I
                 )
         },
@@ -6269,7 +6269,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dew
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // C-I,
+                eraLong: 3, // C-I
                 eraShort: 3 // C-I
                 )
         },
@@ -6288,7 +6288,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // su
                 dateSeparator: 1, // .
                 timeSeparator: 1, // .
-                eraLong: 4, // jKr.,
+                eraLong: 4, // jKr.
                 eraShort: 4 // jKr.
                 )
         },
@@ -6307,7 +6307,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // su
                 dateSeparator: 1, // .
                 timeSeparator: 1, // .
-                eraLong: 4, // jKr.,
+                eraLong: 4, // jKr.
                 eraShort: 4 // jKr.
                 )
         },
@@ -6326,7 +6326,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Lin
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -6345,7 +6345,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Lin
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -6364,7 +6364,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // sun
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // e.Kr.,
+                eraLong: 5, // e.Kr.
                 eraShort: 5 // e.Kr.
                 )
         },
@@ -6383,7 +6383,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // sun
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // e.Kr.,
+                eraLong: 5, // e.Kr.
                 eraShort: 5 // e.Kr.
                 )
         },
@@ -6402,7 +6402,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // sun
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // e.Kr.,
+                eraLong: 5, // e.Kr.
                 eraShort: 5 // e.Kr.
                 )
         },
@@ -6421,7 +6421,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6440,7 +6440,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6459,7 +6459,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6478,7 +6478,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6497,7 +6497,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6516,7 +6516,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6535,7 +6535,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6554,7 +6554,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6573,7 +6573,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6592,7 +6592,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6611,7 +6611,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6630,7 +6630,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6649,7 +6649,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6668,7 +6668,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6687,7 +6687,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6706,7 +6706,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6725,7 +6725,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6744,7 +6744,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6763,7 +6763,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6782,7 +6782,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6801,7 +6801,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6820,7 +6820,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6839,7 +6839,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6858,7 +6858,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6877,7 +6877,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6896,7 +6896,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6915,7 +6915,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6934,7 +6934,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6953,7 +6953,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6972,7 +6972,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -6991,7 +6991,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -7010,7 +7010,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -7029,7 +7029,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -7048,7 +7048,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -7067,7 +7067,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -7086,7 +7086,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -7105,7 +7105,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -7124,7 +7124,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -7143,7 +7143,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -7162,7 +7162,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -7181,7 +7181,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -7200,7 +7200,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -7219,7 +7219,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -7238,7 +7238,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -7257,7 +7257,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -7276,7 +7276,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -7295,7 +7295,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -7314,7 +7314,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dim.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 9, // ap. J.-C.,
+                eraLong: 9, // ap. J.-C.
                 eraShort: 9 // ap. J.-C.
                 )
         },
@@ -7333,7 +7333,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // ddC,
+                eraLong: 3, // ddC
                 eraShort: 3 // ddC
                 )
         },
@@ -7352,7 +7352,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // ddC,
+                eraLong: 3, // ddC
                 eraShort: 3 // ddC
                 )
         },
@@ -7371,7 +7371,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // si
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 5, // n.Kr.,
+                eraLong: 5, // n.Kr.
                 eraShort: 5 // n.Kr.
                 )
         },
@@ -7390,7 +7390,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // si
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 5, // n.Kr.,
+                eraLong: 5, // n.Kr.
                 eraShort: 5 // n.Kr.
                 )
         },
@@ -7409,7 +7409,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // Domh
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -7428,7 +7428,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // Domh
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -7447,7 +7447,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // Domh
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -7466,7 +7466,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // DiD
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -7485,7 +7485,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // DiD
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -7504,7 +7504,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // Dom.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -7523,7 +7523,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // Dom.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -7542,7 +7542,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // Arapo
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -7561,7 +7561,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // Arapo
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -7580,7 +7580,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Su.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 7, // n. Chr.,
+                eraLong: 7, // n. Chr.
                 eraShort: 7 // n. Chr.
                 )
         },
@@ -7599,7 +7599,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Su.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 7, // n. Chr.,
+                eraLong: 7, // n. Chr.
                 eraShort: 7 // n. Chr.
                 )
         },
@@ -7618,7 +7618,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Su.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 7, // n. Chr.,
+                eraLong: 7, // n. Chr.
                 eraShort: 7 // n. Chr.
                 )
         },
@@ -7637,7 +7637,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Su.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 7, // n. Chr.,
+                eraLong: 7, // n. Chr.
                 eraShort: 7 // n. Chr.
                 )
         },
@@ -7656,7 +7656,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // રવિ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // ઈ.સ.,
+                eraLong: 4, // ઈ.સ.
                 eraShort: 4 // ઈ.સ.
                 )
         },
@@ -7675,7 +7675,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // રવિ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // ઈ.સ.,
+                eraLong: 4, // ઈ.સ.
                 eraShort: 4 // ઈ.સ.
                 )
         },
@@ -7694,7 +7694,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Cpr
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // YK,
+                eraLong: 2, // YK
                 eraShort: 2 // YK
                 )
         },
@@ -7713,7 +7713,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Cpr
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // YK,
+                eraLong: 2, // YK
                 eraShort: 2 // YK
                 )
         },
@@ -7732,7 +7732,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Jed
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -7751,7 +7751,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Jed
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -7770,7 +7770,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Lah
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // BHAI,
+                eraLong: 4, // BHAI
                 eraShort: 4 // BHAI
                 )
         },
@@ -7789,7 +7789,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Lah
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // BHAI,
+                eraLong: 4, // BHAI
                 eraShort: 4 // BHAI
                 )
         },
@@ -7808,7 +7808,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Lah
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // BHAI,
+                eraLong: 4, // BHAI
                 eraShort: 4 // BHAI
                 )
         },
@@ -7827,7 +7827,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Lah
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // BHAI,
+                eraLong: 4, // BHAI
                 eraShort: 4 // BHAI
                 )
         },
@@ -7846,7 +7846,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // LP
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -7865,7 +7865,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // LP
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -7884,7 +7884,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // שבת
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 6, // לספירה,
+                eraLong: 6, // לספירה
                 eraShort: 6 // לספירה
                 )
         },
@@ -7903,7 +7903,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // שבת
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 6, // לספירה,
+                eraLong: 6, // לספירה
                 eraShort: 6 // לספירה
                 )
         },
@@ -7922,7 +7922,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // रवि
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // ईस्वी,
+                eraLong: 5, // ईस्वी
                 eraShort: 5 // ईस्वी
                 )
         },
@@ -7941,7 +7941,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // रवि
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // ईस्वी,
+                eraLong: 5, // ईस्वी
                 eraShort: 5 // ईस्वी
                 )
         },
@@ -7960,7 +7960,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Som
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -7979,7 +7979,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Som
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -7998,7 +7998,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ned
                 dateSeparator: 2, // . 
                 timeSeparator: 1, // :
-                eraLong: 7, // po. Kr.,
+                eraLong: 7, // po. Kr.
                 eraShort: 7 // po. Kr.
                 )
         },
@@ -8017,7 +8017,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ned
                 dateSeparator: 2, // . 
                 timeSeparator: 1, // :
-                eraLong: 7, // po. Kr.,
+                eraLong: 7, // po. Kr.
                 eraShort: 7 // po. Kr.
                 )
         },
@@ -8036,7 +8036,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ned
                 dateSeparator: 2, // . 
                 timeSeparator: 1, // :
-                eraLong: 7, // po. Kr.,
+                eraLong: 7, // po. Kr.
                 eraShort: 7 // po. Kr.
                 )
         },
@@ -8055,7 +8055,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // nje
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 9, // po Chr.n.,
+                eraLong: 9, // po Chr.n.
                 eraShort: 9 // po Chr.n.
                 )
         },
@@ -8074,7 +8074,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // nje
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 9, // po Chr.n.,
+                eraLong: 9, // po Chr.n.
                 eraShort: 9 // po Chr.n.
                 )
         },
@@ -8093,7 +8093,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 1, // V
                 dateSeparator: 2, // . 
                 timeSeparator: 1, // :
-                eraLong: 6, // i. sz.,
+                eraLong: 6, // i. sz.
                 eraShort: 6 // i. sz.
                 )
         },
@@ -8112,7 +8112,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 1, // V
                 dateSeparator: 2, // . 
                 timeSeparator: 1, // :
-                eraLong: 6, // i. sz.,
+                eraLong: 6, // i. sz.
                 eraShort: 6 // i. sz.
                 )
         },
@@ -8131,7 +8131,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // կիր
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // մ.թ.,
+                eraLong: 4, // մ.թ.
                 eraShort: 4 // մ.թ.
                 )
         },
@@ -8150,7 +8150,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // կիր
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // մ.թ.,
+                eraLong: 4, // մ.թ.
                 eraShort: 4 // մ.թ.
                 )
         },
@@ -8169,7 +8169,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // p.Chr.,
+                eraLong: 6, // p.Chr.
                 eraShort: 6 // p.Chr.
                 )
         },
@@ -8188,7 +8188,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // p.Chr.,
+                eraLong: 6, // p.Chr.
                 eraShort: 6 // p.Chr.
                 )
         },
@@ -8207,7 +8207,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -8226,7 +8226,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -8245,7 +8245,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Min
                 dateSeparator: 1, // /
                 timeSeparator: 1, // .
-                eraLong: 1, // M,
+                eraLong: 1, // M
                 eraShort: 1 // M
                 )
         },
@@ -8264,7 +8264,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Min
                 dateSeparator: 1, // /
                 timeSeparator: 1, // .
-                eraLong: 1, // M,
+                eraLong: 1, // M
                 eraShort: 1 // M
                 )
         },
@@ -8283,7 +8283,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sọn
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // A.K.,
+                eraLong: 4, // A.K.
                 eraShort: 4 // A.K.
                 )
         },
@@ -8302,7 +8302,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sọn
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // A.K.,
+                eraLong: 4, // A.K.
                 eraShort: 4 // A.K.
                 )
         },
@@ -8321,7 +8321,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ꑭꆏ
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 3, // ꃅꋊꊂ,
+                eraLong: 3, // ꃅꋊꊂ
                 eraShort: 3 // ꃅꋊꊂ
                 )
         },
@@ -8340,7 +8340,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ꑭꆏ
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 3, // ꃅꋊꊂ,
+                eraLong: 3, // ꃅꋊꊂ
                 eraShort: 3 // ꃅꋊꊂ
                 )
         },
@@ -8359,7 +8359,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // sun.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // e.Kr.,
+                eraLong: 5, // e.Kr.
                 eraShort: 5 // e.Kr.
                 )
         },
@@ -8378,7 +8378,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // sun.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // e.Kr.,
+                eraLong: 5, // e.Kr.
                 eraShort: 5 // e.Kr.
                 )
         },
@@ -8397,7 +8397,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -8416,7 +8416,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -8435,7 +8435,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -8454,7 +8454,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -8473,7 +8473,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -8492,7 +8492,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -8511,7 +8511,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -8530,7 +8530,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -8549,7 +8549,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -8568,7 +8568,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 1, // 日
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // 西暦,
+                eraLong: 2, // 西暦
                 eraShort: 2 // 西暦
                 )
         },
@@ -8587,7 +8587,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 1, // 日
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // 西暦,
+                eraLong: 2, // 西暦
                 eraShort: 2 // 西暦
                 )
         },
@@ -8606,7 +8606,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // Sɔ́ndi
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -8625,7 +8625,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // Sɔ́ndi
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -8644,7 +8644,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Jpi
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -8663,7 +8663,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Jpi
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -8682,7 +8682,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sen
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 1, // M,
+                eraLong: 1, // M
                 eraShort: 1 // M
                 )
         },
@@ -8701,7 +8701,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sen
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 1, // M,
+                eraLong: 1, // M
                 eraShort: 1 // M
                 )
         },
@@ -8720,7 +8720,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sen
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 1, // M,
+                eraLong: 1, // M
                 eraShort: 1 // M
                 )
         },
@@ -8739,7 +8739,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sen
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 1, // M,
+                eraLong: 1, // M
                 eraShort: 1 // M
                 )
         },
@@ -8758,7 +8758,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // კვი
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 6, // ახ. წ.,
+                eraLong: 6, // ახ. წ.
                 eraShort: 6 // ახ. წ.
                 )
         },
@@ -8777,7 +8777,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // კვი
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 6, // ახ. წ.,
+                eraLong: 6, // ახ. წ.
                 eraShort: 6 // ახ. წ.
                 )
         },
@@ -8796,7 +8796,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Yan
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 8, // sld. T.Ɛ,
+                eraLong: 8, // sld. T.Ɛ
                 eraShort: 8 // sld. T.Ɛ
                 )
         },
@@ -8815,7 +8815,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Yan
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 8, // sld. T.Ɛ,
+                eraLong: 8, // sld. T.Ɛ
                 eraShort: 8 // sld. T.Ɛ
                 )
         },
@@ -8834,7 +8834,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Wky
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // IY,
+                eraLong: 2, // IY
                 eraShort: 2 // IY
                 )
         },
@@ -8853,7 +8853,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Wky
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // IY,
+                eraLong: 2, // IY
                 eraShort: 2 // IY
                 )
         },
@@ -8872,7 +8872,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Ll2
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // NY,
+                eraLong: 2, // NY
                 eraShort: 2 // NY
                 )
         },
@@ -8891,7 +8891,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Ll2
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // NY,
+                eraLong: 2, // NY
                 eraShort: 2 // NY
                 )
         },
@@ -8910,7 +8910,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dum
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // DK,
+                eraLong: 2, // DK
                 eraShort: 2 // DK
                 )
         },
@@ -8929,7 +8929,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dum
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // DK,
+                eraLong: 2, // DK
                 eraShort: 2 // DK
                 )
         },
@@ -8948,7 +8948,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // num.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // C.kk.,
+                eraLong: 5, // C.kk.
                 eraShort: 5 // C.kk.
                 )
         },
@@ -8967,7 +8967,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // num.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // C.kk.,
+                eraLong: 5, // C.kk.
                 eraShort: 5 // C.kk.
                 )
         },
@@ -8986,7 +8986,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Alh
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // IZ,
+                eraLong: 2, // IZ
                 eraShort: 2 // IZ
                 )
         },
@@ -9005,7 +9005,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Alh
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // IZ,
+                eraLong: 2, // IZ
                 eraShort: 2 // IZ
                 )
         },
@@ -9024,7 +9024,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // KMA
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // TK,
+                eraLong: 2, // TK
                 eraShort: 2 // TK
                 )
         },
@@ -9043,7 +9043,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // KMA
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // TK,
+                eraLong: 2, // TK
                 eraShort: 2 // TK
                 )
         },
@@ -9062,7 +9062,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // жс
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // б.з.,
+                eraLong: 4, // б.з.
                 eraShort: 4 // б.з.
                 )
         },
@@ -9081,7 +9081,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // жс
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // б.з.,
+                eraLong: 4, // б.з.
                 eraShort: 4 // б.з.
                 )
         },
@@ -9100,7 +9100,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // yedi
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -9119,7 +9119,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // yedi
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -9138,7 +9138,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // sap
                 dateSeparator: 1, // -
                 timeSeparator: 1, // .
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -9157,7 +9157,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // sap
                 dateSeparator: 1, // -
                 timeSeparator: 1, // .
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -9176,7 +9176,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Kts
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // KO,
+                eraLong: 2, // KO
                 eraShort: 2 // KO
                 )
         },
@@ -9195,7 +9195,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Kts
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // KO,
+                eraLong: 2, // KO
                 eraShort: 2 // KO
                 )
         },
@@ -9214,7 +9214,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ពុធ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // គ.ស.,
+                eraLong: 4, // គ.ស.
                 eraShort: 4 // គ.ស.
                 )
         },
@@ -9233,7 +9233,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ពុធ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // គ.ស.,
+                eraLong: 4, // គ.ស.
                 eraShort: 4 // គ.ស.
                 )
         },
@@ -9252,7 +9252,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ಸೋಮ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 6, // ಕ್ರಿ.ಶ,
+                eraLong: 6, // ಕ್ರಿ.ಶ
                 eraShort: 6 // ಕ್ರಿ.ಶ
                 )
         },
@@ -9271,7 +9271,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ಸೋಮ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 6, // ಕ್ರಿ.ಶ,
+                eraLong: 6, // ಕ್ರಿ.ಶ
                 eraShort: 6 // ಕ್ರಿ.ಶ
                 )
         },
@@ -9290,7 +9290,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 1, // 일
                 dateSeparator: 2, // . 
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -9309,7 +9309,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 1, // 일
                 dateSeparator: 2, // . 
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -9328,7 +9328,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 1, // 일
                 dateSeparator: 2, // . 
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -9347,7 +9347,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // आयतार
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 7, // क्रि.श.,
+                eraLong: 7, // क्रि.श.
                 eraShort: 7 // क्रि.श.
                 )
         },
@@ -9366,7 +9366,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // आयतार
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 7, // क्रि.श.,
+                eraLong: 7, // क्रि.श.
                 eraShort: 7 // क्रि.श.
                 )
         },
@@ -9385,7 +9385,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -9404,7 +9404,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -9423,7 +9423,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -9442,7 +9442,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // جُمہ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // اے ڈی,
+                eraLong: 5, // اے ڈی
                 eraShort: 5 // اے ڈی
                 )
         },
@@ -9461,7 +9461,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // جُمہ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // اے ڈی,
+                eraLong: 5, // اے ڈی
                 eraShort: 5 // اے ڈی
                 )
         },
@@ -9480,7 +9480,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // جُمہ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // اے ڈی,
+                eraLong: 5, // اے ڈی
                 eraShort: 5 // اے ڈی
                 )
         },
@@ -9499,7 +9499,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // आथवार
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -9518,7 +9518,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // आथवार
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -9537,7 +9537,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Jpi
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -9556,7 +9556,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Jpi
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -9575,7 +9575,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // lǝn
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // k.Y.,
+                eraLong: 4, // k.Y.
                 eraShort: 4 // k.Y.
                 )
         },
@@ -9594,7 +9594,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // lǝn
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // k.Y.,
+                eraLong: 4, // k.Y.
                 eraShort: 4 // k.Y.
                 )
         },
@@ -9613,7 +9613,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Su.
                 dateSeparator: 2, // . 
                 timeSeparator: 1, // :
-                eraLong: 7, // n. Chr.,
+                eraLong: 7, // n. Chr.
                 eraShort: 7 // n. Chr.
                 )
         },
@@ -9632,7 +9632,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Su.
                 dateSeparator: 2, // . 
                 timeSeparator: 1, // :
-                eraLong: 7, // n. Chr.,
+                eraLong: 7, // n. Chr.
                 eraShort: 7 // n. Chr.
                 )
         },
@@ -9651,7 +9651,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sul
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -9670,7 +9670,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sul
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -9689,7 +9689,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // жек.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // б.з.,
+                eraLong: 4, // б.з.
                 eraShort: 4 // б.з.
                 )
         },
@@ -9708,7 +9708,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // жек.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // б.з.,
+                eraLong: 4, // б.з.
                 eraShort: 4 // б.з.
                 )
         },
@@ -9727,7 +9727,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -9746,7 +9746,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -9765,7 +9765,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Íne
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // KA,
+                eraLong: 2, // KA
                 eraShort: 2 // KA
                 )
         },
@@ -9784,7 +9784,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Íne
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // KA,
+                eraLong: 2, // KA
                 eraShort: 2 // KA
                 )
         },
@@ -9803,7 +9803,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Son
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 7, // n. Chr.,
+                eraLong: 7, // n. Chr.
                 eraShort: 7 // n. Chr.
                 )
         },
@@ -9822,7 +9822,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Son
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 7, // n. Chr.,
+                eraLong: 7, // n. Chr.
                 eraShort: 7 // n. Chr.
                 )
         },
@@ -9841,7 +9841,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sab
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -9860,7 +9860,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sab
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -9879,7 +9879,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 10, // Aŋpétutopa
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -9898,7 +9898,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 10, // Aŋpétutopa
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -9917,7 +9917,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // eye
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 10, // nsima ya Y,
+                eraLong: 10, // nsima ya Y
                 eraShort: 10 // nsima ya Y
                 )
         },
@@ -9936,7 +9936,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // eye
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 10, // nsima ya Y,
+                eraLong: 10, // nsima ya Y
                 eraShort: 10 // nsima ya Y
                 )
         },
@@ -9955,7 +9955,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // eye
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 10, // nsima ya Y,
+                eraLong: 10, // nsima ya Y
                 eraShort: 10 // nsima ya Y
                 )
         },
@@ -9974,7 +9974,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // eye
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 10, // nsima ya Y,
+                eraLong: 10, // nsima ya Y
                 eraShort: 10 // nsima ya Y
                 )
         },
@@ -9993,7 +9993,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // eye
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 10, // nsima ya Y,
+                eraLong: 10, // nsima ya Y
                 eraShort: 10 // nsima ya Y
                 )
         },
@@ -10012,7 +10012,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ຈັນ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // ຄ.ສ.,
+                eraLong: 4, // ຄ.ສ.
                 eraShort: 4 // ຄ.ສ.
                 )
         },
@@ -10031,7 +10031,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ຈັນ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // ຄ.ສ.,
+                eraLong: 4, // ຄ.ສ.
                 eraShort: 4 // ຄ.ສ.
                 )
         },
@@ -10050,7 +10050,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AP,
+                eraLong: 2, // AP
                 eraShort: 2 // AP
                 )
         },
@@ -10069,7 +10069,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -10088,7 +10088,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AP,
+                eraLong: 2, // AP
                 eraShort: 2 // AP
                 )
         },
@@ -10107,7 +10107,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // sk
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // po Kr.,
+                eraLong: 6, // po Kr.
                 eraShort: 6 // po Kr.
                 )
         },
@@ -10126,7 +10126,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // sk
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // po Kr.,
+                eraLong: 6, // po Kr.
                 eraShort: 6 // po Kr.
                 )
         },
@@ -10145,7 +10145,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Lum
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 10, // kny. Y. K.,
+                eraLong: 10, // kny. Y. K.
                 eraShort: 10 // kny. Y. K.
                 )
         },
@@ -10164,7 +10164,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Lum
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 10, // kny. Y. K.,
+                eraLong: 10, // kny. Y. K.
                 eraShort: 10 // kny. Y. K.
                 )
         },
@@ -10183,7 +10183,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // JMP
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -10202,7 +10202,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // JMP
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -10221,7 +10221,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // J2
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -10240,7 +10240,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // J2
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -10259,7 +10259,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // Otrd.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // m.ē.,
+                eraLong: 4, // m.ē.
                 eraShort: 4 // m.ē.
                 )
         },
@@ -10278,7 +10278,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // Otrd.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // m.ē.,
+                eraLong: 4, // m.ē.
                 eraShort: 4 // m.ē.
                 )
         },
@@ -10297,7 +10297,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // रवि
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // ईसवी,
+                eraLong: 4, // ईसवी
                 eraShort: 4 // ईसवी
                 )
         },
@@ -10316,7 +10316,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // रवि
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // ईसवी,
+                eraLong: 4, // ईसवी
                 eraShort: 4 // ईसवी
                 )
         },
@@ -10335,7 +10335,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Jpi
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // EY,
+                eraLong: 2, // EY
                 eraShort: 2 // EY
                 )
         },
@@ -10354,7 +10354,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Jpi
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // EY,
+                eraLong: 2, // EY
                 eraShort: 2 // EY
                 )
         },
@@ -10373,7 +10373,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Jpi
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // EY,
+                eraLong: 2, // EY
                 eraShort: 2 // EY
                 )
         },
@@ -10392,7 +10392,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // KIU
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // NK,
+                eraLong: 2, // NK
                 eraShort: 2 // NK
                 )
         },
@@ -10411,7 +10411,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // KIU
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // NK,
+                eraLong: 2, // NK
                 eraShort: 2 // NK
                 )
         },
@@ -10430,7 +10430,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ze
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 7, // ap. Z-K,
+                eraLong: 7, // ap. Z-K
                 eraShort: 7 // ap. Z-K
                 )
         },
@@ -10449,7 +10449,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ze
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 7, // ap. Z-K,
+                eraLong: 7, // ap. Z-K
                 eraShort: 7 // ap. Z-K
                 )
         },
@@ -10468,7 +10468,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Tal
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -10487,7 +10487,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Tal
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -10506,7 +10506,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sab
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // YY,
+                eraLong: 2, // YY
                 eraShort: 2 // YY
                 )
         },
@@ -10525,7 +10525,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sab
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // YY,
+                eraLong: 2, // YY
                 eraShort: 2 // YY
                 )
         },
@@ -10544,7 +10544,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // Aneg 1
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -10563,7 +10563,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // Aneg 1
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -10582,7 +10582,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Rāt
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -10601,7 +10601,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Rāt
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -10620,7 +10620,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // нед.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // н.е.,
+                eraLong: 4, // н.е.
                 eraShort: 4 // н.е.
                 )
         },
@@ -10639,7 +10639,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // нед.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // н.е.,
+                eraLong: 4, // н.е.
                 eraShort: 4 // н.е.
                 )
         },
@@ -10658,7 +10658,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ശനി
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // എഡി,
+                eraLong: 3, // എഡി
                 eraShort: 3 // എഡി
                 )
         },
@@ -10677,7 +10677,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ശനി
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // എഡി,
+                eraLong: 3, // എഡി
                 eraShort: 3 // എഡി
                 )
         },
@@ -10696,7 +10696,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // Ня
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 2, // МЭ,
+                eraLong: 2, // МЭ
                 eraShort: 2 // МЭ
                 )
         },
@@ -10715,7 +10715,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // Ня
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 2, // МЭ,
+                eraLong: 2, // МЭ
                 eraShort: 2 // МЭ
                 )
         },
@@ -10734,7 +10734,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -10753,7 +10753,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -10772,7 +10772,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ᠨᠢ
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // ᠮ᠂ ᠡ,
+                eraLong: 4, // ᠮ᠂ ᠡ
                 eraShort: 4 // ᠮ᠂ ᠡ
                 )
         },
@@ -10791,7 +10791,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // ইরাই
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 8, // খৃ: মতুং,
+                eraLong: 8, // খৃ: মতুং
                 eraShort: 8 // খৃ: মতুং
                 )
         },
@@ -10810,7 +10810,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // ইরাই
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 8, // খৃ: মতুং,
+                eraLong: 8, // খৃ: মতুং
                 eraShort: 8 // খৃ: মতুং
                 )
         },
@@ -10829,7 +10829,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // ইরাই
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 8, // খৃ: মতুং,
+                eraLong: 8, // খৃ: মতুং
                 eraShort: 8 // খৃ: মতুং
                 )
         },
@@ -10848,7 +10848,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -10867,7 +10867,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -10886,7 +10886,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // रवि
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // इ. स.,
+                eraLong: 5, // इ. स.
                 eraShort: 5 // इ. स.
                 )
         },
@@ -10905,7 +10905,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // रवि
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // इ. स.,
+                eraLong: 5, // इ. स.
                 eraShort: 5 // इ. स.
                 )
         },
@@ -10924,7 +10924,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Ahd
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // TM,
+                eraLong: 2, // TM
                 eraShort: 2 // TM
                 )
         },
@@ -10943,7 +10943,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Ahd
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // TM,
+                eraLong: 2, // TM
                 eraShort: 2 // TM
                 )
         },
@@ -10962,7 +10962,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Ahd
                 dateSeparator: 1, // /
                 timeSeparator: 1, // .
-                eraLong: 2, // TM,
+                eraLong: 2, // TM
                 eraShort: 2 // TM
                 )
         },
@@ -10981,7 +10981,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Ahd
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // TM,
+                eraLong: 2, // TM
                 eraShort: 2 // TM
                 )
         },
@@ -11000,7 +11000,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Ahd
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // TM,
+                eraLong: 2, // TM
                 eraShort: 2 // TM
                 )
         },
@@ -11019,7 +11019,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Ħad
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // WK,
+                eraLong: 2, // WK
                 eraShort: 2 // WK
                 )
         },
@@ -11038,7 +11038,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Ħad
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // WK,
+                eraLong: 2, // WK
                 eraShort: 2 // WK
                 )
         },
@@ -11057,7 +11057,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Cya
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // PK,
+                eraLong: 2, // PK
                 eraShort: 2 // PK
                 )
         },
@@ -11076,7 +11076,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Cya
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // PK,
+                eraLong: 2, // PK
                 eraShort: 2 // PK
                 )
         },
@@ -11095,7 +11095,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // စနေ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // အဒေီ,
+                eraLong: 4, // အဒေီ
                 eraShort: 4 // အဒေီ
                 )
         },
@@ -11114,7 +11114,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // စနေ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // အဒေီ,
+                eraLong: 4, // အဒေီ
                 eraShort: 4 // အဒေီ
                 )
         },
@@ -11133,7 +11133,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AP,
+                eraLong: 2, // AP
                 eraShort: 2 // AP
                 )
         },
@@ -11152,7 +11152,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AP,
+                eraLong: 2, // AP
                 eraShort: 2 // AP
                 )
         },
@@ -11171,7 +11171,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // Ma
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -11190,7 +11190,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // Ma
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -11209,7 +11209,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // søn.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // e.Kr.,
+                eraLong: 5, // e.Kr.
                 eraShort: 5 // e.Kr.
                 )
         },
@@ -11228,7 +11228,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // søn.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // e.Kr.,
+                eraLong: 5, // e.Kr.
                 eraShort: 5 // e.Kr.
                 )
         },
@@ -11247,7 +11247,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // søn.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // e.Kr.,
+                eraLong: 5, // e.Kr.
                 eraShort: 5 // e.Kr.
                 )
         },
@@ -11266,7 +11266,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Son
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -11285,7 +11285,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Son
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -11304,7 +11304,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -11323,7 +11323,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -11342,7 +11342,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -11361,7 +11361,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // आइत
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // सन्,
+                eraLong: 3, // सन्
                 eraShort: 3 // सन्
                 )
         },
@@ -11380,7 +11380,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // आइत
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // सन्,
+                eraLong: 3, // सन्
                 eraShort: 3 // सन्
                 )
         },
@@ -11399,7 +11399,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // आइत
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // सन्,
+                eraLong: 3, // सन्
                 eraShort: 3 // सन्
                 )
         },
@@ -11418,7 +11418,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // zo
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // n.Chr.,
+                eraLong: 6, // n.Chr.
                 eraShort: 6 // n.Chr.
                 )
         },
@@ -11437,7 +11437,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // zo
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // n.Chr.,
+                eraLong: 6, // n.Chr.
                 eraShort: 6 // n.Chr.
                 )
         },
@@ -11456,7 +11456,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // zo
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 6, // n.Chr.,
+                eraLong: 6, // n.Chr.
                 eraShort: 6 // n.Chr.
                 )
         },
@@ -11475,7 +11475,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // zo
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // n.Chr.,
+                eraLong: 6, // n.Chr.
                 eraShort: 6 // n.Chr.
                 )
         },
@@ -11494,7 +11494,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // zo
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // n.Chr.,
+                eraLong: 6, // n.Chr.
                 eraShort: 6 // n.Chr.
                 )
         },
@@ -11513,7 +11513,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // zo
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // n.Chr.,
+                eraLong: 6, // n.Chr.
                 eraShort: 6 // n.Chr.
                 )
         },
@@ -11532,7 +11532,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // zo
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // n.Chr.,
+                eraLong: 6, // n.Chr.
                 eraShort: 6 // n.Chr.
                 )
         },
@@ -11551,7 +11551,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // zo
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // n.Chr.,
+                eraLong: 6, // n.Chr.
                 eraShort: 6 // n.Chr.
                 )
         },
@@ -11570,7 +11570,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // smb
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // PB,
+                eraLong: 2, // PB
                 eraShort: 2 // PB
                 )
         },
@@ -11589,7 +11589,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // smb
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // PB,
+                eraLong: 2, // PB
                 eraShort: 2 // PB
                 )
         },
@@ -11608,7 +11608,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // søn
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // e.Kr.,
+                eraLong: 5, // e.Kr.
                 eraShort: 5 // e.Kr.
                 )
         },
@@ -11627,7 +11627,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // søn
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // e.Kr.,
+                eraLong: 5, // e.Kr.
                 eraShort: 5 // e.Kr.
                 )
         },
@@ -11646,7 +11646,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 10, // mvfò lyɛ̌ʼ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 8, // m.g.n.Y.,
+                eraLong: 8, // m.g.n.Y.
                 eraShort: 8 // m.g.n.Y.
                 )
         },
@@ -11665,7 +11665,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 10, // mvfò lyɛ̌ʼ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 8, // m.g.n.Y.,
+                eraLong: 8, // m.g.n.Y.
                 eraShort: 8 // m.g.n.Y.
                 )
         },
@@ -11684,7 +11684,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // søn.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // e.Kr.,
+                eraLong: 5, // e.Kr.
                 eraShort: 5 // e.Kr.
                 )
         },
@@ -11703,7 +11703,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ߞߎߣ
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 10, // ߌߛ. ߡ. ߞߐ߫,
+                eraLong: 10, // ߌߛ. ߡ. ߞߐ߫
                 eraShort: 10 // ߌߛ. ߡ. ߞߐ߫
                 )
         },
@@ -11722,7 +11722,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ߞߎߣ
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 10, // ߌߛ. ߡ. ߞߐ߫,
+                eraLong: 10, // ߌߛ. ߡ. ߞߐ߫
                 eraShort: 10 // ߌߛ. ߡ. ߞߐ߫
                 )
         },
@@ -11741,7 +11741,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -11760,7 +11760,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -11779,7 +11779,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // Ne
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -11798,7 +11798,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // Ne
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -11817,7 +11817,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Cäŋ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // ƐY,
+                eraLong: 2, // ƐY
                 eraShort: 2 // ƐY
                 )
         },
@@ -11836,7 +11836,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Cäŋ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // ƐY,
+                eraLong: 2, // ƐY
                 eraShort: 2 // ƐY
                 )
         },
@@ -11855,7 +11855,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // SAN
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -11874,7 +11874,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // SAN
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -11893,7 +11893,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -11912,7 +11912,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -11931,7 +11931,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -11950,7 +11950,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Dil
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -11969,7 +11969,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Dil
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -11988,7 +11988,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Dil
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -12007,7 +12007,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ରବି
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -12026,7 +12026,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ରବି
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -12045,7 +12045,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Хцб
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // н.д.,
+                eraLong: 4, // н.д.
                 eraShort: 4 // н.д.
                 )
         },
@@ -12064,7 +12064,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Хцб
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // н.д.,
+                eraLong: 4, // н.д.
                 eraShort: 4 // н.д.
                 )
         },
@@ -12083,7 +12083,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Хцб
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // н.д.,
+                eraLong: 4, // н.д.
                 eraShort: 4 // н.д.
                 )
         },
@@ -12102,7 +12102,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ਐਤ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // ਸੰਨ,
+                eraLong: 3, // ਸੰਨ
                 eraShort: 3 // ਸੰਨ
                 )
         },
@@ -12121,7 +12121,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // پیر
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // سں,
+                eraLong: 2, // سں
                 eraShort: 2 // سں
                 )
         },
@@ -12140,7 +12140,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // پیر
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // سں,
+                eraLong: 2, // سں
                 eraShort: 2 // سں
                 )
         },
@@ -12159,7 +12159,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ਐਤ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // ਸੰਨ,
+                eraLong: 3, // ਸੰਨ
                 eraShort: 3 // ਸੰਨ
                 )
         },
@@ -12178,7 +12178,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ਐਤ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // ਸੰਨ,
+                eraLong: 3, // ਸੰਨ
                 eraShort: 3 // ਸੰਨ
                 )
         },
@@ -12197,7 +12197,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -12216,7 +12216,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -12235,7 +12235,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Tiú
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // KIY,
+                eraLong: 3, // KIY
                 eraShort: 3 // KIY
                 )
         },
@@ -12254,7 +12254,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Tiú
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // KIY,
+                eraLong: 3, // KIY
                 eraShort: 3 // KIY
                 )
         },
@@ -12273,7 +12273,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // wt.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // n.e.,
+                eraLong: 4, // n.e.
                 eraShort: 4 // n.e.
                 )
         },
@@ -12292,7 +12292,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // wt.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // n.e.,
+                eraLong: 4, // n.e.
                 eraShort: 4 // n.e.
                 )
         },
@@ -12311,7 +12311,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -12330,7 +12330,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -12349,7 +12349,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // يونۍ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AP,
+                eraLong: 2, // AP
                 eraShort: 2 // AP
                 )
         },
@@ -12368,7 +12368,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // يونۍ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AP,
+                eraLong: 2, // AP
                 eraShort: 2 // AP
                 )
         },
@@ -12387,7 +12387,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // يونۍ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // م.,
+                eraLong: 2, // م.
                 eraShort: 2 // م.
                 )
         },
@@ -12406,7 +12406,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dom.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -12425,7 +12425,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // terça
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -12444,7 +12444,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // dom.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -12463,7 +12463,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // terça
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -12482,7 +12482,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // terça
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -12501,7 +12501,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // terça
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -12520,7 +12520,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // terça
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -12539,7 +12539,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // terça
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -12558,7 +12558,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // terça
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -12577,7 +12577,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // terça
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -12596,7 +12596,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // terça
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -12615,7 +12615,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // terça
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -12634,7 +12634,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // terça
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -12653,7 +12653,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -12672,7 +12672,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -12691,7 +12691,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -12710,7 +12710,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // d.C.,
+                eraLong: 4, // d.C.
                 eraShort: 4 // d.C.
                 )
         },
@@ -12729,7 +12729,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -12748,7 +12748,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -12767,7 +12767,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // रविवार
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -12786,7 +12786,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // रविवार
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -12805,7 +12805,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // du
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // s. Cr.,
+                eraLong: 6, // s. Cr.
                 eraShort: 6 // s. Cr.
                 )
         },
@@ -12824,7 +12824,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // du
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // s. Cr.,
+                eraLong: 6, // s. Cr.
                 eraShort: 6 // s. Cr.
                 )
         },
@@ -12843,7 +12843,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // cu.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // Ny.Y,
+                eraLong: 4, // Ny.Y
                 eraShort: 4 // Ny.Y
                 )
         },
@@ -12862,7 +12862,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // cu.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // Ny.Y,
+                eraLong: 4, // Ny.Y
                 eraShort: 4 // Ny.Y
                 )
         },
@@ -12881,7 +12881,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // joi
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // d.Hr.,
+                eraLong: 5, // d.Hr.
                 eraShort: 5 // d.Hr.
                 )
         },
@@ -12900,7 +12900,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Dum
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // d.Hr.,
+                eraLong: 5, // d.Hr.
                 eraShort: 5 // d.Hr.
                 )
         },
@@ -12919,7 +12919,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // joi
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // d.Hr.,
+                eraLong: 5, // d.Hr.
                 eraShort: 5 // d.Hr.
                 )
         },
@@ -12938,7 +12938,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Ijp
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BM,
+                eraLong: 2, // BM
                 eraShort: 2 // BM
                 )
         },
@@ -12957,7 +12957,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Ijp
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BM,
+                eraLong: 2, // BM
                 eraShort: 2 // BM
                 )
         },
@@ -12976,7 +12976,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // вс
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // н. э.,
+                eraLong: 5, // н. э.
                 eraShort: 5 // н. э.
                 )
         },
@@ -12995,7 +12995,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // вс
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // н. э.,
+                eraLong: 5, // н. э.
                 eraShort: 5 // н. э.
                 )
         },
@@ -13014,7 +13014,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // вс
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // н. э.,
+                eraLong: 5, // н. э.
                 eraShort: 5 // н. э.
                 )
         },
@@ -13033,7 +13033,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // вс
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // н. э.,
+                eraLong: 5, // н. э.
                 eraShort: 5 // н. э.
                 )
         },
@@ -13052,7 +13052,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // вс
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // н. э.,
+                eraLong: 5, // н. э.
                 eraShort: 5 // н. э.
                 )
         },
@@ -13071,7 +13071,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // вс
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // н. э.,
+                eraLong: 5, // н. э.
                 eraShort: 5 // н. э.
                 )
         },
@@ -13090,7 +13090,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // вс
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // н. э.,
+                eraLong: 5, // н. э.
                 eraShort: 5 // н. э.
                 )
         },
@@ -13109,7 +13109,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // cyu.
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -13128,7 +13128,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // cyu.
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -13147,7 +13147,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Jpi
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -13166,7 +13166,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Jpi
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -13185,7 +13185,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // रवि
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -13204,7 +13204,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // रवि
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -13223,7 +13223,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // бс
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // б. э,
+                eraLong: 4, // б. э
                 eraShort: 4 // б. э
                 )
         },
@@ -13242,7 +13242,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // бс
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // б. э,
+                eraLong: 4, // б. э
                 eraShort: 4 // б. э
                 )
         },
@@ -13261,7 +13261,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Are
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -13280,7 +13280,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Are
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -13299,7 +13299,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ᱚᱛ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // ᱤᱥᱣᱤ,
+                eraLong: 4, // ᱤᱥᱣᱤ
                 eraShort: 4 // ᱤᱥᱣᱤ
                 )
         },
@@ -13318,7 +13318,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ᱚᱛ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // ᱤᱥᱣᱤ,
+                eraLong: 4, // ᱤᱥᱣᱤ
                 eraShort: 4 // ᱤᱥᱣᱤ
                 )
         },
@@ -13337,7 +13337,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ᱚᱛ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // ᱤᱥᱣᱤ,
+                eraLong: 4, // ᱤᱥᱣᱤ
                 eraShort: 4 // ᱤᱥᱣᱤ
                 )
         },
@@ -13356,7 +13356,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Mul
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // PK,
+                eraLong: 2, // PK
                 eraShort: 2 // PK
                 )
         },
@@ -13375,7 +13375,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Mul
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // PK,
+                eraLong: 2, // PK
                 eraShort: 2 // PK
                 )
         },
@@ -13394,7 +13394,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // p.C.,
+                eraLong: 4, // p.C.
                 eraShort: 4 // p.C.
                 )
         },
@@ -13413,7 +13413,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // dom
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // p.C.,
+                eraLong: 4, // p.C.
                 eraShort: 4 // p.C.
                 )
         },
@@ -13432,7 +13432,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // آچر
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CD,
+                eraLong: 2, // CD
                 eraShort: 2 // CD
                 )
         },
@@ -13451,7 +13451,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // آچر
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CD,
+                eraLong: 2, // CD
                 eraShort: 2 // CD
                 )
         },
@@ -13470,7 +13470,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // آچر
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CD,
+                eraLong: 2, // CD
                 eraShort: 2 // CD
                 )
         },
@@ -13489,7 +13489,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 1, // आ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // एडी,
+                eraLong: 3, // एडी
                 eraShort: 3 // एडी
                 )
         },
@@ -13508,7 +13508,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 1, // आ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // एडी,
+                eraLong: 3, // एडी
                 eraShort: 3 // एडी
                 )
         },
@@ -13527,7 +13527,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // maŋ
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 5, // m.Kr.,
+                eraLong: 5, // m.Kr.
                 eraShort: 5 // m.Kr.
                 )
         },
@@ -13546,7 +13546,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // so
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // mKr.,
+                eraLong: 4, // mKr.
                 eraShort: 4 // mKr.
                 )
         },
@@ -13565,7 +13565,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // maŋ
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 5, // m.Kr.,
+                eraLong: 5, // m.Kr.
                 eraShort: 5 // m.Kr.
                 )
         },
@@ -13584,7 +13584,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // maŋ
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 5, // m.Kr.,
+                eraLong: 5, // m.Kr.
                 eraShort: 5 // m.Kr.
                 )
         },
@@ -13603,7 +13603,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Dim
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -13622,7 +13622,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Dim
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -13641,7 +13641,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Alh
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // IZ,
+                eraLong: 2, // IZ
                 eraShort: 2 // IZ
                 )
         },
@@ -13660,7 +13660,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Alh
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // IZ,
+                eraLong: 2, // IZ
                 eraShort: 2 // IZ
                 )
         },
@@ -13679,7 +13679,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Bk1
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // NpK,
+                eraLong: 3, // NpK
                 eraShort: 3 // NpK
                 )
         },
@@ -13698,7 +13698,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Bk1
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // NpK,
+                eraLong: 3, // NpK
                 eraShort: 3 // NpK
                 )
         },
@@ -13717,7 +13717,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ⴰⵙⴰ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // ⴷⴼⵄ,
+                eraLong: 3, // ⴷⴼⵄ
                 eraShort: 3 // ⴷⴼⵄ
                 )
         },
@@ -13736,7 +13736,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // asa
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // dfɛ,
+                eraLong: 3, // dfɛ
                 eraShort: 3 // dfɛ
                 )
         },
@@ -13755,7 +13755,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // asa
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // dfɛ,
+                eraLong: 3, // dfɛ
                 eraShort: 3 // dfɛ
                 )
         },
@@ -13774,7 +13774,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ⴰⵙⴰ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // ⴷⴼⵄ,
+                eraLong: 3, // ⴷⴼⵄ
                 eraShort: 3 // ⴷⴼⵄ
                 )
         },
@@ -13793,7 +13793,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ⴰⵙⴰ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // ⴷⴼⵄ,
+                eraLong: 3, // ⴷⴼⵄ
                 eraShort: 3 // ⴷⴼⵄ
                 )
         },
@@ -13812,7 +13812,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // අඟහ
                 dateSeparator: 1, // -
                 timeSeparator: 1, // .
-                eraLong: 8, // ක්‍රි.ව.,
+                eraLong: 8, // ක්‍රි.ව.
                 eraShort: 8 // ක්‍රි.ව.
                 )
         },
@@ -13831,7 +13831,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // අඟහ
                 dateSeparator: 1, // -
                 timeSeparator: 1, // .
-                eraLong: 8, // ක්‍රි.ව.,
+                eraLong: 8, // ක්‍රි.ව.
                 eraShort: 8 // ක්‍රි.ව.
                 )
         },
@@ -13850,7 +13850,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ne
                 dateSeparator: 2, // . 
                 timeSeparator: 1, // :
-                eraLong: 6, // po Kr.,
+                eraLong: 6, // po Kr.
                 eraShort: 6 // po Kr.
                 )
         },
@@ -13869,7 +13869,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ne
                 dateSeparator: 2, // . 
                 timeSeparator: 1, // :
-                eraLong: 6, // po Kr.,
+                eraLong: 6, // po Kr.
                 eraShort: 6 // po Kr.
                 )
         },
@@ -13888,7 +13888,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // ned.
                 dateSeparator: 2, // . 
                 timeSeparator: 1, // :
-                eraLong: 6, // po Kr.,
+                eraLong: 6, // po Kr.
                 eraShort: 6 // po Kr.
                 )
         },
@@ -13907,7 +13907,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // ned.
                 dateSeparator: 2, // . 
                 timeSeparator: 1, // :
-                eraLong: 6, // po Kr.,
+                eraLong: 6, // po Kr.
                 eraShort: 6 // po Kr.
                 )
         },
@@ -13926,7 +13926,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -13945,7 +13945,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -13964,7 +13964,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -13983,7 +13983,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -14002,7 +14002,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -14021,7 +14021,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -14040,7 +14040,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // pas
                 dateSeparator: 1, // .
                 timeSeparator: 1, // .
-                eraLong: 4, // mKr.,
+                eraLong: 4, // mKr.
                 eraShort: 4 // mKr.
                 )
         },
@@ -14059,7 +14059,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // pas
                 dateSeparator: 1, // .
                 timeSeparator: 1, // .
-                eraLong: 4, // mKr.,
+                eraLong: 4, // mKr.
                 eraShort: 4 // mKr.
                 )
         },
@@ -14078,7 +14078,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -14097,7 +14097,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -14116,7 +14116,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Svo
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -14135,7 +14135,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Svo
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -14154,7 +14154,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Axd
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -14173,7 +14173,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Axd
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -14192,7 +14192,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Axd
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -14211,7 +14211,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Axd
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -14230,7 +14230,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Axd
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -14249,7 +14249,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // die
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // mb.K.,
+                eraLong: 5, // mb.K.
                 eraShort: 5 // mb.K.
                 )
         },
@@ -14268,7 +14268,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // die
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // mb.K.,
+                eraLong: 5, // mb.K.
                 eraShort: 5 // mb.K.
                 )
         },
@@ -14287,7 +14287,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // die
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // mb.K.,
+                eraLong: 5, // mb.K.
                 eraShort: 5 // mb.K.
                 )
         },
@@ -14306,7 +14306,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // die
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // mb.K.,
+                eraLong: 5, // mb.K.
                 eraShort: 5 // mb.K.
                 )
         },
@@ -14325,7 +14325,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // нед
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // н. е.,
+                eraLong: 5, // н. е.
                 eraShort: 5 // н. е.
                 )
         },
@@ -14344,7 +14344,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // нед
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // н. е.,
+                eraLong: 5, // н. е.
                 eraShort: 5 // н. е.
                 )
         },
@@ -14363,7 +14363,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // нед
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // н. е.,
+                eraLong: 5, // н. е.
                 eraShort: 5 // н. е.
                 )
         },
@@ -14382,7 +14382,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // нед
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // н. е.,
+                eraLong: 5, // н. е.
                 eraShort: 5 // н. е.
                 )
         },
@@ -14401,7 +14401,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // нед
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // н. е.,
+                eraLong: 5, // н. е.
                 eraShort: 5 // н. е.
                 )
         },
@@ -14420,7 +14420,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // нед
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // н. е.,
+                eraLong: 5, // н. е.
                 eraShort: 5 // н. е.
                 )
         },
@@ -14439,7 +14439,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ned
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // n. e.,
+                eraLong: 5, // n. e.
                 eraShort: 5 // n. e.
                 )
         },
@@ -14458,7 +14458,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ned
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // n. e.,
+                eraLong: 5, // n. e.
                 eraShort: 5 // n. e.
                 )
         },
@@ -14477,7 +14477,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ned
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // n. e.,
+                eraLong: 5, // n. e.
                 eraShort: 5 // n. e.
                 )
         },
@@ -14496,7 +14496,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ned
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // n. e.,
+                eraLong: 5, // n. e.
                 eraShort: 5 // n. e.
                 )
         },
@@ -14515,7 +14515,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ned
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // n. e.,
+                eraLong: 5, // n. e.
                 eraShort: 5 // n. e.
                 )
         },
@@ -14534,7 +14534,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -14553,7 +14553,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -14572,7 +14572,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -14591,7 +14591,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -14610,7 +14610,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -14629,7 +14629,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // Ne
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -14648,7 +14648,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // Ne
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -14667,7 +14667,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // Ne
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -14686,7 +14686,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Mng
                 dateSeparator: 1, // /
                 timeSeparator: 1, // .
-                eraLong: 1, // M,
+                eraLong: 1, // M
                 eraShort: 1 // M
                 )
         },
@@ -14705,7 +14705,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Mng
                 dateSeparator: 1, // /
                 timeSeparator: 1, // .
-                eraLong: 1, // M,
+                eraLong: 1, // M
                 eraShort: 1 // M
                 )
         },
@@ -14724,7 +14724,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Mng
                 dateSeparator: 1, // /
                 timeSeparator: 1, // .
-                eraLong: 1, // M,
+                eraLong: 1, // M
                 eraShort: 1 // M
                 )
         },
@@ -14743,7 +14743,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // sön
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 5, // e.Kr.,
+                eraLong: 5, // e.Kr.
                 eraShort: 5 // e.Kr.
                 )
         },
@@ -14762,7 +14762,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // sön
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 5, // e.Kr.,
+                eraLong: 5, // e.Kr.
                 eraShort: 5 // e.Kr.
                 )
         },
@@ -14781,7 +14781,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // sön
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 5, // e.Kr.,
+                eraLong: 5, // e.Kr.
                 eraShort: 5 // e.Kr.
                 )
         },
@@ -14800,7 +14800,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // sön
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 5, // e.Kr.,
+                eraLong: 5, // e.Kr.
                 eraShort: 5 // e.Kr.
                 )
         },
@@ -14819,7 +14819,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // Ijumaa
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -14838,7 +14838,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // Ijumaa
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -14857,7 +14857,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // Ijumaa
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -14876,7 +14876,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // Ijumaa
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -14895,7 +14895,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 6, // Ijumaa
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -14914,7 +14914,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ܚܕ
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 3, // ܏ܫܡ,
+                eraLong: 3, // ܏ܫܡ
                 eraShort: 3 // ܏ܫܡ
                 )
         },
@@ -14933,7 +14933,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ܚܕ
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 3, // ܏ܫܡ,
+                eraLong: 3, // ܏ܫܡ
                 eraShort: 3 // ܏ܫܡ
                 )
         },
@@ -14952,7 +14952,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // சனி
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 6, // கி.பி.,
+                eraLong: 6, // கி.பி.
                 eraShort: 6 // கி.பி.
                 )
         },
@@ -14971,7 +14971,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // சனி
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 6, // கி.பி.,
+                eraLong: 6, // கி.பி.
                 eraShort: 6 // கி.பி.
                 )
         },
@@ -14990,7 +14990,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // சனி
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 6, // கி.பி.,
+                eraLong: 6, // கி.பி.
                 eraShort: 6 // கி.பி.
                 )
         },
@@ -15009,7 +15009,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // சனி
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 6, // கி.பி.,
+                eraLong: 6, // கி.பி.
                 eraShort: 6 // கி.பி.
                 )
         },
@@ -15028,7 +15028,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // சனி
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 6, // கி.பி.,
+                eraLong: 6, // கி.பி.
                 eraShort: 6 // கி.பி.
                 )
         },
@@ -15047,7 +15047,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ఆది
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 5, // క్రీశ,
+                eraLong: 5, // క్రీశ
                 eraShort: 5 // క్రీశ
                 )
         },
@@ -15066,7 +15066,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ఆది
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 5, // క్రీశ,
+                eraLong: 5, // క్రీశ
                 eraShort: 5 // క్రీశ
                 )
         },
@@ -15085,7 +15085,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Jum
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -15104,7 +15104,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Jum
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -15123,7 +15123,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Jum
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -15142,7 +15142,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Яшб
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // ПаМ,
+                eraLong: 3, // ПаМ
                 eraShort: 3 // ПаМ
                 )
         },
@@ -15161,7 +15161,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Яшб
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // ПаМ,
+                eraLong: 3, // ПаМ
                 eraShort: 3 // ПаМ
                 )
         },
@@ -15180,7 +15180,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // จ.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // พ.ศ.,
+                eraLong: 4, // พ.ศ.
                 eraShort: 4 // พ.ศ.
                 )
         },
@@ -15199,7 +15199,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // จ.
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // พ.ศ.,
+                eraLong: 4, // พ.ศ.
                 eraShort: 4 // พ.ศ.
                 )
         },
@@ -15218,7 +15218,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ሰን
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // ዓ/ም,
+                eraLong: 3, // ዓ/ም
                 eraShort: 3 // ዓ/ም
                 )
         },
@@ -15237,7 +15237,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ሰን
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // ዓ/ም,
+                eraLong: 3, // ዓ/ም
                 eraShort: 3 // ዓ/ም
                 )
         },
@@ -15256,7 +15256,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ሰን
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // ዓ/ም,
+                eraLong: 3, // ዓ/ም
                 eraShort: 3 // ዓ/ም
                 )
         },
@@ -15275,7 +15275,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -15294,7 +15294,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -15313,7 +15313,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Ýek
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // B.e.,
+                eraLong: 4, // B.e.
                 eraShort: 4 // B.e.
                 )
         },
@@ -15332,7 +15332,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Ýek
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 4, // B.e.,
+                eraLong: 4, // B.e.
                 eraShort: 4 // B.e.
                 )
         },
@@ -15351,7 +15351,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Tsh
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -15370,7 +15370,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Tsh
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -15389,7 +15389,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Tsh
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -15408,7 +15408,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sāp
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // TS,
+                eraLong: 2, // TS
                 eraShort: 2 // TS
                 )
         },
@@ -15427,7 +15427,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sāp
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // TS,
+                eraLong: 2, // TS
                 eraShort: 2 // TS
                 )
         },
@@ -15446,7 +15446,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Paz
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 2, // MS,
+                eraLong: 2, // MS
                 eraShort: 2 // MS
                 )
         },
@@ -15465,7 +15465,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Paz
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 2, // MS,
+                eraLong: 2, // MS
                 eraShort: 2 // MS
                 )
         },
@@ -15484,7 +15484,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Paz
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 2, // MS,
+                eraLong: 2, // MS
                 eraShort: 2 // MS
                 )
         },
@@ -15503,7 +15503,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // Ne
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -15522,7 +15522,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // Ne
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -15541,7 +15541,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // якш.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 6, // милади,
+                eraLong: 6, // милади
                 eraShort: 6 // милади
                 )
         },
@@ -15560,7 +15560,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // якш.
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 6, // милади,
+                eraLong: 6, // милади
                 eraShort: 6 // милади
                 )
         },
@@ -15579,7 +15579,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Alh
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // IZ,
+                eraLong: 2, // IZ
                 eraShort: 2 // IZ
                 )
         },
@@ -15598,7 +15598,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Alh
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // IZ,
+                eraLong: 2, // IZ
                 eraShort: 2 // IZ
                 )
         },
@@ -15617,7 +15617,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Asa
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // ḌƐ,
+                eraLong: 2, // ḌƐ
                 eraShort: 2 // ḌƐ
                 )
         },
@@ -15636,7 +15636,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Asa
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // ḌƐ,
+                eraLong: 2, // ḌƐ
                 eraShort: 2 // ḌƐ
                 )
         },
@@ -15655,7 +15655,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Asa
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // ḌƐ,
+                eraLong: 2, // ḌƐ
                 eraShort: 2 // ḌƐ
                 )
         },
@@ -15674,7 +15674,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // let
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // ḌƐ,
+                eraLong: 2, // ḌƐ
                 eraShort: 2 // ḌƐ
                 )
         },
@@ -15693,7 +15693,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Asa
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // ḌƐ,
+                eraLong: 2, // ḌƐ
                 eraShort: 2 // ḌƐ
                 )
         },
@@ -15712,7 +15712,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ⵙⵎⵙ
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // ⴷ-ⵙ.ⵄ.,
+                eraLong: 6, // ⴷ-ⵙ.ⵄ.
                 eraShort: 6 // ⴷ-ⵙ.ⵄ.
                 )
         },
@@ -15731,7 +15731,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ⵙⵎⵙ
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // ⴷ-ⵙ.ⵄ.,
+                eraLong: 6, // ⴷ-ⵙ.ⵄ.
                 eraShort: 6 // ⴷ-ⵙ.ⵄ.
                 )
         },
@@ -15750,7 +15750,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // يە
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 8, // مىلادىيە,
+                eraLong: 8, // مىلادىيە
                 eraShort: 8 // مىلادىيە
                 )
         },
@@ -15769,7 +15769,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // يە
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 8, // مىلادىيە,
+                eraLong: 8, // مىلادىيە
                 eraShort: 8 // مىلادىيە
                 )
         },
@@ -15788,7 +15788,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // нд
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // н. е.,
+                eraLong: 5, // н. е.
                 eraShort: 5 // н. е.
                 )
         },
@@ -15807,7 +15807,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // нд
                 dateSeparator: 1, // .
                 timeSeparator: 1, // :
-                eraLong: 5, // н. е.,
+                eraLong: 5, // н. е.
                 eraShort: 5 // н. е.
                 )
         },
@@ -15826,7 +15826,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // پیر
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // عیسوی,
+                eraLong: 5, // عیسوی
                 eraShort: 5 // عیسوی
                 )
         },
@@ -15845,7 +15845,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // پیر
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // عیسوی,
+                eraLong: 5, // عیسوی
                 eraShort: 5 // عیسوی
                 )
         },
@@ -15864,7 +15864,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // پیر
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // عیسوی,
+                eraLong: 5, // عیسوی
                 eraShort: 5 // عیسوی
                 )
         },
@@ -15883,7 +15883,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Yak
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 7, // milodiy,
+                eraLong: 7, // milodiy
                 eraShort: 7 // milodiy
                 )
         },
@@ -15902,7 +15902,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ی.
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AP,
+                eraLong: 2, // AP
                 eraShort: 2 // AP
                 )
         },
@@ -15921,7 +15921,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // ی.
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AP,
+                eraLong: 2, // AP
                 eraShort: 2 // AP
                 )
         },
@@ -15940,7 +15940,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // якш
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 7, // милодий,
+                eraLong: 7, // милодий
                 eraShort: 7 // милодий
                 )
         },
@@ -15959,7 +15959,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // якш
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 7, // милодий,
+                eraLong: 7, // милодий
                 eraShort: 7 // милодий
                 )
         },
@@ -15978,7 +15978,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Yak
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 7, // milodiy,
+                eraLong: 7, // milodiy
                 eraShort: 7 // milodiy
                 )
         },
@@ -15997,7 +15997,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Yak
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 7, // milodiy,
+                eraLong: 7, // milodiy
                 eraShort: 7 // milodiy
                 )
         },
@@ -16016,7 +16016,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ꕞꕌꔵ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -16035,7 +16035,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // alaba
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -16054,7 +16054,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 5, // alaba
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -16073,7 +16073,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ꕞꕌꔵ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -16092,7 +16092,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ꕞꕌꔵ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -16111,7 +16111,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -16130,7 +16130,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -16149,7 +16149,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // CN
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CN,
+                eraLong: 2, // CN
                 eraShort: 2 // CN
                 )
         },
@@ -16168,7 +16168,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // CN
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CN,
+                eraLong: 2, // CN
                 eraShort: 2 // CN
                 )
         },
@@ -16187,7 +16187,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -16206,7 +16206,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -16225,7 +16225,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Jpi
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -16244,7 +16244,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Jpi
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // BK,
+                eraLong: 2, // BK
                 eraShort: 2 // BK
                 )
         },
@@ -16263,7 +16263,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // n. Chr,
+                eraLong: 6, // n. Chr
                 eraShort: 6 // n. Chr
                 )
         },
@@ -16282,7 +16282,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 6, // n. Chr,
+                eraLong: 6, // n. Chr
                 eraShort: 6 // n. Chr
                 )
         },
@@ -16301,7 +16301,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -16320,7 +16320,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Sun
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -16339,7 +16339,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Dib
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -16358,7 +16358,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Dib
                 dateSeparator: 1, // -
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -16377,7 +16377,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Caw
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -16396,7 +16396,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Caw
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -16415,7 +16415,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // Sabi
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AF,
+                eraLong: 2, // AF
                 eraShort: 2 // AF
                 )
         },
@@ -16434,7 +16434,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 4, // Sabi
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AF,
+                eraLong: 2, // AF
                 eraShort: 2 // AF
                 )
         },
@@ -16453,7 +16453,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // sd
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // +J.C.,
+                eraLong: 5, // +J.C.
                 eraShort: 5 // +J.C.
                 )
         },
@@ -16472,7 +16472,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // sd
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 5, // +J.C.,
+                eraLong: 5, // +J.C.
                 eraShort: 5 // +J.C.
                 )
         },
@@ -16491,7 +16491,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // שבת
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -16510,7 +16510,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // שבת
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // CE,
+                eraLong: 2, // CE
                 eraShort: 2 // CE
                 )
         },
@@ -16529,7 +16529,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // Aj
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -16548,7 +16548,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // Aj
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -16567,7 +16567,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // Aj
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -16586,7 +16586,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // mit
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // K.a.,
+                eraLong: 4, // K.a.
                 eraShort: 4 // K.a.
                 )
         },
@@ -16605,7 +16605,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // mit
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // K.a.,
+                eraLong: 4, // K.a.
                 eraShort: 4 // K.a.
                 )
         },
@@ -16624,7 +16624,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // mit
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // K.a.,
+                eraLong: 4, // K.a.
                 eraShort: 4 // K.a.
                 )
         },
@@ -16643,7 +16643,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // mit
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 4, // K.a.,
+                eraLong: 4, // K.a.
                 eraShort: 4 // K.a.
                 )
         },
@@ -16662,7 +16662,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ⴰⵙⴰ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // ⴷⴼⵄ,
+                eraLong: 3, // ⴷⴼⵄ
                 eraShort: 3 // ⴷⴼⵄ
                 )
         },
@@ -16681,7 +16681,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // ⴰⵙⴰ
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 3, // ⴷⴼⵄ,
+                eraLong: 3, // ⴷⴼⵄ
                 eraShort: 3 // ⴷⴼⵄ
                 )
         },
@@ -16700,7 +16700,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // 周日
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // 公元,
+                eraLong: 2, // 公元
                 eraShort: 2 // 公元
                 )
         },
@@ -16719,7 +16719,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // 周日
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // 公元,
+                eraLong: 2, // 公元
                 eraShort: 2 // 公元
                 )
         },
@@ -16738,7 +16738,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // 周日
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // 公元,
+                eraLong: 2, // 公元
                 eraShort: 2 // 公元
                 )
         },
@@ -16757,7 +16757,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // 周日
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // 公元,
+                eraLong: 2, // 公元
                 eraShort: 2 // 公元
                 )
         },
@@ -16776,7 +16776,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // 周日
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // 公元,
+                eraLong: 2, // 公元
                 eraShort: 2 // 公元
                 )
         },
@@ -16795,7 +16795,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // 周日
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // 公元,
+                eraLong: 2, // 公元
                 eraShort: 2 // 公元
                 )
         },
@@ -16814,7 +16814,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // 週日
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // 西元,
+                eraLong: 2, // 西元
                 eraShort: 2 // 西元
                 )
         },
@@ -16833,7 +16833,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // 週日
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // 公元,
+                eraLong: 2, // 公元
                 eraShort: 2 // 公元
                 )
         },
@@ -16852,7 +16852,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // 週日
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // 公元,
+                eraLong: 2, // 公元
                 eraShort: 2 // 公元
                 )
         },
@@ -16871,7 +16871,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 2, // 週日
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // 西元,
+                eraLong: 2, // 西元
                 eraShort: 2 // 西元
                 )
         },
@@ -16890,7 +16890,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Son
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },
@@ -16909,7 +16909,7 @@ static partial class DateScrubber
                 abbreviatedDayNameShort: 3, // Son
                 dateSeparator: 1, // /
                 timeSeparator: 1, // :
-                eraLong: 2, // AD,
+                eraLong: 2, // AD
                 eraShort: 2 // AD
                 )
         },

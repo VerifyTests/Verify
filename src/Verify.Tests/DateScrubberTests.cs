@@ -112,6 +112,45 @@ public class DateScrubberTests
         }
     }
 
+    [Fact]
+    public void ReplaceDateTimes_AllCultures()
+    {
+        var osBuild = Environment.OSVersion.Version.Build;
+        var format = "yyyy MMMM MMM MM dddd ddd dd d HH H mm m ss s";
+        foreach (var culture in CultureInfo.GetCultures(CultureTypes.AllCultures))
+        {
+            var displayName = culture.DisplayName;
+            if (osBuild < 22000)
+            {
+                // invalid on old windows
+                if (displayName == "Central Kurdish (Iran)" ||
+                    displayName.StartsWith("Maori"))
+                {
+                    continue;
+                }
+            }
+
+            var counter = Counter.Start();
+            var dateTime = DateTime.Now;
+            var value = dateTime.ToString(format, culture);
+            var builder = new StringBuilder(value);
+            DateScrubber.ReplaceDateTimes(builder, format, counter, culture);
+            var result = builder.ToString();
+            if (result == "DateTime_1" ||
+                result.Contains("M01"))
+            {
+                continue;
+            }
+
+            throw new(
+                $"""
+                 {displayName} {culture.Name}
+                 {result}
+                 {value}
+                 """);
+        }
+    }
+
     [Theory]
     [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "no match")]
     [InlineData("aaaa", "no match short")]

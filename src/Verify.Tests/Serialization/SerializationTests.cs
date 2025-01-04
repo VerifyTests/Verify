@@ -1560,6 +1560,16 @@ public class SerializationTests
 
         return Verify("12/11/2024 10:36:43 AM", settings);
     }
+    [Fact]
+    public Task ScrubInlineDateTimesWithLongAmPm()
+    {
+        var settings = new VerifySettings();
+        var s = DateTime.Now.ToString("yyyy MM dd HH:mm tt", new CultureInfo("am-ET"));
+        settings.ScrubInlineDateTimes("yyyy MM dd HH:mm tt", new("am-ET"));
+
+        return Verify("2025 01 04 18:19 ከሰዓት", settings);
+    }
+
 
     // ReSharper disable once UnusedMember.Local
     static void DontIgnoreEmptyCollections() =>

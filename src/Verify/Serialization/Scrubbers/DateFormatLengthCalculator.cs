@@ -12,7 +12,8 @@
             _ =>
             {
                 format = culture.DateTimeFormat.ExpandFormat(format);
-                return InnerGetLength(format.AsSpan(), culture);
+                var length = InnerGetLength(format.AsSpan(), culture);
+                return length;
             });
     }
 

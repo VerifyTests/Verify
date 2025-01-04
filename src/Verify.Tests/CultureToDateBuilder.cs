@@ -64,7 +64,7 @@ public class CultureToDateBuilder
                                   abbreviatedDayNameShort: {{abbreviatedDayNames.Short}}, // {{abbreviatedDayNames.ShortValue}}
                                   dateSeparator: {{dateSeparator.Length}}, // {{dateSeparator}}
                                   timeSeparator: {{timeSeparator.Length}}, // {{timeSeparator}}
-                                  eraLong: {{eras.Long}}, // {{eras.LongValue}},
+                                  eraLong: {{eras.Long}}, // {{eras.LongValue}}
                                   eraShort: {{eras.Short}} // {{eras.ShortValue}}
                                   )
                           },

@@ -193,6 +193,7 @@ static partial class DateScrubber
                 }
 
                 var slice = value.Slice(index, length);
+                var s = slice.ToString();
                 if (tryConvertDate(slice, format, counter, culture, out var convert))
                 {
                     builder.Overwrite(convert, builderIndex, length);

@@ -11,8 +11,8 @@
     int abbreviatedDayNameShort,
     int dateSeparator,
     int timeSeparator,
-    int eraLong = 0,
-    int eraShort = 0)
+    int eraLong,
+    int eraShort)
 {
     public int AmPmLong { get; } = amPmLong;
     public int AmPmShort { get; } = amPmShort;

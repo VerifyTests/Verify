@@ -25,10 +25,10 @@ public class CultureToDateBuilder
 
             var calendar = culture.Calendar;
 
-                var am = info.AMDesignator;
-                var pm = info. PMDesignator;
-                string amPmLong;
-                string amPmShort;
+            var am = info.AMDesignator;
+            var pm = info.PMDesignator;
+            string amPmLong;
+            string amPmShort;
             if(am.Length < pm.Length)
             {
                 amPmLong = pm;

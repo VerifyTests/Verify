@@ -1,6 +1,4 @@
 ﻿readonly struct CultureDate(
-    DateTime longDate,
-    DateTime shortDate,
     int amPmLong,
     int amPmShort,
     int monthNameLong,
@@ -16,8 +14,6 @@
     int eraLong = 0,
     int eraShort = 0)
 {
-    public DateTime Long { get; } = longDate;
-    public DateTime Short { get; } = shortDate;
     public int AmPmLong { get; } = amPmLong;
     public int AmPmShort { get; } = amPmShort;
     public int MonthNameLong { get; } = monthNameLong;

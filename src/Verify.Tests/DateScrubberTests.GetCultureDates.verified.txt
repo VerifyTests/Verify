@@ -1,14 +1,50 @@
 ﻿{
   invarient: {
-    Long: DateTime_1,
-    Short: DateTime_2
+    AmPmLong: 2,
+    AmPmShort: 2,
+    MonthNameLong: 9,
+    MonthNameShort: 3,
+    AbbreviatedMonthNameLong: 3,
+    AbbreviatedMonthNameShort: 3,
+    DayNameLong: 9,
+    DayNameShort: 6,
+    AbbreviatedDayNameLong: 3,
+    AbbreviatedDayNameShort: 3,
+    DateSeparator: 1,
+    TimeSeparator: 1,
+    EraLong: 4,
+    EraShort: 4
   },
   parent: {
-    Long: DateTime_3,
-    Short: DateTime_2
+    AmPmLong: 2,
+    AmPmShort: 2,
+    MonthNameLong: 9,
+    MonthNameShort: 3,
+    AbbreviatedMonthNameLong: 3,
+    AbbreviatedMonthNameShort: 3,
+    DayNameLong: 10,
+    DayNameShort: 6,
+    AbbreviatedDayNameLong: 2,
+    AbbreviatedDayNameShort: 2,
+    DateSeparator: 1,
+    TimeSeparator: 1,
+    EraLong: 7,
+    EraShort: 7
   },
   child: {
-    Long: DateTime_3,
-    Short: DateTime_2
+    AmPmLong: 2,
+    AmPmShort: 2,
+    MonthNameLong: 9,
+    MonthNameShort: 3,
+    AbbreviatedMonthNameLong: 3,
+    AbbreviatedMonthNameShort: 3,
+    DayNameLong: 10,
+    DayNameShort: 6,
+    AbbreviatedDayNameLong: 2,
+    AbbreviatedDayNameShort: 2,
+    DateSeparator: 1,
+    TimeSeparator: 1,
+    EraLong: 7,
+    EraShort: 7
   }
 }

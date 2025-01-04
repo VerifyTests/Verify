@@ -16,8 +16,6 @@
     EraShort: 4
   },
   parent: {
-    AmPmLong: 2,
-    AmPmShort: 2,
     MonthNameLong: 9,
     MonthNameShort: 3,
     AbbreviatedMonthNameLong: 3,
@@ -32,8 +30,6 @@
     EraShort: 7
   },
   child: {
-    AmPmLong: 2,
-    AmPmShort: 2,
     MonthNameLong: 9,
     MonthNameShort: 3,
     AbbreviatedMonthNameLong: 3,

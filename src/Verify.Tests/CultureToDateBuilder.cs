@@ -21,37 +21,64 @@ public class CultureToDateBuilder
             """);
         foreach (var culture in cultures)
         {
-            var formatInfo = culture.DateTimeFormat;
+            var info = culture.DateTimeFormat;
 
             var calendar = culture.Calendar;
 
-            var amLength = formatInfo.AMDesignator.Length;
-            var pmLength = formatInfo.PMDesignator.Length;
-            var dateSeparator = formatInfo.DateSeparator.Length;
-            var timeSeparator = formatInfo.TimeSeparator.Length;
-            var monthNames = Lengths(formatInfo.MonthNames);
-            var abbreviatedMonthNames = Lengths(formatInfo.AbbreviatedMonthNames);
-            var dayNames = Lengths(formatInfo.DayNames);
-            var abbreviatedDayNames = Lengths(formatInfo.AbbreviatedDayNames);
-            var eras = Lengths(calendar.Eras.Select(_ => formatInfo.GetEraName(_)));
+                var am = info.AMDesignator;
+                var pm = info. PMDesignator;
+                string amPmLong;
+                string amPmShort;
+            if(am.Length < pm.Length)
+            {
+                amPmLong = pm;
+                amPmShort = am;
+            }
+            else
+            {
+                amPmLong = am;
+                amPmShort = pm;
+            }
+
+            var monthNames = Lengths(info.MonthNames);
+            var abbreviatedMonthNames = Lengths(info.AbbreviatedMonthNames);
+            var dayNames = Lengths(info.DayNames);
+            var abbreviatedDayNames = Lengths(info.AbbreviatedDayNames);
+            var eras = Lengths(calendar.Eras.Select(_ => info.GetEraName(_)));
+            var timeSeparator = info.TimeSeparator;
+            var dateSeparator = info.DateSeparator;
             builder.AppendLine(
                 $$"""
                           {
                               "{{culture.Name}}",
                               new(
-                                  {{int.Max(amLength, pmLength)}},
-                                  {{int.Min(amLength, pmLength)}},
+                                  // {{amPmLong}}
+                                  {{amPmLong.Length}},
+                                  // {{amPmShort}}
+                                  {{amPmShort.Length}},
+                                  // {{monthNames.LongValue}}
                                   {{monthNames.Long}},
+                                  // {{monthNames.ShortValue}}
                                   {{monthNames.Short}},
+                                  // {{abbreviatedMonthNames.LongValue}}
                                   {{abbreviatedMonthNames.Long}},
+                                  // {{abbreviatedMonthNames.ShortValue}}
                                   {{abbreviatedMonthNames.Short}},
+                                  // {{dayNames.LongValue}}
                                   {{dayNames.Long}},
+                                  // {{dayNames.ShortValue}}
                                   {{dayNames.Short}},
+                                  // {{abbreviatedDayNames.LongValue}}
                                   {{abbreviatedDayNames.Long}},
+                                  // {{abbreviatedDayNames.ShortValue}}
                                   {{abbreviatedDayNames.Short}},
-                                  {{dateSeparator}},
-                                  {{timeSeparator}},
+                                  // {{dateSeparator}}
+                                  {{dateSeparator.Length}},
+                                  // {{timeSeparator}}
+                                  {{timeSeparator.Length}},
+                                  // {{eras.LongValue}},
                                   {{eras.Long}},
+                                  // {{eras.ShortValue}}
                                   {{eras.Short}})
                           },
                   """);
@@ -67,13 +94,14 @@ public class CultureToDateBuilder
         return File.WriteAllTextAsync(file, builder.ToString());
     }
 
-    static (int Long, int Short) Lengths(IEnumerable<string> names)
+    static (int Long, string LongValue, int Short, string ShortValue) Lengths(IEnumerable<string> names)
     {
         var lengths = names
-            .Select(_ => _.Length)
-            .Where(_ => _ > 0)
+            .Where(_ => _.Length > 0)
             .ToList();
-        return (lengths.Max(), lengths.Min());
+        var max = lengths.Max()!;
+        var min = lengths.Min()!;
+        return (max.Length, max, min.Length, min);
     }
 }
 #endif

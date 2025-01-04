@@ -59,7 +59,6 @@ static partial class DateScrubber
             format,
             counter,
             culture,
-            _ => Date.FromDateTime(_),
             TryConvertDate);
 #endif
 
@@ -112,7 +111,6 @@ static partial class DateScrubber
             format,
             counter,
             culture,
-            _ => new DateTimeOffset(_),
             TryConvertDateTimeOffset);
 
     static bool TryConvertDateTime(
@@ -158,41 +156,25 @@ static partial class DateScrubber
             format,
             counter,
             culture,
-            _ => _,
             TryConvertDateTime);
 
-    static void ReplaceInner(StringBuilder builder, string format, Counter counter, Culture culture, Func<DateTime, IFormattable> toDate, TryConvert tryConvertDate)
+    static void ReplaceInner(StringBuilder builder, string format, Counter counter, Culture culture, TryConvert tryConvertDate)
     {
-        int Length(DateTime dateTime)
-        {
-            var date = toDate(dateTime);
-            try
-            {
-                return date.ToString(format, culture).Length;
-            }
-            catch (Exception exception)
-            {
-                throw new($"Failed to get length for {date.GetType()} {date} using format '{format}' and culture {culture}.", exception);
-            }
-        }
+        var (max, min) = DateFormatLengthCalculator.GetLength(format, culture);
 
-        var cultureDate = GetCultureDates(culture);
-        var shortest = Length(cultureDate.Short);
-        var longest = Length(cultureDate.Long);
-
-        if (builder.Length < shortest)
+        if (builder.Length < min)
         {
             return;
         }
 
-        if (shortest == longest)
+        if (min == max)
         {
-            ReplaceFixedLength(builder, format, counter, culture, tryConvertDate, longest);
+            ReplaceFixedLength(builder, format, counter, culture, tryConvertDate, max);
 
             return;
         }
 
-        ReplaceVariableLength(builder, format, counter, culture, tryConvertDate, longest, shortest);
+        ReplaceVariableLength(builder, format, counter, culture, tryConvertDate, max, min);
     }
 
     static void ReplaceVariableLength(StringBuilder builder, string format, Counter counter, Culture culture, TryConvert tryConvertDate, int longest, int shortest)
@@ -250,6 +232,7 @@ static partial class DateScrubber
             }
         }
     }
+
     internal static CultureDate GetCultureDates(Culture culture)
     {
         if (cultureDates.TryGetValue(culture.Name, out var cultureDate) ||

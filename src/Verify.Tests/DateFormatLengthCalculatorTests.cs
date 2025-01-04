@@ -56,7 +56,7 @@
     {
         var culture = CultureInfo.InvariantCulture;
 
-        var length = DateFormatLengthCalculator.GetLength(format.AsSpan(), culture);
+        var length = DateFormatLengthCalculator.InnerGetLength(format.AsSpan(), culture);
         Assert.Equal(max, length.max);
         Assert.Equal(min, length.min);
 
@@ -68,32 +68,32 @@
         }
 
         var padded = $" {format} ";
-        length = DateFormatLengthCalculator.GetLength(padded.AsSpan(), culture);
+        length = DateFormatLengthCalculator.InnerGetLength(padded.AsSpan(), culture);
         Assert.Equal(max + 2, length.max);
         Assert.Equal(min + 2, length.min);
 
         var prefixed = $" {format}";
-        length = DateFormatLengthCalculator.GetLength(prefixed.AsSpan(), culture);
+        length = DateFormatLengthCalculator.InnerGetLength(prefixed.AsSpan(), culture);
         Assert.Equal(max + 1, length.max);
         Assert.Equal(min + 1, length.min);
 
         var suffixed = $"{format} ";
-        length = DateFormatLengthCalculator.GetLength(suffixed.AsSpan(), culture);
+        length = DateFormatLengthCalculator.InnerGetLength(suffixed.AsSpan(), culture);
         Assert.Equal(max + 1, length.max);
         Assert.Equal(min + 1, length.min);
 
         var escapedPrefixed = $@"\d{format}";
-        length = DateFormatLengthCalculator.GetLength(escapedPrefixed.AsSpan(), culture);
+        length = DateFormatLengthCalculator.InnerGetLength(escapedPrefixed.AsSpan(), culture);
         Assert.Equal(max + 1, length.max);
         Assert.Equal(min + 1, length.min);
 
         var escapedSuffixed = $@"{format}\d";
-        length = DateFormatLengthCalculator.GetLength(escapedSuffixed.AsSpan(), culture);
+        length = DateFormatLengthCalculator.InnerGetLength(escapedSuffixed.AsSpan(), culture);
         Assert.Equal(max + 1, length.max);
         Assert.Equal(min + 1, length.min);
 
         var escapedWrapped = $@"\d{format}\d";
-        length = DateFormatLengthCalculator.GetLength(escapedWrapped.AsSpan(), culture);
+        length = DateFormatLengthCalculator.InnerGetLength(escapedWrapped.AsSpan(), culture);
         Assert.Equal(max + 2, length.max);
         Assert.Equal(min + 2, length.min);
     }

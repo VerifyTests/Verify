@@ -1,7 +1,14 @@
 ﻿static class DateFormatExpander
 {
-    internal static string ExpandFormat(this DateTimeFormatInfo info, char format) =>
-        format switch
+    internal static string ExpandFormat(this DateTimeFormatInfo info, string format)
+    {
+        if (format.Length != 1)
+        {
+            return format;
+        }
+
+        var ch = format[0];
+        return ch switch
         {
             'd' => info.ShortDatePattern,
             'D' => info.LongDatePattern,
@@ -18,6 +25,7 @@
             'u' => info.UniversalSortableDateTimePattern,
             'U' => info.FullDateTimePattern,
             'y' or 'Y' => info.YearMonthPattern,
-            _ => throw new ($"Invalid format: {format}"),
+            _ => throw new($"Invalid format: {format}"),
         };
+    }
 }

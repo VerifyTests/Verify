@@ -2,7 +2,21 @@
 {
     const int maxSecondsFractionDigits = 7;
 
-    public static (int max, int min) GetLength(scoped CharSpan format, Culture culture)
+    static ConcurrentDictionary<string, (int max, int min)> cache = new();
+
+    public static (int max, int min) GetLength(string format, Culture culture)
+    {
+        var key = $"{culture.Name}_{format}";
+        return cache.GetOrAdd(
+            key,
+            _ =>
+            {
+                format = culture.DateTimeFormat.ExpandFormat(format);
+                return InnerGetLength(format.AsSpan(), culture);
+            });
+    }
+
+    public static (int max, int min) InnerGetLength(scoped CharSpan format, Culture culture)
     {
         var cultureDates = DateScrubber.GetCultureDates(culture);
 
@@ -189,7 +203,7 @@
                     }
 
                     var nextCharChar = (char) nextChar;
-                    var innerLength = GetLength([nextCharChar], culture);
+                    var innerLength = InnerGetLength([nextCharChar], culture);
                     maxLength += innerLength.max;
                     minLength += innerLength.min;
                     tokenLen = 2;
@@ -224,6 +238,7 @@
 
             index += tokenLen;
         }
+
         return (maxLength, minLength);
     }
 

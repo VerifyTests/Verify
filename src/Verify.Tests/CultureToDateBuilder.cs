@@ -52,34 +52,21 @@ public class CultureToDateBuilder
                           {
                               "{{culture.Name}}",
                               new(
-                                  // {{amPmLong}}
-                                  {{amPmLong.Length}},
-                                  // {{amPmShort}}
-                                  {{amPmShort.Length}},
-                                  // {{monthNames.LongValue}}
-                                  {{monthNames.Long}},
-                                  // {{monthNames.ShortValue}}
-                                  {{monthNames.Short}},
-                                  // {{abbreviatedMonthNames.LongValue}}
-                                  {{abbreviatedMonthNames.Long}},
-                                  // {{abbreviatedMonthNames.ShortValue}}
-                                  {{abbreviatedMonthNames.Short}},
-                                  // {{dayNames.LongValue}}
-                                  {{dayNames.Long}},
-                                  // {{dayNames.ShortValue}}
-                                  {{dayNames.Short}},
-                                  // {{abbreviatedDayNames.LongValue}}
-                                  {{abbreviatedDayNames.Long}},
-                                  // {{abbreviatedDayNames.ShortValue}}
-                                  {{abbreviatedDayNames.Short}},
-                                  // {{dateSeparator}}
-                                  {{dateSeparator.Length}},
-                                  // {{timeSeparator}}
-                                  {{timeSeparator.Length}},
-                                  // {{eras.LongValue}},
-                                  {{eras.Long}},
-                                  // {{eras.ShortValue}}
-                                  {{eras.Short}})
+                                  amPmLong: {{amPmLong.Length}}, // {{amPmLong}}
+                                  amPmShort: {{amPmShort.Length}}, // {{amPmShort}}
+                                  monthNameLong: {{monthNames.Long}}, // {{monthNames.LongValue}}
+                                  monthNameShort: {{monthNames.Short}}, // {{monthNames.ShortValue}}
+                                  abbreviatedMonthNameLong: {{abbreviatedMonthNames.Long}}, // {{abbreviatedMonthNames.LongValue}}
+                                  abbreviatedMonthNameShort: {{abbreviatedMonthNames.Short}}, // {{abbreviatedMonthNames.ShortValue}}
+                                  dayNameLong: {{dayNames.Long}}, // {{dayNames.LongValue}}
+                                  dayNameShort: {{dayNames.Short}}, // {{dayNames.ShortValue}}
+                                  abbreviatedDayNameLong: {{abbreviatedDayNames.Long}}, // {{abbreviatedDayNames.LongValue}}
+                                  abbreviatedDayNameShort: {{abbreviatedDayNames.Short}}, // {{abbreviatedDayNames.ShortValue}}
+                                  dateSeparator: {{dateSeparator.Length}}, // {{dateSeparator}}
+                                  timeSeparator: {{timeSeparator.Length}}, // {{timeSeparator}}
+                                  eraLong: {{eras.Long}}, // {{eras.LongValue}},
+                                  eraShort: {{eras.Short}} // {{eras.ShortValue}}
+                                  )
                           },
                   """);
         }

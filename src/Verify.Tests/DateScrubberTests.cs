@@ -22,7 +22,7 @@ public class DateScrubberTests
             {
                 invarient = DateFormatLengthCalculator.GetCultureLengthInfo(CultureInfo.InvariantCulture),
                 parent = DateFormatLengthCalculator.GetCultureLengthInfo(CultureInfo.GetCultureInfo("en")),
-                child = DateFormatLengthCalculator.GetCultureLengthInfo(CultureInfo.GetCultureInfo("en-AU"))
+                child = DateFormatLengthCalculator.GetCultureLengthInfo(CultureInfo.GetCultureInfo("en-GB"))
             });
 
     [Theory]

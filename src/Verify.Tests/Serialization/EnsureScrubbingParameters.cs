@@ -5,7 +5,7 @@
         VerifierSettings.AddScrubber((builder, counter, context) =>
         {
             Assert.NotNull(counter);
-            Assert.NotNull(settings);
+            Assert.NotNull(context);
             builder.Replace("EnsureScrubbingParameters", "new value");
         });
 

@@ -129,7 +129,7 @@ static class ApplyScrubbers
 
         foreach (var scrubber in VerifierSettings.GlobalScrubbers)
         {
-            scrubber(target, counter, settings);
+            scrubber(target, counter, settings.Context);
         }
 
         foreach (var replace in replacements)
@@ -157,7 +157,7 @@ static class ApplyScrubbers
 
         foreach (var scrubber in VerifierSettings.GlobalScrubbers)
         {
-            scrubber(builder, counter, settings);
+            scrubber(builder, counter, settings.Context);
         }
 
         foreach (var replace in replacements)

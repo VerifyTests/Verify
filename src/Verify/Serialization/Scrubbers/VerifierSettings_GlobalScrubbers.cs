@@ -2,7 +2,7 @@
 
 public static partial class VerifierSettings
 {
-    internal static List<Action<StringBuilder, Counter, VerifySettings>> GlobalScrubbers = [];
+    internal static List<Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>>> GlobalScrubbers = [];
 
     /// <summary>
     /// Modify the resulting test content using custom code.
@@ -19,7 +19,7 @@ public static partial class VerifierSettings
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
-    public static void AddScrubber(Action<StringBuilder, Counter, VerifySettings> scrubber, ScrubberLocation location = ScrubberLocation.First)
+    public static void AddScrubber(Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>> scrubber, ScrubberLocation location = ScrubberLocation.First)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         switch (location)

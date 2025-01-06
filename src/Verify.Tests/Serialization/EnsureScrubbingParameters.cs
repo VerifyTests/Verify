@@ -2,7 +2,7 @@
 {
     [ModuleInitializer]
     public static void Initialize() =>
-        VerifierSettings.AddScrubber((builder, counter, settings) =>
+        VerifierSettings.AddScrubber((builder, counter, context) =>
         {
             Assert.NotNull(counter);
             Assert.NotNull(settings);

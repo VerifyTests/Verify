@@ -974,6 +974,8 @@ information sources and warn about particular gotchas:
 * [Verify.SourceGenerators](https://github.com/VerifyTests/Verify.SourceGenerators): Verification of C# Source Generators.
 * [Verify.SystemJson](https://github.com/VerifyTests/Verify.SystemJson): Support for converting System.Text.Json types.
 * [Verify.Terminal](https://github.com/VerifyTests/Verify.Terminal): A dotnet tool for managing Verify snapshots.
+* [Verify.Ulid](https://github.com/VerifyTests/Verify.Ulid): Enable scrubbing of Universally Unique Lexicographically Sortable Identifiers via the [Ulid](https://github.com/Cysharp/Ulid) package.
+* [Verify.NUlid](https://github.com/VerifyTests/Verify.NUlid): Enable scrubbing of Universally Unique Lexicographically Sortable Identifiers via [NUlid](https://github.com/RobThree/NUlid) package.
 * [Verify.WinForms](https://github.com/VerifyTests/Verify.WinForms): Verification of WinForms UIs.
 * [Verify.Xamarin](https://github.com/VerifyTests/Verify.Xamarin): Verification of Xamarin UIs.
 * [Verify.Xaml](https://github.com/VerifyTests/Verify.Xaml): Verification of Xaml UIs.
@@ -1030,5 +1032,4 @@ information sources and warn about particular gotchas:
 
 ## Icon
 
-[Helmet](https://thenounproject.com/term/helmet/9554/) designed
-by [Leonidas Ikonomou](https://thenounproject.com/alterego) from [The Noun Project](https://thenounproject.com).
+[Helmet](https://thenounproject.com/term/helmet/9554/) designed by [Leonidas Ikonomou](https://thenounproject.com/alterego) from [The Noun Project](https://thenounproject.com).

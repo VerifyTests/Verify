@@ -28,10 +28,10 @@ Characters that cannot be used for a file name are replaced with a dash (`-`).<!
 
 Parameterised test usage differs based on the test framework used.
 
- * [NUnit](parameterised-nunit.md)
- * [Xunit V2](parameterised-xunitv2.md)
- * [Xunit V3](parameterised-xunitv3.md)
- * [MSTest](parameterised-mstest.md)
- * [TUnit](parameterised-tunit.md)
- * [Fixie](parameterised-fixie.md)
- * [Expecto](parameterised-expecto.md)
+ * [NUnit](/docs/parameterised-nunit.md)
+ * [Xunit V2](/docs/parameterised-xunitv2.md)
+ * [Xunit V3](/docs/parameterised-xunitv3.md)
+ * [MSTest](/docs/parameterised-mstest.md)
+ * [TUnit](/docs/parameterised-tunit.md)
+ * [Fixie](/docs/parameterised-fixie.md)
+ * [Expecto](/docs/parameterised-expecto.md)

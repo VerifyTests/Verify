@@ -14,7 +14,7 @@ snippet: VerifyDirectoryFilterXunitV3
 
 An optional `info` parameter can be supplied to add more context to the test. The instance passed will be json serialized.
 
-snippet: VerifyZipWithStructureXunitV3
+snippet: VerifyDirectoryWithInfoXunitV3
 
 
 ## FileScrubber

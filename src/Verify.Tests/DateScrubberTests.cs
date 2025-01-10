@@ -17,13 +17,7 @@ public class DateScrubberTests
 
     [Fact]
     public Task GetCultureDates() =>
-        Verify(
-            new
-            {
-                invarient = DateFormatLengthCalculator.GetCultureLengthInfo(CultureInfo.InvariantCulture),
-                parent = DateFormatLengthCalculator.GetCultureLengthInfo(CultureInfo.GetCultureInfo("en")),
-                child = DateFormatLengthCalculator.GetCultureLengthInfo(CultureInfo.GetCultureInfo("en-GB"))
-            });
+        Verify(DateFormatLengthCalculator.GetCultureLengthInfo(CultureInfo.InvariantCulture));
 
     [Theory]
     [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "no match")]

@@ -16,16 +16,16 @@ VerifierSettings.AddExtraSettings(fun settings -> settings.AddFSharpConverters()
 ```
 
 
-## NullValueHandling
+## DefaultValueHandling
 
 By default [DefaultValueHandling is Ignore](/docs/serializer-settings.md#default-settings). Since F# `Option.None` is treated as null, it will be ignored by default. To include `Option.None` use `VerifierSettings.AddExtraSettings` at module startup:
 
-<!-- snippet: NullValueHandling -->
-<a id='snippet-NullValueHandling'></a>
+<!-- snippet: DefaultValueHandling -->
+<a id='snippet-DefaultValueHandling'></a>
 ```fs
-VerifierSettings.AddExtraSettings(fun settings -> settings.NullValueHandling <- NullValueHandling.Include)
+VerifierSettings.AddExtraSettings(fun settings -> settings.DefaultValueHandling <- DefaultValueHandling.Include)
 ```
-<sup><a href='/src/FSharpTests/Tests.fs#L8-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-NullValueHandling' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/FSharpTests/Tests.fs#L8-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-DefaultValueHandling' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -56,7 +56,7 @@ open VerifyTests
 open VerifyXunit
 open Argon
 
-VerifierSettings.AddExtraSettings(fun settings -> settings.NullValueHandling <- NullValueHandling.Include)
+VerifierSettings.AddExtraSettings(fun settings -> settings.DefaultValueHandling <- DefaultValueHandling.Include)
 
 [<Fact>]
 let MyTest () =

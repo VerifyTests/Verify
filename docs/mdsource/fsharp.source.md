@@ -9,11 +9,11 @@ VerifierSettings.AddExtraSettings(fun settings -> settings.AddFSharpConverters()
 ```
 
 
-## NullValueHandling
+## DefaultValueHandling
 
 By default [DefaultValueHandling is Ignore](/docs/serializer-settings.md#default-settings). Since F# `Option.None` is treated as null, it will be ignored by default. To include `Option.None` use `VerifierSettings.AddExtraSettings` at module startup:
 
-snippet: NullValueHandling
+snippet: DefaultValueHandling
 
 
 ## Async Qwerks

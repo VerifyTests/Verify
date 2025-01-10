@@ -5,8 +5,8 @@ open VerifyTests
 open VerifyXunit
 open Argon
 
-// begin-snippet: NullValueHandling
-VerifierSettings.AddExtraSettings(fun settings -> settings.NullValueHandling <- NullValueHandling.Include)
+// begin-snippet: DefaultValueHandling
+VerifierSettings.AddExtraSettings(fun settings -> settings.DefaultValueHandling <- DefaultValueHandling.Include)
 // end-snippet
 
 // begin-snippet: FsTest

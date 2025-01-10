@@ -44,14 +44,16 @@ public Task WithDirectoryFiltered() =>
 
 An optional `info` parameter can be supplied to add more context to the test. The instance passed will be json serialized.
 
-<!-- snippet: VerifyZipWithStructureXunitV3 -->
-<a id='snippet-VerifyZipWithStructureXunitV3'></a>
+<!-- snippet: VerifyDirectoryWithInfoXunitV3 -->
+<a id='snippet-VerifyDirectoryWithInfoXunitV3'></a>
 ```cs
 [Fact]
-public Task WithZipAndStructure() =>
-    VerifyZip(zipPath, includeStructure: true);
+public Task VerifyDirectoryWithInfo() =>
+    VerifyDirectory(
+        directoryToVerify,
+        info: "the info");
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L156-L162' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithStructureXunitV3' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L100-L108' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyDirectoryWithInfoXunitV3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -151,10 +151,10 @@ public class Namer
         Architecture = RuntimeInformation
             .ProcessArchitecture.ToString()
             .ToLower();
-        OperatingSystemPlatform = GetOSPlatform();
+        OperatingSystemPlatform = GetOsPlatform();
     }
 
-    static string GetOSPlatform()
+    static string GetOsPlatform()
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {

@@ -1,5 +1,5 @@
 ﻿#pragma warning disable CA1416
-#if DEBUG && NET8_0
+#if DEBUG && NET48
 // ReSharper disable UnusedParameter.Local
 
 public class ConverterSnippets

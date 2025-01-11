@@ -135,9 +135,9 @@ public class TypeConverterTests
                 context.ContainsKey("name") &&
                 (string) context["name"] == nameof(WithInfoShouldRespectSettings) &&
                 Equals(target.RawFormat, ImageFormat.Bmp),
-            conversion: (bitmap1, _) =>
+            conversion: (bitmap, _) =>
             {
-                var targets = ConvertBmpTpPngStreams(bitmap1);
+                var targets = ConvertBmpTpPngStreams(bitmap);
                 var info = new
                 {
                     Property = "Value"

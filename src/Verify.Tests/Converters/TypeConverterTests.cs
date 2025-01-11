@@ -49,7 +49,7 @@ public class TypeConverterTests
     [Fact]
     public async Task WithStreamRequiringCleanup()
     {
-        await File.WriteAllTextAsync(withStreamRequiringCleanupPath, "FileContent");
+        File.WriteAllText(withStreamRequiringCleanupPath, "FileContent");
         var target = new TargetForCleanup("line1");
         await Verify(target);
         Assert.False(File.Exists(withStreamRequiringCleanupPath));

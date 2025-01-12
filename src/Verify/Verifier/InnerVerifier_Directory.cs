@@ -108,15 +108,16 @@ partial class InnerVerifier
 
     static async Task<Target> TargetFromFile(string path, string relativePath, FileScrubber? fileScrubber, Func<Stream> openStream)
     {
-        if (!TryGetExtension(path, out var extension))
+        var extension = Path
+            .GetExtension(path)
+            .Replace(".", string.Empty);
+
+        if (extension.Length == 0)
         {
-            return new(
-                "noextension",
-                openStream(),
-                relativePath);
+            extension = "noextension";
         }
 
-        if (FileExtensions.IsTextExtension(extension))
+        if (FileExtensions.IsTextFile(path))
         {
             using var stream = openStream();
             var builder = await stream.ReadStringBuilderWithFixedLines();
@@ -131,13 +132,5 @@ partial class InnerVerifier
             extension,
             openStream(),
             relativePath);
-    }
-
-    static bool TryGetExtension(string path, [NotNullWhen(true)] out string? extension)
-    {
-        extension = Path
-            .GetExtension(path)
-            .Replace(".", string.Empty);
-        return extension.Length > 0;
     }
 }

@@ -673,6 +673,8 @@ Debug.WriteLine(Namer.RuntimeAndVersion);
  * `type`: The class the test method exists in.
  * `method`: The test method.
 
+Any value provided in [UseDirectory](#directory) will take precedence over the value provided in `PathInfo.Directory`.
+
 Return null to any of the values to use the standard behavior. The returned path can be relative to the directory sourceFile exists in.
 
 `DerivePathInfo` can also be useful when deriving the storage directory on a [build server](build-server.md#custom-directory-and-file-name)

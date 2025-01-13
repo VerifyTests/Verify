@@ -33,14 +33,4 @@ public readonly struct PathInfo
             methodName: method.Name);
 
     #endregion
-
-    internal static PathInfo DeriveDefault(
-        string sourceFile,
-        string projectDirectory,
-        string typeName,
-        string methodName) =>
-        new(
-            directory: IoHelpers.ResolveDirectoryFromSourceFile(sourceFile),
-            typeName: typeName,
-            methodName: methodName);
 }

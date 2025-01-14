@@ -11,6 +11,15 @@ public readonly struct FilePair
         IsText = FileExtensions.IsTextExtension(extension);
     }
 
+    public FilePair(string extension, string receivedPath, string verifiedPath, bool isText)
+    {
+        Guards.AgainstBadExtension(extension);
+        Extension = extension;
+        ReceivedPath = receivedPath;
+        VerifiedPath = verifiedPath;
+        IsText = isText;
+    }
+
     public string Extension { get; }
     public string ReceivedPath { get; }
     public string VerifiedPath { get; }

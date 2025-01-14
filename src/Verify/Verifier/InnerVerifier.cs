@@ -135,7 +135,8 @@ public partial class InnerVerifier :
             new(
                 target.Extension,
                 $"{prefix}.received.{target.Extension}",
-                $"{prefix}.verified.{target.Extension}");
+                $"{prefix}.verified.{target.Extension}",
+                target.IsString);
 
         getIndexedFileNames = (target, index) =>
         {
@@ -144,13 +145,15 @@ public partial class InnerVerifier :
                 return new(
                     target.Extension,
                     $"{prefix}#{index}.received.{target.Extension}",
-                    $"{prefix}#{index}.verified.{target.Extension}");
+                    $"{prefix}#{index}.verified.{target.Extension}",
+                    target.IsString);
             }
 
             return new(
                 target.Extension,
                 $"{prefix}#{target.Name}.{index}.received.{target.Extension}",
-                $"{prefix}#{target.Name}.{index}.verified.{target.Extension}");
+                $"{prefix}#{target.Name}.{index}.verified.{target.Extension}",
+                target.IsString);
         };
     }
 
@@ -185,7 +188,8 @@ public partial class InnerVerifier :
                 return new(
                     target.Extension,
                     Path.Combine(receivedDirectory, fileName),
-                    Path.Combine(verifiedDirectory, fileName));
+                    Path.Combine(verifiedDirectory, fileName),
+                    target.IsString);
             };
             getIndexedFileNames = (target, index) =>
             {
@@ -193,7 +197,8 @@ public partial class InnerVerifier :
                 return new(
                     target.Extension,
                     Path.Combine(receivedDirectory, fileName),
-                    Path.Combine(verifiedDirectory, fileName));
+                    Path.Combine(verifiedDirectory, fileName),
+                    target.IsString);
             };
 
             IoHelpers.DeleteDirectory(receivedDirectory);
@@ -207,12 +212,14 @@ public partial class InnerVerifier :
                 new(
                     target.Extension,
                     Path.Combine(directoryPrefix, $"{target.NameOrTarget}.received.{target.Extension}"),
-                    Path.Combine(directoryPrefix, $"{target.NameOrTarget}.verified.{target.Extension}"));
+                    Path.Combine(directoryPrefix, $"{target.NameOrTarget}.verified.{target.Extension}"),
+                    target.IsString);
             getIndexedFileNames = (target, index) =>
                 new(
                     target.Extension,
                     Path.Combine(directoryPrefix, $"{target.NameOrTarget}#{index}.received.{target.Extension}"),
-                    Path.Combine(directoryPrefix, $"{target.NameOrTarget}#{index}.verified.{target.Extension}"));
+                    Path.Combine(directoryPrefix, $"{target.NameOrTarget}#{index}.verified.{target.Extension}"),
+                    target.IsString);
 
             IoHelpers.DeleteFiles(directoryPrefix, "*.received.*");
         }
@@ -257,13 +264,15 @@ public partial class InnerVerifier :
                 return new(
                     target.Extension,
                     $"{pathPrefixReceived}.received.{target.Extension}",
-                    $"{pathPrefixVerified}.verified.{target.Extension}");
+                    $"{pathPrefixVerified}.verified.{target.Extension}",
+                    target.IsString);
             }
 
             return new(
                 target.Extension,
                 $"{pathPrefixReceived}#{target.Name}.received.{target.Extension}",
-                $"{pathPrefixVerified}#{target.Name}.verified.{target.Extension}");
+                $"{pathPrefixVerified}#{target.Name}.verified.{target.Extension}",
+                target.IsString);
         };
         getIndexedFileNames = (target, index) =>
         {
@@ -272,13 +281,15 @@ public partial class InnerVerifier :
                 return new(
                     target.Extension,
                     $"{pathPrefixReceived}#{index}.received.{target.Extension}",
-                    $"{pathPrefixVerified}#{index}.verified.{target.Extension}");
+                    $"{pathPrefixVerified}#{index}.verified.{target.Extension}",
+                    target.IsString);
             }
 
             return new(
                 target.Extension,
                 $"{pathPrefixReceived}#{target.Name}.{index}.received.{target.Extension}",
-                $"{pathPrefixVerified}#{target.Name}.{index}.verified.{target.Extension}");
+                $"{pathPrefixVerified}#{target.Name}.{index}.verified.{target.Extension}",
+                target.IsString);
         };
 
         MatchingFileFinder.DeleteReceived(receivedPrefix, directory);

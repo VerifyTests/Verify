@@ -1,6 +1,20 @@
 public class VerifyDirectoryTests
 {
     static string directoryPathToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
+#if NET8_0_OR_GREATER
+
+#region AddTextFileConvention
+    [ModuleInitializer]
+    public static void InitTextFileConvention() =>
+        FileExtensions.AddTextFileConvention(
+            path =>
+            {
+                var name = Path.GetFileName(path);
+                return name.Equals("TextDocWithoutExtension", StringComparison.OrdinalIgnoreCase);
+            });
+#endregion
+
+#endif
 
     [Fact]
     public Task WithDirectory() =>

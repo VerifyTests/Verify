@@ -252,7 +252,14 @@ class VerifyEngine(
 
         if (diffEnabled)
         {
-            await DiffRunner.LaunchAsync(file.ReceivedPath, file.VerifiedPath, VerifierSettings.Encoding);
+            if (file.IsText)
+            {
+                await DiffRunner.LaunchForTextAsync(file.ReceivedPath, file.VerifiedPath, VerifierSettings.Encoding);
+            }
+            else
+            {
+                await DiffRunner.LaunchAsync(file.ReceivedPath, file.VerifiedPath, VerifierSettings.Encoding);
+            }
         }
 
         return autoVerify;

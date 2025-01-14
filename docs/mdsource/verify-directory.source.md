@@ -24,3 +24,14 @@ snippet: VerifyDirectoryWithInfoXunitV3
 snippet: VerifyDirectoryWithFileScrubberXunitV3
 
 This applies to files where the extensions is a known text file as defined by [FileExtensions.IsText](https://github.com/VerifyTests/EmptyFiles#istext).
+
+
+## Files with no extension
+
+Any files in the target directory that have no extension will have `.noextension` added to the resulting `.verified` file. This is to avoid `.verified` being treated as the extension of that file.
+
+These files are treated as unknown binaries by default. Given the lack of an extension, no diff tool will be launched.
+
+Files with no extension can optionally be treated as text, with the associated diff tool being launched. This is done by using the [AddTextFileConvention](https://github.com/VerifyTests/EmptyFiles?tab=readme-ov-file#addtextfileconvention) of EmptyFiles:
+
+snippet: AddTextFileConvention

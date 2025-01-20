@@ -15,7 +15,7 @@
             if(!File.Exists(file))
             {
                 using var reader = IoHelpers.OpenRead(file);
-                await IoHelpers.ReadStringBuilderWithFixedLines(reader);
+                await reader.ReadStringBuilderWithFixedLines();
             }
         }
 

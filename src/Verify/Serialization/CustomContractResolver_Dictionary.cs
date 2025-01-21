@@ -77,19 +77,6 @@
             }
         }
 
-        if (original is string stringValue)
-        {
-            if (settings.TryParseConvert(counter, stringValue.AsSpan(), out result))
-            {
-                return true;
-            }
-
-            var verifyJsonWriter = (VerifyJsonWriter)writer;
-            result = ApplyScrubbers.ApplyForPropertyValue(stringValue.AsSpan(), verifyJsonWriter.settings, counter).ToString();
-
-            return true;
-        }
-
         if (original is DateTime dateTime)
         {
             if (settings.TryConvert(counter, dateTime, out result))
@@ -104,6 +91,19 @@
             {
                 return true;
             }
+        }
+
+        if (original is string stringValue)
+        {
+            if (settings.TryParseConvert(counter, stringValue.AsSpan(), out result))
+            {
+                return true;
+            }
+
+            var verifyJsonWriter = (VerifyJsonWriter)writer;
+            result = ApplyScrubbers.ApplyForPropertyValue(stringValue.AsSpan(), verifyJsonWriter.settings, counter).ToString();
+
+            return true;
         }
 
         if (original is Type type)

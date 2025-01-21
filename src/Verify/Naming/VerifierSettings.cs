@@ -67,7 +67,11 @@ public static partial class VerifierSettings
         GetNameForParameter(parameter, true);
 
     // ReSharper disable once MethodOverloadWithOptionalParameter
-    public static string GetNameForParameter(object? parameter, bool pathFriendly = true)
+    public static string GetNameForParameter(object? parameter, bool pathFriendly = true) =>
+        GetNameForParameter(parameter, null, pathFriendly);
+
+    // ReSharper disable once MethodOverloadWithOptionalParameter
+    public static string GetNameForParameter(object? parameter, Counter? counter = null, bool pathFriendly = true)
     {
         if (parameter is null)
         {
@@ -75,11 +79,11 @@ public static partial class VerifierSettings
         }
 
         var builder = new StringBuilder();
-        AppendParameter(parameter, builder, true, pathFriendly);
+        AppendParameter(parameter, builder, true, counter ?? Counter.Current, pathFriendly);
         return builder.ToString();
     }
 
-    internal static void AppendParameter(object? parameter, StringBuilder builder, bool isRoot, bool pathFriendly = true)
+    internal static void AppendParameter(object? parameter, StringBuilder builder, bool isRoot, Counter counter, bool pathFriendly = true)
     {
         while (true)
         {
@@ -126,7 +130,7 @@ public static partial class VerifierSettings
 
                 foreach (var item in enumerable)
                 {
-                    AppendParameter(item, builder, false);
+                    AppendParameter(item, builder, false, counter);
                     builder.Append(',');
                 }
 
@@ -142,7 +146,7 @@ public static partial class VerifierSettings
 
             if (TryGetKeyValue(type, parameter, out var key, out var value))
             {
-                AppendParameter(key, builder, true, pathFriendly);
+                AppendParameter(key, builder, true, counter, pathFriendly);
                 builder.Append('=');
                 parameter = value;
                 isRoot = true;
@@ -164,6 +168,7 @@ public static partial class VerifierSettings
             {
                 builder.Append(nameForParameter);
             }
+
             break;
         }
     }

@@ -48,13 +48,14 @@ public partial class InnerVerifier :
         this.typeName = typeName;
         this.methodName = methodName;
         var typeAndMethod = FileNameBuilder.GetTypeAndMethod(methodName, typeName, settings, pathInfo);
-        var (receivedParameters, verifiedParameters) = FileNameBuilder.GetParameterText(methodParameters, settings);
+
+        counter = StartCounter(settings);
+
+        var (receivedParameters, verifiedParameters) = FileNameBuilder.GetParameterText(methodParameters, settings, counter);
 
         var namer = settings.Namer;
 
         directory = ResolveDirectory(sourceFile, settings, pathInfo);
-
-        counter = StartCounter(settings);
 
         IoHelpers.CreateDirectory(directory);
 

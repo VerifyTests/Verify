@@ -93,6 +93,12 @@ public static partial class VerifierSettings
                 return;
             }
 
+            if (counter.TryGetNamed(parameter, out var result))
+            {
+                builder.Append(result);
+                return;
+            }
+
             if (parameter is string stringParameter)
             {
                 if (pathFriendly)

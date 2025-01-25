@@ -21,7 +21,7 @@ static class FileNameBuilder
         return $"{type}.{method}";
     }
 
-    public static (string receivedParameters, string verifiedParameters) GetParameterText(IReadOnlyList<string>? methodParameters, VerifySettings settings)
+    public static (string receivedParameters, string verifiedParameters) GetParameterText(IReadOnlyList<string>? methodParameters, VerifySettings settings, Counter counter)
     {
         if (settings.parametersText is not null)
         {
@@ -56,8 +56,8 @@ static class FileNameBuilder
 
         var hashParameters = settings.hashParameters;
         return (
-            BuildParameterString(allValues, hashParameters),
-            BuildParameterString(verifiedValues, hashParameters));
+            BuildParameterString(allValues, hashParameters, counter),
+            BuildParameterString(verifiedValues, hashParameters, counter));
     }
 
     static IEnumerable<KeyValuePair<string, object?>> GetVerifiedValues(HashSet<string>? ignored, KeyValuePair<string, object?>[] allValues)
@@ -75,7 +75,7 @@ static class FileNameBuilder
         return allValues.Where(_ => !ignored.Contains(_.Key));
     }
 
-    static string BuildParameterString(IEnumerable<KeyValuePair<string, object?>> values, bool hashParameters)
+    static string BuildParameterString(IEnumerable<KeyValuePair<string, object?>> values, bool hashParameters, Counter counter)
     {
         var builder = values.Aggregate(
             new StringBuilder(),
@@ -84,7 +84,7 @@ static class FileNameBuilder
                 acc.Append('_');
                 acc.Append(seed.Key);
                 acc.Append('=');
-                VerifierSettings.AppendParameter(seed.Value, acc, true);
+                VerifierSettings.AppendParameter(seed.Value, acc, true, counter);
                 return acc;
             });
 

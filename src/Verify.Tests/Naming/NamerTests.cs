@@ -185,9 +185,12 @@ public class NamerTests
 
     [Fact]
     public async Task UseFileNameFluent() =>
-    #region UseFileNameFluent
+
+        #region UseFileNameFluent
+
         await Verify("valueUseFileNameFluent")
             .UseFileName("CustomFileNameFluent");
+
     #endregion
 
     [Fact]
@@ -204,9 +207,12 @@ public class NamerTests
 
     [Fact]
     public async Task UseDirectoryFluent() =>
-    #region UseDirectoryFluent
+
+        #region UseDirectoryFluent
+
         await Verify("valueUseDirectoryFluent")
             .UseDirectory("CustomDirectory");
+
     #endregion
 
 
@@ -224,9 +230,12 @@ public class NamerTests
 
     [Fact]
     public async Task UseUniqueDirectoryFluent() =>
-    #region UseUniqueDirectoryFluent
+
+        #region UseUniqueDirectoryFluent
+
         await Verify("TheValue")
             .UseUniqueDirectory();
+
     #endregion
 
     [Fact]
@@ -298,9 +307,12 @@ public class NamerTests
 
     [Fact]
     public async Task UseTypeNameFluent() =>
-    #region UseTypeNameFluent
+
+        #region UseTypeNameFluent
+
         await Verify("valueUseTypeNameFluent")
             .UseTypeName("CustomTypeName");
+
     #endregion
 
     [Fact]
@@ -317,9 +329,12 @@ public class NamerTests
 
     [Fact]
     public async Task UseMethodNameFluent() =>
-    #region UseMethodNameFluent
+
+        #region UseMethodNameFluent
+
         await Verify("valueUseMethodNameFluent")
             .UseMethodName("CustomMethodNameFluent");
+
     #endregion
 
 
@@ -385,8 +400,11 @@ public class NamerTests
 
     [Fact]
     public void AccessNamerArchitecture() =>
-    #region AccessNamerArchitecture
+
+        #region AccessNamerArchitecture
+
         Debug.WriteLine(Namer.Architecture);
+
     #endregion
 
     [Fact]
@@ -527,4 +545,18 @@ public class NamerTests
         Verify("ContentHashParametersFluent")
             .UseParameters(a, b)
             .HashParameters();
+
+    [ModuleInitializer]
+    public static void InitNamedParams()
+    {
+        VerifierSettings.AddNamedGuid(new Guid("58035867-560f-4c58-b394-ec4ea98e6be4"), "guidOne");
+        VerifierSettings.AddNamedGuid(new Guid("e5128186-eb54-4b83-921d-8a6dc03141c1"), "guidTwo");
+    }
+
+    [Theory]
+    [InlineData("58035867-560f-4c58-b394-ec4ea98e6be4")]
+    [InlineData("e5128186-eb54-4b83-921d-8a6dc03141c1")]
+    public Task NamedGuid(Guid guid) =>
+        Verify("Content")
+            .UseParameters(guid);
 }

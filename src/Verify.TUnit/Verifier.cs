@@ -30,7 +30,7 @@ public static partial class Verifier
         }
 
         var details = TestContext.Current!.TestDetails;
-        var type = details.ClassType;
+        var type = details.TestClass.Type;
         var classArguments = details.TestClassArguments;
         var methodArguments = details.TestMethodArguments;
         if (!settings.HasParameters &&
@@ -42,8 +42,8 @@ public static partial class Verifier
 
         VerifierSettings.AssignTargetAssembly(type.Assembly);
 
-        var method = details.MethodInfo;
-        var pathInfo = GetPathInfo(sourceFile, type, method);
+        var method = details.TestMethod;
+        var pathInfo = GetPathInfo(sourceFile, type, method.ReflectionInformation);
         return new(
             sourceFile,
             settings,

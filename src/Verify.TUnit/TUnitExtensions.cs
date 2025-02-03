@@ -2,10 +2,10 @@ static class TUnitExtensions
 {
     public static IReadOnlyList<string>? GetParameterNames(this TestDetails details)
     {
-        var methodParameterNames = details.MethodInfo.ParameterNames();
+        var methodParameterNames = details.TestMethod.Parameters.Select(x => x.Name).ToList();
 
         var constructorParameterNames = GetConstructorParameterNames(details);
-        if (methodParameterNames == null)
+        if (methodParameterNames.Count is 0)
         {
             if (constructorParameterNames.Count == 0)
             {
@@ -26,12 +26,13 @@ static class TUnitExtensions
 
     static List<string> GetConstructorParameterNames(TestDetails details)
     {
-        var constructors = details.ClassType.GetConstructors(BindingFlags.Instance | BindingFlags.Public);
-        if (constructors.Length <= 1)
+        var parameters = details.TestClass.Parameters;
+        if (parameters.Length is 0)
         {
-            return constructors[0].GetParameters().Select(_ => _.Name!).ToList();
+            return [];
         }
 
-        throw new("Found multiple constructors. Unable to derive names of parameters. Instead use UseParameters to pass in explicit parameter.");
+        return parameters.Select(_ => _.Name).ToList();
+
     }
 }

@@ -1,6 +1,6 @@
 ﻿public class Sample
 {
     [Test]
-    public static Task Test() =>
+    public Task Test() =>
         Verify("value");
 }

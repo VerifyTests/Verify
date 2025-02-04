@@ -79,11 +79,11 @@ public static partial class VerifierSettings
         }
 
         var builder = new StringBuilder();
-        AppendParameter(parameter, builder, true, counter ?? Counter.Current, pathFriendly);
+        AppendParameter(parameter, builder, true, counter ?? Counter.CurrentOrNull, pathFriendly);
         return builder.ToString();
     }
 
-    internal static void AppendParameter(object? parameter, StringBuilder builder, bool isRoot, Counter counter, bool pathFriendly = true)
+    internal static void AppendParameter(object? parameter, StringBuilder builder, bool isRoot, Counter? counter, bool pathFriendly = true)
     {
         while (true)
         {
@@ -93,7 +93,7 @@ public static partial class VerifierSettings
                 return;
             }
 
-            if (counter.TryGetNamed(parameter, out var result))
+            if (counter != null && counter.TryGetNamed(parameter, out var result))
             {
                 builder.Append(result);
                 return;

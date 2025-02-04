@@ -96,6 +96,8 @@ public partial class Counter
         }
     }
 
+    public static Counter? CurrentOrNull => local.Value;
+
     public Counter(
         bool dateCounting,
 #if NET6_0_OR_GREATER

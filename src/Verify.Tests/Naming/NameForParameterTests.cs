@@ -16,6 +16,10 @@
     public Task Int() =>
         Verify(VerifierSettings.GetNameForParameter(10, counter: Counter()));
 
+    [Fact]
+    public Task NullCounter() =>
+        Verify(VerifierSettings.GetNameForParameter(10, counter: null));
+
 #if NET6_0_OR_GREATER
     [Fact]
     public Task Half() =>

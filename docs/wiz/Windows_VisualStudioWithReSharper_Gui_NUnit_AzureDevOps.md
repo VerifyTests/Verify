@@ -17,10 +17,10 @@ Add the following packages to the test project:
 <!-- snippet: nunit-nugets -->
 <a id='snippet-nunit-nugets'></a>
 ```csproj
-<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
 <PackageReference Include="NUnit" Version="4.3.2" />
-<PackageReference Include="Verify.NUnit" Version="28.10.0" />
-<PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+<PackageReference Include="Verify.NUnit" Version="28.10.1" />
+<PackageReference Include="NUnit3TestAdapter" Version="5.0.0" />
 ```
 <sup><a href='/usages/NUnitNugetUsage/NUnitNugetUsage.csproj#L7-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-nunit-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

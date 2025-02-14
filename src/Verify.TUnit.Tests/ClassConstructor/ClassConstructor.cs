@@ -3,7 +3,7 @@ using TUnit.Core.Interfaces;
 
 public class ClassConstructor : IClassConstructor
 {
-    static readonly IServiceProvider serviceProvider = CreateServiceProvider();
+    static readonly ServiceProvider serviceProvider = CreateServiceProvider();
 
     AsyncServiceScope scope;
 
@@ -14,7 +14,7 @@ public class ClassConstructor : IClassConstructor
         return ActivatorUtilities.GetServiceOrCreateInstance<T>(scope.ServiceProvider);
     }
 
-    static IServiceProvider CreateServiceProvider() =>
+    static ServiceProvider CreateServiceProvider() =>
         new ServiceCollection()
             .AddSingleton<string>("SingletonValue")
             .BuildServiceProvider();

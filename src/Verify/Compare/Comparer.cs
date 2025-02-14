@@ -3,6 +3,7 @@ static class Comparer
     public static async Task<EqualityResult> Text(FilePair filePair, StringBuilder received, VerifySettings settings)
     {
         IoHelpers.DeleteFileIfEmpty(filePair.VerifiedPath);
+
         if (!File.Exists(filePair.VerifiedPath))
         {
             IoHelpers.WriteText(filePair.ReceivedPath, received);

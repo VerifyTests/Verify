@@ -538,6 +538,10 @@ public class NamerTests
         return Verify("ContentHashParameters", settings);
     }
 
+    [Fact]
+    public Task MisMatchFileCase() =>
+        Verify("value");
+
     [Theory]
     [InlineData(true, false)]
     [InlineData(false, false)]

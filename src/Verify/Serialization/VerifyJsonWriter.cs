@@ -43,6 +43,17 @@ public class VerifyJsonWriter :
         base.WriteRawValue(value);
     }
 
+    public override void WriteValue(char value)
+    {
+        if (settings.StrictJson)
+        {
+            base.WriteValue(value);
+            return;
+        }
+
+        base.WriteRawValue(value.ToString());
+    }
+
     public void WriteRawValueWithScrubbers(string value) =>
         WriteRawValueWithScrubbers(value.AsSpan());
 

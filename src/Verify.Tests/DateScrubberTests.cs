@@ -109,11 +109,19 @@ public class DateScrubberTests
     [Fact]
     public void ReplaceDateTimes_AllCultures()
     {
-        var format = "yyyy MMMM MMM MM dddd ddd dd d HH H mm m ss s fffff tt";
         foreach (var culture in CultureInfo.GetCultures(CultureTypes.AllCultures))
         {
+            var format = "yyyy MMMM MMM MM dddd ddd dd d HH H mm m ss s fffff tt";
             var counter = Counter.Start();
             var dateTime = DateTime.Now;
+
+            var dateFormat = culture.DateTimeFormat;
+            if (dateFormat.AMDesignator.Length == 0 &&
+                dateFormat.PMDesignator.Length == 0)
+            {
+                format = format.Replace(" tt", "");
+            }
+
             var value = dateTime.ToString(format, culture);
             var builder = new StringBuilder(value);
             DateScrubber.ReplaceDateTimes(builder, format, counter, culture);

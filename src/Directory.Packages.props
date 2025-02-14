@@ -11,7 +11,7 @@
     <PackageVersion Include="Expecto" Version="10.2.1" />
     <PackageVersion Include="Fixie" Version="4.1.0" />
     <PackageVersion Include="Fixie.TestAdapter" Version="4.1.0" />
-    <PackageVersion Include="FSharp.Core" Version="9.0.101" />
+    <PackageVersion Include="FSharp.Core" Version="9.0.201" />
     <PackageVersion Include="MarkdownSnippets.MsBuild" Version="27.0.2" />
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.2" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" />

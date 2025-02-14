@@ -58,6 +58,14 @@ public class SerializationTests
 
     #endregion
 
+    [Fact]
+    public Task Char() =>
+        Verify(
+            new
+            {
+                Char = 'a'
+            });
+
 #if NET6_0_OR_GREATER || net48
     [Fact]
     public Task ValueTasks()

@@ -135,7 +135,7 @@ class VirtualizedRunHelper
                     return true;
                 }
 
-                currentDir = TryRemoveDirFromEndOfPath(currentDir);
+                currentDir = TryRemoveDirFromEndOfPath(currentDir.AsSpan()).ToString();
             } while (currentDir.Length > 0);
         } while (TryRemoveDirFromStartOfPath(ref buildTimePathRelative));
 
@@ -234,11 +234,11 @@ class VirtualizedRunHelper
         return path != string.Empty;
     }
 
-    static string TryRemoveDirFromEndOfPath(string path)
+    static CharSpan TryRemoveDirFromEndOfPath(CharSpan path)
     {
-        if (path == string.Empty)
+        if (path.Length == 0)
         {
-            return string.Empty;
+            return [];
         }
 
         path = path.TrimEnd(separators);
@@ -247,12 +247,10 @@ class VirtualizedRunHelper
         if (nextSeparatorIdx <= 0 ||
             nextSeparatorIdx == path.Length - 1)
         {
-            return string.Empty;
+            return [];
         }
 
-        path = path[..nextSeparatorIdx];
-
-        return path;
+        return path[..nextSeparatorIdx];
     }
 
     static string CombinePaths(string path1, string path2)

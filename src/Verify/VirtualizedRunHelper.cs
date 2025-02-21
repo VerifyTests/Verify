@@ -105,13 +105,23 @@ class VirtualizedRunHelper
         string? originalCodeBaseRoot,
         string buildTimePath,
         [NotNullWhen(true)] out string? mappedCodeBaseRootAbsolute,
-        [NotNullWhen(true)] out string? originalCodeBaseRootAbsolute) =>
-        // First attempt - by the cross-section of the build-time path and run-time path
-        TryFindByCrossSectionOfBuildRunPath(originalCodeBaseRoot, out mappedCodeBaseRootAbsolute, out originalCodeBaseRootAbsolute) ||
+        [NotNullWhen(true)] out string? originalCodeBaseRootAbsolute)
+    {
+        if (originalCodeBaseRoot == null)
+        {
+            mappedCodeBaseRootAbsolute = null;
+            originalCodeBaseRootAbsolute = null;
+            return false;
+        }
 
-        // Fallback attempt - via the existence of mapped build-time path within the run-time FS
-        // 1) try to get relative if we can (if not, at least cut the first part - or not)
-        TryGetRelative(originalCodeBaseRoot, buildTimePath, out mappedCodeBaseRootAbsolute, out originalCodeBaseRootAbsolute);
+        return
+            // First attempt - by the cross-section of the build-time path and run-time path
+            TryFindByCrossSectionOfBuildRunPath(originalCodeBaseRoot, out mappedCodeBaseRootAbsolute, out originalCodeBaseRootAbsolute) ||
+
+            // Fallback attempt - via the existence of mapped build-time path within the run-time FS
+            // 1) try to get relative if we can (if not, at least cut the first part - or not)
+            TryGetRelative(originalCodeBaseRoot, buildTimePath, out mappedCodeBaseRootAbsolute, out originalCodeBaseRootAbsolute);
+    }
 
     static bool TryGetRelative(
         string? originalCodeBaseRoot,
@@ -145,17 +155,10 @@ class VirtualizedRunHelper
     }
 
     static bool TryFindByCrossSectionOfBuildRunPath(
-        string? originalCodeBaseRoot,
+        string originalCodeBaseRoot,
         [NotNullWhen(true)] out string? mappedCodeBaseRootAbsolute,
         [NotNullWhen(true)] out string? codeBaseRootAbsolute)
     {
-        if (originalCodeBaseRoot == null)
-        {
-            mappedCodeBaseRootAbsolute = null;
-            codeBaseRootAbsolute = null;
-            return false;
-        }
-
         var currentDirectory = Env.CurrentDirectory;
         var currentDirRelativeToAppRoot = currentDirectory.TrimStart(separators);
         //remove the drive info from the code root

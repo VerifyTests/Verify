@@ -28,6 +28,11 @@ updated to the new result.
 **See [Milestones](../../milestones?state=closed) for release notes.**
 
 
+### Powered by
+
+[![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)](https://jb.gg/OpenSourceSupport)
+
+
 ## Requirements
 
  * Supported runtimes: net472, net48, net481, net6, net8, and net9.

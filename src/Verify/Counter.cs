@@ -8,6 +8,7 @@ public partial class Counter
 #endif
     Dictionary<DateTime, string> namedDateTimes;
     Dictionary<Guid, string> namedGuids;
+    Dictionary<long, string> namedNumbers;
     Dictionary<DateTimeOffset, string> namedDateTimeOffsets;
     bool dateCounting;
     static AsyncLocal<Counter?> local = new();
@@ -46,6 +47,30 @@ public partial class Counter
         {
             if (namedGuids.TryGetValue(guid, out result) ||
                 globalNamedGuids.TryGetValue(guid, out result))
+            {
+                return true;
+            }
+
+            result = null;
+            return false;
+        }
+
+        if (value is int intValue)
+        {
+            if (namedNumbers.TryGetValue(intValue, out result) ||
+                globalNamedNumbers.TryGetValue(intValue, out result))
+            {
+                return true;
+            }
+
+            result = null;
+            return false;
+        }
+
+        if (value is long longValue)
+        {
+            if (namedNumbers.TryGetValue(longValue, out result) ||
+                globalNamedNumbers.TryGetValue(longValue, out result))
             {
                 return true;
             }
@@ -106,6 +131,7 @@ public partial class Counter
 #endif
         Dictionary<DateTime, string> namedDateTimes,
         Dictionary<Guid, string> namedGuids,
+        Dictionary<long, string> namedNumbers,
         Dictionary<DateTimeOffset, string> namedDateTimeOffsets)
     {
 #if NET6_0_OR_GREATER
@@ -114,6 +140,7 @@ public partial class Counter
 #endif
         this.namedDateTimes = namedDateTimes;
         this.namedGuids = namedGuids;
+        this.namedNumbers = namedNumbers;
         this.namedDateTimeOffsets = namedDateTimeOffsets;
         this.dateCounting = dateCounting;
     }

@@ -4,4 +4,5 @@ global using System.Runtime.InteropServices;
 global using Argon;
 global using DiffEngine;
 global using EmptyFiles;
+global using Polyfills;
 global using Xunit.Abstractions;

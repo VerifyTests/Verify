@@ -169,3 +169,4 @@ snippet: Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt
 
  * [Guid behavior](guids.md)
  * [Date behavior](dates.md)
+ * [Numeric Ids](numericIds.md)

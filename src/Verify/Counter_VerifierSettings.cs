@@ -18,9 +18,6 @@ public partial class VerifierSettings
     public static void AddNamedGuid(Guid value, string name) =>
         Counter.AddNamed(value, name);
 
-    public static void AddNamedNumber(int value, string name) =>
-        Counter.AddNamed(value, name);
-
     public static void AddNamedDateTimeOffset(DateTimeOffset value, string name) =>
         Counter.AddNamed(value, name);
 }

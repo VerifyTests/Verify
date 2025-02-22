@@ -1,0 +1,5 @@
+﻿{
+  "Type": "Exception",
+  "Message": "the message",
+  "StackTrace": "at SerializationTests.MethodThatThrows()\nat InvokeStub_SerializationTests.MethodThatThrows(Object, Object, IntPtr*)"
+}

@@ -1,0 +1,10 @@
+﻿{
+  exception: {
+    Type: Exception,
+    Message: the message,
+    StackTrace:
+at SerializationTests.MethodThatThrows()
+at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  }
+}

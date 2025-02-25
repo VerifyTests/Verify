@@ -35,7 +35,7 @@ public Task CustomExceptionPropFluent()
         .IgnoreMembersThatThrow<CustomException>();
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3743-L3762' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3742-L3761' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -45,7 +45,7 @@ Or globally:
 ```cs
 VerifierSettings.IgnoreMembersThatThrow<CustomException>();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3737-L3741' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrowGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3736-L3740' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrowGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:

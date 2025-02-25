@@ -305,7 +305,7 @@ public Task ScopedSerializerFluent()
         .AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3925-L3952' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScopedSerializer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3924-L3951' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScopedSerializer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -1191,7 +1191,7 @@ public Task IgnoreDictionaryByPredicate()
     return Verify(target, settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3570-L3636' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMemberByPredicate' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3569-L3635' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMemberByPredicate' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -1292,7 +1292,7 @@ public Task ScrubDictionaryByPredicate()
     return Verify(target, settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3500-L3568' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMemberByPredicate' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3500-L3567' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMemberByPredicate' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:

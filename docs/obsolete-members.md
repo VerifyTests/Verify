@@ -31,7 +31,7 @@ public Task WithObsoleteProp()
     return Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3890-L3911' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithObsoleteProp' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3889-L3910' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithObsoleteProp' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -79,7 +79,7 @@ public Task WithObsoletePropIncludedFluent()
         .IncludeObsoletes();
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3861-L3888' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithObsoletePropIncluded' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3860-L3887' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithObsoletePropIncluded' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -89,7 +89,7 @@ Or globally:
 ```cs
 VerifierSettings.IncludeObsoletes();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3855-L3859' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithObsoletePropIncludedGlobally' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3854-L3858' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithObsoletePropIncludedGlobally' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:

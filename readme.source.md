@@ -28,8 +28,8 @@ updated to the new result.
 
 ## Requirements
 
- * Supported runtimes: net472, net48, net481, net6, net8, and net9.
- * Supported SDK: 8.0.300 and up
+ * Supported runtimes: net472, net48, net481, net6, net8, net9, and net10.
+ * Supported SDK: 9.0.200 and up
 
 
 ## [Getting started wizard](/docs/wiz/readme.md)

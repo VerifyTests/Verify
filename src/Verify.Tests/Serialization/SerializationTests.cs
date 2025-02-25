@@ -3534,7 +3534,6 @@ public class SerializationTests
             .ScrubMembers(member => member.Name is "PropertyByName" or "PropertyThatThrows");
     }
 
-
     [Fact]
     public Task ScrubDictionaryByPredicate()
     {

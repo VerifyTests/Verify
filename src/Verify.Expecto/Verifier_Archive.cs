@@ -57,4 +57,22 @@ public static partial class Verifier
         var assembly = Assembly.GetCallingAssembly()!;
         return Verify(settings, assembly, sourceFile, name, _ => _.VerifyZip(stream, include, info, fileScrubber, includeStructure), true);
     }
+
+    /// <summary>
+    /// Verifies the contents of a <see cref="ZipArchive" />
+    /// </summary>
+    [Pure]
+    public static SettingsTask VerifyZip(
+        string name,
+        byte[] bytes,
+        Func<ZipArchiveEntry, bool>? include = null,
+        VerifySettings? settings = null,
+        object? info = null,
+        FileScrubber? fileScrubber = null,
+        bool includeStructure = false,
+        [CallerFilePath] string sourceFile = "")
+    {
+        var assembly = Assembly.GetCallingAssembly()!;
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyZip(bytes, include, info, fileScrubber, includeStructure), true);
+    }
 }

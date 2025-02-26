@@ -67,6 +67,9 @@ public class Tests
 
     #endregion
 
+    public Task WithZipBytes() =>
+        VerifyZip(File.ReadAllBytes(pathToArchive));
+
     #region VerifyZipWithStructureFixie
 
     public Task WithZipAndStructure() =>

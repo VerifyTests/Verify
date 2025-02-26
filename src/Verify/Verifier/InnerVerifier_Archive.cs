@@ -25,6 +25,18 @@ partial class InnerVerifier
     }
 
     public async Task<VerifyResult> VerifyZip(
+        byte[] bytes,
+        Func<ZipArchiveEntry, bool>? include,
+        object? info,
+        FileScrubber? scrubber,
+        bool includeStructure)
+    {
+        using var stream = new MemoryStream(bytes);
+        using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
+        return await VerifyZip(archive, include, info, scrubber, includeStructure);
+    }
+
+    public async Task<VerifyResult> VerifyZip(
         ZipArchive archive,
         Func<ZipArchiveEntry, bool>? include,
         object? info,

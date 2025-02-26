@@ -61,4 +61,24 @@ public partial class VerifyBase
             fileScrubber,
             includeStructure,
             sourceFile);
+
+    /// <summary>
+    /// Verifies the contents of a <see cref="ZipArchive" />
+    /// </summary>
+    [Pure]
+    public SettingsTask VerifyZip(
+        byte[] bytes,
+        Func<ZipArchiveEntry, bool>? include = null,
+        VerifySettings? settings = null,
+        object? info = null,
+        FileScrubber? fileScrubber = null,
+        bool includeStructure = false) =>
+        Verifier.VerifyZip(
+            bytes,
+            include,
+            settings ?? this.settings,
+            info,
+            fileScrubber,
+            includeStructure,
+            sourceFile);
 }

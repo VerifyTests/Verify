@@ -153,6 +153,10 @@ public class Tests
 
     #endregion
 
+    [Fact]
+    public Task WithZipBytes() =>
+        VerifyZip(File.ReadAllBytes(zipPath));
+
     #region VerifyZipWithStructureXunitV3
 
     [Fact]

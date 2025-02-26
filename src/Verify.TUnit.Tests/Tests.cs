@@ -72,6 +72,10 @@ public class Tests
 
     #endregion
 
+    [Test]
+    public Task WithZipBytes() =>
+        VerifyZip(File.ReadAllBytes(pathToArchive));
+
     #region VerifyZipWithStructureTunit
 
     [Test]

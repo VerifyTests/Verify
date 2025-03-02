@@ -37,8 +37,8 @@
     <PackageVersion Include="xunit.abstractions" Version="2.0.3" />
     <PackageVersion Include="xunit.extensibility.execution" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.2" />
-    <PackageVersion Include="xunit.v3" Version="1.1.0" />
-    <PackageVersion Include="xunit.v3.extensibility.core" Version="1.1.0" />
+    <PackageVersion Include="xunit.v3" Version="2.0.0" />
+    <PackageVersion Include="xunit.v3.extensibility.core" Version="2.0.0" />
     <PackageVersion Include="YoloDev.Expecto.TestSdk" Version="0.15.2" />
   </ItemGroup>
 </Project>

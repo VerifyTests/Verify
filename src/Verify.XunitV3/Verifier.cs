@@ -16,10 +16,7 @@ public static partial class Verifier
 
         var parameterNames = method.ParameterNames();
 
-        if (!settings.HasParameters)
-        {
-            SetParametersFromContext(settings, context, parameterNames);
-        }
+        SetParametersFromContext(settings, context, parameterNames);
 
         var type = method.ReflectedType!;
         VerifierSettings.AssignTargetAssembly(type.Assembly);
@@ -36,6 +33,11 @@ public static partial class Verifier
 
     static void SetParametersFromContext(VerifySettings settings, ITestContext context, IReadOnlyList<string>? parameterNames)
     {
+        if (!settings.HasParameters)
+        {
+            return;
+        }
+
         if (context.TestCase is XunitTestCase {TestMethodArguments.Length: > 0} testCase &&
             testCase.TestMethodArguments.Length == parameterNames?.Count)
         {

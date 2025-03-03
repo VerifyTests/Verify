@@ -16,11 +16,9 @@ public static partial class Verifier
 
         var parameterNames = method.ParameterNames();
 
-        if (!settings.HasParameters &&
-            context.TestCase is XunitTestCase {TestMethodArguments.Length: > 0} testCase &&
-            testCase.TestMethodArguments.Length == parameterNames?.Count)
+        if (!settings.HasParameters)
         {
-            settings.SetParameters(testCase.TestMethodArguments);
+            SetParametersFromContext(settings, context, parameterNames);
         }
 
         var type = method.ReflectedType!;
@@ -34,6 +32,24 @@ public static partial class Verifier
             method.Name,
             parameterNames,
             pathInfo);
+    }
+
+    static void SetParametersFromContext(VerifySettings settings, ITestContext context, IReadOnlyList<string>? parameterNames)
+    {
+        if (context.TestCase is XunitTestCase {TestMethodArguments.Length: > 0} testCase &&
+            testCase.TestMethodArguments.Length == parameterNames?.Count)
+        {
+            settings.SetParameters(testCase.TestMethodArguments);
+            return;
+        }
+
+        //For some reason when using `dotnet run` then TestCase is not a XunitTestCase
+        if (context.Test is XunitTest {TestMethodArguments.Length: > 0} test &&
+            test.TestMethodArguments.Length == parameterNames?.Count)
+        {
+            settings.SetParameters(test.TestMethodArguments);
+            return;
+        }
     }
 
     [Pure]

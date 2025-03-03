@@ -33,7 +33,7 @@ public static partial class Verifier
 
     static void SetParametersFromContext(VerifySettings settings, ITestContext context, IReadOnlyList<string>? parameterNames)
     {
-        if (!settings.HasParameters)
+        if (settings.HasParameters)
         {
             return;
         }

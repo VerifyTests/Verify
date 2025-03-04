@@ -42,6 +42,7 @@ build_script:
       dotnet test src/Verify.Xunit.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity quiet
       dotnet test src/Verify.Xunit.Tests --configuration Release --no-build --no-restore --verbosity quiet
       dotnet test src/Verify.XunitV3.Tests --configuration Release --no-build --no-restore --verbosity quiet
+      dotnet run --project src/Verify.XunitV3.Tests/Verify.XunitV3.Tests.csproj --configuration Release --no-build --no-restore --verbosity quiet --framework net10.0
       dotnet test src/Verify.XunitV3.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity quiet
       dotnet test src/Verify.TUnit.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity quiet
       dotnet test src/Verify.TUnit.Tests --configuration Release --no-build --no-restore --verbosity quiet

@@ -1,7 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using TUnit.Core.Interfaces;
-
-public class ClassConstructor : IClassConstructor
+﻿public class ClassConstructor :
+    IClassConstructor
 {
     static readonly ServiceProvider serviceProvider = CreateServiceProvider();
 

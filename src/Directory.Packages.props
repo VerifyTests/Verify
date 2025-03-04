@@ -8,7 +8,7 @@
     <PackageVersion Include="Argon.FSharp" Version="0.26.0" />
     <PackageVersion Include="BenchmarkDotNet" Version="0.14.0" />
     <PackageVersion Include="DiffEngine" Version="15.9.1" />
-    <PackageVersion Include="Expecto" Version="10.2.1" />
+    <PackageVersion Include="Expecto" Version="10.2.2" />
     <PackageVersion Include="Fixie" Version="4.1.0" />
     <PackageVersion Include="Fixie.TestAdapter" Version="4.1.0" />
     <PackageVersion Include="FSharp.Core" Version="9.0.201" />
@@ -31,14 +31,14 @@
     <PackageVersion Include="System.IO.Hashing" Version="9.0.2" />
     <PackageVersion Include="System.Memory" Version="4.6.0" />
     <PackageVersion Include="TextCopy" Version="6.2.1" />
-    <PackageVersion Include="TUnit" Version="0.15.30" />
-    <PackageVersion Include="TUnit.Core" Version="0.15.30" />
+    <PackageVersion Include="TUnit" Version="0.16.13" />
+    <PackageVersion Include="TUnit.Core" Version="0.16.13" />
     <PackageVersion Include="Xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.abstractions" Version="2.0.3" />
     <PackageVersion Include="xunit.extensibility.execution" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.2" />
     <PackageVersion Include="xunit.v3" Version="2.0.0" />
     <PackageVersion Include="xunit.v3.extensibility.core" Version="2.0.0" />
-    <PackageVersion Include="YoloDev.Expecto.TestSdk" Version="0.15.2" />
+    <PackageVersion Include="YoloDev.Expecto.TestSdk" Version="0.15.3" />
   </ItemGroup>
 </Project>

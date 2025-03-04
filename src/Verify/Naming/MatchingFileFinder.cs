@@ -19,7 +19,7 @@
             nonIndexedPattern: $"{fileNamePrefix}.verified.",
             indexedPattern: $"{fileNamePrefix}#");
 
-    static IEnumerable<string> Find(string directory, string searchPattern, string nonIndexedPattern, string indexedPattern)
+    static List<string> Find(string directory, string searchPattern, string nonIndexedPattern, string indexedPattern)
     {
         var startIndex = directory.Length + 1;
         var list = new List<string>();

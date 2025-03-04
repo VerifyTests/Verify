@@ -1,4 +1,4 @@
-﻿#if NET8_0
+﻿#if NET10_0
 public class WizardGen
 {
     string wizardDir = null!;

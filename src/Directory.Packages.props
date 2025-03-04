@@ -39,6 +39,6 @@
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.2" />
     <PackageVersion Include="xunit.v3" Version="1.1.0" />
     <PackageVersion Include="xunit.v3.extensibility.core" Version="1.1.0" />
-    <PackageVersion Include="YoloDev.Expecto.TestSdk" Version="0.15.2" />
+    <PackageVersion Include="YoloDev.Expecto.TestSdk" Version="0.15.3" />
   </ItemGroup>
 </Project>

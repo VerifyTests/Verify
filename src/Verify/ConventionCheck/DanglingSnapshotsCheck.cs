@@ -17,12 +17,22 @@ public static class DanglingSnapshotsCheck
         }
 
         var directory = AttributeReader.GetProjectDirectory(VerifierSettings.Assembly);
+        List<string> untrackedFiles = [];
         foreach (var file in Directory.EnumerateFiles(directory, "*.verified.*", SearchOption.AllDirectories))
         {
             if (!trackedVerifiedFiles!.Contains(file))
             {
-                throw new VerifyCheckException($"The file {file} has not been tracked yet.");
+                untrackedFiles.Add(file);
             }
+        }
+
+        if (untrackedFiles.Count != 0)
+        {
+            throw new VerifyCheckException(
+                $"""
+                 The following files have not been tracked
+                 {string.Join("\n * ", untrackedFiles)}
+                 """);
         }
     }
 

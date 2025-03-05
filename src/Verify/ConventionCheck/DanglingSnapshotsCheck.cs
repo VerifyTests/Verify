@@ -28,7 +28,7 @@ public static class DanglingSnapshotsCheck
             var suffix = file.Replace(directory, string.Empty);
             if (suffix.Contains(".Net") ||
                 suffix.Contains(".DotNet") ||
-                suffix.Contains(".Mono") ||
+                suffix.Contains(".Mono.") ||
                 suffix.Contains(".OSX.") ||
                 suffix.Contains(".Windows.") ||
                 suffix.Contains(".Linux."))

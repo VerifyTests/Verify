@@ -30,8 +30,8 @@ public static class DanglingSnapshotsCheck
         {
             throw new VerifyCheckException(
                 $"""
-                 The following files have not been tracked
-                 {string.Join("\n * ", untrackedFiles)}
+                 The following files have not been tracked:
+                  * {string.Join("\n * ", untrackedFiles)}
                  """);
         }
     }

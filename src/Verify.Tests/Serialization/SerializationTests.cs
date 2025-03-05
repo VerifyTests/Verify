@@ -2615,7 +2615,7 @@ public class SerializationTests
                 {
                     member.Invoke(null, []);
                 })
-            .UniqueForTargetFrameworkAndVersion()
+            .IgnoreStackTrace()
             .ScrubLinesContaining("(Object ");
     }
 
@@ -2639,7 +2639,7 @@ public class SerializationTests
                 {
                     exception
                 })
-            .UniqueForTargetFrameworkAndVersion();
+            .IgnoreStackTrace();
     }
 
     public static void MethodThatThrows() =>

@@ -67,7 +67,7 @@ public static class InnerVerifyChecks
         var builder = new StringBuilder();
         foreach (var project in Directory.EnumerateFiles(solutionDirectory, "*.csproj", SearchOption.AllDirectories))
         {
-            foreach (var line in await ReadLines(project))
+            foreach (var line in await FilePolyfill.ReadAllLinesAsync(project))
             {
                 //<None Update="SampleVbTest.RunResults#helloWorld.verified.cs">
                 if (!line.Contains("<None Update=\"") ||
@@ -108,7 +108,7 @@ public static class InnerVerifyChecks
         }
 
         path = Path.GetFullPath(path);
-        var lines = await ReadLines(path);
+        var lines = await FilePolyfill.ReadAllLinesAsync(path);
 
         if (HasAllExtensions(extensions, lines))
         {
@@ -167,7 +167,7 @@ public static class InnerVerifyChecks
         }
 
         path = Path.GetFullPath(path);
-        var text = await ReadLines(path);
+        var text = await FilePolyfill.ReadAllLinesAsync(path);
 
         List<string> missing = [];
         List<string> expected = [];
@@ -222,7 +222,7 @@ public static class InnerVerifyChecks
         }
 
         path = Path.GetFullPath(path);
-        var text = await ReadText(path);
+        var text = await FilePolyfill.ReadAllTextAsync(path);
         if (text.Contains("*.received.*") ||
             text.Contains("*.received/") ||
             text.Contains("# Verify"))
@@ -241,18 +241,4 @@ public static class InnerVerifyChecks
              *.received/
              """);
     }
-
-    static Task<string> ReadText(string path) =>
-#if NET6_0_OR_GREATER
-        File.ReadAllTextAsync(path);
-#else
-        Task.FromResult(File.ReadAllText(path));
-#endif
-
-    static Task<string[]> ReadLines(string path) =>
-#if NET6_0_OR_GREATER
-        File.ReadAllLinesAsync(path);
-#else
-        Task.FromResult(File.ReadAllLines(path));
-#endif
 }

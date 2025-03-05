@@ -20,6 +20,7 @@ public static partial class VerifierSettings
             {
                 throw new InvalidOperationException("Assembly must be set before calling this method.");
             }
+
             return assembly;
         }
     }

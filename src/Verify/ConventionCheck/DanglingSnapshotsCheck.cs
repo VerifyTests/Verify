@@ -26,15 +26,11 @@ public static class DanglingSnapshotsCheck
             }
 
             var suffix = file.Replace(directory, string.Empty);
-            if (suffix.Contains(".Net") ||
-                suffix.Contains(".DotNet") ||
-                suffix.Contains(".Mono.") ||
-                suffix.Contains(".OSX.") ||
-                suffix.Contains(".Windows.") ||
-                suffix.Contains(".Linux."))
+            if (IfFileUnique(suffix))
             {
                 continue;
             }
+
             untrackedFiles.Add(suffix);
         }
 
@@ -47,6 +43,14 @@ public static class DanglingSnapshotsCheck
                  """);
         }
     }
+
+    static bool IfFileUnique(string file) =>
+        file.Contains(".Net") ||
+        file.Contains(".DotNet") ||
+        file.Contains(".Mono.") ||
+        file.Contains(".OSX.") ||
+        file.Contains(".Windows.") ||
+        file.Contains(".Linux.");
 
     [ModuleInitializer]
     internal static void Init()

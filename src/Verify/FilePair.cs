@@ -1,4 +1,6 @@
-﻿namespace VerifyTests;
+﻿#pragma warning disable DanglingSnapshotsCheck
+
+namespace VerifyTests;
 
 public readonly struct FilePair
 {
@@ -8,6 +10,7 @@ public readonly struct FilePair
         Extension = extension;
         ReceivedPath = receivedPath;
         VerifiedPath = verifiedPath;
+        DanglingSnapshotsCheck.TrackVerifiedFile(verifiedPath);
         IsText = FileExtensions.IsTextExtension(extension);
     }
 
@@ -16,6 +19,7 @@ public readonly struct FilePair
         Guards.AgainstBadExtension(extension);
         Extension = extension;
         ReceivedPath = receivedPath;
+        DanglingSnapshotsCheck.TrackVerifiedFile(verifiedPath);
         VerifiedPath = verifiedPath;
         IsText = isText;
     }

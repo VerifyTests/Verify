@@ -11,6 +11,20 @@ public static partial class VerifierSettings
     internal static string? SolutionDir { get; private set; }
     internal static bool TargetsMultipleFramework { get; private set; } = true;
 
+    [Experimental("VerifierSettingsTestAssembly")]
+    public static Assembly Assembly
+    {
+        get
+        {
+            if (assembly == null)
+            {
+                throw new InvalidOperationException("Assembly must be set before calling this method.");
+            }
+
+            return assembly;
+        }
+    }
+
     public static void AssignTargetAssembly(Assembly assembly)
     {
         if (VerifierSettings.assembly is not null)

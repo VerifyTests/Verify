@@ -2,11 +2,13 @@
   "solution": {
     "path": "Verify.sln",
     "projects": [
+      "DanglingSnapshotsTests\\DanglingSnapshotsTests.csproj",
       "TargetLibrary\\TargetLibrary.csproj",
       "Verify.ClipboardAccept\\Verify.ClipboardAccept.csproj",
       "Verify.SamplePlugin\\Verify.SamplePlugin.csproj",
       "Verify.Tests\\Verify.Tests.csproj",
       "Verify.Xunit\\Verify.Xunit.csproj",
+      "Verify.NUnit\\Verify.NUnit.csproj",
       "Verify\\Verify.csproj"
     ]
   }

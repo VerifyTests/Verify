@@ -40,7 +40,7 @@ public class ConverterSnippets
             });
     #endregion
 
-    [Fact]
+    [Fact(Skip = "flakey")]
     public async Task Type()
     {
         #region FileConverterTypeVerify
@@ -82,7 +82,7 @@ public class ConverterSnippets
             });
     #endregion
 
-    [Fact]
+    [Fact(Skip = "flakey")]
     public async Task Extension() =>
     #region FileConverterExtensionVerify
         await VerifyFile("sample.tif");

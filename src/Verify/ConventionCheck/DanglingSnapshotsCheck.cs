@@ -20,10 +20,22 @@ public static class DanglingSnapshotsCheck
         List<string> untrackedFiles = [];
         foreach (var file in Directory.EnumerateFiles(directory, "*.verified.*", SearchOption.AllDirectories))
         {
-            if (!trackedVerifiedFiles!.Contains(file))
+            if (trackedVerifiedFiles!.Contains(file))
             {
-                untrackedFiles.Add(file);
+                continue;
             }
+
+            var suffix = file.Replace(directory, string.Empty);
+            if (suffix.Contains(".Net") ||
+                suffix.Contains(".DotNet") ||
+                suffix.Contains(".Mono") ||
+                suffix.Contains(".OSX.") ||
+                suffix.Contains(".Windows.") ||
+                suffix.Contains(".Linux."))
+            {
+                continue;
+            }
+            untrackedFiles.Add(suffix);
         }
 
         if (untrackedFiles.Count != 0)

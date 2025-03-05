@@ -6,54 +6,19 @@ namespace VerifyTests;
 [Experimental("InnerVerifyChecks")]
 public static class InnerVerifyChecks
 {
-    static string projectDirectory;
-
     public static Task Run(Assembly assembly)
     {
-        projectDirectory = AttributeReader.GetProjectDirectory(assembly);
-        if (!AttributeReader.TryGetSolutionDirectory(assembly, out var solutionDirectory))
+        if (!AttributeReader.TryGetSolutionDirectory(assembly, out var directory))
         {
-            solutionDirectory = Directory.GetParent(projectDirectory)!.FullName;
+            var projectDirectory = AttributeReader.GetProjectDirectory(assembly);
+            directory = Directory.GetParent(projectDirectory)!.FullName;
         }
 
-        return Run(solutionDirectory);
-    }
-
-    static ConcurrentBag<string>? trackedVerifiedFiles;
-
-    internal static void TrackVerifiedFile(string path) => trackedVerifiedFiles?.Add(path);
-
-    public static void Complete()
-    {
-        if (!BuildServerDetector.Detected)
-        {
-            return;
-        }
-
-        foreach (var file in GetVerifiedFiles(projectDirectory))
-        {
-            if (!trackedVerifiedFiles!.Contains(file))
-            {
-                throw new VerifyCheckException($"The file {file} has not been tracked yet.");
-            }
-        }
-    }
-
-    [ModuleInitializer]
-    internal static void Init()
-    {
-        if (BuildServerDetector.Detected)
-        {
-            trackedVerifiedFiles = [];
-        }
+        return Run(directory);
     }
 
     internal static async Task Run(string directory)
     {
-        AppDomain.CurrentDomain.ProcessExit += (sender, args) =>
-        {
-            throw new Exception("sdfsdf");
-        };
         var extensions = GetExtensions(directory);
         await CheckGitIgnore(directory);
         await CheckIncorrectlyImportedSnapshots(directory);
@@ -68,15 +33,12 @@ public static class InnerVerifyChecks
 
     internal static List<string> GetExtensions(string directory) =>
         // ReSharper disable once RedundantSuppressNullableWarningExpression
-        GetVerifiedFiles(directory)
+        Directory.EnumerateFiles(directory, "*.verified.*", SearchOption.AllDirectories)
             .Select(_ => Path.GetExtension(_)![1..])
             .Distinct()
             .Where(FileExtensions.IsTextExtension)
             .OrderBy(_ => _)
             .ToList();
-
-    static IEnumerable<string> GetVerifiedFiles(string directory) =>
-        Directory.EnumerateFiles(directory, "*.verified.*", SearchOption.AllDirectories);
 
     internal static async Task CheckIncorrectlyImportedSnapshots(string solutionDirectory)
     {

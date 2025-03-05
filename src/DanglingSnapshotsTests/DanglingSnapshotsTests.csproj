@@ -13,9 +13,6 @@
     <ProjectReference Include="..\Verify\Verify.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Verify.NUnit\DanglingSnapshotsCheckCaller.cs">
-      <Link>DanglingSnapshotsCheckCaller.cs</Link>
-    </Compile>
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />

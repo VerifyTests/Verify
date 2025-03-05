@@ -1,8 +1,8 @@
-﻿#pragma warning disable CS1998
+﻿#pragma warning disable VerifierSettingsTestAssembly
+#pragma warning disable CS1998
 
 namespace VerifyTests;
 
-[Experimental("DanglingSnapshotsCheck")]
 public static class DanglingSnapshotsCheck
 {
     static ConcurrentBag<string>? trackedVerifiedFiles;

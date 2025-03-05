@@ -17,16 +17,22 @@ public class VerifyChecksTests
     }
 
     [Fact]
-    public Task Superset() =>
-        InnerVerifyChecks.Run(GetDirectory("Superset"));
+    public Task Superset()
+    {
+        var directory = GetDirectory("Superset");
+        return InnerVerifyChecks.Run(directory, directory);
+    }
 
     [Fact]
-    public Task Valid() =>
-        InnerVerifyChecks.Run(GetDirectory("Valid"));
+    public Task Valid()
+    {
+        var directory = GetDirectory("Valid");
+        return InnerVerifyChecks.Run(directory, directory);
+    }
 
     [Fact]
     public Task Invalid() =>
-        ThrowsTask(() => InnerVerifyChecks.Run(invalidDirectory));
+        ThrowsTask(() => InnerVerifyChecks.Run(invalidDirectory,invalidDirectory));
 
     [Fact]
     public Task GetExtensions() =>

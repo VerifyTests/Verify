@@ -1,4 +1,5 @@
-﻿namespace VerifyTests;
+﻿#pragma warning disable InnerVerifyChecks
+namespace VerifyTests;
 
 public readonly struct FilePair
 {
@@ -8,6 +9,7 @@ public readonly struct FilePair
         Extension = extension;
         ReceivedPath = receivedPath;
         VerifiedPath = verifiedPath;
+        InnerVerifyChecks.TrackVerifiedFile(verifiedPath);
         IsText = FileExtensions.IsTextExtension(extension);
     }
 
@@ -16,6 +18,7 @@ public readonly struct FilePair
         Guards.AgainstBadExtension(extension);
         Extension = extension;
         ReceivedPath = receivedPath;
+        InnerVerifyChecks.TrackVerifiedFile(verifiedPath);
         VerifiedPath = verifiedPath;
         IsText = isText;
     }

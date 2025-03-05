@@ -8,37 +8,49 @@ public static class InnerVerifyChecks
 {
     public static Task Run(Assembly assembly)
     {
-        if (!AttributeReader.TryGetSolutionDirectory(assembly, out var directory))
+        var projectDirectory = AttributeReader.GetProjectDirectory(assembly);
+        if (!AttributeReader.TryGetSolutionDirectory(assembly, out var solutionDirectory))
         {
-            var projectDirectory = AttributeReader.GetProjectDirectory(assembly);
-            directory = Directory.GetParent(projectDirectory)!.FullName;
+            solutionDirectory = Directory.GetParent(projectDirectory)!.FullName;
         }
 
-        return Run(directory);
+        return Run(solutionDirectory, projectDirectory);
     }
 
-    internal static async Task Run(string directory)
+    static ConcurrentBag<string>? trackedVerifiedFiles;
+
+    internal static void TrackVerifiedFile(string path) => trackedVerifiedFiles?.Add(path);
+
+    internal static async Task Run(string solutionDirectory, string projectDirectory)
     {
-        var extensions = GetExtensions(directory);
-        await CheckGitIgnore(directory);
-        await CheckIncorrectlyImportedSnapshots(directory);
+        if (BuildServerDetector.Detected)
+        {
+            trackedVerifiedFiles = [];
+        }
+        var extensions = GetExtensions(solutionDirectory);
+        await CheckGitIgnore(solutionDirectory);
+        await CheckIncorrectlyImportedSnapshots(solutionDirectory);
         if (extensions.Count == 0)
         {
             return;
         }
 
-        await CheckEditorConfig(directory, extensions);
-        await CheckGitAttributes(directory, extensions);
+        await CheckEditorConfig(solutionDirectory, extensions);
+        await CheckGitAttributes(solutionDirectory, extensions);
+        AppDomain.CurrentDomain.DomainUnload+= (_, _) =>throw new ("aaa" + projectDirectory);
     }
 
     internal static List<string> GetExtensions(string directory) =>
         // ReSharper disable once RedundantSuppressNullableWarningExpression
-        Directory.EnumerateFiles(directory, "*.verified.*", SearchOption.AllDirectories)
+        GetVerifiedFiles(directory)
             .Select(_ => Path.GetExtension(_)![1..])
             .Distinct()
             .Where(FileExtensions.IsTextExtension)
             .OrderBy(_ => _)
             .ToList();
+
+    static IEnumerable<string> GetVerifiedFiles(string directory) =>
+        Directory.EnumerateFiles(directory, "*.verified.*", SearchOption.AllDirectories);
 
     internal static async Task CheckIncorrectlyImportedSnapshots(string solutionDirectory)
     {

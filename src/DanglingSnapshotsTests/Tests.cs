@@ -1,4 +1,5 @@
-﻿public class Tests
+﻿#pragma warning disable InnerVerifyChecks
+public class Tests
 {
     [ModuleInitializer]
     public static void Init() =>
@@ -9,6 +10,12 @@
         Verify("Foo");
 
     [Fact]
-    public Task Checks() =>
-        VerifyChecks.Run();
+    public Task RunChecks()
+    {
+        var directory = GetDirectory("Valid");
+        return InnerVerifyChecks.Run(directory, directory);
+    }
+
+    static string GetDirectory(string suffix, [CallerFilePath] string sourceFile = "") =>
+        Path.Combine(Path.GetDirectoryName(sourceFile)!, suffix);
 }

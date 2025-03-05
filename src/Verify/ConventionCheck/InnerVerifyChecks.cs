@@ -39,7 +39,11 @@ public static class InnerVerifyChecks
         await CheckGitAttributes(solutionDirectory, extensions);
         var currentDomain = AppDomain.CurrentDomain;
         currentDomain.DomainUnload+= (_, _) =>throw new ("aaa" + projectDirectory);
-        currentDomain.ProcessExit += (_, _) => throw new ("aaa" + projectDirectory);
+        currentDomain.ProcessExit += (_, _) =>
+        {
+            Console.WriteLine("aaa" + projectDirectory);
+            throw new("aaa" + projectDirectory);
+        };
     }
 
     internal static List<string> GetExtensions(string directory) =>

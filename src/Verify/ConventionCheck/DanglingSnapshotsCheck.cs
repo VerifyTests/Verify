@@ -36,12 +36,11 @@ public static class DanglingSnapshotsCheck
 
         if (untrackedFiles.Count != 0)
         {
-            var message = $"""
-
-                           The following files have not been tracked:
-                            * {string.Join("\n * ", untrackedFiles)}
-                           """;
-            Environment.FailFast(message);
+            throw new VerifyCheckException(
+                $"""
+                 The following files have not been tracked:
+                  * {string.Join("\n * ", untrackedFiles)}
+                 """);
         }
     }
 

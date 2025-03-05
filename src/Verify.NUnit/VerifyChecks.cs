@@ -8,8 +8,6 @@ public static class VerifyChecks
         var adapter = TestContext.CurrentContext.Test;
         var testMethod = adapter.GetTestMethod();
         var type = testMethod.TypeInfo.Type;
-        VerifierSettings.AssignTargetAssembly(type.Assembly);
-
         return InnerVerifyChecks.Run(type.Assembly);
     }
 }

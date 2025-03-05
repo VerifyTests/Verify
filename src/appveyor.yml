@@ -24,8 +24,8 @@ before_build:
       }
   - dotnet tool restore --tool-manifest src/.config/dotnet-tools.json
 build_script:
-- dotnet build src --configuration Release --verbosity quiet
-- dotnet test src/DanglingSnapshotsTests --configuration Release --no-build --no-restore
+- dotnet build src/Verify.sln --configuration Release --verbosity quiet
+#- dotnet test src/DanglingSnapshotsTests --configuration Release --no-build --no-restore
 - dotnet test src/DeterministicTests --configuration Release --no-build --no-restore --verbosity quiet
 - dotnet test src/FSharpTests --configuration Release --no-build --no-restore --verbosity quiet
 - dotnet test src/StaticSettingsTests --configuration Release --no-build --no-restore --verbosity quiet

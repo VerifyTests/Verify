@@ -37,7 +37,9 @@ public static class InnerVerifyChecks
 
         await CheckEditorConfig(solutionDirectory, extensions);
         await CheckGitAttributes(solutionDirectory, extensions);
-        AppDomain.CurrentDomain.DomainUnload+= (_, _) =>throw new ("aaa" + projectDirectory);
+        var currentDomain = AppDomain.CurrentDomain;
+        currentDomain.DomainUnload+= (_, _) =>throw new ("aaa" + projectDirectory);
+        currentDomain.ProcessExit += (_, _) => throw new ("aaa" + projectDirectory);
     }
 
     internal static List<string> GetExtensions(string directory) =>

@@ -25,7 +25,7 @@ public static class DanglingSnapshotsCheck
                 continue;
             }
 
-            var suffix = file.Replace(directory, string.Empty);
+            var suffix = file[directory.Length..];
             if (IfFileUnique(suffix))
             {
                 continue;

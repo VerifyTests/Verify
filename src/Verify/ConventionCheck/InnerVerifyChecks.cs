@@ -21,6 +21,10 @@ public static class InnerVerifyChecks
 
     internal static void TrackVerifiedFile(string path) => trackedVerifiedFiles?.Add(path);
 
+    public static void Complete()
+    {
+
+    }
     internal static async Task Run(string solutionDirectory, string projectDirectory)
     {
         if (BuildServerDetector.Detected)

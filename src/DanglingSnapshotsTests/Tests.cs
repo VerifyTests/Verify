@@ -1,5 +1,4 @@
-﻿
-#pragma warning disable InnerVerifyChecks
+﻿#pragma warning disable InnerVerifyChecks
 [TestFixture]
 public class Tests
 {

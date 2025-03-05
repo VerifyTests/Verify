@@ -18,6 +18,7 @@ public static partial class VerifierSettings
             return;
         }
 
+        VerifierSettings.assembly = assembly;
         Namer.UseAssembly(assembly);
         IoHelpers.MapPathsForCallingAssembly(assembly);
         ProjectDir = AttributeReader.GetProjectDirectory(assembly);
@@ -30,6 +31,5 @@ public static partial class VerifierSettings
 
         SolutionDir = solutionDir;
         ApplyScrubbers.UseAssembly(solutionDir, ProjectDir);
-        VerifierSettings.assembly = assembly;
     }
 }

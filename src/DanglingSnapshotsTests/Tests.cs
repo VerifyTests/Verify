@@ -1,15 +1,17 @@
-﻿#pragma warning disable InnerVerifyChecks
+﻿
+#pragma warning disable InnerVerifyChecks
+[TestFixture]
 public class Tests
 {
     [ModuleInitializer]
     public static void Init() =>
         Environment.SetEnvironmentVariable("CI", "true");
 
-    [Fact]
+    [Test]
     public Task Simple() =>
         Verify("Foo");
 
-    [Fact]
+    [Test]
     public Task RunChecks()
     {
         var directory = GetDirectory("Valid");

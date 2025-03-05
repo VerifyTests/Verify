@@ -11,12 +11,9 @@ public class Tests
         Verify("Foo");
 
     [Test]
-    public Task RunChecks()
-    {
-        var directory = GetDirectory("Valid");
-        return InnerVerifyChecks.Run(directory, directory);
-    }
+    public Task RunChecks() =>
+        InnerVerifyChecks.Run(GetDirectory());
 
-    static string GetDirectory(string suffix, [CallerFilePath] string sourceFile = "") =>
-        Path.Combine(Path.GetDirectoryName(sourceFile)!, suffix);
+    static string GetDirectory([CallerFilePath] string sourceFile = "") =>
+        Path.GetDirectoryName(sourceFile)!;
 }

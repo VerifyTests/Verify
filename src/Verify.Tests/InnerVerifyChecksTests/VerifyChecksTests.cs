@@ -20,19 +20,19 @@ public class VerifyChecksTests
     public Task Superset()
     {
         var directory = GetDirectory("Superset");
-        return InnerVerifyChecks.Run(directory, directory);
+        return InnerVerifyChecks.Run(directory);
     }
 
     [Fact]
     public Task Valid()
     {
         var directory = GetDirectory("Valid");
-        return InnerVerifyChecks.Run(directory, directory);
+        return InnerVerifyChecks.Run(directory);
     }
 
     [Fact]
     public Task Invalid() =>
-        ThrowsTask(() => InnerVerifyChecks.Run(invalidDirectory,invalidDirectory));
+        ThrowsTask(() => InnerVerifyChecks.Run(invalidDirectory));
 
     [Fact]
     public Task GetExtensions() =>

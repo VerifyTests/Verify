@@ -14,40 +14,54 @@ public static class InnerVerifyChecks
             solutionDirectory = Directory.GetParent(projectDirectory)!.FullName;
         }
 
-        return Run(solutionDirectory, projectDirectory);
+        return Run(solutionDirectory);
     }
 
     static ConcurrentBag<string>? trackedVerifiedFiles;
 
     internal static void TrackVerifiedFile(string path) => trackedVerifiedFiles?.Add(path);
 
-    public static void Complete()
+    public static void Complete(string projectDirectory)
     {
+        if (!BuildServerDetector.Detected)
+        {
+            return;
+        }
 
+        foreach (var file in GetVerifiedFiles(projectDirectory))
+        {
+            if (!trackedVerifiedFiles!.Contains(file))
+            {
+                throw new VerifyCheckException($"The file {file} has not been tracked yet.");
+            }
+        }
     }
-    internal static async Task Run(string solutionDirectory, string projectDirectory)
+
+    [ModuleInitializer]
+    internal static void Init()
     {
         if (BuildServerDetector.Detected)
         {
             trackedVerifiedFiles = [];
         }
-        var extensions = GetExtensions(solutionDirectory);
-        await CheckGitIgnore(solutionDirectory);
-        await CheckIncorrectlyImportedSnapshots(solutionDirectory);
+    }
+
+    internal static async Task Run(string directory)
+    {
+        AppDomain.CurrentDomain.ProcessExit += (sender, args) =>
+        {
+            throw new Exception("sdfsdf");
+        };
+        var extensions = GetExtensions(directory);
+        await CheckGitIgnore(directory);
+        await CheckIncorrectlyImportedSnapshots(directory);
         if (extensions.Count == 0)
         {
             return;
         }
 
-        await CheckEditorConfig(solutionDirectory, extensions);
-        await CheckGitAttributes(solutionDirectory, extensions);
-        var currentDomain = AppDomain.CurrentDomain;
-        currentDomain.DomainUnload+= (_, _) =>throw new ("aaa" + projectDirectory);
-        currentDomain.ProcessExit += (_, _) =>
-        {
-            Console.WriteLine("aaa" + projectDirectory);
-            throw new("aaa" + projectDirectory);
-        };
+        await CheckEditorConfig(directory, extensions);
+        await CheckGitAttributes(directory, extensions);
     }
 
     internal static List<string> GetExtensions(string directory) =>

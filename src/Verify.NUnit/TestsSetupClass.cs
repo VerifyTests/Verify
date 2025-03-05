@@ -1,17 +1,11 @@
-﻿#pragma warning disable InnerVerifyChecks
-namespace VerifyNUnit;
+﻿using NUnit.Framework.Legacy;
 
 [SetUpFixture]
-public class TestsSetupClass
+public static class TestsSetupClass
 {
-    [OneTimeSetUp]
-    public void GlobalSetup()
-    {
-        // Do login here.
-    }
+    public static Action? action;
 
     [OneTimeTearDown]
-    public void GlobalTeardown() =>
-        InnerVerifyChecks.Complete();
-
+    public static void OneTimeTearDown() =>
+        ClassicAssert.False(true);
 }

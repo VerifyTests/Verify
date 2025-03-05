@@ -9,14 +9,15 @@ public static class DanglingSnapshotsCheck
 
     internal static void TrackVerifiedFile(string path) => trackedVerifiedFiles?.Add(path);
 
-    public static void Run(string projectDirectory)
+    public static void Run()
     {
         if (!BuildServerDetector.Detected)
         {
             return;
         }
 
-        foreach (var file in Directory.EnumerateFiles(projectDirectory, "*.verified.*", SearchOption.AllDirectories))
+        var directory = AttributeReader.GetProjectDirectory(VerifierSettings.Assembly);
+        foreach (var file in Directory.EnumerateFiles(directory, "*.verified.*", SearchOption.AllDirectories))
         {
             if (!trackedVerifiedFiles!.Contains(file))
             {

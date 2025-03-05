@@ -9,11 +9,4 @@ public class Tests
     [Test]
     public Task Simple() =>
         Verify("Foo");
-
-    [Test]
-    public Task RunChecks() =>
-        InnerVerifyChecks.Run(GetDirectory());
-
-    static string GetDirectory([CallerFilePath] string sourceFile = "") =>
-        Path.GetDirectoryName(sourceFile)!;
 }

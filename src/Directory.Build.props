@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <PropertyGroup>
-    <Version>28.14.0-beta.1</Version>
+    <Version>28.14.0-beta.2</Version>
     <NoWarn>CA1822;CS1591;CS0649;xUnit1026;xUnit1013;CS1573;VerifyTestsProjectDir;VerifySetParameters;PolyFillTargetsForNuget;xUnit1051</NoWarn>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>preview</LangVersion>

@@ -8,6 +8,7 @@
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <PackageTags>Json, Testing, Verify, Snapshot, Approvals</PackageTags>
     <Description>Enables verification of complex models and documents.</Description>
+    <PackageReadmeFile>readme.source.md</PackageReadmeFile>
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
     <ResolveAssemblyReferencesSilent>true</ResolveAssemblyReferencesSilent>
     <NuGetAuditMode>all</NuGetAuditMode>
@@ -17,6 +18,12 @@
     <PolyGuard>true</PolyGuard>
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="$(SolutionDir)\..\readme.source.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <Using Include="System.Diagnostics.CodeAnalysis" />
     <Using Include="System.Globalization" />

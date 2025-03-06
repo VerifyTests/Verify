@@ -34,14 +34,21 @@ public static class DanglingSnapshotsCheck
             untrackedFiles.Add(suffix);
         }
 
-        if (untrackedFiles.Count != 0)
+        if (untrackedFiles.Count == 0)
         {
-            var message = $"""
-                           The following files have not been tracked:
-                            * {string.Join("\n * ", untrackedFiles)}
-                           """;
+            return;
+        }
+
+        var message = $"""
+                       The following files have not been tracked:
+                        * {string.Join("\n * ", untrackedFiles)}
+                       """;
+        if (BuildServerDetector.IsAzureDevops)
+        {
             Environment.FailFast(message);
         }
+
+        throw new(message);
     }
 
     static bool IfFileUnique(string file) =>

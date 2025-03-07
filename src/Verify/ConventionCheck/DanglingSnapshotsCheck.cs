@@ -24,27 +24,45 @@ static class DanglingSnapshotsCheck
 
         var directory = AttributeReader.GetProjectDirectory(VerifierSettings.Assembly);
         var files = Directory.EnumerateFiles(directory, "*.verified.*", SearchOption.AllDirectories);
-        CheckFiles(files, onFailure, directory);
+        CheckFiles(files, trackedVerifiedFiles!, onFailure, directory);
     }
 
-    internal static void CheckFiles(IEnumerable<string> filesOnDisk, OnFailure onFailure, string directory)
+    internal static void CheckFiles(IEnumerable<string> filesOnDisk, ConcurrentBag<string> trackedFiles, OnFailure onFailure, string directory)
     {
+        static void AppendItems(StringBuilder builder, List<string> list, string title)
+        {
+            if (list.Count <= 0)
+            {
+                return;
+            }
+
+            builder.AppendLine();
+            builder.AppendLine();
+            builder.AppendLine(title);
+            builder.AppendLine();
+            foreach (var file in list)
+            {
+                builder.AppendLine($" * {file}");
+            }
+        }
+
         List<string> untracked = [];
         List<string> incorrectCase = [];
         foreach (var file in filesOnDisk)
         {
-            if (trackedVerifiedFiles!.Contains(file))
+            if (trackedFiles.Contains(file))
             {
                 continue;
             }
 
             var suffix = file[directory.Length..];
+            suffix = suffix.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
             if (IfFileUnique(suffix))
             {
                 continue;
             }
 
-            if (trackedVerifiedFiles!.Contains(file, StringComparer.OrdinalIgnoreCase))
+            if (trackedFiles.Contains(file, StringComparer.OrdinalIgnoreCase))
             {
                 incorrectCase.Add(suffix);
             }
@@ -54,31 +72,17 @@ static class DanglingSnapshotsCheck
             }
         }
 
-        if (untracked.Count == 0 && incorrectCase.Count == 0)
+        if (untracked.Count == 0 &&
+            incorrectCase.Count == 0)
         {
             return;
         }
 
         var builder = new StringBuilder("Verify has detected the following issues with snapshot files:");
-        if (untracked.Count > 0)
-        {
-            builder.AppendLine();
-            builder.AppendLine("The following files have not been tracked:");
-            foreach (var file in untracked)
-            {
-                builder.AppendLine($" * {file}");
-            }
-        }
 
-        if(incorrectCase.Count> 0)
-        {
-            builder.AppendLine();
-            builder.AppendLine("The following files have been tracked with incorrect case:");
-            foreach (var file in incorrectCase)
-            {
-                builder.AppendLine($" * {file}");
-            }
-        }
+        AppendItems(builder, untracked, "The following files have not been tracked:");
+        AppendItems(builder, incorrectCase, "The following files have been tracked with incorrect case:");
+
         var message = builder.ToString();
 
         if (onFailure == OnFailure.FailFast)

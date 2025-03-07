@@ -33,7 +33,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.XunitV3", "Verify.Xu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.TUnit", "Verify.TUnit\Verify.TUnit.csproj", "{8BAECAD7-5E89-48D5-B86A-D67EB6758293}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanglingSnapshotsTests", "DanglingSnapshotsTests\DanglingSnapshotsTests.csproj", "{1769866A-1D8C-4F25-B8FF-801882CC33C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanglingSnapshotsNUnitUsage", "DanglingSnapshotsNUnitUsage\DanglingSnapshotsNUnitUsage.csproj", "{1769866A-1D8C-4F25-B8FF-801882CC33C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanglingSnapshotsXunitUsage", "DanglingSnapshotsXunitUsage\DanglingSnapshotsXunitUsage.csproj", "{735A690C-3942-4E31-A873-E0CAF7D07AC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanglingSnapshotsMSTestUsage", "DanglingSnapshotsMSTestUsage\DanglingSnapshotsMSTestUsage.csproj", "{D6A36CB5-A066-464C-8CB9-38E0025941EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanglingSnapshotsXunitV3Usage", "DanglingSnapshotsXunitV3Usage\DanglingSnapshotsXunitV3Usage.csproj", "{D1C6D798-73B7-48A6-8A04-439C337E2123}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +91,18 @@ Global
 		{1769866A-1D8C-4F25-B8FF-801882CC33C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1769866A-1D8C-4F25-B8FF-801882CC33C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1769866A-1D8C-4F25-B8FF-801882CC33C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{735A690C-3942-4E31-A873-E0CAF7D07AC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{735A690C-3942-4E31-A873-E0CAF7D07AC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{735A690C-3942-4E31-A873-E0CAF7D07AC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{735A690C-3942-4E31-A873-E0CAF7D07AC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6A36CB5-A066-464C-8CB9-38E0025941EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6A36CB5-A066-464C-8CB9-38E0025941EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6A36CB5-A066-464C-8CB9-38E0025941EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6A36CB5-A066-464C-8CB9-38E0025941EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1C6D798-73B7-48A6-8A04-439C337E2123}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1C6D798-73B7-48A6-8A04-439C337E2123}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1C6D798-73B7-48A6-8A04-439C337E2123}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1C6D798-73B7-48A6-8A04-439C337E2123}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

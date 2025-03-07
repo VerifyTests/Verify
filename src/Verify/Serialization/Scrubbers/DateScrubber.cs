@@ -1,5 +1,5 @@
 ﻿// ReSharper disable ReturnValueOfPureMethodIsNotUsed
-static partial class DateScrubber
+static class DateScrubber
 {
     delegate bool TryConvert(
         CharSpan span,

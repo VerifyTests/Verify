@@ -3,13 +3,19 @@
 
 namespace VerifyTests;
 
-public static class DanglingSnapshotsCheck
+static class DanglingSnapshotsCheck
 {
+    public enum OnFailure
+    {
+        Throw,
+        FailFast
+    }
+
     static ConcurrentBag<string>? trackedVerifiedFiles;
 
     internal static void TrackVerifiedFile(string path) => trackedVerifiedFiles?.Add(path);
 
-    public static void Run()
+    public static void Run(OnFailure onFailure)
     {
         if (!BuildServerDetector.Detected)
         {
@@ -43,7 +49,7 @@ public static class DanglingSnapshotsCheck
                        The following files have not been tracked:
                         * {string.Join("\n * ", untrackedFiles)}
                        """;
-        if (BuildServerDetector.IsAzureDevops)
+        if (onFailure == OnFailure.FailFast)
         {
             Environment.FailFast(message);
         }

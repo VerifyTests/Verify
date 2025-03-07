@@ -46,7 +46,7 @@ build_script:
 - dotnet test src/Verify.TUnit.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet test src/Verify.TUnit.Tests --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet build src/VerifyDangling.sln --configuration Release --verbosity minimal
-#- dotnet test src/DanglingSnapshotsTests --configuration Release --no-build --no-restore
+- dotnet test src/DanglingSnapshotsTests --configuration Release --no-build --no-restore
 - pwsh: |
     if ($isWindows) {
       vstest.console src/Verify.MSTest.DerivePaths.Tests/bin/Release/net10.0/Verify.MSTest.DerivePaths.Tests.dll /logger:Appveyor

@@ -1,7 +1,7 @@
 ﻿[SetUpFixture]
-static class DanglingSnapshots
+static class SetUp
 {
     [OneTimeTearDown]
     public static void Run() =>
-        DanglingSnapshotsCheck.Run();
+        DanglingSnapshots.Run();
 }

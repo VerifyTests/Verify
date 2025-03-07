@@ -1,6 +1,6 @@
 ﻿[TestClass]
 [UsesVerify]
-public class Tests
+public partial class Tests
 {
     [TestMethod]
     public Task Simple() =>

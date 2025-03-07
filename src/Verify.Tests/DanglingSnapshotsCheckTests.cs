@@ -11,9 +11,8 @@ public class DanglingSnapshotsCheckTests
         {
             "path/to/tracked.verified.txt"
         };
-        var directory = "path/to";
 
-        return Throws(() => DanglingSnapshotsCheck.CheckFiles(filesOnDisk, trackedFiles, DanglingSnapshotsCheck.OnFailure.Throw, directory))
+        return Throws(() => DanglingSnapshotsCheck.CheckFiles(filesOnDisk, trackedFiles, DanglingSnapshotsCheck.OnFailure.Throw, "path/to"))
             .IgnoreStackTrace();
     }
 
@@ -28,9 +27,8 @@ public class DanglingSnapshotsCheckTests
         {
             "path/to/tracked.verified.txt"
         };
-        var directory = "path/to";
 
-        return Throws(() => DanglingSnapshotsCheck.CheckFiles(filesOnDisk, trackedFiles, DanglingSnapshotsCheck.OnFailure.Throw, directory))
+        return Throws(() => DanglingSnapshotsCheck.CheckFiles(filesOnDisk, trackedFiles, DanglingSnapshotsCheck.OnFailure.Throw, "path/to"))
             .IgnoreStackTrace();
     }
 
@@ -39,8 +37,7 @@ public class DanglingSnapshotsCheckTests
     {
         var filesOnDisk = new List<string> { "path/to/tracked.verified.txt" };
         var trackedFiles = new ConcurrentBag<string> { "path/to/tracked.verified.txt" };
-        var directory = "path/to";
 
-        DanglingSnapshotsCheck.CheckFiles(filesOnDisk, trackedFiles, DanglingSnapshotsCheck.OnFailure.Throw, directory);
+        DanglingSnapshotsCheck.CheckFiles(filesOnDisk, trackedFiles, DanglingSnapshotsCheck.OnFailure.Throw, "path/to");
     }
 }

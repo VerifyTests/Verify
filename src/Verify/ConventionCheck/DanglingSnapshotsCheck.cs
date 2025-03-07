@@ -23,7 +23,8 @@ static class DanglingSnapshotsCheck
         }
 
         var directory = AttributeReader.GetProjectDirectory(VerifierSettings.Assembly);
-        List<string> untrackedFiles = [];
+        List<string> untracked = [];
+        List<string> incorrectCase = [];
         foreach (var file in Directory.EnumerateFiles(directory, "*.verified.*", SearchOption.AllDirectories))
         {
             if (trackedVerifiedFiles!.Contains(file))
@@ -37,18 +38,43 @@ static class DanglingSnapshotsCheck
                 continue;
             }
 
-            untrackedFiles.Add(suffix);
+            if (trackedVerifiedFiles!.Contains(file, StringComparer.OrdinalIgnoreCase))
+            {
+                incorrectCase.Add(suffix);
+            }
+            else
+            {
+                untracked.Add(suffix);
+            }
         }
 
-        if (untrackedFiles.Count == 0)
+        if (untracked.Count == 0 && incorrectCase.Count == 0)
         {
             return;
         }
 
-        var message = $"""
-                       The following files have not been tracked:
-                        * {string.Join("\n * ", untrackedFiles)}
-                       """;
+        var builder = new StringBuilder("Verify has detected the following issues with snapshot files:");
+        if (untracked.Count > 0)
+        {
+            builder.AppendLine();
+            builder.AppendLine("The following files have not been tracked:");
+            foreach (var file in untracked)
+            {
+                builder.AppendLine($" * {file}");
+            }
+        }
+
+        if(incorrectCase.Count> 0)
+        {
+            builder.AppendLine();
+            builder.AppendLine("The following files have been tracked with incorrect case:");
+            foreach (var file in incorrectCase)
+            {
+                builder.AppendLine($" * {file}");
+            }
+        }
+        var message = builder.ToString();
+
         if (onFailure == OnFailure.FailFast)
         {
             Environment.FailFast(message);

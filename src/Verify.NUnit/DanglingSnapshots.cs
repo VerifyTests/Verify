@@ -5,7 +5,7 @@
         var state = TestExecutionContext.CurrentContext.CurrentResult.ResultState;
         if (state == ResultState.Success)
         {
-            DanglingSnapshotsCheck.Run(DanglingSnapshotsCheck.OnFailure.FailFast);
+            DanglingSnapshotsCheck.Run(true);
         }
     }
 }

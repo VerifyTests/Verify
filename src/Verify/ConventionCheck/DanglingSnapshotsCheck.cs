@@ -5,17 +5,11 @@ namespace VerifyTests;
 
 static class DanglingSnapshotsCheck
 {
-    public enum OnFailure
-    {
-        Throw,
-        FailFast
-    }
-
     static ConcurrentBag<string>? trackedVerifiedFiles;
 
     internal static void TrackVerifiedFile(string path) => trackedVerifiedFiles?.Add(path);
 
-    public static void Run(OnFailure onFailure)
+    public static void Run(bool failFast)
     {
         if (!BuildServerDetector.Detected)
         {
@@ -24,10 +18,10 @@ static class DanglingSnapshotsCheck
 
         var directory = AttributeReader.GetProjectDirectory(VerifierSettings.Assembly);
         var files = Directory.EnumerateFiles(directory, "*.verified.*", SearchOption.AllDirectories);
-        CheckFiles(files, trackedVerifiedFiles!, onFailure, directory);
+        CheckFiles(files, trackedVerifiedFiles!, failFast, directory);
     }
 
-    internal static void CheckFiles(IEnumerable<string> filesOnDisk, ConcurrentBag<string> trackedFiles, OnFailure onFailure, string directory)
+    internal static void CheckFiles(IEnumerable<string> filesOnDisk, ConcurrentBag<string> trackedFiles, bool failFast, string directory)
     {
         static void AppendItems(StringBuilder builder, List<string> list, string title)
         {
@@ -90,7 +84,7 @@ static class DanglingSnapshotsCheck
         builder.AppendLine();
         var message = builder.ToString();
 
-        if (onFailure == OnFailure.FailFast)
+        if (failFast)
         {
             Environment.FailFast(message);
         }

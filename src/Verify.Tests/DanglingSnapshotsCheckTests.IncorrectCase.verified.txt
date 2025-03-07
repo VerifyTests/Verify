@@ -1,10 +1,12 @@
 ﻿{
   Type: Exception,
   Message:
+
 Verify has detected the following issues with snapshot files:
 
 The following files have been tracked with incorrect case:
 
  * Tracked.verified.txt
+
 
 }

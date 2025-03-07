@@ -78,14 +78,16 @@ static class DanglingSnapshotsCheck
             return;
         }
 
-        var builder = new StringBuilder("""
+        var builder = new StringBuilder(
+            """
 
-                                        Verify has detected the following issues with snapshot files:
-                                        """);
+
+            Verify has detected the following issues with snapshot files:
+            """);
 
         AppendItems(builder, untracked, "The following files have not been tracked:");
         AppendItems(builder, incorrectCase, "The following files have been tracked with incorrect case:");
-
+        builder.AppendLine();
         var message = builder.ToString();
 
         if (onFailure == OnFailure.FailFast)

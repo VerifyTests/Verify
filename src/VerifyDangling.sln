@@ -21,11 +21,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify", "Verify\Verify.csproj", "{A017D3FD-7DA5-4DF4-A169-72DE4AF76048}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.Tests", "Verify.Tests\Verify.Tests.csproj", "{C4875357-5EF0-40DC-9E53-0F5B0236534F}"
-	ProjectSection(ProjectDependencies) = postProject
-		{EBA9F929-B9A7-4685-8117-34E5DD6F4AEB} = {EBA9F929-B9A7-4685-8117-34E5DD6F4AEB}
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.NUnit", "Verify.NUnit\Verify.NUnit.csproj", "{F803FA6B-05EA-41B6-9B4A-770D32D8C157}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.MSTest", "Verify.MSTest\Verify.MSTest.csproj", "{B922F6CF-6C1A-4824-B416-10480DD8A9E9}"

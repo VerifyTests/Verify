@@ -297,6 +297,29 @@ public class VerifyJsonWriter :
         WriteOrSerialize(value);
     }
 
+    /// <summary>
+    /// Writes a property name and value while respecting other custom serialization settings.
+    /// </summary>
+    public void WriteMember(object target, CharSpan value, string name)
+    {
+        var declaringType = target.GetType();
+        if (serialization.TryGetScrubOrIgnore(declaringType, typeof(CharSpan), name, null, out var scrubOrIgnore))
+        {
+            if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+            {
+                return;
+            }
+
+            WritePropertyName(name);
+            WriteRawValueIfNoStrict("Scrubbed");
+
+            return;
+        }
+
+        WritePropertyName(name);
+        WriteValue(value);
+    }
+
     void WriteOrSerialize(object converted)
     {
         if (converted is string convertedString)

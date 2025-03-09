@@ -7,6 +7,6 @@
   ProjectNameInferred: Verify.Tests,
   SolutionDirectory: {SolutionDirectory},
   SolutionDirectoryInferred: {SolutionDirectory},
-  SolutionName: VerifyDangling,
-  SolutionNameInferred: VerifyDangling
+  SolutionName: Verify,
+  SolutionNameInferred: Verify
 }

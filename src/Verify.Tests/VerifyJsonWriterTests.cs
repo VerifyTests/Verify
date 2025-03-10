@@ -3,15 +3,14 @@
     [Fact]
     public void ShouldWriteScrubbed_WhenValueIsIgnored()
     {
-        // Arrange
         var builder = new StringBuilder();
         var settings = new VerifySettings();
-        settings.IgnoreMember("ignoredName");
+        settings.IgnoreMember("name");
         var writer = new VerifyJsonWriter(builder, settings, CounterBuilder.Empty());
 
-        writer.WriteMember(new(), "test".AsSpan(), "ignoredName");
+        writer.WriteMember(new(), "value".AsSpan(), "name");
 
-        Assert.DoesNotContain("ignoredName", builder.ToString());
+        Assert.DoesNotContain("name", builder.ToString());
     }
 
     [Fact]
@@ -19,12 +18,12 @@
     {
         var builder = new StringBuilder();
         var settings = new VerifySettings();
-        settings.ScrubMember("ignoredName");
+        settings.ScrubMember("name");
         var writer = new VerifyJsonWriter(builder, settings, CounterBuilder.Empty());
 
-        writer.WriteMember(new(), "test".AsSpan(), "scrubbedName");
+        writer.WriteMember(new(), "value".AsSpan(), "name");
 
-        Assert.Contains("\"scrubbedName\":\"Scrubbed\"", builder.ToString());
+        Assert.Contains("name:Scrubbed", builder.ToString());
     }
 
     [Fact]
@@ -37,8 +36,8 @@
         };
         var writer = new VerifyJsonWriter(builder, settings, CounterBuilder.Empty());
 
-        writer.WriteMember(new(), "test".AsSpan(), "name");
+        writer.WriteMember(new(), "value".AsSpan(), "name");
 
-        Assert.Contains("name:test", builder.ToString());
+        Assert.Contains("name:value", builder.ToString());
     }
 }

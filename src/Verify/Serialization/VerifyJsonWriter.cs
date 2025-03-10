@@ -266,10 +266,10 @@ public class VerifyJsonWriter :
         WriteOrSerialize(value);
     }
 
-    void WriteRawOrStrictMember(string name, string readOnlySpan)
+    void WriteRawOrStrictMember(string name, string value)
     {
         WritePropertyName(name);
-        WriteRawValueIfNoStrict(readOnlySpan);
+        WriteRawValueIfNoStrict(value);
     }
 
     void WriteNullMember(string name)

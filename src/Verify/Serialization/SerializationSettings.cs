@@ -144,6 +144,8 @@ partial class SerializationSettings
     List<Action<JsonSerializerSettings>> extraSettings = [];
     JsonSerializer? serializer;
 
+    internal bool IgnoreNulls => Serializer.NullValueHandling.GetValueOrDefault(NullValueHandling.Ignore) == NullValueHandling.Ignore;
+
     internal JsonSerializer Serializer
     {
         get

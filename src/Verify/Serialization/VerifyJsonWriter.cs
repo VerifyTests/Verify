@@ -220,60 +220,34 @@ public class VerifyJsonWriter :
     {
         if (value is null)
         {
-            if (serialization.TryGetScrubOrIgnoreByName(name, out var scrubOrIgnoreByName))
-            {
-                if (scrubOrIgnoreByName == ScrubOrIgnore.Ignore)
-                {
-                    return;
-                }
-
-                WritePropertyName(name);
-                WriteRawValueIfNoStrict("Scrubbed");
-
-                return;
-            }
-
-            if (serialization.Serializer.NullValueHandling.GetValueOrDefault(NullValueHandling.Ignore) == NullValueHandling.Ignore)
-            {
-                return;
-            }
-
-            WritePropertyName(name);
-            WriteNull();
+            WriteNullMember(name);
             return;
         }
 
         if (ReferenceEquals(target, value))
         {
-            WritePropertyName(name);
-            WriteRawValueIfNoStrict("$parentValue");
+            WriteRawOrStrictMember(name, "$parentValue");
             return;
         }
 
         var declaringType = target.GetType();
         var memberType = value.GetType();
-        if (serialization.TryGetScrubOrIgnore(declaringType, memberType, name, null, out var scrubOrIgnore))
+        if (serialization.TryGetScrubOrIgnore(declaringType, memberType, name, out var scrubOrIgnore))
         {
-            if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+            if (scrubOrIgnore != ScrubOrIgnore.Ignore)
             {
-                return;
+                WriteRawOrStrictMember(name, "Scrubbed");
             }
-
-            WritePropertyName(name);
-            WriteRawValueIfNoStrict("Scrubbed");
 
             return;
         }
 
         if (serialization.TryGetScrubOrIgnoreByInstance(value, out scrubOrIgnore))
         {
-            if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+            if (scrubOrIgnore != ScrubOrIgnore.Ignore)
             {
-                return;
+                WriteRawOrStrictMember(name, "Scrubbed");
             }
-
-            WritePropertyName(name);
-            WriteRawValueIfNoStrict("Scrubbed");
 
             return;
         }
@@ -281,43 +255,37 @@ public class VerifyJsonWriter :
         var converter = VerifierSettings.GetMemberConverter(declaringType, name);
         if (converter is not null)
         {
-            var converted = converter(target, value);
-            if (converted is null)
+            value = converter(target, value);
+            if (value is null)
             {
                 return;
             }
-
-            WritePropertyName(name);
-            WriteOrSerialize(converted);
-
-            return;
         }
 
         WritePropertyName(name);
         WriteOrSerialize(value);
     }
 
-    /// <summary>
-    /// Writes a property name and value while respecting other custom serialization settings.
-    /// </summary>
-    public void WriteMember(object target, CharSpan value, string name)
+    void WriteRawOrStrictMember(string name, string readOnlySpan)
     {
-        var declaringType = target.GetType();
-        if (serialization.TryGetScrubOrIgnore(declaringType, typeof(CharSpan), name, null, out var scrubOrIgnore))
-        {
-            if (scrubOrIgnore == ScrubOrIgnore.Ignore)
-            {
-                return;
-            }
-
-            WritePropertyName(name);
-            WriteRawValueIfNoStrict("Scrubbed");
-
-            return;
-        }
-
         WritePropertyName(name);
-        WriteValue(value);
+        WriteRawValueIfNoStrict(readOnlySpan);
+    }
+
+    void WriteNullMember(string name)
+    {
+        if (serialization.TryGetScrubOrIgnoreByName(name, out var scrubOrIgnoreByName))
+        {
+            if (scrubOrIgnoreByName != ScrubOrIgnore.Ignore)
+            {
+                WriteRawOrStrictMember(name, "Scrubbed");
+            }
+        }
+        else if (!serialization.IgnoreNulls)
+        {
+            WritePropertyName(name);
+            WriteNull();
+        }
     }
 
     void WriteOrSerialize(object converted)
@@ -325,15 +293,16 @@ public class VerifyJsonWriter :
         if (converted is string convertedString)
         {
             WriteValue(convertedString);
+            return;
         }
-        else if (converted.GetType().IsPrimitive)
+
+        if (converted.GetType().IsPrimitive)
         {
             WriteValue(converted);
+            return;
         }
-        else
-        {
-            settings.Serializer.Serialize(this, converted);
-        }
+
+        settings.Serializer.Serialize(this, converted);
     }
 
     /// <summary>

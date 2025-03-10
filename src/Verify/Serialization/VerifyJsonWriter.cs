@@ -220,26 +220,7 @@ public class VerifyJsonWriter :
     {
         if (value is null)
         {
-            if (serialization.TryGetScrubOrIgnoreByName(name, out var scrubOrIgnoreByName))
-            {
-                if (scrubOrIgnoreByName == ScrubOrIgnore.Ignore)
-                {
-                    return;
-                }
-
-                WritePropertyName(name);
-                WriteRawValueIfNoStrict("Scrubbed");
-
-                return;
-            }
-
-            if (serialization.Serializer.NullValueHandling.GetValueOrDefault(NullValueHandling.Ignore) == NullValueHandling.Ignore)
-            {
-                return;
-            }
-
-            WritePropertyName(name);
-            WriteNull();
+            WriteNullMember(name);
             return;
         }
 
@@ -281,20 +262,32 @@ public class VerifyJsonWriter :
         var converter = VerifierSettings.GetMemberConverter(declaringType, name);
         if (converter is not null)
         {
-            var converted = converter(target, value);
-            if (converted is null)
+            value = converter(target, value);
+            if (value is null)
             {
                 return;
             }
-
-            WritePropertyName(name);
-            WriteOrSerialize(converted);
-
-            return;
         }
 
         WritePropertyName(name);
         WriteOrSerialize(value);
+    }
+
+    void WriteNullMember(string name)
+    {
+        if (serialization.TryGetScrubOrIgnoreByName(name, out var scrubOrIgnoreByName))
+        {
+            if (scrubOrIgnoreByName != ScrubOrIgnore.Ignore)
+            {
+                WritePropertyName(name);
+                WriteRawValueIfNoStrict("Scrubbed");
+            }
+        }
+        else if (!serialization.IgnoreNulls)
+        {
+            WritePropertyName(name);
+            WriteNull();
+        }
     }
 
     void WriteOrSerialize(object converted)
@@ -302,15 +295,16 @@ public class VerifyJsonWriter :
         if (converted is string convertedString)
         {
             WriteValue(convertedString);
+            return;
         }
-        else if (converted.GetType().IsPrimitive)
+
+        if (converted.GetType().IsPrimitive)
         {
             WriteValue(converted);
+            return;
         }
-        else
-        {
-            settings.Serializer.Serialize(this, converted);
-        }
+
+        settings.Serializer.Serialize(this, converted);
     }
 
     /// <summary>

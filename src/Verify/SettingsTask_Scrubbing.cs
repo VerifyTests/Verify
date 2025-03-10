@@ -135,6 +135,7 @@ public partial class SettingsTask
         CurrentSettings.ScrubLinesContaining(comparison, stringToMatch);
         return this;
     }
+
     /// <summary>
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>

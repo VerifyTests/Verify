@@ -226,35 +226,28 @@ public class VerifyJsonWriter :
 
         if (ReferenceEquals(target, value))
         {
-            WritePropertyName(name);
-            WriteRawValueIfNoStrict("$parentValue");
+            WriteRawOrStrictMember(name, "$parentValue");
             return;
         }
 
         var declaringType = target.GetType();
         var memberType = value.GetType();
-        if (serialization.TryGetScrubOrIgnore(declaringType, memberType, name, null, out var scrubOrIgnore))
+        if (serialization.TryGetScrubOrIgnore(declaringType, memberType, name, out var scrubOrIgnore))
         {
-            if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+            if (scrubOrIgnore != ScrubOrIgnore.Ignore)
             {
-                return;
+                WriteRawOrStrictMember(name, "Scrubbed");
             }
-
-            WritePropertyName(name);
-            WriteRawValueIfNoStrict("Scrubbed");
 
             return;
         }
 
         if (serialization.TryGetScrubOrIgnoreByInstance(value, out scrubOrIgnore))
         {
-            if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+            if (scrubOrIgnore != ScrubOrIgnore.Ignore)
             {
-                return;
+                WriteRawOrStrictMember(name, "Scrubbed");
             }
-
-            WritePropertyName(name);
-            WriteRawValueIfNoStrict("Scrubbed");
 
             return;
         }
@@ -273,14 +266,19 @@ public class VerifyJsonWriter :
         WriteOrSerialize(value);
     }
 
+    void WriteRawOrStrictMember(string name, string readOnlySpan)
+    {
+        WritePropertyName(name);
+        WriteRawValueIfNoStrict(readOnlySpan);
+    }
+
     void WriteNullMember(string name)
     {
         if (serialization.TryGetScrubOrIgnoreByName(name, out var scrubOrIgnoreByName))
         {
             if (scrubOrIgnoreByName != ScrubOrIgnore.Ignore)
             {
-                WritePropertyName(name);
-                WriteRawValueIfNoStrict("Scrubbed");
+                WriteRawOrStrictMember(name, "Scrubbed");
             }
         }
         else if (!serialization.IgnoreNulls)

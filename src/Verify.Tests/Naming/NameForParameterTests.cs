@@ -2,19 +2,19 @@
 {
     [Fact]
     public Task Null() =>
-        Verify(VerifierSettings.GetNameForParameter(null, counter: Counter()));
+        Verify(VerifierSettings.GetNameForParameter(null, counter: CounterBuilder.Empty()));
 
     [Fact]
     public Task StringEmpty() =>
-        Verify(VerifierSettings.GetNameForParameter("", counter: Counter()));
+        Verify(VerifierSettings.GetNameForParameter("", counter: CounterBuilder.Empty()));
 
     [Fact]
     public Task StringInvalidPathChar() =>
-        Verify(VerifierSettings.GetNameForParameter("a/a", counter: Counter()));
+        Verify(VerifierSettings.GetNameForParameter("a/a", counter: CounterBuilder.Empty()));
 
     [Fact]
     public Task Int() =>
-        Verify(VerifierSettings.GetNameForParameter(10, counter: Counter()));
+        Verify(VerifierSettings.GetNameForParameter(10, counter: CounterBuilder.Empty()));
 
     [Fact]
     public Task NullCounter() =>
@@ -26,7 +26,7 @@
         Verify(
             VerifierSettings.GetNameForParameter(
                 (Half) 10,
-                counter: Counter()));
+                counter: CounterBuilder.Empty()));
 #endif
 
 #if NET6_0_OR_GREATER
@@ -35,14 +35,14 @@
         Verify(
             VerifierSettings.GetNameForParameter(
                 new Date(2000, 10, 1),
-                counter: Counter()));
+                counter: CounterBuilder.Empty()));
 
     [Fact]
     public Task Time() =>
         Verify(
             VerifierSettings.GetNameForParameter(
                 new Date(2000, 10, 1),
-                counter: Counter()));
+                counter: CounterBuilder.Empty()));
 #endif
 
     [Fact]
@@ -52,7 +52,7 @@
         return Verify(
             VerifierSettings.GetNameForParameter(
                 date,
-                counter: Counter()));
+                counter: CounterBuilder.Empty()));
     }
 
     [Fact]
@@ -62,7 +62,7 @@
         return Verify(
             VerifierSettings.GetNameForParameter(
                 date,
-                counter: Counter()));
+                counter: CounterBuilder.Empty()));
     }
 
     [Fact]
@@ -72,7 +72,7 @@
         return Verify(
             VerifierSettings.GetNameForParameter(
                 date,
-                counter: Counter()));
+                counter: CounterBuilder.Empty()));
     }
 
     [Fact]
@@ -82,7 +82,7 @@
         return Verify(
             VerifierSettings.GetNameForParameter(
                 date,
-                counter: Counter()));
+                counter: CounterBuilder.Empty()));
     }
 
     [Fact]
@@ -92,7 +92,7 @@
             {
                 "value"
             },
-            counter: Counter()));
+            counter: CounterBuilder.Empty()));
 
     [Fact]
     public Task ListMultiple() =>
@@ -103,7 +103,7 @@
                 "value1",
                 "value2"
             },
-            counter: Counter()));
+            counter: CounterBuilder.Empty()));
 
     [Fact]
     public Task Nested() =>
@@ -122,14 +122,14 @@
                 },
                 "value4"
             },
-            counter: Counter()));
+            counter: CounterBuilder.Empty()));
 
     [Fact]
     public Task EmptyList() =>
         Verify(
             VerifierSettings.GetNameForParameter(
                 new List<string>(),
-                counter: Counter()));
+                counter: CounterBuilder.Empty()));
 
     [Fact]
     public Task Dictionary() =>
@@ -140,7 +140,7 @@
                     "value", 10
                 }
             },
-            counter: Counter()));
+            counter: CounterBuilder.Empty()));
 
     [Fact]
     public Task DictionaryMultiple() =>
@@ -154,21 +154,21 @@
                     "value2", 11
                 }
             },
-            counter: Counter()));
+            counter: CounterBuilder.Empty()));
 
     [Fact]
     public Task EmptyDictionary() =>
         Verify(
             VerifierSettings.GetNameForParameter(
                 new Dictionary<string, int>(),
-                counter: Counter()));
+                counter: CounterBuilder.Empty()));
 
     [Fact]
     public Task EnumerableStaticEmpty() =>
         Verify(
             VerifierSettings.GetNameForParameter(
                 Enumerable.Empty<string>(),
-                counter: Counter()));
+                counter: CounterBuilder.Empty()));
 
     [Fact]
     public Task Array() =>
@@ -178,18 +178,7 @@
             {
                 "value"
             },
-            counter: Counter()));
-
-    private static Counter Counter() =>
-        new(
-            true,
-#if NET6_0_OR_GREATER
-            [],
-            [],
-#endif
-            [],
-            [],
-            []);
+            counter: CounterBuilder.Empty()));
 
     [Fact]
     public Task ArrayMultiple() =>
@@ -199,12 +188,12 @@
                 "value1",
                 "value2"
             },
-            counter: Counter()));
+            counter: CounterBuilder.Empty()));
 
     [Fact]
     public Task ArrayEmpty() =>
         Verify(
             VerifierSettings.GetNameForParameter(
                 System.Array.Empty<string>(),
-                counter: Counter()));
+                counter: CounterBuilder.Empty()));
 }

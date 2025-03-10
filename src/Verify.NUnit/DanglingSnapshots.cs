@@ -7,7 +7,7 @@ public static class DanglingSnapshots
         var state = TestExecutionContext.CurrentContext.CurrentResult.ResultState;
         if (state == ResultState.Success)
         {
-            DanglingSnapshotsCheck.Run(true);
+            DanglingSnapshotsCheck.Run();
         }
     }
 }

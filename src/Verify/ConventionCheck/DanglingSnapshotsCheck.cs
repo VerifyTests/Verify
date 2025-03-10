@@ -9,7 +9,7 @@ static class DanglingSnapshotsCheck
 
     internal static void TrackVerifiedFile(string path) => trackedVerifiedFiles?.Add(path);
 
-    public static void Run(bool failFast)
+    public static void Run()
     {
         if (!BuildServerDetector.Detected)
         {
@@ -18,10 +18,10 @@ static class DanglingSnapshotsCheck
 
         var directory = AttributeReader.GetProjectDirectory(VerifierSettings.Assembly);
         var files = Directory.EnumerateFiles(directory, "*.verified.*", SearchOption.AllDirectories);
-        CheckFiles(files, trackedVerifiedFiles!, failFast, directory);
+        CheckFiles(files, trackedVerifiedFiles!, directory);
     }
 
-    internal static void CheckFiles(IEnumerable<string> filesOnDisk, ConcurrentBag<string> trackedFiles, bool failFast, string directory)
+    internal static void CheckFiles(IEnumerable<string> filesOnDisk, ConcurrentBag<string> trackedFiles, string directory)
     {
         static void AppendItems(StringBuilder builder, List<string> list, string title)
         {
@@ -80,14 +80,7 @@ static class DanglingSnapshotsCheck
 
         AppendItems(builder, untracked, "The following files have not been tracked:");
         AppendItems(builder, incorrectCase, "The following files have been tracked with incorrect case:");
-        var message = builder.ToString();
-
-        if (failFast)
-        {
-            Environment.FailFast(message);
-        }
-
-        throw new(message);
+        throw new(builder.ToString());
     }
 
     static bool IfFileUnique(string file) =>

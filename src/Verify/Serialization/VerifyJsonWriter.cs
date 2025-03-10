@@ -138,6 +138,7 @@ public class VerifyJsonWriter :
             {
                 WriteRawValue(value);
             }
+
             base.Flush();
             builder.Remove(builderLength, 1);
             return;
@@ -266,6 +267,93 @@ public class VerifyJsonWriter :
         WriteOrSerialize(value);
     }
 
+    /// <summary>
+    /// Writes a property name and value while respecting other custom serialization settings.
+    /// </summary>
+    public void WriteMember(object target, string? value, string name)
+    {
+        if (value is null)
+        {
+            WriteNullMember(name);
+            return;
+        }
+
+        var declaringType = target.GetType();
+        if (serialization.TryGetScrubOrIgnore(declaringType, typeof(string), name, out var scrubOrIgnore))
+        {
+            if (scrubOrIgnore != ScrubOrIgnore.Ignore)
+            {
+                WriteRawOrStrictMember(name, "Scrubbed");
+            }
+
+            return;
+        }
+
+        if (serialization.TryGetScrubOrIgnoreByInstance(value, out scrubOrIgnore))
+        {
+            if (scrubOrIgnore != ScrubOrIgnore.Ignore)
+            {
+                WriteRawOrStrictMember(name, "Scrubbed");
+            }
+
+            return;
+        }
+
+        var converter = VerifierSettings.GetMemberConverter(declaringType, name);
+        if (converter is not null)
+        {
+            value = (string?) converter(target, value);
+            if (value is null)
+            {
+                return;
+            }
+        }
+
+        WritePropertyName(name);
+        WriteValue(value);
+    }
+    /// <summary>
+    /// Writes a property name and value while respecting other custom serialization settings.
+    /// </summary>
+    public void WriteMember(object target, CharSpan value, string name)
+    {
+        var declaringType = target.GetType();
+        if (serialization.TryGetScrubOrIgnore(declaringType, typeof(CharSpan), name, out var scrubOrIgnore))
+        {
+            if (scrubOrIgnore != ScrubOrIgnore.Ignore)
+            {
+                WriteRawOrStrictMember(name, "Scrubbed");
+            }
+
+            return;
+        }
+
+        //TODO: support instance scrubbing for CharSpan?
+        // if (serialization.TryGetScrubOrIgnoreByInstance(value, out scrubOrIgnore))
+        // {
+        //     if (scrubOrIgnore != ScrubOrIgnore.Ignore)
+        //     {
+        //         WriteRawOrStrictMember(name, "Scrubbed");
+        //     }
+        //
+        //     return;
+        // }
+
+        //TODO: support converters for CharSpan?
+        // var converter = VerifierSettings.GetMemberConverter(declaringType, name);
+        // if (converter is not null)
+        // {
+        //     value = (string?) converter(target, value);
+        //     if (value is null)
+        //     {
+        //         return;
+        //     }
+        // }
+
+        WritePropertyName(name);
+        WriteValue(value);
+    }
+
     void WriteRawOrStrictMember(string name, string value)
     {
         WritePropertyName(name);
@@ -288,21 +376,21 @@ public class VerifyJsonWriter :
         }
     }
 
-    void WriteOrSerialize(object converted)
+    void WriteOrSerialize(object value)
     {
-        if (converted is string convertedString)
+        if (value is string stringValue)
         {
-            WriteValue(convertedString);
+            WriteValue(stringValue);
             return;
         }
 
-        if (converted.GetType().IsPrimitive)
+        if (value.GetType().IsPrimitive)
         {
-            WriteValue(converted);
+            WriteValue(value);
             return;
         }
 
-        settings.Serializer.Serialize(this, converted);
+        settings.Serializer.Serialize(this, value);
     }
 
     /// <summary>

@@ -1,9 +1,9 @@
-﻿[SetUpFixture]
-static class SetUp
+﻿#pragma warning disable VerifyDanglingSnapshots
+
+[SetUpFixture]
+public static class SetUp
 {
     [OneTimeTearDown]
     public static void Run() =>
-#pragma warning disable VerifyDanglingSnapshots
         DanglingSnapshots.Run();
-#pragma warning restore VerifyDanglingSnapshots
 }

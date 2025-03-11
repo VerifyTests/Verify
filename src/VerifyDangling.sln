@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanglingSnapshotsMSTestUsag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanglingSnapshotsXunitV3Usage", "DanglingSnapshotsXunitV3Usage\DanglingSnapshotsXunitV3Usage.csproj", "{D1C6D798-73B7-48A6-8A04-439C337E2123}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.MSTest.SourceGenerator", "Verify.MSTest.SourceGenerator\Verify.MSTest.SourceGenerator.csproj", "{F94EA9BA-2C50-48DE-8F73-1356316F5E20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +105,10 @@ Global
 		{D1C6D798-73B7-48A6-8A04-439C337E2123}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1C6D798-73B7-48A6-8A04-439C337E2123}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1C6D798-73B7-48A6-8A04-439C337E2123}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F94EA9BA-2C50-48DE-8F73-1356316F5E20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F94EA9BA-2C50-48DE-8F73-1356316F5E20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F94EA9BA-2C50-48DE-8F73-1356316F5E20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F94EA9BA-2C50-48DE-8F73-1356316F5E20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

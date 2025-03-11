@@ -1,3 +1,4 @@
+#pragma warning disable VerifyDanglingSnapshots
 public class DanglingSnapshotsCheckTests
 {
     [Fact]

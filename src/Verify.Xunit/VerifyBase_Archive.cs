@@ -1,6 +1,4 @@
-﻿using System.IO.Compression;
-
-namespace VerifyXunit;
+﻿namespace VerifyXunit;
 
 public partial class VerifyBase
 {

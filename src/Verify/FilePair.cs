@@ -1,5 +1,4 @@
-﻿#pragma warning disable DanglingSnapshotsCheck
-
+﻿#pragma warning disable VerifyDanglingSnapshots
 namespace VerifyTests;
 
 public readonly struct FilePair

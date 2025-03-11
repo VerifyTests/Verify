@@ -3,7 +3,8 @@
 
 namespace VerifyTests;
 
-static class DanglingSnapshotsCheck
+[Experimental("VerifyDanglingSnapshots")]
+public static class DanglingSnapshotsCheck
 {
     static ConcurrentBag<string>? trackedVerifiedFiles;
 

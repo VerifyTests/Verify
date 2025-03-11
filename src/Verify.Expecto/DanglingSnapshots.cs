@@ -1,4 +1,4 @@
-﻿namespace VerifyNUnit;
+﻿namespace VerifyExpecto;
 
 [Experimental("VerifyDanglingSnapshots")]
 public static class DanglingSnapshots

@@ -1,4 +1,4 @@
-﻿namespace VerifyMSTest;
+﻿namespace VerifyTUnit;
 
 [Experimental("VerifyDanglingSnapshots")]
 public static class DanglingSnapshots

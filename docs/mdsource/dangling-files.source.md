@@ -1,6 +1,6 @@
 # Dangling snapshot files
 
-A dangling snapshot file are when `.verified.` file exist with no corresponding test. This can occur when a test, with corresponding test snapshot file(s), is renamed or deleted. The snapshot file are now redundant and noise on the file system and in the solution explorer
+A dangling snapshot file are when a `.verified.` file exist with no corresponding test. This can occur when a test, with corresponding test snapshot file(s), is renamed or deleted. The snapshot file are now redundant and noise on the file system and in the solution explorer
 
 
 ## How dangling snapshot checks works

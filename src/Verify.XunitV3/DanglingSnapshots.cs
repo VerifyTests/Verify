@@ -2,5 +2,5 @@
 
 public static class DanglingSnapshots
 {
-    public static void Run() => DanglingSnapshotsCheck.Run(true);
+    public static void Run() => DanglingSnapshotsCheck.Run();
 }

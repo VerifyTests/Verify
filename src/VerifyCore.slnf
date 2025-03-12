@@ -3,11 +3,10 @@
     "path": "Verify.sln",
     "projects": [
       "TargetLibrary\\TargetLibrary.csproj",
-      "Verify.ClipboardAccept\\Verify.ClipboardAccept.csproj",
+      "Verify.NUnit\\Verify.NUnit.csproj",
       "Verify.SamplePlugin\\Verify.SamplePlugin.csproj",
       "Verify.Tests\\Verify.Tests.csproj",
       "Verify.Xunit\\Verify.Xunit.csproj",
-      "Verify.NUnit\\Verify.NUnit.csproj",
       "Verify\\Verify.csproj"
     ]
   }

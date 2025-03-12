@@ -25,11 +25,6 @@ public class Snippets
         #endregion
     }
 
-    void EnableClipboard() =>
-    #region EnableClipboard
-        ClipboardAccept.Enable();
-    #endregion
-
     void TreatAsString() =>
     #region TreatAsString
         VerifierSettings.TreatAsString<ClassWithToString>(

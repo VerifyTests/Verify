@@ -8,6 +8,11 @@
         Assert.True(ClipboardEnabled.ParseEnvironmentVariable("true"));
     }
 
+    void EnableClipboard() =>
+    #region EnableClipboard
+        ClipboardAccept.Enable();
+    #endregion
+
     [Fact]
     public Task ParseEnvironmentVariable_failure() =>
         Throws(() => ClipboardEnabled.ParseEnvironmentVariable("foo"));

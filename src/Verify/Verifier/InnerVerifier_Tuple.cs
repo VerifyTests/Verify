@@ -1,4 +1,5 @@
-﻿namespace VerifyTests;
+﻿#if !NET462
+namespace VerifyTests;
 
 partial class InnerVerifier
 {
@@ -8,3 +9,4 @@ partial class InnerVerifier
         return Verify(dictionary);
     }
 }
+#endif

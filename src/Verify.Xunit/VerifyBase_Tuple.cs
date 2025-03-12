@@ -1,4 +1,5 @@
-﻿namespace VerifyXunit;
+﻿#if !NET462
+namespace VerifyXunit;
 
 public partial class VerifyBase
 {
@@ -8,3 +9,4 @@ public partial class VerifyBase
         VerifySettings? settings = null) =>
         Verifier.VerifyTuple(target, settings ?? this.settings, sourceFile);
 }
+#endif

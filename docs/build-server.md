@@ -100,7 +100,7 @@ if (BuildServerDetector.Detected)
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L45-L59' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoAppVeyor' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L40-L54' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoAppVeyor' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

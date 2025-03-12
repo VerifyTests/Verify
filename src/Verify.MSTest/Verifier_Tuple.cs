@@ -1,3 +1,4 @@
+#if !NET462
 namespace VerifyMSTest;
 
 partial class Verifier
@@ -9,3 +10,4 @@ partial class Verifier
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyTuple(target));
 }
+#endif

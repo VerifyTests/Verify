@@ -17,7 +17,7 @@
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" />
     <!-- https://learn.microsoft.com/en-us/visualstudio/extensibility/roslyn-version-support?view=vs-2022 -->
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageVersion Include="NUnit" Version="4.3.2" />
     <PackageVersion Include="MSTest" Version="3.8.2" />
@@ -27,12 +27,12 @@
     <PackageVersion Include="ProjectDefaults" Version="1.0.148" />
     <PackageVersion Include="PublicApiGenerator" Version="11.4.5" />
     <PackageVersion Include="SimpleInfoName" Version="3.1.0" />
-    <PackageVersion Include="System.Drawing.Common" Version="9.0.2" />
-    <PackageVersion Include="System.IO.Hashing" Version="9.0.2" />
+    <PackageVersion Include="System.Drawing.Common" Version="9.0.3" />
+    <PackageVersion Include="System.IO.Hashing" Version="9.0.3" />
     <PackageVersion Include="System.Memory" Version="4.6.0" />
     <PackageVersion Include="TextCopy" Version="6.2.1" />
-    <PackageVersion Include="TUnit" Version="0.16.28" />
-    <PackageVersion Include="TUnit.Core" Version="0.16.28" />
+    <PackageVersion Include="TUnit" Version="0.18.9" />
+    <PackageVersion Include="TUnit.Core" Version="0.18.9" />
     <PackageVersion Include="Xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.abstractions" Version="2.0.3" />
     <PackageVersion Include="xunit.extensibility.execution" Version="2.9.3" />

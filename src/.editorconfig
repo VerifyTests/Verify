@@ -335,6 +335,8 @@ resharper_return_value_of_pure_method_is_not_used_highlighting = error
 
 resharper_all_underscore_local_parameter_name_highlighting = none
 
+resharper_misleading_body_like_statement_highlighting = error
+
 # Xml files
 [*.{xml,config,nuspec,resx,vsixmanifest,csproj,targets,props,fsproj}]
 indent_size = 2

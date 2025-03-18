@@ -12,7 +12,7 @@ public partial class Combination
             sourceFile,
             _ =>
             {
-                var target = CombinationRunner.Run(method, captureExceptions, a);
+                var target = CombinationRunner.Run(method, captureExceptions, a, [aName]);
                 return _.Verify(target);
             });
 
@@ -28,7 +28,7 @@ public partial class Combination
             sourceFile,
             _ =>
             {
-                var target = CombinationRunner.Run(method, captureExceptions, a, b);
+                var target = CombinationRunner.Run(method, captureExceptions, a, b, [aName, bName]);
                 return _.Verify(target);
             });
 
@@ -46,7 +46,7 @@ public partial class Combination
             sourceFile,
             _ =>
             {
-                var target = CombinationRunner.Run(method, captureExceptions, a, b, c);
+                var target = CombinationRunner.Run(method, captureExceptions, a, b, c, [aName, bName, cName]);
                 return _.Verify(target);
             });
 
@@ -66,7 +66,7 @@ public partial class Combination
             sourceFile,
             _ =>
             {
-                var target = CombinationRunner.Run(method, captureExceptions, a, b, c, d);
+                var target = CombinationRunner.Run(method, captureExceptions, a, b, c, d, [aName, bName, cName, dName]);
                 return _.Verify(target);
             });
 
@@ -88,7 +88,7 @@ public partial class Combination
             sourceFile,
             _ =>
             {
-                var target = CombinationRunner.Run(method, captureExceptions, a, b, c, d, e);
+                var target = CombinationRunner.Run(method, captureExceptions, a, b, c, d, e, [aName, bName, cName, dName, eName]);
                 return _.Verify(target);
             });
 
@@ -112,7 +112,7 @@ public partial class Combination
             sourceFile,
             _ =>
             {
-                var target = CombinationRunner.Run(method, captureExceptions, a, b, c, d, e, f);
+                var target = CombinationRunner.Run(method, captureExceptions, a, b, c, d, e, f, [aName, bName, cName, dName, eName, fName]);
                 return _.Verify(target);
             });
 
@@ -138,7 +138,7 @@ public partial class Combination
             sourceFile,
             _ =>
             {
-                var target = CombinationRunner.Run(method, captureExceptions, a, b, c, d, e, f, g);
+                var target = CombinationRunner.Run(method, captureExceptions, a, b, c, d, e, f, g, [aName, bName, cName, dName, eName, fName, gName]);
                 return _.Verify(target);
             });
 
@@ -166,7 +166,7 @@ public partial class Combination
             sourceFile,
             _ =>
             {
-                var target = CombinationRunner.Run(method, captureExceptions, a, b, c, d, e, f, g, h);
+                var target = CombinationRunner.Run(method, captureExceptions, a, b, c, d, e, f, g, h, [aName, bName, cName, dName, eName, fName, gName, hName]);
                 return _.Verify(target);
             });
 }

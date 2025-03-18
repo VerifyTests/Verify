@@ -84,6 +84,7 @@ public partial class Combination
         [CallerArgumentExpression(nameof(d))] string? dName = null,
         [CallerArgumentExpression(nameof(e))] string? eName = null) =>
         verify(
+            settings,
             sourceFile,
             _ =>
             {

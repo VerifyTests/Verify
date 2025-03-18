@@ -6,14 +6,7 @@ public partial class Combination
     public SettingsTask Verify<A, TReturn>(
         Func<A, ValueTask<TReturn>> method,
         IEnumerable<A> a,
-        [CallerArgumentExpression(nameof(a))] string? aName = null,
-        [CallerArgumentExpression(nameof(a))] string? bName = null,
-        [CallerArgumentExpression(nameof(a))] string? cName = null,
-        [CallerArgumentExpression(nameof(a))] string? dName = null,
-        [CallerArgumentExpression(nameof(a))] string? eName = null,
-        [CallerArgumentExpression(nameof(a))] string? fName = null,
-        [CallerArgumentExpression(nameof(a))] string? gName = null,
-        [CallerArgumentExpression(nameof(a))] string? hName = null) =>
+        [CallerArgumentExpression(nameof(a))] string? aName = null) =>
         verify(
             settings,
             sourceFile,
@@ -29,13 +22,7 @@ public partial class Combination
         IEnumerable<A> a,
         IEnumerable<B> b,
         [CallerArgumentExpression(nameof(a))] string? aName = null,
-        [CallerArgumentExpression(nameof(a))] string? bName = null,
-        [CallerArgumentExpression(nameof(a))] string? cName = null,
-        [CallerArgumentExpression(nameof(a))] string? dName = null,
-        [CallerArgumentExpression(nameof(a))] string? eName = null,
-        [CallerArgumentExpression(nameof(a))] string? fName = null,
-        [CallerArgumentExpression(nameof(a))] string? gName = null,
-        [CallerArgumentExpression(nameof(a))] string? hName = null) =>
+        [CallerArgumentExpression(nameof(b))] string? bName = null) =>
         verify(
             settings,
             sourceFile,
@@ -52,13 +39,8 @@ public partial class Combination
         IEnumerable<B> b,
         IEnumerable<C> c,
         [CallerArgumentExpression(nameof(a))] string? aName = null,
-        [CallerArgumentExpression(nameof(a))] string? bName = null,
-        [CallerArgumentExpression(nameof(a))] string? cName = null,
-        [CallerArgumentExpression(nameof(a))] string? dName = null,
-        [CallerArgumentExpression(nameof(a))] string? eName = null,
-        [CallerArgumentExpression(nameof(a))] string? fName = null,
-        [CallerArgumentExpression(nameof(a))] string? gName = null,
-        [CallerArgumentExpression(nameof(a))] string? hName = null) =>
+        [CallerArgumentExpression(nameof(b))] string? bName = null,
+        [CallerArgumentExpression(nameof(c))] string? cName = null) =>
         verify(
             settings,
             sourceFile,
@@ -76,13 +58,9 @@ public partial class Combination
         IEnumerable<C> c,
         IEnumerable<D> d,
         [CallerArgumentExpression(nameof(a))] string? aName = null,
-        [CallerArgumentExpression(nameof(a))] string? bName = null,
-        [CallerArgumentExpression(nameof(a))] string? cName = null,
-        [CallerArgumentExpression(nameof(a))] string? dName = null,
-        [CallerArgumentExpression(nameof(a))] string? eName = null,
-        [CallerArgumentExpression(nameof(a))] string? fName = null,
-        [CallerArgumentExpression(nameof(a))] string? gName = null,
-        [CallerArgumentExpression(nameof(a))] string? hName = null) =>
+        [CallerArgumentExpression(nameof(b))] string? bName = null,
+        [CallerArgumentExpression(nameof(c))] string? cName = null,
+        [CallerArgumentExpression(nameof(d))] string? dName = null) =>
         verify(
             settings,
             sourceFile,
@@ -101,13 +79,10 @@ public partial class Combination
         IEnumerable<D> d,
         IEnumerable<E> e,
         [CallerArgumentExpression(nameof(a))] string? aName = null,
-        [CallerArgumentExpression(nameof(a))] string? bName = null,
-        [CallerArgumentExpression(nameof(a))] string? cName = null,
-        [CallerArgumentExpression(nameof(a))] string? dName = null,
-        [CallerArgumentExpression(nameof(a))] string? eName = null,
-        [CallerArgumentExpression(nameof(a))] string? fName = null,
-        [CallerArgumentExpression(nameof(a))] string? gName = null,
-        [CallerArgumentExpression(nameof(a))] string? hName = null) =>
+        [CallerArgumentExpression(nameof(b))] string? bName = null,
+        [CallerArgumentExpression(nameof(c))] string? cName = null,
+        [CallerArgumentExpression(nameof(d))] string? dName = null,
+        [CallerArgumentExpression(nameof(e))] string? eName = null) =>
         verify(
             settings,
             sourceFile,
@@ -127,13 +102,11 @@ public partial class Combination
         IEnumerable<E> e,
         IEnumerable<F> f,
         [CallerArgumentExpression(nameof(a))] string? aName = null,
-        [CallerArgumentExpression(nameof(a))] string? bName = null,
-        [CallerArgumentExpression(nameof(a))] string? cName = null,
-        [CallerArgumentExpression(nameof(a))] string? dName = null,
-        [CallerArgumentExpression(nameof(a))] string? eName = null,
-        [CallerArgumentExpression(nameof(a))] string? fName = null,
-        [CallerArgumentExpression(nameof(a))] string? gName = null,
-        [CallerArgumentExpression(nameof(a))] string? hName = null) =>
+        [CallerArgumentExpression(nameof(b))] string? bName = null,
+        [CallerArgumentExpression(nameof(c))] string? cName = null,
+        [CallerArgumentExpression(nameof(d))] string? dName = null,
+        [CallerArgumentExpression(nameof(e))] string? eName = null,
+        [CallerArgumentExpression(nameof(f))] string? fName = null) =>
         verify(
             settings,
             sourceFile,
@@ -154,13 +127,12 @@ public partial class Combination
         IEnumerable<F> f,
         IEnumerable<G> g,
         [CallerArgumentExpression(nameof(a))] string? aName = null,
-        [CallerArgumentExpression(nameof(a))] string? bName = null,
-        [CallerArgumentExpression(nameof(a))] string? cName = null,
-        [CallerArgumentExpression(nameof(a))] string? dName = null,
-        [CallerArgumentExpression(nameof(a))] string? eName = null,
-        [CallerArgumentExpression(nameof(a))] string? fName = null,
-        [CallerArgumentExpression(nameof(a))] string? gName = null,
-        [CallerArgumentExpression(nameof(a))] string? hName = null) =>
+        [CallerArgumentExpression(nameof(b))] string? bName = null,
+        [CallerArgumentExpression(nameof(c))] string? cName = null,
+        [CallerArgumentExpression(nameof(d))] string? dName = null,
+        [CallerArgumentExpression(nameof(e))] string? eName = null,
+        [CallerArgumentExpression(nameof(f))] string? fName = null,
+        [CallerArgumentExpression(nameof(g))] string? gName = null) =>
         verify(
             settings,
             sourceFile,
@@ -182,13 +154,13 @@ public partial class Combination
         IEnumerable<G> g,
         IEnumerable<H> h,
         [CallerArgumentExpression(nameof(a))] string? aName = null,
-        [CallerArgumentExpression(nameof(a))] string? bName = null,
-        [CallerArgumentExpression(nameof(a))] string? cName = null,
-        [CallerArgumentExpression(nameof(a))] string? dName = null,
-        [CallerArgumentExpression(nameof(a))] string? eName = null,
-        [CallerArgumentExpression(nameof(a))] string? fName = null,
-        [CallerArgumentExpression(nameof(a))] string? gName = null,
-        [CallerArgumentExpression(nameof(a))] string? hName = null) =>
+        [CallerArgumentExpression(nameof(b))] string? bName = null,
+        [CallerArgumentExpression(nameof(c))] string? cName = null,
+        [CallerArgumentExpression(nameof(d))] string? dName = null,
+        [CallerArgumentExpression(nameof(e))] string? eName = null,
+        [CallerArgumentExpression(nameof(f))] string? fName = null,
+        [CallerArgumentExpression(nameof(g))] string? gName = null,
+        [CallerArgumentExpression(nameof(h))] string? hName = null) =>
         verify(
             settings,
             sourceFile,

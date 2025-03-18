@@ -1,4 +1,5 @@
 ﻿{
+  number, street    , city   : result,
   1, Smith St, Sydney: 1 Smith St, Sydney,
   1, Smith St, Chicago: 1 Smith St, Chicago,
   1, Wallace St, Sydney: 1 Wallace St, Sydney,

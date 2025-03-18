@@ -179,15 +179,15 @@
     [Fact]
     public Task BuildAddressExceptionsDisabledTest()
     {
-        int[] streetNumbers = [1, 10];
-        string[] streets = ["Smith St", "Wallace St"];
-        string[] cities = ["Sydney", "Chicago"];
+        int[] number = [1, 10];
+        string[] street = ["Smith St", "Wallace St"];
+        string[] city = ["Sydney", "Chicago"];
         return Combination(captureExceptions: false)
             .Verify(
                 BuildAddress,
-                streetNumbers,
-                streets,
-                cities);
+                number,
+                street,
+                city);
     }
 
     #endregion

@@ -1,4 +1,5 @@
 ﻿{
+  a, b, c    : result,
   A, 1, True : a1True,
   A, 1, False: a1False,
   A, 2, True : a2True,

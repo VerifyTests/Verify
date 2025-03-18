@@ -16,13 +16,13 @@ Combinations allows all combinations of the given input lists to be executed, an
 <!-- snippet: CombinationTargetMethod -->
 <a id='snippet-CombinationTargetMethod'></a>
 ```cs
-public static string BuildAddress(int streetNumber, string street, string city)
+public static string BuildAddress(int number, string street, string city)
 {
     ArgumentException.ThrowIfNullOrWhiteSpace(street);
     ArgumentException.ThrowIfNullOrWhiteSpace(city);
-    ArgumentOutOfRangeException.ThrowIfLessThan(streetNumber, 1);
+    ArgumentOutOfRangeException.ThrowIfLessThan(number, 1);
 
-    return $"{streetNumber} {street}, {city}";
+    return $"{number} {street}, {city}";
 }
 ```
 <sup><a href='/src/Verify.Tests/CombinationSample.cs#L5-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationTargetMethod' title='Start of snippet'>anchor</a></sup>
@@ -37,13 +37,13 @@ public static string BuildAddress(int streetNumber, string street, string city)
 [Fact]
 public Task BuildAddressTest()
 {
-    int[] streetNumber = [1, 10];
+    int[] number = [1, 10];
     string[] street = ["Smith St", "Wallace St"];
     string[] city = ["Sydney", "Chicago"];
     return Combination()
         .Verify(
             BuildAddress,
-            streetNumber,
+            number,
             street,
             city);
 }
@@ -58,17 +58,18 @@ public Task BuildAddressTest()
 <a id='snippet-CombinationSample.BuildAddressTest.verified.txt'></a>
 ```txt
 {
-   1, Smith St  , Sydney : 1 Smith St, Sydney,
-   1, Smith St  , Chicago: 1 Smith St, Chicago,
-   1, Wallace St, Sydney : 1 Wallace St, Sydney,
-   1, Wallace St, Chicago: 1 Wallace St, Chicago,
-  10, Smith St  , Sydney : 10 Smith St, Sydney,
-  10, Smith St  , Chicago: 10 Smith St, Chicago,
-  10, Wallace St, Sydney : 10 Wallace St, Sydney,
-  10, Wallace St, Chicago: 10 Wallace St, Chicago
+  number, street    , city   : result,
+       1, Smith St  , Sydney : 1 Smith St, Sydney,
+       1, Smith St  , Chicago: 1 Smith St, Chicago,
+       1, Wallace St, Sydney : 1 Wallace St, Sydney,
+       1, Wallace St, Chicago: 1 Wallace St, Chicago,
+      10, Smith St  , Sydney : 10 Smith St, Sydney,
+      10, Smith St  , Chicago: 10 Smith St, Chicago,
+      10, Wallace St, Sydney : 10 Wallace St, Sydney,
+      10, Wallace St, Chicago: 10 Wallace St, Chicago
 }
 ```
-<sup><a href='/src/Verify.Tests/CombinationSample.BuildAddressTest.verified.txt#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample.BuildAddressTest.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/CombinationSample.BuildAddressTest.verified.txt#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample.BuildAddressTest.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -94,13 +95,13 @@ To enable exception capture use `captureExceptions = true`:
 [Fact]
 public Task BuildAddressExceptionsTest()
 {
-    int[] streetNumber = [-1, 0, 10];
+    int[] number = [-1, 0, 10];
     string[] street = ["", " ", "Valid St"];
     string[] city = [null!, "Valid City"];
     return Combination(captureExceptions: true)
         .Verify(
             BuildAddress,
-            streetNumber,
+            number,
             street,
             city
         );
@@ -116,27 +117,28 @@ public Task BuildAddressExceptionsTest()
 <a id='snippet-CombinationSample.BuildAddressExceptionsTest.verified.txt'></a>
 ```txt
 {
-  -1,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-  -1,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-  -1,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-  -1,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-  -1, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city').,
-  -1, Valid St, Valid City: ArgumentOutOfRangeException: streetNumber ('-1') must be greater than or equal to '1'. (Parameter 'streetNumber'). Actual value was -1.,
-   0,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-   0,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-   0,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-   0,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-   0, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city').,
-   0, Valid St, Valid City: ArgumentOutOfRangeException: streetNumber ('0') must be greater than or equal to '1'. (Parameter 'streetNumber'). Actual value was 0.,
-  10,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-  10,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-  10,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-  10,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-  10, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city').,
-  10, Valid St, Valid City: 10 Valid St, Valid City
+  number, street  , city      : result,
+      -1,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+      -1,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+      -1,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+      -1,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+      -1, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city').,
+      -1, Valid St, Valid City: ArgumentOutOfRangeException: number ('-1') must be greater than or equal to '1'. (Parameter 'number'). Actual value was -1.,
+       0,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+       0,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+       0,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+       0,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+       0, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city').,
+       0, Valid St, Valid City: ArgumentOutOfRangeException: number ('0') must be greater than or equal to '1'. (Parameter 'number'). Actual value was 0.,
+      10,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+      10,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+      10,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+      10,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+      10, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city').,
+      10, Valid St, Valid City: 10 Valid St, Valid City
 }
 ```
-<sup><a href='/src/Verify.Tests/CombinationSample.BuildAddressExceptionsTest.verified.txt#L1-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample.BuildAddressExceptionsTest.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/CombinationSample.BuildAddressExceptionsTest.verified.txt#L1-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample.BuildAddressExceptionsTest.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -162,15 +164,15 @@ If exception capture has been enabled globally, it can be disable at the method 
 [Fact]
 public Task BuildAddressExceptionsDisabledTest()
 {
-    int[] streetNumbers = [1, 10];
-    string[] streets = ["Smith St", "Wallace St"];
-    string[] cities = ["Sydney", "Chicago"];
+    int[] number = [1, 10];
+    string[] street = ["Smith St", "Wallace St"];
+    string[] city = ["Sydney", "Chicago"];
     return Combination(captureExceptions: false)
         .Verify(
             BuildAddress,
-            streetNumbers,
-            streets,
-            cities);
+            number,
+            street,
+            city);
 }
 ```
 <sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L177-L193' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptionsFalse' title='Start of snippet'>anchor</a></sup>
@@ -391,6 +393,7 @@ public static void Init() =>
 <a id='snippet-CombinationTests.Combination_CustomSerialization.verified.txt'></a>
 ```txt
 {
+  streetNumbers, streets   , cities : result,
   1, Smith St, Sydney: 1 Smith St, Sydney,
   1, Smith St, Chicago: 1 Smith St, Chicago,
   1, Wallace St, Sydney: 1 Wallace St, Sydney,
@@ -401,5 +404,5 @@ public static void Init() =>
   10, Wallace St, Chicago: 10 Wallace St, Chicago
 }
 ```
-<sup><a href='/src/StaticSettingsTests/CombinationTests.Combination_CustomSerialization.verified.txt#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationTests.Combination_CustomSerialization.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationTests.Combination_CustomSerialization.verified.txt#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationTests.Combination_CustomSerialization.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

@@ -58,17 +58,18 @@ public Task BuildAddressTest()
 <a id='snippet-CombinationSample.BuildAddressTest.verified.txt'></a>
 ```txt
 {
-   1, Smith St  , Sydney : 1 Smith St, Sydney,
-   1, Smith St  , Chicago: 1 Smith St, Chicago,
-   1, Wallace St, Sydney : 1 Wallace St, Sydney,
-   1, Wallace St, Chicago: 1 Wallace St, Chicago,
-  10, Smith St  , Sydney : 10 Smith St, Sydney,
-  10, Smith St  , Chicago: 10 Smith St, Chicago,
-  10, Wallace St, Sydney : 10 Wallace St, Sydney,
-  10, Wallace St, Chicago: 10 Wallace St, Chicago
+  streetNumber, street    , city   : result,
+             1, Smith St  , Sydney : 1 Smith St, Sydney,
+             1, Smith St  , Chicago: 1 Smith St, Chicago,
+             1, Wallace St, Sydney : 1 Wallace St, Sydney,
+             1, Wallace St, Chicago: 1 Wallace St, Chicago,
+            10, Smith St  , Sydney : 10 Smith St, Sydney,
+            10, Smith St  , Chicago: 10 Smith St, Chicago,
+            10, Wallace St, Sydney : 10 Wallace St, Sydney,
+            10, Wallace St, Chicago: 10 Wallace St, Chicago
 }
 ```
-<sup><a href='/src/Verify.Tests/CombinationSample.BuildAddressTest.verified.txt#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample.BuildAddressTest.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/CombinationSample.BuildAddressTest.verified.txt#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample.BuildAddressTest.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -116,27 +117,28 @@ public Task BuildAddressExceptionsTest()
 <a id='snippet-CombinationSample.BuildAddressExceptionsTest.verified.txt'></a>
 ```txt
 {
-  -1,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-  -1,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-  -1,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-  -1,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-  -1, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city').,
-  -1, Valid St, Valid City: ArgumentOutOfRangeException: streetNumber ('-1') must be greater than or equal to '1'. (Parameter 'streetNumber'). Actual value was -1.,
-   0,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-   0,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-   0,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-   0,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-   0, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city').,
-   0, Valid St, Valid City: ArgumentOutOfRangeException: streetNumber ('0') must be greater than or equal to '1'. (Parameter 'streetNumber'). Actual value was 0.,
-  10,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-  10,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-  10,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-  10,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
-  10, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city').,
-  10, Valid St, Valid City: 10 Valid St, Valid City
+  streetNumber, street  , city      : result,
+            -1,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+            -1,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+            -1,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+            -1,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+            -1, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city').,
+            -1, Valid St, Valid City: ArgumentOutOfRangeException: streetNumber ('-1') must be greater than or equal to '1'. (Parameter 'streetNumber'). Actual value was -1.,
+             0,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+             0,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+             0,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+             0,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+             0, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city').,
+             0, Valid St, Valid City: ArgumentOutOfRangeException: streetNumber ('0') must be greater than or equal to '1'. (Parameter 'streetNumber'). Actual value was 0.,
+            10,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+            10,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+            10,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+            10,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
+            10, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city').,
+            10, Valid St, Valid City: 10 Valid St, Valid City
 }
 ```
-<sup><a href='/src/Verify.Tests/CombinationSample.BuildAddressExceptionsTest.verified.txt#L1-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample.BuildAddressExceptionsTest.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/CombinationSample.BuildAddressExceptionsTest.verified.txt#L1-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample.BuildAddressExceptionsTest.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

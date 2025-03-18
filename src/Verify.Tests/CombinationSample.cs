@@ -20,15 +20,15 @@ public class CombinationSample
     [Fact]
     public Task BuildAddressTest()
     {
-        int[] streetNumbers = [1, 10];
-        string[] streets = ["Smith St", "Wallace St"];
-        string[] cities = ["Sydney", "Chicago"];
+        int[] streetNumber = [1, 10];
+        string[] street = ["Smith St", "Wallace St"];
+        string[] city = ["Sydney", "Chicago"];
         return Combination()
             .Verify(
                 BuildAddress,
-                streetNumbers,
-                streets,
-                cities);
+                streetNumber,
+                street,
+                city);
     }
 
     #endregion
@@ -56,15 +56,15 @@ public class CombinationSample
     [Fact]
     public Task BuildAddressExceptionsTest()
     {
-        int[] streetNumbers = [-1, 0, 10];
-        string[] streets = ["", " ", "Valid St"];
-        string[] cities = [null!, "Valid City"];
+        int[] streetNumber = [-1, 0, 10];
+        string[] street = ["", " ", "Valid St"];
+        string[] city = [null!, "Valid City"];
         return Combination(captureExceptions: true)
             .Verify(
                 BuildAddress,
-                streetNumbers,
-                streets,
-                cities
+                streetNumber,
+                street,
+                city
             );
     }
 

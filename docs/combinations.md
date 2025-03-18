@@ -37,15 +37,15 @@ public static string BuildAddress(int streetNumber, string street, string city)
 [Fact]
 public Task BuildAddressTest()
 {
-    int[] streetNumbers = [1, 10];
-    string[] streets = ["Smith St", "Wallace St"];
-    string[] cities = ["Sydney", "Chicago"];
+    int[] streetNumber = [1, 10];
+    string[] street = ["Smith St", "Wallace St"];
+    string[] city = ["Sydney", "Chicago"];
     return Combination()
         .Verify(
             BuildAddress,
-            streetNumbers,
-            streets,
-            cities);
+            streetNumber,
+            street,
+            city);
 }
 ```
 <sup><a href='/src/Verify.Tests/CombinationSample.cs#L18-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample' title='Start of snippet'>anchor</a></sup>
@@ -94,15 +94,15 @@ To enable exception capture use `captureExceptions = true`:
 [Fact]
 public Task BuildAddressExceptionsTest()
 {
-    int[] streetNumbers = [-1, 0, 10];
-    string[] streets = ["", " ", "Valid St"];
-    string[] cities = [null!, "Valid City"];
+    int[] streetNumber = [-1, 0, 10];
+    string[] street = ["", " ", "Valid St"];
+    string[] city = [null!, "Valid City"];
     return Combination(captureExceptions: true)
         .Verify(
             BuildAddress,
-            streetNumbers,
-            streets,
-            cities
+            streetNumber,
+            street,
+            city
         );
 }
 ```
@@ -201,7 +201,7 @@ public class CombinationResultsConverter :
 
         var keysLength = items[0].Keys.Count;
 
-        var maxKeyLengths = new int[keysLength];
+        var maxKeyLengths = results.Columns.Select(_=>_.Length).ToArray();
         var keyValues = new string[items.Count, keysLength];
 
         for (var itemIndex = 0; itemIndex < items.Count; itemIndex++)
@@ -220,6 +220,9 @@ public class CombinationResultsConverter :
             }
         }
 
+        WriteColumns(writer, results, maxKeyLengths);
+
+        // keys is reused
         var keys = new CombinationKey[keysLength];
         for (var itemIndex = 0; itemIndex < items.Count; itemIndex++)
         {
@@ -238,6 +241,24 @@ public class CombinationResultsConverter :
         }
 
         writer.WriteEndObject();
+    }
+
+    static void WriteColumns(VerifyJsonWriter writer, CombinationResults results, int[] maxKeyLengths)
+    {
+        var columnBuilder = new StringBuilder();
+        for (var index = 0; index < results.Columns.Count; index++)
+        {
+            var column = results.Columns[index];
+            var maxLength = maxKeyLengths[index];
+            var padding = maxLength - column.Length;
+            columnBuilder.Append(column);
+            columnBuilder.Append(' ', padding);
+            columnBuilder.Append(", ");
+        }
+        columnBuilder.Length -= 2;
+
+        writer.WritePropertyName(columnBuilder.ToString());
+        writer.WriteValue("result");
     }
 
     protected virtual string BuildPropertyName(IReadOnlyList<CombinationKey> keys)
@@ -316,7 +337,7 @@ public class CombinationResultsConverter :
     }
 }
 ```
-<sup><a href='/src/Verify/Combinations/CombinationResultsConverter.cs#L1-L131' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationResultsConverter.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Combinations/CombinationResultsConverter.cs#L1-L152' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationResultsConverter.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -1,6 +1,7 @@
 ﻿{
-   1, Smith St  : void,
-   1, Wallace St: void,
-  10, Smith St  : void,
-  10, Wallace St: void
+  params1, params2   : result,
+        1, Smith St  : void,
+        1, Wallace St: void,
+       10, Smith St  : void,
+       10, Wallace St: void
 }

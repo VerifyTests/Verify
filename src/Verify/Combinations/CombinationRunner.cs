@@ -5,7 +5,7 @@
     object?[][] lists;
     bool captureExceptions;
 
-    public CombinationRunner(bool? captureExceptions, List<IEnumerable<object?>> lists, Type[] keyTypes)
+    public CombinationRunner(bool? captureExceptions, List<IEnumerable<object?>> lists, Type[] keyTypes, ReadOnlySpan<string> columns)
     {
         this.keyTypes = keyTypes;
         this.captureExceptions = captureExceptions ?? CombinationSettings.CaptureExceptionsEnabled;

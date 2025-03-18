@@ -4,13 +4,13 @@ public class CombinationSample
 {
     #region CombinationTargetMethod
 
-    public static string BuildAddress(int streetNumber, string street, string city)
+    public static string BuildAddress(int number, string street, string city)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(street);
         ArgumentException.ThrowIfNullOrWhiteSpace(city);
-        ArgumentOutOfRangeException.ThrowIfLessThan(streetNumber, 1);
+        ArgumentOutOfRangeException.ThrowIfLessThan(number, 1);
 
-        return $"{streetNumber} {street}, {city}";
+        return $"{number} {street}, {city}";
     }
 
     #endregion
@@ -20,13 +20,13 @@ public class CombinationSample
     [Fact]
     public Task BuildAddressTest()
     {
-        int[] streetNumber = [1, 10];
+        int[] number = [1, 10];
         string[] street = ["Smith St", "Wallace St"];
         string[] city = ["Sydney", "Chicago"];
         return Combination()
             .Verify(
                 BuildAddress,
-                streetNumber,
+                number,
                 street,
                 city);
     }
@@ -56,13 +56,13 @@ public class CombinationSample
     [Fact]
     public Task BuildAddressExceptionsTest()
     {
-        int[] streetNumber = [-1, 0, 10];
+        int[] number = [-1, 0, 10];
         string[] street = ["", " ", "Valid St"];
         string[] city = [null!, "Valid City"];
         return Combination(captureExceptions: true)
             .Verify(
                 BuildAddress,
-                streetNumber,
+                number,
                 street,
                 city
             );

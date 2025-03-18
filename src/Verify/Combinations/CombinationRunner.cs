@@ -4,10 +4,12 @@
     int[] indices;
     object?[][] lists;
     bool captureExceptions;
+    List<string> columns;
 
-    public CombinationRunner(bool? captureExceptions, List<IEnumerable<object?>> lists, Type[] keyTypes, ReadOnlySpan<string> columns)
+    public CombinationRunner(bool? captureExceptions, List<IEnumerable<object?>> lists, Type[] keyTypes, List<string> columns)
     {
         this.keyTypes = keyTypes;
+        this.columns = columns;
         this.captureExceptions = captureExceptions ?? CombinationSettings.CaptureExceptionsEnabled;
         this.lists = lists.Select(_ => _.ToArray()).ToArray();
         indices = new int[lists.Count];
@@ -96,7 +98,7 @@
             }
         }
 
-        return new(items, keyTypes);
+        return new(items, keyTypes, columns);
     }
 
     object?[] BuildParameters()

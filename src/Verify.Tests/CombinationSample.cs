@@ -69,5 +69,13 @@ public class CombinationSample
     }
 
     #endregion
+
+    [Fact]
+    public Task InlineValues() =>
+        Combination()
+            .Verify(
+                (number, text) => string.Join(" ", number, text),
+                [1, 100],
+                ["a", "bbbb"]);
 }
 #endif

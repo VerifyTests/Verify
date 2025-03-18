@@ -3,12 +3,14 @@
     public static Task<CombinationResults> Run<A, TReturn>(
         Func<A, Task<TReturn>> method,
         bool? captureExceptions,
-        IEnumerable<A> a)
+        IEnumerable<A> a,
+        List<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
             [a.Cast<object?>()],
-            [typeof(A)]);
+            [typeof(A)],
+            columns);
         return generator.RunWithReturn(_ => method((A)_[0]!));
     }
 
@@ -16,7 +18,8 @@
         Func<A, B, Task<TReturn>> method,
         bool? captureExceptions,
         IEnumerable<A> a,
-        IEnumerable<B> b)
+        IEnumerable<B> b,
+        List<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
@@ -27,7 +30,8 @@
             [
                 typeof(A),
                 typeof(B)
-            ]);
+            ],
+            columns);
         return generator.RunWithReturn(
             _ => method(
                 (A)_[0]!,
@@ -39,7 +43,8 @@
         bool? captureExceptions,
         IEnumerable<A> a,
         IEnumerable<B> b,
-        IEnumerable<C> c)
+        IEnumerable<C> c,
+        List<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
@@ -52,7 +57,8 @@
                 typeof(A),
                 typeof(B),
                 typeof(C)
-            ]);
+            ],
+            columns);
         return generator.RunWithReturn(
             _ => method(
                 (A)_[0]!,
@@ -66,7 +72,8 @@
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
-        IEnumerable<D> d)
+        IEnumerable<D> d,
+        List<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
@@ -81,7 +88,8 @@
                 typeof(B),
                 typeof(C),
                 typeof(D)
-            ]);
+            ],
+            columns);
         return generator.RunWithReturn(
             _ => method(
                 (A)_[0]!,
@@ -97,7 +105,8 @@
         IEnumerable<B> b,
         IEnumerable<C> c,
         IEnumerable<D> d,
-        IEnumerable<E> e)
+        IEnumerable<E> e,
+        List<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
@@ -114,7 +123,8 @@
                 typeof(C),
                 typeof(D),
                 typeof(E)
-            ]);
+            ],
+            columns);
         return generator.RunWithReturn(
             _ => method(
                 (A)_[0]!,
@@ -132,7 +142,8 @@
         IEnumerable<C> c,
         IEnumerable<D> d,
         IEnumerable<E> e,
-        IEnumerable<F> f)
+        IEnumerable<F> f,
+        List<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
@@ -151,7 +162,8 @@
                 typeof(D),
                 typeof(E),
                 typeof(F)
-            ]);
+            ],
+            columns);
         return generator.RunWithReturn(
             _ => method(
                 (A)_[0]!,
@@ -171,7 +183,8 @@
         IEnumerable<D> d,
         IEnumerable<E> e,
         IEnumerable<F> f,
-        IEnumerable<G> g)
+        IEnumerable<G> g,
+        List<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
@@ -192,7 +205,8 @@
                 typeof(E),
                 typeof(F),
                 typeof(G)
-            ]);
+            ],
+            columns);
         return generator.RunWithReturn(
             _ => method(
                 (A)_[0]!,
@@ -214,7 +228,8 @@
         IEnumerable<E> e,
         IEnumerable<F> f,
         IEnumerable<G> g,
-        IEnumerable<H> h)
+        IEnumerable<H> h,
+        List<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
@@ -237,7 +252,8 @@
                 typeof(F),
                 typeof(G),
                 typeof(H)
-            ]);
+            ],
+            columns);
         return generator.RunWithReturn(
             _ => method(
                 (A)_[0]!,

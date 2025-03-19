@@ -6,6 +6,11 @@ public delegate Task CombinationException(IReadOnlyList<object?> keys, Exception
 
 public static class CombinationSettings
 {
+    public static bool IncludeHeadersEnabled { get; private set; }
+
+    public static void IncludeHeaders() =>
+        IncludeHeadersEnabled = true;
+
     public static bool CaptureExceptionsEnabled { get; private set; }
 
     public static void CaptureExceptions() =>

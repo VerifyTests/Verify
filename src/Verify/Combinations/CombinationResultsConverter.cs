@@ -15,7 +15,16 @@ public class CombinationResultsConverter :
 
         var keysLength = items[0].Keys.Count;
 
-        var maxKeyLengths = new int[keysLength];
+        int[] maxKeyLengths;
+        if (results.Columns == null)
+        {
+            maxKeyLengths = new int[keysLength];
+        }
+        else
+        {
+            maxKeyLengths = results.Columns.Select(_=>_.Length).ToArray();
+        }
+
         var keyValues = new string[items.Count, keysLength];
 
         for (var itemIndex = 0; itemIndex < items.Count; itemIndex++)
@@ -34,6 +43,9 @@ public class CombinationResultsConverter :
             }
         }
 
+        WriteColumns(writer, results, maxKeyLengths);
+
+        // keys is reused
         var keys = new CombinationKey[keysLength];
         for (var itemIndex = 0; itemIndex < items.Count; itemIndex++)
         {
@@ -52,6 +64,29 @@ public class CombinationResultsConverter :
         }
 
         writer.WriteEndObject();
+    }
+
+    static void WriteColumns(VerifyJsonWriter writer, CombinationResults results, int[] maxKeyLengths)
+    {
+        if (results.Columns == null)
+        {
+            return;
+        }
+
+        var builder = new StringBuilder();
+        for (var index = 0; index < results.Columns.Count; index++)
+        {
+            var column = results.Columns[index];
+            var maxLength = maxKeyLengths[index];
+            var padding = maxLength - column.Length;
+            builder.Append(column);
+            builder.Append(' ', padding);
+            builder.Append(", ");
+        }
+        builder.Length -= 2;
+
+        writer.WritePropertyName(builder.ToString());
+        writer.WriteValue("Result");
     }
 
     protected virtual string BuildPropertyName(IReadOnlyList<CombinationKey> keys)

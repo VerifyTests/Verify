@@ -1,4 +1,5 @@
 ﻿{
+  list: Result,
   A: a,
   b: b,
   C: c

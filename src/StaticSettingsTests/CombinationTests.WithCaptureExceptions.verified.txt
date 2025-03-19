@@ -1,4 +1,5 @@
 ﻿{
+  a: Result,
   A: a,
   b: ArgumentException: B is not allowed.,
   C: c

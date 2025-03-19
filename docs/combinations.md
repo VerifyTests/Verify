@@ -9,20 +9,22 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 Combinations allows all combinations of the given input lists to be executed, and the results all written to a single file.
 
+
 ## Example
+
 
 ### Method being tested
 
 <!-- snippet: CombinationTargetMethod -->
 <a id='snippet-CombinationTargetMethod'></a>
 ```cs
-public static string BuildAddress(int streetNumber, string street, string city)
+public static string BuildAddress(int number, string street, string city)
 {
     ArgumentException.ThrowIfNullOrWhiteSpace(street);
     ArgumentException.ThrowIfNullOrWhiteSpace(city);
-    ArgumentOutOfRangeException.ThrowIfLessThan(streetNumber, 1);
+    ArgumentOutOfRangeException.ThrowIfLessThan(number, 1);
 
-    return $"{streetNumber} {street}, {city}";
+    return $"{number} {street}, {city}";
 }
 ```
 <sup><a href='/src/Verify.Tests/CombinationSample.cs#L5-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationTargetMethod' title='Start of snippet'>anchor</a></sup>
@@ -37,15 +39,15 @@ public static string BuildAddress(int streetNumber, string street, string city)
 [Fact]
 public Task BuildAddressTest()
 {
-    int[] streetNumbers = [1, 10];
-    string[] streets = ["Smith St", "Wallace St"];
-    string[] cities = ["Sydney", "Chicago"];
+    int[] number = [1, 10];
+    string[] street = ["Smith St", "Wallace St"];
+    string[] city = ["Sydney", "Chicago"];
     return Combination()
         .Verify(
             BuildAddress,
-            streetNumbers,
-            streets,
-            cities);
+            number,
+            street,
+            city);
 }
 ```
 <sup><a href='/src/Verify.Tests/CombinationSample.cs#L18-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample' title='Start of snippet'>anchor</a></sup>
@@ -94,19 +96,19 @@ To enable exception capture use `captureExceptions = true`:
 [Fact]
 public Task BuildAddressExceptionsTest()
 {
-    int[] streetNumbers = [-1, 0, 10];
-    string[] streets = ["", " ", "Valid St"];
-    string[] cities = [null!, "Valid City"];
+    int[] number = [-1, 0, 10];
+    string[] street = ["", " ", "Valid St"];
+    string[] city = [null!, "Valid City"];
     return Combination(captureExceptions: true)
         .Verify(
             BuildAddress,
-            streetNumbers,
-            streets,
-            cities
+            number,
+            street,
+            city
         );
 }
 ```
-<sup><a href='/src/Verify.Tests/CombinationSample.cs#L54-L71' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/CombinationSample.cs#L92-L109' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -121,13 +123,13 @@ public Task BuildAddressExceptionsTest()
   -1,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
   -1,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
   -1, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city').,
-  -1, Valid St, Valid City: ArgumentOutOfRangeException: streetNumber ('-1') must be greater than or equal to '1'. (Parameter 'streetNumber'). Actual value was -1.,
+  -1, Valid St, Valid City: ArgumentOutOfRangeException: number ('-1') must be greater than or equal to '1'. (Parameter 'number'). Actual value was -1.,
    0,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
    0,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
    0,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
    0,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
    0, Valid St, null      : ArgumentNullException: Value cannot be null. (Parameter 'city').,
-   0, Valid St, Valid City: ArgumentOutOfRangeException: streetNumber ('0') must be greater than or equal to '1'. (Parameter 'streetNumber'). Actual value was 0.,
+   0, Valid St, Valid City: ArgumentOutOfRangeException: number ('0') must be greater than or equal to '1'. (Parameter 'number'). Actual value was 0.,
   10,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
   10,         , Valid City: ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
   10,         , null      : ArgumentException: The value cannot be an empty string or composed entirely of whitespace. (Parameter 'street').,
@@ -148,7 +150,7 @@ Exception capture can be enabled globally:
 <a id='snippet-GlobalCaptureExceptions'></a>
 ```cs
 [ModuleInitializer]
-public static void Initialize() =>
+public static void EnableCaptureExceptions() =>
     CombinationSettings.CaptureExceptions();
 ```
 <sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L3-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-GlobalCaptureExceptions' title='Start of snippet'>anchor</a></sup>
@@ -162,15 +164,15 @@ If exception capture has been enabled globally, it can be disable at the method 
 [Fact]
 public Task BuildAddressExceptionsDisabledTest()
 {
-    int[] streetNumbers = [1, 10];
-    string[] streets = ["Smith St", "Wallace St"];
-    string[] cities = ["Sydney", "Chicago"];
+    int[] number = [1, 10];
+    string[] street = ["Smith St", "Wallace St"];
+    string[] city = ["Sydney", "Chicago"];
     return Combination(captureExceptions: false)
         .Verify(
             BuildAddress,
-            streetNumbers,
-            streets,
-            cities);
+            number,
+            street,
+            city);
 }
 ```
 <sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L177-L193' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptionsFalse' title='Start of snippet'>anchor</a></sup>
@@ -201,7 +203,16 @@ public class CombinationResultsConverter :
 
         var keysLength = items[0].Keys.Count;
 
-        var maxKeyLengths = new int[keysLength];
+        int[] maxKeyLengths;
+        if (results.Columns == null)
+        {
+            maxKeyLengths = new int[keysLength];
+        }
+        else
+        {
+            maxKeyLengths = results.Columns.Select(_=>_.Length).ToArray();
+        }
+
         var keyValues = new string[items.Count, keysLength];
 
         for (var itemIndex = 0; itemIndex < items.Count; itemIndex++)
@@ -220,6 +231,9 @@ public class CombinationResultsConverter :
             }
         }
 
+        WriteColumns(writer, results, maxKeyLengths);
+
+        // keys is reused
         var keys = new CombinationKey[keysLength];
         for (var itemIndex = 0; itemIndex < items.Count; itemIndex++)
         {
@@ -238,6 +252,29 @@ public class CombinationResultsConverter :
         }
 
         writer.WriteEndObject();
+    }
+
+    static void WriteColumns(VerifyJsonWriter writer, CombinationResults results, int[] maxKeyLengths)
+    {
+        if (results.Columns == null)
+        {
+            return;
+        }
+
+        var builder = new StringBuilder();
+        for (var index = 0; index < results.Columns.Count; index++)
+        {
+            var column = results.Columns[index];
+            var maxLength = maxKeyLengths[index];
+            var padding = maxLength - column.Length;
+            builder.Append(column);
+            builder.Append(' ', padding);
+            builder.Append(", ");
+        }
+        builder.Length -= 2;
+
+        writer.WritePropertyName(builder.ToString());
+        writer.WriteValue("Result");
     }
 
     protected virtual string BuildPropertyName(IReadOnlyList<CombinationKey> keys)
@@ -316,7 +353,7 @@ public class CombinationResultsConverter :
     }
 }
 ```
-<sup><a href='/src/Verify/Combinations/CombinationResultsConverter.cs#L1-L131' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationResultsConverter.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Combinations/CombinationResultsConverter.cs#L1-L166' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationResultsConverter.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -370,6 +407,7 @@ public static void Init() =>
 <a id='snippet-CombinationTests.Combination_CustomSerialization.verified.txt'></a>
 ```txt
 {
+  streetNumbers, streets   , cities : Result,
   1, Smith St, Sydney: 1 Smith St, Sydney,
   1, Smith St, Chicago: 1 Smith St, Chicago,
   1, Wallace St, Sydney: 1 Wallace St, Sydney,
@@ -380,5 +418,115 @@ public static void Init() =>
   10, Wallace St, Chicago: 10 Wallace St, Chicago
 }
 ```
-<sup><a href='/src/StaticSettingsTests/CombinationTests.Combination_CustomSerialization.verified.txt#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationTests.Combination_CustomSerialization.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationTests.Combination_CustomSerialization.verified.txt#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationTests.Combination_CustomSerialization.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## Header
+
+By default no column headers are included. To include a header pass through `header: true`
+
+<!-- snippet: CombinationSampleWithHeader -->
+<a id='snippet-CombinationSampleWithHeader'></a>
+```cs
+[Fact]
+public Task BuildAddressWithHeaderTest()
+{
+    int[] number = [1, 10];
+    string[] street = ["Smith St", "Wallace St"];
+    string[] city = ["Sydney", "Chicago"];
+    return Combination(header: true)
+        .Verify(
+            BuildAddress,
+            number,
+            street,
+            city);
+}
+```
+<sup><a href='/src/Verify.Tests/CombinationSample.cs#L36-L52' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSampleWithHeader' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+The variable names of the inputted collections will be used.
+
+Result:
+
+<!-- snippet: CombinationSample.BuildAddressWithHeaderTest.verified.txt -->
+<a id='snippet-CombinationSample.BuildAddressWithHeaderTest.verified.txt'></a>
+```txt
+{
+  number, street    , city   : Result,
+       1, Smith St  , Sydney : 1 Smith St, Sydney,
+       1, Smith St  , Chicago: 1 Smith St, Chicago,
+       1, Wallace St, Sydney : 1 Wallace St, Sydney,
+       1, Wallace St, Chicago: 1 Wallace St, Chicago,
+      10, Smith St  , Sydney : 10 Smith St, Sydney,
+      10, Smith St  , Chicago: 10 Smith St, Chicago,
+      10, Wallace St, Sydney : 10 Wallace St, Sydney,
+      10, Wallace St, Chicago: 10 Wallace St, Chicago
+}
+```
+<sup><a href='/src/Verify.Tests/CombinationSample.BuildAddressWithHeaderTest.verified.txt#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample.BuildAddressWithHeaderTest.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Override
+
+Header names can be overridden:
+
+<!-- snippet: CombinationSampleWithHeaderOverrides -->
+<a id='snippet-CombinationSampleWithHeaderOverrides'></a>
+```cs
+[Fact]
+public Task BuildAddressWithHeaderOverridesTest()
+{
+    int[] number = [1, 10];
+    string[] street = ["Smith St", "Wallace St"];
+    string[] city = ["Sydney", "Chicago"];
+    return Combination(header: true)
+        .Verify(
+            BuildAddress,
+            number,
+            street,
+            city,
+            "Number",
+            "Street",
+            "City");
+}
+```
+<sup><a href='/src/Verify.Tests/CombinationSample.cs#L53-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSampleWithHeaderOverrides' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Result:
+
+<!-- snippet: CombinationSample.BuildAddressWithHeaderOverridesTest.verified.txt -->
+<a id='snippet-CombinationSample.BuildAddressWithHeaderOverridesTest.verified.txt'></a>
+```txt
+{
+  Number, Street    , City   : Result,
+       1, Smith St  , Sydney : 1 Smith St, Sydney,
+       1, Smith St  , Chicago: 1 Smith St, Chicago,
+       1, Wallace St, Sydney : 1 Wallace St, Sydney,
+       1, Wallace St, Chicago: 1 Wallace St, Chicago,
+      10, Smith St  , Sydney : 10 Smith St, Sydney,
+      10, Smith St  , Chicago: 10 Smith St, Chicago,
+      10, Wallace St, Sydney : 10 Wallace St, Sydney,
+      10, Wallace St, Chicago: 10 Wallace St, Chicago
+}
+```
+<sup><a href='/src/Verify.Tests/CombinationSample.BuildAddressWithHeaderOverridesTest.verified.txt#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample.BuildAddressWithHeaderOverridesTest.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Global
+
+Headers can be enabled globally:
+
+<!-- snippet: GlobalCombinationHeader -->
+<a id='snippet-GlobalCombinationHeader'></a>
+```cs
+[ModuleInitializer]
+public static void EnableIncludeHeaders() =>
+    CombinationSettings.IncludeHeaders();
+```
+<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L234-L240' title='Snippet source file'>snippet source</a> | <a href='#snippet-GlobalCombinationHeader' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

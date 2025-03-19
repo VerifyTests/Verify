@@ -6,23 +6,30 @@
     public static Task<CombinationResults> Run<A, TReturn>(
         Func<A, TReturn> method,
         bool? captureExceptions,
-        IEnumerable<A> a)
+        bool? header,
+        IEnumerable<A> a,
+        ReadOnlySpan<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
+            header,
             [a.Cast<object?>()],
-            [typeof(A)]);
+            [typeof(A)],
+            columns);
         return generator.Run(_ => method((A)_[0]!));
     }
 
     public static Task<CombinationResults> Run<A, B, TReturn>(
         Func<A, B, TReturn> method,
         bool? captureExceptions,
+        bool? header,
         IEnumerable<A> a,
-        IEnumerable<B> b)
+        IEnumerable<B> b,
+        ReadOnlySpan<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
+            header,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>()
@@ -30,7 +37,8 @@
             [
                 typeof(A),
                 typeof(B)
-            ]);
+            ],
+            columns);
         return generator.Run(
             _ => method(
                 (A)_[0]!,
@@ -40,12 +48,15 @@
     public static Task<CombinationResults> Run<A, B, C, TReturn>(
         Func<A, B, C, TReturn> method,
         bool? captureExceptions,
+        bool? header,
         IEnumerable<A> a,
         IEnumerable<B> b,
-        IEnumerable<C> c)
+        IEnumerable<C> c,
+        ReadOnlySpan<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
+            header,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -55,7 +66,8 @@
                 typeof(A),
                 typeof(B),
                 typeof(C)
-            ]);
+            ],
+            columns);
         return generator.Run(
             _ => method(
                 (A)_[0]!,
@@ -66,13 +78,16 @@
     public static Task<CombinationResults> Run<A, B, C, D, TReturn>(
         Func<A, B, C, D, TReturn> method,
         bool? captureExceptions,
+        bool? header,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
-        IEnumerable<D> d)
+        IEnumerable<D> d,
+        ReadOnlySpan<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
+            header,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -84,7 +99,8 @@
                 typeof(B),
                 typeof(C),
                 typeof(D)
-            ]);
+            ],
+            columns);
         return generator.Run(
             _ => method(
                 (A)_[0]!,
@@ -96,14 +112,17 @@
     public static Task<CombinationResults> Run<A, B, C, D, E, TReturn>(
         Func<A, B, C, D, E, TReturn> method,
         bool? captureExceptions,
+        bool? header,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
         IEnumerable<D> d,
-        IEnumerable<E> e)
+        IEnumerable<E> e,
+        ReadOnlySpan<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
+            header,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -117,7 +136,8 @@
                 typeof(C),
                 typeof(D),
                 typeof(E)
-            ]);
+            ],
+            columns);
         return generator.Run(
             _ => method(
                 (A)_[0]!,
@@ -130,15 +150,18 @@
     public static Task<CombinationResults> Run<A, B, C, D, E, F, TReturn>(
         Func<A, B, C, D, E, F, TReturn> method,
         bool? captureExceptions,
+        bool? header,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
         IEnumerable<D> d,
         IEnumerable<E> e,
-        IEnumerable<F> f)
+        IEnumerable<F> f,
+        ReadOnlySpan<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
+            header,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -154,7 +177,8 @@
                 typeof(D),
                 typeof(E),
                 typeof(F)
-            ]);
+            ],
+            columns);
         return generator.Run(
             _ => method(
                 (A)_[0]!,
@@ -168,16 +192,19 @@
     public static Task<CombinationResults> Run<A, B, C, D, E, F, G, TReturn>(
         Func<A, B, C, D, E, F, G, TReturn> method,
         bool? captureExceptions,
+        bool? header,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
         IEnumerable<D> d,
         IEnumerable<E> e,
         IEnumerable<F> f,
-        IEnumerable<G> g)
+        IEnumerable<G> g,
+        ReadOnlySpan<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
+            header,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -195,7 +222,8 @@
                 typeof(E),
                 typeof(F),
                 typeof(G)
-            ]);
+            ],
+            columns);
         return generator.Run(
             _ => method(
                 (A)_[0]!,
@@ -210,6 +238,7 @@
     public static Task<CombinationResults> Run<A, B, C, D, E, F, G, H, TReturn>(
         Func<A, B, C, D, E, F, G, H, TReturn> method,
         bool? captureExceptions,
+        bool? header,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -217,10 +246,12 @@
         IEnumerable<E> e,
         IEnumerable<F> f,
         IEnumerable<G> g,
-        IEnumerable<H> h)
+        IEnumerable<H> h,
+        ReadOnlySpan<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
+            header,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -240,7 +271,8 @@
                 typeof(F),
                 typeof(G),
                 typeof(H)
-            ]);
+            ],
+            columns);
         return generator.Run(
             _ => method(
                 (A)_[0]!,

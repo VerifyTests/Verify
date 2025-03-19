@@ -4,13 +4,13 @@ public class CombinationSample
 {
     #region CombinationTargetMethod
 
-    public static string BuildAddress(int streetNumber, string street, string city)
+    public static string BuildAddress(int number, string street, string city)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(street);
         ArgumentException.ThrowIfNullOrWhiteSpace(city);
-        ArgumentOutOfRangeException.ThrowIfLessThan(streetNumber, 1);
+        ArgumentOutOfRangeException.ThrowIfLessThan(number, 1);
 
-        return $"{streetNumber} {street}, {city}";
+        return $"{number} {street}, {city}";
     }
 
     #endregion
@@ -20,15 +20,53 @@ public class CombinationSample
     [Fact]
     public Task BuildAddressTest()
     {
-        int[] streetNumbers = [1, 10];
-        string[] streets = ["Smith St", "Wallace St"];
-        string[] cities = ["Sydney", "Chicago"];
+        int[] number = [1, 10];
+        string[] street = ["Smith St", "Wallace St"];
+        string[] city = ["Sydney", "Chicago"];
         return Combination()
             .Verify(
                 BuildAddress,
-                streetNumbers,
-                streets,
-                cities);
+                number,
+                street,
+                city);
+    }
+
+    #endregion
+
+    #region CombinationSampleWithHeader
+
+    [Fact]
+    public Task BuildAddressWithHeaderTest()
+    {
+        int[] number = [1, 10];
+        string[] street = ["Smith St", "Wallace St"];
+        string[] city = ["Sydney", "Chicago"];
+        return Combination(header: true)
+            .Verify(
+                BuildAddress,
+                number,
+                street,
+                city);
+    }
+
+    #endregion
+    #region CombinationSampleWithHeaderOverrides
+
+    [Fact]
+    public Task BuildAddressWithHeaderOverridesTest()
+    {
+        int[] number = [1, 10];
+        string[] street = ["Smith St", "Wallace St"];
+        string[] city = ["Sydney", "Chicago"];
+        return Combination(header: true)
+            .Verify(
+                BuildAddress,
+                number,
+                street,
+                city,
+                "Number",
+                "Street",
+                "City");
     }
 
     #endregion
@@ -56,18 +94,26 @@ public class CombinationSample
     [Fact]
     public Task BuildAddressExceptionsTest()
     {
-        int[] streetNumbers = [-1, 0, 10];
-        string[] streets = ["", " ", "Valid St"];
-        string[] cities = [null!, "Valid City"];
+        int[] number = [-1, 0, 10];
+        string[] street = ["", " ", "Valid St"];
+        string[] city = [null!, "Valid City"];
         return Combination(captureExceptions: true)
             .Verify(
                 BuildAddress,
-                streetNumbers,
-                streets,
-                cities
+                number,
+                street,
+                city
             );
     }
 
     #endregion
+
+    [Fact]
+    public Task InlineValues() =>
+        Combination()
+            .Verify(
+                (number, text) => string.Join(" ", number, text),
+                [1, 100],
+                ["a", "bbbb"]);
 }
 #endif

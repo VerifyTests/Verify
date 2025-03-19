@@ -3,7 +3,7 @@
     #region GlobalCaptureExceptions
 
     [ModuleInitializer]
-    public static void Initialize() =>
+    public static void EnableCaptureExceptions() =>
         CombinationSettings.CaptureExceptions();
 
     #endregion
@@ -179,15 +179,15 @@
     [Fact]
     public Task BuildAddressExceptionsDisabledTest()
     {
-        int[] streetNumbers = [1, 10];
-        string[] streets = ["Smith St", "Wallace St"];
-        string[] cities = ["Sydney", "Chicago"];
+        int[] number = [1, 10];
+        string[] street = ["Smith St", "Wallace St"];
+        string[] city = ["Sydney", "Chicago"];
         return Combination(captureExceptions: false)
             .Verify(
                 BuildAddress,
-                streetNumbers,
-                streets,
-                cities);
+                number,
+                street,
+                city);
     }
 
     #endregion
@@ -230,4 +230,26 @@
     }
 
     #endregion
+
+    #region GlobalCombinationHeader
+
+    [ModuleInitializer]
+    public static void EnableIncludeHeaders() =>
+        CombinationSettings.IncludeHeaders();
+
+    #endregion
+
+    [Fact]
+    public Task WithGlobalHeaders()
+    {
+        int[] number = [1, 10];
+        string[] street = ["Smith St", "Wallace St"];
+        string[] city = ["Sydney", "Chicago"];
+        return Combination()
+            .Verify(
+                BuildAddress,
+                number,
+                street,
+                city);
+    }
 }

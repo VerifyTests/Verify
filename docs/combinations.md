@@ -274,7 +274,7 @@ public class CombinationResultsConverter :
         builder.Length -= 2;
 
         writer.WritePropertyName(builder.ToString());
-        writer.WriteValue("result");
+        writer.WriteValue("Result");
     }
 
     protected virtual string BuildPropertyName(IReadOnlyList<CombinationKey> keys)
@@ -407,7 +407,7 @@ public static void Init() =>
 <a id='snippet-CombinationTests.Combination_CustomSerialization.verified.txt'></a>
 ```txt
 {
-  streetNumbers, streets   , cities : result,
+  streetNumbers, streets   , cities : Result,
   1, Smith St, Sydney: 1 Smith St, Sydney,
   1, Smith St, Chicago: 1 Smith St, Chicago,
   1, Wallace St, Sydney: 1 Wallace St, Sydney,
@@ -454,7 +454,7 @@ Result:
 <a id='snippet-CombinationSample.BuildAddressWithHeaderTest.verified.txt'></a>
 ```txt
 {
-  number, street    , city   : result,
+  number, street    , city   : Result,
        1, Smith St  , Sydney : 1 Smith St, Sydney,
        1, Smith St  , Chicago: 1 Smith St, Chicago,
        1, Wallace St, Sydney : 1 Wallace St, Sydney,
@@ -502,7 +502,7 @@ Result:
 <a id='snippet-CombinationSample.BuildAddressWithHeaderOverridesTest.verified.txt'></a>
 ```txt
 {
-  Number, Street    , City   : result,
+  Number, Street    , City   : Result,
        1, Smith St  , Sydney : 1 Smith St, Sydney,
        1, Smith St  , Chicago: 1 Smith St, Chicago,
        1, Wallace St, Sydney : 1 Wallace St, Sydney,

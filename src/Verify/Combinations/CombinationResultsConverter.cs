@@ -86,7 +86,7 @@ public class CombinationResultsConverter :
         builder.Length -= 2;
 
         writer.WritePropertyName(builder.ToString());
-        writer.WriteValue("result");
+        writer.WriteValue("Result");
     }
 
     protected virtual string BuildPropertyName(IReadOnlyList<CombinationKey> keys)

@@ -1,5 +1,5 @@
 ﻿{
-  params1, params2: result,
+  params1, params2: Result,
   1, value1: Exception: Message,
   1, value2: Exception: Message,
   10, value1: Exception: Message,

@@ -3,7 +3,7 @@
     #region GlobalCaptureExceptions
 
     [ModuleInitializer]
-    public static void Initialize() =>
+    public static void EnableCaptureExceptions() =>
         CombinationSettings.CaptureExceptions();
 
     #endregion
@@ -230,4 +230,26 @@
     }
 
     #endregion
+
+    #region GlobalCombinationHeader
+
+    [ModuleInitializer]
+    public static void EnableIncludeHeaders() =>
+        CombinationSettings.IncludeHeaders();
+
+    #endregion
+
+    [Fact]
+    public Task WithGlobalHeaders()
+    {
+        int[] number = [1, 10];
+        string[] street = ["Smith St", "Wallace St"];
+        string[] city = ["Sydney", "Chicago"];
+        return Combination()
+            .Verify(
+                BuildAddress,
+                number,
+                street,
+                city);
+    }
 }

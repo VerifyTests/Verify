@@ -10,5 +10,5 @@ public partial class VerifyBase
         VerifySettings? settings = null,
         bool header = false,
         [CallerFilePath] string sourceFile = "") =>
-        Verifier.Combination(captureExceptions, settings ?? settings, sourceFile);
+        Verifier.Combination(captureExceptions, settings ?? settings, header, sourceFile);
 }

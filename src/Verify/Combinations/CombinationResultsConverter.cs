@@ -15,7 +15,16 @@ public class CombinationResultsConverter :
 
         var keysLength = items[0].Keys.Count;
 
-        var maxKeyLengths = results.Columns.Select(_=>_.Length).ToArray();
+        int[] maxKeyLengths;
+        if (results.Columns == null)
+        {
+            maxKeyLengths = new int[keysLength];
+        }
+        else
+        {
+            maxKeyLengths = results.Columns.Select(_=>_.Length).ToArray();
+        }
+
         var keyValues = new string[items.Count, keysLength];
 
         for (var itemIndex = 0; itemIndex < items.Count; itemIndex++)

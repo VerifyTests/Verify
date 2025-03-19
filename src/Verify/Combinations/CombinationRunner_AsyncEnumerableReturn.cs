@@ -8,7 +8,7 @@
         bool? captureExceptions,
         bool? header,
         IEnumerable<A> a,
-        List<string> columns)
+        ReadOnlySpan<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
@@ -25,7 +25,7 @@
         bool? header,
         IEnumerable<A> a,
         IEnumerable<B> b,
-        List<string> columns)
+        ReadOnlySpan<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
@@ -52,7 +52,7 @@
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
-        List<string> columns)
+        ReadOnlySpan<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,

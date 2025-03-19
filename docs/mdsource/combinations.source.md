@@ -2,7 +2,9 @@
 
 Combinations allows all combinations of the given input lists to be executed, and the results all written to a single file.
 
+
 ## Example
+
 
 ### Method being tested
 
@@ -87,3 +89,34 @@ snippet: CombinationSample_CustomSerializationModuleInitializer
 #### Result
 
 snippet: CombinationTests.Combination_CustomSerialization.verified.txt
+
+
+## Header
+
+By default no column headers are included. To include a header pass through `header: true`
+
+snippet: CombinationSampleWithHeader
+
+The variable names of the inputted collections will be used.
+
+Result:
+
+snippet: CombinationSample.BuildAddressWithHeaderTest.verified.txt
+
+
+### Override
+
+Header names can be overridden:
+
+snippet: CombinationSampleWithHeaderOverrides
+
+Result:
+
+CombinationSample.BuildAddressWithHeaderOverridesTest.verified.txt
+
+
+### Global
+
+Headers can be enabled globally:
+
+snippet: GlobalCombinationHeader

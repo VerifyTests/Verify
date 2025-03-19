@@ -33,6 +33,44 @@ public class CombinationSample
 
     #endregion
 
+    #region CombinationSampleWithHeader
+
+    [Fact]
+    public Task BuildAddressWithHeaderTest()
+    {
+        int[] number = [1, 10];
+        string[] street = ["Smith St", "Wallace St"];
+        string[] city = ["Sydney", "Chicago"];
+        return Combination(header: true)
+            .Verify(
+                BuildAddress,
+                number,
+                street,
+                city);
+    }
+
+    #endregion
+    #region CombinationSampleWithHeaderOverrides
+
+    [Fact]
+    public Task BuildAddressWithHeaderOverridesTest()
+    {
+        int[] number = [1, 10];
+        string[] street = ["Smith St", "Wallace St"];
+        string[] city = ["Sydney", "Chicago"];
+        return Combination(header: true)
+            .Verify(
+                BuildAddress,
+                number,
+                street,
+                city,
+                "Number",
+                "Street",
+                "City");
+    }
+
+    #endregion
+
     #region CombinationAlignment
 
     [Fact]

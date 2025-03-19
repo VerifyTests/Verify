@@ -8,7 +8,7 @@
         bool? captureExceptions,
         bool? header,
         IEnumerable<A> a,
-        List<string> columns)
+        ReadOnlySpan<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
@@ -25,7 +25,7 @@
         bool? header,
         IEnumerable<A> a,
         IEnumerable<B> b,
-        List<string> columns)
+        ReadOnlySpan<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
@@ -52,7 +52,7 @@
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
-        List<string> columns)
+        ReadOnlySpan<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
@@ -83,7 +83,7 @@
         IEnumerable<B> b,
         IEnumerable<C> c,
         IEnumerable<D> d,
-        List<string> columns)
+        ReadOnlySpan<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
@@ -118,7 +118,7 @@
         IEnumerable<C> c,
         IEnumerable<D> d,
         IEnumerable<E> e,
-        List<string> columns)
+        ReadOnlySpan<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
@@ -157,7 +157,7 @@
         IEnumerable<D> d,
         IEnumerable<E> e,
         IEnumerable<F> f,
-        List<string> columns)
+        ReadOnlySpan<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
@@ -200,7 +200,7 @@
         IEnumerable<E> e,
         IEnumerable<F> f,
         IEnumerable<G> g,
-        List<string> columns)
+        ReadOnlySpan<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
@@ -247,7 +247,7 @@
         IEnumerable<F> f,
         IEnumerable<G> g,
         IEnumerable<H> h,
-        List<string> columns)
+        ReadOnlySpan<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,

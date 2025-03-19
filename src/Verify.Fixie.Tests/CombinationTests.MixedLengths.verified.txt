@@ -1,5 +1,4 @@
 ﻿{
-  a     , b  , c    : result,
   A     , 100, True : a100True,
   A     , 100, False: a100False,
   A     ,   2, True : a2True,

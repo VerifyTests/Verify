@@ -59,19 +59,24 @@ public class CombinationResultsConverter :
 
     static void WriteColumns(VerifyJsonWriter writer, CombinationResults results, int[] maxKeyLengths)
     {
-        var columnBuilder = new StringBuilder();
+        if (results.Columns == null)
+        {
+            return;
+        }
+
+        var builder = new StringBuilder();
         for (var index = 0; index < results.Columns.Count; index++)
         {
             var column = results.Columns[index];
             var maxLength = maxKeyLengths[index];
             var padding = maxLength - column.Length;
-            columnBuilder.Append(column);
-            columnBuilder.Append(' ', padding);
-            columnBuilder.Append(", ");
+            builder.Append(column);
+            builder.Append(' ', padding);
+            builder.Append(", ");
         }
-        columnBuilder.Length -= 2;
+        builder.Length -= 2;
 
-        writer.WritePropertyName(columnBuilder.ToString());
+        writer.WritePropertyName(builder.ToString());
         writer.WriteValue("result");
     }
 

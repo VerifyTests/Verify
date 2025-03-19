@@ -8,6 +8,7 @@ public partial class VerifyBase
     public Combination Combination(
         bool? captureExceptions = null,
         VerifySettings? settings = null,
+        bool header = false,
         [CallerFilePath] string sourceFile = "") =>
         Verifier.Combination(captureExceptions, settings ?? settings, sourceFile);
 }

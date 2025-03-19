@@ -3,11 +3,13 @@
     public static Task<CombinationResults> Run<A, TReturn>(
         Func<A, Task<TReturn>> method,
         bool? captureExceptions,
+        bool? header,
         IEnumerable<A> a,
         List<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
+            header,
             [a.Cast<object?>()],
             [typeof(A)],
             columns);
@@ -17,12 +19,14 @@
     public static Task<CombinationResults> Run<A, B, TReturn>(
         Func<A, B, Task<TReturn>> method,
         bool? captureExceptions,
+        bool? header,
         IEnumerable<A> a,
         IEnumerable<B> b,
         List<string> columns)
     {
         var generator = new CombinationRunner(
             captureExceptions,
+            header,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>()
@@ -41,6 +45,7 @@
     public static Task<CombinationResults> Run<A, B, C, TReturn>(
         Func<A, B, C, Task<TReturn>> method,
         bool? captureExceptions,
+        bool? header,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -48,6 +53,7 @@
     {
         var generator = new CombinationRunner(
             captureExceptions,
+            header,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -69,6 +75,7 @@
     public static Task<CombinationResults> Run<A, B, C, D, TReturn>(
         Func<A, B, C, D, Task<TReturn>> method,
         bool? captureExceptions,
+        bool? header,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -77,6 +84,7 @@
     {
         var generator = new CombinationRunner(
             captureExceptions,
+            header,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -101,6 +109,7 @@
     public static Task<CombinationResults> Run<A, B, C, D, E, TReturn>(
         Func<A, B, C, D, E, Task<TReturn>> method,
         bool? captureExceptions,
+        bool? header,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -110,6 +119,7 @@
     {
         var generator = new CombinationRunner(
             captureExceptions,
+            header,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -137,6 +147,7 @@
     public static Task<CombinationResults> Run<A, B, C, D, E, F, TReturn>(
         Func<A, B, C, D, E, F, Task<TReturn>> method,
         bool? captureExceptions,
+        bool? header,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -147,6 +158,7 @@
     {
         var generator = new CombinationRunner(
             captureExceptions,
+            header,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -177,6 +189,7 @@
     public static Task<CombinationResults> Run<A, B, C, D, E, F, G, TReturn>(
         Func<A, B, C, D, E, F, G, Task<TReturn>> method,
         bool? captureExceptions,
+        bool? header,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -188,6 +201,7 @@
     {
         var generator = new CombinationRunner(
             captureExceptions,
+            header,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),
@@ -221,6 +235,7 @@
     public static Task<CombinationResults> Run<A, B, C, D, E, F, G, H, TReturn>(
         Func<A, B, C, D, E, F, G, H, Task<TReturn>> method,
         bool? captureExceptions,
+        bool? header,
         IEnumerable<A> a,
         IEnumerable<B> b,
         IEnumerable<C> c,
@@ -233,6 +248,7 @@
     {
         var generator = new CombinationRunner(
             captureExceptions,
+            header,
             [
                 a.Cast<object?>(),
                 b.Cast<object?>(),

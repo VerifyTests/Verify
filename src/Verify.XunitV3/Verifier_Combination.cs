@@ -6,10 +6,12 @@ public static partial class Verifier
     public static Combination Combination(
         bool? captureExceptions = null,
         VerifySettings? settings = null,
+        bool header = false,
         [CallerFilePath] string sourceFile = "") =>
         new(
             captureExceptions,
             settings,
+            header,
             sourceFile,
             (settings, sourceFile, verify) => Verify(settings, sourceFile, verify));
 }

@@ -112,7 +112,7 @@ snippet: CombinationSampleWithHeaderOverrides
 
 Result:
 
-CombinationSample.BuildAddressWithHeaderOverridesTest.verified.txt
+snippet: CombinationSample.BuildAddressWithHeaderOverridesTest.verified.txt
 
 
 ### Global

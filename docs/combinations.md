@@ -498,7 +498,23 @@ public Task BuildAddressWithHeaderOverridesTest()
 
 Result:
 
-CombinationSample.BuildAddressWithHeaderOverridesTest.verified.txt
+<!-- snippet: CombinationSample.BuildAddressWithHeaderOverridesTest.verified.txt -->
+<a id='snippet-CombinationSample.BuildAddressWithHeaderOverridesTest.verified.txt'></a>
+```txt
+{
+  Number, Street    , City   : result,
+       1, Smith St  , Sydney : 1 Smith St, Sydney,
+       1, Smith St  , Chicago: 1 Smith St, Chicago,
+       1, Wallace St, Sydney : 1 Wallace St, Sydney,
+       1, Wallace St, Chicago: 1 Wallace St, Chicago,
+      10, Smith St  , Sydney : 10 Smith St, Sydney,
+      10, Smith St  , Chicago: 10 Smith St, Chicago,
+      10, Wallace St, Sydney : 10 Wallace St, Sydney,
+      10, Wallace St, Chicago: 10 Wallace St, Chicago
+}
+```
+<sup><a href='/src/Verify.Tests/CombinationSample.BuildAddressWithHeaderOverridesTest.verified.txt#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample.BuildAddressWithHeaderOverridesTest.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 
 ### Global

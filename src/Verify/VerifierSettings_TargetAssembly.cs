@@ -25,6 +25,8 @@ public static partial class VerifierSettings
         }
     }
 
+    static Lock locker = new();
+
     public static void AssignTargetAssembly(Assembly assembly)
     {
         if (VerifierSettings.assembly is not null)
@@ -32,18 +34,26 @@ public static partial class VerifierSettings
             return;
         }
 
-        VerifierSettings.assembly = assembly;
-        Namer.UseAssembly(assembly);
-        IoHelpers.MapPathsForCallingAssembly(assembly);
-        ProjectDir = AttributeReader.GetProjectDirectory(assembly);
-        AttributeReader.TryGetSolutionDirectory(assembly, out var solutionDir);
-        SolutionDir = solutionDir;
-        if (AttributeReader.TryGetTargetFrameworks(assembly, out var targetFrameworks))
+        lock (locker)
         {
-            TargetsMultipleFramework = targetFrameworks.Contains(';');
-        }
+            if (VerifierSettings.assembly is not null)
+            {
+                return;
+            }
 
-        SolutionDir = solutionDir;
-        ApplyScrubbers.UseAssembly(solutionDir, ProjectDir);
+            VerifierSettings.assembly = assembly;
+            Namer.UseAssembly(assembly);
+            IoHelpers.MapPathsForCallingAssembly(assembly);
+            ProjectDir = AttributeReader.GetProjectDirectory(assembly);
+            AttributeReader.TryGetSolutionDirectory(assembly, out var solutionDir);
+            SolutionDir = solutionDir;
+            if (AttributeReader.TryGetTargetFrameworks(assembly, out var targetFrameworks))
+            {
+                TargetsMultipleFramework = targetFrameworks.Contains(';');
+            }
+
+            SolutionDir = solutionDir;
+            ApplyScrubbers.UseAssembly(solutionDir, ProjectDir);
+        }
     }
 }

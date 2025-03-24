@@ -274,6 +274,22 @@ public class DateScrubberTests
 
     #endregion
 
+    #region InferredNamedDateFluent
+
+    [Fact]
+    public Task InferredNamedDateFluent()
+    {
+        var namedDate = new Date(1935, 10, 1);
+        return Verify(
+                new
+                {
+                    value = namedDate
+                })
+            .AddNamedDate(namedDate);
+    }
+
+    #endregion
+
 #endif
 
     #region NamedDateTimeInstance

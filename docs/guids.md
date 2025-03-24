@@ -196,3 +196,38 @@ public static void Init() => VerifierSettings.AddNamedGuid(new("c8eeaf99-d5c4-43
 ```
 <sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L3-L8' title='Snippet source file'>snippet source</a> | <a href='#snippet-NamedGuidGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+### Inferred Name
+
+The name can be inferred from the variable name by omitting the name argument:
+
+<!-- snippet: InferredNamedGuidFluent -->
+<a id='snippet-InferredNamedGuidFluent'></a>
+```cs
+[Fact]
+public Task InferredNamedGuidFluent()
+{
+    var namedGuid = new Guid("c8eeaf99-d5c4-4341-8543-4597c3fd40d9");
+    return Verify(
+            new
+            {
+                value = namedGuid
+            })
+        .AddNamedGuid(namedGuid);
+}
+```
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L107-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-InferredNamedGuidFluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Result: 
+
+<!-- snippet: GuidScrubberTests.InferredNamedGuidFluent.verified.txt -->
+<a id='snippet-GuidScrubberTests.InferredNamedGuidFluent.verified.txt'></a>
+```txt
+{
+  value: namedGuid
+}
+```
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.InferredNamedGuidFluent.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-GuidScrubberTests.InferredNamedGuidFluent.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->

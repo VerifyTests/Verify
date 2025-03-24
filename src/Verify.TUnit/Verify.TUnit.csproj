@@ -8,14 +8,11 @@
   <ItemGroup>
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <PackageReference Include="TUnit.Core" />
-    <PackageReference Include="Polyfill" PrivateAssets="all" />
 
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />
 
     <None Include="buildTransitive\Verify.TUnit.props" Pack="true" PackagePath="buildTransitive\" />
     <None Include="buildTransitive\Verify.TUnit.props" Pack="true" PackagePath="build\" />
-    <Compile Include="..\Verify\Guards.cs" />
-    <Compile Include="..\Verify\Extensions.cs" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">

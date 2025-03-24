@@ -104,6 +104,22 @@ public class GuidScrubberTests
 
     #endregion
 
+    #region InferredNamedGuidFluent
+
+    [Fact]
+    public Task InferredNamedGuidFluent()
+    {
+        var namedGuid = new Guid("c8eeaf99-d5c4-4341-8543-4597c3fd40d9");
+        return Verify(
+                new
+                {
+                    value = namedGuid
+                })
+            .AddNamedGuid(namedGuid);
+    }
+
+    #endregion
+
     [Fact]
     public Task NamedGuidTopLevelFluent()
     {

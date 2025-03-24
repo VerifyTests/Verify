@@ -6,28 +6,28 @@ public partial class VerifySettings
 
     internal Dictionary<Date, string> namedDates = [];
 
-    public void AddNamedDate(Date value, string name) =>
+    public void AddNamedDate(Date value, [CallerArgumentExpression(nameof(value))] string name = "") =>
         namedDates.Add(value, name);
 
     internal Dictionary<Time, string> namedTimes = [];
 
-    public void AddNamedTime(Time value, string name) =>
+    public void AddNamedTime(Time value, [CallerArgumentExpression(nameof(value))] string name = "") =>
         namedTimes.Add(value, name);
 
 #endif
 
     internal Dictionary<DateTime, string> namedDateTimes = [];
 
-    public void AddNamedDateTime(DateTime value, string name) =>
+    public void AddNamedDateTime(DateTime value, [CallerArgumentExpression(nameof(value))] string name = "") =>
         namedDateTimes.Add(value, name);
 
     internal Dictionary<Guid, string> namedGuids = [];
 
-    public void AddNamedGuid(Guid value, string name) =>
+    public void AddNamedGuid(Guid value, [CallerArgumentExpression(nameof(value))] string name = "") =>
         namedGuids.Add(value, name);
 
     internal Dictionary<DateTimeOffset, string> namedDateTimeOffsets = [];
 
-    public void AddNamedDateTimeOffset(DateTimeOffset value, string name) =>
+    public void AddNamedDateTimeOffset(DateTimeOffset value, [CallerArgumentExpression(nameof(value))] string name = "") =>
         namedDateTimeOffsets.Add(value, name);
 }

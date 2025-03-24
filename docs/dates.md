@@ -289,6 +289,41 @@ public static void NamedDatesAndTimesGlobal()
 <!-- endSnippet -->
 
 
+### Inferred Name
+
+The name can be inferred from the variable name by omitting the name argument:
+
+<!-- snippet: InferredNamedDateFluent -->
+<a id='snippet-InferredNamedDateFluent'></a>
+```cs
+[Fact]
+public Task InferredNamedDateFluent()
+{
+    var namedDate = new Date(1935, 10, 1);
+    return Verify(
+            new
+            {
+                value = namedDate
+            })
+        .AddNamedDate(namedDate);
+}
+```
+<sup><a href='/src/Verify.Tests/DateScrubberTests.cs#L277-L291' title='Snippet source file'>snippet source</a> | <a href='#snippet-InferredNamedDateFluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Result: 
+
+<!-- snippet: DateScrubberTests.InferredNamedDateFluent.verified.txt -->
+<a id='snippet-DateScrubberTests.InferredNamedDateFluent.verified.txt'></a>
+```txt
+{
+  value: namedDate
+}
+```
+<sup><a href='/src/Verify.Tests/DateScrubberTests.InferredNamedDateFluent.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-DateScrubberTests.InferredNamedDateFluent.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ## Custom Comparers
 
 The following comparers can be overridden

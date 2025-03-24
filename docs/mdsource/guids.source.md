@@ -67,3 +67,14 @@ snippet: NamedGuidFluent
 ### Globally
 
 snippet: NamedGuidGlobal
+
+
+### Inferred Name
+
+The name can be inferred from the variable name by omitting the name argument:
+
+snippet: InferredNamedGuidFluent
+
+Result: 
+
+snippet: GuidScrubberTests.InferredNamedGuidFluent.verified.txt

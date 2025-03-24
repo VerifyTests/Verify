@@ -93,6 +93,17 @@ snippet: NamedDatesAndTimesFluent
 snippet: NamedDatesAndTimesGlobal
 
 
+### Inferred Name
+
+The name can be inferred from the variable name by omitting the name argument:
+
+snippet: InferredNamedDateFluent
+
+Result: 
+
+snippet: DateScrubberTests.InferredNamedDateFluent.verified.txt
+
+
 ## Custom Comparers
 
 The following comparers can be overridden

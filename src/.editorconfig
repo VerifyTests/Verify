@@ -43,6 +43,9 @@ dotnet_diagnostic.CA1050.severity = none
 # Use Literals Where Appropriate
 dotnet_diagnostic.CA1802.severity = error
 
+# Template should be a static expression
+dotnet_diagnostic.CA2254.severity = error
+
 # Potentially misleading parameter name in lambda or local function
 resharper_all_underscore_local_parameter_name_highlighting = none
 

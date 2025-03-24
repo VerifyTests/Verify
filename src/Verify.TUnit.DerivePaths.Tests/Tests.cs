@@ -4,6 +4,7 @@ public class Tests
     [Test]
     public Task Test()
     {
+        VerifierSettings.Reset();
         DerivePathInfo(
             (sourceFile, projectDirectory, methodName, typeName) =>
             {
@@ -15,6 +16,7 @@ public class Tests
 
     static async Task Check(string sourceFile, string projectDirectory, Type methodName, MethodInfo typeName)
     {
+        VerifierSettings.Reset();
         await Assert.That(File.Exists(sourceFile)).IsTrue();
         await Assert.That(Directory.Exists(projectDirectory)).IsTrue();
         await Assert.That(methodName).IsNotNull();
@@ -24,6 +26,7 @@ public class Tests
     [Test]
     public Task ReturnNulls()
     {
+        VerifierSettings.Reset();
         DerivePathInfo((_, _, _, _) => new(null));
         return Verify("Value");
     }
@@ -31,6 +34,7 @@ public class Tests
     [Test]
     public Task ProjectRelativeDirectory()
     {
+        VerifierSettings.Reset();
         UseProjectRelativeDirectory("Relative");
         return Verify("Value");
     }
@@ -38,6 +42,7 @@ public class Tests
     [Test]
     public Task SourceFileRelativeDirectory()
     {
+        VerifierSettings.Reset();
         UseSourceFileRelativeDirectory("Relative");
         return Verify("Value");
     }
@@ -45,6 +50,7 @@ public class Tests
     [Test]
     public async Task InvalidMethod()
     {
+        VerifierSettings.Reset();
         DerivePathInfo((_, _, _, _) => new(null, null, Path
             .GetInvalidFileNameChars()
             .First()
@@ -55,6 +61,7 @@ public class Tests
     [Test]
     public async Task InvalidType()
     {
+        VerifierSettings.Reset();
         DerivePathInfo((_, _, _, _) => new(null, Path
             .GetInvalidFileNameChars()
             .First()
@@ -65,6 +72,7 @@ public class Tests
     [Test]
     public async Task InvalidDirectory()
     {
+        VerifierSettings.Reset();
         DerivePathInfo((_, _, _, _) => new(Path
             .GetInvalidPathChars()
             .First()

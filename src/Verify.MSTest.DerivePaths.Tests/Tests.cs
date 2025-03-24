@@ -5,6 +5,7 @@ public partial class Tests
     [TestMethod]
     public Task Test()
     {
+        VerifierSettings.Reset();
         DerivePathInfo(
             (sourceFile, projectDirectory, methodName, typeName) =>
             {
@@ -26,6 +27,7 @@ public partial class Tests
     [TestMethod]
     public Task ReturnNulls()
     {
+        VerifierSettings.Reset();
         DerivePathInfo((_, _, _, _) => new(null));
         return Verify("Value");
     }
@@ -33,6 +35,7 @@ public partial class Tests
     [TestMethod]
     public Task ProjectRelativeDirectory()
     {
+        VerifierSettings.Reset();
         UseProjectRelativeDirectory("Relative");
         return Verify("Value");
     }
@@ -40,6 +43,7 @@ public partial class Tests
     [TestMethod]
     public Task SourceFileRelativeDirectory()
     {
+        VerifierSettings.Reset();
         UseSourceFileRelativeDirectory("Relative");
         return Verify("Value");
     }
@@ -47,6 +51,7 @@ public partial class Tests
     [TestMethod]
     public Task InvalidMethod()
     {
+        VerifierSettings.Reset();
         DerivePathInfo((_, _, _, _) => new(null, null, Path
             .GetInvalidFileNameChars()
             .First()
@@ -57,6 +62,7 @@ public partial class Tests
     [TestMethod]
     public Task InvalidType()
     {
+        VerifierSettings.Reset();
         DerivePathInfo((_, _, _, _) => new(null, Path
             .GetInvalidFileNameChars()
             .First()
@@ -67,6 +73,7 @@ public partial class Tests
     [TestMethod]
     public Task InvalidDirectory()
     {
+        VerifierSettings.Reset();
         DerivePathInfo((_, _, _, _) => new(Path
             .GetInvalidPathChars()
             .First()

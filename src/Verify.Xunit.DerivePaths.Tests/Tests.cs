@@ -3,6 +3,7 @@
     [Fact]
     public Task Test()
     {
+        VerifierSettings.Reset();
         DerivePathInfo(
             (sourceFile, projectDirectory, methodName, typeName) =>
             {
@@ -20,6 +21,7 @@
     [Fact]
     public Task ReturnNulls()
     {
+        VerifierSettings.Reset();
         DerivePathInfo((_, _, _, _) => new(null));
         return Verify("Value");
     }
@@ -27,6 +29,7 @@
     [Fact]
     public Task ProjectRelativeDirectory()
     {
+        VerifierSettings.Reset();
         UseProjectRelativeDirectory("Relative");
         return Verify("Value");
     }
@@ -34,6 +37,7 @@
     [Fact]
     public Task SourceFileRelativeDirectory()
     {
+        VerifierSettings.Reset();
         UseSourceFileRelativeDirectory("Relative");
         return Verify("Value");
     }
@@ -41,6 +45,7 @@
     [Fact]
     public Task InvalidMethod()
     {
+        VerifierSettings.Reset();
         DerivePathInfo((_, _, _, _) => new(null, null, Path
             .GetInvalidFileNameChars()
             .First()
@@ -51,6 +56,7 @@
     [Fact]
     public Task InvalidType()
     {
+        VerifierSettings.Reset();
         DerivePathInfo((_, _, _, _) => new(null, Path
             .GetInvalidFileNameChars()
             .First()
@@ -61,6 +67,7 @@
     [Fact]
     public Task InvalidDirectory()
     {
+        VerifierSettings.Reset();
         DerivePathInfo((_, _, _, _) => new(Path
             .GetInvalidPathChars()
             .First()

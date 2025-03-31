@@ -8,7 +8,7 @@
     <PackageVersion Include="Argon.FSharp" Version="0.27.0" />
     <PackageVersion Include="BenchmarkDotNet" Version="0.14.0" />
     <PackageVersion Include="DiffEngine" Version="15.11.0" />
-    <PackageVersion Include="Expecto" Version="10.2.2" />
+    <PackageVersion Include="Expecto" Version="10.2.3" />
     <PackageVersion Include="Fixie" Version="4.1.0" />
     <PackageVersion Include="Fixie.TestAdapter" Version="4.1.0" />
     <PackageVersion Include="FSharp.Core" Version="9.0.201" />
@@ -23,7 +23,7 @@
     <PackageVersion Include="MSTest" Version="3.8.3" />
     <PackageVersion Include="MSTest.TestFramework" Version="3.8.3" />
     <PackageVersion Include="NUnit3TestAdapter" Version="5.0.0" />
-    <PackageVersion Include="Polyfill" Version="7.23.0" />
+    <PackageVersion Include="Polyfill" Version="7.24.0" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.150" />
     <PackageVersion Include="PublicApiGenerator" Version="11.4.5" />
     <PackageVersion Include="SimpleInfoName" Version="3.1.0" />
@@ -31,8 +31,8 @@
     <PackageVersion Include="System.IO.Hashing" Version="9.0.3" />
     <PackageVersion Include="System.Memory" Version="4.6.2" />
     <PackageVersion Include="TextCopy" Version="6.2.1" />
-    <PackageVersion Include="TUnit" Version="0.18.60" />
-    <PackageVersion Include="TUnit.Core" Version="0.18.60" />
+    <PackageVersion Include="TUnit" Version="0.19.32" />
+    <PackageVersion Include="TUnit.Core" Version="0.19.32" />
     <PackageVersion Include="Xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.abstractions" Version="2.0.3" />
     <PackageVersion Include="xunit.extensibility.execution" Version="2.9.3" />

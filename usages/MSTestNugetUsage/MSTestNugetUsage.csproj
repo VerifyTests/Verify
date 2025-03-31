@@ -6,8 +6,8 @@
   <ItemGroup>
     <!-- begin-snippet: mstest-nugets -->
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
-    <PackageReference Include="MSTest" Version="3.8.2" />
-    <PackageReference Include="Verify.MSTest" Version="28.16.0" />
+    <PackageReference Include="MSTest" Version="3.8.3" />
+    <PackageReference Include="Verify.MSTest" Version="29.0.0" />
     <!-- end-snippet -->
   </ItemGroup>
 </Project>

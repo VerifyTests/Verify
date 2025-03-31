@@ -6,8 +6,8 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- begin-snippet: tunit-nugets -->
-    <PackageReference Include="TUnit" Version="0.18.33" />
-    <PackageReference Include="Verify.TUnit" Version="28.16.0" />
+    <PackageReference Include="TUnit" Version="0.19.32" />
+    <PackageReference Include="Verify.TUnit" Version="29.0.0" />
     <!-- end-snippet -->
   </ItemGroup>
 </Project>

@@ -7,7 +7,7 @@
     <PackageVersion Include="Argon" Version="0.27.0" />
     <PackageVersion Include="Argon.FSharp" Version="0.27.0" />
     <PackageVersion Include="BenchmarkDotNet" Version="0.14.0" />
-    <PackageVersion Include="DiffEngine" Version="16.0.0" />
+    <PackageVersion Include="DiffEngine" Version="16.1.0" />
     <PackageVersion Include="Expecto" Version="10.2.3" />
     <PackageVersion Include="Fixie" Version="4.1.0" />
     <PackageVersion Include="Fixie.TestAdapter" Version="4.1.0" />
@@ -29,7 +29,7 @@
     <PackageVersion Include="SimpleInfoName" Version="3.1.0" />
     <PackageVersion Include="System.Drawing.Common" Version="9.0.3" />
     <PackageVersion Include="System.IO.Hashing" Version="9.0.3" />
-    <PackageVersion Include="System.Memory" Version="4.6.2" />
+    <PackageVersion Include="System.Memory" Version="4.6.3" />
     <PackageVersion Include="TextCopy" Version="6.2.1" />
     <PackageVersion Include="TUnit" Version="0.19.32" />
     <PackageVersion Include="TUnit.Core" Version="0.19.32" />
@@ -37,8 +37,8 @@
     <PackageVersion Include="xunit.abstractions" Version="2.0.3" />
     <PackageVersion Include="xunit.extensibility.execution" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.2" />
-    <PackageVersion Include="xunit.v3" Version="2.0.0" />
-    <PackageVersion Include="xunit.v3.extensibility.core" Version="2.0.0" />
+    <PackageVersion Include="xunit.v3" Version="2.0.1" />
+    <PackageVersion Include="xunit.v3.extensibility.core" Version="2.0.1" />
     <PackageVersion Include="YoloDev.Expecto.TestSdk" Version="0.15.3" />
   </ItemGroup>
 </Project>

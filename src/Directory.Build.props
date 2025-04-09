@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <PropertyGroup>
+    <NoWarn>CA1822;CS1591;CS0649;xUnit1026;xUnit1013;CS1573;VerifyTestsProjectDir;VerifySetParameters;PolyFillTargetsForNuget;xUnit1051;NU1608;NU1109</NoWarn>
     <Version>29.2.0</Version>
-    <NoWarn>CA1822;CS1591;CS0649;xUnit1026;xUnit1013;CS1573;VerifyTestsProjectDir;VerifySetParameters;PolyFillTargetsForNuget;xUnit1051</NoWarn>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>preview</LangVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>

@@ -57,7 +57,9 @@ class Emitter
             .AppendLine("{")
                 .IncreaseIndent()
                 .AppendLine(GeneratedCodeAttribute)
-                .AppendLine("public global::Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext")
+                .Append("public ")
+                .Append(TestContextModifiers(classToGenerate))
+                .AppendLine("global::Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext")
                 .AppendLine("{")
                     .IncreaseIndent()
                     .AppendLine("get => global::VerifyMSTest.Verifier.CurrentTestContext.Value!.TestContext;")
@@ -81,4 +83,7 @@ class Emitter
 
         return builder.ToString();
     }
+
+    static string TestContextModifiers(ClassToGenerate classToGenerate)
+        => classToGenerate.OverrideTestContext ? "override " : string.Empty;
 }

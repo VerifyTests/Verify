@@ -8,15 +8,17 @@
 /// The built in equality and hash code implementations won't work because this type includes a
 /// collection (which has reference equality semantics), so we must implement them ourselves.
 /// </remarks>
-readonly record struct ClassToGenerate(string? Namespace, string ClassName, ParentClass[] ParentClasses)
+readonly record struct ClassToGenerate(string? Namespace, string ClassName, bool OverrideTestContext, ParentClass[] ParentClasses)
 {
     public string? Namespace { get; } = Namespace;
     public string ClassName { get; } = ClassName;
     public ParentClass[] ParentClasses { get; } = ParentClasses;
+    public bool OverrideTestContext { get; } = OverrideTestContext;
 
     public bool Equals(ClassToGenerate other) =>
         Namespace == other.Namespace &&
         ClassName == other.ClassName &&
+        OverrideTestContext == other.OverrideTestContext &&
         ParentClasses.SequenceEqual(other.ParentClasses);
 
     public override int GetHashCode()
@@ -27,6 +29,7 @@ readonly record struct ClassToGenerate(string? Namespace, string ClassName, Pare
             var hash = 1430287;
             hash = hash * 7302013 ^ (Namespace ?? string.Empty).GetHashCode();
             hash = hash * 7302013 ^ ClassName.GetHashCode();
+            hash = hash * 7302013 ^ OverrideTestContext.GetHashCode();
 
             // Include (up to) the last 8 elements in the hash code to balance performance and specificity.
             // The runtime also does this for structural equality; see

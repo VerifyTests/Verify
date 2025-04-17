@@ -1,6 +1,19 @@
 # Type to string mapping
 
-Certain types, **when passed directly in to Verify**, are written directly without going through json serialization.
+Certain types, **when passed directly to `Verify()`**, are written directly without going through json serialization.
+
+The API for controlling this behavior is `TreatAsString()`
+
+Example of passing directly to `Verify()`:
+
+```cs
+[Fact]
+public Task Example() =>
+    Verify(new DateOnly(2020, 10, 4));
+```
+
+
+## Default type mapping
 
 The default mapping is:
 
@@ -9,7 +22,7 @@ snippet: typeToStringMapping
 
 ## Scrubbing is bypassed
 
-This bypasses the Guid and DateTime scrubbing.
+This approach bypasses the Guid and DateTime scrubbing.
 
 
 ## DateTime formatting

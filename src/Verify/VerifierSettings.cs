@@ -21,16 +21,10 @@ public static partial class VerifierSettings
     public static void AutoVerify(GlobalAutoVerify autoVerify, bool includeBuildServer = true)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        if (includeBuildServer)
+        if (includeBuildServer ||
+            !BuildServerDetector.Detected)
         {
             VerifierSettings.autoVerify = autoVerify;
-        }
-        else
-        {
-            if (!BuildServerDetector.Detected)
-            {
-                VerifierSettings.autoVerify = autoVerify;
-            }
         }
     }
 

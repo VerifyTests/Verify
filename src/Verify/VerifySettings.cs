@@ -123,16 +123,10 @@ public partial class VerifySettings
     /// </summary>
     public void AutoVerify(AutoVerify autoVerify, bool includeBuildServer = true)
     {
-        if (includeBuildServer)
+        if (includeBuildServer ||
+            !BuildServerDetector.Detected)
         {
            this.autoVerify = autoVerify;
-        }
-        else
-        {
-            if (!BuildServerDetector.Detected)
-            {
-                this.autoVerify = autoVerify;
-            }
         }
     }
 }

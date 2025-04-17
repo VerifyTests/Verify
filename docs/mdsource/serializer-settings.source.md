@@ -294,15 +294,32 @@ Result:
 snippet: SerializationTests.ScrubMemberByPredicate.verified.txt
 
 
-## TreatAsString
+## Type to string mapping
 
-Certain types, when passed directly in to Verify, are written directly without going through json serialization.
+Certain types, **when passed directly in to Verify**, are written directly without going through json serialization.
 
 The default mapping is:
 
 snippet: typeToStringMapping
 
 This bypasses the Guid and DateTime scrubbing.
+
+
+### DateTime formatting
+
+How DateTimes are converted to a string:
+
+snippet: DateFormatter_DateTime.cs
+
+
+### DateTimeOffset formatting
+
+How DateTimeOffset are converted to a string:
+
+snippet: DateFormatter_DateTimeOffset.cs
+
+
+### Extra Types
 
 Extra types can be added to this mapping:
 

@@ -1325,9 +1325,9 @@ Result:
 <!-- endSnippet -->
 
 
-## TreatAsString
+## Type to string mapping
 
-Certain types, when passed directly in to Verify, are written directly without going through json serialization.
+Certain types, **when passed directly in to Verify**, are written directly without going through json serialization.
 
 The default mapping is:
 
@@ -1423,6 +1423,183 @@ The default mapping is:
 <!-- endSnippet -->
 
 This bypasses the Guid and DateTime scrubbing.
+
+
+### DateTime formatting
+
+How DateTimes are converted to a string:
+
+<!-- snippet: DateFormatter_DateTime.cs -->
+<a id='snippet-DateFormatter_DateTime.cs'></a>
+```cs
+static partial class DateFormatter
+{
+    public static string ToJsonString(DateTime value)
+    {
+        var result = GetJsonDatePart(value);
+
+        if (value.Kind != DateTimeKind.Unspecified)
+        {
+            result += $" {value.Kind}";
+        }
+
+        return result;
+    }
+
+    static string GetJsonDatePart(DateTime value)
+    {
+        if (value.TimeOfDay == TimeSpan.Zero)
+        {
+            return value.ToString("yyyy-MM-dd", Culture.InvariantCulture);
+        }
+
+        if (value is {Second: 0, Millisecond: 0})
+        {
+            return value.ToString("yyyy-MM-dd HH:mm", Culture.InvariantCulture);
+        }
+
+        if (value.Millisecond == 0)
+        {
+            return value.ToString("yyyy-MM-dd HH:mm:ss", Culture.InvariantCulture);
+        }
+
+        return value.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF", Culture.InvariantCulture);
+    }
+
+    public static string ToParameterString(DateTime value)
+    {
+        var result = GetParameterDatePart(value);
+
+        if (value.Kind != DateTimeKind.Unspecified)
+        {
+            result += value.Kind;
+        }
+
+        return result;
+    }
+
+    static string GetParameterDatePart(DateTime value)
+    {
+        if (value.TimeOfDay == TimeSpan.Zero)
+        {
+            return value.ToString("yyyy-MM-dd", Culture.InvariantCulture);
+        }
+
+        if (value is {Second: 0, Millisecond: 0})
+        {
+            return value.ToString("yyyy-MM-ddTHH-mm", Culture.InvariantCulture);
+        }
+
+        if (value.Millisecond == 0)
+        {
+            return value.ToString("yyyy-MM-ddTHH-mm-ss", Culture.InvariantCulture);
+        }
+
+        return value.ToString("yyyy-MM-ddTHH-mm-ss.FFFFFFF", Culture.InvariantCulture);
+    }
+}
+```
+<sup><a href='/src/Verify/Serialization/DateFormatter_DateTime.cs#L1-L66' title='Snippet source file'>snippet source</a> | <a href='#snippet-DateFormatter_DateTime.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### DateTimeOffset formatting
+
+How DateTimeOffset are converted to a string:
+
+<!-- snippet: DateFormatter_DateTimeOffset.cs -->
+<a id='snippet-DateFormatter_DateTimeOffset.cs'></a>
+```cs
+static partial class DateFormatter
+{
+    public static string ToJsonString(DateTimeOffset value)
+    {
+        var result = GetJsonDatePart(value);
+        result += $" {GetDateOffset(value)}";
+        return result;
+    }
+
+    static string GetJsonDatePart(DateTimeOffset value)
+    {
+        if (value.TimeOfDay == TimeSpan.Zero)
+        {
+            return value.ToString("yyyy-MM-dd", Culture.InvariantCulture);
+        }
+
+        if (value is {Second: 0, Millisecond: 0})
+        {
+            return value.ToString("yyyy-MM-dd HH:mm", Culture.InvariantCulture);
+        }
+
+        if (value.Millisecond == 0)
+        {
+            return value.ToString("yyyy-MM-dd HH:mm:ss", Culture.InvariantCulture);
+        }
+
+        return value.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF", Culture.InvariantCulture);
+    }
+
+    public static string ToParameterString(DateTimeOffset value)
+    {
+        var result = GetParameterDatePart(value);
+        result += GetDateOffset(value);
+
+        return result;
+    }
+
+    static string GetParameterDatePart(DateTimeOffset value)
+    {
+        if (value.TimeOfDay == TimeSpan.Zero)
+        {
+            return value.ToString("yyyy-MM-dd", Culture.InvariantCulture);
+        }
+
+        if (value is {Second: 0, Millisecond: 0})
+        {
+            return value.ToString("yyyy-MM-ddTHH-mm", Culture.InvariantCulture);
+        }
+
+        if (value.Millisecond == 0)
+        {
+            return value.ToString("yyyy-MM-ddTHH-mm-ss", Culture.InvariantCulture);
+        }
+
+        return value.ToString("yyyy-MM-ddTHH-mm-ss.FFFFFFF", Culture.InvariantCulture);
+    }
+
+    static string GetDateOffset(DateTimeOffset value)
+    {
+        var offset = value.Offset;
+
+        if (offset > TimeSpan.Zero)
+        {
+            if (offset.Minutes == 0)
+            {
+                return $"+{offset.TotalHours:0}";
+            }
+
+            return $"+{offset.Hours:0}-{offset.Minutes:00}";
+        }
+
+        if (offset < TimeSpan.Zero)
+        {
+            if (offset.Minutes == 0)
+            {
+                return $"{offset.Hours:0}";
+            }
+
+            return $"{offset.Hours:0}{offset.Minutes:00}";
+        }
+
+        return "+0";
+    }
+}
+```
+<sup><a href='/src/Verify/Serialization/DateFormatter_DateTimeOffset.cs#L1-L84' title='Snippet source file'>snippet source</a> | <a href='#snippet-DateFormatter_DateTimeOffset.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Extra Types
 
 Extra types can be added to this mapping:
 

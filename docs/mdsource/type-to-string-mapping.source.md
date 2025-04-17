@@ -53,7 +53,7 @@ Extra types can be added to this mapping:
 snippet: TreatAsString
 
 
-## Redundant Json Serialization setting
+## Redundant json serialization settings
 
 Since this approach bypasses json serialization, any json serialization settings are redundant. For example `DontScrubDateTimes`, `UseStrictJson`, and `DontScrubGuids`.
 

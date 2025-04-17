@@ -14,6 +14,7 @@
     * [Ordering](/docs/ordering.md)
     * [Encoding](/docs/encoding.md)
     * [JsonAppender](/docs/jsonappender.md)
+    * [Type to string mapping](/docs/type-to-string-mapping.md)
   * [File naming](/docs/naming.md)
   * [AppendFile](/docs/append-file.md)
   * [Parameterised tests](/docs/parameterised.md)

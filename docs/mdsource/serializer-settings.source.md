@@ -294,21 +294,6 @@ Result:
 snippet: SerializationTests.ScrubMemberByPredicate.verified.txt
 
 
-## TreatAsString
-
-Certain types, when passed directly in to Verify, are written directly without going through json serialization.
-
-The default mapping is:
-
-snippet: typeToStringMapping
-
-This bypasses the Guid and DateTime scrubbing.
-
-Extra types can be added to this mapping:
-
-snippet: TreatAsString
-
-
 ## Converting a member
 
 The value of a member can be mutated before serialization:
@@ -319,6 +304,7 @@ snippet: MemberConverter
 ## See also
 
  * [Obsolete members](/docs/obsolete-members.md)
+ * [Type to string mapping](/docs/type-to-string-mapping.md)
  * [Guids](/docs/guids.md)
  * [Dates](/docs/dates.md)
  * [Scrubbing](/docs/scrubbers.md)

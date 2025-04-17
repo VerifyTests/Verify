@@ -69,7 +69,7 @@ public Task AutoVerifyFluentDelegate() =>
             verifiedFile =>
                 Path.GetExtension(verifiedFile) == "png");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L88-L97' title='Snippet source file'>snippet source</a> | <a href='#snippet-AutoVerifyFluentDelegate' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L97-L106' title='Snippet source file'>snippet source</a> | <a href='#snippet-AutoVerifyFluentDelegate' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -234,5 +234,5 @@ To disable diff launching:
 var settings = new VerifySettings();
 settings.DisableDiff();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L101-L106' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableDiff' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L110-L115' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableDiff' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

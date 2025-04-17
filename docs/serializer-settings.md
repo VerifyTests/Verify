@@ -221,7 +221,7 @@ Extra Json.NET settings can be made:
 VerifierSettings.AddExtraSettings(
     _ => _.TypeNameHandling = TypeNameHandling.All);
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L111-L116' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExtraSettingsGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L120-L125' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExtraSettingsGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -234,7 +234,7 @@ var settings = new VerifySettings();
 settings.AddExtraSettings(
     _ => _.TypeNameHandling = TypeNameHandling.All);
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L118-L124' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExtraSettingsInstance' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L127-L133' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExtraSettingsInstance' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -252,7 +252,7 @@ class CompanyConverter :
         writer.WriteMember(company, company.Name, "Name");
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L134-L143' title='Snippet source file'>snippet source</a> | <a href='#snippet-CompanyConverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L143-L152' title='Snippet source file'>snippet source</a> | <a href='#snippet-CompanyConverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: JsonConverter -->
@@ -261,7 +261,7 @@ class CompanyConverter :
 VerifierSettings.AddExtraSettings(
     _ => _.Converters.Add(new CompanyConverter()));
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L128-L131' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonConverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L137-L140' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonConverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -1325,294 +1325,6 @@ Result:
 <!-- endSnippet -->
 
 
-## Type to string mapping
-
-Certain types, **when passed directly in to Verify**, are written directly without going through json serialization.
-
-The default mapping is:
-
-<!-- snippet: typeToStringMapping -->
-<a id='snippet-typeToStringMapping'></a>
-```cs
-{
-    typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()
-},
-{
-    typeof(StringWriter), (target, _) => ((StringWriter) target).ToString()
-},
-{
-    typeof(bool), (target, _) => ((bool) target).ToString(Culture.InvariantCulture)
-},
-{
-    typeof(short), (target, _) => ((short) target).ToString(Culture.InvariantCulture)
-},
-{
-    typeof(ushort), (target, _) => ((ushort) target).ToString(Culture.InvariantCulture)
-},
-{
-    typeof(int), (target, _) => ((int) target).ToString(Culture.InvariantCulture)
-},
-{
-    typeof(uint), (target, _) => ((uint) target).ToString(Culture.InvariantCulture)
-},
-{
-    typeof(long), (target, _) => ((long) target).ToString(Culture.InvariantCulture)
-},
-{
-    typeof(ulong), (target, _) => ((ulong) target).ToString(Culture.InvariantCulture)
-},
-{
-    typeof(decimal), (target, _) => ((decimal) target).ToString(Culture.InvariantCulture)
-},
-{
-    typeof(BigInteger), (target, _) => ((BigInteger) target).ToString(Culture.InvariantCulture)
-},
-#if NET6_0_OR_GREATER
-{
-    typeof(Half), (target, _) => ((Half) target).ToString(Culture.InvariantCulture)
-},
-#endif
-#if NET6_0_OR_GREATER
-{
-    typeof(Date), (target, _) =>
-    {
-        var date = (Date) target;
-        return date.ToString("yyyy-MM-dd", Culture.InvariantCulture);
-    }
-},
-{
-    typeof(Time), (target, _) =>
-    {
-        var time = (Time) target;
-        return time.ToString("h:mm tt", Culture.InvariantCulture);
-    }
-},
-#endif
-{
-    typeof(float), (target, _) => ((float) target).ToString(Culture.InvariantCulture)
-},
-{
-    typeof(double), (target, _) => ((double) target).ToString(Culture.InvariantCulture)
-},
-{
-    typeof(Guid), (target, _) => ((Guid) target).ToString()
-},
-{
-    typeof(DateTime), (target, _) => DateFormatter.ToJsonString((DateTime) target)
-},
-{
-    typeof(DateTimeOffset), (target, _) => DateFormatter.ToJsonString((DateTimeOffset) target)
-},
-{
-    typeof(XmlNode), (target, _) =>
-    {
-        var converted = (XmlNode) target;
-        var document = XDocument.Parse(converted.OuterXml);
-        return new(document.ToString(), "xml");
-    }
-},
-{
-    typeof(XElement), (target, settings) =>
-    {
-        var converted = (XElement) target;
-        return new(converted.ToString(), "xml");
-    }
-},
-```
-<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L38-L125' title='Snippet source file'>snippet source</a> | <a href='#snippet-typeToStringMapping' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-This bypasses the Guid and DateTime scrubbing.
-
-
-### DateTime formatting
-
-How DateTimes are converted to a string:
-
-<!-- snippet: DateFormatter_DateTime.cs -->
-<a id='snippet-DateFormatter_DateTime.cs'></a>
-```cs
-static partial class DateFormatter
-{
-    public static string ToJsonString(DateTime value)
-    {
-        var result = GetJsonDatePart(value);
-
-        if (value.Kind != DateTimeKind.Unspecified)
-        {
-            result += $" {value.Kind}";
-        }
-
-        return result;
-    }
-
-    static string GetJsonDatePart(DateTime value)
-    {
-        if (value.TimeOfDay == TimeSpan.Zero)
-        {
-            return value.ToString("yyyy-MM-dd", Culture.InvariantCulture);
-        }
-
-        if (value is {Second: 0, Millisecond: 0})
-        {
-            return value.ToString("yyyy-MM-dd HH:mm", Culture.InvariantCulture);
-        }
-
-        if (value.Millisecond == 0)
-        {
-            return value.ToString("yyyy-MM-dd HH:mm:ss", Culture.InvariantCulture);
-        }
-
-        return value.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF", Culture.InvariantCulture);
-    }
-
-    public static string ToParameterString(DateTime value)
-    {
-        var result = GetParameterDatePart(value);
-
-        if (value.Kind != DateTimeKind.Unspecified)
-        {
-            result += value.Kind;
-        }
-
-        return result;
-    }
-
-    static string GetParameterDatePart(DateTime value)
-    {
-        if (value.TimeOfDay == TimeSpan.Zero)
-        {
-            return value.ToString("yyyy-MM-dd", Culture.InvariantCulture);
-        }
-
-        if (value is {Second: 0, Millisecond: 0})
-        {
-            return value.ToString("yyyy-MM-ddTHH-mm", Culture.InvariantCulture);
-        }
-
-        if (value.Millisecond == 0)
-        {
-            return value.ToString("yyyy-MM-ddTHH-mm-ss", Culture.InvariantCulture);
-        }
-
-        return value.ToString("yyyy-MM-ddTHH-mm-ss.FFFFFFF", Culture.InvariantCulture);
-    }
-}
-```
-<sup><a href='/src/Verify/Serialization/DateFormatter_DateTime.cs#L1-L66' title='Snippet source file'>snippet source</a> | <a href='#snippet-DateFormatter_DateTime.cs' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
-### DateTimeOffset formatting
-
-How DateTimeOffset are converted to a string:
-
-<!-- snippet: DateFormatter_DateTimeOffset.cs -->
-<a id='snippet-DateFormatter_DateTimeOffset.cs'></a>
-```cs
-static partial class DateFormatter
-{
-    public static string ToJsonString(DateTimeOffset value)
-    {
-        var result = GetJsonDatePart(value);
-        result += $" {GetDateOffset(value)}";
-        return result;
-    }
-
-    static string GetJsonDatePart(DateTimeOffset value)
-    {
-        if (value.TimeOfDay == TimeSpan.Zero)
-        {
-            return value.ToString("yyyy-MM-dd", Culture.InvariantCulture);
-        }
-
-        if (value is {Second: 0, Millisecond: 0})
-        {
-            return value.ToString("yyyy-MM-dd HH:mm", Culture.InvariantCulture);
-        }
-
-        if (value.Millisecond == 0)
-        {
-            return value.ToString("yyyy-MM-dd HH:mm:ss", Culture.InvariantCulture);
-        }
-
-        return value.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF", Culture.InvariantCulture);
-    }
-
-    public static string ToParameterString(DateTimeOffset value)
-    {
-        var result = GetParameterDatePart(value);
-        result += GetDateOffset(value);
-
-        return result;
-    }
-
-    static string GetParameterDatePart(DateTimeOffset value)
-    {
-        if (value.TimeOfDay == TimeSpan.Zero)
-        {
-            return value.ToString("yyyy-MM-dd", Culture.InvariantCulture);
-        }
-
-        if (value is {Second: 0, Millisecond: 0})
-        {
-            return value.ToString("yyyy-MM-ddTHH-mm", Culture.InvariantCulture);
-        }
-
-        if (value.Millisecond == 0)
-        {
-            return value.ToString("yyyy-MM-ddTHH-mm-ss", Culture.InvariantCulture);
-        }
-
-        return value.ToString("yyyy-MM-ddTHH-mm-ss.FFFFFFF", Culture.InvariantCulture);
-    }
-
-    static string GetDateOffset(DateTimeOffset value)
-    {
-        var offset = value.Offset;
-
-        if (offset > TimeSpan.Zero)
-        {
-            if (offset.Minutes == 0)
-            {
-                return $"+{offset.TotalHours:0}";
-            }
-
-            return $"+{offset.Hours:0}-{offset.Minutes:00}";
-        }
-
-        if (offset < TimeSpan.Zero)
-        {
-            if (offset.Minutes == 0)
-            {
-                return $"{offset.Hours:0}";
-            }
-
-            return $"{offset.Hours:0}{offset.Minutes:00}";
-        }
-
-        return "+0";
-    }
-}
-```
-<sup><a href='/src/Verify/Serialization/DateFormatter_DateTimeOffset.cs#L1-L84' title='Snippet source file'>snippet source</a> | <a href='#snippet-DateFormatter_DateTimeOffset.cs' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
-### Extra Types
-
-Extra types can be added to this mapping:
-
-<!-- snippet: TreatAsString -->
-<a id='snippet-TreatAsString'></a>
-```cs
-VerifierSettings.TreatAsString<ClassWithToString>(
-    (target, settings) => target.Property);
-```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L29-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-TreatAsString' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
 ## Converting a member
 
 The value of a member can be mutated before serialization:
@@ -1653,6 +1365,7 @@ public Task MemberConverterByExpression()
 ## See also
 
  * [Obsolete members](/docs/obsolete-members.md)
+ * [Type to string mapping](/docs/type-to-string-mapping.md)
  * [Guids](/docs/guids.md)
  * [Dates](/docs/dates.md)
  * [Scrubbing](/docs/scrubbers.md)

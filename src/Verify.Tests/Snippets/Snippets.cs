@@ -85,6 +85,15 @@ public class Snippets
 
     #endregion
 
+    public Task OverrideTreatAsStringDefaults()
+    {
+    #region OverrideTreatAsStringDefaults
+        VerifierSettings.TreatAsString<DateTime>(
+            (target, settings) => target.ToString("D"));
+        #endregion
+        return Verify(DateTime.Now);
+    }
+
     #region AutoVerifyFluentDelegate
 
     [Fact]

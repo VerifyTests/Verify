@@ -6,6 +6,9 @@ The default mapping is:
 
 snippet: typeToStringMapping
 
+
+## Scrubbing is bypassed
+
 This bypasses the Guid and DateTime scrubbing.
 
 
@@ -39,7 +42,7 @@ snippet: TreatAsString
 
 ## Redundant Json Serialization setting
 
-Since this approach bypasses json serialization, any json serialization settings are redundant. For example `DontScrubDateTimes`, `UseStrictJson`, `DontScrubGuids`, etc.
+Since this approach bypasses json serialization, any json serialization settings are redundant. For example `DontScrubDateTimes`, `UseStrictJson`, and `DontScrubGuids`.
 
 Note that any json serialization settings will still apply to anything amended to the target via [Recording](docs/recording.md) or [JsonAppenders](jsonappender.md)
 

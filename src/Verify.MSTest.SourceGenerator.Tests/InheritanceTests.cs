@@ -76,7 +76,29 @@ public class InheritanceTests(ITestOutputHelper output) : TestBase(output)
             }
             """;
 
-        return VerifyGenerator(TestDriver.Run(source), ["CS0108"]);
+        return VerifyGenerator(TestDriver.Run(source), ["CS0506"]);
+    }
+
+    [Fact]
+    public Task HasAttributeOnDerivedClassAndVirtualPropertyManuallyDefinedInBase()
+    {
+        var source = """
+            using Microsoft.VisualStudio.TestTools.UnitTesting;
+            using VerifyMSTest;
+
+            public class Base
+            {
+                public virtual TestContext TestContext { get; set; }
+            }
+
+            [TestClass]
+            [UsesVerify]
+            public partial class Derived : Base
+            {
+            }
+            """;
+
+        return VerifyGenerator(TestDriver.Run(source));
     }
 
     [Fact]

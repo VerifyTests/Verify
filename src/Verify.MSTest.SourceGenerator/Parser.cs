@@ -6,7 +6,33 @@ static class Parser
         var name = typeSyntax.GetTypeNameWithGenericParameters();
         var parents = GetParentClasses(typeSyntax, cancel);
 
-        return new ClassToGenerate(ns, name, parents);
+        return new ClassToGenerate(
+            Namespace: ns,
+            ClassName: name,
+            OverrideTestContext: BaseClassHasTestContext(typeSymbol),
+            ParentClasses: parents);
+    }
+
+    static bool BaseClassHasTestContext(INamedTypeSymbol typeSymbol) =>
+        BaseClassesOf(typeSymbol)
+            .Any(HasTestContextProperty);
+
+    static bool HasTestContextProperty(INamedTypeSymbol typeSymbol) =>
+        typeSymbol
+                .GetMembers()
+                .OfType<IPropertySymbol>()
+                .Any(property =>
+                    property.Name == "TestContext" &&
+                    property.DeclaredAccessibility == Accessibility.Public);
+
+    static IEnumerable<INamedTypeSymbol> BaseClassesOf(INamedTypeSymbol typeSymbol)
+    {
+        var baseType = typeSymbol.BaseType;
+        while (baseType?.TypeKind == TypeKind.Class)
+        {
+            yield return baseType;
+            baseType = baseType.BaseType;
+        }
     }
 
     static ParentClass[] GetParentClasses(TypeDeclarationSyntax typeSyntax, Cancel cancel)

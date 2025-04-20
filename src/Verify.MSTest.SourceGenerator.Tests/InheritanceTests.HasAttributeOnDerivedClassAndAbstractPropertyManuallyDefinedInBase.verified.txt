@@ -14,12 +14,8 @@ partial class Derived
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Verify.MSTest.SourceGenerator", "1.0.0.0")]
     public sealed override global::Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
     {
-        get => base.TestContext;
-        set
-        {
-            global::VerifyMSTest.Verifier.CurrentTestContext.Value = new global::VerifyMSTest.TestExecutionContext(value, GetType());
-            base.TestContext = value;
-        }
+        get => global::VerifyMSTest.Verifier.CurrentTestContext.Value!.TestContext;
+        set => global::VerifyMSTest.Verifier.CurrentTestContext.Value = new global::VerifyMSTest.TestExecutionContext(value, GetType());
     }
 }
 

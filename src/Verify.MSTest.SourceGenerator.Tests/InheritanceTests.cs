@@ -102,6 +102,28 @@ public class InheritanceTests(ITestOutputHelper output) : TestBase(output)
     }
 
     [Fact]
+    public Task HasAttributeOnDerivedClassAndAbstractPropertyManuallyDefinedInBase()
+    {
+        var source = """
+            using Microsoft.VisualStudio.TestTools.UnitTesting;
+            using VerifyMSTest;
+
+            public abstract class Base
+            {
+                public abstract TestContext TestContext { get; set; }
+            }
+
+            [TestClass]
+            [UsesVerify]
+            public partial class Derived : Base
+            {
+            }
+            """;
+
+        return VerifyGenerator(TestDriver.Run(source));
+    }
+
+    [Fact]
     public Task HasAssemblyAttributeAndTestClassInheritance()
     {
         var source = """

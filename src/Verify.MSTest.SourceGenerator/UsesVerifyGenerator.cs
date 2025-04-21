@@ -112,14 +112,14 @@ public class UsesVerifyGenerator : IIncrementalGenerator
         .GetBaseTypes()
         .Any(_ => _.HasAttributeOfType(TestClassAttributeName, includeDerived: true));
 
-    static void Execute(SourceProductionContext context, ImmutableArray<ClassToGenerate> classesToGenerate)
+    static void Execute(SourceProductionContext context, ImmutableArray<ClassToGenerate> toGenerate)
     {
-        if (classesToGenerate.IsDefaultOrEmpty)
+        if (toGenerate.IsDefaultOrEmpty)
         {
             return;
         }
 
-        var classes = classesToGenerate.Distinct().ToList();
+        var classes = toGenerate.Distinct();
 
         var emitter = new Emitter();
         var sourceCode = emitter.GenerateExtensionClasses(classes, context.CancellationToken);

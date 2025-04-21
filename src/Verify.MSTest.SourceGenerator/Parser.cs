@@ -36,9 +36,9 @@ static class Parser
         typeSymbol
                 .GetMembers()
                 .OfType<IPropertySymbol>()
-                .Where(property =>
-                    property.Name == "TestContext" &&
-                    property.DeclaredAccessibility == Accessibility.Public);
+                .Where(_ =>
+                    _.Name == "TestContext" &&
+                    _.DeclaredAccessibility == Accessibility.Public);
 
     static IEnumerable<INamedTypeSymbol> BaseClassesOf(INamedTypeSymbol typeSymbol)
     {
@@ -50,7 +50,7 @@ static class Parser
         }
     }
 
-    static ParentClass[] GetParentClasses(TypeDeclarationSyntax typeSyntax, Cancel cancel)
+    static ParentClass[] GetParentClasses(TypeDeclarationSyntax syntax, Cancel cancel)
     {
         // We can only be nested in class/struct/record
         static bool IsAllowedKind(SyntaxKind kind) =>
@@ -61,7 +61,7 @@ static class Parser
 
         var parents = new Stack<ParentClass>();
 
-        var parent = typeSyntax.Parent as TypeDeclarationSyntax;
+        var parent = syntax.Parent as TypeDeclarationSyntax;
 
         while (parent is not null &&
                IsAllowedKind(parent.Kind()))

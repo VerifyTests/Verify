@@ -18,23 +18,21 @@ class Emitter
     static readonly string generatedCodeAttribute =
         $"[global::System.CodeDom.Compiler.GeneratedCodeAttribute(\"{typeof(Emitter).Assembly.GetName().Name}\", \"{typeof(Emitter).Assembly.GetName().Version}\")]";
 
-    IndentedStringBuilder builder = new();
+    StringBuilder builder = new(4096);
 
     void WriteNamespace(ClassToGenerate classToGenerate)
     {
         if (classToGenerate.Namespace is not null)
         {
             builder.Append("namespace ").AppendLine(classToGenerate.Namespace)
-              .AppendLine("{")
-              .IncreaseIndent();
+                .AppendLine("{");
         }
 
         WriteParentTypes(classToGenerate);
 
         if (classToGenerate.Namespace is not null)
         {
-            builder.DecreaseIndent()
-              .AppendLine("}");
+            builder.AppendLine("}");
         }
     }
 
@@ -44,27 +42,22 @@ class Emitter
         {
             builder.Append("partial ").Append(parentClass.Keyword).Append(" ").AppendLine(parentClass.Name)
               .AppendLine("{");
-
-            builder.IncreaseIndent();
         }
 
         WriteClass(classToGenerate);
 
         foreach (var _ in classToGenerate.ParentClasses)
         {
-            builder.DecreaseIndent()
-              .AppendLine("}");
+            builder.AppendLine("}");
         }
     }
 
     void WriteClass(ClassToGenerate toGenerate)
     {
         builder.Append("partial class ").AppendLine(toGenerate.ClassName)
-            .AppendLine("{")
-            .IncreaseIndent();
+            .AppendLine("{");
         AppendTestContextProperty(toGenerate.TestContextPropertyFlags);
         builder
-            .DecreaseIndent()
             .AppendLine("}");
     }
 
@@ -90,11 +83,9 @@ class Emitter
                 .Append(GetModifiers(flags))
                 .AppendLine("global::Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext")
                 .AppendLine("{")
-                    .IncreaseIndent()
                     .Append("get => ").AppendLine(GetterBody(flags));
         AppendSetter(flags);
         builder
-                    .DecreaseIndent()
                 .AppendLine("}");
     }
 
@@ -118,10 +109,8 @@ class Emitter
         builder
             .AppendLine("set")
             .AppendLine("{")
-                .IncreaseIndent()
                 .AppendLine(setVerifierTestContext)
                 .AppendLine("base.TestContext = value;")
-                .DecreaseIndent()
             .AppendLine("}");
 
     static string GetterBody(PropertyFlags flags) =>

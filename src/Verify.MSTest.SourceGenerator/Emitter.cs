@@ -20,17 +20,21 @@ class Emitter
 
     StringBuilder builder = new(4096);
 
-    void WriteNamespace(ClassToGenerate classToGenerate)
+    void WriteNamespace(ClassToGenerate toGenerate)
     {
-        if (classToGenerate.Namespace is not null)
+        if (toGenerate.Namespace is not null)
         {
-            builder.Append("namespace ").AppendLine(classToGenerate.Namespace)
-                .AppendLine("{");
+            builder.AppendLine(
+                    $$"""
+                      namespace {{toGenerate.Namespace}}
+                      {
+                      """
+                );
         }
 
-        WriteParentTypes(classToGenerate);
+        WriteParentTypes(toGenerate);
 
-        if (classToGenerate.Namespace is not null)
+        if (toGenerate.Namespace is not null)
         {
             builder.AppendLine("}");
         }
@@ -54,11 +58,13 @@ class Emitter
 
     void WriteClass(ClassToGenerate toGenerate)
     {
-        builder.Append("partial class ").AppendLine(toGenerate.ClassName)
-            .AppendLine("{");
+        builder.AppendLine(
+            $$"""
+              partial class {{toGenerate.ClassName}}
+              {
+              """);
         AppendTestContextProperty(toGenerate.TestContextPropertyFlags);
-        builder
-            .AppendLine("}");
+        builder.AppendLine("}");
     }
 
     public string GenerateExtensionClasses(IReadOnlyCollection<ClassToGenerate> classes, Cancel cancel)

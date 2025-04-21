@@ -54,7 +54,7 @@ class Emitter
 
         foreach (var _ in classToGenerate.ParentClasses)
         {
-            builder.AppendLine("  }");
+            builder.AppendLine("}");
         }
     }
 
@@ -62,11 +62,11 @@ class Emitter
     {
         builder.AppendLine(
             $$"""
-                partial class {{toGenerate.ClassName}}
-                {
+              partial class {{toGenerate.ClassName}}
+              {
               """);
         AppendTestContextProperty(toGenerate.TestContextPropertyFlags);
-        builder.AppendLine("  }");
+        builder.AppendLine("}");
     }
 
     public string GenerateExtensionClasses(IReadOnlyCollection<ClassToGenerate> classes, Cancel cancel)
@@ -88,13 +88,13 @@ class Emitter
     {
         builder.AppendLine(
             $$"""
-                  {{generatedCodeAttribute}}
-                  public {{GetModifiers(flags)}}global::Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
-                  {
-                    get => {{GetterBody(flags)}}
+                {{generatedCodeAttribute}}
+                public {{GetModifiers(flags)}}global::Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
+                {
+                  get => {{GetterBody(flags)}}
               """);
         AppendSetter(flags);
-        builder.AppendLine("    }");
+        builder.AppendLine("  }");
     }
 
     void AppendSetter(PropertyFlags flags)
@@ -110,16 +110,16 @@ class Emitter
     }
 
     void AppendDefaultSetter() =>
-        builder.AppendLine($"      set => {setVerifierTestContext}");
+        builder.AppendLine($"    set => {setVerifierTestContext}");
 
     private void AppendCallBaseSetter() =>
         builder.AppendLine(
             $$"""
-                    set
-                    {
-                      {{setVerifierTestContext}}
-                      base.TestContext = value;
-                    }
+                  set
+                  {
+                    {{setVerifierTestContext}}
+                    base.TestContext = value;
+                  }
               """);
 
     static string GetterBody(PropertyFlags flags) =>

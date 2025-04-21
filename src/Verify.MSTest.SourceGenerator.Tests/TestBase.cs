@@ -12,13 +12,15 @@ public abstract class TestBase(ITestOutputHelper output)
         var cached = results.CachedRun;
         Output.WriteLine($"Cached re-run of generators took: {cached.TimingInfo.ElapsedTime}");
 
-        if (expectedDiagnostics == null || expectedDiagnostics.Count == 0)
+        var diagnostics = results.outputCompilation.GetDiagnostics();
+        if (expectedDiagnostics == null ||
+            expectedDiagnostics.Count == 0)
         {
-            Assert.Empty(results.outputCompilation.GetDiagnostics());
+            Assert.Empty(diagnostics);
         }
         else
         {
-            foreach (var diagnostic in results.outputCompilation.GetDiagnostics())
+            foreach (var diagnostic in diagnostics)
             {
                 Assert.Contains(diagnostic.Id, expectedDiagnostics);
             }

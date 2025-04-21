@@ -1,4 +1,3 @@
-using System.Data;
 using PropertyFlags = ClassToGenerate.PropertyFlags;
 
 static class Parser
@@ -19,28 +18,18 @@ static class Parser
             ParentClasses: parents);
     }
 
-    private static PropertyFlags GetDerivedPropertyFlagsGiven(
-        IPropertySymbol? baseClassProperty)
-    {
-        var isAbstract = baseClassProperty?.IsAbstract;
-        switch (isAbstract)
+    static PropertyFlags GetDerivedPropertyFlagsGiven(IPropertySymbol? baseClassProperty) =>
+        baseClassProperty?.IsAbstract switch
         {
-            case true:
-                return PropertyFlags.Override;
-            case false:
-                return PropertyFlags.Override | PropertyFlags.CallBase;
-            case null:
-                return PropertyFlags.None;
-        }
-    }
+            true => PropertyFlags.Override,
+            false => PropertyFlags.Override |
+                     PropertyFlags.CallBase,
+            null => PropertyFlags.None
+        };
 
-    static IEnumerable<IPropertySymbol> BaseTestContextProperties(
-        INamedTypeSymbol typeSymbol)
-    =>
-            from baseClass in BaseClassesOf(typeSymbol)
-            from testContextProperty in GetTestContextProperty(baseClass)
-            select testContextProperty;
-
+    static IEnumerable<IPropertySymbol> BaseTestContextProperties(INamedTypeSymbol typeSymbol) =>
+        BaseClassesOf(typeSymbol)
+            .SelectMany(GetTestContextProperty);
 
     static IEnumerable<IPropertySymbol> GetTestContextProperty(INamedTypeSymbol typeSymbol) =>
         typeSymbol

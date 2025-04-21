@@ -61,11 +61,11 @@ class Emitter
     {
         builder.Append("partial class ").AppendLine(classToGenerate.ClassName)
             .AppendLine("{")
-                .IncreaseIndent();
+            .IncreaseIndent();
         AppendTestContextProperty(
             classToGenerate.TestContextPropertyFlags);
         builder
-                .DecreaseIndent()
+            .DecreaseIndent()
             .AppendLine("}");
     }
 
@@ -92,7 +92,7 @@ class Emitter
                 .AppendLine("global::Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext")
                 .AppendLine("{")
                     .IncreaseIndent()
-                    .Append($"get => ").AppendLine(GetterBody(flags));
+                    .Append("get => ").AppendLine(GetterBody(flags));
         AppendSetter(flags);
         builder
                     .DecreaseIndent()

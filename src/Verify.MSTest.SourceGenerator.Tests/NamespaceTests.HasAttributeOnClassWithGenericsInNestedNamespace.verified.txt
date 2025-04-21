@@ -11,10 +11,10 @@
 
 namespace A.B
 {
-partial class C<T>
-{
-partial class D
-{
+  partial class C<T>
+  {
+  partial class D
+  {
 partial class TestClass1<U>
 {
 [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Verify.MSTest.SourceGenerator", "1.0.0.0")]
@@ -24,16 +24,16 @@ get => global::VerifyMSTest.Verifier.CurrentTestContext.Value!.TestContext;
 set => global::VerifyMSTest.Verifier.CurrentTestContext.Value = new global::VerifyMSTest.TestExecutionContext(value, GetType());
 }
 }
-}
-}
+  }
+  }
 }
 
 namespace A.B
 {
-partial class C<T>
-{
-partial class D
-{
+  partial class C<T>
+  {
+  partial class D
+  {
 partial class TestClass2
 {
 [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Verify.MSTest.SourceGenerator", "1.0.0.0")]
@@ -43,16 +43,16 @@ get => global::VerifyMSTest.Verifier.CurrentTestContext.Value!.TestContext;
 set => global::VerifyMSTest.Verifier.CurrentTestContext.Value = new global::VerifyMSTest.TestExecutionContext(value, GetType());
 }
 }
-}
-}
+  }
+  }
 }
 
 namespace A.B
 {
-partial class C<T>
-{
-partial class D
-{
+  partial class C<T>
+  {
+  partial class D
+  {
 partial class TestClass3<T1, T2>
 {
 [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Verify.MSTest.SourceGenerator", "1.0.0.0")]
@@ -62,8 +62,8 @@ get => global::VerifyMSTest.Verifier.CurrentTestContext.Value!.TestContext;
 set => global::VerifyMSTest.Verifier.CurrentTestContext.Value = new global::VerifyMSTest.TestExecutionContext(value, GetType());
 }
 }
-}
-}
+  }
+  }
 }
 
 }

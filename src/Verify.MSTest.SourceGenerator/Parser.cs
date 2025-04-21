@@ -2,19 +2,20 @@ using PropertyFlags = ClassToGenerate.PropertyFlags;
 
 static class Parser
 {
-    public static ClassToGenerate? Parse(INamedTypeSymbol typeSymbol, TypeDeclarationSyntax typeSyntax, Cancel cancel)
+    public static ClassToGenerate Parse(INamedTypeSymbol symbol, TypeDeclarationSyntax syntax, Cancel cancel)
     {
-        var ns = typeSymbol.GetNamespaceOrDefault();
-        var name = typeSyntax.GetTypeNameWithGenericParameters();
-        var parents = GetParentClasses(typeSyntax, cancel);
-        var testContextPropertyFlags =
+        cancel.ThrowIfCancellationRequested();
+        var ns = symbol.GetNamespaceOrDefault();
+        var name = syntax.GetTypeNameWithGenericParameters();
+        var parents = GetParentClasses(syntax, cancel);
+        var propertyFlags =
             GetDerivedPropertyFlagsGiven(
-                BaseTestContextProperties(typeSymbol).FirstOrDefault());
+                BaseTestContextProperties(symbol).FirstOrDefault());
 
-        return new ClassToGenerate(
+        return new(
             Namespace: ns,
             ClassName: name,
-            TestContextPropertyFlags: testContextPropertyFlags,
+            TestContextPropertyFlags: propertyFlags,
             ParentClasses: parents);
     }
 

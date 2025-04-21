@@ -18,7 +18,7 @@ class Emitter
     static readonly string GeneratedCodeAttribute =
         $"[global::System.CodeDom.Compiler.GeneratedCodeAttribute(\"{typeof(Emitter).Assembly.GetName().Name}\", \"{typeof(Emitter).Assembly.GetName().Version}\")]";
 
-    readonly IndentedStringBuilder builder = new();
+    IndentedStringBuilder builder = new();
 
     void WriteNamespace(ClassToGenerate classToGenerate)
     {

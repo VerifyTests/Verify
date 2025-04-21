@@ -23,21 +23,21 @@ static class Extensions
     {
         foreach (var attribute in symbol.GetAttributes())
         {
-            var typeSymbol = attribute.AttributeClass;
-            while (typeSymbol is not null)
+            var type = attribute.AttributeClass;
+            while (type is not null)
             {
-                if (typeSymbol.ToDisplayString() == fullyQualifiedAttributeName)
+                if (type.ToDisplayString() == fullyQualifiedAttributeName)
                 {
                     return true;
                 }
 
                 if (includeDerived)
                 {
-                    typeSymbol = typeSymbol.BaseType;
+                    type = type.BaseType;
                     continue;
                 }
 
-                typeSymbol = null;
+                type = null;
             }
         }
 

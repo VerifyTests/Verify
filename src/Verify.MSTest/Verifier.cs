@@ -2,8 +2,6 @@ namespace VerifyMSTest;
 
 public static partial class Verifier
 {
-    const string AttributeUsageHelp = "Ensure test class has a `[UsesVerify]` attribute (or inherits from `VerifyBase`).";
-
     static Task AddFile(FilePair path, bool autoVerify)
     {
         var context = CurrentTestContext.Value?.TestContext;
@@ -62,7 +60,7 @@ public static partial class Verifier
         var context = CurrentTestContext.Value;
         if (context is null)
         {
-            throw new($"TestContext is null. {AttributeUsageHelp}");
+            throw new("TestContext is null. Ensure test class has a `[UsesVerify]` attribute (or inherits from `VerifyBase`).");
         }
 
         return context;

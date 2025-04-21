@@ -69,22 +69,22 @@ class Emitter
             .AppendLine("}");
     }
 
-    public string GenerateExtensionClasses(IReadOnlyCollection<ClassToGenerate> classesToGenerate, Cancel cancel)
+    public string GenerateExtensionClasses(IReadOnlyCollection<ClassToGenerate> classes, Cancel cancel)
     {
         builder.AppendLine(autoGenerationHeader);
 
-        foreach (var classToGenerate in classesToGenerate)
+        foreach (var toGenerate in classes)
         {
             cancel.ThrowIfCancellationRequested();
 
             builder.AppendLine();
-            WriteNamespace(classToGenerate);
+            WriteNamespace(toGenerate);
         }
 
         return builder.ToString();
     }
 
-    public void AppendTestContextProperty(PropertyFlags flags)
+    void AppendTestContextProperty(PropertyFlags flags)
     {
         builder.AppendLine(generatedCodeAttribute)
                 .Append("public ")

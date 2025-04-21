@@ -62,9 +62,7 @@ public class UsesVerifyGenerator : IIncrementalGenerator
                         return null;
                     }
 
-                    cancel.ThrowIfCancellationRequested();
-
-                    if (!symbol.HasAttributeOfType(TestClassAttributeName, includeDerived: true))
+                    if (HasTestClassAttribute(symbol))
                     {
                         return null;
                     }
@@ -95,6 +93,8 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
         context.RegisterSourceOutput(toGenerate, Execute);
     }
+
+    static bool HasTestClassAttribute(INamedTypeSymbol symbol) => !symbol.HasAttributeOfType(TestClassAttributeName, includeDerived: true);
 
     static bool IsSyntaxEligibleForGeneration(SyntaxNode node, Cancel _) =>
         node is ClassDeclarationSyntax;

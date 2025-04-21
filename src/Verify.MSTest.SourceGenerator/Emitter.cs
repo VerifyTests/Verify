@@ -28,12 +28,10 @@ class Emitter
                 $$"""
                   namespace {{toGenerate.Namespace}}
                   {
-                  """
-            );
+                  """);
         }
 
         WriteParentTypes(toGenerate);
-
         if (toGenerate.Namespace is not null)
         {
             builder.AppendLine("}");
@@ -46,8 +44,8 @@ class Emitter
         {
             builder.AppendLine(
                 $$"""
-                    partial {{parentClass.Keyword}} {{parentClass.Name}}
-                    {
+                  partial {{parentClass.Keyword}} {{parentClass.Name}}
+                  {
                   """);
         }
 
@@ -63,11 +61,11 @@ class Emitter
     {
         builder.AppendLine(
             $$"""
-              partial class {{toGenerate.ClassName}}
-              {
+                partial class {{toGenerate.ClassName}}
+                {
               """);
         AppendTestContextProperty(toGenerate.TestContextPropertyFlags);
-        builder.AppendLine("}");
+        builder.AppendLine("  }");
     }
 
     public string GenerateExtensionClasses(IReadOnlyCollection<ClassToGenerate> classes, Cancel cancel)
@@ -87,14 +85,15 @@ class Emitter
 
     void AppendTestContextProperty(PropertyFlags flags)
     {
-        builder.AppendLine(generatedCodeAttribute)
-            .Append("public ")
-            .Append(GetModifiers(flags))
-            .AppendLine("global::Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext")
-            .AppendLine("{")
-            .Append("get => ").AppendLine(GetterBody(flags));
+        builder.AppendLine(
+            $$"""
+                  {{generatedCodeAttribute}}
+                  public {{GetModifiers(flags)}}global::Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
+                  {
+                    get => {{GetterBody(flags)}}
+              """);
         AppendSetter(flags);
-        builder.AppendLine("}");
+        builder.AppendLine("    }");
     }
 
     void AppendSetter(PropertyFlags flags)
@@ -110,7 +109,7 @@ class Emitter
     }
 
     void AppendDefaultSetter() =>
-        builder.AppendLine($"set => {setVerifierTestContext}");
+        builder.AppendLine($"      set => {setVerifierTestContext}");
 
     private void AppendCallBaseSetter() =>
         builder.AppendLine(

@@ -69,7 +69,7 @@ class Emitter
         builder.AppendLine("}");
     }
 
-    public string GenerateExtensionClasses(IReadOnlyCollection<ClassToGenerate> classes, Cancel cancel)
+    public string GenerateExtensionClasses(IEnumerable<ClassToGenerate> classes, Cancel cancel)
     {
         builder.AppendLine(autoGenerationHeader);
 

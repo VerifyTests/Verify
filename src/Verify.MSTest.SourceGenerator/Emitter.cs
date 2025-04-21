@@ -44,8 +44,11 @@ class Emitter
     {
         foreach (var parentClass in classToGenerate.ParentClasses)
         {
-            builder.Append("partial ").Append(parentClass.Keyword).Append(" ").AppendLine(parentClass.Name)
-              .AppendLine("{");
+            builder.AppendLine(
+                $$"""
+                  partial {{parentClass.Keyword}} {{parentClass.Name}}
+                  {
+                  """);
         }
 
         WriteClass(classToGenerate);

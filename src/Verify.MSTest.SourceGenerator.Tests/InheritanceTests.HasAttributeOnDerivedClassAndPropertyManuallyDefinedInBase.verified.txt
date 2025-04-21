@@ -15,11 +15,11 @@
     public sealed override global::Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
     {
       get => base.TestContext;
-  set
-  {
-    global::VerifyMSTest.Verifier.CurrentTestContext.Value = new global::VerifyMSTest.TestExecutionContext(value, GetType());
-    base.TestContext = value;
-  }
+      set
+      {
+        global::VerifyMSTest.Verifier.CurrentTestContext.Value = new global::VerifyMSTest.TestExecutionContext(value, GetType());
+        base.TestContext = value;
+      }
     }
   }
 

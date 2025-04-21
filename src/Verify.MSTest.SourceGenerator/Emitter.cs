@@ -114,11 +114,11 @@ class Emitter
     private void AppendCallBaseSetter() =>
         builder.AppendLine(
             $$"""
-                set
-                {
-                  {{setVerifierTestContext}}
-                  base.TestContext = value;
-                }
+                    set
+                    {
+                      {{setVerifierTestContext}}
+                      base.TestContext = value;
+                    }
               """);
 
     static string GetterBody(PropertyFlags flags) =>

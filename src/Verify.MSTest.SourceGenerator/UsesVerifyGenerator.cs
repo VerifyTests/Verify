@@ -36,7 +36,7 @@ public class UsesVerifyGenerator : IIncrementalGenerator
         context.RegisterSourceOutput(toGenerate, Execute);
     }
 
-    static ClassToGenerate? TransformClass(GeneratorAttributeSyntaxContext context, CancellationToken cancel)
+    static ClassToGenerate? TransformClass(GeneratorAttributeSyntaxContext context, Cancel cancel)
     {
         if (context.TargetSymbol is not INamedTypeSymbol symbol)
         {
@@ -60,7 +60,7 @@ public class UsesVerifyGenerator : IIncrementalGenerator
         return Parser.Parse(symbol, syntax, cancel);
     }
 
-    static ClassToGenerate? TransformAssembly(GeneratorSyntaxContext context, CancellationToken cancel)
+    static ClassToGenerate? TransformAssembly(GeneratorSyntaxContext context, Cancel cancel)
     {
         if (context.Node is not TypeDeclarationSyntax syntax)
         {

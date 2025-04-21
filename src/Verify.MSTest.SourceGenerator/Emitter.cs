@@ -57,13 +57,12 @@ class Emitter
         }
     }
 
-    void WriteClass(ClassToGenerate classToGenerate)
+    void WriteClass(ClassToGenerate toGenerate)
     {
-        builder.Append("partial class ").AppendLine(classToGenerate.ClassName)
+        builder.Append("partial class ").AppendLine(toGenerate.ClassName)
             .AppendLine("{")
             .IncreaseIndent();
-        AppendTestContextProperty(
-            classToGenerate.TestContextPropertyFlags);
+        AppendTestContextProperty(toGenerate.TestContextPropertyFlags);
         builder
             .DecreaseIndent()
             .AppendLine("}");

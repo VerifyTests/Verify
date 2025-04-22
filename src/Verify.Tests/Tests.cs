@@ -376,12 +376,13 @@ public class Tests
     [Fact]
     public Task FuncOfTaskResult()
     {
-        var target = async () =>
+        static async Task<string> Target()
         {
             await Task.Delay(1);
             return "value";
-        };
-        return Verify(target);
+        }
+
+        return Verify(Target);
     }
 
     [Fact]
@@ -525,12 +526,14 @@ public class Tests
     public async Task FuncOfTaskResultDisposable()
     {
         var disposableTarget = new DisposableTarget();
-        var target = async () =>
+
+        async Task<DisposableTarget> Target()
         {
             await Task.Delay(1);
             return disposableTarget;
-        };
-        await Verify(target);
+        }
+
+        await Verify(Target);
         Assert.True(disposableTarget.Disposed);
     }
 

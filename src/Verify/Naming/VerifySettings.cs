@@ -65,7 +65,7 @@ public partial class VerifySettings
     public string? Directory { get; private set; }
 
     /// <summary>
-    /// Use a custom directory for the test results.
+    /// Use a custom directory for the snapshot files.
     /// </summary>
     public void UseDirectory(string directory)
     {

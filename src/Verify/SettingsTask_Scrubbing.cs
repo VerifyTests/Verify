@@ -56,7 +56,10 @@ public partial class SettingsTask
     /// Replace inline <see cref="DateTime" />s with a placeholder.
     /// </summary>
     [Pure]
-    public SettingsTask ScrubInlineDateTimes(string format, Culture? culture = null, ScrubberLocation location = ScrubberLocation.First)
+    public SettingsTask ScrubInlineDateTimes(
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        Culture? culture = null,
+        ScrubberLocation location = ScrubberLocation.First)
     {
         CurrentSettings.ScrubInlineDateTimes(format, culture, location);
         return this;
@@ -66,7 +69,10 @@ public partial class SettingsTask
     /// Replace inline <see cref="DateTime" />s with a placeholder.
     /// </summary>
     [Pure]
-    public SettingsTask ScrubInlineDateTimeOffsets(string format, Culture? culture = null, ScrubberLocation location = ScrubberLocation.First)
+    public SettingsTask ScrubInlineDateTimeOffsets(
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        Culture? culture = null,
+        ScrubberLocation location = ScrubberLocation.First)
     {
         CurrentSettings.ScrubInlineDateTimeOffsets(format, culture, location);
         return this;
@@ -78,7 +84,10 @@ public partial class SettingsTask
     /// Replace inline <see cref="Date" />s with a placeholder.
     /// </summary>
     [Pure]
-    public SettingsTask ScrubInlineDates(string format, Culture? culture = null, ScrubberLocation location = ScrubberLocation.First)
+    public SettingsTask ScrubInlineDates(
+        [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)] string format,
+        Culture? culture = null,
+        ScrubberLocation location = ScrubberLocation.First)
     {
         CurrentSettings.ScrubInlineDates(format, culture, location);
         return this;

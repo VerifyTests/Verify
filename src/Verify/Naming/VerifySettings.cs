@@ -73,7 +73,7 @@ public partial class VerifySettings
         Directory = directory;
     }
 
-    internal string? typeName;
+    internal string? TypeName;
 
     /// <summary>
     /// Use a custom class name for the test results.
@@ -85,10 +85,10 @@ public partial class VerifySettings
         Guards.BadFileName(name);
         ThrowIfFileNameDefined();
 
-        typeName = name;
+        TypeName = name;
     }
 
-    internal string? methodName;
+    internal string? MethodName;
 
     /// <summary>
     /// Use a custom method name for the test results.
@@ -100,18 +100,18 @@ public partial class VerifySettings
         Guards.BadFileName(name);
         ThrowIfFileNameDefined();
 
-        methodName = name;
+        MethodName = name;
     }
 
     void ThrowIfFileNameDefined([CallerMemberName] string caller = "")
     {
-        if (fileName is not null)
+        if (FileName is not null)
         {
             throw new($"{caller} is not compatible with {nameof(UseFileName)}.");
         }
     }
 
-    internal string? fileName;
+    internal string? FileName;
 
     /// <summary>
     /// Use a file name for the test results.
@@ -124,26 +124,26 @@ public partial class VerifySettings
         Guards.BadFileName(fileName);
         ThrowIfMethodOrTypeNameDefined();
 
-        this.fileName = fileName;
+        FileName = fileName;
     }
 
     void ThrowIfMethodOrTypeNameDefined()
     {
-        if (methodName is not null ||
-            typeName is not null)
+        if (MethodName is not null ||
+            TypeName is not null)
         {
             throw new($"{nameof(UseFileName)} is not compatible with {nameof(UseMethodName)} or {nameof(UseTypeName)}.");
         }
     }
 
-    internal bool useUniqueDirectory;
+    internal bool UniqueDirectory;
 
     /// <summary>
     /// Use a directory for the test results.
     /// Where the file format is `{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}/{targetName}.verified.{extension}`.
     /// </summary>
     public void UseUniqueDirectory() =>
-        useUniqueDirectory = true;
+        UniqueDirectory = true;
 
     /// <summary>
     /// Use the current runtime and runtime version to make the test results unique.

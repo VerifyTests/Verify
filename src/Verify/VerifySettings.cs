@@ -26,11 +26,11 @@ public partial class VerifySettings
         InstanceScrubbers = [..settings.InstanceScrubbers];
         ExtensionMappedInstanceScrubbers = new(settings.ExtensionMappedInstanceScrubbers);
         diffEnabled = settings.diffEnabled;
-        methodName = settings.methodName;
-        typeName = settings.typeName;
+        MethodName = settings.MethodName;
+        TypeName = settings.TypeName;
         strictJson = settings.strictJson;
         appendedFiles = settings.appendedFiles;
-        useUniqueDirectory = settings.useUniqueDirectory;
+        UniqueDirectory = settings.UniqueDirectory;
         Directory = settings.Directory;
         autoVerify = settings.autoVerify;
         serialization = settings.serialization;
@@ -41,7 +41,7 @@ public partial class VerifySettings
         ignoreParametersForVerified = settings.ignoreParametersForVerified;
         hashParameters = settings.hashParameters;
         parametersText = settings.parametersText;
-        fileName = settings.fileName;
+        FileName = settings.FileName;
         handleOnFirstVerify = settings.handleOnFirstVerify;
         handleOnVerifyDelete = settings.handleOnVerifyDelete;
         handleOnVerifyMismatch = settings.handleOnVerifyMismatch;

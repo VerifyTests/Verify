@@ -59,7 +59,7 @@ public partial class InnerVerifier :
 
         IoHelpers.CreateDirectory(directory);
 
-        if (settings.useUniqueDirectory)
+        if (settings.UniqueDirectory)
         {
             InitForDirectoryConvention(namer, typeAndMethod, verifiedParameters);
         }
@@ -94,12 +94,12 @@ public partial class InnerVerifier :
         else
         {
             if (settings.Directory != null ||
-                settings.fileName != null ||
-                settings.typeName != null ||
-                settings.methodName != null ||
+                settings.FileName != null ||
+                settings.TypeName != null ||
+                settings.MethodName != null ||
                 settings.hashParameters ||
                 settings.parametersText != null ||
-                settings.useUniqueDirectory ||
+                settings.UniqueDirectory ||
                 settings.UseUniqueDirectorySplitMode == true)
             {
                 throw new(
@@ -230,9 +230,9 @@ public partial class InnerVerifier :
     {
         var uniquenessVerified = GetUniquenessVerified(PrefixUnique.SharedUniqueness(namer), namer);
 
-        if (settings.fileName is not null)
+        if (settings.FileName is not null)
         {
-            return $"{settings.fileName}{uniquenessVerified}";
+            return $"{settings.FileName}{uniquenessVerified}";
         }
 
         if (settings.ignoreParametersForVerified)
@@ -306,11 +306,11 @@ public partial class InnerVerifier :
             sharedUniqueness.Add(Namer.RuntimeAndVersion);
         }
 
-        if (settings.fileName is not null)
+        if (settings.FileName is not null)
         {
             return (
-                $"{settings.fileName}{sharedUniqueness}",
-                $"{settings.fileName}{uniquenessVerified}");
+                $"{settings.FileName}{sharedUniqueness}",
+                $"{settings.FileName}{uniquenessVerified}");
         }
 
         if (settings.ignoreParametersForVerified)

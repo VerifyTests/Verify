@@ -16,8 +16,8 @@ static class FileNameBuilder
 
     public static string GetTypeAndMethod(string method, string type, VerifySettings settings, PathInfo pathInfo)
     {
-        type = settings.typeName ?? pathInfo.TypeName ?? type;
-        method = settings.methodName ?? pathInfo.MethodName ?? method;
+        type = settings.TypeName ?? pathInfo.TypeName ?? type;
+        method = settings.MethodName ?? pathInfo.MethodName ?? method;
         return $"{type}.{method}";
     }
 

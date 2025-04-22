@@ -216,6 +216,28 @@ public class NamerTests
     #endregion
 
     [Fact]
+    public async Task UseProjectRelativeDirectory()
+    {
+        #region UseProjectRelativeDirectory
+
+        var settings = new VerifySettings();
+        settings.UseProjectRelativeDirectory("CustomProjectRelativeDirectory");
+        await Verify("valueUseProjectRelativeDirectory", settings);
+
+        #endregion
+    }
+
+    [Fact]
+    public async Task UseProjectRelativeDirectoryFluent() =>
+
+        #region UseProjectRelativeDirectoryFluent
+
+        await Verify("valueUseProjectRelativeDirectoryFluent")
+            .UseProjectRelativeDirectory("CustomProjectRelativeDirectory");
+
+    #endregion
+
+    [Fact]
     public async Task UseUniqueDirectory()
     {
         #region UseUniqueDirectory

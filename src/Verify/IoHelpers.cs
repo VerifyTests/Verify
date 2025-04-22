@@ -90,9 +90,6 @@
         }
     }
 
-    public static void CreateDirectory(string directory) =>
-        Directory.CreateDirectory(directory);
-
     public static void MoveToStart(this Stream stream)
     {
         if (stream.CanSeek)
@@ -151,7 +148,7 @@
 
     internal static void WriteText(string path, StringBuilder text)
     {
-        CreateDirectory(Path.GetDirectoryName(path)!);
+        Directory.CreateDirectory(Path.GetDirectoryName(path)!);
         using var writer = new StreamWriter(path, false, VerifierSettings.Encoding);
         writer.Write(text);
     }
@@ -219,7 +216,7 @@
 
     public static async Task WriteStream(string path, Stream stream)
     {
-        CreateDirectory(Path.GetDirectoryName(path)!);
+        Directory.CreateDirectory(Path.GetDirectoryName(path)!);
         if (stream is FileStream fileStream)
         {
             if (fileStream.Length == 0)

@@ -57,7 +57,7 @@ public partial class InnerVerifier :
 
         directory = ResolveDirectory(sourceFile, settings, pathInfo);
 
-        IoHelpers.CreateDirectory(directory);
+        Directory.CreateDirectory(directory);
 
         if (settings.UniqueDirectory)
         {
@@ -125,7 +125,7 @@ public partial class InnerVerifier :
 
         counter = StartCounter(this.settings);
 
-        IoHelpers.CreateDirectory(directory);
+        Directory.CreateDirectory(directory);
 
         var prefix = Path.Combine(directory, name);
         ValidatePrefix(this.settings, prefix);
@@ -180,7 +180,7 @@ public partial class InnerVerifier :
         {
             var verifiedDirectory = $"{directoryPrefix}.verified";
             var receivedDirectory = $"{directoryPrefix}.received";
-            IoHelpers.CreateDirectory(verifiedDirectory);
+            Directory.CreateDirectory(verifiedDirectory);
             verifiedFiles = IoHelpers.Files(verifiedDirectory, "*");
 
             getFileNames = target =>
@@ -206,7 +206,7 @@ public partial class InnerVerifier :
         }
         else
         {
-            IoHelpers.CreateDirectory(directoryPrefix);
+            Directory.CreateDirectory(directoryPrefix);
             verifiedFiles = IoHelpers.Files(directoryPrefix, "*.verified.*");
 
             getFileNames = target =>
@@ -365,7 +365,7 @@ public partial class InnerVerifier :
 
         var mappedSettingsOrInfoDirectory = IoHelpers.GetMappedBuildPath(settingsOrInfoDirectory);
         var directory = Path.Combine(sourceFileDirectory, mappedSettingsOrInfoDirectory);
-        IoHelpers.CreateDirectory(directory);
+        Directory.CreateDirectory(directory);
         return directory;
     }
 

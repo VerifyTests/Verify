@@ -32,6 +32,7 @@ public partial class VerifySettings
         appendedFiles = settings.appendedFiles;
         UniqueDirectory = settings.UniqueDirectory;
         Directory = settings.Directory;
+        ProjectRelativeDirectory = settings.ProjectRelativeDirectory;
         autoVerify = settings.autoVerify;
         serialization = settings.serialization;
         stringComparer = settings.stringComparer;

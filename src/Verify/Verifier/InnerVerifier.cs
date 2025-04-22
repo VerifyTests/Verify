@@ -94,6 +94,7 @@ public partial class InnerVerifier :
         else
         {
             if (settings.Directory != null ||
+                settings.ProjectRelativeDirectory != null ||
                 settings.FileName != null ||
                 settings.TypeName != null ||
                 settings.MethodName != null ||
@@ -106,6 +107,7 @@ public partial class InnerVerifier :
                     $"""
                      The following VerifySettings are not supported by this API:
                        * {nameof(VerifySettings.UseDirectory)}
+                       * {nameof(VerifySettings.ProjectRelativeDirectory)}
                        * {nameof(VerifySettings.UseFileName)}
                        * {nameof(VerifySettings.UseTypeName)}
                        * {nameof(VerifySettings.UseMethodName)}

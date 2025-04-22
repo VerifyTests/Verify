@@ -70,7 +70,30 @@ public partial class VerifySettings
     public void UseDirectory(string directory)
     {
         Guards.BadDirectoryName(directory);
+
+        if (Directory is not null)
+        {
+            throw new($"{nameof(UseDirectory)} is not compatible with {nameof(UseProjectRelativeDirectory)}.");
+        }
+
         Directory = directory;
+    }
+
+    public string? ProjectRelativeDirectory { get; private set; }
+
+    /// <summary>
+    /// Use a project relative directory for the snapshot files.
+    /// </summary>
+    public void UseProjectRelativeDirectory(string directory)
+    {
+        Guards.BadDirectoryName(directory);
+
+        if (Directory is not null)
+        {
+            throw new($"{nameof(UseProjectRelativeDirectory)} is not compatible with {nameof(UseDirectory)}.");
+        }
+
+        ProjectRelativeDirectory = directory;
     }
 
     internal string? TypeName;

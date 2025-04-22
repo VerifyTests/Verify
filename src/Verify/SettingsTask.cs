@@ -176,12 +176,22 @@ public partial class SettingsTask
     }
 
     /// <summary>
-    /// Use a custom directory for the test results.
+    /// Use a custom directory for snapshot files.
     /// </summary>
     [Pure]
     public SettingsTask UseDirectory(string directory)
     {
         CurrentSettings.UseDirectory(directory);
+        return this;
+    }
+
+    /// <summary>
+    /// Use a project relative directory for snapshot files.
+    /// </summary>
+    [Pure]
+    public SettingsTask UseProjectRelativeDirectory(string directory)
+    {
+        CurrentSettings.UseProjectRelativeDirectory(directory);
         return this;
     }
 

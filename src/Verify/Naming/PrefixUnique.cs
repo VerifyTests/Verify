@@ -12,8 +12,8 @@
 
                   * A conflicting combination of the following APIs:
                     * The static `VerifierSettings.DerivePathInfo()`
-                    * The fluent APIs `Verify(...).UseDirectory()`, `Verify(...).UseTypeName()`, or `Verify(...).UseMethodName()`
-                    * The instance `VerifySettings` APIs `settings.UseDirectory()`, `settings.UseTypeName()`, or `settings.UseMethodName()`
+                    * The fluent APIs `Verify(...).UseDirectory()`, `Verify(...).UseProjectRelativeDirectory()`, `Verify(...).UseTypeName()`, or `Verify(...).UseMethodName()`
+                    * The instance `VerifySettings` APIs `settings.UseDirectory()`, `settings.UseProjectRelativeDirectory()`, `settings.UseTypeName()`, or `settings.UseMethodName()`
                   * Multiple calls to Verify or Throws in the same test method
 
                  If that's not the case, and having multiple identical prefixes is acceptable, then call `VerifierSettings.DisableRequireUniquePrefix()` to disable this uniqueness validation.

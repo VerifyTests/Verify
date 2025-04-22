@@ -65,7 +65,7 @@ public partial class VerifySettings
     public string? Directory { get; private set; }
 
     /// <summary>
-    /// Use a custom directory for the snapshot files.
+    /// Use a custom directory for snapshot files.
     /// </summary>
     public void UseDirectory(string directory)
     {
@@ -82,7 +82,7 @@ public partial class VerifySettings
     public string? ProjectRelativeDirectory { get; private set; }
 
     /// <summary>
-    /// Use a project relative directory for the snapshot files.
+    /// Use a project relative directory for snapshot files.
     /// </summary>
     public void UseProjectRelativeDirectory(string directory)
     {

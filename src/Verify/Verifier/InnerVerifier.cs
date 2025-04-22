@@ -358,7 +358,22 @@ public partial class InnerVerifier :
             pathInfoDirectory = pathInfoDirectory?.Replace(projectDirectory, ncrunchProjectDirectory);
         }
 
-        var settingsOrInfoDirectory = settings.Directory ?? pathInfoDirectory;
+        string? settingsOrInfoDirectory = null;
+
+        if (settings.ProjectRelativeDirectory != null)
+        {
+            settingsOrInfoDirectory = Path.Combine(VerifierSettings.ProjectDir, settings.ProjectRelativeDirectory);
+        }
+
+        if (settingsOrInfoDirectory == null)
+        {
+            settingsOrInfoDirectory = settings.Directory;
+        }
+
+        if (settingsOrInfoDirectory == null)
+        {
+            settingsOrInfoDirectory = pathInfoDirectory;
+        }
 
         if (settingsOrInfoDirectory is null)
         {

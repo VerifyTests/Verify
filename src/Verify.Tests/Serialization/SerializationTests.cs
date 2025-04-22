@@ -3716,10 +3716,10 @@ public class SerializationTests
     class IgnoreExplicitTarget
     {
         public string Include;
-        public string Property { get; set; }
+        public string Property { get; init; }
 
         [JsonProperty(PropertyName = "_Custom")]
-        public string PropertyWithPropertyName { get; set; }
+        public string PropertyWithPropertyName { get; init; }
 
         public string PropertyByName { get; set; }
         public string GetOnlyProperty => "asd";

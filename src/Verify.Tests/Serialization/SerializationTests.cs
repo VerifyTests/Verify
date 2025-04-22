@@ -4067,8 +4067,8 @@ public class SerializationTests
 
     class ConverterIgnoreDefaultTarget
     {
-        public string Name { get; set; } = null!;
-        public DateTimeKind DateTimeKind { get; set; }
+        public string Name { get; init; } = null!;
+        public DateTimeKind DateTimeKind { get; init; }
     }
 
     [Fact]

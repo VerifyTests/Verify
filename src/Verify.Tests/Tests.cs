@@ -334,12 +334,6 @@ public class Tests
 
 #endif
 
-    class Element
-    {
-        // ReSharper disable once UnusedMember.Local
-        public string? Id { get; set; }
-    }
-
 #if NET6_0_OR_GREATER
     [Fact]
     public async Task StringWithUtf8Bom()

@@ -1,7 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Security.Claims;
-
-// ReSharper disable NotAccessedField.Local
+﻿// ReSharper disable NotAccessedField.Local
 
 // ReSharper disable RedundantSuppressNullableWarningExpression
 // ReSharper disable UnusedParameter.Local

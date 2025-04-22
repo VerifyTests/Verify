@@ -62,7 +62,7 @@ public partial class VerifySettings
         Namer.SetUniqueForAssemblyConfiguration(assembly);
     }
 
-    public string? Directory { get; internal set; }
+    public string? Directory { get; private set; }
 
     /// <summary>
     /// Use a custom directory for the test results.

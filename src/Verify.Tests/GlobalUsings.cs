@@ -6,3 +6,5 @@ global using DiffEngine;
 global using EmptyFiles;
 global using Polyfills;
 global using Xunit.Abstractions;
+global using System.Collections.ObjectModel;
+global using System.Security.Claims;

@@ -15,10 +15,10 @@ class VirtualizedRunHelper
         '/'
     ];
 
-    public VirtualizedRunHelper(Assembly userAssembly)
+    public VirtualizedRunHelper(Assembly assembly)
         : this(
-            AttributeReader.TryGetSolutionDirectory(userAssembly, false, out var sln) ? sln : null,
-            AttributeReader.TryGetProjectDirectory(userAssembly, false, out var proj) ? proj : null)
+            AttributeReader.TryGetSolutionDirectory(assembly, false, out var sln) ? sln : null,
+            AttributeReader.TryGetProjectDirectory(assembly, false, out var proj) ? proj : null)
     {
     }
 

@@ -764,9 +764,9 @@ public class VerifyChecksTests
 
 ## Static settings
 
-Most settings are available at the both global level and at the instance level.
+Most settings are available at both the global level and at the instance level.
 
-When modifying settings at the both global level it should be done using a Module Initializer:
+When modifying settings at the global level it should be done using a [Module Initializer](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/module-initializers):
 
 <!-- snippet: StaticSettings.cs -->
 <a id='snippet-StaticSettings.cs'></a>
@@ -787,6 +787,17 @@ public static class StaticSettingsUsage
 ```
 <sup><a href='/src/Verify.Tests/StaticSettings.cs#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticSettings.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+In .net framework, where the Module Initializer feature is not enabled by default, either use a Polyfill package (eg https://github.com/SimonCropp/Polyfill) or add the following to the test project:
+
+```
+namespace System.Runtime.CompilerServices;
+
+[AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+public sealed class ModuleInitializerAttribute : Attribute;
+```
+
+Alternatively, place static settings in the "run once before all test" API of the test framework being used.
 
 
 ## VerifyResult

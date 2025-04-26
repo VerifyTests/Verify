@@ -4,10 +4,10 @@
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Argon" Version="0.27.0" />
-    <PackageVersion Include="Argon.FSharp" Version="0.27.0" />
+    <PackageVersion Include="Argon" Version="0.28.0" />
+    <PackageVersion Include="Argon.FSharp" Version="0.28.0" />
     <PackageVersion Include="BenchmarkDotNet" Version="0.14.0" />
-    <PackageVersion Include="DiffEngine" Version="16.1.0" />
+    <PackageVersion Include="DiffEngine" Version="16.2.1" />
     <PackageVersion Include="Expecto" Version="10.2.3" />
     <PackageVersion Include="Fixie" Version="4.1.0" />
     <PackageVersion Include="Fixie.TestAdapter" Version="4.1.0" />
@@ -25,7 +25,7 @@
     <PackageVersion Include="NUnit3TestAdapter" Version="5.0.0" />
     <PackageVersion Include="Polyfill" Version="7.27.0" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.150" />
-    <PackageVersion Include="PublicApiGenerator" Version="11.4.5" />
+    <PackageVersion Include="PublicApiGenerator" Version="11.4.6" />
     <PackageVersion Include="SimpleInfoName" Version="3.1.0" />
     <PackageVersion Include="System.Drawing.Common" Version="9.0.4" />
     <PackageVersion Include="System.IO.Hashing" Version="9.0.4" />

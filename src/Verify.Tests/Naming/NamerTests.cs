@@ -215,7 +215,6 @@ public class NamerTests
 
     #endregion
 
-
     [Fact]
     public async Task UseUniqueDirectory()
     {
@@ -336,7 +335,6 @@ public class NamerTests
             .UseMethodName("CustomMethodNameFluent");
 
     #endregion
-
 
     [Fact]
     public void AccessNamerRuntimeAndVersion()

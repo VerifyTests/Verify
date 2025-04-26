@@ -64,7 +64,7 @@ var settings = new VerifySettings();
 settings.UseTypeName("CustomTypeName");
 await Verify("valueUseTypeName", settings);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L299-L305' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTypeName' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L298-L304' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTypeName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -76,7 +76,7 @@ await Verify("valueUseTypeName", settings);
 await Verify("valueUseTypeNameFluent")
     .UseTypeName("CustomTypeName");
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L311-L316' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTypeNameFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L310-L315' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTypeNameFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `CustomTypeName.MethodName.verified.txt`.
@@ -93,7 +93,7 @@ var settings = new VerifySettings();
 settings.UseMethodName("CustomMethodName");
 await Verify("valueUseMethodName", settings);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L321-L327' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseMethodName' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L320-L326' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseMethodName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `TestClass.CustomMethodName.verified.txt`.
@@ -107,7 +107,7 @@ Will result in `TestClass.CustomMethodName.verified.txt`.
 await Verify("valueUseMethodNameFluent")
     .UseMethodName("CustomMethodNameFluent");
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L333-L338' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseMethodNameFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L332-L337' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseMethodNameFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `TestClass.CustomMethodNameFluent.verified.txt`.
@@ -660,7 +660,7 @@ To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
 Debug.WriteLine(Namer.Runtime);
 Debug.WriteLine(Namer.RuntimeAndVersion);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L344-L349' title='Snippet source file'>snippet source</a> | <a href='#snippet-AccessNamerRuntimeAndVersion' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L342-L347' title='Snippet source file'>snippet source</a> | <a href='#snippet-AccessNamerRuntimeAndVersion' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -834,7 +834,7 @@ var settings = new VerifySettings();
 settings.UseUniqueDirectory();
 await Verify("TheValue", settings);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L222-L228' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseUniqueDirectory' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L221-L227' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseUniqueDirectory' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -53,11 +53,11 @@ public class ConverterSnippets
 
     [ModuleInitializer]
     public static void ExtensionInit() =>
-    #region RegisterFileConverterExtension
+    #region RegisterStreamConverterExtension
 
-        VerifierSettings.RegisterFileConverter(
+        VerifierSettings.RegisterStreamConverter(
             fromExtension: "tif",
-            conversion: (stream, settings) =>
+            conversion: (name, stream, settings) =>
             {
                 using var image = Image.FromStream(stream);
                 var pages = image.GetFrameCount(FrameDimension.Page);

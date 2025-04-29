@@ -2,9 +2,9 @@
 {
     [ModuleInitializer]
     public static void RecursiveInit() =>
-        VerifierSettings.RegisterFileConverter(
+        VerifierSettings.RegisterStreamConverter(
             "recursive",
-            (_, _) =>
+            (_, _, _) =>
                 new(
                     "recursiveInfo",
                     [
@@ -20,18 +20,18 @@
     [ModuleInitializer]
     public static void NestedInit()
     {
-        VerifierSettings.RegisterFileConverter(
+        VerifierSettings.RegisterStreamConverter(
             "level1",
-            (stream, _) =>
+            (_, stream, _) =>
                 new(
                     "level1Info",
                     [
                         new("txt", "text from level1"),
                         new("level2", stream)
                     ]));
-        VerifierSettings.RegisterFileConverter(
+        VerifierSettings.RegisterStreamConverter(
             "level2",
-            async (stream, _) =>
+            async (_, stream, _) =>
                 new(
                     "level2Info",
                     [
@@ -56,19 +56,38 @@
 
     [ModuleInitializer]
     public static void TextSplitInit() =>
-        VerifierSettings.RegisterFileConverter(
+        VerifierSettings.RegisterStreamConverter(
             "split",
-            (stream, _) => new(null, "txt", stream));
+            (_, stream, _) => new(null, "txt", stream));
 
     [Fact]
     public Task TextSplit() =>
         Verify(IoHelpers.OpenRead("sample.split"), "txt");
 
     [ModuleInitializer]
+    public static void InitEnsureInputs() =>
+        VerifierSettings.RegisterStreamConverter(
+            "EnsureInputs",
+            (name, stream, context) =>
+            {
+                Assert.Equal("name", name);
+                Assert.NotNull(stream);
+                Assert.NotNull(context);
+                return new(null, "txt", "content");
+            });
+
+    [Fact]
+    public Task EnsureInputs()
+    {
+        var stream = new MemoryStream([1]);
+        return Verify(new Target("EnsureInputs", stream, "name"));
+    }
+
+    [ModuleInitializer]
     public static void ExtensionConversionStringBuilderInit() =>
-        VerifierSettings.RegisterFileConverter(
+        VerifierSettings.RegisterStreamConverter(
             "ExtensionConversionStringBuilder",
-            (_, _) => new(null, "txt", new StringBuilder("Foo")));
+            (_, _, _) => new(null, "txt", new StringBuilder("Foo")));
 
     [Fact]
     public Task ExtensionConversionStringBuilder() =>
@@ -77,10 +96,10 @@
 
     [ModuleInitializer]
     public static void ExtensionConversionMultipleTargetsInit() =>
-        VerifierSettings.RegisterFileConverter(
+        VerifierSettings.RegisterStreamConverter(
             "ExtensionConversionMultipleTargets",
-            new Conversion<Stream>(
-                (_, _) =>
+            new StreamConversion(
+                (_, _, _) =>
                 {
                     var targets = new Target[]
                     {
@@ -101,10 +120,10 @@
 
     [ModuleInitializer]
     public static void ExtensionConversionNamedTargetInit() =>
-        VerifierSettings.RegisterFileConverter(
+        VerifierSettings.RegisterStreamConverter(
             "ExtensionConversionNamedTarget",
-            new Conversion<Stream>(
-                (_, _) =>
+            new StreamConversion(
+                (_, _, _) =>
                 {
                     var targets = new Target[]
                     {
@@ -120,10 +139,10 @@
 
     [ModuleInitializer]
     public static void ExtensionConversionNamedMixedTargetInit() =>
-        VerifierSettings.RegisterFileConverter(
+        VerifierSettings.RegisterStreamConverter(
             "ExtensionConversionNamedMixedTarget",
-            new Conversion<Stream>(
-                (_, _) =>
+            new StreamConversion(
+                (_, _, _) =>
                 {
                     var targets = new Target[]
                     {
@@ -139,9 +158,9 @@
 
     [ModuleInitializer]
     public static void ExtensionConversionInit() =>
-        VerifierSettings.RegisterFileConverter(
+        VerifierSettings.RegisterStreamConverter(
             "ExtensionConversion",
-            (_, _) => new(null, "txt", "Foo"));
+            (_, _, _) => new(null, "txt", "Foo"));
 
     [Fact]
     public Task ExtensionConversion() =>
@@ -149,9 +168,9 @@
 
     [ModuleInitializer]
     public static void AsyncExtensionConversionInit() =>
-        VerifierSettings.RegisterFileConverter(
+        VerifierSettings.RegisterStreamConverter(
             "AsyncExtensionConversion",
-            (_, _) => Task.FromResult(new ConversionResult(null, "txt", "Foo")));
+            (_, _, _) => Task.FromResult(new ConversionResult(null, "txt", "Foo")));
 
     [Fact]
     public Task AsyncExtensionConversion() =>
@@ -159,9 +178,9 @@
 
     [ModuleInitializer]
     public static void WithInfoInit() =>
-        VerifierSettings.RegisterFileConverter(
+        VerifierSettings.RegisterStreamConverter(
             "WithInfo",
-            (_, _) =>
+            (_, _, _) =>
             {
                 var info = new
                 {
@@ -176,9 +195,9 @@
 
     [ModuleInitializer]
     public static void WithInfoAndBinaryInit() =>
-        VerifierSettings.RegisterFileConverter(
+        VerifierSettings.RegisterStreamConverter(
             "WithInfoAndBinary",
-            (stream, _) =>
+            (_, stream, _) =>
             {
                 var info = new
                 {

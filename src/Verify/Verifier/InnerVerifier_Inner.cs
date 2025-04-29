@@ -51,13 +51,13 @@ partial class InnerVerifier
             var result = new List<Target>();
             foreach (var target in list)
             {
-                if (!VerifierSettings.HasExtensionConverter(target.Extension))
+                if (!VerifierSettings.HasStreamConverter(target.Extension))
                 {
                     result.Add(target);
                     continue;
                 }
 
-                var (info, converted, itemCleanup) = await DoExtensionConversion(target.Extension, target.StreamData, null);
+                var (info, converted, itemCleanup) = await DoExtensionConversion(target.Extension, target.StreamData, null, target.Name);
                 cleanup += itemCleanup;
                 if (info != null)
                 {

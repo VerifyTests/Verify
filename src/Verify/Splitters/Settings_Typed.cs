@@ -27,7 +27,7 @@ public static partial class VerifierSettings
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         RegisterFileConverter(
-            (o, context) => Task.FromResult(conversion(o, context)),
+            (target, context) => Task.FromResult(conversion(target, context)),
             canConvert);
     }
 
@@ -36,7 +36,7 @@ public static partial class VerifierSettings
         CanConvert<T>? canConvert = null)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        var converter = new TypeConverter((o, context) => conversion((T) o, context), DefaultCanConvert(canConvert));
+        var converter = new TypeConverter((target, context) => conversion((T) target, context), DefaultCanConvert(canConvert));
         typedConverters.Add(converter);
     }
 
@@ -46,7 +46,7 @@ public static partial class VerifierSettings
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         RegisterFileConverter(
-            (o, context) => Task.FromResult(conversion(o, context)),
+            (target, context) => Task.FromResult(conversion(target, context)),
             canConvert);
     }
 

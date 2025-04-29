@@ -65,6 +65,7 @@
     {
         if (string.IsNullOrWhiteSpace(sourceFile))
         {
+            Debugger.Launch();
             throw new ArgumentNullException(
                 nameof(sourceFile),
                 "This can be caused by using Verify<dynamic>, which is not supported by c#. Instead call use Verify<object>.");

@@ -4,7 +4,6 @@ global using System.Collections.Frozen;
 global using System.ComponentModel;
 global using System.Diagnostics.Contracts;
 global using System.IO.Compression;
-global using System.IO.Hashing;
 global using VerifyTests;
 global using Argon;
 global using DiffEngine;

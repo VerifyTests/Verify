@@ -87,7 +87,8 @@ partial class InnerVerifier
                 continue;
             }
 
-            if (target.IsStream && VerifierSettings.TryGetStreamScrubber(extension, out var scrubber))
+            if (target.IsStream &&
+                VerifierSettings.TryGetStreamScrubber(extension, out var scrubber))
             {
                 var result = await scrubber(name, target.StreamData, settings.Context);
                 if (result == null)

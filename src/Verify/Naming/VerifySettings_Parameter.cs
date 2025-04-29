@@ -98,17 +98,4 @@ public partial class VerifySettings
 
         ignoreParametersForVerified = true;
     }
-
-    internal bool hashParameters;
-
-    /// <summary>
-    /// Hash parameters together and pass to <see cref="UseTextForParameters" />.
-    /// Used to get a deterministic file name while avoiding long paths.
-    /// </summary>
-    public void HashParameters()
-    {
-        ThrowIfFileNameDefined();
-        ThrowIfParametersTextDefined();
-        hashParameters = true;
-    }
 }

@@ -97,7 +97,6 @@ public partial class InnerVerifier :
                 settings.FileName != null ||
                 settings.TypeName != null ||
                 settings.MethodName != null ||
-                settings.hashParameters ||
                 settings.parametersText != null ||
                 settings.UniqueDirectory ||
                 settings.UseUniqueDirectorySplitMode == true)
@@ -109,7 +108,6 @@ public partial class InnerVerifier :
                        * {nameof(VerifySettings.UseFileName)}
                        * {nameof(VerifySettings.UseTypeName)}
                        * {nameof(VerifySettings.UseMethodName)}
-                       * {nameof(VerifySettings.HashParameters)}
                        * {nameof(VerifySettings.UseTextForParameters)}
                        * {nameof(VerifySettings.UseUniqueDirectory)}
                        * {nameof(VerifySettings.UseUniqueDirectorySplitMode)}

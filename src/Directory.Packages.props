@@ -28,7 +28,6 @@
     <PackageVersion Include="PublicApiGenerator" Version="11.4.6" />
     <PackageVersion Include="SimpleInfoName" Version="3.1.0" />
     <PackageVersion Include="System.Drawing.Common" Version="9.0.4" />
-    <PackageVersion Include="System.IO.Hashing" Version="9.0.4" />
     <PackageVersion Include="System.Memory" Version="4.6.3" />
     <PackageVersion Include="TextCopy" Version="6.2.1" />
     <PackageVersion Include="TUnit" Version="0.19.86" />

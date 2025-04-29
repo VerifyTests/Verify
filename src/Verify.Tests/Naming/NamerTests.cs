@@ -525,25 +525,6 @@ public class NamerTests
             .UniqueForRuntimeAndVersion();
     }
 
-    [Theory]
-    [InlineData(true, false)]
-    [InlineData(false, false)]
-    public Task HashParameters(bool a, bool b)
-    {
-        var settings = new VerifySettings();
-        settings.UseParameters(a, b);
-        settings.HashParameters();
-        return Verify("ContentHashParameters", settings);
-    }
-
-    [Theory]
-    [InlineData(true, false)]
-    [InlineData(false, false)]
-    public Task HashParametersFluent(bool a, bool b) =>
-        Verify("ContentHashParametersFluent")
-            .UseParameters(a, b)
-            .HashParameters();
-
     [ModuleInitializer]
     public static void InitNamedParams()
     {

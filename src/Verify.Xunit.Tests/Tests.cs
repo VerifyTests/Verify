@@ -1,6 +1,7 @@
 ﻿// ReSharper disable UnusedParameter.Local
 
 // ReSharper disable ArrangeObjectCreationWhenTypeNotEvident
+#pragma warning disable RegisterStreamScrubber
 public class Tests
 {
     // ReSharper disable once UnusedMember.Local
@@ -66,9 +67,91 @@ public class Tests
             [
                 new(
                     extension: "WithTargetsAndConverter",
+                    data: new MemoryStream())
+            ]);
+
+    [Fact]
+    public Task WithTargetsAndConverterAndName() =>
+        Verify(
+            new
+            {
+                Property = "Value"
+            },
+            [
+                new(
+                    extension: "WithTargetsAndConverter",
                     data: new MemoryStream(),
                     name: "targetName")
             ]);
+
+    [ModuleInitializer]
+    public static void InitWithTargetsAndMultipleFromConverter() =>
+        VerifierSettings.RegisterFileConverter(
+            "WithTargetsAndMultipleFromConverter",
+            (_, _) =>
+                new(
+                    "theInfo",
+                    [
+                        new("txt", "text from converter"),
+                        new("txt", "text from converter and name", "targetName"),
+                    ]));
+
+    [Fact]
+    public Task WithTargetsAndMultipleFromConverter() =>
+        Verify(
+            new
+            {
+                Property = "Value"
+            },
+            [
+                new(
+                    extension: "WithTargetsAndMultipleFromConverter",
+                    data: new MemoryStream())
+            ]);
+
+    [Fact]
+    public Task WithTargetsAndMultipleFromConverterAndName() =>
+        Verify(
+            new
+            {
+                Property = "Value"
+            },
+            [
+                new(
+                    extension: "WithTargetsAndMultipleFromConverter",
+                    data: new MemoryStream(),
+                    name: "targetName")
+            ]);
+
+    [ModuleInitializer]
+    public static void InitWithStreamScrubber() =>
+        VerifierSettings.RegisterStreamScrubber(
+            "WithStreamScrubber",
+            (_,_, _) =>
+            {
+                var stream = new MemoryStream("result"u8.ToArray());
+                return Task.FromResult<StreamScrubberResult?>(new StreamScrubberResult(stream)) ;
+            });
+
+    [Fact]
+    public Task WithTargetAndStreamScrubber() =>
+        Verify(
+            new
+            {
+                Property = "Value"
+            },
+            [
+                new(
+                    extension: "WithStreamScrubber",
+                    data: new MemoryStream("input"u8.ToArray()))
+            ]);
+
+    [Fact]
+    public Task WithStreamScrubber()
+    {
+        var stream = new MemoryStream("input"u8.ToArray());
+        return Verify(stream, extension: "WithStreamScrubber");
+    }
 
     [Fact]
     public Task EnumerableTargets() =>

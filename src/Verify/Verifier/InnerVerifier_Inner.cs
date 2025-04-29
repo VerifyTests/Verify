@@ -76,11 +76,32 @@ partial class InnerVerifier
             list = result;
         }
 
-        foreach (var target in list)
+        for (var index = 0; index < list.Count; index++)
         {
+            var target = list[index];
+            var name = target.Name;
+            var extension = target.Extension;
             if (target.TryGetStringBuilder(out var builder))
             {
-                ApplyScrubbers.ApplyForExtension(target.Extension, builder, settings, counter);
+                ApplyScrubbers.ApplyForExtension(extension, builder, settings, counter);
+                continue;
+            }
+
+            if (target.IsStream && VerifierSettings.TryGetStreamScrubber(extension, out var scrubber))
+            {
+                var result = await scrubber(name, target.StreamData, settings.Context);
+                if (result == null)
+                {
+                    continue;
+                }
+
+                await target.StreamData.DisposeAsync();
+                if (result.Value.Cleanup != null)
+                {
+                    cleanup += result.Value.Cleanup;
+                }
+
+                list[index] = new(extension, result.Value.Stream, name);
             }
         }
 

@@ -27,23 +27,23 @@ public static partial class VerifierSettings
             (_, stream, context) => conversion(stream, context));
 
     public static void RegisterStreamConverter(
-        string fromExtension,
+        string extension,
         StreamConversion conversion) =>
         RegisterStreamConverter(
-            fromExtension,
+            extension,
             (name, stream, context) => Task.FromResult(conversion(name, stream, context)));
 
     public static void RegisterStreamConverter(
-        string fromExtension,
+        string extension,
         AsyncStreamConversion conversion)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        Guards.AgainstBadExtension(fromExtension);
-        if (FileExtensions.IsTextExtension(fromExtension))
+        Guards.AgainstBadExtension(extension);
+        if (FileExtensions.IsTextExtension(extension))
         {
             throw new("RegisterStreamConverter is only supported for non-text extensions");
         }
 
-        extensionConverters[fromExtension] = conversion;
+        extensionConverters[extension] = conversion;
     }
 }

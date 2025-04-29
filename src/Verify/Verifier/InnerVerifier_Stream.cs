@@ -86,9 +86,9 @@ partial class InnerVerifier
 
         using (stream)
         {
-            if (VerifierSettings.HasExtensionConverter(extension))
+            if (VerifierSettings.HasStreamConverter(extension))
             {
-                var (newInfo, converted, cleanup) = await DoExtensionConversion(extension, stream, info);
+                var (newInfo, converted, cleanup) = await DoExtensionConversion(extension, stream, info, null);
 
                 return await VerifyInner(newInfo, cleanup, converted, false);
             }
@@ -120,7 +120,8 @@ partial class InnerVerifier
         return new(extension, stream);
     }
 
-    async Task<(object? info, List<Target> targets, Func<Task> cleanup)> DoExtensionConversion(string extension, Stream stream, object? info)
+    //TODO: possibly pass in the target here
+    async Task<(object? info, List<Target> targets, Func<Task> cleanup)> DoExtensionConversion(string extension, Stream stream, object? info, string? name)
     {
         var cleanup = stream.DisposeAsyncEx;
         var infos = new List<object>();
@@ -132,20 +133,20 @@ partial class InnerVerifier
         var targets = new List<Target>();
 
         var queue = new Queue<Target>();
-        queue.Enqueue(new(extension, stream));
+        queue.Enqueue(new(extension, stream, name));
 
         while (queue.Count > 0)
         {
             var target = queue.Dequeue();
 
-            if (!VerifierSettings.TryGetExtensionConverter(target.Extension, out var conversion))
+            if (!VerifierSettings.TryGetStreamConverter(target.Extension, out var conversion))
             {
                 targets.Add(target);
                 continue;
             }
 
             var targetStream = target.StreamData;
-            var result = await conversion(targetStream, settings.Context);
+            var result = await conversion(target.Name, targetStream, settings.Context);
             if (result.Cleanup != null)
             {
                 cleanup += result.Cleanup;

@@ -101,16 +101,16 @@ canConvert: (target, context) => Equals(target.RawFormat, ImageFormat.Tiff),
 <!-- endSnippet -->
 
 
-### Expression converter
+### Stream Conversion
 
 This sample uses a extension approach. So the converter acts on a file or stream based on the extension (configured or detected).
 
-<!-- snippet: RegisterFileConverterExtension -->
-<a id='snippet-RegisterFileConverterExtension'></a>
+<!-- snippet: RegisterStreamConverterExtension -->
+<a id='snippet-RegisterStreamConverterExtension'></a>
 ```cs
-VerifierSettings.RegisterFileConverter(
+VerifierSettings.RegisterStreamConverter(
     fromExtension: "tif",
-    conversion: (stream, settings) =>
+    conversion: (name, stream, settings) =>
     {
         using var image = Image.FromStream(stream);
         var pages = image.GetFrameCount(FrameDimension.Page);
@@ -134,7 +134,7 @@ VerifierSettings.RegisterFileConverter(
             targets);
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L56-L83' title='Snippet source file'>snippet source</a> | <a href='#snippet-RegisterFileConverterExtension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L56-L83' title='Snippet source file'>snippet source</a> | <a href='#snippet-RegisterStreamConverterExtension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: FileConverterExtensionVerify -->

@@ -96,9 +96,9 @@
 
     [ModuleInitializer]
     public static void WithInfoInit() =>
-        VerifierSettings.RegisterFileConverter(
+        VerifierSettings.RegisterStreamConverter(
             "foo",
-            (_, _) =>
+            (_, _, _) =>
             {
                 var info = new
                 {

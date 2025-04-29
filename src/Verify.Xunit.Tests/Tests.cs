@@ -49,9 +49,9 @@ public class Tests
 
     [ModuleInitializer]
     public static void InitWithTargetsAndConverter() =>
-        VerifierSettings.RegisterFileConverter(
+        VerifierSettings.RegisterStreamConverter(
             "WithTargetsAndConverter",
-            (_, _) =>
+            (_, _, _) =>
                 new(
                     "theInfo",
                     [new("txt", "text from converter")]));

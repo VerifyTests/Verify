@@ -28,9 +28,9 @@ public class VerifyDirectoryTests
 
     [ModuleInitializer]
     public static void Init() =>
-        VerifierSettings.RegisterFileConverter(
+        VerifierSettings.RegisterStreamConverter(
             "VerifyDirectoryTests",
-            (_, _) =>
+            (_, _, _) =>
                 new(
                     "info from FileConverter",
                     [new("txt", "text from FileConverter")]));

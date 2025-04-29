@@ -41,11 +41,11 @@ Note that this sample also uses the optional `canConvert` to ensure that only `I
 snippet: ConverterCanConvert
 
 
-### Expression converter
+### Stream Conversion
 
 This sample uses a extension approach. So the converter acts on a file or stream based on the extension (configured or detected).
 
-snippet: RegisterFileConverterExtension
+snippet: RegisterStreamConverterExtension
 
 snippet: FileConverterExtensionVerify
 

@@ -34,9 +34,9 @@ public class InnerVerifyTests
 
     [ModuleInitializer]
     public static void Init() =>
-        VerifierSettings.RegisterFileConverter(
+        VerifierSettings.RegisterStreamConverter(
             "innersplit",
-            (stream, _) =>
+            (_, stream, _) =>
             {
                 var reader = new StreamReader(stream);
                 return new(

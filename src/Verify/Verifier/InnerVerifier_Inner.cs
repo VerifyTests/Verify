@@ -5,7 +5,7 @@ partial class InnerVerifier
     Task<VerifyResult> VerifyInner(IEnumerable<Target> targets) =>
         VerifyInner(null, null, targets, true);
 
-    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExpressionConversion)
+    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExtensionConversion)
     {
         var resultTargets = new List<Target>();
         if (TryGetRootTarget(root, out var rootTarget))
@@ -15,7 +15,7 @@ partial class InnerVerifier
 
         cleanup ??= () => Task.CompletedTask;
 
-        var (extraTargets, extraCleanup) = await GetTargets(targets, doExpressionConversion);
+        var (extraTargets, extraCleanup) = await GetTargets(targets, doExtensionConversion);
         cleanup += extraCleanup;
         resultTargets.AddRange(extraTargets);
         var engine = new VerifyEngine(
@@ -42,11 +42,11 @@ partial class InnerVerifier
         return new(filePairs, root);
     }
 
-    async Task<(List<Target> extra, Func<Task> cleanup)> GetTargets(IEnumerable<Target> targets, bool doExpressionConversion)
+    async Task<(List<Target> extra, Func<Task> cleanup)> GetTargets(IEnumerable<Target> targets, bool doExtensionConversion)
     {
         List<Target> list = [..targets, ..VerifierSettings.GetFileAppenders(settings)];
         var cleanup = () => Task.CompletedTask;
-        if (doExpressionConversion)
+        if (doExtensionConversion)
         {
             var result = new List<Target>();
             foreach (var target in list)

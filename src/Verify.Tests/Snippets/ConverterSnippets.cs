@@ -56,7 +56,7 @@ public class ConverterSnippets
     #region RegisterStreamConverterExtension
 
         VerifierSettings.RegisterStreamConverter(
-            fromExtension: "tif",
+            extension: "tif",
             conversion: (name, stream, settings) =>
             {
                 using var image = Image.FromStream(stream);

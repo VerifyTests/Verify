@@ -3,14 +3,15 @@ namespace VerifyTUnit;
 
 public static partial class Verifier
 {
-    static Task AddFile(FilePair path)
+    static Task AddFile(FilePair pair)
     {
+        var path = pair.ReceivedPath;
         TestContext.Current!.AddArtifact(
             new()
             {
-                File = new(path.ReceivedPath),
+                File = new(path),
                 Description = "Verify snapshot mismatch",
-                DisplayName = Path.GetFileNameWithoutExtension(path.ReceivedPath)
+                DisplayName = Path.GetFileNameWithoutExtension(path)
             });
         return Task.CompletedTask;
     }

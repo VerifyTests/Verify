@@ -109,7 +109,7 @@ This sample uses a extension approach. So the converter acts on a file or stream
 <a id='snippet-RegisterStreamConverterExtension'></a>
 ```cs
 VerifierSettings.RegisterStreamConverter(
-    fromExtension: "tif",
+    extension: "tif",
     conversion: (name, stream, settings) =>
     {
         using var image = Image.FromStream(stream);

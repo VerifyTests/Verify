@@ -54,8 +54,3 @@ snippet: IgnoreParametersForVerifiedCustomParamsMSTest
 ### Fluent
 
 snippet: IgnoreParametersForVerifiedCustomParamsFluentMSTest
-
-
-## Hashing parameters
-
-include: hashing-parameters

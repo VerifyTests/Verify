@@ -81,18 +81,3 @@ snippet: IgnoreParametersForVerifiedCustomParamsNunit
 ### Fluent
 
 snippet: IgnoreParametersForVerifiedCustomParamsFluentNunit
-
-
-## Hashing parameters
-
-include: hashing-parameters
-
-
-### Instance
-
-snippet: UseParametersHashInstanceNunit
-
-
-### Fluent
-
-snippet: UseParametersHashFluentNunit

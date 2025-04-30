@@ -1,4 +1,6 @@
-﻿namespace VerifyXunit;
+﻿using Polyfills;
+
+namespace VerifyXunit;
 
 public static partial class Verifier
 {
@@ -8,7 +10,7 @@ public static partial class Verifier
         var path = pair.ReceivedPath;
         context.AddAttachment(
             $"Verify snapshot mismatch: {Path.GetFileName(path)}",
-            await File.ReadAllBytesAsync(path));
+            await FilePolyfill.ReadAllBytesAsync(path));
     }
 
     static Verifier()

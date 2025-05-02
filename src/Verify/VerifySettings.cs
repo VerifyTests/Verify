@@ -39,7 +39,6 @@ public partial class VerifySettings
         parameters = settings.parameters;
         ignoredParameters = settings.ignoredParameters;
         ignoreParametersForVerified = settings.ignoreParametersForVerified;
-        hashParameters = settings.hashParameters;
         parametersText = settings.parametersText;
         FileName = settings.FileName;
         handleOnFirstVerify = settings.handleOnFirstVerify;

@@ -69,18 +69,3 @@ snippet: IgnoreParametersForVerifiedCustomParamsTUnit
 ### Fluent
 
 snippet: IgnoreParametersForVerifiedCustomParamsFluentTUnit
-
-
-## Hashing parameters
-
-include: hashing-parameters
-
-
-### Instance
-
-snippet: UseParametersHashInstanceTUnit
-
-
-### Fluent
-
-snippet: UseParametersHashFluentTUnit

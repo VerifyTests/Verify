@@ -54,10 +54,9 @@ static class FileNameBuilder
 
         var verifiedValues = GetVerifiedValues(ignored, allValues);
 
-        var hashParameters = settings.hashParameters;
         return (
-            BuildParameterString(allValues, hashParameters, counter),
-            BuildParameterString(verifiedValues, hashParameters, counter));
+            BuildParameterString(allValues, counter),
+            BuildParameterString(verifiedValues, counter));
     }
 
     static IEnumerable<KeyValuePair<string, object?>> GetVerifiedValues(HashSet<string>? ignored, KeyValuePair<string, object?>[] allValues)
@@ -75,7 +74,7 @@ static class FileNameBuilder
         return allValues.Where(_ => !ignored.Contains(_.Key));
     }
 
-    static string BuildParameterString(IEnumerable<KeyValuePair<string, object?>> values, bool hashParameters, Counter counter)
+    static string BuildParameterString(IEnumerable<KeyValuePair<string, object?>> values, Counter counter)
     {
         var builder = values.Aggregate(
             new StringBuilder(),
@@ -87,27 +86,6 @@ static class FileNameBuilder
                 VerifierSettings.AppendParameter(seed.Value, acc, true, counter);
                 return acc;
             });
-
-        var parameterText = builder.ToString();
-
-        if (hashParameters)
-        {
-            return HashString(parameterText);
-        }
-
-        return parameterText;
-    }
-
-    static string HashString(string value)
-    {
-        var data = XxHash64.Hash(Encoding.UTF8.GetBytes(value));
-
-        var builder = new StringBuilder("_", 17);
-
-        foreach (var item in data)
-        {
-            builder.Append(item.ToString("x2"));
-        }
 
         return builder.ToString();
     }

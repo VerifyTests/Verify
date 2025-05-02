@@ -51,18 +51,6 @@ public partial class SettingsTask
     }
 
     /// <summary>
-    /// Hash parameters together and pass to <see cref="UseTextForParameters" />.
-    /// Used to get a deterministic file name while avoiding long paths.
-    /// </summary>
-    [Pure]
-    public SettingsTask HashParameters()
-    {
-        CurrentSettings.HashParameters();
-        return this;
-    }
-
-
-    /// <summary>
     /// Use a custom text for the `Parameters` part of the file name.
     /// Not compatible with <see cref="UseParameters" />.
     /// Where the file format is `{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.

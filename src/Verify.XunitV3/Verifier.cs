@@ -1,7 +1,24 @@
-﻿namespace VerifyXunit;
+﻿using Polyfills;
+
+namespace VerifyXunit;
 
 public static partial class Verifier
 {
+    static async Task AddFile(FilePair pair)
+    {
+        var context = TestContext.Current;
+        var path = pair.ReceivedPath;
+        context.AddAttachment(
+            $"Verify snapshot mismatch: {Path.GetFileName(path)}",
+            await FilePolyfill.ReadAllBytesAsync(path));
+    }
+
+    static Verifier()
+    {
+        VerifierSettings.OnFirstVerify((pair, _, _) => AddFile(pair));
+        VerifierSettings.OnVerifyMismatch((pair, _, _) => AddFile(pair));
+    }
+
     static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory)
     {
         var context = TestContext.Current;

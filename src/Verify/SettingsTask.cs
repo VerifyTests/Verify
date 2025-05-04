@@ -265,9 +265,9 @@ public partial class SettingsTask
     /// Automatically accept the results of the current test.
     /// </summary>
     [Pure]
-    public SettingsTask AutoVerify(bool includeBuildServer = true)
+    public SettingsTask AutoVerify(bool includeBuildServer = true, bool throwException = false)
     {
-        CurrentSettings.AutoVerify(includeBuildServer);
+        CurrentSettings.AutoVerify(includeBuildServer, throwException);
         return this;
     }
 
@@ -275,9 +275,9 @@ public partial class SettingsTask
     /// Automatically accept the results of the current test.
     /// </summary>
     [Pure]
-    public SettingsTask AutoVerify(AutoVerify autoVerify, bool includeBuildServer = true)
+    public SettingsTask AutoVerify(AutoVerify autoVerify, bool includeBuildServer = true, bool throwException = false)
     {
-        CurrentSettings.AutoVerify(autoVerify, includeBuildServer);
+        CurrentSettings.AutoVerify(autoVerify, includeBuildServer, throwException);
         return this;
     }
 

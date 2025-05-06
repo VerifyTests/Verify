@@ -832,7 +832,7 @@ The file format is:
 ```cs
 var settings = new VerifySettings();
 settings.UseUniqueDirectory();
-await Verify("TheValue", settings);
+await Verify("TheValuess", settings);
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L221-L227' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseUniqueDirectory' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

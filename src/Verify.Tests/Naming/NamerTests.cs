@@ -222,7 +222,7 @@ public class NamerTests
 
         var settings = new VerifySettings();
         settings.UseUniqueDirectory();
-        await Verify("TheValue", settings);
+        await Verify("TheValuess", settings);
 
         #endregion
     }

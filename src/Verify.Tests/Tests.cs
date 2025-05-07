@@ -30,8 +30,9 @@ public class Tests
     [InlineData(1, 2)]
     public async Task IncorrectParameterCount_TooMany(int one, int two)
     {
-        var exception = await Assert.ThrowsAsync<Exception>(() => Verify("Value")
-            .UseParameters(1, 2, 3));
+        var exception = await Assert.ThrowsAsync<Exception>(() =>
+            Verify("Value")
+                .UseParameters(1, 2, 3));
         Assert.Equal("The number of passed in parameters (3) must not exceed the number of parameters for the method (2).", exception.Message);
     }
 

@@ -2,6 +2,7 @@ namespace VerifyTests;
 
 public partial class SettingsTask
 {
+    /// <inheritdoc cref="VerifySettings.OnVerifyMismatch(VerifyMismatch)"/>
     [Pure]
     public SettingsTask OnVerifyMismatch(VerifyMismatch verifyMismatch)
     {
@@ -9,6 +10,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.OnDelete(VerifyDelete)"/>
     [Pure]
     public SettingsTask OnDelete(VerifyDelete verifyDelete)
     {
@@ -16,6 +18,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.OnFirstVerify(FirstVerify)"/>
     [Pure]
     public SettingsTask OnFirstVerify(FirstVerify firstVerify)
     {
@@ -23,6 +26,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.OnVerify(Action, Action)"/>
     [Pure]
     public SettingsTask OnVerify(Action before, Action after)
     {

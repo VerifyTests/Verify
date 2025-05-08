@@ -316,7 +316,7 @@ public partial class InnerVerifier :
 
         var receivedBuilder = new StringBuilder(typeAndMethod);
         receivedParameters(receivedBuilder);
-        receivedBuilder.Append(uniquenessVerified);
+        receivedBuilder.Append(sharedUniqueness);
         var receivedPrefix = receivedBuilder.ToString();
         if (settings.ignoreParametersForVerified)
         {

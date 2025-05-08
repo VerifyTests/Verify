@@ -963,7 +963,7 @@ public Task UseParametersAppender(string arg1, string arg2)
     return Verify("value", settings);
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L162-L180' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersAppender' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L161-L179' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersAppender' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -984,5 +984,5 @@ public Task UseParametersAppenderFluent(string arg1, string arg2) =>
             }
         });
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L182-L196' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersAppenderFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L181-L195' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersAppenderFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

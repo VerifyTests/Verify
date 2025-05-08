@@ -452,6 +452,24 @@ public class NamerTests
     }
 
     [Theory]
+    [InlineData("One", "Two")]
+    [InlineData("Three", "Four")]
+    public Task UseParametersAppender(string arg1, string arg2)
+    {
+        var settings = new VerifySettings();
+        settings.UseParametersAppender((values, counter) =>
+            _ =>
+            {
+                foreach (var (key, value) in values)
+                {
+                    _.Append($"{key.ToUpper()}={value?.ToString()?.ToLower()}_");
+                }
+            });
+        return Verify("value", settings)
+            .UseParameters(arg1, arg2);
+    }
+
+    [Theory]
     [InlineData("One")]
     [InlineData("Two")]
     public Task IgnoreParametersForVerifiedFluent(string arg) =>

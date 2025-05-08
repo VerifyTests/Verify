@@ -98,4 +98,9 @@ public partial class VerifySettings
 
         ignoreParametersForVerified = true;
     }
+
+    internal ParametersAppender? ParametersAppender;
+
+    public void UseParametersAppender(ParametersAppender appender) =>
+        ParametersAppender = appender;
 }

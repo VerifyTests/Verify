@@ -45,6 +45,7 @@ public partial class VerifySettings
         handleOnVerifyDelete = settings.handleOnVerifyDelete;
         handleOnVerifyMismatch = settings.handleOnVerifyMismatch;
         UniquePrefixDisabled = settings.UniquePrefixDisabled;
+        ParametersAppender = settings.ParametersAppender;
         beforeVerify = settings.beforeVerify;
         afterVerify = settings.afterVerify;
         UseUniqueDirectorySplitMode = settings.UseUniqueDirectorySplitMode;

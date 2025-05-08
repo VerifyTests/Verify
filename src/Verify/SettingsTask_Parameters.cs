@@ -18,6 +18,13 @@ public partial class SettingsTask
         return this;
     }
 
+    [Pure]
+    public SettingsTask UseParametersAppender(ParametersAppender appender)
+    {
+        CurrentSettings.UseParametersAppender(appender);
+        return this;
+    }
+
     /// <inheritdoc cref="VerifySettings.UseParameters(object?[])"/>
     [Pure]
     public SettingsTask UseParameters(params object?[] parameters)

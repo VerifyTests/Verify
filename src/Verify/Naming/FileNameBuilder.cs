@@ -54,10 +54,29 @@ static class FileNameBuilder
 
         var verifiedValues = GetVerifiedValues(ignored, allValues);
 
+        if (settings.ParametersAppender == null)
+        {
+            return (
+                BuildParameterString(allValues, counter),
+                BuildParameterString(verifiedValues, counter));
+        }
+
         return (
-            BuildParameterString(allValues, counter),
-            BuildParameterString(verifiedValues, counter));
+            settings.ParametersAppender(allValues.ToDictionary(_ => _.Key, _ => _.Value), counter),
+            settings.ParametersAppender(verifiedValues.ToDictionary(_ => _.Key, _ => _.Value), counter));
     }
+
+    static Action<StringBuilder> BuildParameterString(IEnumerable<KeyValuePair<string, object?>> values, Counter counter) =>
+        builder =>
+        {
+            foreach (var (key, value) in values)
+            {
+                builder.Append('_');
+                builder.Append(key);
+                builder.Append('=');
+                VerifierSettings.AppendParameter(value, builder, true, counter);
+            }
+        };
 
     static IEnumerable<KeyValuePair<string, object?>> GetVerifiedValues(HashSet<string>? ignored, KeyValuePair<string, object?>[] allValues)
     {
@@ -73,16 +92,4 @@ static class FileNameBuilder
 
         return allValues.Where(_ => !ignored.Contains(_.Key));
     }
-
-    static Action<StringBuilder> BuildParameterString(IEnumerable<KeyValuePair<string, object?>> values, Counter counter) =>
-        builder =>
-        {
-            foreach (var (key, value) in values)
-            {
-                builder.Append('_');
-                builder.Append(key);
-                builder.Append('=');
-                VerifierSettings.AppendParameter(value, builder, true, counter);
-            }
-        };
 }

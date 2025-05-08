@@ -2,6 +2,7 @@
 
 public partial class SettingsTask
 {
+    /// <inheritdoc cref="VerifySettings.DontScrubGuids()"/>
     [Pure]
     public SettingsTask DontScrubGuids()
     {
@@ -9,6 +10,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.UseStrictJson()"/>
     [Pure]
     public SettingsTask UseStrictJson()
     {
@@ -16,6 +18,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.DontScrubDateTimes()"/>
     [Pure]
     public SettingsTask DontScrubDateTimes()
     {
@@ -23,6 +26,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.DontSortDictionaries()"/>
     [Pure]
     public SettingsTask DontSortDictionaries()
     {

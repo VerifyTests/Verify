@@ -9,7 +9,7 @@
     <VerifyXunitAttributesFile>VerifyXunit.Attributes$(MSBuildProjectExtension.Replace('proj', ''))</VerifyXunitAttributesFile>
   </PropertyGroup>
   <Target Name="WriteVerifyXunitAttributes"
-          Condition="$(Language) == 'VB' or $(Language) == 'C#' or $(Language) == 'F#'"
+          Condition="$(Language) == 'VB' or $(Language) == 'C#' or $(Language) == 'F#' or $(Language) == 'X#'"
           BeforeTargets="BeforeCompile;CoreCompile"
           Inputs="$(MSBuildAllProjects)"
           Outputs="$(IntermediateOutputPath)$(VerifyXunitAttributesFile)">

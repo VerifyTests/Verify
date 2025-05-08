@@ -7,7 +7,7 @@
     <NoWarn>$(NoWarn);CA2255</NoWarn>
   </PropertyGroup>
   <Target Name="WriteVerifyAttributes"
-          Condition="$(Language) == 'VB' or $(Language) == 'C#' or $(Language) == 'F#'"
+          Condition="$(Language) == 'VB' or $(Language) == 'C#' or $(Language) == 'F#' or $(Language) == 'X#'"
           BeforeTargets="BeforeCompile;CoreCompile"
           Inputs="$(MSBuildAllProjects)"
           Outputs="$(IntermediateOutputPath)$(VerifyAttributesFile)">

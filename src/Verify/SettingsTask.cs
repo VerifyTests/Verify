@@ -15,6 +15,7 @@ public partial class SettingsTask
         this.buildTask = buildTask;
     }
 
+    /// <inheritdoc cref="VerifySettings.AddExtraSettings"/>
     [Pure]
     public SettingsTask AddExtraSettings(Action<JsonSerializerSettings> action)
     {
@@ -22,9 +23,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Append a key-value pair to the serialized target.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.AppendValue(string,object)"/>
     [Pure]
     public SettingsTask AppendValue(string name, object data)
     {
@@ -32,9 +31,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Append key-value pairs to the serialized target.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.AppendValues(IEnumerable{KeyValuePair{string,object}})"/>
     [Pure]
     public SettingsTask AppendValues(IEnumerable<KeyValuePair<string, object>> values)
     {
@@ -42,9 +39,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Append key-value pairs to the serialized target.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.AppendValues(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{string,object}})"/>
     [Pure]
     public SettingsTask AppendValues(params KeyValuePair<string, object>[] values)
     {
@@ -52,6 +47,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.UseStreamComparer(StreamCompare)"/>
     [Pure]
     public SettingsTask UseStreamComparer(StreamCompare compare)
     {
@@ -59,6 +55,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.UseStringComparer(StringCompare)"/>
     [Pure]
     public SettingsTask UseStringComparer(StringCompare compare)
     {
@@ -66,9 +63,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Disable using a diff toll for this test
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.DisableDiff()"/>
     [Pure]
     public SettingsTask DisableDiff()
     {
@@ -76,10 +71,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Use the current runtime to make the test results unique.
-    /// Used when a test produces different results based on runtime.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.UniqueForRuntime()"/>
     [Pure]
     public SettingsTask UniqueForRuntime()
     {
@@ -87,10 +79,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Use the current test assembly TargetFrameworkAttribute to make the test results unique.
-    /// Used when a test produces different results based on TargetFramework.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.UniqueForTargetFramework()"/>
     [Pure]
     public SettingsTask UniqueForTargetFramework()
     {
@@ -98,10 +87,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Use the current test assembly TargetFrameworkAttribute name and version to make the test results unique.
-    /// Used when a test produces different results based on TargetFramework and TargetFramework version.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.UniqueForTargetFrameworkAndVersion()"/>
     [Pure]
     public SettingsTask UniqueForTargetFrameworkAndVersion()
     {
@@ -109,10 +95,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Use the current test assembly configuration (debug/release) to make the test results unique.
-    /// Used when a test produces different results based on assembly configuration.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.UniqueForAssemblyConfiguration()"/>
     [Pure]
     public SettingsTask UniqueForAssemblyConfiguration()
     {
@@ -120,10 +103,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Use <paramref name="assembly" /> TargetFrameworkAttribute to make the test results unique.
-    /// Used when a test produces different results based on TargetFramework.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.UniqueForTargetFramework(Assembly)"/>
     [Pure]
     public SettingsTask UniqueForTargetFramework(Assembly assembly)
     {
@@ -131,10 +111,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Use the <paramref name="assembly" /> TargetFrameworkAttribute name and version to make the test results unique.
-    /// Used when a test produces different results based on TargetFramework and TargetFramework version.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.UniqueForTargetFrameworkAndVersion(Assembly)"/>
     [Pure]
     public SettingsTask UniqueForTargetFrameworkAndVersion(Assembly assembly)
     {
@@ -142,10 +119,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Use the <paramref name="assembly" /> configuration (debug/release) to make the test results unique.
-    /// Used when a test produces different results based on assembly configuration.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.UniqueForAssemblyConfiguration(Assembly)"/>
     [Pure]
     public SettingsTask UniqueForAssemblyConfiguration(Assembly assembly)
     {
@@ -153,9 +127,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Allow multiple tests to map to the same snapshot file prefix.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.DisableRequireUniquePrefix()"/>
     [Pure]
     public SettingsTask DisableRequireUniquePrefix()
     {
@@ -163,11 +135,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Use a custom method name for the test results.
-    /// Where the file format is `{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
-    /// </summary>
-    /// <remarks>Not compatible with <see cref="UseFileName" />.</remarks>
+    /// <inheritdoc cref="VerifySettings.UseMethodName(string)"/>
     [Pure]
     public SettingsTask UseMethodName(string name)
     {
@@ -175,9 +143,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Use a custom directory for the test results.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.UseDirectory(string)"/>
     [Pure]
     public SettingsTask UseDirectory(string directory)
     {
@@ -185,12 +151,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Use a file name for the test results.
-    /// Overrides the `{TestClassName}.{TestMethodName}_{Parameters}` parts of the file naming.
-    /// Where the new file format is `{CurrentDirectory}/{FileName}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
-    /// </summary>
-    /// <remarks>Not compatible with <see cref="UseTypeName" />, <see cref="UseMethodName" />, or <see cref="UseParameters" />.</remarks>
+    /// <inheritdoc cref="VerifySettings.UseFileName(string)"/>
     [Pure]
     public SettingsTask UseFileName(string fileName)
     {
@@ -198,10 +159,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Use a directory for the test results.
-    /// Where the file format is `{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}/{targetName}.verified.{extension}`.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.UseUniqueDirectory()"/>
     [Pure]
     public SettingsTask UseUniqueDirectory()
     {
@@ -209,11 +167,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Use a custom class name for the CurrentDirectory results.
-    /// Where the file format is `{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
-    /// </summary>
-    /// <remarks>Not compatible with <see cref="UseFileName" />.</remarks>
+    /// <inheritdoc cref="VerifySettings.UseTypeName(string)"/>
     [Pure]
     public SettingsTask UseTypeName(string name)
     {
@@ -221,10 +175,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Use the current runtime and runtime version to make the test results unique.
-    /// Used when a test produces different results based on runtime and runtime version.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.UniqueForRuntimeAndVersion()"/>
     [Pure]
     public SettingsTask UniqueForRuntimeAndVersion()
     {
@@ -232,10 +183,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Use the current processor architecture (x86/x64/arm/arm64) to make the test results unique.
-    /// Used when a test produces different results based on processor architecture.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.UniqueForArchitecture()"/>
     [Pure]
     public SettingsTask UniqueForArchitecture()
     {
@@ -243,10 +191,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Use the operating system family (Linux/Windows/OSX) to make the test results unique.
-    /// Used when a test produces different results based on operating system family.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.UniqueForOSPlatform()"/>
     [Pure]
     public SettingsTask UniqueForOSPlatform()
     {
@@ -254,6 +199,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IgnoreStackTrace()"/>
     [Pure]
     public SettingsTask IgnoreStackTrace()
     {
@@ -261,9 +207,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Automatically accept the results of the current test.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.AutoVerify(bool)"/>
     [Pure]
     public SettingsTask AutoVerify(bool includeBuildServer = true)
     {
@@ -271,9 +215,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Automatically accept the results of the current test.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.AutoVerify(bool)"/>
     [Pure]
     public SettingsTask AutoVerify(AutoVerify autoVerify, bool includeBuildServer = true)
     {
@@ -281,10 +223,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Use the current runtime to make the test results unique.
-    /// Used when a test produces different results based on runtime.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.UseSplitModeForUniqueDirectory()"/>
     [Pure]
     public SettingsTask UseSplitModeForUniqueDirectory()
     {
@@ -292,10 +231,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Dont use the current runtime to make the test results unique.
-    /// Overrides <see cref="VerifierSettings.UseSplitModeForUniqueDirectory" />.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.DontUseSplitModeForUniqueDirectory()"/>
     [Pure]
     public SettingsTask DontUseSplitModeForUniqueDirectory()
     {

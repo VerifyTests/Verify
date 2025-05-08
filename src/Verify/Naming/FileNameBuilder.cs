@@ -21,18 +21,18 @@ static class FileNameBuilder
         return $"{type}.{method}";
     }
 
-    public static (string receivedParameters, string verifiedParameters) GetParameterText(IReadOnlyList<string>? methodParameters, VerifySettings settings, Counter counter)
+    public static (Action<StringBuilder>?, Action<StringBuilder>?) GetParameterText(IReadOnlyList<string>? methodParameters, VerifySettings settings, Counter counter)
     {
         if (settings.parametersText is not null)
         {
-            var parameterText = $"_{settings.parametersText}";
-            return (parameterText, parameterText);
+            Action<StringBuilder> action = _ => _.Append($"_{settings.parametersText}");
+            return (action, action);
         }
 
         if (methodParameters is null ||
             !settings.TryGetParameters(out var settingsParameters))
         {
-            return (string.Empty, string.Empty);
+            return (null, null);
         }
 
         var numberOfMethodParameters = methodParameters.Count;
@@ -74,19 +74,15 @@ static class FileNameBuilder
         return allValues.Where(_ => !ignored.Contains(_.Key));
     }
 
-    static string BuildParameterString(IEnumerable<KeyValuePair<string, object?>> values, Counter counter)
-    {
-        var builder = values.Aggregate(
-            new StringBuilder(),
-            (acc, seed) =>
+    static Action<StringBuilder> BuildParameterString(IEnumerable<KeyValuePair<string, object?>> values, Counter counter) =>
+        builder =>
+        {
+            foreach (var (key, value) in values)
             {
-                acc.Append('_');
-                acc.Append(seed.Key);
-                acc.Append('=');
-                VerifierSettings.AppendParameter(seed.Value, acc, true, counter);
-                return acc;
-            });
-
-        return builder.ToString();
-    }
+                builder.Append('_');
+                builder.Append(key);
+                builder.Append('=');
+                VerifierSettings.AppendParameter(value, builder, true, counter);
+            }
+        };
 }

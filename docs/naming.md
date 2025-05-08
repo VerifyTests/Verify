@@ -963,7 +963,7 @@ public Task UseParametersAppender(string arg1, string arg2)
     return Verify("value", settings);
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L161-L179' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersAppender' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L163-L181' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersAppender' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -975,14 +975,15 @@ public Task UseParametersAppender(string arg1, string arg2)
 [TestCase("One", "Two")]
 [TestCase("Three", "Four")]
 public Task UseParametersAppenderFluent(string arg1, string arg2) =>
-    Verify("value").UseParametersAppender((values, counter) =>
-        stringBuilder =>
-        {
-            foreach (var (key, value) in values)
+    Verify("value")
+        .UseParametersAppender((values, counter) =>
+            stringBuilder =>
             {
-                stringBuilder.Append($"{key.ToUpper()}={value?.ToString()?.ToLower()}_");
-            }
-        });
+                foreach (var (key, value) in values)
+                {
+                    stringBuilder.Append($"{key.ToUpper()}={value?.ToString()?.ToLower()}_");
+                }
+            });
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L181-L195' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersAppenderFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L183-L198' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersAppenderFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

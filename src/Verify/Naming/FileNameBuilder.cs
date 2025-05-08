@@ -1,3 +1,4 @@
+#pragma warning disable AppendParameter
 static class FileNameBuilder
 {
     public static FrameworkNameVersion? FrameworkName(this Assembly assembly)

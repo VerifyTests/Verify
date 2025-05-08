@@ -79,11 +79,14 @@ public static partial class VerifierSettings
         }
 
         var builder = new StringBuilder();
+#pragma warning disable AppendParameter
         AppendParameter(parameter, builder, true, counter ?? Counter.CurrentOrNull, pathFriendly);
+#pragma warning restore AppendParameter
         return builder.ToString();
     }
 
-    internal static void AppendParameter(object? parameter, StringBuilder builder, bool isRoot, Counter? counter, bool pathFriendly = true)
+    [Experimental("AppendParameter")]
+    public static void AppendParameter(object? parameter, StringBuilder builder, bool isRoot, Counter? counter, bool pathFriendly = true)
     {
         while (true)
         {

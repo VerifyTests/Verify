@@ -1,3 +1,4 @@
+// ReSharper disable once RedundantUsingDirective
 using Polyfills;
 // ReSharper disable UnusedParameter.Local
 // ReSharper disable ConditionalAccessQualifierIsNonNullableAccordingToAPIContract
@@ -184,14 +185,15 @@ public class ParametersSample
     [TestCase("One", "Two")]
     [TestCase("Three", "Four")]
     public Task UseParametersAppenderFluent(string arg1, string arg2) =>
-        Verify("value").UseParametersAppender((values, counter) =>
-            stringBuilder =>
-            {
-                foreach (var (key, value) in values)
+        Verify("value")
+            .UseParametersAppender((values, counter) =>
+                stringBuilder =>
                 {
-                    stringBuilder.Append($"{key.ToUpper()}={value?.ToString()?.ToLower()}_");
-                }
-            });
+                    foreach (var (key, value) in values)
+                    {
+                        stringBuilder.Append($"{key.ToUpper()}={value?.ToString()?.ToLower()}_");
+                    }
+                });
 
     #endregion
 }

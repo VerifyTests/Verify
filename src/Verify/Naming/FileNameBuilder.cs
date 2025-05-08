@@ -21,9 +21,7 @@ static class FileNameBuilder
         return $"{type}.{method}";
     }
 
-    static Action<StringBuilder> empty = _=>{};
-
-    public static (Action<StringBuilder>, Action<StringBuilder>) GetParameterText(IReadOnlyList<string>? methodParameters, VerifySettings settings, Counter counter)
+    public static (Action<StringBuilder>?, Action<StringBuilder>?) GetParameterText(IReadOnlyList<string>? methodParameters, VerifySettings settings, Counter counter)
     {
         if (settings.parametersText is not null)
         {
@@ -34,7 +32,7 @@ static class FileNameBuilder
         if (methodParameters is null ||
             !settings.TryGetParameters(out var settingsParameters))
         {
-            return (empty, empty);
+            return (null, null);
         }
 
         var numberOfMethodParameters = methodParameters.Count;

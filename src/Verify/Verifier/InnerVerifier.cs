@@ -168,7 +168,7 @@ public partial class InnerVerifier :
             settings.namedDateTimeOffsets
         );
 
-    void InitForDirectoryConvention(Namer namer, string typeAndMethod, Action<StringBuilder> verifiedParameters)
+    void InitForDirectoryConvention(Namer namer, string typeAndMethod, Action<StringBuilder>? verifiedParameters)
     {
         var verifiedPrefix = PrefixForDirectoryConvention(namer, typeAndMethod, verifiedParameters);
 
@@ -224,7 +224,7 @@ public partial class InnerVerifier :
         }
     }
 
-    string PrefixForDirectoryConvention(Namer namer, string typeAndMethod, Action<StringBuilder> verifiedParameters)
+    string PrefixForDirectoryConvention(Namer namer, string typeAndMethod, Action<StringBuilder>? verifiedParameters)
     {
         var uniquenessVerified = GetUniquenessVerified(PrefixUnique.SharedUniqueness(namer), namer);
 
@@ -239,7 +239,7 @@ public partial class InnerVerifier :
         }
 
         var builder = new StringBuilder(typeAndMethod);
-        verifiedParameters(builder);
+        verifiedParameters?.Invoke(builder);
         builder.Append(uniquenessVerified);
         return builder.ToString();
     }
@@ -248,7 +248,7 @@ public partial class InnerVerifier :
         settings.UseUniqueDirectorySplitMode
             .GetValueOrDefault(VerifierSettings.UseUniqueDirectorySplitMode);
 
-    void InitForFileConvention(Namer namer, string typeAndMethod, Action<StringBuilder> receivedParameters, Action<StringBuilder> verifiedParameters)
+    void InitForFileConvention(Namer namer, string typeAndMethod, Action<StringBuilder>? receivedParameters, Action<StringBuilder>? verifiedParameters)
     {
         var (receivedPrefix, verifiedPrefix) = PrefixForFileConvention(namer, typeAndMethod, receivedParameters, verifiedParameters);
 
@@ -297,7 +297,7 @@ public partial class InnerVerifier :
         MatchingFileFinder.DeleteReceived(receivedPrefix, directory);
     }
 
-    (string receivedPrefix, string verifiedPrefix) PrefixForFileConvention(Namer namer, string typeAndMethod, Action<StringBuilder> receivedParameters, Action<StringBuilder> verifiedParameters)
+    (string receivedPrefix, string verifiedPrefix) PrefixForFileConvention(Namer namer, string typeAndMethod, Action<StringBuilder>? receivedParameters, Action<StringBuilder>? verifiedParameters)
     {
         var sharedUniqueness = PrefixUnique.SharedUniqueness(namer);
         var uniquenessVerified = GetUniquenessVerified(sharedUniqueness, namer);
@@ -315,7 +315,7 @@ public partial class InnerVerifier :
         }
 
         var receivedBuilder = new StringBuilder(typeAndMethod);
-        receivedParameters(receivedBuilder);
+        receivedParameters?.Invoke(receivedBuilder);
         receivedBuilder.Append(sharedUniqueness);
         var receivedPrefix = receivedBuilder.ToString();
         if (settings.ignoreParametersForVerified)
@@ -326,7 +326,7 @@ public partial class InnerVerifier :
         }
 
         var verifiedBuilder = new StringBuilder(typeAndMethod);
-        verifiedParameters(verifiedBuilder);
+        verifiedParameters?.Invoke(verifiedBuilder);
         verifiedBuilder.Append(uniquenessVerified);
         return (
             receivedPrefix,

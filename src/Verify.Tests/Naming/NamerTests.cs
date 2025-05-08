@@ -1,4 +1,6 @@
 // ReSharper disable ArrangeObjectCreationWhenTypeNotEvident
+// ReSharper disable ConditionalAccessQualifierIsNonNullableAccordingToAPIContract
+#pragma warning disable UseParametersAppender
 public class NamerTests
 {
 #if NET6_0_OR_GREATER && DEBUG

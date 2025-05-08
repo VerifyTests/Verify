@@ -101,6 +101,10 @@ public partial class VerifySettings
 
     internal ParametersAppender? ParametersAppender;
 
+    /// <summary>
+    /// Overrides how parameters are appended to verified and received filenames.
+    /// </summary>
+    [Experimental("UseParametersAppender")]
     public void UseParametersAppender(ParametersAppender appender) =>
         ParametersAppender = appender;
 }

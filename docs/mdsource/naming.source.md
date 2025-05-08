@@ -356,3 +356,24 @@ For small renames, with resulting small number of orphaned files, the recommende
 
 In some scenarios it may be necessary to clean up many orphaned files. For example from a rename of test fixture with many tests, or a test with many parameter permutations. In this case the delete can be performed by [DiffEngine Tray - Purge verified files
 ](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md#purge-verified-files) feature.
+
+
+
+## UseParametersAppender
+
+Overrides how parameters are appended to verified and received filenames.
+
+The blow sample results in two verified files
+
+ * `Tests.UseParametersAppenderARG1=one_ARG2=two_.verified.txt1
+ * `Tests.UseParametersAppenderFluentARG1=three_ARG2=four_.verified.txt`
+
+
+### Instance
+
+snippet: UseParametersAppender
+
+
+### Fluent
+
+snippet: UseParametersAppenderFluent

@@ -1,3 +1,8 @@
+using Polyfills;
+// ReSharper disable UnusedParameter.Local
+// ReSharper disable ConditionalAccessQualifierIsNonNullableAccordingToAPIContract
+
+#pragma warning disable UseParametersAppender
 [TestFixture]
 public class ParametersSample
 {
@@ -153,4 +158,40 @@ public class ParametersSample
     public Task SuppliedDoesNotMatchArg(string arg) =>
         Verify("Foo")
             .UseParameters("notTheArg");
+
+    #region UseParametersAppender
+
+    [TestCase("One", "Two")]
+    [TestCase("Three", "Four")]
+    public Task UseParametersAppender(string arg1, string arg2)
+    {
+        var settings = new VerifySettings();
+        settings.UseParametersAppender((values, counter) =>
+            stringBuilder =>
+            {
+                foreach (var (key, value) in values)
+                {
+                    stringBuilder.Append($"{key.ToUpper()}={value?.ToString()?.ToLower()}_");
+                }
+            });
+        return Verify("value", settings);
+    }
+
+    #endregion
+
+    #region UseParametersAppenderFluent
+
+    [TestCase("One", "Two")]
+    [TestCase("Three", "Four")]
+    public Task UseParametersAppenderFluent(string arg1, string arg2) =>
+        Verify("value").UseParametersAppender((values, counter) =>
+            stringBuilder =>
+            {
+                foreach (var (key, value) in values)
+                {
+                    stringBuilder.Append($"{key.ToUpper()}={value?.ToString()?.ToLower()}_");
+                }
+            });
+
+    #endregion
 }

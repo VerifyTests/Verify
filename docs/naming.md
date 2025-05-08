@@ -32,7 +32,7 @@ var settings = new VerifySettings();
 settings.UseDirectory("CustomDirectory");
 await Verify("valueUseDirectory", settings);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L199-L205' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseDirectory' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L201-L207' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseDirectory' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -44,7 +44,7 @@ await Verify("valueUseDirectory", settings);
 await Verify("valueUseDirectoryFluent")
     .UseDirectory("CustomDirectory");
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L211-L216' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseDirectoryFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L213-L218' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseDirectoryFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `CustomDirectory/TypeName.MethodName.verified.txt`.
@@ -64,7 +64,7 @@ var settings = new VerifySettings();
 settings.UseTypeName("CustomTypeName");
 await Verify("valueUseTypeName", settings);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L298-L304' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTypeName' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L300-L306' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTypeName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -76,7 +76,7 @@ await Verify("valueUseTypeName", settings);
 await Verify("valueUseTypeNameFluent")
     .UseTypeName("CustomTypeName");
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L310-L315' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTypeNameFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L312-L317' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTypeNameFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `CustomTypeName.MethodName.verified.txt`.
@@ -93,7 +93,7 @@ var settings = new VerifySettings();
 settings.UseMethodName("CustomMethodName");
 await Verify("valueUseMethodName", settings);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L320-L326' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseMethodName' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L322-L328' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseMethodName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `TestClass.CustomMethodName.verified.txt`.
@@ -107,7 +107,7 @@ Will result in `TestClass.CustomMethodName.verified.txt`.
 await Verify("valueUseMethodNameFluent")
     .UseMethodName("CustomMethodNameFluent");
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L332-L337' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseMethodNameFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L334-L339' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseMethodNameFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `TestClass.CustomMethodNameFluent.verified.txt`.
@@ -128,7 +128,7 @@ public Task MultipleCalls() =>
         Verify("Value1MultipleCalls")
             .UseMethodName("MultipleCalls_2"));
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L52-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-MultipleCalls' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L54-L64' title='Snippet source file'>snippet source</a> | <a href='#snippet-MultipleCalls' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -146,7 +146,7 @@ var settings = new VerifySettings();
 settings.UseFileName("CustomFileName");
 await Verify("valueUseFileName", settings);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L168-L174' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseFileName' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L170-L176' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseFileName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `CustomFileName.verified.txt`.
@@ -160,7 +160,7 @@ Will result in `CustomFileName.verified.txt`.
 await Verify("valueUseFileNameFluent")
     .UseFileName("CustomFileNameFluent");
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L189-L194' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseFileNameFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L191-L196' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseFileNameFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `UseFileNameFluent.verified.txt`.
@@ -660,7 +660,7 @@ To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
 Debug.WriteLine(Namer.Runtime);
 Debug.WriteLine(Namer.RuntimeAndVersion);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L342-L347' title='Snippet source file'>snippet source</a> | <a href='#snippet-AccessNamerRuntimeAndVersion' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L344-L349' title='Snippet source file'>snippet source</a> | <a href='#snippet-AccessNamerRuntimeAndVersion' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -834,7 +834,7 @@ var settings = new VerifySettings();
 settings.UseUniqueDirectory();
 await Verify("TheValue", settings);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L221-L227' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseUniqueDirectory' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L223-L229' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseUniqueDirectory' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -929,3 +929,60 @@ For small renames, with resulting small number of orphaned files, the recommende
 
 In some scenarios it may be necessary to clean up many orphaned files. For example from a rename of test fixture with many tests, or a test with many parameter permutations. In this case the delete can be performed by [DiffEngine Tray - Purge verified files
 ](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md#purge-verified-files) feature.
+
+
+
+## UseParametersAppender
+
+Overrides how parameters are appended to verified and received filenames.
+
+The blow sample results in two verified files
+
+ * `Tests.UseParametersAppenderARG1=one_ARG2=two_.verified.txt1
+ * `Tests.UseParametersAppenderFluentARG1=three_ARG2=four_.verified.txt`
+
+
+### Instance
+
+<!-- snippet: UseParametersAppender -->
+<a id='snippet-UseParametersAppender'></a>
+```cs
+[TestCase("One", "Two")]
+[TestCase("Three", "Four")]
+public Task UseParametersAppender(string arg1, string arg2)
+{
+    var settings = new VerifySettings();
+    settings.UseParametersAppender((values, counter) =>
+        stringBuilder =>
+        {
+            foreach (var (key, value) in values)
+            {
+                stringBuilder.Append($"{key.ToUpper()}={value?.ToString()?.ToLower()}_");
+            }
+        });
+    return Verify("value", settings);
+}
+```
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L162-L180' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersAppender' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Fluent
+
+<!-- snippet: UseParametersAppenderFluent -->
+<a id='snippet-UseParametersAppenderFluent'></a>
+```cs
+[TestCase("One", "Two")]
+[TestCase("Three", "Four")]
+public Task UseParametersAppenderFluent(string arg1, string arg2) =>
+    Verify("value").UseParametersAppender((values, counter) =>
+        stringBuilder =>
+        {
+            foreach (var (key, value) in values)
+            {
+                stringBuilder.Append($"{key.ToUpper()}={value?.ToString()?.ToLower()}_");
+            }
+        });
+```
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L182-L196' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersAppenderFluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->

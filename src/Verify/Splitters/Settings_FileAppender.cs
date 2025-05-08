@@ -76,6 +76,7 @@ public partial class VerifySettings
 
 public partial class SettingsTask
 {
+    /// <inheritdoc cref="VerifySettings.AppendContentAsFile(StringBuilder,string,string?)"/>
     [Pure]
     public SettingsTask AppendContentAsFile(StringBuilder content, string extension = "txt", string? name = null)
     {
@@ -83,6 +84,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.AppendContentAsFile(string,string,string?)"/>
     [Pure]
     public SettingsTask AppendContentAsFile(string content, string extension = "txt", string? name = null)
     {
@@ -90,6 +92,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.AppendContentAsFile(string,string,string?)"/>
     [Pure]
     public SettingsTask AppendContentAsFile(byte[] content, string extension = "txt", string? name = null)
     {
@@ -97,6 +100,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.AppendFile(FileStream,string?)"/>
     [Pure]
     public SettingsTask AppendFile(FileStream stream, string? name = null)
     {
@@ -104,6 +108,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.AppendFile(Stream,string,string?)"/>
     [Pure]
     public SettingsTask AppendFile(Stream stream, string extension = "txt", string? name = null)
     {
@@ -111,6 +116,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.AppendFile(string,string?)"/>
     [Pure]
     public SettingsTask AppendFile(string file, string? name = null)
     {
@@ -118,6 +124,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.AppendFile(FileInfo,string?)"/>
     [Pure]
     public SettingsTask AppendFile(FileInfo file, string? name = null)
     {

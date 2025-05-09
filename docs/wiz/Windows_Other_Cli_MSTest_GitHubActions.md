@@ -201,6 +201,8 @@ For a specific a test class:
 
 ```
 [UsesVerify]
+[TestClass]
+public class TheTest...
 ```
 
 Or inherit from `VerifyBase`:

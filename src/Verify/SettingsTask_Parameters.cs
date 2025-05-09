@@ -18,6 +18,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.UseParametersAppender(ParametersAppender)"/>
     [Experimental("UseParametersAppender")]
     [Pure]
     public SettingsTask UseParametersAppender(ParametersAppender appender)

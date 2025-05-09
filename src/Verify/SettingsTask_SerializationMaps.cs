@@ -34,6 +34,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.OrderEnumerableBy{T}"/>
     [Pure]
     public SettingsTask OrderEnumerableBy<T>(Func<T, object?> keySelector)
     {
@@ -41,6 +42,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.OrderEnumerableByDescending{T}"/>
     [Pure]
     public SettingsTask OrderEnumerableByDescending<T>(Func<T, object?> keySelector)
     {
@@ -48,6 +50,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IncludeObsoletes"/>
     [Pure]
     public SettingsTask IncludeObsoletes()
     {
@@ -55,6 +58,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.DontIgnoreEmptyCollections"/>
     [Pure]
     public SettingsTask DontIgnoreEmptyCollections()
     {
@@ -62,6 +66,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IgnoreMembers{T}(Expression{System.Func{T,object?}}[])"/>
     [Pure]
     public SettingsTask IgnoreMembers<T>(params Expression<Func<T, object?>>[] expressions)
         where T : notnull
@@ -70,6 +75,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubMembers{T}(Expression{Func{T,object?}}[])"/>
     [Pure]
     public SettingsTask ScrubMembers<T>(params Expression<Func<T, object?>>[] expressions)
         where T : notnull
@@ -78,6 +84,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IgnoreMember{T}(Expression{Func{T,object?}})"/>
     [Pure]
     public SettingsTask IgnoreMember<T>(Expression<Func<T, object?>> expression)
         where T : notnull
@@ -86,6 +93,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubMember{T}(Expression{Func{T,object?}})"/>
     [Pure]
     public SettingsTask ScrubMember<T>(Expression<Func<T, object?>> expression)
         where T : notnull
@@ -94,6 +102,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IgnoreMembers{T}(string[])"/>
     [Pure]
     public SettingsTask IgnoreMembers<T>(params string[] names)
         where T : notnull
@@ -102,6 +111,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubMembers{T}(string[])"/>
     [Pure]
     public SettingsTask ScrubMembers<T>(params string[] names)
         where T : notnull
@@ -110,6 +120,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IgnoreMember{T}(string)"/>
     [Pure]
     public SettingsTask IgnoreMember<T>(string name)
         where T : notnull
@@ -118,6 +129,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubMember{T}(string)"/>
     [Pure]
     public SettingsTask ScrubMember<T>(string name)
         where T : notnull
@@ -126,6 +138,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IgnoreMembers(Type,string[])"/>
     [Pure]
     public SettingsTask IgnoreMembers(Type declaringType, params string[] names)
     {
@@ -133,6 +146,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubMembers(Type,string[])"/>
     [Pure]
     public SettingsTask ScrubMembers(Type declaringType, params string[] names)
     {
@@ -140,6 +154,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IgnoreMember(Type,string)"/>
     [Pure]
     public SettingsTask IgnoreMember(Type declaringType, string name)
     {
@@ -147,6 +162,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubMember(Type,string)"/>
     [Pure]
     public SettingsTask ScrubMember(Type declaringType, string name)
     {
@@ -154,6 +170,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IgnoreMember(string)"/>
     [Pure]
     public SettingsTask IgnoreMember(string name)
     {
@@ -161,6 +178,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubMember(string)"/>
     [Pure]
     public SettingsTask ScrubMember(string name)
     {
@@ -168,6 +186,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IgnoreMembers(string[])"/>
     [Pure]
     public SettingsTask IgnoreMembers(params string[] names)
     {
@@ -175,6 +194,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubMembers(string[])"/>
     [Pure]
     public SettingsTask ScrubMembers(params string[] names)
     {
@@ -182,6 +202,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IgnoreInstance{T}"/>
     [Pure]
     public SettingsTask IgnoreInstance<T>(Func<T, bool> shouldIgnore)
         where T : notnull
@@ -190,6 +211,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubInstance{T}"/>
     [Pure]
     public SettingsTask ScrubInstance<T>(Func<T, bool> shouldScrub)
         where T : notnull
@@ -198,6 +220,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IgnoreInstance(Type,ShouldIgnore)"/>
     [Pure]
     public SettingsTask IgnoreInstance(Type type, ShouldIgnore shouldIgnore)
     {
@@ -205,6 +228,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubInstance(Type,ShouldScrub)"/>
     [Pure]
     public SettingsTask ScrubInstance(Type type, ShouldScrub shouldScrub)
     {
@@ -212,6 +236,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IgnoreMembersWithType{T}"/>
     [Pure]
     public SettingsTask IgnoreMembersWithType<T>()
         where T : notnull
@@ -220,6 +245,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubMembersWithType{T}"/>
     [Pure]
     public SettingsTask ScrubMembersWithType<T>()
         where T : notnull
@@ -228,6 +254,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.AlwaysIncludeMembersWithType{T}"/>
     [Pure]
     public SettingsTask AlwaysIncludeMembersWithType<T>()
         where T : notnull
@@ -236,6 +263,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IgnoreMembersWithType"/>
     [Pure]
     public SettingsTask IgnoreMembersWithType(Type type)
     {
@@ -243,6 +271,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubMembersWithType"/>
     [Pure]
     public SettingsTask ScrubMembersWithType(Type type)
     {
@@ -250,6 +279,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.AlwaysIncludeMembersWithType"/>
     [Pure]
     public SettingsTask AlwaysIncludeMembersWithType(Type type)
     {
@@ -257,6 +287,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IgnoreMembersThatThrow{T}()"/>
     [Pure]
     public SettingsTask IgnoreMembersThatThrow<T>()
         where T : Exception
@@ -265,6 +296,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IgnoreMembersThatThrow(Func{Exception,bool})"/>
     [Pure]
     public SettingsTask IgnoreMembersThatThrow(Func<Exception, bool> item)
     {
@@ -272,6 +304,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IgnoreMembersThatThrow{T}(Func{T,bool})"/>
     [Pure]
     public SettingsTask IgnoreMembersThatThrow<T>(Func<T, bool> item)
         where T : Exception
@@ -280,6 +313,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubMembers(Func{string,bool})"/>
     [Pure]
     public SettingsTask ScrubMembers(Func<string, bool> predicate)
     {
@@ -287,6 +321,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubMembers(Func{MemberInfo,bool})"/>
     [Pure]
     public SettingsTask ScrubMembers(Func<MemberInfo, bool> predicate)
     {
@@ -294,6 +329,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IgnoreMembers(Func{string,bool})"/>
     [Pure]
     public SettingsTask IgnoreMembers(Func<string, bool> predicate)
     {
@@ -301,6 +337,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IgnoreMembers(Func{MemberInfo,bool})"/>
     [Pure]
     public SettingsTask IgnoreMembers(Func<MemberInfo, bool> predicate)
     {

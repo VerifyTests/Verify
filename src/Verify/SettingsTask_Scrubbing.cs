@@ -2,7 +2,7 @@
 
 public partial class SettingsTask
 {
-    /// <inheritdoc cref="VerifySettings.AddScrubber(System.Action{System.Text.StringBuilder},VerifyTests.ScrubberLocation)"/>
+    /// <inheritdoc cref="VerifySettings.AddScrubber(Action{StringBuilder},VerifyTests.ScrubberLocation)"/>
     [Pure]
     public SettingsTask AddScrubber(Action<StringBuilder> scrubber, ScrubberLocation location = ScrubberLocation.First)
     {
@@ -10,7 +10,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.AddScrubber(string, System.Action{System.Text.StringBuilder},VerifyTests.ScrubberLocation)"/>
+    /// <inheritdoc cref="VerifySettings.AddScrubber(string, Action{StringBuilder},VerifyTests.ScrubberLocation)"/>
     [Pure]
     public SettingsTask AddScrubber(string extension, Action<StringBuilder> scrubber, ScrubberLocation location = ScrubberLocation.First)
     {

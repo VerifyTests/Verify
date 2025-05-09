@@ -39,7 +39,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.AppendValues(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{string,object}})"/>
+    /// <inheritdoc cref="VerifySettings.AppendValues(IEnumerable{KeyValuePair{string,object}})"/>
     [Pure]
     public SettingsTask AppendValues(params KeyValuePair<string, object>[] values)
     {

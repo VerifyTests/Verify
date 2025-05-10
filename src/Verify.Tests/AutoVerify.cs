@@ -12,6 +12,18 @@
     }
 
     [Fact]
+    public async Task ThrowException()
+    {
+        var path = CurrentFile.Relative("AutoVerify.ThrowException.verified.txt");
+        var fullPath = Path.GetFullPath(path);
+        File.Delete(fullPath);
+        await Assert.ThrowsAsync<VerifyException>(
+            () => Verify("Foo")
+                .AutoVerify(throwException: true));
+        File.Delete(fullPath);
+    }
+
+    [Fact]
     public async Task DelegateTrue()
     {
         var funcCalled = false;

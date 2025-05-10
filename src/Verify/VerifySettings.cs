@@ -111,22 +111,24 @@ public partial class VerifySettings
     }
 
     internal AutoVerify? autoVerify;
+    internal bool throwException;
 
     /// <summary>
     /// Automatically accept the results of the current test.
     /// </summary>
-    public void AutoVerify(bool includeBuildServer = true) =>
-        AutoVerify(_ => true, includeBuildServer);
+    public void AutoVerify(bool includeBuildServer = true, bool throwException = false) =>
+        AutoVerify(_ => true, includeBuildServer, throwException);
 
     /// <summary>
     /// Automatically accept the results of the current test.
     /// </summary>
-    public void AutoVerify(AutoVerify autoVerify, bool includeBuildServer = true)
+    public void AutoVerify(AutoVerify autoVerify, bool includeBuildServer = true, bool throwException = false)
     {
         if (includeBuildServer ||
             !BuildServerDetector.Detected)
         {
            this.autoVerify = autoVerify;
+           this.throwException = throwException;
         }
     }
 }

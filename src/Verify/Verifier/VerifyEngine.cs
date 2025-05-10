@@ -132,9 +132,12 @@ class VerifyEngine(
 
         var allNotEqualsVerified = await ProcessNotEquals();
 
+        var throwException = VerifierSettings.throwException || settings.throwException;
+
         if (allDeletesVerified &&
             allNewVerified &&
-            allNotEqualsVerified)
+            allNotEqualsVerified &&
+            !throwException)
         {
             return;
         }

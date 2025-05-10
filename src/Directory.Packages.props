@@ -39,5 +39,6 @@
     <PackageVersion Include="xunit.v3" Version="2.0.2" />
     <PackageVersion Include="xunit.v3.extensibility.core" Version="2.0.2" />
     <PackageVersion Include="YoloDev.Expecto.TestSdk" Version="0.15.3" />
+    <PackageVersion Include="Microsoft.Sbom.Targets" Version="3.1.0" />
   </ItemGroup>
 </Project>

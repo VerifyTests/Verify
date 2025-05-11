@@ -8,104 +8,6 @@ To change this file edit the source file and then run MarkdownSnippets.
 # Verify Options
 
 
-## AutoVerify
-
-In some scenarios it makes sense to auto-accept any changes as part of a given test run. For example:
-
- * Keeping a text representation of a Database schema in a `.verified.sql` file (see [Verify.SqlServer](https://github.com/VerifyTests/Verify.SqlServer)).
-
-Note that auto accepted changes in `.verified.` files remain visible in source control tooling.
-
-This can be done using `AutoVerify()`:
-
-
-### Instance
-
-<!-- snippet: AutoVerify -->
-<a id='snippet-AutoVerify'></a>
-```cs
-var settings = new VerifySettings();
-settings.AutoVerify();
-```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L59-L64' title='Snippet source file'>snippet source</a> | <a href='#snippet-AutoVerify' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-Or with a delegate:
-
-<!-- snippet: AutoVerifyDelegate -->
-<a id='snippet-AutoVerifyDelegate'></a>
-```cs
-var settings = new VerifySettings();
-settings.AutoVerify(
-    verifiedFile =>
-        Path.GetExtension(verifiedFile) == "png");
-```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L69-L76' title='Snippet source file'>snippet source</a> | <a href='#snippet-AutoVerifyDelegate' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
-### Fluent
-
-<!-- snippet: AutoVerifyFluent -->
-<a id='snippet-AutoVerifyFluent'></a>
-```cs
-[Fact]
-public Task AutoVerifyFluent() =>
-    Verify("Value")
-        .AutoVerify();
-```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L79-L86' title='Snippet source file'>snippet source</a> | <a href='#snippet-AutoVerifyFluent' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-Or with a delegate:
-
-<!-- snippet: AutoVerifyFluentDelegate -->
-<a id='snippet-AutoVerifyFluentDelegate'></a>
-```cs
-[Fact]
-public Task AutoVerifyFluentDelegate() =>
-    Verify("Value")
-        .AutoVerify(
-            verifiedFile =>
-                Path.GetExtension(verifiedFile) == "png");
-```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L97-L106' title='Snippet source file'>snippet source</a> | <a href='#snippet-AutoVerifyFluentDelegate' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
-### Globally
-
-<!-- snippet: StaticAutoVerify -->
-<a id='snippet-StaticAutoVerify'></a>
-```cs
-public static class ModuleInitializer
-{
-    [ModuleInitializer]
-    public static void Init() =>
-        VerifierSettings.AutoVerify();
-}
-```
-<sup><a href='/src/ModuleInitDocs/AutoVerify.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticAutoVerify' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-Or with a delegate:
-
-<!-- snippet: StaticAutoVerifyDelegate -->
-<a id='snippet-StaticAutoVerifyDelegate'></a>
-```cs
-public static class ModuleInitializer
-{
-    [ModuleInitializer]
-    public static void Init() =>
-        VerifierSettings.AutoVerify(
-            (typeName, methodName, verifiedFile) =>
-                Path.GetExtension(verifiedFile) == "png");
-}
-```
-<sup><a href='/src/ModuleInitDocs/AutoVerifyDelegate.cs#L4-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticAutoVerifyDelegate' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
 ## OnHandlers
 
  * `OnVerify` takes two actions that are called before and after each verification.
@@ -115,7 +17,7 @@ public static class ModuleInitializer
 
 ### AutoVerify
 
-OnHandlers are called before AutoVerify logic being applied. So for example in the case of `OnVerifyMismatch`, both the received and verified file will exist at the point `OnVerifyMismatch` is called. Immediately after received will be used to overwrite verified.
+OnHandlers are called before [AutoVerify](autoverify.md) logic being applied. So for example in the case of `OnVerifyMismatch`, both the received and verified file will exist at the point `OnVerifyMismatch` is called. Immediately after received will be used to overwrite verified.
 
 
 ### Globally
@@ -234,5 +136,5 @@ To disable diff launching:
 var settings = new VerifySettings();
 settings.DisableDiff();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L110-L115' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableDiff' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L120-L125' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableDiff' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

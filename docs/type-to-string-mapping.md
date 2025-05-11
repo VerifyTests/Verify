@@ -305,7 +305,7 @@ The default TreatAsString behavior can be overridden:
 VerifierSettings.TreatAsString<DateTime>(
     (target, settings) => target.ToString("D"));
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L90-L93' title='Snippet source file'>snippet source</a> | <a href='#snippet-OverrideTreatAsStringDefaults' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L100-L103' title='Snippet source file'>snippet source</a> | <a href='#snippet-OverrideTreatAsStringDefaults' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

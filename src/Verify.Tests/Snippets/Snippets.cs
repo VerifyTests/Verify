@@ -85,6 +85,16 @@ public class Snippets
 
     #endregion
 
+
+    #region AutoVerifyIncludeBuildServer
+
+    [Fact]
+    public Task AutoVerifyIncludeBuildServer() =>
+        Verify("Value")
+            .AutoVerify(includeBuildServer: false);
+
+    #endregion
+
     public Task OverrideTreatAsStringDefaults()
     {
     #region OverrideTreatAsStringDefaults

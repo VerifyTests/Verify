@@ -1,6 +1,7 @@
   * [Clipboard](/docs/clipboard.md)
   * [Compared to assertions](/docs/compared-to-assertion.md)
   * [Verify options](/docs/verify-options.md)
+  * [AutoVerify](/docs/autoverify.md)
   * [VerifyDirectory](/docs/verify-directory.md)
   * [VerifyZip](/docs/verify-zip.md)
   * [VerifyFile](/docs/verify-file.md)

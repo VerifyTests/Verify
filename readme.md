@@ -522,7 +522,7 @@ await Verify(
         Bars = await repo.GetBars(id)
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L161-L170' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFuncOfTaskOfT' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L171-L180' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFuncOfTaskOfT' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -1012,6 +1012,7 @@ information sources and warn about particular gotchas:
   * [Clipboard](/docs/clipboard.md)<!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
   * [Compared to assertions](/docs/compared-to-assertion.md)
   * [Verify options](/docs/verify-options.md)
+  * [AutoVerify](/docs/autoverify.md)
   * [VerifyDirectory](/docs/verify-directory.md)
   * [VerifyZip](/docs/verify-zip.md)
   * [VerifyFile](/docs/verify-file.md)

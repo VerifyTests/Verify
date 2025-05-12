@@ -208,15 +208,35 @@ public partial class SettingsTask
     }
 
     /// <inheritdoc cref="VerifySettings.AutoVerify(bool)"/>
+    [Obsolete("Use SettingsTask.AutoVerify(bool includeBuildServer, bool throwException)")]
     [Pure]
+    public SettingsTask AutoVerify(bool includeBuildServer = true)
+    {
+        CurrentSettings.AutoVerify(includeBuildServer, false);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.AutoVerify(bool, bool)"/>
+    [Pure]
+    [OverloadResolutionPriority(1)]
     public SettingsTask AutoVerify(bool includeBuildServer = true, bool throwException = false)
     {
         CurrentSettings.AutoVerify(includeBuildServer, throwException);
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.AutoVerify(bool)"/>
+    /// <inheritdoc cref="VerifySettings.AutoVerify(VerifyTests.AutoVerify, bool)"/>
+    [Obsolete("Use SettingsTask.AutoVerify(AutoVerify, autoVerify, bool includeBuildServer, bool throwException)")]
     [Pure]
+    public SettingsTask AutoVerify(AutoVerify autoVerify, bool includeBuildServer = true)
+    {
+        CurrentSettings.AutoVerify(autoVerify, includeBuildServer, false);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.AutoVerify(VerifyTests.AutoVerify, bool, bool)"/>
+    [Pure]
+    [OverloadResolutionPriority(1)]
     public SettingsTask AutoVerify(AutoVerify autoVerify, bool includeBuildServer = true, bool throwException = false)
     {
         CurrentSettings.AutoVerify(autoVerify, includeBuildServer, throwException);

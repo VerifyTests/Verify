@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Fixie" />
+    <PackageReference Include="Microsoft.Sbom.Targets" PrivateAssets="all" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <PackageReference Include="Polyfill" PrivateAssets="all" />
 

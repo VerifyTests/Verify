@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Sbom.Targets" PrivateAssets="all" />
     <PackageReference Include="NUnit" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
 

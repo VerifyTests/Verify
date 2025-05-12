@@ -4163,6 +4163,7 @@ public class SerializationTests
     public async Task CancellationToken_Cancelled()
     {
         var cancelSource = new CancelSource();
+        // ReSharper disable once MethodHasAsyncOverload
         cancelSource.Cancel();
         await Verify(cancelSource.Token);
     }
@@ -4171,6 +4172,7 @@ public class SerializationTests
     public async Task CancellationToken_CancelledDisposed()
     {
         var cancelSource = new CancelSource();
+        // ReSharper disable once MethodHasAsyncOverload
         cancelSource.Cancel();
         var token = cancelSource.Token;
         cancelSource.Dispose();

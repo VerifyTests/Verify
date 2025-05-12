@@ -111,6 +111,26 @@ public static class ModuleInitializer
 <!-- endSnippet -->
 
 
+## Throw when AutoVerify happens
+
+By default, when AutoVerify is being used, the `.verified.` file will be silently replaced with no feedback to the user. 
+
+To get feedback when AutoVerify occurs, use `throwException: true`:
+
+<!-- snippet: AutoVerifyThrowException -->
+<a id='snippet-AutoVerifyThrowException'></a>
+```cs
+[Fact]
+public Task AutoVerifyThrowException() =>
+    Verify("Value")
+        .AutoVerify(throwException: true);
+```
+<sup><a href='/src/Verify.Tests/AutoVerify.cs#L14-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-AutoVerifyThrowException' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Using this approach the `.verified.` file will still be replaced, but an exception will be thrown to notify that it has occurred.
+
+
 ## AutoVerify on the build server
 
 By default the same AutoVerify behavior applies both to local test runs and on the build server. To opt out of AutoVerify on the build server use `includeBuildServer: false`:

@@ -11,6 +11,15 @@
         File.Delete(fullPath);
     }
 
+    #region AutoVerifyThrowException
+
+    [Fact]
+    public Task AutoVerifyThrowException() =>
+        Verify("Value")
+            .AutoVerify(throwException: true);
+
+    #endregion
+
     [Fact]
     public async Task ThrowException()
     {

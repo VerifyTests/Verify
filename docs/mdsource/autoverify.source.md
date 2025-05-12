@@ -44,6 +44,17 @@ snippet: AutoVerifyFluentDelegate
 snippet: StaticAutoVerifyDelegate
 
 
+## Throw when AutoVerify happens
+
+By default, when AutoVerify is being used, the `.verified.` file will be silently replaced with no feedback to the user. 
+
+To get feedback when AutoVerify occurs, use `throwException: true`:
+
+snippet: AutoVerifyThrowException
+
+Using this approach the `.verified.` file will still be replaced, but an exception will be thrown to notify that it has occurred.
+
+
 ## AutoVerify on the build server
 
 By default the same AutoVerify behavior applies both to local test runs and on the build server. To opt out of AutoVerify on the build server use `includeBuildServer: false`:

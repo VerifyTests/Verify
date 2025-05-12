@@ -23,10 +23,6 @@
             return string.Empty;
         }
 
-#if NET6_0_OR_GREATER
-        return '.' + string.Join('.', inner);
-#else
-        return '.' + string.Join(".", inner);
-#endif
+        return '.' + StringPolyfill.Join('.', inner);
     }
 }

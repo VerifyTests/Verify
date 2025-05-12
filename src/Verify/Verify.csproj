@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Sbom.Targets" PrivateAssets="all" />
     <PackageReference Include="Polyfill" PrivateAssets="all" />
     <PackageReference Include="DiffEngine" />
     <PackageReference Include="SimpleInfoName" />

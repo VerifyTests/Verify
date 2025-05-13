@@ -312,6 +312,7 @@ public class VerifyJsonWriter :
         WritePropertyName(name);
         WriteValue(value);
     }
+
     /// <summary>
     /// Writes a property name and value while respecting other custom serialization settings.
     /// </summary>

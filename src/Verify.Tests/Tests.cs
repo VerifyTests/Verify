@@ -362,8 +362,7 @@ public class Tests
         await Verify("value")
             .UniqueForRuntimeAndVersion()
             .AutoVerify();
-        var fileBytes = File
-            .ReadAllBytes(file)
+        var fileBytes = (await FilePolyfill.ReadAllBytesAsync(file))
             .Take(3);
         var preambleBytes = Encoding.UTF8.GetPreamble();
         Assert.Equal(preambleBytes, fileBytes);

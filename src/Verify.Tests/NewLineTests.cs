@@ -44,7 +44,7 @@ public class NewLineTests
     {
         var fullPath = CurrentFile.Relative("NewLineTests.StringWithDifferingNewline.verified.txt");
         File.Delete(fullPath);
-        File.WriteAllText(fullPath, "a\r\nb");
+        await FilePolyfill.WriteAllTextAsync(fullPath, "a\r\nb");
         await Verify("a\r\nb");
         PrefixUnique.Clear();
         await Verify("a\rb");
@@ -53,7 +53,7 @@ public class NewLineTests
         PrefixUnique.Clear();
 
         File.Delete(fullPath);
-        File.WriteAllText(fullPath, "a\nb");
+        await FilePolyfill.WriteAllTextAsync(fullPath, "a\nb");
         await Verify("a\r\nb");
         PrefixUnique.Clear();
         await Verify("a\rb");
@@ -62,7 +62,7 @@ public class NewLineTests
         PrefixUnique.Clear();
 
         File.Delete(fullPath);
-        File.WriteAllText(fullPath, "a\rb");
+        await FilePolyfill.WriteAllTextAsync(fullPath, "a\rb");
         await Verify("a\r\nb");
         PrefixUnique.Clear();
         await Verify("a\rb");

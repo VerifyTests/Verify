@@ -1,4 +1,4 @@
-﻿#pragma warning disable InnerVerifyChecks
+#pragma warning disable InnerVerifyChecks
 public class VerifyChecksTests
 {
     static readonly string invalidDirectory;
@@ -7,8 +7,11 @@ public class VerifyChecksTests
     static List<string> extensions =
     [
         "txt",
-        "json"
+        "json",
+        "bin"
     ];
+
+    static List<string> editorConfigExtensions = extensions.Except("bin").ToList();
 
     static VerifyChecksTests()
     {
@@ -46,11 +49,11 @@ public class VerifyChecksTests
 
     [Fact]
     public Task EditorConfig() => ThrowsTask(() =>
-        InnerVerifyChecks.CheckEditorConfig(invalidDirectory, extensions));
+        InnerVerifyChecks.CheckEditorConfig(invalidDirectory, editorConfigExtensions));
 
     [Fact]
     public Task PartialEditorConfig() =>
-        ThrowsTask(() => InnerVerifyChecks.CheckEditorConfig(partialDirectory, extensions));
+        ThrowsTask(() => InnerVerifyChecks.CheckEditorConfig(partialDirectory, editorConfigExtensions));
 
     [Fact]
     public Task PartialGitAttributes() =>

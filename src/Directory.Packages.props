@@ -4,7 +4,7 @@
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Argon" Version="0.29.0" />
+    <PackageVersion Include="Argon" Version="0.30.0" />
     <PackageVersion Include="Argon.FSharp" Version="0.29.0" />
     <PackageVersion Include="BenchmarkDotNet" Version="0.14.0" />
     <PackageVersion Include="DiffEngine" Version="16.2.1" />

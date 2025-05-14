@@ -7,7 +7,8 @@ public class VerifyChecksTests
     static List<string> extensions =
     [
         "txt",
-        "json"
+        "json",
+        "bin"
     ];
 
     static VerifyChecksTests()

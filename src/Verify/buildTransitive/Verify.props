@@ -3,8 +3,8 @@
   <PropertyGroup>
     <Deterministic>false</Deterministic>
     <DeterministicSourcePaths>false</DeterministicSourcePaths>
-	  <VerifyAttributesFile Condition="$(Language) != 'X#'">Verify.Attributes$(MSBuildProjectExtension.Replace('proj', ''))</VerifyAttributesFile>
-	  <VerifyAttributesFile Condition="$(Language) == 'X#'">Verify.Attributes.prg</VerifyAttributesFile>
+    <VerifyAttributesFile Condition="$(Language) != 'X#'">Verify.Attributes$(MSBuildProjectExtension.Replace('proj', ''))</VerifyAttributesFile>
+    <VerifyAttributesFile Condition="$(Language) == 'X#'">Verify.Attributes.prg</VerifyAttributesFile>
     <NoWarn>$(NoWarn);CA2255</NoWarn>
   </PropertyGroup>
   <Target Name="WriteVerifyAttributes"

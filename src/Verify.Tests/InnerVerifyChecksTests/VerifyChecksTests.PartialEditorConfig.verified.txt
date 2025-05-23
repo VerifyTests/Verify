@@ -6,7 +6,7 @@ Path: file:///{ProjectDirectory}InnerVerifyChecksTests/Partial/.editorconfig
 Recommended settings:
 
 # Verify
-[*.{received,verified}.{txt,json}]
+[*.{received,verified}.{json,txt}]
 charset = "utf-8-bom"
 end_of_line = lf
 indent_size = unset

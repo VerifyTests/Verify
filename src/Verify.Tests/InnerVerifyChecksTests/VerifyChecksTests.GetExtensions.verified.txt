@@ -1,11 +1,11 @@
 ﻿[
-  csv,
-  html,
-  json,
-  md,
-  nuspec,
-  props,
-  staticComparerExt,
-  txt,
-  xml
+  .csv,
+  .html,
+  .json,
+  .md,
+  .nuspec,
+  .props,
+  .staticComparerExt,
+  .txt,
+  .xml
 ]

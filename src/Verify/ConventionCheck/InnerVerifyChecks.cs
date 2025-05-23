@@ -31,14 +31,28 @@ public static class InnerVerifyChecks
         await CheckGitAttributes(directory, extensions);
     }
 
-    internal static List<string> GetExtensions(string directory) =>
-        // ReSharper disable once RedundantSuppressNullableWarningExpression
-        Directory.EnumerateFiles(directory, "*.verified.*", SearchOption.AllDirectories)
-            .Select(_ => Path.GetExtension(_)![1..])
-            .Distinct()
-            .Where(FileExtensions.IsTextExtension)
-            .OrderBy(_ => _)
-            .ToList();
+    internal static SortedSet<string> GetExtensions(string directory)
+    {
+        SortedSet<string> extensions = [];
+
+        foreach (var file in Directory.EnumerateFiles(directory, "*.verified.*", SearchOption.AllDirectories))
+        {
+            var extension = Path.GetExtension(file)!;
+            if (extension.Length == 0)
+            {
+                continue;
+            }
+
+            if (!FileExtensions.IsTextExtension(extension))
+            {
+                continue;
+            }
+
+            extensions.Add(extension);
+        }
+
+        return extensions;
+    }
 
     internal static async Task CheckIncorrectlyImportedSnapshots(string solutionDirectory)
     {
@@ -77,7 +91,7 @@ public static class InnerVerifyChecks
         throw new VerifyCheckException(builder.ToString());
     }
 
-    internal static async Task CheckEditorConfig(string solutionDirectory, List<string> extensions)
+    internal static async Task CheckEditorConfig(string solutionDirectory, SortedSet<string> extensions)
     {
         var path = Path.Combine(solutionDirectory, ".editorconfig");
         if (!File.Exists(path))
@@ -111,7 +125,7 @@ public static class InnerVerifyChecks
              """);
     }
 
-    static bool HasAllExtensions(List<string> extensions, string[] lines)
+    static bool HasAllExtensions(SortedSet<string> extensions, string[] lines)
     {
         var line = lines.SingleOrDefault(_ => _.StartsWith("[*.{received,verified}."));
         if (line == null)
@@ -131,7 +145,7 @@ public static class InnerVerifyChecks
         return true;
     }
 
-    internal static async Task CheckGitAttributes(string solutionDirectory, List<string> extensions)
+    internal static async Task CheckGitAttributes(string solutionDirectory, SortedSet<string> extensions)
     {
         var path = Path.Combine(solutionDirectory, ".gitattributes");
         if (!File.Exists(path))

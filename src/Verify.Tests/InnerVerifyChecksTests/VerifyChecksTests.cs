@@ -4,7 +4,7 @@ public class VerifyChecksTests
     static readonly string invalidDirectory;
     static readonly string partialDirectory;
 
-    static List<string> extensions =
+    static SortedSet<string> extensions =
     [
         "txt",
         "json"

@@ -617,12 +617,15 @@ All text extensions of `*.verified.*` should have:
  * `eol` set to `lf`
  * `working-tree-encoding` set to `UTF-8`
 
+All Binary files should also be marked to avoid merging and line ending issues with binary files.
+
 eg add the following to `.gitattributes`
 
 ```
 *.verified.txt text eol=lf working-tree-encoding=UTF-8
 *.verified.xml text eol=lf working-tree-encoding=UTF-8
 *.verified.json text eol=lf working-tree-encoding=UTF-8
+*.verified.bin binary
 ```
 
 

@@ -8,7 +8,7 @@
 <!-- begin-snippet: expecto-nugets -->
     <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.15.3" />
     <PackageReference Include="Expecto" Version="10.2.3" />
-    <PackageReference Update="FSharp.Core" Version="9.0.202" />
+    <PackageReference Update="FSharp.Core" Version="9.0.300" />
     <PackageReference Include="Verify.Expecto" Version="30.1.0" />
 <!-- end-snippet -->
   </ItemGroup>

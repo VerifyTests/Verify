@@ -1,7 +1,7 @@
 ﻿public class ClassConstructor :
     IClassConstructor
 {
-    static readonly ServiceProvider serviceProvider = CreateServiceProvider();
+    static readonly ServiceProvider provider = CreateServiceProvider();
 
     AsyncServiceScope scope;
 
@@ -10,9 +10,9 @@
             .AddSingleton<string>("SingletonValue")
             .BuildServiceProvider();
 
-    public object Create([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] Type type, ClassConstructorMetadata classConstructorMetadata)
+    public object Create([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] Type type, ClassConstructorMetadata metadata)
     {
-        scope = serviceProvider.CreateAsyncScope();
+        scope = provider.CreateAsyncScope();
         return ActivatorUtilities.GetServiceOrCreateInstance(scope.ServiceProvider, type);
     }
 }

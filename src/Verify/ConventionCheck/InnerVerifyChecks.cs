@@ -153,9 +153,13 @@ public static class InnerVerifyChecks
         {
             string line;
             if (extension == "bin")
-                line ="*.verified.bin binary";
+            {
+                line = "*.verified.bin binary";
+            }
             else
+            {
                 line = $"*.verified.{extension} text eol=lf working-tree-encoding=UTF-8";
+            }
 
             expected.Add(line);
             if (text.Contains(line))

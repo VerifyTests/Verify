@@ -85,24 +85,6 @@ partial class InnerVerifier
         return targets;
     }
 
-    async Task<List<Target>> ToTargetsForFiles(
-        IEnumerable<string> enumerateFiles,
-        object? info,
-        FileScrubber? fileScrubber)
-    {
-        var targets = new List<Target>(1);
-        AddInfoIfNotNull(info, targets);
-
-        foreach (var path in enumerateFiles)
-        {
-            var name = Path.GetFileNameWithoutExtension(path);
-
-            targets.Add(await TargetFromFile(path, name, fileScrubber, () => File.OpenRead(path)));
-        }
-
-        return targets;
-    }
-
     static string NameForRelativePath(string directoryPath, string path)
     {
         var fileDirectoryPath = Path.GetDirectoryName(path)!;

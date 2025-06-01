@@ -21,7 +21,7 @@ public static partial class Verifier
     }
 
     /// <summary>
-    /// Verifies the contents of <paramref name="path" />.
+    /// Verifies the contents of files.
     /// </summary>
     [Pure]
     public static SettingsTask VerifyFiles(

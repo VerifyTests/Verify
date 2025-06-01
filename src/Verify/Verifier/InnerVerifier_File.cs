@@ -15,4 +15,31 @@ partial class InnerVerifier
 
     public Task<VerifyResult> VerifyFile(FileInfo target, object? info = null, string? extension = null) =>
         VerifyFile(target.FullName, info, extension);
+
+    public async Task<VerifyResult> VerifyFiles(
+        IEnumerable<string> paths,
+        object? info,
+        FileScrubber? fileScrubber)
+    {
+        var targets = await ToTargetsForFiles(paths, info, fileScrubber);
+        return await VerifyInner(targets);
+    }
+
+    async Task<List<Target>> ToTargetsForFiles(
+        IEnumerable<string> enumerateFiles,
+        object? info,
+        FileScrubber? fileScrubber)
+    {
+        var targets = new List<Target>(1);
+        AddInfoIfNotNull(info, targets);
+
+        foreach (var path in enumerateFiles)
+        {
+            var name = Path.GetFileNameWithoutExtension(path);
+
+            targets.Add(await TargetFromFile(path, name, fileScrubber, () => File.OpenRead(path)));
+        }
+
+        return targets;
+    }
 }

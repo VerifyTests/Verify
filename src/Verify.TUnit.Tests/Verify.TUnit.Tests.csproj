@@ -22,6 +22,15 @@
     <Reference Include="System.IO.Compression" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="File1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="File2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
   <Import Project="$(ProjectDir)..\Verify.TUnit\buildTransitive\Verify.TUnit.props" />

@@ -17,6 +17,12 @@
     <ProjectReference Include="..\Verify.MSTest\Verify.MSTest.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
     <ProjectReference Include="..\Verify.MSTest.SourceGenerator\Verify.MSTest.SourceGenerator.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    <None Update="File2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="File1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">

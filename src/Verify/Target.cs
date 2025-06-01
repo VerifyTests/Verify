@@ -58,7 +58,6 @@ public readonly struct Target
 
     public Target(string extension, StringBuilder data, string? name = null)
     {
-        Guard.NotEmpty(name);
         ValidateExtension(extension);
 
         Extension = extension;
@@ -86,7 +85,6 @@ public readonly struct Target
 
     public Target(string extension, string data, string? name = null)
     {
-        Guard.NotEmpty(name, nameof(name));
         ValidateExtension(extension);
 
         Extension = extension;

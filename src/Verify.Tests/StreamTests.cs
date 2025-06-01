@@ -231,4 +231,9 @@ public class StreamTests
     [Fact]
     public Task OnlyExtension() =>
         VerifyFile(".sample");
+
+    [Fact]
+    public async Task OnlyExtensionAppendFile() =>
+        await VerifyFile("sample.txt")
+            .AppendFile(".sample");
 }

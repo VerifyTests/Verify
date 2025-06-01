@@ -1,6 +1,4 @@
-﻿using Polyfills;
-
-namespace VerifyXunit;
+﻿namespace VerifyXunit;
 
 public static partial class Verifier
 {
@@ -21,22 +19,12 @@ public static partial class Verifier
     /// </summary>
     [Pure]
     public static SettingsTask VerifyFiles(
-        ReadOnlySpan<string> paths,
+        IEnumerable<string> paths,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "")
-    {
-        Guard.NotEmpty(paths);
-        var path = paths[0];
-        var task = Verify(settings, sourceFile, _ => _.VerifyFile(path, info));
-        for (var index = 1; index < paths.Length; index++)
-        {
-            var item = paths[index];
-            task = task.AppendFile(item);
-        }
-
-        return task;
-    }
+        FileScrubber? fileScrubber = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, sourceFile, _ => _.VerifyFiles(paths, info, fileScrubber));
 
     /// <summary>
     /// Verifies the contents of <paramref name="path" />.

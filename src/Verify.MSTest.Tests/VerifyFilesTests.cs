@@ -1,16 +1,11 @@
-public class VerifyFilesTests
+[TestClass]
+public partial class VerifyFilesTests
 {
-    #region VerifyFiles
-
-    [Fact]
+    [TestMethod]
     public Task Run() =>
         VerifyFiles(["File1.txt", "File2.txt"]);
 
-    #endregion
-
-    #region VerifyFilesWithInfo
-
-    [Fact]
+    [TestMethod]
     public Task WithInfo() =>
         VerifyFiles(
             ["File1.txt", "File2.txt"],
@@ -19,11 +14,7 @@ public class VerifyFilesTests
                 Key = "Value"
             });
 
-    #endregion
-
-    #region VerifyFilesWithFileScrubber
-
-    [Fact]
+    [TestMethod]
     public Task WithFileScrubber() =>
         VerifyFiles(
             ["File1.txt", "File2.txt"],
@@ -32,6 +23,4 @@ public class VerifyFilesTests
                 builder.Clear();
                 builder.Append("New");
             });
-
-    #endregion
 }

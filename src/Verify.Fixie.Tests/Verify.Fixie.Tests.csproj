@@ -13,6 +13,14 @@
     <ProjectReference Include="..\Verify.Fixie\Verify.Fixie.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="File1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="File2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
   <Import Project="$(ProjectDir)..\Verify.Fixie\buildTransitive\Verify.Fixie.props" />

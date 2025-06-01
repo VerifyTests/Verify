@@ -20,7 +20,7 @@ partial class InnerVerifier
             RecurseSubdirectories = true,
             AttributesToSkip = FileAttributes.System
         };
-        var targets = await ToTargets(
+        var targets = await ToTargetsForDirectory(
             path,
             include,
             Directory.EnumerateFiles(
@@ -44,7 +44,7 @@ partial class InnerVerifier
         Guard.DirectoryExists(path);
         path = Path.GetFullPath(path);
         pattern ??= "*";
-        var targets = await ToTargets(
+        var targets = await ToTargetsForDirectory(
             path,
             include,
             Directory.EnumerateFiles(
@@ -58,7 +58,7 @@ partial class InnerVerifier
 
 #endif
 
-    async Task<List<Target>> ToTargets(
+    async Task<List<Target>> ToTargetsForDirectory(
         string directoryPath,
         Func<string, bool>? include,
         IEnumerable<string> enumerateFiles,
@@ -66,16 +66,7 @@ partial class InnerVerifier
         FileScrubber? fileScrubber)
     {
         var targets = new List<Target>(1);
-        if (info is not null)
-        {
-            targets.Add(
-                new(
-                    settings.TxtOrJson,
-                    JsonFormatter.AsJson(
-                        settings,
-                        counter,
-                        info)));
-        }
+        AddInfoIfNotNull(info, targets);
 
         include ??= _ => true;
 
@@ -86,27 +77,68 @@ partial class InnerVerifier
                 continue;
             }
 
-            var fileDirectoryPath = Path.GetDirectoryName(path)!;
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(path);
-            var pathWithoutExtension = Path.Combine(fileDirectoryPath, fileNameWithoutExtension);
-            var relativePath = pathWithoutExtension[directoryPath.Length..]
-                .TrimStart(Path.DirectorySeparatorChar);
+            var name = NameForRelativePath(directoryPath, path);
 
-            // This is a case of file without filename contained inside a directory
-            // so let's not mix directory name with filename
-            if (fileNameWithoutExtension.Length == 0 &&
-                relativePath.Length != 0)
-            {
-                relativePath += Path.DirectorySeparatorChar;
-            }
-
-            targets.Add(await TargetFromFile(path, relativePath, fileScrubber, () => File.OpenRead(path)));
+            targets.Add(await TargetFromFile(path, name, fileScrubber, () => File.OpenRead(path)));
         }
 
         return targets;
     }
 
-    static async Task<Target> TargetFromFile(string path, string relativePath, FileScrubber? fileScrubber, Func<Stream> openStream)
+    async Task<List<Target>> ToTargetsForFiles(
+        IEnumerable<string> enumerateFiles,
+        object? info,
+        FileScrubber? fileScrubber)
+    {
+        var targets = new List<Target>(1);
+        AddInfoIfNotNull(info, targets);
+
+        foreach (var path in enumerateFiles)
+        {
+            var name = Path.GetFileNameWithoutExtension(path);
+
+            targets.Add(await TargetFromFile(path, name, fileScrubber, () => File.OpenRead(path)));
+        }
+
+        return targets;
+    }
+
+    static string NameForRelativePath(string directoryPath, string path)
+    {
+        var fileDirectoryPath = Path.GetDirectoryName(path)!;
+        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(path);
+        var pathWithoutExtension = Path.Combine(fileDirectoryPath, fileNameWithoutExtension);
+        var relativePath = pathWithoutExtension[directoryPath.Length..]
+            .TrimStart(Path.DirectorySeparatorChar);
+
+        // This is a case of file without filename contained inside a directory
+        // so let's not mix directory name with filename
+        if (fileNameWithoutExtension.Length == 0 &&
+            relativePath.Length != 0)
+        {
+            relativePath += Path.DirectorySeparatorChar;
+        }
+
+        return relativePath;
+    }
+
+    void AddInfoIfNotNull(object? info, List<Target> targets)
+    {
+        if (info is null)
+        {
+            return;
+        }
+
+        targets.Add(
+            new(
+                settings.TxtOrJson,
+                JsonFormatter.AsJson(
+                    settings,
+                    counter,
+                    info)));
+    }
+
+    static async Task<Target> TargetFromFile(string path, string name, FileScrubber? fileScrubber, Func<Stream> openStream)
     {
         var extension = Path
             .GetExtension(path)
@@ -125,12 +157,12 @@ partial class InnerVerifier
             return new(
                 extension,
                 builder,
-                relativePath);
+                name);
         }
 
         return new(
             extension,
             openStream(),
-            relativePath);
+            name);
     }
 }

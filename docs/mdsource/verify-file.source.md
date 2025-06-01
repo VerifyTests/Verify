@@ -28,3 +28,20 @@ Result:
 ```
 {targetDirectory}/sample.verified.txt
 ```
+
+
+## Verify Files
+
+Verify multiple files using file name as the name for the verified file:
+
+snippet: VerifyFiles
+
+
+### With info
+
+snippet: VerifyFilesWithInfo
+
+
+### With File Scrubber
+
+snippet: VerifyFilesWithFileScrubber

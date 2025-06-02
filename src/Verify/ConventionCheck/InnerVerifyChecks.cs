@@ -101,7 +101,7 @@ public static class InnerVerifyChecks
 
              # Verify
              {$"[*.{{received,verified}}.{{{StringPolyfill.Join(',', extensions)}}}]"}
-             charset = "utf-8-bom"
+             charset = utf-8-bom
              end_of_line = lf
              indent_size = unset
              indent_style = unset

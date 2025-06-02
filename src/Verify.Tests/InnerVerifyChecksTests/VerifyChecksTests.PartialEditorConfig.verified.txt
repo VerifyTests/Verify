@@ -7,7 +7,7 @@ Recommended settings:
 
 # Verify
 [*.{received,verified}.{txt,json}]
-charset = "utf-8-bom"
+charset = utf-8-bom
 end_of_line = lf
 indent_size = unset
 indent_style = unset

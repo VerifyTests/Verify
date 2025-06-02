@@ -5,7 +5,7 @@ root = true
 
 # Verify settings
 [*.{received,verified}.{html,txt,xml}]
-charset = "utf-8-bom"
+charset = utf-8-bom
 end_of_line = lf
 indent_size = unset
 indent_style = unset

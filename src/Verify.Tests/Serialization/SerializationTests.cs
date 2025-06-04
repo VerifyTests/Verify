@@ -931,7 +931,7 @@ public class SerializationTests
         Verify(
             new
             {
-                property ="value1",
+                property = "value1",
                 nullProperty = (string?)null
             });
 
@@ -941,6 +941,37 @@ public class SerializationTests
             new
             {
                 nullProperty = (string?)null
+            })
+            .AddExtraSettings(_=>
+            {
+                _.DefaultValueHandling = DefaultValueHandling.Include;
+                _.NullValueHandling = NullValueHandling.Include;
+            });
+
+    [Fact]
+    public Task NullStructPropertyInclude() =>
+        Verify(
+            new
+            {
+                nullProperty = (int?)null
+            })
+            .AddExtraSettings(_=>
+            {
+                _.DefaultValueHandling = DefaultValueHandling.Include;
+                _.NullValueHandling = NullValueHandling.Include;
+            });
+
+    class TypeWithNullableStruct
+    {
+        public int? nullProperty { get; set; }
+    }
+
+    [Fact]
+    public Task ClassWithNullStructPropertyInclude() =>
+        Verify(
+            new TypeWithNullableStruct
+            {
+                nullProperty = null
             })
             .AddExtraSettings(_=>
             {

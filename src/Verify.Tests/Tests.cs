@@ -546,6 +546,30 @@ public class Tests
         Assert.True(disposableTarget.Disposed);
     }
 
+    [Fact]
+    public async Task ThrowForTerminatedFluent()
+    {
+        var settingsTask = Verify("value");
+        await settingsTask;
+
+        Exception? exception = null;
+        try
+        {
+            // Because this call is not awaited, execution of the current method continues before the call is completed
+#pragma warning disable CS4014
+            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+            settingsTask.IncludeObsoletes();
+#pragma warning restore CS4014
+        }
+        catch (Exception ex)
+        {
+            exception = ex;
+        }
+
+        Assert.NotNull(exception);
+        Assert.Equal("This SettingsTask instance has already been converted to a Task and can no longer be modified. Conversion to a Task occurs either through awaiting the instance or calling ToTask.", exception.Message);
+    }
+
     class DisposableTarget :
         IDisposable
     {

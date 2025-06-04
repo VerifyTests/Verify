@@ -260,7 +260,18 @@ public partial class SettingsTask
     }
 
     [field: AllowNull, MaybeNull]
-    public VerifySettings CurrentSettings => field ??= new();
+    public VerifySettings CurrentSettings
+    {
+        get
+        {
+            if (task == null)
+            {
+                return field ??= new();
+            }
+
+            throw new("This SettingsTask instance has already been converted to a Task and can no longer be modified. Conversion to a Task occurs either through awaiting the instance or calling ToTask.");
+        }
+    }
 
     [Pure]
     public Task<VerifyResult> ToTask() =>

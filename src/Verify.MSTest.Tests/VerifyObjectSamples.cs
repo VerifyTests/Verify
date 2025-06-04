@@ -16,7 +16,7 @@ public partial class VerifyObjectSamples
             Dob = new(2000, 10, 1, 0, 0, 0, TimeSpan.Zero)
         };
         var settings = new VerifySettings();
-        settings.AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
+        settings.ModifyArgonSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
         return Verify(person, settings);
     }
 

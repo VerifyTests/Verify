@@ -56,7 +56,7 @@
         };
 
         return Verify(person)
-            .AddExtraSettings(
+            .ModifyArgonSettings(
                 _ => _.TypeNameHandling = TypeNameHandling.All);
     }
 #pragma warning disable CS8618

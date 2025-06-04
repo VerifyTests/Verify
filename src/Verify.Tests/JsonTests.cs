@@ -131,12 +131,12 @@
     [Fact]
     public Task VerifyJsonRefRespectSerializerSettings() =>
         VerifyJson("{'$ref': '#/no/ref'}")
-            .AddExtraSettings(s => s.MetadataPropertyHandling = MetadataPropertyHandling.Ignore);
+            .ModifyArgonSettings(s => s.MetadataPropertyHandling = MetadataPropertyHandling.Ignore);
 
     [Fact]
     public Task VerifyJsonTypeRespectSerializerSettings() =>
         VerifyJson("{ '$type': 'MyNamespace.User, MyAssembly'}")
-            .AddExtraSettings(s => s.MetadataPropertyHandling = MetadataPropertyHandling.Ignore);
+            .ModifyArgonSettings(s => s.MetadataPropertyHandling = MetadataPropertyHandling.Ignore);
 
     [Fact]
     public Task VerifyJsonOnlyIgnoredMember() =>

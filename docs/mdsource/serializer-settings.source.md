@@ -74,17 +74,17 @@ snippet: defaultSerialization
 
 #### Globally
 
-snippet: AddExtraSettingsGlobal
+snippet: ModifyArgonSettingsGlobal
 
 
 #### Instance
 
-snippet: AddExtraSettings
+snippet: ModifyArgonSettings
 
 
 #### Fluent
 
-snippet: AddExtraSettingsFluent
+snippet: ModifyArgonSettingsFluent
 
 
 ## QuoteName is false

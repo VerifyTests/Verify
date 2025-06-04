@@ -6,7 +6,7 @@ open VerifyXunit
 open Argon
 
 // begin-snippet: DefaultValueHandling
-VerifierSettings.AddExtraSettings(fun settings -> settings.DefaultValueHandling <- DefaultValueHandling.Include)
+VerifierSettings.ModifyArgonSettings(fun settings -> settings.DefaultValueHandling <- DefaultValueHandling.Include)
 // end-snippet
 
 // begin-snippet: FsTest

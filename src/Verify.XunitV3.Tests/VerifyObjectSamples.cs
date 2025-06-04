@@ -14,7 +14,7 @@ public class VerifyObjectSamples
             FamilyName = "Smith"
         };
         var settings = new VerifySettings();
-        settings.AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
+        settings.ModifyArgonSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
         return Verify(person, settings);
     }
 

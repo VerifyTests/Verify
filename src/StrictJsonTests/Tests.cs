@@ -5,7 +5,7 @@
     {
         var target = new WriteRawInConverterTarget();
         return Verify(target)
-            .AddExtraSettings(_ => _.Converters.Add(new WriteRawInConverter()))
+            .ModifyArgonSettings(_ => _.Converters.Add(new WriteRawInConverter()))
             .ScrubEmptyLines();
     }
 

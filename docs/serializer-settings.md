@@ -141,50 +141,50 @@ var settings = new JsonSerializerSettings
 
 #### Globally
 
-<!-- snippet: AddExtraSettingsGlobal -->
-<a id='snippet-AddExtraSettingsGlobal'></a>
+<!-- snippet: ModifyArgonSettingsGlobal -->
+<a id='snippet-ModifyArgonSettingsGlobal'></a>
 ```cs
 VerifierSettings
-    .AddExtraSettings(_ =>
+    .ModifyArgonSettings(_ =>
         _.TypeNameHandling = TypeNameHandling.All);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L511-L517' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddExtraSettingsGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L511-L517' title='Snippet source file'>snippet source</a> | <a href='#snippet-ModifyArgonSettingsGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 #### Instance
 
-<!-- snippet: AddExtraSettings -->
-<a id='snippet-AddExtraSettings'></a>
+<!-- snippet: ModifyArgonSettings -->
+<a id='snippet-ModifyArgonSettings'></a>
 ```cs
 [Fact]
-public Task AddExtraSettings()
+public Task ModifyArgonSettings()
 {
     var settings = new VerifySettings();
     settings
-        .AddExtraSettings(
+        .ModifyArgonSettings(
             _ => _.SerializeError = (currentObject, originalObject, location, member, exception, handled) =>
                 Console.WriteLine(member));
     return Verify("Value", settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L482-L495' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddExtraSettings' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L482-L495' title='Snippet source file'>snippet source</a> | <a href='#snippet-ModifyArgonSettings' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 #### Fluent
 
-<!-- snippet: AddExtraSettingsFluent -->
-<a id='snippet-AddExtraSettingsFluent'></a>
+<!-- snippet: ModifyArgonSettingsFluent -->
+<a id='snippet-ModifyArgonSettingsFluent'></a>
 ```cs
 [Fact]
-public Task AddExtraSettingsFluent() =>
+public Task ModifyArgonSettingsFluent() =>
     Verify("Value")
-        .AddExtraSettings(
+        .ModifyArgonSettings(
             _ => _.SerializeError = (currentObject, originalObject, location, member, exception, handled) =>
                 Console.WriteLine(member));
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L497-L506' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddExtraSettingsFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L497-L506' title='Snippet source file'>snippet source</a> | <a href='#snippet-ModifyArgonSettingsFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -218,7 +218,7 @@ Extra Json.NET settings can be made:
 <!-- snippet: ExtraSettingsGlobal -->
 <a id='snippet-ExtraSettingsGlobal'></a>
 ```cs
-VerifierSettings.AddExtraSettings(
+VerifierSettings.ModifyArgonSettings(
     _ => _.TypeNameHandling = TypeNameHandling.All);
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L130-L135' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExtraSettingsGlobal' title='Start of snippet'>anchor</a></sup>
@@ -231,7 +231,7 @@ VerifierSettings.AddExtraSettings(
 <a id='snippet-ExtraSettingsInstance'></a>
 ```cs
 var settings = new VerifySettings();
-settings.AddExtraSettings(
+settings.ModifyArgonSettings(
     _ => _.TypeNameHandling = TypeNameHandling.All);
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L137-L143' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExtraSettingsInstance' title='Start of snippet'>anchor</a></sup>
@@ -258,7 +258,7 @@ class CompanyConverter :
 <!-- snippet: JsonConverter -->
 <a id='snippet-JsonConverter'></a>
 ```cs
-VerifierSettings.AddExtraSettings(
+VerifierSettings.ModifyArgonSettings(
     _ => _.Converters.Add(new CompanyConverter()));
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L147-L150' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonConverter' title='Start of snippet'>anchor</a></sup>
@@ -289,7 +289,7 @@ public Task ScopedSerializer()
         FamilyName = "Smith"
     };
     var settings = new VerifySettings();
-    settings.AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
+    settings.ModifyArgonSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
     return Verify(person, settings);
 }
 
@@ -302,7 +302,7 @@ public Task ScopedSerializerFluent()
         FamilyName = "Smith"
     };
     return Verify(person)
-        .AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
+        .ModifyArgonSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
 }
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3921-L3948' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScopedSerializer' title='Start of snippet'>anchor</a></sup>

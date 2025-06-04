@@ -56,11 +56,14 @@ public partial class VerifySettings
         }
     }
 
-    public void AddExtraSettings(Action<JsonSerializerSettings> action)
+    [Obsolete("Use ModifyArgonSettings", false)]
+    public void AddExtraSettings(Action<JsonSerializerSettings> action) => ModifyArgonSettings(action);
+
+    public void ModifyArgonSettings(Action<JsonSerializerSettings> action)
     {
         CloneSettings();
 
-        serialization.AddExtraSettings(action);
+        serialization.ModifyArgonSettings(action);
     }
 
     bool dateCountingEnable = true;

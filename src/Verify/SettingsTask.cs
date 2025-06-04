@@ -17,9 +17,14 @@ public partial class SettingsTask
 
     /// <inheritdoc cref="VerifySettings.AddExtraSettings"/>
     [Pure]
-    public SettingsTask AddExtraSettings(Action<JsonSerializerSettings> action)
+    [Obsolete("Use ModifyArgonSettings", false)]
+    public SettingsTask AddExtraSettings(Action<JsonSerializerSettings> action) => ModifyArgonSettings(action);
+
+    /// <inheritdoc cref="VerifySettings.ModifyArgonSettings"/>
+    [Pure]
+    public SettingsTask ModifyArgonSettings(Action<JsonSerializerSettings> action)
     {
-        CurrentSettings.AddExtraSettings(action);
+        CurrentSettings.ModifyArgonSettings(action);
         return this;
     }
 

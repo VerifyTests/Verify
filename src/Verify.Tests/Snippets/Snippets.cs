@@ -129,7 +129,7 @@ public class Snippets
     {
         #region ExtraSettingsGlobal
 
-        VerifierSettings.AddExtraSettings(
+        VerifierSettings.ModifyArgonSettings(
             _ => _.TypeNameHandling = TypeNameHandling.All);
 
         #endregion
@@ -137,7 +137,7 @@ public class Snippets
         #region ExtraSettingsInstance
 
         var settings = new VerifySettings();
-        settings.AddExtraSettings(
+        settings.ModifyArgonSettings(
             _ => _.TypeNameHandling = TypeNameHandling.All);
 
         #endregion
@@ -145,7 +145,7 @@ public class Snippets
 
     void Converter() =>
     #region JsonConverter
-        VerifierSettings.AddExtraSettings(
+        VerifierSettings.ModifyArgonSettings(
             _ => _.Converters.Add(new CompanyConverter()));
     #endregion
 

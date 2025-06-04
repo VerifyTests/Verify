@@ -479,14 +479,14 @@ public class SerializationTests
 
 #endif
 
-    #region AddExtraSettings
+    #region ModifyArgonSettings
 
     [Fact]
-    public Task AddExtraSettings()
+    public Task ModifyArgonSettings()
     {
         var settings = new VerifySettings();
         settings
-            .AddExtraSettings(
+            .ModifyArgonSettings(
                 _ => _.SerializeError = (currentObject, originalObject, location, member, exception, handled) =>
                     Console.WriteLine(member));
         return Verify("Value", settings);
@@ -494,24 +494,24 @@ public class SerializationTests
 
     #endregion
 
-    #region AddExtraSettingsFluent
+    #region ModifyArgonSettingsFluent
 
     [Fact]
-    public Task AddExtraSettingsFluent() =>
+    public Task ModifyArgonSettingsFluent() =>
         Verify("Value")
-            .AddExtraSettings(
+            .ModifyArgonSettings(
                 _ => _.SerializeError = (currentObject, originalObject, location, member, exception, handled) =>
                     Console.WriteLine(member));
 
     #endregion
 
     // ReSharper disable once UnusedMember.Local
-    static void AddExtraSettingsGlobal() =>
+    static void ModifyArgonSettingsGlobal() =>
 
-        #region AddExtraSettingsGlobal
+        #region ModifyArgonSettingsGlobal
 
         VerifierSettings
-            .AddExtraSettings(_ =>
+            .ModifyArgonSettings(_ =>
                 _.TypeNameHandling = TypeNameHandling.All);
 
     #endregion
@@ -530,7 +530,7 @@ public class SerializationTests
         };
 
         return Verify(target)
-            .AddExtraSettings(_ => _.TypeNameHandling = typeHandling)
+            .ModifyArgonSettings(_ => _.TypeNameHandling = typeHandling)
             .UseParameters(typeHandling);
     }
 
@@ -942,7 +942,7 @@ public class SerializationTests
             {
                 nullProperty = (string?)null
             })
-            .AddExtraSettings(_=>
+            .ModifyArgonSettings(_=>
             {
                 _.DefaultValueHandling = DefaultValueHandling.Include;
                 _.NullValueHandling = NullValueHandling.Include;
@@ -995,7 +995,7 @@ public class SerializationTests
         };
 
         return Verify(person)
-            .AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
+            .ModifyArgonSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
     }
 
 #if NET6_0_OR_GREATER
@@ -1294,7 +1294,7 @@ public class SerializationTests
     {
         var target = new WriteRawInConverterTarget();
         return Verify(target)
-            .AddExtraSettings(_ => _.Converters.Add(new WriteRawInConverter()))
+            .ModifyArgonSettings(_ => _.Converters.Add(new WriteRawInConverter()))
             .ScrubEmptyLines();
     }
 
@@ -2501,7 +2501,7 @@ public class SerializationTests
             "Value"
         };
         return Verify(target)
-            .AddExtraSettings(_ => _.Converters.Add(new EnumerableWithExistingConverter()));
+            .ModifyArgonSettings(_ => _.Converters.Add(new EnumerableWithExistingConverter()));
     }
 
     class EnumerableWithExistingConverterTarget :
@@ -2522,7 +2522,7 @@ public class SerializationTests
     {
         var target = new ConverterWithBadNewlineTarget();
         return Verify(target)
-            .AddExtraSettings(_ => _.Converters.Add(new ConverterWithBadNewline()));
+            .ModifyArgonSettings(_ => _.Converters.Add(new ConverterWithBadNewline()));
     }
 
     [Fact]
@@ -2530,7 +2530,7 @@ public class SerializationTests
     {
         var target = new ConverterWithBadNewlineTarget();
         return Verify(target)
-            .AddExtraSettings(_ => _.Converters.Add(new ConverterWithBadNewline()))
+            .ModifyArgonSettings(_ => _.Converters.Add(new ConverterWithBadNewline()))
             .ScrubEmptyLines();
     }
 
@@ -2555,7 +2555,7 @@ public class SerializationTests
     {
         var target = new SimpleConverterTarget();
         var settings = new VerifySettings();
-        settings.AddExtraSettings(_ => _.Converters.Add(new SimpleConverter()));
+        settings.ModifyArgonSettings(_ => _.Converters.Add(new SimpleConverter()));
         return Verify(target, settings);
     }
 
@@ -2564,7 +2564,7 @@ public class SerializationTests
     {
         var target = new SimpleConverterTarget();
         return Verify(target)
-            .AddExtraSettings(_ => _.Converters.Add(new SimpleConverter()));
+            .ModifyArgonSettings(_ => _.Converters.Add(new SimpleConverter()));
     }
 
     class SimpleConverterTarget;
@@ -2589,7 +2589,7 @@ public class SerializationTests
             "Value"
         };
         return Verify(target)
-            .AddExtraSettings(_ => _.Converters.Add(new EnumerableWithExistingItemConverter()));
+            .ModifyArgonSettings(_ => _.Converters.Add(new EnumerableWithExistingItemConverter()));
     }
 
     class EnumerableWithExistingItemConverterTarget :
@@ -3929,7 +3929,7 @@ public class SerializationTests
             FamilyName = "Smith"
         };
         var settings = new VerifySettings();
-        settings.AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
+        settings.ModifyArgonSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
         return Verify(person, settings);
     }
 
@@ -3942,7 +3942,7 @@ public class SerializationTests
             FamilyName = "Smith"
         };
         return Verify(person)
-            .AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
+            .ModifyArgonSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
     }
 
     #endregion
@@ -3950,18 +3950,18 @@ public class SerializationTests
     [Fact]
     public Task WithConverter() =>
         Verify(new ConverterTarget("The name"))
-            .AddExtraSettings(_ => _.Converters.Add(new Converter()));
+            .ModifyArgonSettings(_ => _.Converters.Add(new Converter()));
 
     [Fact]
     public Task WithConverterAndNewline() =>
         Verify(new ConverterTarget("A\rB\nC\r\nD"))
-            .AddExtraSettings(_ => _.Converters.Add(new Converter()));
+            .ModifyArgonSettings(_ => _.Converters.Add(new Converter()));
 
     [Fact]
     public Task WithConverterAndIgnore() =>
         Verify(new ConverterTarget("The name"))
             .IgnoreMember("Name")
-            .AddExtraSettings(_ => _.Converters.Add(new Converter()));
+            .ModifyArgonSettings(_ => _.Converters.Add(new Converter()));
 
     class Converter :
         WriteOnlyJsonConverter<ConverterTarget>
@@ -3979,12 +3979,12 @@ public class SerializationTests
     [Fact]
     public Task WithWriteMemberNull() =>
         Verify(new ConverterTarget(null))
-            .AddExtraSettings(_ => _.Converters.Add(new NullConverter()));
+            .ModifyArgonSettings(_ => _.Converters.Add(new NullConverter()));
 
     [Fact]
     public Task WithWriteMemberNull_Include() =>
         Verify(new ConverterTarget(null))
-            .AddExtraSettings(_ =>
+            .ModifyArgonSettings(_ =>
             {
                 _.Converters.Add(new NullConverter());
                 _.NullValueHandling = NullValueHandling.Include;
@@ -3993,13 +3993,13 @@ public class SerializationTests
     [Fact]
     public Task WithWriteMemberNullScrubbed() =>
         Verify(new ConverterTarget(null))
-            .AddExtraSettings(_ => _.Converters.Add(new NullConverter()))
+            .ModifyArgonSettings(_ => _.Converters.Add(new NullConverter()))
             .ScrubMember("Name");
 
     [Fact]
     public Task WithWriteMemberNullScrubbed_Include() =>
         Verify(new ConverterTarget(null))
-            .AddExtraSettings(_ =>
+            .ModifyArgonSettings(_ =>
             {
                 _.Converters.Add(new NullConverter());
                 _.NullValueHandling = NullValueHandling.Include;
@@ -4009,13 +4009,13 @@ public class SerializationTests
     [Fact]
     public Task WithWriteMemberNullIgnored() =>
         Verify(new ConverterTarget(null))
-            .AddExtraSettings(_ => _.Converters.Add(new NullConverter()))
+            .ModifyArgonSettings(_ => _.Converters.Add(new NullConverter()))
             .IgnoreMember("Name");
 
     [Fact]
     public Task WithWriteMemberNullIgnored_Include() =>
         Verify(new ConverterTarget(null))
-            .AddExtraSettings(_ =>
+            .ModifyArgonSettings(_ =>
             {
                 _.Converters.Add(new NullConverter());
                 _.NullValueHandling = NullValueHandling.Include;
@@ -4051,7 +4051,7 @@ public class SerializationTests
                         DateTimeKind = DateTimeKind.Local
                     },
                 })
-            .AddExtraSettings(_ => _.Converters.Add(new ConverterIgnoreDefault()));
+            .ModifyArgonSettings(_ => _.Converters.Add(new ConverterIgnoreDefault()));
 
     class ConverterIgnoreDefault :
         WriteOnlyJsonConverter<ConverterIgnoreDefaultTarget>
@@ -4074,7 +4074,7 @@ public class SerializationTests
     [Fact]
     public Task WithRecursiveConverter() =>
         Verify(new RecursiveConverterTarget())
-            .AddExtraSettings(_ => _.Converters.Add(new RecursiveConverter()));
+            .ModifyArgonSettings(_ => _.Converters.Add(new RecursiveConverter()));
 
     class RecursiveConverter :
         WriteOnlyJsonConverter<RecursiveConverterTarget>
@@ -4101,7 +4101,7 @@ public class SerializationTests
     [Fact]
     public Task WithConverterAndMemberConverter() =>
         Verify(new StaticConverterTarget("The name"))
-            .AddExtraSettings(_ => _.Converters.Add(new StaticConverter()));
+            .ModifyArgonSettings(_ => _.Converters.Add(new StaticConverter()));
 
     class StaticConverter :
         WriteOnlyJsonConverter<StaticConverterTarget>

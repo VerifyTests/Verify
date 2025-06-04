@@ -2,10 +2,13 @@
 
 public static partial class VerifierSettings
 {
-    public static void AddExtraSettings(Action<JsonSerializerSettings> action)
+    [Obsolete("Use ModifyArgonSettings", false)]
+    public static void AddExtraSettings(Action<JsonSerializerSettings> action) => ModifyArgonSettings(action);
+
+    public static void ModifyArgonSettings(Action<JsonSerializerSettings> action)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        serialization.AddExtraSettings(action);
+        serialization.ModifyArgonSettings(action);
     }
 
 #if NET6_0_OR_GREATER

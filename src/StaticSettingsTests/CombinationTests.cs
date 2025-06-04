@@ -198,7 +198,7 @@
 
     [ModuleInitializer]
     public static void Init() =>
-        VerifierSettings.AddExtraSettings(_ => _.Converters.Insert(0, customConverter));
+        VerifierSettings.ModifyArgonSettings(_ => _.Converters.Insert(0, customConverter));
 
     #endregion
 

@@ -17,7 +17,7 @@ public class VerifyObjectSamples
 
         var settings = new VerifySettings();
         settings.DontScrubDateTimes();
-        settings.AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
+        settings.ModifyArgonSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
         return Verify(person, settings);
     }
 
@@ -33,7 +33,7 @@ public class VerifyObjectSamples
 
         return Verify(person)
             .DontScrubDateTimes()
-            .AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
+            .ModifyArgonSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
     }
 
     #region AnonTUnit

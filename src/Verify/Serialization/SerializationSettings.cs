@@ -134,7 +134,10 @@ partial class SerializationSettings
         return settings;
     }
 
-    public void AddExtraSettings(Action<JsonSerializerSettings> action)
+    [Obsolete("Use ModifyArgonSettings", false)]
+    public void AddExtraSettings(Action<JsonSerializerSettings> action) => ModifyArgonSettings(action);
+
+    public void ModifyArgonSettings(Action<JsonSerializerSettings> action)
     {
         extraSettings.Add(action);
         action(jsonSettings);

@@ -395,7 +395,7 @@ static CustomCombinationConverter customConverter = new();
 
 [ModuleInitializer]
 public static void Init() =>
-    VerifierSettings.AddExtraSettings(_ => _.Converters.Insert(0, customConverter));
+    VerifierSettings.ModifyArgonSettings(_ => _.Converters.Insert(0, customConverter));
 ```
 <sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L195-L203' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationModuleInitializer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

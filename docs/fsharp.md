@@ -23,7 +23,7 @@ By default [DefaultValueHandling is Ignore](/docs/serializer-settings.md#default
 <!-- snippet: DefaultValueHandling -->
 <a id='snippet-DefaultValueHandling'></a>
 ```fs
-VerifierSettings.AddExtraSettings(fun settings -> settings.DefaultValueHandling <- DefaultValueHandling.Include)
+VerifierSettings.ModifyArgonSettings(fun settings -> settings.DefaultValueHandling <- DefaultValueHandling.Include)
 ```
 <sup><a href='/src/FSharpTests/Tests.fs#L8-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-DefaultValueHandling' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -56,7 +56,7 @@ open VerifyTests
 open VerifyXunit
 open Argon
 
-VerifierSettings.AddExtraSettings(fun settings -> settings.DefaultValueHandling <- DefaultValueHandling.Include)
+VerifierSettings.ModifyArgonSettings(fun settings -> settings.DefaultValueHandling <- DefaultValueHandling.Include)
 
 [<Fact>]
 let MyTest () =

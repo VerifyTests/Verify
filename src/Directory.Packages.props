@@ -30,14 +30,14 @@
     <PackageVersion Include="System.Drawing.Common" Version="9.0.5" />
     <PackageVersion Include="System.Memory" Version="4.6.3" />
     <PackageVersion Include="TextCopy" Version="6.2.1" />
-    <PackageVersion Include="TUnit" Version="0.24.0" />
-    <PackageVersion Include="TUnit.Core" Version="0.24.0" />
+    <PackageVersion Include="TUnit" Version="0.25.6" />
+    <PackageVersion Include="TUnit.Core" Version="0.25.6" />
     <PackageVersion Include="Xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.abstractions" Version="2.0.3" />
     <PackageVersion Include="xunit.extensibility.execution" Version="2.9.3" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.0" />
-    <PackageVersion Include="xunit.v3" Version="2.0.2" />
-    <PackageVersion Include="xunit.v3.extensibility.core" Version="2.0.2" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.1" />
+    <PackageVersion Include="xunit.v3" Version="2.0.3" />
+    <PackageVersion Include="xunit.v3.extensibility.core" Version="2.0.3" />
     <PackageVersion Include="YoloDev.Expecto.TestSdk" Version="0.15.3" />
     <PackageVersion Include="Microsoft.Sbom.Targets" Version="4.0.3" />
   </ItemGroup>

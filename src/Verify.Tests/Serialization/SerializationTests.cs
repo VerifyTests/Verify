@@ -4008,6 +4008,30 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task WithConverterWithQuotes() =>
+        Verify(new ConverterTarget("The name"))
+            .AddExtraSettings(_ => _.Converters.Add(new ConverterWithQuotes())).UseStrictJson();
+
+    class ConverterWithQuotes :
+        WriteOnlyJsonConverter<ConverterTarget>
+    {
+        public override void Write(VerifyJsonWriter writer, ConverterTarget target)
+        {
+            writer.WriteStartObject();
+            writer.WritePropertyName("Single");
+            writer.WriteValue("a`a");
+            writer.WritePropertyName("Double");
+            writer.WriteValue("a\"a");
+            writer.WritePropertyName("Unicode");
+            writer.WriteValue(@"a\u0022a");
+            writer.WriteMember(target, "a`a", "SingleMember");
+            writer.WriteMember(target, "a\"a", "DoubleMember");
+            writer.WriteMember(target, @"a\u0022a", "UnicodeMember");
+            writer.WriteEnd();
+        }
+    }
+
+    [Fact]
     public Task WithWriteMemberNull() =>
         Verify(new ConverterTarget(null))
             .AddExtraSettings(_ => _.Converters.Add(new NullConverter()));

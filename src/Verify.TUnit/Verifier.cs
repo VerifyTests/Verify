@@ -5,6 +5,9 @@ public static partial class Verifier
 {
     static Task AddFile(FilePair pair)
     {
+        if (!VerifierSettings.addAttachments)
+            return Task.CompletedTask;
+
         var path = pair.ReceivedPath;
         TestContext.Current!.AddArtifact(
             new()

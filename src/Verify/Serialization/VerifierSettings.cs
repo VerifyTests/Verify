@@ -1,4 +1,4 @@
-﻿// ReSharper disable RedundantSuppressNullableWarningExpression
+// ReSharper disable RedundantSuppressNullableWarningExpression
 
 // ReSharper disable UnusedParameter.Local
 
@@ -130,7 +130,7 @@ public static partial class VerifierSettings
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         toString ??= (target, _) => new(target.ToString()!);
-        typeToString[typeof(T)] = (target, settings) => toString((T) target, settings);
+        typeToString[typeof(T)] = (target, settings) => toString((T)target, settings);
     }
 
     internal static void Reset()
@@ -148,6 +148,7 @@ public static partial class VerifierSettings
         UseUniqueDirectorySplitMode = false;
         omitContentFromException = false;
         encoding = new UTF8Encoding(true, true);
+        addAttachments = true;
         GlobalScrubbers.Clear();
     }
 

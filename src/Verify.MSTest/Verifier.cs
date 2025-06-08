@@ -4,6 +4,9 @@ public static partial class Verifier
 {
     static Task AddFile(FilePair path, bool autoVerify)
     {
+        if (!VerifierSettings.addAttachments)
+            return Task.CompletedTask;
+
         var context = CurrentTestContext.Value?.TestContext;
         if (context != null)
         {

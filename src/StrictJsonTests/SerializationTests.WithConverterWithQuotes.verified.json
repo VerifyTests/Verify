@@ -1,0 +1,8 @@
+﻿{
+  "Single": "a`a",
+  "Double": "a\"a",
+  "Unicode": "a\\u0022a",
+  "SingleMember": "a`a",
+  "DoubleMember": "a\"a",
+  "UnicodeMember": "a\\u0022a"
+}

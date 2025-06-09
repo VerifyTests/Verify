@@ -4,7 +4,7 @@
 [assembly: LevelOfParallelism(1)]
 
 [TestFixture]
-public partial class DisableAttachmentsTests
+public class DisableAttachmentsTests
 {
     [Test]
     public void HasNoAttachments()

@@ -1,5 +1,5 @@
 
-public partial class DisableAttachmentsTests
+public class DisableAttachmentsTests
 {
     [Test]
     public async Task HasNoAttachments()

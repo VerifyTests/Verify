@@ -10,15 +10,15 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9A6C4741-C83D-4E05-A62F-8049F65B9B6C}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		..\.gitattributes = ..\.gitattributes
 		appveyor.yml = appveyor.yml
 		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
 		global.json = global.json
 		mdsnippets.json = mdsnippets.json
+		nuget.config = nuget.config
 		..\readme.source.md = ..\readme.source.md
 		testenvironments.json = testenvironments.json
-		Directory.Packages.props = Directory.Packages.props
-		nuget.config = nuget.config
-		..\.gitattributes = ..\.gitattributes
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify", "Verify\Verify.csproj", "{A017D3FD-7DA5-4DF4-A169-72DE4AF76048}"
@@ -99,6 +99,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.TUnit.Tests", "Verify.TUnit.Tests\Verify.TUnit.Tests.csproj", "{8B608025-08B9-4EFB-8B86-948A30223D62}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.TUnit.DerivePaths.Tests", "Verify.TUnit.DerivePaths.Tests\Verify.TUnit.DerivePaths.Tests.csproj", "{6BEF7AF2-C45A-4CEA-9794-29FACA60E496}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.NUnit.DisableAttachments.Tests", "Verify.NUnit.DisableAttachments.Tests\Verify.NUnit.DisableAttachments.Tests.csproj", "{67622D28-04A5-4A8B-862F-A8620BE878A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.MSTest.DisableAttachments.Tests", "Verify.MSTest.DisableAttachments.Tests\Verify.MSTest.DisableAttachments.Tests.csproj", "{F5424320-3770-4892-9DD9-33E29D854329}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.TUnit.DisableAttachments.Tests", "Verify.TUnit.DisableAttachments.Tests\Verify.TUnit.DisableAttachments.Tests.csproj", "{6E3F0ABC-88D1-40DD-BF86-9C367401748F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -258,10 +264,6 @@ Global
 		{8BAECAD7-5E89-48D5-B86A-D67EB6758293}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BAECAD7-5E89-48D5-B86A-D67EB6758293}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BAECAD7-5E89-48D5-B86A-D67EB6758293}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F3B35A42-42AE-4B6D-99F5-60AD254DA270}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F3B35A42-42AE-4B6D-99F5-60AD254DA270}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F3B35A42-42AE-4B6D-99F5-60AD254DA270}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F3B35A42-42AE-4B6D-99F5-60AD254DA270}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8B608025-08B9-4EFB-8B86-948A30223D62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8B608025-08B9-4EFB-8B86-948A30223D62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B608025-08B9-4EFB-8B86-948A30223D62}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -270,13 +272,23 @@ Global
 		{6BEF7AF2-C45A-4CEA-9794-29FACA60E496}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BEF7AF2-C45A-4CEA-9794-29FACA60E496}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BEF7AF2-C45A-4CEA-9794-29FACA60E496}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67622D28-04A5-4A8B-862F-A8620BE878A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67622D28-04A5-4A8B-862F-A8620BE878A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67622D28-04A5-4A8B-862F-A8620BE878A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67622D28-04A5-4A8B-862F-A8620BE878A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5424320-3770-4892-9DD9-33E29D854329}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5424320-3770-4892-9DD9-33E29D854329}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5424320-3770-4892-9DD9-33E29D854329}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5424320-3770-4892-9DD9-33E29D854329}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E3F0ABC-88D1-40DD-BF86-9C367401748F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E3F0ABC-88D1-40DD-BF86-9C367401748F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E3F0ABC-88D1-40DD-BF86-9C367401748F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E3F0ABC-88D1-40DD-BF86-9C367401748F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B0B94980-5385-4EC6-A0EE-C9A191DDFC05}
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 EndGlobal

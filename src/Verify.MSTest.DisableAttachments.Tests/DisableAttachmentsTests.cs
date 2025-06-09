@@ -1,6 +1,7 @@
+[assembly: DoNotParallelize]
 
 [TestClass]
-public partial class DisableAttachmentsTests
+public class DisableAttachmentsTests : VerifyBase
 {
     [ResultFilesCallback]
     [TestMethod]

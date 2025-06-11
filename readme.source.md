@@ -21,7 +21,7 @@ updated to the new result.
 **See [Milestones](../../milestones?state=closed) for release notes.**
 
 
-### Powered by
+## Sponsored by
 
 [![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)](https://jb.gg/OpenSourceSupport)
 
@@ -39,7 +39,7 @@ Get customized instructions for the specific combination of Operating System, ID
 [Start wizard](/docs/wiz/readme.md).
 
 
-## NuGet packages
+## NuGet
 
 * https://nuget.org/packages/Verify.NUnit/
 * https://nuget.org/packages/Verify.Xunit/

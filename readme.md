@@ -30,7 +30,6 @@ updated to the new result.
 
 ## Sponsors
 
-
 ### Entity Framework Extensions<!-- include: zzz. path: /docs/mdsource/zzz.include.md -->
 
 [Entity Framework Extensions](https://entityframework-extensions.net/) is a major sponsor and is proud to contribute to the development this project.

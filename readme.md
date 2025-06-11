@@ -28,7 +28,16 @@ updated to the new result.
 **See [Milestones](../../milestones?state=closed) for release notes.**
 
 
-### Powered by
+## Sponsors
+
+### Entity Framework Extensions<!-- include: zzz. path: /docs/mdsource/zzz.include.md -->
+
+[Entity Framework Extensions](https://entityframework-extensions.net/) is a major sponsor and is proud to contribute to the development this project.
+
+[![Entity Framework Extensions](docs/zzz.png)](https://entityframework-extensions.net)<!-- endInclude -->
+
+
+### JetBrains
 
 [![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)](https://jb.gg/OpenSourceSupport)
 

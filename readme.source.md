@@ -21,7 +21,12 @@ updated to the new result.
 **See [Milestones](../../milestones?state=closed) for release notes.**
 
 
-### Powered by
+## Sponsors
+
+include: zzz
+
+
+### JetBrains
 
 [![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)](https://jb.gg/OpenSourceSupport)
 

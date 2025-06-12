@@ -21,7 +21,16 @@ updated to the new result.
 **See [Milestones](../../milestones?state=closed) for release notes.**
 
 
+<<<<<<< HEAD
 ## Sponsored by
+=======
+## Sponsors
+
+include: zzz
+
+
+### JetBrains
+>>>>>>> 1044d79cda9c8482a8193f2de5b5f2037a1a7234
 
 [![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)](https://jb.gg/OpenSourceSupport)
 

@@ -11,17 +11,21 @@
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.TUnit.svg?label=Verify.TUnit)](https://www.nuget.org/packages/Verify.TUnit/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.ClipboardAccept.svg?label=Verify.ClipboardAccept)](https://www.nuget.org/packages/Verify.ClipboardAccept/)
 
-Verify is a snapshot tool that simplifies the assertion of complex data models and documents.
-
-Verify is called on the test result during the assertion phase. It serializes that result and stores it in a file that
-matches the test name. On the next test execution, the result is again serialized and compared to the existing file. The
-test will fail if the two snapshots do not match: either the change is unexpected, or the reference snapshot needs to be
-updated to the new result.
+include: intro
 
 **See [Milestones](../../milestones?state=closed) for release notes.**
 
 
-### Powered by
+<<<<<<< HEAD
+## Sponsored by
+=======
+## Sponsors
+
+include: zzz
+
+
+### JetBrains
+>>>>>>> 1044d79cda9c8482a8193f2de5b5f2037a1a7234
 
 [![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)](https://jb.gg/OpenSourceSupport)
 
@@ -39,7 +43,7 @@ Get customized instructions for the specific combination of Operating System, ID
 [Start wizard](/docs/wiz/readme.md).
 
 
-## NuGet packages
+## NuGet
 
 * https://nuget.org/packages/Verify.NUnit/
 * https://nuget.org/packages/Verify.Xunit/

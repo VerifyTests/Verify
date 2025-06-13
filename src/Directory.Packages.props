@@ -31,7 +31,7 @@
     <PackageVersion Include="System.Memory" Version="4.6.3" />
     <PackageVersion Include="TextCopy" Version="6.2.1" />
     <PackageVersion Include="TUnit" Version="0.25.21" />
-    <PackageVersion Include="TUnit.Core" Version="0.25.6" />
+    <PackageVersion Include="TUnit.Core" Version="0.25.21" />
     <PackageVersion Include="Xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.abstractions" Version="2.0.3" />
     <PackageVersion Include="xunit.extensibility.execution" Version="2.9.3" />

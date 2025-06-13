@@ -1,5 +1,3 @@
-[assembly: DoNotParallelize]
-
 [TestClass]
 public class DisableAttachmentsTests : VerifyBase
 {

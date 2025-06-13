@@ -1,4 +1,3 @@
-
 public class DisableAttachmentsTests
 {
     [Test]
@@ -13,14 +12,7 @@ public class DisableAttachmentsTests
         await Assert.That(list.Count).IsEqualTo(0);
     }
 
-    [After(Test)]
-    public void ResetStaticSettings()
-    {
-        VerifierSettings.Reset();
-        CombinationSettings.Reset();
-    }
-
-    private static List<Artifact> GetAttachments()
+    static List<Artifact> GetAttachments()
     {
         var context = TestContext.Current!;
         var field = typeof(TestContext)

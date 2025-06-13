@@ -1,8 +1,3 @@
-// disable all test parallelism to avoid test interaction
-
-[assembly: Parallelizable(ParallelScope.None)]
-[assembly: LevelOfParallelism(1)]
-
 [TestFixture]
 public class DisableAttachmentsTests
 {
@@ -18,13 +13,6 @@ public class DisableAttachmentsTests
         AreEqual(0, list.Count);
     }
 
-    [TearDown]
-    public void ResetStaticSettings()
-    {
-        VerifierSettings.Reset();
-        CombinationSettings.Reset();
-    }
-
-    private static List<TestAttachment> GetAttachments() =>
+    static List<TestAttachment> GetAttachments() =>
         TestExecutionContext.CurrentContext.CurrentResult.TestAttachments.ToList();
 }

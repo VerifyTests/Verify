@@ -28,9 +28,6 @@ updated to the new result.<!-- endInclude -->
 **See [Milestones](../../milestones?state=closed) for release notes.**
 
 
-<<<<<<< HEAD
-## Sponsored by
-=======
 ## Sponsors
 
 ### Entity Framework Extensions<!-- include: zzz. path: /docs/mdsource/zzz.include.md -->
@@ -41,7 +38,6 @@ updated to the new result.<!-- endInclude -->
 
 
 ### JetBrains
->>>>>>> 1044d79cda9c8482a8193f2de5b5f2037a1a7234
 
 [![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)](https://jb.gg/OpenSourceSupport)
 
@@ -49,7 +45,7 @@ updated to the new result.<!-- endInclude -->
 ## Requirements
 
  * Supported runtimes: net472, net48, net481, net6, net8, net9, and net10.
- * Supported SDK: 9.0.200 and up
+ * Supported SDK: 9.0.301 and up
 
 
 ## [Getting started wizard](/docs/wiz/readme.md)

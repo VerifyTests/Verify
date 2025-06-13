@@ -1,4 +1,4 @@
-﻿using Polyfills;
+using Polyfills;
 
 namespace VerifyXunit;
 
@@ -6,6 +6,9 @@ public static partial class Verifier
 {
     static async Task AddFile(FilePair pair)
     {
+        if (!VerifierSettings.addAttachments)
+            return;
+
         var context = TestContext.Current;
         var path = pair.ReceivedPath;
         context.AddAttachment(
@@ -55,7 +58,7 @@ public static partial class Verifier
             return;
         }
 
-        if (context.TestCase is XunitTestCase {TestMethodArguments.Length: > 0} testCase &&
+        if (context.TestCase is XunitTestCase { TestMethodArguments.Length: > 0 } testCase &&
             testCase.TestMethodArguments.Length == parameterNames?.Count)
         {
             settings.SetParameters(testCase.TestMethodArguments);
@@ -63,7 +66,7 @@ public static partial class Verifier
         }
 
         //For some reason when using `dotnet run` then TestCase is not a XunitTestCase
-        if (context.Test is XunitTest {TestMethodArguments.Length: > 0} test &&
+        if (context.Test is XunitTest { TestMethodArguments.Length: > 0 } test &&
             test.TestMethodArguments.Length == parameterNames?.Count)
         {
             settings.SetParameters(test.TestMethodArguments);

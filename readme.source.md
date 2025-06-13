@@ -29,7 +29,7 @@ include: zzz
 ## Requirements
 
  * Supported runtimes: net472, net48, net481, net6, net8, net9, and net10.
- * Supported SDK: 9.0.200 and up
+ * Supported SDK: 9.0.301 and up
 
 
 ## [Getting started wizard](/docs/wiz/readme.md)

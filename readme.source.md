@@ -61,8 +61,7 @@ approach(s) selected is a personal preference.
 * [Via the clipboard](/docs/clipboard.md).
 * Manually making the change in the [launched diff tool](https://github.com/VerifyTests/DiffEngine#supported-tools).
   Either with a copy paste, or some tools have commands to automate this via a shortcut or a button.
-* Manually on the file system, by renaming the `.received.` file to `.verified.`. This can be automated via scripts
-  to bulk accept all `.received.` files by matching a pattern.
+* Manually on the file system, by renaming the `.received.` file to `.verified.`. This can be automated via scripts to bulk accept all `.received.` files by matching a pattern.
 * Using the dotnet tool [Verify.Terminal](https://github.com/VerifyTests/Verify.Terminal).
 
 
@@ -165,8 +164,7 @@ accept-->closeDiff
 discard-->closeDiff
 ```
 
-When the test is initially run it will fail. If a [Diff Tool](https://github.com/VerifyTests/DiffEngine) is detected it
-will be used to display the diff.
+When the test is initially run it will fail. If a [Diff Tool](https://github.com/VerifyTests/DiffEngine) is detected it will be used to display the diff.
 
 ![InitialDiff](/docs/InitialDiff.png)
 
@@ -174,8 +172,7 @@ To verify the result:
 
 * Execute the command from the [Clipboard](/docs/clipboard.md), or
 * Accept with [DiffEngineTray tool](https://github.com/VerifyTests/DiffEngine/blob/master/docs/tray.md),
-* Accept with [ReSharper Addin](https://plugins.jetbrains.com/plugin/17241-verify-support)
-  or [Rider Addin](https://plugins.jetbrains.com/plugin/17240-verify-support)
+* Accept with [ReSharper Addin](https://plugins.jetbrains.com/plugin/17241-verify-support) or [Rider Addin](https://plugins.jetbrains.com/plugin/17240-verify-support)
 * Use the diff tool to accept the changes, or
 * Manually copy the text to the new file
 
@@ -223,14 +220,12 @@ And the test is re-run it will fail.
 
 ![SecondDiff](/docs/SecondDiff.png)
 
-The same approach can be used to verify the results and the change to `Sample.Test.verified.txt` is committed to source
-control along with the change to `ClassBeingTested`.
+The same approach can be used to verify the results and the change to `Sample.Test.verified.txt` is committed to source control along with the change to `ClassBeingTested`.
 
 
 ### Async
 
-`Verify()` has overloads that accept `Task<T>`, `ValueTask<T>`, and `IAsyncEnumerable<T>`. These are `await`ed before
-verification.
+`Verify()` has overloads that accept `Task<T>`, `ValueTask<T>`, and `IAsyncEnumerable<T>`. These are `await`ed before verification.
 
 There is also an overload that accepts `Func<Task<T>>`, which works well with `async` lambda expressions:
 
@@ -327,9 +322,7 @@ Alternatively, place static settings in the "run once before all test" API of th
 
 ## VerifyResult
 
-In some scenarios it can be helpful to get access to the resulting `*.verified.*` files after a successful run. For
-example to do an explicit check for contains or not-contains in the resulting text. To allow this all Verify methods
-return a `VerifyResult`.
+In some scenarios it can be helpful to get access to the resulting `*.verified.*` files after a successful run. For example to do an explicit check for contains or not-contains in the resulting text. To allow this all Verify methods return a `VerifyResult`.
 
 snippet: VerifyResult
 
@@ -347,35 +340,25 @@ snippet: CurrentFile.cs
 
 ## Versioning
 
-Verify follows [Semantic Versioning](https://semver.org/). The same applies for [extensions to Verify](#extensions).
-Small changes in the resulting snapshot files may be deployed in a minor version. As such nuget updates to `Verify.*`
-should be done as follows:
+Verify follows [Semantic Versioning](https://semver.org/). The same applies for [extensions to Verify](#extensions). Small changes in the resulting snapshot files may be deployed in a minor version. As such nuget updates to `Verify.*` should be done as follows:
 
 * Update all `Verify.*`packages in isolation
 * Re-run all tests.
-* If there are changes, ensure they look correct given the release notes. If the changes do not look correct, raise an
-  issue.
+* If there are changes, ensure they look correct given the release notes. If the changes do not look correct, raise an issue.
 * Accept the changes.
 
-Snapshot changes do not trigger a major version change to avoid
-causing [Diamond dependency](https://en.wikipedia.org/wiki/Dependency_hell#Problems) issues for downstream extensions.
+Snapshot changes do not trigger a major version change to avoid causing [Diamond dependency](https://en.wikipedia.org/wiki/Dependency_hell#Problems) issues for downstream extensions.
 
 
 ## Unit testing inside virtualized environment
 
-Unit tests referencing `Verify` (including unit tests within this repository as well as any other code
-referencing `Verify`) can be run and debugged on a local virtualized environment supported
-by [Visual Studio Remote Testing](https://learn.microsoft.com/en-us/visualstudio/test/remote-testing?view=vs-2022).
-Initial configurations have been added for `WSL` and net 7.0 linux docker via `testenvironments.json` (for third party
-code, the file needs to be copied or recreated next to the `.sln` solution file for solution to leverage the
-functionality).
+Unit tests referencing `Verify` (including unit tests within this repository as well as any other code referencing `Verify`) can be run and debugged on a local virtualized environment supported by [Visual Studio Remote Testing](https://learn.microsoft.com/en-us/visualstudio/test/remote-testing?view=vs-2022). Initial configurations have been added for `WSL` and net 7.0 linux docker via `testenvironments.json` (for third party code, the file needs to be copied or recreated next to the `.sln` solution file for solution to leverage the functionality).
 
 Upon opening the Tests Explorer the advanced environments are available in the GUI:
 
 ![TestExplorerEnvironments](/docs/TestExplorerEnvironments.png)
 
-This readme will not discuss definitive list of details for proper setup of the environments instead refer the following
-information sources and warn about particular gotchas:
+This readme will not discuss definitive list of details for proper setup of the environments instead refer the following information sources and warn about particular gotchas:
 
 * WSL runs
     * Install [WSL](https://learn.microsoft.com/en-us/windows/wsl/about).

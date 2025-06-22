@@ -19,7 +19,7 @@ public class NewLineTests
         var file = result.Files.Single();
         Assert.DoesNotContain(
             "\r",
-            await FilePolyfill.ReadAllTextAsync(file));
+            await File.ReadAllTextAsync(file));
     }
 
     [Fact]
@@ -31,7 +31,7 @@ public class NewLineTests
             })
             .AddScrubber(_ => _.Append("\rline2\r\nline3\nline4"));
         var file = result.Files.Single();
-        Assert.DoesNotContain("\r", await FilePolyfill.ReadAllTextAsync(file));
+        Assert.DoesNotContain("\r", await File.ReadAllTextAsync(file));
     }
 
     [Fact]
@@ -44,7 +44,7 @@ public class NewLineTests
     {
         var fullPath = CurrentFile.Relative("NewLineTests.StringWithDifferingNewline.verified.txt");
         File.Delete(fullPath);
-        await FilePolyfill.WriteAllTextAsync(fullPath, "a\r\nb");
+        await File.WriteAllTextAsync(fullPath, "a\r\nb");
         await Verify("a\r\nb");
         PrefixUnique.Clear();
         await Verify("a\rb");
@@ -53,7 +53,7 @@ public class NewLineTests
         PrefixUnique.Clear();
 
         File.Delete(fullPath);
-        await FilePolyfill.WriteAllTextAsync(fullPath, "a\nb");
+        await File.WriteAllTextAsync(fullPath, "a\nb");
         await Verify("a\r\nb");
         PrefixUnique.Clear();
         await Verify("a\rb");
@@ -62,7 +62,7 @@ public class NewLineTests
         PrefixUnique.Clear();
 
         File.Delete(fullPath);
-        await FilePolyfill.WriteAllTextAsync(fullPath, "a\rb");
+        await File.WriteAllTextAsync(fullPath, "a\rb");
         await Verify("a\r\nb");
         PrefixUnique.Clear();
         await Verify("a\rb");

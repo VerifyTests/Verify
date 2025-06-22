@@ -45,7 +45,7 @@ public static class InnerVerifyChecks
         var builder = new StringBuilder();
         foreach (var project in Directory.EnumerateFiles(solutionDirectory, "*.csproj", SearchOption.AllDirectories))
         {
-            foreach (var line in await FilePolyfill.ReadAllLinesAsync(project))
+            foreach (var line in await File.ReadAllLinesAsync(project))
             {
                 //<None Update="SampleVbTest.RunResults#helloWorld.verified.cs">
                 if (!line.Contains("<None Update=\"") ||
@@ -86,7 +86,7 @@ public static class InnerVerifyChecks
         }
 
         path = Path.GetFullPath(path);
-        var lines = await FilePolyfill.ReadAllLinesAsync(path);
+        var lines = await File.ReadAllLinesAsync(path);
 
         if (HasAllExtensions(extensions, lines))
         {
@@ -100,7 +100,7 @@ public static class InnerVerifyChecks
              Recommended settings:
 
              # Verify
-             {$"[*.{{received,verified}}.{{{StringPolyfill.Join(',', extensions)}}}]"}
+             {$"[*.{{received,verified}}.{{{string.Join(',', extensions)}}}]"}
              charset = utf-8-bom
              end_of_line = lf
              indent_size = unset
@@ -145,7 +145,7 @@ public static class InnerVerifyChecks
         }
 
         path = Path.GetFullPath(path);
-        var text = await FilePolyfill.ReadAllLinesAsync(path);
+        var text = await File.ReadAllLinesAsync(path);
 
         List<string> missing = [];
         List<string> expected = [];
@@ -209,7 +209,7 @@ public static class InnerVerifyChecks
         }
 
         path = Path.GetFullPath(path);
-        var text = await FilePolyfill.ReadAllTextAsync(path);
+        var text = await File.ReadAllTextAsync(path);
         if (text.Contains("*.received.*") ||
             text.Contains("*.received/") ||
             text.Contains("# Verify"))

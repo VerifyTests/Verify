@@ -10,7 +10,7 @@ public static partial class Verifier
         var path = pair.ReceivedPath;
         context.AddAttachment(
             $"Verify snapshot mismatch: {Path.GetFileName(path)}",
-            await FilePolyfill.ReadAllBytesAsync(path));
+            await File.ReadAllBytesAsync(path));
     }
 
     static Verifier()

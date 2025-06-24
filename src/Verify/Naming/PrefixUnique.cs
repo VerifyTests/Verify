@@ -41,18 +41,18 @@
         return builder;
     }
 
-    static void AppendTargetFramework(Namer namer, UniquenessList builder)
+    static void AppendTargetFramework(Namer namer, UniquenessList uniqueness)
     {
         var name = namer.UniqueForTargetFrameworkName;
         if (namer.ResolveUniqueForTargetFrameworkAndVersion())
         {
             if (name is null)
             {
-                builder.Add(Namer.TargetFrameworkNameAndVersion);
+                uniqueness.Add(Namer.TargetFrameworkNameAndVersion);
                 return;
             }
 
-            builder.Add(name.NameAndVersion);
+            uniqueness.Add(name.NameAndVersion);
             return;
         }
 
@@ -60,15 +60,15 @@
         {
             if (name is null)
             {
-                builder.Add(Namer.TargetFrameworkName);
+                uniqueness.Add(Namer.TargetFrameworkName);
                 return;
             }
 
-            builder.Add(name.Name);
+            uniqueness.Add(name.Name);
         }
     }
 
-    static void AppendAssemblyConfiguration(Namer namer, UniquenessList builder)
+    static void AppendAssemblyConfiguration(Namer namer, UniquenessList uniqueness)
     {
         if (!namer.ResolveUniqueForAssemblyConfiguration())
         {
@@ -79,26 +79,26 @@
 
         if (configuration is null)
         {
-            builder.Add(Namer.AssemblyConfig);
+            uniqueness.Add(Namer.AssemblyConfig);
             return;
         }
 
-        builder.Add(configuration);
+        uniqueness.Add(configuration);
     }
 
-    static void AppendArchitecture(Namer namer, UniquenessList builder)
+    static void AppendArchitecture(Namer namer, UniquenessList uniqueness)
     {
         if (namer.ResolveUniqueForArchitecture())
         {
-            builder.Add(Namer.Architecture);
+            uniqueness.Add(Namer.Architecture);
         }
     }
 
-    static void AppendOsPlatform(Namer namer, UniquenessList builder)
+    static void AppendOsPlatform(Namer namer, UniquenessList uniqueness)
     {
         if (namer.ResolveUniqueForOSPlatform())
         {
-            builder.Add(Namer.OperatingSystemPlatform);
+            uniqueness.Add(Namer.OperatingSystemPlatform);
         }
     }
 }

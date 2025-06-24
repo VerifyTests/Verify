@@ -207,5 +207,5 @@
     }
 
     static bool TryParseDateTimeOffset(CharSpan value, string format, out DateTimeOffset dateTimeOffset) =>
-        DateTimeOffsetPolyfill.TryParseExact(value, format, null, DateTimeStyles.None, out dateTimeOffset);
+        DateTimeOffset.TryParseExact(value, format, null, DateTimeStyles.None, out dateTimeOffset);
 }

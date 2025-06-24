@@ -26,7 +26,7 @@
     {
         if (scrubGuids)
         {
-            if (GuidPolyfill.TryParse(value, out var guid))
+            if (Guid.TryParse(value, out var guid))
             {
                 result = Convert(counter, guid);
                 return true;

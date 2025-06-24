@@ -91,7 +91,7 @@ static class DateScrubber
             return false;
         }
 
-        if (DateTimeOffsetPolyfill.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
+        if (DateTimeOffset.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
         {
             result = SerializationSettings.Convert(counter, date);
             return true;

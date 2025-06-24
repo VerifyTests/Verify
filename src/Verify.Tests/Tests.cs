@@ -287,8 +287,8 @@ public class Tests
     {
         var receivedFile = CurrentFile.Relative($"Tests.DanglingFiles.{Namer.RuntimeAndVersion}.received.txt");
         var verifiedNewFile = CurrentFile.Relative($"Tests.DanglingFiles.{Namer.RuntimeAndVersion}#01.verified.txt");
-        await FilePolyfill.WriteAllTextAsync(receivedFile, "");
-        await FilePolyfill.WriteAllTextAsync(verifiedNewFile, "");
+        await File.WriteAllTextAsync(receivedFile, "");
+        await File.WriteAllTextAsync(verifiedNewFile, "");
         await Verify("value")
             .UniqueForRuntimeAndVersion()
             .AutoVerify();
@@ -302,8 +302,8 @@ public class Tests
     {
         var receivedFile = CurrentFile.Relative($"Tests.DanglingFilesIgnoreParametersForVerified_param=param.{Namer.RuntimeAndVersion}#01.received.txt");
         var verifiedFile = CurrentFile.Relative($"Tests.DanglingFilesIgnoreParametersForVerified.{Namer.RuntimeAndVersion}#01.verified.txt");
-        await FilePolyfill.WriteAllTextAsync(receivedFile, "");
-        await FilePolyfill.WriteAllTextAsync(verifiedFile, "");
+        await File.WriteAllTextAsync(receivedFile, "");
+        await File.WriteAllTextAsync(verifiedFile, "");
         await Verify("value")
             .UniqueForRuntimeAndVersion()
             .IgnoreParametersForVerified(param)
@@ -321,8 +321,8 @@ public class Tests
     {
         var receivedFile = CurrentFile.Relative($"Tests.DanglingFilesIgnoreParameters_param1=P1_param2=P2.{Namer.RuntimeAndVersion}#01.received.txt");
         var verifiedFile = CurrentFile.Relative($"Tests.DanglingFilesIgnoreParameters_param2=P2.{Namer.RuntimeAndVersion}#01.verified.txt");
-        await FilePolyfill.WriteAllTextAsync(receivedFile, "");
-        await FilePolyfill.WriteAllTextAsync(verifiedFile, "");
+        await File.WriteAllTextAsync(receivedFile, "");
+        await File.WriteAllTextAsync(verifiedFile, "");
         await Verify("value")
             .UniqueForRuntimeAndVersion()
             .UseParameters(param1, param2)
@@ -362,7 +362,7 @@ public class Tests
         await Verify("value")
             .UniqueForRuntimeAndVersion()
             .AutoVerify();
-        var fileBytes = (await FilePolyfill.ReadAllBytesAsync(file))
+        var fileBytes = (await File.ReadAllBytesAsync(file))
             .Take(3);
         var preambleBytes = Encoding.UTF8.GetPreamble();
         Assert.Equal(preambleBytes, fileBytes);

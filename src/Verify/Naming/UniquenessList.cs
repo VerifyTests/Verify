@@ -23,6 +23,6 @@
             return string.Empty;
         }
 
-        return '.' + StringPolyfill.Join('.', inner);
+        return '.' + string.Join('.', inner);
     }
 }

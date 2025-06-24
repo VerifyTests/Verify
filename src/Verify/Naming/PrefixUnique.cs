@@ -28,17 +28,17 @@
 
     public static UniquenessList SharedUniqueness(Namer namer)
     {
-        var builder = new UniquenessList();
+        var uniqueness = new UniquenessList();
 
-        AppendTargetFramework(namer, builder);
+        AppendTargetFramework(namer, uniqueness);
 
-        AppendAssemblyConfiguration(namer, builder);
+        AppendAssemblyConfiguration(namer, uniqueness);
 
-        AppendArchitecture(namer, builder);
+        AppendArchitecture(namer, uniqueness);
 
-        AppendOsPlatform(namer, builder);
+        AppendOsPlatform(namer, uniqueness);
 
-        return builder;
+        return uniqueness;
     }
 
     static void AppendTargetFramework(Namer namer, UniquenessList uniqueness)

@@ -1,5 +1,3 @@
-using Polyfills;
-
 namespace VerifyXunit;
 
 public static partial class Verifier

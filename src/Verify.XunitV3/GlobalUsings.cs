@@ -4,4 +4,5 @@ global using Xunit;
 global using Xunit.Sdk;
 global using VerifyTests;
 global using Argon;
+global using Polyfills;
 global using Xunit.v3;

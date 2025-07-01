@@ -16,11 +16,6 @@ partial class InnerVerifier
             return await VerifyInner(target, null, emptyTargets, true);
         }
 
-        if (target is string stringTarget)
-        {
-            return await VerifyString(stringTarget);
-        }
-
         if (target is XContainer container)
         {
             return await VerifyXml(container);

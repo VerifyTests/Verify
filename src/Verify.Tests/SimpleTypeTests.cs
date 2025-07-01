@@ -84,7 +84,11 @@
                 """)
         ];
         yield return [true];
+        yield return [typeof(bool)];
+        yield return [Encoding.ASCII];
+        yield return [Expression.Constant("ConstantExpression")];
         yield return ["stringValue"];
+        yield return [new StringBuilder("stringBuilderValue")];
         yield return [File.OpenRead("sample.png")];
         yield return
         [

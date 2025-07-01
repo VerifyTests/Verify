@@ -4261,6 +4261,14 @@ public class SerializationTests
             .AddScrubber(_ => _.Replace("key", "scrubbed"));
 
     [Fact]
+    public Task StringCastToObject() =>
+        Verify((object)"value");
+
+    [Fact]
+    public Task StringCastToObjectWithAppend() =>
+        Verify((object)"item").AppendValue("key", "value");
+
+    [Fact]
     public Task Dictionary_ScrubDictionaryKeys() =>
         Verify(new Dictionary<string, string>
             {

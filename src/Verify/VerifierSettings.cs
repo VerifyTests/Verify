@@ -21,12 +21,13 @@ public static partial class VerifierSettings
     public static void AutoVerify(GlobalAutoVerify autoVerify, bool includeBuildServer = true, bool throwException = false)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        if (includeBuildServer ||
-            !BuildServerDetector.Detected)
+        if (!includeBuildServer && BuildServerDetector.Detected)
         {
-            VerifierSettings.autoVerify = autoVerify;
-            VerifierSettings.throwException = throwException;
+            return;
         }
+
+        VerifierSettings.autoVerify = autoVerify;
+        VerifierSettings.throwException = throwException;
     }
 
     internal static GlobalAutoVerify? autoVerify;

@@ -189,15 +189,7 @@ class VerifyEngine(
             return true;
         }
 
-        if (BuildServerDetector.Detected)
-        {
-            return false;
-        }
-
-        if (DiffEngineTray.IsRunning)
-        {
-            await DiffEngineTray.AddDeleteAsync(file);
-        }
+        await DiffEngineTray.AddDeleteAsync(file);
 
         return false;
     }

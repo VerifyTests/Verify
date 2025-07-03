@@ -29,11 +29,9 @@ class VerifyEngine(
             return await Comparer.Text(file, value, settings);
         }
 
-        using (var stream = target.StreamData)
-        {
-            stream.MoveToStart();
-            return await FileComparer.DoCompare(settings, file, previousTextFailed, stream);
-        }
+        using var stream = target.StreamData;
+        stream.MoveToStart();
+        return await FileComparer.DoCompare(settings, file, previousTextFailed, stream);
     }
 
     public async Task HandleResults(List<Target> targetList)

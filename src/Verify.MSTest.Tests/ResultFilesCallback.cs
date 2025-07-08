@@ -1,13 +1,13 @@
-﻿sealed class ResultFilesCallback :
+sealed class ResultFilesCallback :
     TestMethodAttribute
 {
     public static Action<List<string>>? Callback;
 
-    public override TestResult[] Execute(ITestMethod testMethod)
+    public override async Task<TestResult[]> ExecuteAsync(ITestMethod testMethod)
     {
         try
         {
-            var results = base.Execute(testMethod);
+            var results = await base.ExecuteAsync(testMethod);
 
             if (Callback == null)
             {
@@ -15,10 +15,9 @@
             }
 
             Callback(
-                results
+                [.. results
                     .Where(_ => _.ResultFiles != null)
-                    .SelectMany(_ => _.ResultFiles!)
-                    .ToList());
+                    .SelectMany(_ => _.ResultFiles!)]);
 
             return results;
         }

@@ -9,8 +9,8 @@ class TestDriver(IEnumerable<ISourceGenerator> sourceGenerators)
             .Where(_ => !_.IsDynamic && !string.IsNullOrWhiteSpace(_.Location))
             .Select(_ => MetadataReference.CreateFromFile(_.Location));
         var assemblyReference = MetadataReference.CreateFromFile(typeof(VerifyMSTest.UsesVerifyAttribute).Assembly.Location);
-        var testAssemblyReference = MetadataReference.CreateFromFile(typeof(Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute).Assembly.Location);
-        var testFrameworkReference = MetadataReference.CreateFromFile(typeof(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext).Assembly.Location);
+        var testAssemblyReference = MetadataReference.CreateFromFile(typeof(TestClassAttribute).Assembly.Location);
+        var testFrameworkReference = MetadataReference.CreateFromFile(typeof(TestContext).Assembly.Location);
 
         var compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary)
             .WithSpecificDiagnosticOptions(new Dictionary<string, ReportDiagnostic>

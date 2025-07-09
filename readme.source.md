@@ -172,7 +172,7 @@ To verify the result:
 
 * Execute the command from the [Clipboard](/docs/clipboard.md), or
 * Accept with [DiffEngineTray tool](https://github.com/VerifyTests/DiffEngine/blob/master/docs/tray.md),
-* Accept with [ReSharper Addin](https://plugins.jetbrains.com/plugin/17241-verify-support) or [Rider Addin](https://plugins.jetbrains.com/plugin/17240-verify-support)
+* Accept with [ReSharper Plugin](https://plugins.jetbrains.com/plugin/17241-verify-support) or [Rider Plugin](https://plugins.jetbrains.com/plugin/17240-verify-support)
 * Use the diff tool to accept the changes, or
 * Manually copy the text to the new file
 

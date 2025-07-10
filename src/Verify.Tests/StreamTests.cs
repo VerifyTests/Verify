@@ -181,11 +181,9 @@ public class StreamTests
             "bin",
             info: "info");
 
-#if !NETFRAMEWORK
     [Fact]
     public Task VerifyBytesAsync() =>
         Verify(File.ReadAllBytesAsync("sample.jpg"), "jpg");
-#endif
 
     #region VerifyFile
 

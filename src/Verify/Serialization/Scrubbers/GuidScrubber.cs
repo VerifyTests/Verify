@@ -29,7 +29,7 @@
             {
                 var slice = value.Slice(index, 36);
                 if (!slice.ContainsNewline() &&
-                    TryParse(slice, out var guid))
+                    Guid.TryParseExact(slice, "D", out var guid))
                 {
                     var convert = SerializationSettings.Convert(counter, guid);
                     builder.Overwrite(convert, builderIndex, 36);
@@ -43,13 +43,6 @@
             builderIndex++;
         }
     }
-
-    static bool TryParse(CharSpan slice, out Guid guid) =>
-#if NET6_0_OR_GREATER
-        Guid.TryParseExact(slice, "D", out guid);
-#else
-        Guid.TryParseExact(slice.ToString(), "D", out guid);
-#endif
 
     static bool IsInvalidEndingChar(char ch) =>
         IsInvalidChar(ch) &&

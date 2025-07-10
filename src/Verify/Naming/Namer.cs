@@ -171,8 +171,6 @@ public class Namer
             return "OSX";
         }
 
-#if NET6_0_OR_GREATER
-
         if (OperatingSystem.IsAndroid())
         {
             return "Android";
@@ -182,8 +180,6 @@ public class Namer
         {
             return "IOS";
         }
-
-#endif
 
         throw new("Unknown OS");
     }

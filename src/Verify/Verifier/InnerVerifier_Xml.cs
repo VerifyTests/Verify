@@ -34,11 +34,7 @@ partial class InnerVerifier
             return await VerifyInner(target, null, emptyTargets, true);
         }
 
-#if NET6_0_OR_GREATER
         var document = await XDocument.LoadAsync(target, LoadOptions.None, default);
-#else
-        var document = XDocument.Load(target, LoadOptions.None);
-#endif
         return await VerifyXml(document);
     }
 

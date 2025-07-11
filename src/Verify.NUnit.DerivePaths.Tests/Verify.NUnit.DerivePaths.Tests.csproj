@@ -11,7 +11,5 @@
     <Using Include="NUnit.Framework.Legacy.ClassicAssert" Static="True" />
     <Using Include="NUnit.Framework.Assert" Static="True" />
   </ItemGroup>
-  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
-  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
   <Import Project="$(ProjectDir)..\Verify.NUnit\buildTransitive\Verify.NUnit.props" />
 </Project>

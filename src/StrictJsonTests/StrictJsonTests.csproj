@@ -17,7 +17,5 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
-  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
   <Import Project="$(ProjectDir)..\Verify.Xunit\buildTransitive\Verify.Xunit.props" />
 </Project>

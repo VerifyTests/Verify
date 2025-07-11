@@ -15,6 +15,8 @@
 
     <None Include="buildTransitive\Verify.props" Pack="true" PackagePath="buildTransitive\" />
     <None Include="buildTransitive\Verify.props" Pack="true" PackagePath="build\" />
+    <None Include="buildTransitive\Verify.AfterMicrosoftNetSdk.props" Pack="true" PackagePath="buildTransitive\" />
+    <None Include="buildTransitive\Verify.AfterMicrosoftNetSdk.props" Pack="true" PackagePath="build\" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">

@@ -6,6 +6,7 @@
     <VerifyAttributesFile Condition="$(Language) != 'X#'">Verify.Attributes$(MSBuildProjectExtension.Replace('proj', ''))</VerifyAttributesFile>
     <VerifyAttributesFile Condition="$(Language) == 'X#'">Verify.Attributes.prg</VerifyAttributesFile>
     <NoWarn>$(NoWarn);CA2255</NoWarn>
+    <AfterMicrosoftNetSdkProps>$(AfterMicrosoftNetSdkProps);$(MSBuildThisFileDirectory)Verify.AfterMicrosoftNetSdk.props</AfterMicrosoftNetSdkProps>
   </PropertyGroup>
   <Target Name="WriteVerifyAttributes"
           Condition="$(Language) == 'VB' or $(Language) == 'C#' or $(Language) == 'F#' or $(Language) == 'X#'"
@@ -51,19 +52,5 @@
   </Target>
   <ItemGroup Condition="$(Language) == 'C#' and ($(ImplicitUsings) == 'enable' or $(ImplicitUsings) == 'true')">
     <Using Include="VerifyTests" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="**\*.received.*;**\*.verified.*" Condition="$(Language) == 'C#'">
-      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0].Split('(')[0])</ParentFile>
-      <DependentUpon>%(ParentFile).cs</DependentUpon>
-    </None>
-    <None Include="**\*.received.*;**\*.verified.*" Condition="$(Language) == 'VB'">
-      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0].Split('(')[0])</ParentFile>
-      <DependentUpon>%(ParentFile).vb</DependentUpon>
-    </None>
-    <None Include="**\*.received.*;**\*.verified.*" Condition="$(Language) == 'F#'">
-      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
-      <DependentUpon>%(ParentFile).fs</DependentUpon>
-    </None>
   </ItemGroup>
 </Project>

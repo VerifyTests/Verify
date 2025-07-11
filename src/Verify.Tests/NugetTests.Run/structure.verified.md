@@ -23,8 +23,10 @@
 * icon.png
 * buildTransitive
   * Verify.props
+  * Verify.AfterMicrosoftNetSdk.props
 * build
   * Verify.props
+  * Verify.AfterMicrosoftNetSdk.props
 * [Content_Types].xml
 * package
   * services

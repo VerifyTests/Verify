@@ -10,7 +10,5 @@
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
   </ItemGroup>
-  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
-  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
   <Import Project="$(ProjectDir)..\Verify.Xunit\buildTransitive\Verify.Xunit.props" />
 </Project>

@@ -23,10 +23,8 @@
 * icon.png
 * buildTransitive
   * Verify.props
-  * Verify.targets
 * build
   * Verify.props
-  * Verify.targets
 * [Content_Types].xml
 * package
   * services

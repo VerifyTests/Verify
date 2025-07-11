@@ -17,7 +17,6 @@
     <PolyGuard>true</PolyGuard>
     <PolyStringInterpolation>true</PolyStringInterpolation>
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
-	<ImportVerifyMsbuildFiles Condition="'$(MSBuildProjectName)' != '' And $(MSBuildProjectName.EndsWith('Tests'))">true</ImportVerifyMsbuildFiles>
   </PropertyGroup>
   <ItemGroup>
     <Using Include="System.Diagnostics.CodeAnalysis" />
@@ -25,6 +24,6 @@
     <Using Include="System.Linq.Expressions" />
     <Using Include="System.Collections.Specialized" />
   </ItemGroup>
-  <Import Condition="'$(ImportVerifyMsbuildFiles)' == 'true'"
+  <Import Condition="'$(MSBuildProjectName)' != '' And $(MSBuildProjectName.EndsWith('Tests'))"
           Project="$(MSBuildThisFileDirectory)Verify\buildTransitive\Verify.props" />
 </Project>

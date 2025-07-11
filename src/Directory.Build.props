@@ -24,4 +24,6 @@
     <Using Include="System.Linq.Expressions" />
     <Using Include="System.Collections.Specialized" />
   </ItemGroup>
+  <Import Condition="'$(MSBuildProjectName)' != '' And $(MSBuildProjectName.EndsWith('Tests'))"
+          Project="$(MSBuildThisFileDirectory)Verify\buildTransitive\Verify.props" />
 </Project>

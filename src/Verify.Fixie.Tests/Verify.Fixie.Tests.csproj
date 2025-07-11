@@ -21,7 +21,5 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
-  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
   <Import Project="$(ProjectDir)..\Verify.Fixie\buildTransitive\Verify.Fixie.props" />
 </Project>

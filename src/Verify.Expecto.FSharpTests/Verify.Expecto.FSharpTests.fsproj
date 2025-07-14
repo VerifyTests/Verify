@@ -16,7 +16,5 @@
     <ProjectReference Include="..\Verify\Verify.csproj" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
   </ItemGroup>
-  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
-  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
   <Import Project="$(ProjectDir)..\Verify.Expecto\buildTransitive\Verify.Expecto.props" />
 </Project>

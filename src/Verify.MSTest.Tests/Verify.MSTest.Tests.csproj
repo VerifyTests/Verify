@@ -35,8 +35,6 @@
     </None>
   </ItemGroup>
 
-  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
-  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
   <Import Project="$(ProjectDir)..\Verify.MSTest\buildTransitive\Verify.MSTest.props" />
 
 </Project>

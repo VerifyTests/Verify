@@ -20,7 +20,7 @@ public partial class Tests
         #endregion
     }
 
-    [TestMethod]
+    [DataTestMethod]
     [DataRow("Value1")]
     public Task UseFileNameWithParam(string arg) =>
         Verify(arg)
@@ -42,7 +42,7 @@ public partial class Tests
         };
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsExactlyAsync<VerifyException>(
+        await Assert.ThrowsExceptionAsync<VerifyException>(
             () => Verify("Bar", settings));
     }
 
@@ -82,7 +82,7 @@ public partial class Tests
         };
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsExactlyAsync<VerifyException>(
+        await Assert.ThrowsExceptionAsync<VerifyException>(
             () => Verify("Bar", settings));
     }
 
@@ -100,7 +100,7 @@ public partial class Tests
         };
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsExactlyAsync<VerifyException>(
+        await Assert.ThrowsExceptionAsync<VerifyException>(
             () => Verify("Bar", [new("txt", "Value")], settings));
     }
 
@@ -118,7 +118,7 @@ public partial class Tests
         };
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsExactlyAsync<VerifyException>(
+        await Assert.ThrowsExceptionAsync<VerifyException>(
             () => Verify("Bar", [new("txt", "Value")], settings));
     }
 

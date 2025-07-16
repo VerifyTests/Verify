@@ -56,7 +56,7 @@ public partial class Tests
             .GetInvalidFileNameChars()
             .First()
             .ToString()));
-        return Assert.ThrowsExactlyAsync<ArgumentException>(() => Verify("Value"));
+        return Assert.ThrowsExceptionAsync<ArgumentException>(() => Verify("Value"));
     }
 
     [TestMethod]
@@ -67,7 +67,7 @@ public partial class Tests
             .GetInvalidFileNameChars()
             .First()
             .ToString()));
-        return Assert.ThrowsExactlyAsync<ArgumentException>(() => Verify("Value"));
+        return Assert.ThrowsExceptionAsync<ArgumentException>(() => Verify("Value"));
     }
 
     [TestMethod]
@@ -78,6 +78,6 @@ public partial class Tests
             .GetInvalidPathChars()
             .First()
             .ToString()));
-        return Assert.ThrowsExactlyAsync<ArgumentException>(() => Verify("Value"));
+        return Assert.ThrowsExceptionAsync<ArgumentException>(() => Verify("Value"));
     }
 }

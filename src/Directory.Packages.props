@@ -20,8 +20,8 @@
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageVersion Include="NUnit" Version="4.3.2" />
-    <PackageVersion Include="MSTest" Version="4.0.0-preview.25358.7" />
-    <PackageVersion Include="MSTest.TestFramework" Version="4.0.0-preview.25358.7" />
+    <PackageVersion Include="MSTest" Version="3.9.3" />
+    <PackageVersion Include="MSTest.TestFramework" Version="3.9.3" />
     <PackageVersion Include="NUnit3TestAdapter" Version="5.0.0" />
     <PackageVersion Include="Polyfill" Version="9.0.0-beta.14" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.156" />

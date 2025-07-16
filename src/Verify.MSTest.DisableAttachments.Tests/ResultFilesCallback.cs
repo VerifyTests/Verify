@@ -3,11 +3,11 @@
 {
     public static Action<List<string>>? Callback;
 
-    public override async Task<TestResult[]> ExecuteAsync(ITestMethod testMethod)
+    public override TestResult[] Execute(ITestMethod testMethod)
     {
         try
         {
-            var results = await base.ExecuteAsync(testMethod);
+            var results = base.Execute(testMethod);
 
             if (Callback == null)
             {

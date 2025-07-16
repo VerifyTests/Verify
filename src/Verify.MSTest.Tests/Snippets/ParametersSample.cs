@@ -3,7 +3,7 @@ public partial class ParametersSample
 {
     #region UseTextForParametersMSTest
 
-    [TestMethod]
+    [DataTestMethod]
     [DataRow("Value1")]
     public Task UseTextForParameters(string arg) =>
         Verify(arg)
@@ -13,7 +13,7 @@ public partial class ParametersSample
 
     #region DataRowInstanceMSTest
 
-    [TestMethod]
+    [DataTestMethod]
     [DataRow("Value1")]
     [DataRow("Value2")]
     public Task DataRowUsage(string arg) =>
@@ -23,7 +23,7 @@ public partial class ParametersSample
 
     #region IgnoreParametersForVerifiedMSTest
 
-    [TestMethod]
+    [DataTestMethod]
     [DataRow("One")]
     [DataRow("Two")]
     public Task IgnoreParametersForVerified(string arg)
@@ -37,7 +37,7 @@ public partial class ParametersSample
 
     #region IgnoreParametersForVerifiedFluentMSTest
 
-    [TestMethod]
+    [DataTestMethod]
     [DataRow("One")]
     [DataRow("Two")]
     public Task IgnoreParametersForVerifiedFluent(string arg) =>
@@ -48,7 +48,7 @@ public partial class ParametersSample
 
     #region IgnoreParametersForVerifiedCustomParamsMSTest
 
-    [TestMethod]
+    [DataTestMethod]
     [DataRow("One")]
     [DataRow("Two")]
     public Task IgnoreParametersForVerifiedCustomParams(string arg)
@@ -62,7 +62,7 @@ public partial class ParametersSample
 
     #region IgnoreParametersForVerifiedCustomParamsFluentMSTest
 
-    [TestMethod]
+    [DataTestMethod]
     [DataRow("One")]
     [DataRow("Two")]
     public Task IgnoreParametersForVerifiedFluentCustomParams(string arg) =>
@@ -73,7 +73,7 @@ public partial class ParametersSample
 
     #region IgnoreParametersMSTest
 
-    [TestMethod]
+    [DataTestMethod]
     [DataRow("One")]
     [DataRow("Two")]
     public Task IgnoreParameters(string arg)
@@ -87,7 +87,7 @@ public partial class ParametersSample
 
     #region IgnoreParametersFluentMSTest
 
-    [TestMethod]
+    [DataTestMethod]
     [DataRow("One")]
     [DataRow("Two")]
     public Task IgnoreParametersFluent(string arg) =>
@@ -98,7 +98,7 @@ public partial class ParametersSample
 
     #region IgnoreParametersCustomParamsMSTest
 
-    [TestMethod]
+    [DataTestMethod]
     [DataRow("One")]
     [DataRow("Two")]
     public Task IgnoreParametersCustomParams(string arg)
@@ -113,7 +113,7 @@ public partial class ParametersSample
 
     #region UseParametersSubSetMSTest
 
-    [TestMethod]
+    [DataTestMethod]
     [DataRow("Value1", "Value2", "Value3")]
     public Task UseParametersSubSet(string arg1, string arg2, string arg3)
     {
@@ -126,7 +126,7 @@ public partial class ParametersSample
 
     #region IgnoreParametersCustomParamsFluentMSTest
 
-    [TestMethod]
+    [DataTestMethod]
     [DataRow("One")]
     [DataRow("Two")]
     public Task IgnoreParametersFluentCustomParams(string arg) =>

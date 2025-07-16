@@ -1,4 +1,3 @@
-using Assert = Xunit.Assert;
 using CSharpExtensions = Microsoft.CodeAnalysis.CSharp.CSharpExtensions;
 
 public class CodeAnalysisVersionTests(ITestOutputHelper output) : TestBase(output)

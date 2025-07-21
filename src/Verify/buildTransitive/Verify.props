@@ -6,6 +6,7 @@
     <VerifyAttributesFile Condition="$(Language) != 'X#'">Verify.Attributes$(MSBuildProjectExtension.Replace('proj', ''))</VerifyAttributesFile>
     <VerifyAttributesFile Condition="$(Language) == 'X#'">Verify.Attributes.prg</VerifyAttributesFile>
     <NoWarn>$(NoWarn);CA2255</NoWarn>
+    <AfterMicrosoftNetSdkProps>$(AfterMicrosoftNetSdkProps);$(MSBuildThisFileDirectory)Verify.AfterMicrosoftNetSdk.props</AfterMicrosoftNetSdkProps>
   </PropertyGroup>
   <Target Name="WriteVerifyAttributes"
           Condition="$(Language) == 'VB' or $(Language) == 'C#' or $(Language) == 'F#' or $(Language) == 'X#'"

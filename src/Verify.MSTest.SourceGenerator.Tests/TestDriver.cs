@@ -1,3 +1,5 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 class TestDriver(IEnumerable<ISourceGenerator> sourceGenerators)
 {
     public GeneratorDriverResults Run(string source)

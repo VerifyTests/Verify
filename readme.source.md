@@ -376,6 +376,7 @@ This readme will not discuss definitive list of details for proper setup of the 
 
 ### Blogs
 
+* [Snapshot testing .NET code with Verify - David Gardiner (21st July 2025)](https://david.gardiner.net.au/2025/07/verify)
 * [Library: Verify - Snapshot Testing - Simplify Complex Object Testing (2 Jan 2025)](https://vukvuk.com/posts/library-verify-and-snapshot-testing)
 * [Snapshot Testing in .NET with Verify - Khalid Abuhakmeh (12 Jul 2024)](https://blog.jetbrains.com/dotnet/2024/07/11/snapshot-testing-in-net-with-verify/)
 * [Snapshot testing in C# with Verify - Tim Deschryver (21 Feb 2024)](https://timdeschryver.dev/bits/snapshot-testing-in-c-with-verify)

@@ -13,12 +13,11 @@ public partial class Tests
                 Assert.IsTrue(Directory.Exists(projectDirectory));
                 Assert.IsNotNull(methodName);
                 Assert.IsNotNull(typeName);
-                Assert.IsTrue(sourceFile
-                    .Replace(@"\", "/")
-                    .EndsWith("Verify.MSTest.DerivePaths.Tests/Tests.cs"));
-                Assert.IsTrue(projectDirectory
-                    .Replace(@"\", "/")
-                    .EndsWith("Verify.MSTest.DerivePaths.Tests/"));
+                Assert.EndsWith(
+                    "Verify.MSTest.DerivePaths.Tests/Tests.cs",
+                    sourceFile.Replace(@"\", "/"));
+                Assert.EndsWith("Verify.MSTest.DerivePaths.Tests/",
+                    projectDirectory.Replace(@"\", "/"));
                 return new("CustomDir", "CustomTypeName", "CustomMethodName");
             });
         return Verify("Value");

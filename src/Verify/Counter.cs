@@ -14,72 +14,49 @@ public partial class Counter
 
     internal bool TryGetNamed(object value, [NotNullWhen(true)] out string? result)
     {
+        switch (value)
+        {
 #if NET6_0_OR_GREATER
-
-        if (value is Date date)
-        {
-            if (namedDates.TryGetValue(date, out result) ||
-                globalNamedDates.TryGetValue(date, out result))
-            {
+            case Date date
+                when namedDates.TryGetValue(date, out result) ||
+                     globalNamedDates.TryGetValue(date, out result):
                 return true;
-            }
-
-            result = null;
-            return false;
-        }
-
-        if (value is Time time)
-        {
-            if (namedTimes.TryGetValue(time, out result) ||
-                globalNamedTimes.TryGetValue(time, out result))
-            {
+            case Date:
+                result = null;
+                return false;
+            case Time time
+                when namedTimes.TryGetValue(time, out result) ||
+                     globalNamedTimes.TryGetValue(time, out result):
                 return true;
-            }
-
-            result = null;
-            return false;
-        }
-
+            case Time:
+                result = null;
+                return false;
 #endif
-
-        if (value is Guid guid)
-        {
-            if (namedGuids.TryGetValue(guid, out result) ||
-                globalNamedGuids.TryGetValue(guid, out result))
-            {
+            case Guid guid
+                when namedGuids.TryGetValue(guid, out result) ||
+                     globalNamedGuids.TryGetValue(guid, out result):
                 return true;
-            }
-
-            result = null;
-            return false;
-        }
-
-        if (value is DateTime dateTime)
-        {
-            if (namedDateTimes.TryGetValue(dateTime, out result) ||
-                globalNamedDateTimes.TryGetValue(dateTime, out result))
-            {
+            case Guid:
+                result = null;
+                return false;
+            case DateTime dateTime
+                when namedDateTimes.TryGetValue(dateTime, out result) ||
+                     globalNamedDateTimes.TryGetValue(dateTime, out result):
                 return true;
-            }
-
-            result = null;
-            return false;
-        }
-
-        if (value is DateTimeOffset dateTimeOffset)
-        {
-            if (namedDateTimeOffsets.TryGetValue(dateTimeOffset, out result) ||
-                globalNamedDateTimeOffsets.TryGetValue(dateTimeOffset, out result))
-            {
+            case DateTime:
+                result = null;
+                return false;
+            case DateTimeOffset dateTimeOffset
+                when namedDateTimeOffsets.TryGetValue(dateTimeOffset, out result) ||
+                     globalNamedDateTimeOffsets.TryGetValue(dateTimeOffset, out result):
                 return true;
-            }
-
-            result = null;
-            return false;
+            case DateTimeOffset:
+                result = null;
+                return false;
+            default:
+                result = null;
+                return false;
         }
-
-        result = null;
-        return false;
     }
 
     public static Counter Current

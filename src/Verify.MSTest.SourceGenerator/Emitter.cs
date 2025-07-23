@@ -65,8 +65,13 @@ class Emitter
               partial class {{toGenerate.ClassName}}
               {
               """);
-        AppendTestContextProperty(toGenerate.TestContextPropertyFlags);
-        builder.AppendLine("}");
+        AppendGetter(toGenerate.TestContextPropertyFlags);
+        AppendSetter(toGenerate.TestContextPropertyFlags);
+        builder.AppendLine(
+            """
+              }
+            }
+            """);
     }
 
     public string GenerateExtensionClasses(IEnumerable<ClassToGenerate> classes, Cancel cancel)
@@ -84,8 +89,7 @@ class Emitter
         return builder.ToString();
     }
 
-    void AppendTestContextProperty(PropertyFlags flags)
-    {
+    void AppendGetter(PropertyFlags flags) =>
         builder.AppendLine(
             $$"""
                 {{generatedCodeAttribute}}
@@ -93,9 +97,6 @@ class Emitter
                 {
                   get => {{GetterBody(flags)}}
               """);
-        AppendSetter(flags);
-        builder.AppendLine("  }");
-    }
 
     void AppendSetter(PropertyFlags flags)
     {
@@ -112,7 +113,7 @@ class Emitter
     void AppendDefaultSetter() =>
         builder.AppendLine($"    set => {setVerifierTestContext}");
 
-    private void AppendCallBaseSetter() =>
+    void AppendCallBaseSetter() =>
         builder.AppendLine(
             $$"""
                   set

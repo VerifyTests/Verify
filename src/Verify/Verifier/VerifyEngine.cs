@@ -232,11 +232,6 @@ class VerifyEngine(
             autoVerified.Add(file);
         }
 
-        if (BuildServerDetector.Detected)
-        {
-            return autoVerify;
-        }
-
         if (autoVerify)
         {
             AcceptChanges(file);

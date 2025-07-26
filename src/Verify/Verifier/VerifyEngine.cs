@@ -12,7 +12,8 @@ class VerifyEngine(
     string? methodName)
 {
     bool diffEnabled = !DiffRunner.Disabled &&
-                       settings.diffEnabled;
+                       settings.diffEnabled &&
+                       !BuildServerDetector.Detected;
     List<NewResult> @new = [];
     List<NotEqualResult> notEquals = [];
     List<FilePair> equal = [];

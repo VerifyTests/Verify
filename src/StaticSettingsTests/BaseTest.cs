@@ -7,8 +7,13 @@
 
 public abstract class BaseTest
 {
+    static bool buildServerDetected;
+
+    static BaseTest() => buildServerDetected = DiffEngine.BuildServerDetector.Detected;
+
     protected BaseTest()
     {
+        DiffEngine.BuildServerDetector.Detected = buildServerDetected;
         VerifierSettings.Reset();
         CombinationSettings.Reset();
     }

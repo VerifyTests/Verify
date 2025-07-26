@@ -87,26 +87,6 @@ public class Tests
         VerifyDirectory(directoryToVerify);
 
     [Fact]
-    public async Task AutoVerifyIncludeBuildserver()
-    {
-        DiffEngine.BuildServerDetector.Detected = true;
-
-        var result = await Verify("Hello").AutoVerify(includeBuildServer:true, throwException: false);
-
-        Assert.True(File.Exists(result.Files.First()));
-    }
-
-    [Fact]
-    public async Task AutoVerifyExcludeBuildserver()
-    {
-        DiffEngine.BuildServerDetector.Detected = true;
-
-        var result = async () => await Verify("Hello").AutoVerify(includeBuildServer: false, throwException: false);
-
-        await Assert.ThrowsAnyAsync<Exception>(result);
-    }
-
-    [Fact]
     public Task VerifyDirectoryWithInfo() =>
         VerifyDirectory(
             directoryToVerify,

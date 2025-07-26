@@ -121,4 +121,26 @@
         Assert.True(funcCalled);
         File.Delete(fullPath);
     }
+
+    [Fact]
+    public async Task IncludeBuildserver()
+    {
+        DiffEngine.BuildServerDetector.Detected = true;
+
+        var result = await Verify("Hello")
+            .AutoVerify(includeBuildServer:true, throwException: false);
+
+        Assert.True(File.Exists(result.Files.First()));
+    }
+
+    [Fact]
+    public async Task ExcludeBuildserver()
+    {
+        DiffEngine.BuildServerDetector.Detected = true;
+
+        var result = async () => await Verify("Hello")
+            .AutoVerify(includeBuildServer: false, throwException: false);
+
+        await Assert.ThrowsAnyAsync<Exception>(result);
+    }
 }

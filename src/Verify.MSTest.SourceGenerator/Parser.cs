@@ -23,9 +23,8 @@ static class Parser
         baseClassProperty?.IsAbstract switch
         {
             true => PropertyFlags.Override,
-            false => PropertyFlags.Override |
-                     PropertyFlags.CallBase,
-            null => PropertyFlags.None
+            false => baseClassProperty.IsVirtual ? PropertyFlags.Override | PropertyFlags.CallBase : PropertyFlags.New | PropertyFlags.CallBase,
+            null => PropertyFlags.None,
         };
 
     static IEnumerable<IPropertySymbol> BaseTestContextProperties(INamedTypeSymbol typeSymbol) =>

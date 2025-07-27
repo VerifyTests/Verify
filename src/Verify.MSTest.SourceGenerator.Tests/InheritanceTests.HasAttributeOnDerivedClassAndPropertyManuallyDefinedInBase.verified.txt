@@ -12,7 +12,7 @@
 partial class Derived
 {
   [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Verify.MSTest.SourceGenerator", "1.0.0.0")]
-  public sealed override global::Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
+  public new global::Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
   {
     get => base.TestContext;
     set

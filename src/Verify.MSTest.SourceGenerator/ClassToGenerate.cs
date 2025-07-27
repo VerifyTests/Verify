@@ -20,6 +20,7 @@ readonly record struct ClassToGenerate(
         None = 0b00,
         Override = 0b01,
         CallBase = 0b10,
+        New = 0b100,
     }
 
     public string? Namespace { get; } = Namespace;

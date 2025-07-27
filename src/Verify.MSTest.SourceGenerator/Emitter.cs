@@ -131,5 +131,5 @@ class Emitter
     static string GetModifiers(PropertyFlags flags) =>
         flags.HasFlag(PropertyFlags.Override)
             ? "sealed override "
-            : string.Empty;
+            : (flags.HasFlag(PropertyFlags.New) ? "new " : string.Empty);
 }

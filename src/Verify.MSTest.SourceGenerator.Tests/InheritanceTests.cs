@@ -76,7 +76,7 @@ public class InheritanceTests(ITestOutputHelper output) : TestBase(output)
             }
             """;
 
-        return VerifyGenerator(TestDriver.Run(source), ["CS0506"]);
+        return VerifyGenerator(TestDriver.Run(source));
     }
 
     [Fact]

@@ -1,6 +1,6 @@
 ﻿{
-  member1: {
-    prop1: value1
-  },
-  member2: {}
+  member1: {},
+  member2: {
+    prop1: value2
+  }
 }

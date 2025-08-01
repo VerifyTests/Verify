@@ -137,14 +137,7 @@
                   }
                 }
                 """)
-            .IgnoreInstance<JValue>(_ =>
-            {
-                if (_.Path == "member2.prop1")
-                {
-                    return true;
-                }
-                return false;
-            });
+            .IgnoreInstance<JValue>(_ => _.Path == "member1.prop1");
 
     [Fact]
     public Task VerifyJsonEmpty() =>

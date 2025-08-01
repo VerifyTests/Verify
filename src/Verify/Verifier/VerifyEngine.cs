@@ -12,7 +12,8 @@ class VerifyEngine(
     string? methodName)
 {
     bool diffEnabled = !DiffRunner.Disabled &&
-                       settings.diffEnabled;
+                       settings.diffEnabled &&
+                       !BuildServerDetector.Detected;
     List<NewResult> @new = [];
     List<NotEqualResult> notEquals = [];
     List<FilePair> equal = [];
@@ -230,11 +231,6 @@ class VerifyEngine(
         if (autoVerify)
         {
             autoVerified.Add(file);
-        }
-
-        if (BuildServerDetector.Detected)
-        {
-            return autoVerify;
         }
 
         if (autoVerify)

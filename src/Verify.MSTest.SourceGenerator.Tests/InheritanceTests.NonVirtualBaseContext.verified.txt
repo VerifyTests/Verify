@@ -1,1 +1,66 @@
-﻿
+﻿{
+  Location: {
+    Kind: SourceFile,
+    SourceSpan: {
+      Start: 507,
+      Length: 11
+    },
+    SourceTree: {
+      FilePath: Verify.MSTest.SourceGenerator\VerifyMSTest.SourceGenerator.UsesVerifyGenerator\UsesVerify.g.cs,
+      Encoding: utf-8,
+      Length: 748,
+      HasCompilationUnitRoot: true,
+      Options: {
+        LanguageVersion: CSharp12,
+        Language: C#,
+        DocumentationMode: Parse,
+        Errors: null
+      }
+    },
+    IsInSource: true,
+    IsInMetadata: false
+  },
+  Descriptor: {
+    Id: CS0506,
+    Title: {},
+    Description: {},
+    HelpLinkUri: https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS0506),
+    MessageFormat: {},
+    Category: Compiler,
+    DefaultSeverity: Error,
+    IsEnabledByDefault: true,
+    CustomTags: [
+      Compiler,
+      Telemetry,
+      NotConfigurable
+    ]
+  },
+  Id: CS0506,
+  Severity: Error,
+  DefaultSeverity: Error,
+  IsSuppressed: false,
+  Info: {
+    Code: 506,
+    Descriptor: {
+      Id: CS0506,
+      Title: {},
+      Description: {},
+      HelpLinkUri: https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS0506),
+      MessageFormat: {},
+      Category: Compiler,
+      DefaultSeverity: Error,
+      IsEnabledByDefault: true,
+      CustomTags: [
+        Compiler,
+        Telemetry,
+        NotConfigurable
+      ]
+    },
+    Severity: Error,
+    DefaultSeverity: Error,
+    IsWarningAsError: false,
+    Category: Compiler,
+    MessageIdentifier: CS0506
+  },
+  IsWarningAsError: false
+}

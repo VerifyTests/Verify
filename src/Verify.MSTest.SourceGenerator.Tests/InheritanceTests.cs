@@ -124,7 +124,7 @@ public class InheritanceTests(ITestOutputHelper output) : TestBase(output)
     }
 
     [Fact]
-    public Task HasAttributeOnDerivedClassAndDifferentPropertyTypeManuallyDefinedInBase()
+    public Task NonVirtualBaseContext()
     {
         var source = """
             using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -142,7 +142,9 @@ public class InheritanceTests(ITestOutputHelper output) : TestBase(output)
             }
             """;
 
-        return VerifyGenerator(TestDriver.Run(source));
+        var results = TestDriver.Run(source);
+        var diagnostics = results.outputCompilation.GetDiagnostics();
+        return Verify(diagnostics.First());
     }
 
     [Fact]

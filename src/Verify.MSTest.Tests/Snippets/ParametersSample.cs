@@ -73,7 +73,7 @@ public partial class ParametersSample
 
     #region IgnoreParametersMSTest
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("One")]
     [DataRow("Two")]
     public Task IgnoreParameters(string arg)

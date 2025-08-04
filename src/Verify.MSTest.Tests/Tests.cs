@@ -42,7 +42,7 @@ public partial class Tests
         };
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsExceptionAsync<VerifyException>(
+        await Assert.ThrowsExactlyAsync<VerifyException>(
             () => Verify("Bar", settings));
     }
 
@@ -82,7 +82,7 @@ public partial class Tests
         };
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsExceptionAsync<VerifyException>(
+        await Assert.ThrowsExactlyAsync<VerifyException>(
             () => Verify("Bar", settings));
     }
 
@@ -100,7 +100,7 @@ public partial class Tests
         };
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsExceptionAsync<VerifyException>(
+        await Assert.ThrowsExactlyAsync<VerifyException>(
             () => Verify("Bar", [new("txt", "Value")], settings));
     }
 
@@ -118,7 +118,7 @@ public partial class Tests
         };
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsExceptionAsync<VerifyException>(
+        await Assert.ThrowsExactlyAsync<VerifyException>(
             () => Verify("Bar", [new("txt", "Value")], settings));
     }
 

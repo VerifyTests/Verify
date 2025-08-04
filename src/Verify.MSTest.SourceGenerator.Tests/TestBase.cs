@@ -1,5 +1,7 @@
 // These tests don't use Verify.SourceGenerator to avoid creating a circular dependency between the repos.
 
+using Assert = Xunit.Assert;
+
 public abstract class TestBase(ITestOutputHelper output)
 {
     private protected TestDriver TestDriver { get; } = new([new UsesVerifyGenerator().AsSourceGenerator()]);

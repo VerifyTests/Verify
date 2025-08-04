@@ -20,7 +20,7 @@ public partial class Tests
         #endregion
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("Value1")]
     public Task UseFileNameWithParam(string arg) =>
         Verify(arg)

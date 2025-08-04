@@ -564,7 +564,7 @@ public Task VerifyJsonJToken()
     return Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/JsonTests.cs#L183-L208' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyJson' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/JsonTests.cs#L198-L223' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyJson' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in a .txt file:
@@ -799,7 +799,7 @@ public static class StaticSettingsUsage
 
 In .net framework, where the Module Initializer feature is not enabled by default, either use a Polyfill package (eg https://github.com/SimonCropp/Polyfill) or add the following to the test project:
 
-```
+```csharp
 namespace System.Runtime.CompilerServices;
 
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
@@ -906,6 +906,7 @@ This readme will not discuss definitive list of details for proper setup of the 
 
 ### Blogs
 
+* [Verify.Cli - Snapshot testing without tests - David Gardiner (21 Jul 2025)](https://david.gardiner.net.au/2025/07/verify-cli)
 * [Snapshot testing .NET code with Verify - David Gardiner (21 Jul 2025)](https://david.gardiner.net.au/2025/07/verify)
 * [Library: Verify - Snapshot Testing - Simplify Complex Object Testing (2 Jan 2025)](https://vukvuk.com/posts/library-verify-and-snapshot-testing)
 * [Snapshot Testing in .NET with Verify - Khalid Abuhakmeh (12 Jul 2024)](https://blog.jetbrains.com/dotnet/2024/07/11/snapshot-testing-in-net-with-verify/)
@@ -956,6 +957,7 @@ This readme will not discuss definitive list of details for proper setup of the 
 * [Verify.Blazor](https://github.com/VerifyTests/Verify.Blazor): Verification of [Blazor Component](https://docs.microsoft.com/en-us/aspnet/core/blazor/#components) Blazor rendering.
 * [Verify.Bunit](https://github.com/VerifyTests/Verify.Bunit): Verification of [Blazor Component](https://docs.microsoft.com/en-us/aspnet/core/blazor/#components) via [bunit](https://bunit.egilhansen.com).
 * [Verify.Brighter](https://github.com/VerifyTests/Verify.Brighter): Verification of [Brighter](https://www.goparamore.io/) bits.
+* [Verify.Cli](https://github.com/flcdrg/Verify.Cli): Command line tool for verifying files (outside of unit tests).
 * [Verify.CommunityToolkit.Mvvm](https://github.com/VerifyTests/Verify.CommunityToolkit.Mvvm): Verification of [CommunityToolkit.Mvvm](https://learn.microsoft.com/en-us/dotnet/communitytoolkit/mvvm/).
 * [Verify.Cosmos](https://github.com/VerifyTests/Verify.Cosmos): Verification of [Azure CosmosDB](https://docs.microsoft.com/en-us/azure/cosmos-db/).
 * [Verify.DiffPlex](https://github.com/VerifyTests/Verify.DiffPlex): Comparison of text via [DiffPlex](https://github.com/mmanela/diffplex).
@@ -971,6 +973,7 @@ This readme will not discuss definitive list of details for proper setup of the 
 * [Verify.ImageMagick](https://github.com/VerifyTests/Verify.ImageMagick): Verification and comparison of images via [Magick.NET](https://github.com/dlemstra/Magick.NET).
 * [Verify.ImageSharp](https://github.com/VerifyTests/Verify.ImageSharp): Verification of images via [ImageSharp](https://github.com/SixLabors/ImageSharp).
 * [Verify.MailMessage](https://github.com/VerifyTests/Verify.MailMessage): Verification of [MailMessage](https://learn.microsoft.com/en-us/dotnet/api/system.net.mail.mailmessage) and related types.
+* [YellowDogMan.Verify.Marshaling](https://github.com/Yellow-Dog-Man/Verify.Marshaling): Verification of [Struct Marshaling](https://learn.microsoft.com/en-us/dotnet/standard/native-interop/customize-struct-marshalling).
 * [Verify.MassTransit](https://github.com/VerifyTests/Verify.MassTransit): Support for MassTransit test helpers.
 * [Verify.MicrosoftLogging](https://github.com/VerifyTests/Verify.MicrosoftLogging): Verify MicrosoftLogging.
 * [Verify.MongoDB](https://github.com/flcdrg/Verify.MongoDB): Verification of [MongoDB](https://www.mongodb.com/) bits.
@@ -989,6 +992,7 @@ This readme will not discuss definitive list of details for proper setup of the 
 * [Verify.RavenDb](https://github.com/VerifyTests/Verify.RavenDb): Verification of [RavenDb](https://ravendb.net) bits.
 * [Verify.SendGrid](https://github.com/VerifyTests/Verify.SendGrid): Verification of [SendGrid](https://github.com/sendgrid/sendgrid-csharp).
 * [Verify.Serilog](https://github.com/VerifyTests/Verify.Serilog): Verification of [Serilog](https://serilog.net/) bits.
+* [YellowDogMan.Verify.ssimulacra2](https://github.com/Yellow-Dog-Man/Verify.ssimulacra2): Verification and comparison of images via [ssimulacra2](https://github.com/cloudinary/ssimulacra2).
 * [Verify.SqlServer](https://github.com/VerifyTests/Verify.SqlServer): Verification of SqlServer bits.
 * [Verify.SourceGenerators](https://github.com/VerifyTests/Verify.SourceGenerators): Verification of C# Source Generators.
 * [Verify.SystemJson](https://github.com/VerifyTests/Verify.SystemJson): Support for converting System.Text.Json types.

@@ -125,6 +125,21 @@
         VerifyJson("{'key': 'c572ff75-e1a2-49bd-99b9-4550697946c3'}");
 
     [Fact]
+    public Task VerifyJsonScrubBasedOnPath() =>
+        VerifyJson(
+                """
+                {
+                  "member1": {
+                    "prop1": "value1"
+                  },
+                  "member2": {
+                    "prop1": "value2"
+                  }
+                }
+                """)
+            .IgnoreInstance<JValue>(_ => _.Path == "member1.prop1");
+
+    [Fact]
     public Task VerifyJsonEmpty() =>
         VerifyJson("{}");
 

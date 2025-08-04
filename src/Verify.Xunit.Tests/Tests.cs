@@ -1,4 +1,4 @@
-﻿// ReSharper disable UnusedParameter.Local
+// ReSharper disable UnusedParameter.Local
 
 // ReSharper disable ArrangeObjectCreationWhenTypeNotEvident
 public class Tests

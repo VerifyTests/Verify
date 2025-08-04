@@ -8,7 +8,9 @@ public class Tests
         DerivePathInfo(
             (sourceFile, projectDirectory, methodName, typeName) =>
             {
+#pragma warning disable TUnit0200
                 Check(sourceFile, projectDirectory, methodName, typeName).GetAwaiter().GetResult();
+#pragma warning restore TUnit0200
                 return new("CustomDir", "CustomTypeName", "CustomMethodName");
             });
         return Verify("Value");

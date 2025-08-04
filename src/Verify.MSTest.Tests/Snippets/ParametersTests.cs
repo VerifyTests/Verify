@@ -1,19 +1,19 @@
 [TestClass]
 public partial class ParametersTests
 {
-    //[DataTestMethod]
+    //[TestMethod]
     //[DataRow("1.1")]
     //public async Task Decimal(decimal arg)
     //{
     //    await Verify(arg);
     //}
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow((float) 1.1)]
     public Task Float(float arg) =>
         Verify(arg);
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow(1.1d)]
     public Task Double(double arg) =>
         Verify(arg);

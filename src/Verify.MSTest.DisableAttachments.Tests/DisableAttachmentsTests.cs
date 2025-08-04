@@ -9,7 +9,7 @@ public class DisableAttachmentsTests : VerifyBase
         VerifierSettings.DisableAttachments();
         var settings = new VerifySettings();
         settings.DisableDiff();
-        return Assert.ThrowsExceptionAsync<VerifyException>(
+        return Assert.ThrowsExactlyAsync<VerifyException>(
             () => Verify("Bar", settings));
     }
 }

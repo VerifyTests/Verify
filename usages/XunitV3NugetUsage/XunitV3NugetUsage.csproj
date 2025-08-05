@@ -7,9 +7,9 @@
   <ItemGroup>
     <!-- begin-snippet: xunitv3-nugets -->
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
-    <PackageReference Include="Verify.XunitV3" Version="30.4.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.1" PrivateAssets="all" />
-    <PackageReference Include="xunit.v3" Version="2.0.3" />
+    <PackageReference Include="Verify.XunitV3" Version="30.5.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.3" PrivateAssets="all" />
+    <PackageReference Include="xunit.v3" Version="3.0.0" />
     <!-- end-snippet -->
   </ItemGroup>
 </Project>

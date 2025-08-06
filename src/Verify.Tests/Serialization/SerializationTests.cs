@@ -90,14 +90,14 @@ public class SerializationTests
 #endif
 
     [Fact]
-    public Task UninitializedImmutableArray() =>
+    public Task ImmutableArray_Uninitialized() =>
         Verify(new HasImmutableArray());
 
     [Fact]
-    public Task EmptyImmutableArray() =>
+    public Task ImmutableArray_Empty() =>
         Verify(new HasImmutableArray
         {
-            Array = ImmutableArray<int>.Empty
+            Array = []
         });
 
     internal class HasImmutableArray

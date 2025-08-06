@@ -84,13 +84,7 @@ public class Tests
 
     #endregion
 
-    static List<Artifact> GetAttachments()
-    {
-        var context = TestContext.Current!;
-        var field = typeof(TestContext)
-            .GetField("Artifacts", BindingFlags.Instance | BindingFlags.NonPublic)!;
-        return (List<Artifact>)field.GetValue(context)!;
-    }
+    static IReadOnlyList<Artifact> GetAttachments() => TestContext.Current!.Artifacts;
 
     [Test]
     public async Task ChangeHasAttachment()

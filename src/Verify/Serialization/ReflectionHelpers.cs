@@ -1,4 +1,6 @@
-﻿static class ReflectionHelpers
+using System.Collections.Immutable;
+
+static class ReflectionHelpers
 {
     public static bool InheritsFrom(this Type type, Type parent)
     {
@@ -75,6 +77,14 @@
             return false;
         }
 
+        var type = target.GetType();
+        if (IsDefaultOrEmptyImmutableArray(target, type))
+        {
+            enumerable = Array.Empty<object>();
+            isEmpty = true;
+            return true;
+        }
+
         if (target is ICollection collection)
         {
             enumerable = collection;
@@ -88,8 +98,6 @@
             isEmpty = null;
             return false;
         }
-
-        var type = target.GetType();
 
         if (type.IsEnumerableEmpty())
         {
@@ -166,4 +174,20 @@
         type.IsGeneric(
             typeof(ICollection<>),
             typeof(IReadOnlyCollection<>));
+
+    static bool IsDefaultOrEmptyImmutableArray(object target, Type targetType)
+    {
+        if (!targetType.IsGeneric(typeof(ImmutableArray<>)))
+        {
+            return false;
+        }
+
+        var isDefaultOrEmptyProperty = targetType.GetProperty(
+                                           name: nameof(ImmutableArray<int>.IsDefaultOrEmpty),
+                                           bindingAttr: BindingFlags.Public | BindingFlags.Instance)
+                                       ?? throw new NotSupportedException("There is no IsDefaultOrEmpty property on ImmutableArray.");
+
+        return (bool)isDefaultOrEmptyProperty.GetMethod!.Invoke(target, null)!;
+    }
+
 }

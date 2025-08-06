@@ -1,10 +1,13 @@
-﻿// ReSharper disable NotAccessedField.Local
+// ReSharper disable NotAccessedField.Local
 
 // ReSharper disable RedundantSuppressNullableWarningExpression
 // ReSharper disable UnusedParameter.Local
 // ReSharper disable MemberCanBeMadeStatic.Local
 
 // Non-nullable field is uninitialized.
+
+using System.Collections.Immutable;
+
 #pragma warning disable CS8618
 
 public class SerializationTests
@@ -83,7 +86,24 @@ public class SerializationTests
                 })
             .UniqueForRuntime();
     }
+
 #endif
+
+    [Fact]
+    public Task UninitializedImmutableArray() =>
+        Verify(new HasImmutableArray());
+
+    [Fact]
+    public Task EmptyImmutableArray() =>
+        Verify(new HasImmutableArray
+        {
+            Array = ImmutableArray<int>.Empty
+        });
+
+    internal class HasImmutableArray
+    {
+        public ImmutableArray<int> Array;
+    }
 
     [Fact]
     public Task PathInfos() =>

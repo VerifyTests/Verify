@@ -77,16 +77,15 @@ static class ReflectionHelpers
             return false;
         }
 
-        var type = target.GetType();
-        if (IsDefaultOrEmptyImmutableArray(target, type))
-        {
-            enumerable = Array.Empty<object>();
-            isEmpty = true;
-            return true;
-        }
-
         if (target is ICollection collection)
         {
+            if (IsDefaultOrEmptyImmutableArray(target))
+            {
+                enumerable = Array.Empty<object>();
+                isEmpty = true;
+                return true;
+            }
+
             enumerable = collection;
             isEmpty = collection.Count == 0;
             return true;
@@ -99,6 +98,7 @@ static class ReflectionHelpers
             return false;
         }
 
+        var type = target.GetType();
         if (type.IsEnumerableEmpty())
         {
             enumerable = enumerableTarget;
@@ -175,8 +175,9 @@ static class ReflectionHelpers
             typeof(ICollection<>),
             typeof(IReadOnlyCollection<>));
 
-    static bool IsDefaultOrEmptyImmutableArray(object target, Type targetType)
+    static bool IsDefaultOrEmptyImmutableArray(object target)
     {
+        var targetType = target.GetType();
         if (!targetType.IsGeneric(typeof(ImmutableArray<>)))
         {
             return false;

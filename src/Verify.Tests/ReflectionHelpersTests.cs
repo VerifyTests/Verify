@@ -1,5 +1,3 @@
-using System.Collections.Immutable;
-
 public class ReflectionHelpersTests
 {
     [Theory]
@@ -31,7 +29,7 @@ public class ReflectionHelpersTests
     {
         ImmutableArray<int> uninitializedImmutableArray = default;
 
-        var cases = new TheoryData<object, bool>
+        return new()
         {
             { Array.Empty<int>(), true },
             { new ImmutableArray<int>(), true },
@@ -39,6 +37,5 @@ public class ReflectionHelpersTests
             { ImmutableDictionary.Create<byte, string>(), true },
             { new Dictionary<string, object>(), true}
         };
-        return cases;
     }
 }

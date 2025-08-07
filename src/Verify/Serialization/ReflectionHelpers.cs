@@ -184,7 +184,7 @@ static class ReflectionHelpers
         }
 
         var isDefaultOrEmptyProperty = targetType.GetProperty(
-                                           name: nameof(ImmutableArray<int>.IsDefaultOrEmpty),
+                                           name: nameof(ImmutableArray<>.IsDefaultOrEmpty),
                                            bindingAttr: BindingFlags.Public | BindingFlags.Instance)
                                        ?? throw new NotSupportedException("There is no IsDefaultOrEmpty property on ImmutableArray.");
 

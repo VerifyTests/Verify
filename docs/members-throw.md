@@ -35,7 +35,7 @@ public Task CustomExceptionPropFluent()
         .IgnoreMembersThatThrow<CustomException>();
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3790-L3809' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3788-L3807' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -45,7 +45,7 @@ Or globally:
 ```cs
 VerifierSettings.IgnoreMembersThatThrow<CustomException>();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3784-L3788' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrowGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3782-L3786' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrowGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -82,7 +82,7 @@ public Task ExceptionMessagePropFluent()
         .IgnoreMembersThatThrow<Exception>(_ => _.Message == "Ignore");
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2456-L2477' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrowExpression' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2454-L2475' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrowExpression' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -92,7 +92,7 @@ Or globally:
 ```cs
 VerifierSettings.IgnoreMembersThatThrow<Exception>(_ => _.Message == "Ignore");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2449-L2453' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrowExpressionGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2447-L2451' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrowExpressionGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:

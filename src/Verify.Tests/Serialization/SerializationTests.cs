@@ -6,8 +6,6 @@
 
 // Non-nullable field is uninitialized.
 
-using System.Collections.Immutable;
-
 #pragma warning disable CS8618
 
 public class SerializationTests

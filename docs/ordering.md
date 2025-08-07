@@ -78,7 +78,7 @@ public Task DontOrderDictionaries()
         .DontSortDictionaries();
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L163-L185' title='Snippet source file'>snippet source</a> | <a href='#snippet-DontOrderDictionaries-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L161-L183' title='Snippet source file'>snippet source</a> | <a href='#snippet-DontOrderDictionaries-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

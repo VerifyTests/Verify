@@ -4228,7 +4228,7 @@ public class SerializationTests
     [Fact]
     public Task Ref()
     {
-        var json = """{ "a": { "$id": "x", "b": 1 }, "b": 2, "c": { "$ref": "#x/b" }, "d": { "$ref": "#/b" } }""";
+        var json = """{ "a": { "$id": "x", "b": 1 }, "b": 2, "c": { "$ref": "#x/b" }, "d": { "$ref": "#/b" }, "e": [ { "$ref": "#/b" } ] }""";
         return VerifyJson(json);
     }
 

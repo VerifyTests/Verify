@@ -30,8 +30,8 @@
     <PackageVersion Include="System.Drawing.Common" Version="9.0.8" />
     <PackageVersion Include="System.Memory" Version="4.6.3" />
     <PackageVersion Include="TextCopy" Version="6.2.1" />
-    <PackageVersion Include="TUnit" Version="0.52.22" />
-    <PackageVersion Include="TUnit.Core" Version="0.53.0" />
+    <PackageVersion Include="TUnit" Version="0.55.23" />
+    <PackageVersion Include="TUnit.Core" Version="0.55.23" />
     <PackageVersion Include="Xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.abstractions" Version="2.0.3" />
     <PackageVersion Include="xunit.extensibility.execution" Version="2.9.3" />

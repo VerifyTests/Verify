@@ -475,8 +475,8 @@ This readme will not discuss definitive list of details for proper setup of the 
 * [Spectre.Verify.Extensions](https://github.com/spectresystems/spectre.verify.extensions): Add an attribute driven file naming convention to Verify.
 * [Verify.Sylvan.Data.Excel](https://github.com/VerifyTests/Verify.Sylvan.Data.Excel): Verification of Excel documents via [Sylvan.Data.Excel](https://github.com/MarkPflug/Sylvan.Data.Excel/).
 * [Verify.Syncfusion](https://github.com/VerifyTests/Verify.Syncfusion): Verification of documents (pdf, docx, xlsx, and pptx) via [Syncfusion File Formats](https://help.syncfusion.com/file-formats/introduction).
-* [Verify.Yaml](https://github.com/VerifyTests/Verify.Yaml): Verifiable test context for [Wolverine](https://github.com/JasperFx/wolverine).
-* [Verify.Wolverine](https://github.com/VerifyTests/Verify.Wolverine): Support for [YamlDotNet](https://github.com/aaubry/YamlDotNet) types.
+* [Verify.Wolverine](https://github.com/VerifyTests/Verify.Wolverine):Verifiable test context for [Wolverine](https://github.com/JasperFx/wolverine).
+* [Verify.Yaml](https://github.com/VerifyTests/Verify.Yaml): Support for [YamlDotNet](https://github.com/aaubry/YamlDotNet) types.
 * [Verify.ZeroLog](https://github.com/VerifyTests/Verify.ZeroLog): Verifiable test context for [ZeroLog](https://github.com/Abc-Arbitrage/ZeroLog).
 
 

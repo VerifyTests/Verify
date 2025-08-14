@@ -20,7 +20,7 @@ public static partial class Verifier
         VerifierSettings.OnVerifyMismatch((pair, _, _) => AddFile(pair));
     }
 
-    static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory)
+    public static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory = false)
     {
         var context = TestContext.Current;
         var testMethod = context.GetTestMethod();

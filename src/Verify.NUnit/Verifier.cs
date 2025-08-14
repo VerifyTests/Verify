@@ -18,7 +18,7 @@ public static partial class Verifier
         VerifierSettings.OnVerifyMismatch((pair, _, _) => AddFile(pair));
     }
 
-    static InnerVerifier BuildVerifier(string sourceFile, VerifySettings settings, bool useUniqueDirectory)
+    public static InnerVerifier BuildVerifier(string sourceFile, VerifySettings settings, bool useUniqueDirectory = false)
     {
         Guards.AgainstBadSourceFile(sourceFile);
         if (useUniqueDirectory)

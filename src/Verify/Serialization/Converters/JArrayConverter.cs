@@ -3,7 +3,12 @@
 {
     public override void Write(VerifyJsonWriter writer, JArray value)
     {
-        var list = value.ToObject<List<object>>(writer.Serializer)!;
+        var list = new List<object>();
+        foreach (var item in value)
+        {
+            list.Add(item);
+        }
+
         writer.Serialize(list);
     }
 }

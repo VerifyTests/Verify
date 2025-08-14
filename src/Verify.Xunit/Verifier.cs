@@ -2,7 +2,7 @@
 
 public static partial class Verifier
 {
-    static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory)
+    public static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory = false)
     {
         var method = UseVerifyAttribute.GetMethod();
 

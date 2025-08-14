@@ -1,10 +1,11 @@
-﻿// ReSharper disable NotAccessedField.Local
+// ReSharper disable NotAccessedField.Local
 
 // ReSharper disable RedundantSuppressNullableWarningExpression
 // ReSharper disable UnusedParameter.Local
 // ReSharper disable MemberCanBeMadeStatic.Local
 
 // Non-nullable field is uninitialized.
+
 #pragma warning disable CS8618
 
 public class SerializationTests
@@ -83,7 +84,24 @@ public class SerializationTests
                 })
             .UniqueForRuntime();
     }
+
 #endif
+
+    [Fact]
+    public Task ImmutableArray_Uninitialized() =>
+        Verify(new HasImmutableArray());
+
+    [Fact]
+    public Task ImmutableArray_Empty() =>
+        Verify(new HasImmutableArray
+        {
+            Array = []
+        });
+
+    internal class HasImmutableArray
+    {
+        public ImmutableArray<int> Array;
+    }
 
     [Fact]
     public Task PathInfos() =>
@@ -4210,7 +4228,7 @@ public class SerializationTests
     [Fact]
     public Task Ref()
     {
-        var json = """{ "a": { "$id": "x", "b": 1 }, "b": 2, "c": { "$ref": "#x/b" }, "d": { "$ref": "#/b" } }""";
+        var json = """{ "a": { "$id": "x", "b": 1 }, "b": 2, "c": { "$ref": "#x/b" }, "d": { "$ref": "#/b" }, "e": [ { "$ref": "#/b" } ] }""";
         return VerifyJson(json);
     }
 

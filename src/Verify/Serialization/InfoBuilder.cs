@@ -1,10 +1,12 @@
 ﻿class InfoBuilder
 {
+    bool ignoreNullRoot;
     object? root;
     List<Item> inner = [];
 
-    public InfoBuilder(object? root, IEnumerable<ToAppend> appends)
+    public InfoBuilder(bool ignoreNullRoot, object? root, IEnumerable<ToAppend> appends)
     {
+        this.ignoreNullRoot = ignoreNullRoot;
         this.root = root;
         foreach (var append in appends)
         {
@@ -54,14 +56,17 @@
 
             writer.WriteStartObject();
 
-            writer.WritePropertyName("target");
-            if (root == null)
+            if (!value.ignoreNullRoot)
             {
-                writer.WriteValue("null");
-            }
-            else
-            {
-                writer.Serialize(root);
+                writer.WritePropertyName("target");
+                if (root == null)
+                {
+                    writer.WriteValue("null");
+                }
+                else
+                {
+                    writer.Serialize(root);
+                }
             }
 
             foreach (var item in value.inner)

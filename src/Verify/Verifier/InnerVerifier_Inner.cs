@@ -5,10 +5,10 @@ partial class InnerVerifier
     Task<VerifyResult> VerifyInner(IEnumerable<Target> targets) =>
         VerifyInner(null, null, targets, true, true);
 
-    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExtensionConversion, bool ignoreRoot)
+    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExtensionConversion, bool ignoreNullRoot)
     {
         var resultTargets = new List<Target>();
-        if (TryGetRootTarget(root, ignoreRoot, out var rootTarget))
+        if (TryGetRootTarget(root, ignoreNullRoot, out var rootTarget))
         {
             resultTargets.Add(rootTarget.Value);
         }
@@ -87,13 +87,13 @@ partial class InnerVerifier
         return (list, cleanup);
     }
 
-    bool TryGetRootTarget(object? root,bool ignoreRoot, [NotNullWhen(true)] out Target? target)
+    bool TryGetRootTarget(object? root,bool ignoreNullRoot, [NotNullWhen(true)] out Target? target)
     {
         var appends = VerifierSettings.GetJsonAppenders(settings);
 
         var hasAppends = appends.Count > 0;
 
-        if (ignoreRoot)
+        if (ignoreNullRoot && root == null)
         {
             if (hasAppends)
             {
@@ -102,7 +102,7 @@ partial class InnerVerifier
                     JsonFormatter.AsJson(
                         settings,
                         counter,
-                        new InfoBuilder(null, appends)));
+                        new InfoBuilder(ignoreNullRoot, null, appends)));
                 return true;
             }
 
@@ -125,7 +125,7 @@ partial class InnerVerifier
                     JsonFormatter.AsJson(
                         settings,
                         counter,
-                        new InfoBuilder(stringRoot, appends)));
+                        new InfoBuilder(false, stringRoot, appends)));
             }
             else
             {
@@ -142,7 +142,7 @@ partial class InnerVerifier
             JsonFormatter.AsJson(
                 settings,
                 counter,
-                new InfoBuilder(root, appends)));
+                new InfoBuilder(ignoreNullRoot, root, appends)));
         return true;
     }
 }

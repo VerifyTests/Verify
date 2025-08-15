@@ -30,7 +30,7 @@
             if (Recording.IsRecording() || paused)
             {
                 var appends = Recording.Values().ToList();
-                value = new InfoBuilder(value, appends);
+                value = new InfoBuilder(false, value, appends);
                 Recording.Clear();
                 if (paused)
                 {
@@ -50,7 +50,7 @@
             if (Recording.IsRecording() || paused)
             {
                 var appends = Recording.Values().ToList();
-                var value = new InfoBuilder("void", appends);
+                var value = new InfoBuilder(false, "void", appends);
                 Recording.Clear();
                 if (paused)
                 {
@@ -85,7 +85,7 @@
                 if (Recording.IsRecording() || paused)
                 {
                     var appends = Recording.Values().ToList();
-                    var value = new InfoBuilder(exception, appends);
+                    var value = new InfoBuilder(false, exception, appends);
                     items.Add(CombinationResult.ForValue(keys, value));
                     Recording.Clear();
                     if (paused)

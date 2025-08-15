@@ -5,7 +5,10 @@ public class TypeConverterTests
     [ModuleInitializer]
     public static void InheritedInit() =>
         VerifierSettings.RegisterFileConverter<ParentClass>(
-            (instance, _) => new(null, "txt", instance.Value));
+            (instance, _) =>
+            {
+                return new(null, "txt", instance.Value);
+            });
 
     [Fact]
     public Task Inherited()

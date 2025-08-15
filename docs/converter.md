@@ -163,7 +163,7 @@ return new(
         return Task.CompletedTask;
     });
 ```
-<sup><a href='/src/Verify.Tests/Converters/TypeConverterTests.cs#L35-L47' title='Snippet source file'>snippet source</a> | <a href='#snippet-ConversionResultWithCleanup' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/TypeConverterTests.cs#L32-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-ConversionResultWithCleanup' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

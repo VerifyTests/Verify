@@ -56,17 +56,18 @@
 
             writer.WriteStartObject();
 
-            if (!value.ignoreNullRoot)
+            if (root == null)
             {
-                writer.WritePropertyName("target");
-                if (root == null)
+                if (!value.ignoreNullRoot)
                 {
+                    writer.WritePropertyName("target");
                     writer.WriteValue("null");
                 }
-                else
-                {
-                    writer.Serialize(root);
-                }
+            }
+            else
+            {
+                writer.WritePropertyName("target");
+                writer.Serialize(root);
             }
 
             foreach (var item in value.inner)

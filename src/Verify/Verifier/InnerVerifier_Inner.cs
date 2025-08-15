@@ -93,19 +93,8 @@ partial class InnerVerifier
 
         var hasAppends = appends.Count > 0;
 
-        if (ignoreNullRoot && root == null)
+        if (ignoreNullRoot && root == null && !hasAppends)
         {
-            if (hasAppends)
-            {
-                target = new(
-                    settings.TxtOrJson,
-                    JsonFormatter.AsJson(
-                        settings,
-                        counter,
-                        new InfoBuilder(ignoreNullRoot, null, appends)));
-                return true;
-            }
-
             target = null;
             return false;
         }

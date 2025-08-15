@@ -40,8 +40,7 @@
             var root = value.root;
             if (value.inner.Count == 0)
             {
-                if (root == null ||
-                    root == InnerVerifier.IgnoreTarget)
+                if (root == null)
                 {
                     writer.Serialize("null");
                 }
@@ -55,17 +54,14 @@
 
             writer.WriteStartObject();
 
-            if (root != InnerVerifier.IgnoreTarget)
+            writer.WritePropertyName("target");
+            if (root == null)
             {
-                writer.WritePropertyName("target");
-                if (root == null)
-                {
-                    writer.WriteValue("null");
-                }
-                else
-                {
-                    writer.Serialize(root);
-                }
+                writer.WriteValue("null");
+            }
+            else
+            {
+                writer.Serialize(root);
             }
 
             foreach (var item in value.inner)

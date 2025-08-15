@@ -4,16 +4,14 @@ partial class InnerVerifier
 {
     static IEnumerable<Target> emptyTargets = [];
 
-    internal static object IgnoreTarget { get; } = new();
-
     public Task<VerifyResult> Verify() =>
-        VerifyInner(IgnoreTarget, null, emptyTargets, true);
+        VerifyInner(null, null, emptyTargets, true, true);
 
     public async Task<VerifyResult> Verify(object? target)
     {
         if (target is null)
         {
-            return await VerifyInner(target, null, emptyTargets, true);
+            return await VerifyInner(target, null, emptyTargets, true, false);
         }
 
         if (target is XContainer container)
@@ -60,9 +58,9 @@ partial class InnerVerifier
         if (VerifierSettings.TryGetTypedConverter(target, settings, out var converter))
         {
             var result = await converter.Conversion(target, settings.Context);
-            return await VerifyInner(result.Info, result.Cleanup, result.Targets, true);
+            return await VerifyInner(result.Info, result.Cleanup, result.Targets, true, false);
         }
 
-        return await VerifyInner(target, null, emptyTargets, true);
+        return await VerifyInner(target, null, emptyTargets, true, false);
     }
 }

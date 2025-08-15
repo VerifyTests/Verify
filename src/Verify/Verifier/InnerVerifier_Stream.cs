@@ -90,7 +90,7 @@ partial class InnerVerifier
             {
                 var (newInfo, converted, cleanup) = await DoExtensionConversion(extension, stream, info, null);
 
-                return await VerifyInner(newInfo, cleanup, converted, false);
+                return await VerifyInner(newInfo, cleanup, converted, false, true);
             }
 
             var target = await GetTarget(stream, extension);

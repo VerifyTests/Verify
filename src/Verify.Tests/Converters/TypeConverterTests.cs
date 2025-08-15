@@ -97,6 +97,23 @@ public class TypeConverterTests
         return Verify(target);
     }
 
+    [Fact]
+    public Task ConvertWithCanConvert_AndAppends()
+    {
+        var target = new CanConvertTarget("Valid");
+        return Verify(target)
+            .AppendValue("AppendKey", "AppendValue");
+    }
+
+    [Fact]
+    public Task ConvertWithCanConvert_AndRecording()
+    {
+        Recording.Start();
+        Recording.Add("RecordKey", "RecordValue");
+        var target = new CanConvertTarget("Valid");
+        return Verify(target);
+    }
+
     record CanConvertTarget(string Value);
 
     [ModuleInitializer]

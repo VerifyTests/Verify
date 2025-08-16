@@ -1,25 +1,34 @@
-﻿namespace VerifyTests;
+﻿#pragma warning disable AddScrubberWithSettings
+
+namespace VerifyTests;
 
 public static partial class VerifierSettings
 {
-    internal static List<Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>>> GlobalScrubbers = [];
+    internal static List<Action<StringBuilder, Counter, VerifySettings>> GlobalScrubbers = [];
 
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
     public static void AddScrubber(Action<StringBuilder> scrubber, ScrubberLocation location = ScrubberLocation.First) =>
-        AddScrubber((builder, _, _) => scrubber(builder), location);
+        AddScrubber((StringBuilder builder, Counter _, IReadOnlyDictionary<string, object> _) => scrubber(builder), location);
 
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
     public static void AddScrubber(Action<StringBuilder, Counter> scrubber, ScrubberLocation location = ScrubberLocation.First) =>
-        AddScrubber((builder, counter, _) => scrubber(builder, counter), location);
+        AddScrubber((StringBuilder builder, Counter counter, IReadOnlyDictionary<string, object> _) => scrubber(builder, counter), location);
 
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
-    public static void AddScrubber(Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>> scrubber, ScrubberLocation location = ScrubberLocation.First)
+    public static void AddScrubber(Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>> scrubber, ScrubberLocation location = ScrubberLocation.First) =>
+        AddScrubber((StringBuilder builder, Counter counter, VerifySettings settings) => scrubber(builder, counter,settings.Context), location);
+
+    /// <summary>
+    /// Modify the resulting test content using custom code.
+    /// </summary>
+    [Experimental("AddScrubberWithSettings")]
+    public static void AddScrubber(Action<StringBuilder, Counter, VerifySettings> scrubber, ScrubberLocation location = ScrubberLocation.First)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         switch (location)

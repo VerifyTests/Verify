@@ -36,7 +36,7 @@ public partial class Tests
     {
         ResultFilesCallback.Callback = list =>
         {
-            Assert.AreEqual(1, list.Count);
+            Assert.HasCount(1, list);
             var file = Path.GetFileName(list[0]);
             Assert.AreEqual($"Tests.ChangeHasAttachment.{Namer.TargetFrameworkNameAndVersion}.received.txt", file);
         };
@@ -76,7 +76,7 @@ public partial class Tests
     {
         ResultFilesCallback.Callback = list =>
         {
-            Assert.AreEqual(1, list.Count);
+            Assert.HasCount(1, list);
             var file = Path.GetFileName(list[0]);
             Assert.AreEqual($"Tests.NewHasAttachment.{Namer.TargetFrameworkNameAndVersion}.received.txt", file);
         };
@@ -92,7 +92,7 @@ public partial class Tests
     {
         ResultFilesCallback.Callback = list =>
         {
-            Assert.AreEqual(2, list.Count);
+            Assert.HasCount(2, list);
             var file0 = Path.GetFileName(list[0]);
             var file1 = Path.GetFileName(list[1]);
             Assert.AreEqual($"Tests.MultipleChangedHasAttachment.{Namer.TargetFrameworkNameAndVersion}#00.received.txt", file0);
@@ -110,7 +110,7 @@ public partial class Tests
     {
         ResultFilesCallback.Callback = list =>
         {
-            Assert.AreEqual(2, list.Count);
+            Assert.HasCount(2, list);
             var file0 = Path.GetFileName(list[0]);
             var file1 = Path.GetFileName(list[1]);
             Assert.AreEqual($"Tests.MultipleNewHasAttachment.{Namer.TargetFrameworkNameAndVersion}#00.received.txt", file0);

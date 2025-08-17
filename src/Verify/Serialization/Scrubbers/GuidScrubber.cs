@@ -2,7 +2,7 @@
 {
     public static void ReplaceGuids(StringBuilder builder, Counter counter)
     {
-        if (!counter.ScrubDateTimes)
+        if (!counter.ScrubGuids)
         {
             return;
         }

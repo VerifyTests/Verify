@@ -2,6 +2,11 @@
 {
     public static void ReplaceGuids(StringBuilder builder, Counter counter)
     {
+        if (!counter.ScrubDateTimes)
+        {
+            return;
+        }
+
         //{173535ae-995b-4cc6-a74e-8cd4be57039c}
         if (builder.Length < 36)
         {

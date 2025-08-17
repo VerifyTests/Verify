@@ -24,7 +24,7 @@ partial class Counter
         return NextString(guid);
     }
 
-    internal bool TryParseConvertGuid( CharSpan value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertGuid(CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (ScrubGuids)
         {

@@ -160,6 +160,11 @@ static class DateScrubber
 
     static void ReplaceInner(StringBuilder builder, string format, Counter counter, Culture culture, TryConvert tryConvertDate)
     {
+        if (!counter.ScrubDateTimes)
+        {
+            return;
+        }
+
         var (max, min) = DateFormatLengthCalculator.GetLength(format, culture);
 
         if (builder.Length < min)

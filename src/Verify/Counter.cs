@@ -9,7 +9,9 @@ public partial class Counter
     Dictionary<DateTime, string> namedDateTimes;
     Dictionary<Guid, string> namedGuids;
     Dictionary<DateTimeOffset, string> namedDateTimeOffsets;
-    bool dateCounting;
+    public bool DateCounting { get; }
+    public bool ScrubDateTimes { get; }
+    public bool ScrubGuids { get; }
     static AsyncLocal<Counter?> local = new();
 
     internal bool TryGetNamed(object value, [NotNullWhen(true)] out string? result)
@@ -74,7 +76,7 @@ public partial class Counter
     }
 
     public static Counter? CurrentOrNull => local.Value;
-
+    [Obsolete("Use overload with scrubDateTimes and scrubGuids parameters")]
     public Counter(
         bool dateCounting,
 #if NET6_0_OR_GREATER
@@ -92,11 +94,36 @@ public partial class Counter
         this.namedDateTimes = namedDateTimes;
         this.namedGuids = namedGuids;
         this.namedDateTimeOffsets = namedDateTimeOffsets;
-        this.dateCounting = dateCounting;
+        this.DateCounting = dateCounting;
+    }
+    public Counter(
+        bool dateCounting,
+        bool scrubDateTimes,
+        bool scrubGuids,
+#if NET6_0_OR_GREATER
+        Dictionary<Date, string> namedDates,
+        Dictionary<Time, string> namedTimes,
+#endif
+        Dictionary<DateTime, string> namedDateTimes,
+        Dictionary<Guid, string> namedGuids,
+        Dictionary<DateTimeOffset, string> namedDateTimeOffsets)
+    {
+#if NET6_0_OR_GREATER
+        this.namedDates = namedDates;
+        this.namedTimes = namedTimes;
+#endif
+        this.namedDateTimes = namedDateTimes;
+        this.namedGuids = namedGuids;
+        this.namedDateTimeOffsets = namedDateTimeOffsets;
+        this.DateCounting = dateCounting;
+        this.ScrubDateTimes = scrubDateTimes;
+        this.ScrubGuids = scrubGuids;
     }
 
     internal static Counter Start(
         bool dateCounting = true,
+        bool scrubDateTimes = true,
+        bool scrubGuids = true,
 #if NET6_0_OR_GREATER
         Dictionary<Date, string>? namedDates = null,
         Dictionary<Time, string>? namedTimes = null,
@@ -107,6 +134,8 @@ public partial class Counter
     {
         var context = new Counter(
             dateCounting,
+            scrubDateTimes,
+            scrubGuids,
 #if NET6_0_OR_GREATER
             namedDates ?? [],
             namedTimes ?? [],

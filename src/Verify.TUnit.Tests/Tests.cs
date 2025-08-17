@@ -2,8 +2,6 @@
 
 // ReSharper disable ArrangeObjectCreationWhenTypeNotEvident
 
-using VerifyTUnit;
-
 public class Tests
 {
     static void DerivePathInfo() =>

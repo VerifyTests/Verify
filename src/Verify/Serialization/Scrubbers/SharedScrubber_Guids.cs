@@ -1,10 +1,12 @@
-﻿partial class SerializationSettings
+﻿namespace VerifyTests;
+
+partial class Counter
 {
-    internal bool TryConvert(Counter counter, Guid value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvert(Guid value, [NotNullWhen(true)] out string? result)
     {
-        if (scrubGuids)
+        if (ScrubGuids)
         {
-            result = Convert(counter, value);
+            result = Convert(value);
             return true;
         }
 
@@ -12,23 +14,23 @@
         return false;
     }
 
-    internal static string Convert(Counter counter, Guid guid)
+    internal string Convert(Guid guid)
     {
         if (guid == Guid.Empty)
         {
             return "Guid_Empty";
         }
 
-        return counter.NextString(guid);
+        return NextString(guid);
     }
 
-    internal bool TryParseConvertGuid(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertGuid( CharSpan value, [NotNullWhen(true)] out string? result)
     {
-        if (scrubGuids)
+        if (ScrubGuids)
         {
             if (Guid.TryParse(value, out var guid))
             {
-                result = Convert(counter, guid);
+                result = Convert(guid);
                 return true;
             }
         }

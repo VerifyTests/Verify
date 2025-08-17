@@ -31,7 +31,7 @@
                 if (!slice.ContainsNewline() &&
                     Guid.TryParseExact(slice, "D", out var guid))
                 {
-                    var convert = SerializationSettings.Convert(counter, guid);
+                    var convert = counter.Convert(guid);
                     builder.Overwrite(convert, builderIndex, 36);
                     builderIndex += convert.Length;
                     index += 35;

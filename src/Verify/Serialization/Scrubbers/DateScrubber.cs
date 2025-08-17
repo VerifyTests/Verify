@@ -25,7 +25,7 @@ static class DateScrubber
 
         if (Date.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
         {
-            result = SerializationSettings.Convert(counter, date);
+            result = counter.Convert(date);
             return true;
         }
 
@@ -93,7 +93,7 @@ static class DateScrubber
 
         if (DateTimeOffset.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
         {
-            result = SerializationSettings.Convert(counter, date);
+            result = counter.Convert(date);
             return true;
         }
 
@@ -128,7 +128,7 @@ static class DateScrubber
 
         if (DateTimePolyfill.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
         {
-            result = SerializationSettings.Convert(counter, date);
+            result = counter.Convert(date);
             return true;
         }
 

@@ -60,9 +60,9 @@ partial class SerializationSettings
             .ToDictionary(
                 _ => _.Key,
                 _ => _.Value.Clone());
-        scrubDateTimes = settings.scrubDateTimes;
+        ScrubDateTimes = settings.ScrubDateTimes;
         enumerableInterceptors = new(settings.enumerableInterceptors);
-        scrubGuids = settings.scrubGuids;
+        ScrubGuids = settings.ScrubGuids;
         includeObsoletes = settings.includeObsoletes;
         ignoredMemberPredicatesByString = settings.ignoredMemberPredicatesByString.Clone();
         ignoredMemberPredicatesByMember = settings.ignoredMemberPredicatesByMember.Clone();
@@ -70,15 +70,15 @@ partial class SerializationSettings
         jsonSettings = BuildSettings();
     }
 
-    bool scrubGuids = true;
+    public bool ScrubGuids { get; private set; } = true;
 
     public void DontScrubGuids() =>
-        scrubGuids = false;
+        ScrubGuids = false;
 
-    bool scrubDateTimes = true;
+    public bool ScrubDateTimes { get; private set; } = true;
 
     public void DontScrubDateTimes() =>
-        scrubDateTimes = false;
+        ScrubDateTimes = false;
 
     JsonSerializerSettings BuildSettings()
     {

@@ -87,10 +87,10 @@ partial class InnerVerifier
             switch (node)
             {
                 case XText text:
-                    text.Value = ConvertValue(serialization, text.Value);
+                    text.Value = ConvertValue(text.Value);
                     continue;
                 case XComment comment:
-                    comment.Value = ConvertValue(serialization, comment.Value);
+                    comment.Value = ConvertValue(comment.Value);
                     continue;
             }
         }
@@ -98,10 +98,10 @@ partial class InnerVerifier
         return VerifyString(target.ToString(), "xml");
     }
 
-    string ConvertValue(SerializationSettings serialization, string value)
+    string ConvertValue(string value)
     {
         var span = value.AsSpan();
-        if (serialization.TryConvertString(counter, span, out var result))
+        if (counter.TryConvertString(span, out var result))
         {
             return result;
         }
@@ -130,7 +130,7 @@ partial class InnerVerifier
             }
 
             var span = attribute.Value.AsSpan();
-            if (serialization.TryConvertString(counter, span, out var result))
+            if (counter.TryConvertString(span, out var result))
             {
                 attribute.Value = result;
             }

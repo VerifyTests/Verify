@@ -1,4 +1,6 @@
-﻿partial class SerializationSettings
+﻿namespace VerifyTests;
+
+partial class Counter
 {
 #if NET6_0_OR_GREATER
     internal static List<string> dateFormats = ["d"];
@@ -7,28 +9,28 @@
     internal static List<string> dateTimeFormats = [];
     internal static List<string> dateTimeOffsetFormats = [];
 
-    internal bool TryConvert(Counter counter, DateTime value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvert(DateTime value, [NotNullWhen(true)] out string? result)
     {
-        if (!scrubDateTimes)
+        if (!ScrubDateTimes)
         {
             result = null;
             return false;
         }
 
-        result = Convert(counter, value);
+        result = Convert(value);
         return true;
     }
 
 #if NET6_0_OR_GREATER
-    internal bool TryParseConvertDate(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertDate(CharSpan value, [NotNullWhen(true)] out string? result)
     {
-        if (scrubDateTimes)
+        if (ScrubDateTimes)
         {
             foreach (var format in dateFormats)
             {
                 if (Date.TryParseExact(value, format, null, DateTimeStyles.None, out var date))
                 {
-                    result = Convert(counter, date);
+                    result = Convert(date);
                     return true;
                 }
             }
@@ -38,19 +40,19 @@
         return false;
     }
 
-    internal bool TryConvert(Counter counter, Date value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvert(Date value, [NotNullWhen(true)] out string? result)
     {
-        if (!scrubDateTimes)
+        if (!ScrubDateTimes)
         {
             result = null;
             return false;
         }
 
-        result = Convert(counter, value);
+        result = Convert(value);
         return true;
     }
 
-    internal static string Convert(Counter counter, Date date)
+    internal string Convert(Date date)
     {
         if (date == Date.MaxValue)
         {
@@ -62,18 +64,18 @@
             return "Date_MinValue";
         }
 
-        return counter.NextString(date);
+        return NextString(date);
     }
 
-    internal bool TryParseConvertTime(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertTime(CharSpan value, [NotNullWhen(true)] out string? result)
     {
-        if (scrubDateTimes)
+        if (ScrubDateTimes)
         {
             foreach (var format in timeFormats)
             {
                 if (Time.TryParseExact(value, format, null, DateTimeStyles.None, out var time))
                 {
-                    result = Convert(counter, time);
+                    result = Convert(time);
                     return true;
                 }
             }
@@ -83,11 +85,11 @@
         return false;
     }
 
-    internal bool TryConvert(Counter counter, Time value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvert(Time value, [NotNullWhen(true)] out string? result)
     {
-        if (scrubDateTimes)
+        if (ScrubDateTimes)
         {
-            result = Convert(counter, value);
+            result = Convert( value);
             return true;
         }
 
@@ -95,7 +97,7 @@
         return false;
     }
 
-    static string Convert(Counter counter, Time time)
+    string Convert(Time time)
     {
         if (time == Time.MaxValue)
         {
@@ -107,24 +109,24 @@
             return "Time_MinValue";
         }
 
-        return counter.NextString(time);
+        return NextString(time);
     }
 
 #endif
 
-    internal bool TryConvert(Counter counter, DateTimeOffset value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvert(DateTimeOffset value, [NotNullWhen(true)] out string? result)
     {
-        if (!scrubDateTimes)
+        if (!ScrubDateTimes)
         {
             result = null;
             return false;
         }
 
-        result = Convert(counter, value);
+        result = Convert(value);
         return true;
     }
 
-    internal static string Convert(Counter counter, DateTime date)
+    internal string Convert(DateTime date)
     {
         if (date.Date == DateTime.MaxValue.Date)
         {
@@ -136,10 +138,10 @@
             return "Date_MinValue";
         }
 
-        return counter.NextString(date);
+        return NextString(date);
     }
 
-    internal static string Convert(Counter counter, DateTimeOffset date)
+    internal string Convert(DateTimeOffset date)
     {
         if (date.Date == DateTime.MaxValue.Date)
         {
@@ -151,16 +153,16 @@
             return "Date_MinValue";
         }
 
-        return counter.NextString(date);
+        return NextString(date);
     }
 
-    internal bool TryParseConvertDateTime(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertDateTime(CharSpan value, [NotNullWhen(true)] out string? result)
     {
-        if (scrubDateTimes)
+        if (ScrubDateTimes)
         {
             if (TryParseDateTime(value, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", out var dateTime))
             {
-                result = Convert(counter, dateTime);
+                result = Convert(dateTime);
                 return true;
             }
 
@@ -168,7 +170,7 @@
             {
                 if (TryParseDateTime(value, format, out dateTime))
                 {
-                    result = Convert(counter, dateTime);
+                    result = Convert(dateTime);
                     return true;
                 }
             }
@@ -181,13 +183,13 @@
     static bool TryParseDateTime(CharSpan value, string format, out DateTime dateTime) =>
         DateTimePolyfill.TryParseExact(value, format, null, DateTimeStyles.None, out dateTime);
 
-    internal bool TryParseConvertDateTimeOffset(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertDateTimeOffset(CharSpan value, [NotNullWhen(true)] out string? result)
     {
-        if (scrubDateTimes)
+        if (ScrubDateTimes)
         {
             if (TryParseDateTimeOffset(value, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", out var dateTimeOffset))
             {
-                result = Convert(counter, dateTimeOffset);
+                result = Convert(dateTimeOffset);
                 return true;
             }
 
@@ -195,7 +197,7 @@
             {
                 if (TryParseDateTimeOffset(value, format, out dateTimeOffset))
                 {
-                    result = Convert(counter, dateTimeOffset);
+                    result = Convert(dateTimeOffset);
                     return true;
                 }
             }

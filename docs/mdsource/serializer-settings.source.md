@@ -101,9 +101,9 @@ To disable this behavior globally use:
 snippet: DontIgnoreEmptyCollections
 
 
-## Changing Json.NET settings
+## Changing Argon settings
 
-Extra Json.NET settings can be made:
+Extra Argon settings can be made:
 
 
 ### Globally
@@ -116,7 +116,7 @@ snippet: ExtraSettingsGlobal
 snippet: ExtraSettingsInstance
 
 
-### Json.NET Converter
+### Argon Converter
 
 One common use case is to register a custom [JsonConverter](https://www.newtonsoft.com/json/help/html/CustomJsonConverter.htm). As only writing is required, to help with this there is `WriteOnlyJsonConverter`, and `WriteOnlyJsonConverter<T>`.
 

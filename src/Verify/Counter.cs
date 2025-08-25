@@ -94,8 +94,9 @@ public partial class Counter
         this.namedDateTimes = namedDateTimes;
         this.namedGuids = namedGuids;
         this.namedDateTimeOffsets = namedDateTimeOffsets;
-        this.DateCounting = dateCounting;
+        DateCounting = dateCounting;
     }
+
     public Counter(
         bool dateCounting,
         bool scrubDateTimes,
@@ -115,9 +116,9 @@ public partial class Counter
         this.namedDateTimes = namedDateTimes;
         this.namedGuids = namedGuids;
         this.namedDateTimeOffsets = namedDateTimeOffsets;
-        this.DateCounting = dateCounting;
-        this.ScrubDateTimes = scrubDateTimes;
-        this.ScrubGuids = scrubGuids;
+        DateCounting = dateCounting;
+        ScrubDateTimes = scrubDateTimes;
+        ScrubGuids = scrubGuids;
     }
 
     internal static Counter Start(

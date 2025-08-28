@@ -44,7 +44,7 @@ This API performs the following
  * Loads each assembly
  * Try to find the type `VerifyTests.[AssemblyNameWithPeriodsRemove]`
  * If no type exists move to the next assembly.
- * If the `Initialized` property ('public static bool Initialized { get; }') is true then move to the next assembly. An exception is thrown if no `Initialized` property is found.
+ * If the `Initialized` property (`public static bool Initialized { get; }`) is true then move to the next assembly. An exception is thrown if no `Initialized` property is found.
  * Invoke the `Initialize` method (`public static void Initialize()`) on that type. An exception is thrown if no `Initialize` method is found. Optional parameters are supported.
 
 The plugins `Initialize` method should throw if already Initialized and set `Initialized` to `true`:

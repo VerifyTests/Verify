@@ -2,6 +2,12 @@ namespace VerifyTests;
 
 public static partial class VerifierSettings
 {
+    /// <summary>
+    /// Scans the current assembly's directory for plugin assemblies matching <c>Verify.*.dll</c>,
+    /// loads each assembly, and invokes its <c>VerifyTests.[AssemblyNameWithPeriodsRemove].Initialize</c>
+    /// method if it has not already been initialized.
+    /// This allows plugins to register themselves and extend the verification framework.
+    /// </summary>
     public static void InitializePlugins()
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();

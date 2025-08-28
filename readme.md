@@ -946,9 +946,9 @@ This readme will not discuss definitive list of details for proper setup of the 
 * [Verify Xunit Intro (26 Apr 2020)](https://www.youtube.com/watch?v=uGVogEltSkY)
 
 
-## Extensions
+## Plugins
 
-* [Verify.AngleSharp](https://github.com/VerifyTests/Verify.AngleSharp): Html verification utilities via [AngleSharp](https://github.com/AngleSharp/AngleSharp).
+* [Verify.AngleSharp](https://github.com/VerifyTests/Verify.AngleSharp): Html verification utilities via [AngleSharp](https://github.com/AngleSharp/AngleSharp).<!-- include: plugin-list. path: /docs/mdsource/plugin-list.include.md -->
 * [Verify.AspNetCore](https://github.com/VerifyTests/Verify.AspNetCore): Verification of AspNetCore bits.
 * [Verify.Aspose](https://github.com/VerifyTests/Verify.Aspose): Verification of documents (pdf, docx, xlsx, and pptx) via Aspose.
 * [Verify.Assertions](https://github.com/VerifyTests/Verify.Assertions): Extends Verify to allow an assertion callback. This enables using assertion libraries to interrogate during serialization.
@@ -1009,6 +1009,7 @@ This readme will not discuss definitive list of details for proper setup of the 
 * [Verify.Wolverine](https://github.com/VerifyTests/Verify.Wolverine):Verifiable test context for [Wolverine](https://github.com/JasperFx/wolverine).
 * [Verify.Yaml](https://github.com/VerifyTests/Verify.Yaml): Support for [YamlDotNet](https://github.com/aaubry/YamlDotNet) types.
 * [Verify.ZeroLog](https://github.com/VerifyTests/Verify.ZeroLog): Verifiable test context for [ZeroLog](https://github.com/Abc-Arbitrage/ZeroLog).
+<!-- endInclude -->
 
 
 ## More Documentation
@@ -1055,7 +1056,8 @@ This readme will not discuss definitive list of details for proper setup of the 
   * [Recording](/docs/recording.md)
   * [Explicit Targets](/docs/explicit-targets.md)
   * [FSharp Usage](/docs/fsharp.md)
-  * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)<!-- endInclude -->
+  * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)
+  * [Plugins](/docs/plugins.md)<!-- endInclude -->
 
 
 ## Icon

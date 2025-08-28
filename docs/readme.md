@@ -49,4 +49,5 @@ To change this file edit the source file and then run MarkdownSnippets.
   * [Recording](/docs/recording.md)
   * [Explicit Targets](/docs/explicit-targets.md)
   * [FSharp Usage](/docs/fsharp.md)
-  * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)<!-- endInclude -->
+  * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)
+  * [Plugins](/docs/plugins.md)<!-- endInclude -->

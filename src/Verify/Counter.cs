@@ -76,6 +76,7 @@ public partial class Counter
     }
 
     public static Counter? CurrentOrNull => local.Value;
+
     [Obsolete("Use overload with scrubDateTimes and scrubGuids parameters")]
     public Counter(
         bool dateCounting,

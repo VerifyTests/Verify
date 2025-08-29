@@ -403,6 +403,6 @@ public partial class InnerVerifier :
     {
         settings.RunAfterCallbacks();
 
-        Counter.Stop();
+        counter.Dispose();
     }
 }

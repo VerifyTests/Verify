@@ -161,7 +161,7 @@ public Task NamedGuidInstance()
         settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L63-L79' title='Snippet source file'>snippet source</a> | <a href='#snippet-NamedGuidInstance' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L56-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-NamedGuidInstance' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -182,7 +182,7 @@ public Task NamedGuidFluent()
         .AddNamedGuid(guid, "instanceNamed");
 }
 ```
-<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L91-L105' title='Snippet source file'>snippet source</a> | <a href='#snippet-NamedGuidFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L84-L98' title='Snippet source file'>snippet source</a> | <a href='#snippet-NamedGuidFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -217,7 +217,7 @@ public Task InferredNamedGuidFluent()
         .AddNamedGuid(namedGuid);
 }
 ```
-<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L107-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-InferredNamedGuidFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L100-L114' title='Snippet source file'>snippet source</a> | <a href='#snippet-InferredNamedGuidFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result: 

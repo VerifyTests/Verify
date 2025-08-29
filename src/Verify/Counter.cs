@@ -1,6 +1,7 @@
 ﻿namespace VerifyTests;
 
-public partial class Counter
+public partial class Counter :
+    IDisposable
 {
 #if NET6_0_OR_GREATER
     Dictionary<Date, string> namedDates;
@@ -149,6 +150,6 @@ public partial class Counter
         return context;
     }
 
-    internal static void Stop() =>
+    public void Dispose() =>
         local.Value = null;
 }

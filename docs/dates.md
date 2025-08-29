@@ -308,7 +308,7 @@ public Task InferredNamedDateFluent()
         .AddNamedDate(namedDate);
 }
 ```
-<sup><a href='/src/Verify.Tests/DateScrubberTests.cs#L277-L291' title='Snippet source file'>snippet source</a> | <a href='#snippet-InferredNamedDateFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/DateScrubberTests.cs#L235-L249' title='Snippet source file'>snippet source</a> | <a href='#snippet-InferredNamedDateFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result: 

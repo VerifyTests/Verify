@@ -141,19 +141,21 @@ A `VerifyJsonWriter` is passed in to the `Write` methos. It exposes context and 
 
 #### Testing JsonConverters
 
-`WriteOnlyJsonConverter` has a `Execute` methods that exetes a JsonConverter:
+`WriteOnlyJsonConverter` has a `Execute` methods that executes a JsonConverter:
 
 snippet: WriteOnlyJsonConverter_Execute.cs
+
+This can be used to test a JsonConverter.
 
 Given the following JsonConverter:
 
 snippet: JsonConverter
 
-It can be test with:
+It can be tested with:
 
 snippet: TestJsonConverter
 
-Json converters often have instance level configuration or contextual settings
+Json converters often have instance level configuration or contextual settings.
 
 snippet: JsonConverterWithSettings
 

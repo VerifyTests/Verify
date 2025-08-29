@@ -285,7 +285,7 @@ A `VerifyJsonWriter` is passed in to the `Write` methos. It exposes context and 
 
 #### Testing JsonConverters
 
-`WriteOnlyJsonConverter` has a `Execute` methods that exetes a JsonConverter:
+`WriteOnlyJsonConverter` has a `Execute` methods that executes a JsonConverter:
 
 <!-- snippet: WriteOnlyJsonConverter_Execute.cs -->
 <a id='snippet-WriteOnlyJsonConverter_Execute.cs'></a>
@@ -320,6 +320,8 @@ public abstract partial class WriteOnlyJsonConverter
 <sup><a href='/src/Verify/Serialization/WriteOnlyJsonConverter_Execute.cs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-WriteOnlyJsonConverter_Execute.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+This can be used to test a JsonConverter.
+
 Given the following JsonConverter:
 
 <!-- snippet: JsonConverter -->
@@ -338,7 +340,7 @@ class CompanyConverter :
 <sup><a href='/src/Verify.Tests/Serialization/JsonConverters.cs#L12-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonConverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-It can be test with:
+It can be tested with:
 
 <!-- snippet: TestJsonConverter -->
 <a id='snippet-TestJsonConverter'></a>
@@ -360,7 +362,7 @@ public Task Test()
 <sup><a href='/src/Verify.Tests/Serialization/JsonConverters.cs#L28-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestJsonConverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Json converters often have instance level configuration or contextual settings
+Json converters often have instance level configuration or contextual settings.
 
 <!-- snippet: JsonConverterWithSettings -->
 <a id='snippet-JsonConverterWithSettings'></a>

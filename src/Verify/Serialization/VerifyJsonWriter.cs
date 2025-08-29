@@ -1,4 +1,6 @@
-﻿namespace VerifyTests;
+﻿using Formatting = Argon.Formatting;
+
+namespace VerifyTests;
 
 public class VerifyJsonWriter :
     JsonTextWriter
@@ -21,6 +23,7 @@ public class VerifyJsonWriter :
         serialization = settings.serialization;
         Context = settings.Context;
         Counter = counter;
+        Formatting = Formatting.Indented;
         if (!settings.StrictJson)
         {
             QuoteValue = false;

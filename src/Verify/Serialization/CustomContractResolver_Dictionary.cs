@@ -8,12 +8,12 @@
             contract.OrderByKey = true;
         }
 
-        contract.InterceptSerializeItem = HandleDictionaryItem;
+        contract.InterceptSerializeItem = (writer, o, value) => HandleDictionaryItem((VerifyJsonWriter) writer, o, value);
 
         return contract;
     }
 
-    KeyValueInterceptResult HandleDictionaryItem(JsonWriter writer, object key, object? value)
+    KeyValueInterceptResult HandleDictionaryItem(VerifyJsonWriter writer, object key, object? value)
     {
         if (key is string stringKey &&
             settings.TryGetScrubOrIgnoreByName(stringKey, out var scrubOrIgnore))
@@ -45,9 +45,9 @@
         return KeyValueInterceptResult.ReplaceValue("{Scrubbed}");
     }
 
-    static bool TryConvertDictionaryKey(JsonWriter writer, object original, [NotNullWhen(true)] out string? result)
+    static bool TryConvertDictionaryKey(VerifyJsonWriter writer, object original, [NotNullWhen(true)] out string? result)
     {
-        var counter = Counter.Current;
+        var counter = writer.Counter;
 
 #if NET6_0_OR_GREATER
 
@@ -100,8 +100,7 @@
                 return true;
             }
 
-            var verifyJsonWriter = (VerifyJsonWriter)writer;
-            result = ApplyScrubbers.ApplyForPropertyValue(stringValue.AsSpan(), verifyJsonWriter.settings, counter).ToString();
+            result = ApplyScrubbers.ApplyForPropertyValue(stringValue.AsSpan(), writer.settings, counter).ToString();
 
             return true;
         }

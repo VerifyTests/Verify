@@ -1,3 +1,0 @@
-﻿{
-  Name: Company Name
-}

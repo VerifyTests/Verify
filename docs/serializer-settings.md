@@ -248,20 +248,43 @@ One common use case is to register a custom [JsonConverter](https://www.newtonso
 class CompanyConverter :
     WriteOnlyJsonConverter<Company>
 {
-    public override void Write(VerifyJsonWriter writer, Company company) =>
+    bool ignoreEmployees;
+
+    public CompanyConverter()
+    {
+    }
+
+    public CompanyConverter(bool ignoreEmployees) =>
+        this.ignoreEmployees = ignoreEmployees;
+
+    public override void Write(VerifyJsonWriter writer, Company company)
+    {
         writer.WriteMember(company, company.Name, "Name");
+
+        if (!ignoreEmployees)
+        {
+            if (writer.Context.TryGetValue("IgnoreCompanyEmployees", out var value))
+            {
+                if (value is true)
+                {
+                    return;
+                }
+            }
+
+            writer.WriteMember(company, company.Employees, "Employees");
+        }
+    }
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L153-L162' title='Snippet source file'>snippet source</a> | <a href='#snippet-CompanyConverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/JsonConverters.cs#L12-L45' title='Snippet source file'>snippet source</a> | <a href='#snippet-CompanyConverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: JsonConverter -->
 <a id='snippet-JsonConverter'></a>
 ```cs
-VerifierSettings.AddExtraSettings(
-    _ => _.Converters.Add(new CompanyConverter()));
+VerifierSettings.AddExtraSettings(_ => _.Converters.Add(new CompanyConverter()));
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L147-L150' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonConverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/JsonConverters.cs#L5-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonConverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

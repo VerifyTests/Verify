@@ -6,6 +6,7 @@ public static partial class Verifier
     [Pure]
     public static SettingsTask VerifyJson(
         string name,
+        [StringSyntax(StringSyntaxAttribute.Json)]
         string? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>

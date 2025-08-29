@@ -38,8 +38,14 @@ public class TestingConverters
         {
             writer.WriteStartObject();
             writer.WriteMember(target, target.Property, "Property");
-            writer.WritePropertyName("Custom");
-            writer.Serialize(new Dictionary<string,string>(){{"d","D"}});
+            writer.WritePropertyName("Extra");
+            writer.Serialize(
+                new Dictionary<string, string>
+                {
+                    {
+                        "key", "value"
+                    }
+                });
             writer.WriteEnd();
         }
     }

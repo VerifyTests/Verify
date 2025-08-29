@@ -1,0 +1,7 @@
+﻿{
+  Name: Company Name,
+  Employees: [
+    Employee1,
+    Employee2
+  ]
+}

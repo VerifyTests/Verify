@@ -526,7 +526,7 @@ await Verify(
         Bars = await repo.GetBars(id)
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L171-L180' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFuncOfTaskOfT' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L152-L161' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFuncOfTaskOfT' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -143,25 +143,6 @@ public class Snippets
         #endregion
     }
 
-    void Converter() =>
-    #region JsonConverter
-        VerifierSettings.AddExtraSettings(
-            _ => _.Converters.Add(new CompanyConverter()));
-    #endregion
-
-
-    #region CompanyConverter
-
-    class CompanyConverter :
-        WriteOnlyJsonConverter<Company>
-    {
-        public override void Write(VerifyJsonWriter writer, Company company) =>
-            writer.WriteMember(company, company.Name, "Name");
-    }
-
-    #endregion
-
-    record Company(string Name);
 
     async Task VerifyFuncOfTaskOfT()
     {

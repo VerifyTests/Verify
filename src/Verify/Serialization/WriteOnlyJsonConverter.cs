@@ -1,6 +1,6 @@
 ﻿namespace VerifyTests;
 
-public abstract class WriteOnlyJsonConverter :
+public abstract partial class WriteOnlyJsonConverter :
     JsonConverter
 {
     public sealed override bool CanRead => false;

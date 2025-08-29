@@ -10,20 +10,11 @@ public class TestingConverters
         var builder = new StringBuilder();
 
         var settings = new VerifySettings();
-        Counter.Start(
-            dateCounting: false,
-            scrubDateTimes: false,
-            scrubGuids: false,
-            namedDates: [],
-            namedTimes: [],
-            namedDateTimes: [],
-            namedGuids: [],
-            namedDateTimeOffsets: []
-        );
+        using var counter = Counter.Start();
 
         var target = new Target("Value");
 
-        using (var writer = new VerifyJsonWriter(builder, settings, Counter.Current))
+        using (var writer = new VerifyJsonWriter(builder, settings, counter))
         {
             converter.Write(writer, target);
         }

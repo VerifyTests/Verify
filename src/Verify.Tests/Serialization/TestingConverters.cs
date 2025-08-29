@@ -19,7 +19,7 @@ public class TestingConverters
             converter.Write(writer, target);
         }
 
-        return Verify(builder);
+        return VerifyJson(builder);
     }
 
     class Converter :

@@ -123,7 +123,7 @@ static class ApplyScrubbers
         {
             foreach (var scrubber in extensionBasedScrubbers)
             {
-                scrubber(target, counter);
+                scrubber(target, counter, settings.Context);
             }
         }
 

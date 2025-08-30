@@ -108,14 +108,14 @@ static class ApplyScrubbers
     {
         foreach (var scrubber in settings.InstanceScrubbers)
         {
-            scrubber(target, counter);
+            scrubber(target, counter, settings.Context);
         }
 
         if (settings.ExtensionMappedInstanceScrubbers.TryGetValue(extension, out var extensionBasedInstanceScrubbers))
         {
             foreach (var scrubber in extensionBasedInstanceScrubbers)
             {
-                scrubber(target, counter);
+                scrubber(target, counter, settings.Context);
             }
         }
 
@@ -152,7 +152,7 @@ static class ApplyScrubbers
     {
         foreach (var scrubber in settings.InstanceScrubbers)
         {
-            scrubber(builder, counter);
+            scrubber(builder, counter, settings.Context);
         }
 
         foreach (var scrubber in VerifierSettings.GlobalScrubbers)

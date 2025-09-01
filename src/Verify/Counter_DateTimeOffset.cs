@@ -57,7 +57,7 @@ public partial class Counter
     {
         var value = Interlocked.Increment(ref currentDateTimeOffset);
 
-        if (dateCounting)
+        if (DateCounting)
         {
             return (value, $"DateTimeOffset_{value}");
         }

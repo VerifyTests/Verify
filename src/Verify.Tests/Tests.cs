@@ -386,11 +386,27 @@ public class Tests
     }
 
     [Fact]
+    public Task FuncOfTaskResultNull()
+    {
+        static async Task<string?> Target()
+        {
+            await Task.Delay(1);
+            return null;
+        }
+
+        return Verify(Target);
+    }
+
+    [Fact]
     public Task TaskResult()
     {
         var target = Task.FromResult<string>("value");
         return Verify(target);
     }
+
+    [Fact]
+    public Task Null() =>
+        Verify((object?)null);
 
     static async IAsyncEnumerable<string> AsyncEnumerableMethod()
     {

@@ -1,4 +1,6 @@
-﻿namespace VerifyTests;
+﻿using Formatting = Argon.Formatting;
+
+namespace VerifyTests;
 
 public class VerifyJsonWriter :
     JsonTextWriter
@@ -21,6 +23,7 @@ public class VerifyJsonWriter :
         serialization = settings.serialization;
         Context = settings.Context;
         Counter = counter;
+        Formatting = Formatting.Indented;
         if (!settings.StrictJson)
         {
             QuoteValue = false;
@@ -112,7 +115,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        if (serialization.TryConvertString(Counter, value, out var result))
+        if (Counter.TryConvertString(value, out var result))
         {
             WriteRawValueIfNoStrict(result);
             return;
@@ -160,7 +163,7 @@ public class VerifyJsonWriter :
 
     public override void WriteValue(DateTimeOffset value)
     {
-        if (serialization.TryConvert(Counter, value, out var result))
+        if (Counter.TryConvert(value, out var result))
         {
             WriteRawValueIfNoStrict(result);
             return;
@@ -171,7 +174,7 @@ public class VerifyJsonWriter :
 
     public override void WriteValue(DateTime value)
     {
-        if (serialization.TryConvert(Counter, value, out var result))
+        if (Counter.TryConvert(value, out var result))
         {
             WriteRawValueIfNoStrict(result);
             return;
@@ -185,7 +188,7 @@ public class VerifyJsonWriter :
 
     public override void WriteValue(Guid value)
     {
-        if (serialization.TryConvert(Counter, value, out var result))
+        if (Counter.TryConvert(value, out var result))
         {
             WriteRawValueIfNoStrict(result);
             return;

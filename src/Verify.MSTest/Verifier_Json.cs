@@ -5,6 +5,30 @@ partial class Verifier
     [Pure]
     public static SettingsTask VerifyJson(
         [StringSyntax(StringSyntaxAttribute.Json)]
+        StringBuilder? target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, sourceFile, _ => _.VerifyJson(target));
+
+    [Pure]
+    public static SettingsTask VerifyJson(
+        [StringSyntax(StringSyntaxAttribute.Json)]
+        Task<StringBuilder> target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, sourceFile, _ => _.VerifyJson(target));
+
+    [Pure]
+    public static SettingsTask VerifyJson(
+        [StringSyntax(StringSyntaxAttribute.Json)]
+        ValueTask<StringBuilder> target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, sourceFile, _ => _.VerifyJson(target));
+
+    [Pure]
+    public static SettingsTask VerifyJson(
+        [StringSyntax(StringSyntaxAttribute.Json)]
         string? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>

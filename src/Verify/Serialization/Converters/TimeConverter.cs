@@ -4,7 +4,7 @@ class TimeConverter :
 {
     public override void Write(VerifyJsonWriter writer, Time value)
     {
-        if (writer.serialization.TryConvert(writer.Counter, value, out var result))
+        if (writer.Counter.TryConvert(value, out var result))
         {
             writer.WriteRawValueIfNoStrict(result);
             return;

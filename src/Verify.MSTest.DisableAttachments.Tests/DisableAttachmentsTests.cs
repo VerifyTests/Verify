@@ -5,7 +5,7 @@ public class DisableAttachmentsTests : VerifyBase
     [TestMethod]
     public Task HasNoAttachments()
     {
-        ResultFilesCallback.Callback = list => Assert.AreEqual(0, list.Count);
+        ResultFilesCallback.Callback = list => Assert.IsEmpty(list);
         VerifierSettings.DisableAttachments();
         var settings = new VerifySettings();
         settings.DisableDiff();

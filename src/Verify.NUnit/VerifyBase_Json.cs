@@ -5,6 +5,27 @@ public partial class VerifyBase
     [Pure]
     public SettingsTask VerifyJson(
         [StringSyntax(StringSyntaxAttribute.Json)]
+        StringBuilder? target,
+        VerifySettings? settings = null) =>
+        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile);
+
+    [Pure]
+    public SettingsTask VerifyJson(
+        [StringSyntax(StringSyntaxAttribute.Json)]
+        Task<StringBuilder> target,
+        VerifySettings? settings = null) =>
+        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile);
+
+    [Pure]
+    public SettingsTask VerifyJson(
+        [StringSyntax(StringSyntaxAttribute.Json)]
+        ValueTask<StringBuilder> target,
+        VerifySettings? settings = null) =>
+        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile);
+
+    [Pure]
+    public SettingsTask VerifyJson(
+        [StringSyntax(StringSyntaxAttribute.Json)]
         string? target,
         VerifySettings? settings = null) =>
         Verifier.VerifyJson(target, settings ?? this.settings, sourceFile);

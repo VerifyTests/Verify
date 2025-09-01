@@ -1,4 +1,4 @@
-﻿public class ReflectionHelpersTests
+public class ReflectionHelpersTests
 {
     [Theory]
     [InlineData(typeof(string), typeof(object), true)]
@@ -19,4 +19,23 @@
     [InlineData(typeof(IDictionary<int, string>), typeof(ICollection<>), true)]
     public void InheritsFrom(Type type, Type parent, bool match) =>
         Assert.Equal(match, type.InheritsFrom(parent));
+
+    [Theory]
+    [MemberData(nameof(EmptyCollectionOrDictionaryTestCases))]
+    public void IsEmptyCollectionOrDictionary(object o, bool isEmpty) =>
+        Assert.Equal(isEmpty, o.IsEmptyCollectionOrDictionary());
+
+    public static TheoryData<object, bool> EmptyCollectionOrDictionaryTestCases()
+    {
+        ImmutableArray<int> uninitializedImmutableArray = default;
+
+        return new()
+        {
+            { Array.Empty<int>(), true },
+            { new ImmutableArray<int>(), true },
+            { uninitializedImmutableArray, true },
+            { ImmutableDictionary.Create<byte, string>(), true },
+            { new Dictionary<string, object>(), true}
+        };
+    }
 }

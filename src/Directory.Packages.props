@@ -21,8 +21,8 @@
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageVersion Include="NUnit" Version="4.4.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="5.1.0" />
-    <PackageVersion Include="MSTest" Version="3.10.2" />
-    <PackageVersion Include="MSTest.TestFramework" Version="3.10.2" />
+    <PackageVersion Include="MSTest" Version="3.10.3" />
+    <PackageVersion Include="MSTest.TestFramework" Version="3.10.3" />
     <PackageVersion Include="Polyfill" Version="9.0.0-beta.15" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.157" />
     <PackageVersion Include="PublicApiGenerator" Version="11.4.6" />

@@ -127,6 +127,10 @@ public class Tests
         VerifyZip(zipPath);
 
     [Fact]
+    public Task ZipAndPersistArchive() =>
+        VerifyZip(zipPath, persistArchive: true);
+
+    [Fact]
     public Task WithZipBytes() =>
         VerifyZip(File.ReadAllBytes(zipPath));
 

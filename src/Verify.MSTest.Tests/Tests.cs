@@ -175,7 +175,6 @@ public partial class Tests
     public Task WithZipBytes() =>
         VerifyZip(File.ReadAllBytes(zipPath));
 
-
     [TestMethod]
     public Task VerifyFileWithRelativePath() =>
         VerifyFile("sample.png");

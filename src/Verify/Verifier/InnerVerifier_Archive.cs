@@ -62,7 +62,7 @@ partial class InnerVerifier
         if (persistArchive)
         {
             var memoryStream = ArchiveToStream(archive, include);
-            targets.Add(new("zip",memoryStream,"targetArchive"));
+            targets.Add(new("zip", memoryStream, "target"));
         }
 
         include ??= _ => true;

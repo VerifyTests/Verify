@@ -81,6 +81,9 @@ public class Tests
         VerifyZip(pathToArchive, includeStructure: true);
 
     #endregion
+    [Test]
+    public Task WithZipAndPersistArchive() =>
+        VerifyZip(pathToArchive, persistArchive: true);
 
     [Test]
     public async Task ChangeHasAttachment()

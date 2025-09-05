@@ -102,21 +102,27 @@ partial class InnerVerifier
         return await VerifyInner(targets);
     }
 
+    static DateTimeOffset archiveEntryWriteTime = new(2020, 1, 1, 0, 0, 0, TimeSpan.Zero);
+
     static MemoryStream ArchiveToStream(ZipArchive archive, Func<ZipArchiveEntry, bool>? include)
     {
         var stream = new MemoryStream();
-        using var newArchive = new ZipArchive(stream, ZipArchiveMode.Create, true);
-        foreach (var entry in archive.Entries)
+        using (var newArchive = new ZipArchive(stream, ZipArchiveMode.Create, true))
         {
-            if (include == null || !include(entry))
+            foreach (var entry in archive.Entries)
             {
-                continue;
-            }
+                if (include != null && !include(entry))
+                {
+                    continue;
+                }
 
-            var newEntry = newArchive.CreateEntry(entry.FullName);
-            using var entryStream = entry.Open();
-            using var newEntryStream = newEntry.Open();
-            entryStream.CopyTo(newEntryStream);
+                var newEntry = newArchive.CreateEntry(entry.FullName);
+                // hard code write time to prevent the binary of the zip being different every time
+                newEntry.LastWriteTime = archiveEntryWriteTime;
+                using var entryStream = entry.Open();
+                using var newEntryStream = newEntry.Open();
+                entryStream.CopyTo(newEntryStream);
+            }
         }
 
         stream.Position = 0;

@@ -95,7 +95,7 @@ public Task WithZipAndStructure() =>
 
 ## PersistArchive
 
-`persistArchive` determines whether the original ZipArchive should be preserved as a verified file.
+`persistArchive` determines whether the original ZipArchive should be preserved as a verified file. Defaults to false.
 
 <!-- snippet: WithZipAndPersistArchiveV3 -->
 <a id='snippet-WithZipAndPersistArchiveV3'></a>

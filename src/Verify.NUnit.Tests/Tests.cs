@@ -89,6 +89,10 @@ public class Tests
 
     #endregion
 
+    [Test]
+    public Task WithZipAndPersistArchive() =>
+        VerifyZip(pathToArchive, persistArchive: true);
+
     static List<TestAttachment> GetAttachments() =>
         TestExecutionContext.CurrentContext.CurrentResult.TestAttachments.ToList();
 

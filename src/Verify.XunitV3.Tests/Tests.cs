@@ -165,6 +165,14 @@ public class Tests
 
     #endregion
 
+    #region WithZipAndPersistArchiveV3
+
+    [Fact]
+    public Task WithZipAndPersistArchive() =>
+        VerifyZip(zipPath, persistArchive: true);
+
+    #endregion
+
     #region VerifyZipWithInfoXunitV3
 
     [Fact]

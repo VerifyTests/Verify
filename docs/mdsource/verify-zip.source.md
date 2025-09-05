@@ -31,3 +31,10 @@ This applies to files where the extensions is a known text file as defined by [F
 Use `includeStructure: true` to include a file `structure.verified.md` that contains the zip directory structure.
 
 snippet: VerifyZipWithStructureXunitV3
+
+
+## PersistArchive
+
+`persistArchive` determines whether the original ZipArchive should be preserved as a verified file.
+
+snippet: WithZipAndPersistArchiveV3

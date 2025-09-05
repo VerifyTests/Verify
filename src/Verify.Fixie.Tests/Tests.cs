@@ -76,6 +76,8 @@ public class Tests
         VerifyZip(pathToArchive, includeStructure: true);
 
     #endregion
+    public Task WithZipAndPersistArchive() =>
+        VerifyZip(pathToArchive, persistArchive: true);
 
 #endif
 }

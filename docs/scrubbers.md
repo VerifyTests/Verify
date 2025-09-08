@@ -77,7 +77,7 @@ verifySettings.ScrubLinesContaining("text1", "text2");
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1876-L1880' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesContaining' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Case insensitive by default (StringComparison.OrdinalIgnoreCase).
+Case insensitive by default (`StringComparison.OrdinalIgnoreCase`).
 
 `StringComparison` can be overridden:
 

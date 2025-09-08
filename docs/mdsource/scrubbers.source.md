@@ -58,7 +58,7 @@ For example remove lines containing `text1` or `text2`
 
 snippet: ScrubLinesContaining
 
-Case insensitive by default (StringComparison.OrdinalIgnoreCase).
+Case insensitive by default (`StringComparison.OrdinalIgnoreCase`).
 
 `StringComparison` can be overridden:
 

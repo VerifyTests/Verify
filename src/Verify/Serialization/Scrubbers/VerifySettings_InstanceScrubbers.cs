@@ -4,6 +4,13 @@ public partial class VerifySettings
 {
     internal List<Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>>> InstanceScrubbers = [];
 
+    internal bool ScrubbersEnabled { get; set; } = true;
+
+    /// <summary>
+    /// Disables all scrubbers.
+    /// </summary>
+    public void DisableScrubbers() => ScrubbersEnabled = false;
+
     /// <summary>
     /// Remove the <see cref="Environment.MachineName" /> from the test results.
     /// </summary>

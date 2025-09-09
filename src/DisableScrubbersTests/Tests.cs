@@ -37,6 +37,36 @@
     }
 
     [Fact]
+    public Task WithConverter()
+    {
+        var settings = new VerifySettings();
+        settings.AddExtraSettings(_ => _.Converters.Add(new Converter()));
+        settings.DisableScrubbers();
+        return Verify(BuildTarget(), settings);
+    }
+
+    class Converter :
+        WriteOnlyJsonConverter<Target>
+    {
+        public override void Write(VerifyJsonWriter writer, Target target)
+        {
+            var counter = writer.Counter;
+            writer.WriteStartObject();
+            writer.WriteMember(target, target.TheSolutionDir, "TheSolutionDir");
+            writer.WriteMember(target, target.TheProjectDir, "TheProjectDir");
+            writer.WriteMember(target, target.Date, "Date");
+            writer.WriteMember(target, counter.Next(target.Date), "DateViaCounter");
+            writer.WriteMember(target, target.DateTime, "DateTime");
+            writer.WriteMember(target, counter.Next(target.DateTime), "DateTimeViaCounter");
+            writer.WriteMember(target, target.DateTimeOffset, "DateTimeOffset");
+            writer.WriteMember(target, counter.Next(target.DateTimeOffset), "DateTimeOffsetViaCounter");
+            writer.WriteMember(target, target.Guid, "Guid");
+            writer.WriteMember(target, counter.Next(target.Guid), "GuidViaCounter");
+            writer.WriteEndObject();
+        }
+    }
+
+    [Fact]
     public Task WithExtension()
     {
         var settings = new VerifySettings();

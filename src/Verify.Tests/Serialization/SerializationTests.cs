@@ -2599,14 +2599,50 @@ public class SerializationTests
         }
     }
 
+#if NET8_0_OR_GREATER
+
     [Fact]
-    public Task TestConverterInstance()
+    public Task TestConverterUsingCounterEdges()
     {
-        var target = new SimpleConverterTarget();
+        var target = new UsingCounterEdgesTarget();
         var settings = new VerifySettings();
-        settings.AddExtraSettings(_ => _.Converters.Add(new SimpleConverter()));
+        settings.AddExtraSettings(_ => _.Converters.Add(new UsingCounterEdgesConverter()));
         return Verify(target, settings);
     }
+
+    class UsingCounterEdgesTarget;
+
+    class UsingCounterEdgesConverter :
+        WriteOnlyJsonConverter<UsingCounterEdgesTarget>
+    {
+        public override void Write(VerifyJsonWriter writer, UsingCounterEdgesTarget target)
+        {
+            writer.WriteStartObject();
+
+            //TODO: Add dateonly WriteValue support to argon
+            // writer.WritePropertyName("DateMin");
+            // writer.WriteValue(Date.MinValue);
+            // writer.WritePropertyName("DateMax");
+            // writer.WriteValue(Date.MaxValue);
+
+            writer.WritePropertyName("DateTimeMin");
+            writer.WriteValue(DateTime.MinValue);
+            writer.WritePropertyName("DateTimeMax");
+            writer.WriteValue(DateTime.MaxValue);
+
+            writer.WritePropertyName("DateTimeOffsetMin");
+            writer.WriteValue(DateTimeOffset.MinValue);
+            writer.WritePropertyName("DateTimeOffsetMax");
+            writer.WriteValue(DateTimeOffset.MaxValue);
+
+            writer.WritePropertyName("GuidEmpty");
+            writer.WriteValue(Guid.Empty);
+
+            writer.WriteEndObject();
+        }
+    }
+
+#endif
 
     [Fact]
     public Task TestConverterFluent()

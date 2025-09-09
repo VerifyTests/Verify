@@ -6,6 +6,8 @@
         ApplyScrubbers.UseAssembly("TheSolutionDir", "TheProjectDir");
     }
 
+    #region DisableScrubbers
+
     [Fact]
     public Task Instance()
     {
@@ -14,10 +16,16 @@
         return Verify(BuildTarget(), settings);
     }
 
+    #endregion
+
+    #region DisableScrubbersFluent
+
     [Fact]
     public Task Fluent() =>
         Verify(BuildTarget())
             .DisableScrubbers();
+
+    #endregion
 
     [Fact]
     public Task ClonedSettings()
@@ -53,6 +61,8 @@
             .DisableScrubbers();
     }
 
+    #region DisableScrubbersTarget
+
     static object BuildTarget() =>
         new
         {
@@ -63,4 +73,6 @@
             DateTimeOffset = new DateTimeOffset(2020, 1, 1, 1, 1, 1, TimeSpan.FromHours(10)),
             Guid = new Guid("ae8529a6-30a0-46e2-b7d6-9fcb7b23463c"),
         };
+
+    #endregion
 }

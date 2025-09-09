@@ -136,6 +136,76 @@ verifySettings.ScrubUserName();
 Adds a scrubber with full control over the text via a `Func`
 
 
+## DisableScrubbers
+
+Given the following target
+
+<!-- snippet: DisableScrubbersTarget -->
+<a id='snippet-DisableScrubbersTarget'></a>
+```cs
+static object BuildTarget() =>
+    new
+    {
+        TheSolutionDir = "TheSolutionDir",
+        TheProjectDir = "TheProjectDir",
+        Date = new Date(2020, 1, 1),
+        DateTime = new DateTime(2020, 1, 1),
+        DateTimeOffset = new DateTimeOffset(2020, 1, 1, 1, 1, 1, TimeSpan.FromHours(10)),
+        Guid = new Guid("ae8529a6-30a0-46e2-b7d6-9fcb7b23463c"),
+    };
+```
+<sup><a href='/src/DisableScrubbersTests/Tests.cs#L64-L77' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableScrubbersTarget' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+When scrubbers are disabled the result will be:
+
+<!-- snippet: DisableScrubbersTests/Tests.Instance.verified.txt -->
+<a id='snippet-DisableScrubbersTests/Tests.Instance.verified.txt'></a>
+```txt
+{
+  TheSolutionDir: TheSolutionDir,
+  TheProjectDir: TheProjectDir,
+  Date: 2020-01-01,
+  DateTime: 2020-01-01,
+  DateTimeOffset: 2020-01-01 01:01:01 +10,
+  Guid: ae8529a6-30a0-46e2-b7d6-9fcb7b23463c
+}
+```
+<sup><a href='/src/DisableScrubbersTests/Tests.Instance.verified.txt#L1-L8' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableScrubbersTests/Tests.Instance.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Instance
+
+<!-- snippet: DisableScrubbers -->
+<a id='snippet-DisableScrubbers'></a>
+```cs
+[Fact]
+public Task Instance()
+{
+    var settings = new VerifySettings();
+    settings.DisableScrubbers();
+    return Verify(BuildTarget(), settings);
+}
+```
+<sup><a href='/src/DisableScrubbersTests/Tests.cs#L9-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableScrubbers' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Fluent
+
+<!-- snippet: DisableScrubbersFluent -->
+<a id='snippet-DisableScrubbersFluent'></a>
+```cs
+[Fact]
+public Task Fluent() =>
+    Verify(BuildTarget())
+        .DisableScrubbers();
+```
+<sup><a href='/src/DisableScrubbersTests/Tests.cs#L21-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableScrubbersFluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ## More complete example
 
 

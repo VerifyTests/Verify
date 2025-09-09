@@ -2619,6 +2619,7 @@ public class SerializationTests
         {
             writer.WriteStartObject();
 
+            //TODO: Add dateonly WriteValue support to argon
             // writer.WritePropertyName("DateMin");
             // writer.WriteValue(Date.MinValue);
             // writer.WritePropertyName("DateMax");

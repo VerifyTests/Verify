@@ -1,8 +1,8 @@
 ﻿{
-  TheSolutionDir: {SolutionDirectory},
-  TheProjectDir: {ProjectDirectory},
-  Date: Date_1,
-  DateTime: DateTime_1,
-  DateTimeOffset: DateTimeOffset_1,
-  Guid: Guid_1
+  TheSolutionDir: TheSolutionDir,
+  TheProjectDir: TheProjectDir,
+  Date: 2020-01-01,
+  DateTime: 2020-01-01,
+  DateTimeOffset: 2020-01-01 01:01:01 +10,
+  Guid: ae8529a6-30a0-46e2-b7d6-9fcb7b23463c
 }

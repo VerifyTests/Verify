@@ -3,7 +3,7 @@
     static Tests()
     {
         VerifierSettings.AssignTargetAssembly(typeof(Tests).Assembly);
-        ApplyScrubbers.UseAssembly("TheSolutionDir", "TheProjectDir");
+        ApplyScrubbers.UseAssembly("C:/Code/TheSolution", "C:/Code/TheSolution/TheProject");
     }
 
     #region DisableScrubbers
@@ -61,18 +61,18 @@
             .DisableScrubbers();
     }
 
+    public record Target(string TheSolutionDir, string TheProjectDir, Date Date, DateTime DateTime, DateTimeOffset DateTimeOffset, Guid Guid);
+
     #region DisableScrubbersTarget
 
     static object BuildTarget() =>
-        new
-        {
-            TheSolutionDir = "TheSolutionDir",
-            TheProjectDir = "TheProjectDir",
-            Date = new Date(2020, 1, 1),
-            DateTime = new DateTime(2020, 1, 1),
-            DateTimeOffset = new DateTimeOffset(2020, 1, 1, 1, 1, 1, TimeSpan.FromHours(10)),
-            Guid = new Guid("ae8529a6-30a0-46e2-b7d6-9fcb7b23463c"),
-        };
+        new Target(
+            "C:/Code/TheSolution",
+            "C:/Code/TheSolution/TheProject",
+            new Date(2020, 1, 1),
+            new DateTime(2020, 1, 1),
+            new DateTimeOffset(2020, 1, 1, 1, 1, 1, TimeSpan.FromHours(10)),
+            new Guid("ae8529a6-30a0-46e2-b7d6-9fcb7b23463c"));
 
     #endregion
 }

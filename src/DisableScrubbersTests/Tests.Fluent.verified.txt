@@ -1,6 +1,6 @@
 ﻿{
-  TheSolutionDir: TheSolutionDir,
-  TheProjectDir: TheProjectDir,
+  TheSolutionDir: C:/Code/TheSolution,
+  TheProjectDir: C:/Code/TheSolution/TheProject,
   Date: 2020-01-01,
   DateTime: 2020-01-01,
   DateTimeOffset: 2020-01-01 01:01:01 +10,

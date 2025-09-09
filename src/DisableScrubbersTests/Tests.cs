@@ -7,12 +7,42 @@
     }
 
     [Fact]
-    public Task Test() =>
+    public Task Instance()
+    {
+        var settings = new VerifySettings();
+        settings.DisableScrubbers();
+        return Verify(BuildTarget(), settings);
+    }
+
+    [Fact]
+    public Task Fluent() =>
         Verify(BuildTarget())
             .DisableScrubbers();
 
     [Fact]
-    public Task TestWithExtension()
+    public Task ClonedSettings()
+    {
+        var settings = new VerifySettings();
+        settings.DisableScrubbers();
+        var cloned = new VerifySettings(settings);
+        return Verify(BuildTarget(), cloned);
+    }
+
+    [Fact]
+    public Task WithExtension()
+    {
+        var settings = new VerifySettings();
+        settings.ScrubInlineGuids();
+        settings.ScrubInlineDates("yyyy-MM-dd");
+        settings.ScrubInlineDateTimes("yyyy-MM-ddTHH:mm:ss");
+        settings.ScrubInlineDateTimeOffsets("yyyy-MM-ddTHH:mm:sszzz");
+        settings.DisableScrubbers();
+        var json = JsonConvert.SerializeObject(BuildTarget(), Formatting.Indented);
+        return Verify(json, extension: "json");
+    }
+
+    [Fact]
+    public Task WithExtensionFluent()
     {
         var json = JsonConvert.SerializeObject(BuildTarget(), Formatting.Indented);
         return Verify(json, extension: "json")

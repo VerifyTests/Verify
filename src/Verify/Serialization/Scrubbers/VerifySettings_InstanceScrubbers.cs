@@ -4,7 +4,7 @@ public partial class VerifySettings
 {
     internal List<Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>>> InstanceScrubbers = [];
 
-    internal bool ScrubbersEnabled { get; set; } = true;
+    internal bool ScrubbersEnabled { get; private set; } = true;
 
     /// <summary>
     /// Disables all scrubbers.

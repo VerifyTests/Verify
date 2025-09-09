@@ -1,0 +1,8 @@
+﻿{
+  "{SolutionDirectory}": "{SolutionDirectory}",
+  "{ProjectDirectory}": "{ProjectDirectory}",
+  "Date": "2020-01-01",
+  "DateTime": "2020-01-01T00:00:00",
+  "DateTimeOffset": "2020-01-01T01:01:01+10:00",
+  "Guid": "ae8529a6-30a0-46e2-b7d6-9fcb7b23463c"
+}

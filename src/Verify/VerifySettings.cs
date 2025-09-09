@@ -22,6 +22,7 @@ public partial class VerifySettings
             return;
         }
 
+        ScrubbersEnabled = settings.ScrubbersEnabled;
         dateCountingEnable = settings.dateCountingEnable;
         InstanceScrubbers = [..settings.InstanceScrubbers];
         ExtensionMappedInstanceScrubbers = new(settings.ExtensionMappedInstanceScrubbers);

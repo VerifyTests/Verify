@@ -1,0 +1,8 @@
+﻿{
+  TheSolutionDir: {SolutionDirectory},
+  TheProjectDir: {ProjectDirectory},
+  Date: Date_1,
+  DateTime: DateTime_1,
+  DateTimeOffset: DateTimeOffset_1,
+  Guid: Guid_1
+}

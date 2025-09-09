@@ -62,6 +62,19 @@
             writer.WriteMember(target, counter.Next(target.DateTimeOffset), "DateTimeOffsetViaCounter");
             writer.WriteMember(target, target.Guid, "Guid");
             writer.WriteMember(target, counter.Next(target.Guid), "GuidViaCounter");
+
+            writer.WritePropertyName("DateTimeMin");
+            writer.WriteValue(DateTime.MinValue);
+            writer.WritePropertyName("DateTimeMax");
+            writer.WriteValue(DateTime.MaxValue);
+
+            writer.WritePropertyName("DateTimeOffsetMin");
+            writer.WriteValue(DateTimeOffset.MinValue);
+            writer.WritePropertyName("DateTimeOffsetMax");
+            writer.WriteValue(DateTimeOffset.MaxValue);
+
+            writer.WritePropertyName("GuidEmpty");
+            writer.WriteValue(Guid.Empty);
             writer.WriteEndObject();
         }
     }

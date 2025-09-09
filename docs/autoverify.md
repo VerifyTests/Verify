@@ -125,7 +125,7 @@ public Task AutoVerifyThrowException() =>
     Verify("Value")
         .AutoVerify(throwException: true);
 ```
-<sup><a href='/src/Verify.Tests/AutoVerify.cs#L14-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-AutoVerifyThrowException' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/AutoVerify.cs#L15-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-AutoVerifyThrowException' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Using this approach the `.verified.` file will still be replaced, but an exception will be thrown to notify that it has occurred.

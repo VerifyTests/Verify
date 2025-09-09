@@ -2,6 +2,14 @@
 
 public partial class SettingsTask
 {
+    /// <inheritdoc cref="VerifySettings.DisableScrubbers()"/>
+    [Pure]
+    public SettingsTask DisableScrubbers()
+    {
+        CurrentSettings.DisableScrubbers();
+        return this;
+    }
+
     /// <inheritdoc cref="VerifySettings.AddScrubber(Action{StringBuilder},VerifyTests.ScrubberLocation)"/>
     [Pure]
     public SettingsTask AddScrubber(Action<StringBuilder> scrubber, ScrubberLocation location = ScrubberLocation.First)

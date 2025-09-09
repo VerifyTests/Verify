@@ -106,6 +106,12 @@ static class ApplyScrubbers
 
     public static void ApplyForExtension(string extension, StringBuilder target, VerifySettings settings, Counter counter)
     {
+        if (!settings.ScrubbersEnabled)
+        {
+            target.FixNewlines();
+            return;
+        }
+
         foreach (var scrubber in settings.InstanceScrubbers)
         {
             scrubber(target, counter, settings.Context);
@@ -150,6 +156,12 @@ static class ApplyScrubbers
 
     public static void ApplyForPropertyValue(VerifySettings settings, Counter counter, StringBuilder builder)
     {
+        if (!settings.ScrubbersEnabled)
+        {
+            builder.FixNewlines();
+            return;
+        }
+
         foreach (var scrubber in settings.InstanceScrubbers)
         {
             scrubber(builder, counter, settings.Context);

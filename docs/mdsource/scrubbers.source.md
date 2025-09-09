@@ -93,6 +93,27 @@ snippet: ScrubUserName
 Adds a scrubber with full control over the text via a `Func`
 
 
+## DisableScrubbers
+
+Given the following target
+
+snippet: DisableScrubbersTarget
+
+When scrubbers are disabled the result will be:
+
+snippet: DisableScrubbersTests/Tests.Instance.verified.txt
+
+
+### Instance
+
+snippet: DisableScrubbers
+
+
+### Fluent
+
+snippet: DisableScrubbersFluent
+
+
 ## More complete example
 
 

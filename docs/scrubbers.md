@@ -144,17 +144,15 @@ Given the following target
 <a id='snippet-DisableScrubbersTarget'></a>
 ```cs
 static object BuildTarget() =>
-    new
-    {
-        TheSolutionDir = "TheSolutionDir",
-        TheProjectDir = "TheProjectDir",
-        Date = new Date(2020, 1, 1),
-        DateTime = new DateTime(2020, 1, 1),
-        DateTimeOffset = new DateTimeOffset(2020, 1, 1, 1, 1, 1, TimeSpan.FromHours(10)),
-        Guid = new Guid("ae8529a6-30a0-46e2-b7d6-9fcb7b23463c"),
-    };
+    new Target(
+        "C:/Code/TheSolution",
+        "C:/Code/TheSolution/TheProject",
+        new Date(2020, 1, 1),
+        new DateTime(2020, 1, 1),
+        new DateTimeOffset(2020, 1, 1, 1, 1, 1, TimeSpan.FromHours(10)),
+        new Guid("ae8529a6-30a0-46e2-b7d6-9fcb7b23463c"));
 ```
-<sup><a href='/src/DisableScrubbersTests/Tests.cs#L64-L77' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableScrubbersTarget' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DisableScrubbersTests/Tests.cs#L109-L120' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableScrubbersTarget' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 When scrubbers are disabled the result will be:
@@ -163,8 +161,8 @@ When scrubbers are disabled the result will be:
 <a id='snippet-DisableScrubbersTests/Tests.Instance.verified.txt'></a>
 ```txt
 {
-  TheSolutionDir: TheSolutionDir,
-  TheProjectDir: TheProjectDir,
+  TheSolutionDir: C:/Code/TheSolution,
+  TheProjectDir: C:/Code/TheSolution/TheProject,
   Date: 2020-01-01,
   DateTime: 2020-01-01,
   DateTimeOffset: 2020-01-01 01:01:01 +10,

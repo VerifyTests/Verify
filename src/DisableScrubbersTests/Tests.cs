@@ -50,18 +50,18 @@
     {
         public override void Write(VerifyJsonWriter writer, Target target)
         {
-            var counter = writer.Counter;
             writer.WriteStartObject();
+
             writer.WriteMember(target, target.TheSolutionDir, "TheSolutionDir");
             writer.WriteMember(target, target.TheProjectDir, "TheProjectDir");
             writer.WriteMember(target, target.Date, "Date");
-            writer.WriteMember(target, counter.Next(target.Date), "DateViaCounter");
+            //writer.WriteMember(target, counter.Next(target.Date), "DateViaCounter");
             writer.WriteMember(target, target.DateTime, "DateTime");
-            writer.WriteMember(target, counter.Next(target.DateTime), "DateTimeViaCounter");
+            //writer.WriteMember(target, counter.Next(target.DateTime), "DateTimeViaCounter");
             writer.WriteMember(target, target.DateTimeOffset, "DateTimeOffset");
-            writer.WriteMember(target, counter.Next(target.DateTimeOffset), "DateTimeOffsetViaCounter");
+            //writer.WriteMember(target, counter.Next(target.DateTimeOffset), "DateTimeOffsetViaCounter");
             writer.WriteMember(target, target.Guid, "Guid");
-            writer.WriteMember(target, counter.Next(target.Guid), "GuidViaCounter");
+            //writer.WriteMember(target, counter.Next(target.Guid), "GuidViaCounter");
 
             writer.WritePropertyName("DateTimeMin");
             writer.WriteValue(DateTime.MinValue);

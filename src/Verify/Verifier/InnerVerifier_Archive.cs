@@ -22,8 +22,13 @@ partial class InnerVerifier
         bool includeStructure,
         bool persistArchive)
     {
+        string? archiveExtension = null;
+        if (stream is FileStream fileStream)
+        {
+            archiveExtension = Path.GetExtension(fileStream.Name);
+        }
         using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
-        return await VerifyZip(archive, include, info, scrubber, includeStructure, persistArchive);
+        return await VerifyZip(archive, include, info, scrubber, includeStructure, persistArchive, archiveExtension);
     }
 
     public async Task<VerifyResult> VerifyZip(
@@ -32,11 +37,12 @@ partial class InnerVerifier
         object? info,
         FileScrubber? scrubber,
         bool includeStructure,
-        bool persistArchive)
+        bool persistArchive,
+        string? archiveExtension)
     {
         using var stream = new MemoryStream(bytes);
         using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
-        return await VerifyZip(archive, include, info, scrubber, includeStructure, persistArchive);
+        return await VerifyZip(archive, include, info, scrubber, includeStructure, persistArchive, archiveExtension);
     }
 
     public async Task<VerifyResult> VerifyZip(
@@ -45,7 +51,8 @@ partial class InnerVerifier
         object? info,
         FileScrubber? scrubber,
         bool includeStructure,
-        bool persistArchive)
+        bool persistArchive,
+        string? archiveExtension)
     {
         var targets = new List<Target>();
         if (info is not null)
@@ -61,6 +68,7 @@ partial class InnerVerifier
 
         if (persistArchive)
         {
+
             var memoryStream = ArchiveToStream(archive, include);
             targets.Add(new("zip", memoryStream, "target"));
         }

@@ -130,6 +130,16 @@ public class Tests
     public Task ZipAndPersistArchive() =>
         VerifyZip(zipPath, persistArchive: true);
 
+    static string nupkgPath = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify.nupkg");
+
+    [Fact]
+    public Task WithZipWithDiffExtension() =>
+        VerifyZip(nupkgPath);
+
+    [Fact]
+    public Task ZipWithDiffExtensionAndPersistArchive() =>
+        VerifyZip(nupkgPath, persistArchive: true);
+
     [Fact]
     public Task WithZipBytes() =>
         VerifyZip(File.ReadAllBytes(zipPath));

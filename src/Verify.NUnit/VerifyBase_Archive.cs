@@ -12,7 +12,8 @@ public partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
-        bool includeStructure = false) =>
+        bool includeStructure = false,
+        bool persistArchive = false) =>
         Verifier.Verify(
             archive,
             include,
@@ -20,6 +21,7 @@ public partial class VerifyBase
             info,
             fileScrubber,
             includeStructure,
+            persistArchive,
             sourceFile);
 
     /// <summary>
@@ -32,7 +34,8 @@ public partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
-        bool includeStructure = false) =>
+        bool includeStructure = false,
+        bool persistArchive = false) =>
         Verifier.VerifyZip(
             path,
             include,
@@ -40,6 +43,7 @@ public partial class VerifyBase
             info,
             fileScrubber,
             includeStructure,
+            persistArchive,
             sourceFile);
 
     /// <summary>
@@ -52,7 +56,8 @@ public partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
-        bool includeStructure = false) =>
+        bool includeStructure = false,
+        bool persistArchive = false) =>
         Verifier.VerifyZip(
             stream,
             include,
@@ -60,6 +65,7 @@ public partial class VerifyBase
             info,
             fileScrubber,
             includeStructure,
+            persistArchive,
             sourceFile);
 
     /// <summary>
@@ -72,7 +78,8 @@ public partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
-        bool includeStructure = false) =>
+        bool includeStructure = false,
+        bool persistArchive = false) =>
         Verifier.VerifyZip(
             bytes,
             include,
@@ -80,5 +87,6 @@ public partial class VerifyBase
             info,
             fileScrubber,
             includeStructure,
+            persistArchive,
             sourceFile);
 }

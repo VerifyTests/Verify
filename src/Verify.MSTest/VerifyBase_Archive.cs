@@ -15,8 +15,9 @@ partial class VerifyBase
         object? info = null,
         FileScrubber? fileScrubber = null,
         bool includeStructure = false,
+        bool persistArchive = false,
         [CallerFilePath] string sourceFile = "") =>
-        Verifier.Verify(archive, include, settings, info, fileScrubber, includeStructure, sourceFile);
+        Verifier.Verify(archive, include, settings, info, fileScrubber, includeStructure, persistArchive, sourceFile);
 
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive" />
@@ -29,8 +30,9 @@ partial class VerifyBase
         object? info = null,
         FileScrubber? fileScrubber = null,
         bool includeStructure = false,
+        bool persistArchive = false,
         [CallerFilePath] string sourceFile = "") =>
-        Verifier.VerifyZip(path, include, settings, info, fileScrubber, includeStructure, sourceFile);
+        Verifier.VerifyZip(path, include, settings, info, fileScrubber, includeStructure, persistArchive, sourceFile);
 
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive" />
@@ -43,8 +45,9 @@ partial class VerifyBase
         object? info = null,
         FileScrubber? fileScrubber = null,
         bool includeStructure = false,
+        bool persistArchive = false,
         [CallerFilePath] string sourceFile = "") =>
-        Verifier.VerifyZip(stream, include, settings, info, fileScrubber, includeStructure, sourceFile);
+        Verifier.VerifyZip(stream, include, settings, info, fileScrubber, includeStructure, persistArchive, sourceFile);
 
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive" />
@@ -57,6 +60,7 @@ partial class VerifyBase
         object? info = null,
         FileScrubber? fileScrubber = null,
         bool includeStructure = false,
+        bool persistArchive = false,
         [CallerFilePath] string sourceFile = "") =>
-        Verifier.VerifyZip(bytes, include, settings, info, fileScrubber, includeStructure, sourceFile);
+        Verifier.VerifyZip(bytes, include, settings, info, fileScrubber, includeStructure, persistArchive, sourceFile);
 }

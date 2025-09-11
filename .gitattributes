@@ -4,6 +4,7 @@
 *.bmp binary
 *.tif binary
 *.zip binary
+*.nupkg binary
 
 src/Verify/EmptyFiles/* binary
 

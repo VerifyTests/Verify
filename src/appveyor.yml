@@ -72,5 +72,5 @@ test: off
 after_build:
   - pwsh: |
       if ($isWindows) {
-        Get-ChildItem *.nupkg -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+        Get-ChildItem nugets/*.nupkg -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
       }

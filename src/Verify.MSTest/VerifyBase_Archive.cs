@@ -16,8 +16,9 @@ partial class VerifyBase
         FileScrubber? fileScrubber = null,
         bool includeStructure = false,
         bool persistArchive = false,
+        string? archiveExtension = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verifier.Verify(archive, include, settings, info, fileScrubber, includeStructure, persistArchive, sourceFile);
+        Verifier.Verify(archive, include, settings, info, fileScrubber, includeStructure, persistArchive, archiveExtension, sourceFile);
 
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive" />
@@ -46,8 +47,9 @@ partial class VerifyBase
         FileScrubber? fileScrubber = null,
         bool includeStructure = false,
         bool persistArchive = false,
+        string? archiveExtension = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verifier.VerifyZip(stream, include, settings, info, fileScrubber, includeStructure, persistArchive, sourceFile);
+        Verifier.VerifyZip(stream, include, settings, info, fileScrubber, includeStructure, persistArchive, archiveExtension, sourceFile);
 
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive" />
@@ -61,6 +63,7 @@ partial class VerifyBase
         FileScrubber? fileScrubber = null,
         bool includeStructure = false,
         bool persistArchive = false,
+        string? archiveExtension = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verifier.VerifyZip(bytes, include, settings, info, fileScrubber, includeStructure, persistArchive, sourceFile);
+        Verifier.VerifyZip(bytes, include, settings, info, fileScrubber, includeStructure, persistArchive, archiveExtension, sourceFile);
 }

@@ -121,6 +121,7 @@ public class Tests
 #endif
 
     static string zipPath = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify.zip");
+    static string simpleZipPath = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerifySimple.zip");
 
     [Fact]
     public Task WithZip() =>
@@ -128,7 +129,7 @@ public class Tests
 
     [Fact]
     public Task ZipAndPersistArchive() =>
-        VerifyZip(zipPath, persistArchive: true);
+        VerifyZip(simpleZipPath, persistArchive: true);
 
     static string nupkgPath = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify.nupkg");
 
@@ -142,12 +143,16 @@ public class Tests
 
     [Fact]
     public Task WithZipBytes() =>
-        VerifyZip(File.ReadAllBytes(zipPath));
+        VerifyZip(File.ReadAllBytes(simpleZipPath));
+
+    [Fact]
+    public Task WithZipWithCustomExtension() =>
+        VerifyZip(File.ReadAllBytes(simpleZipPath), persistArchive: true, archiveExtension: "nupkg");
 
     [Fact]
     public Task VerifyZipWithInfo() =>
         VerifyZip(
-            zipPath,
+            simpleZipPath,
             info: "the info");
 
     [Fact]

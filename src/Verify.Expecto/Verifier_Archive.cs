@@ -17,10 +17,11 @@ public static partial class Verifier
         FileScrubber? fileScrubber = null,
         bool includeStructure = false,
         bool persistArchive = false,
+        string? archiveExtension = null,
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyZip(archive, include, info, fileScrubber, includeStructure, persistArchive), true);
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyZip(archive, include, info, fileScrubber, includeStructure, persistArchive, archiveExtension), true);
     }
 
     /// <summary>
@@ -55,10 +56,11 @@ public static partial class Verifier
         FileScrubber? fileScrubber = null,
         bool includeStructure = false,
         bool persistArchive = false,
+        string? archiveExtension = null,
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyZip(stream, include, info, fileScrubber, includeStructure, persistArchive), true);
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyZip(stream, include, info, fileScrubber, includeStructure, persistArchive, archiveExtension), true);
     }
 
     /// <summary>
@@ -74,9 +76,10 @@ public static partial class Verifier
         FileScrubber? fileScrubber = null,
         bool includeStructure = false,
         bool persistArchive = false,
+        string? archiveExtension = null,
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyZip(bytes, include, info, fileScrubber, includeStructure, persistArchive), true);
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyZip(bytes, include, info, fileScrubber, includeStructure, persistArchive, archiveExtension), true);
     }
 }

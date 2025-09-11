@@ -145,9 +145,16 @@ public class Tests
     public Task WithZipBytes() =>
         VerifyZip(File.ReadAllBytes(simpleZipPath));
 
+#region ArchiveExtension
+
     [Fact]
     public Task WithZipWithCustomExtension() =>
-        VerifyZip(File.ReadAllBytes(simpleZipPath), persistArchive: true, archiveExtension: "nupkg");
+        VerifyZip(
+            File.ReadAllBytes(simpleZipPath),
+            persistArchive: true,
+            archiveExtension: "nupkg");
+
+#endregion
 
     [Fact]
     public Task VerifyZipWithInfo() =>

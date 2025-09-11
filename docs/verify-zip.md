@@ -106,3 +106,27 @@ public Task WithZipAndPersistArchive() =>
 ```
 <sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L168-L174' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithZipAndPersistArchiveV3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+## ArchiveExtension
+
+When using `persistArchive` the resulting verified archive file extension can be controlled using using the `archiveExtension` parameter.
+
+<!-- snippet: ArchiveExtension -->
+<a id='snippet-ArchiveExtension'></a>
+```cs
+[Fact]
+public Task WithZipWithCustomExtension() =>
+    VerifyZip(
+        File.ReadAllBytes(simpleZipPath),
+        persistArchive: true,
+        archiveExtension: "nupkg");
+```
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L148-L157' title='Snippet source file'>snippet source</a> | <a href='#snippet-ArchiveExtension' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+The default extension is `zip`.
+
+Using the `VerifyZip` with the `Stream` overload, when the streams is a `FileStream` the extension of underlying file will be respected.
+
+Using the `VerifyZip` with the `string path` overload the extension of underlying file will be respected.

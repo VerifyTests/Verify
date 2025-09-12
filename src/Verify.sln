@@ -107,6 +107,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.MSTest.DisableAttach
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.TUnit.DisableAttachments.Tests", "Verify.TUnit.DisableAttachments.Tests\Verify.TUnit.DisableAttachments.Tests.csproj", "{6E3F0ABC-88D1-40DD-BF86-9C367401748F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisableScrubbersTests", "DisableScrubbersTests\DisableScrubbersTests.csproj", "{71CD0BB5-BED3-4A14-8D74-6B38FCB8F049}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -285,6 +287,10 @@ Global
 		{6E3F0ABC-88D1-40DD-BF86-9C367401748F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E3F0ABC-88D1-40DD-BF86-9C367401748F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E3F0ABC-88D1-40DD-BF86-9C367401748F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71CD0BB5-BED3-4A14-8D74-6B38FCB8F049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71CD0BB5-BED3-4A14-8D74-6B38FCB8F049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71CD0BB5-BED3-4A14-8D74-6B38FCB8F049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71CD0BB5-BED3-4A14-8D74-6B38FCB8F049}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

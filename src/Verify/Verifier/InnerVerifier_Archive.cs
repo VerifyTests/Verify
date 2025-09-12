@@ -7,10 +7,11 @@ partial class InnerVerifier
         Func<ZipArchiveEntry, bool>? include,
         object? info,
         FileScrubber? scrubber,
-        bool includeStructure)
+        bool includeStructure,
+        bool persistArchive)
     {
         using var stream = File.OpenRead(path);
-        return await VerifyZip(stream, include, info, scrubber, includeStructure);
+        return await VerifyZip(stream, include, info, scrubber, includeStructure, persistArchive);
     }
 
     public async Task<VerifyResult> VerifyZip(
@@ -18,10 +19,18 @@ partial class InnerVerifier
         Func<ZipArchiveEntry, bool>? include,
         object? info,
         FileScrubber? scrubber,
-        bool includeStructure)
+        bool includeStructure,
+        bool persistArchive,
+        string? archiveExtension = null)
     {
+        if (archiveExtension is null &&
+            stream is FileStream fileStream)
+        {
+            archiveExtension = Path.GetExtension(fileStream.Name);
+        }
+
         using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
-        return await VerifyZip(archive, include, info, scrubber, includeStructure);
+        return await VerifyZip(archive, include, info, scrubber, includeStructure, persistArchive, archiveExtension);
     }
 
     public async Task<VerifyResult> VerifyZip(
@@ -29,11 +38,13 @@ partial class InnerVerifier
         Func<ZipArchiveEntry, bool>? include,
         object? info,
         FileScrubber? scrubber,
-        bool includeStructure)
+        bool includeStructure,
+        bool persistArchive,
+        string? archiveExtension)
     {
         using var stream = new MemoryStream(bytes);
         using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
-        return await VerifyZip(archive, include, info, scrubber, includeStructure);
+        return await VerifyZip(archive, include, info, scrubber, includeStructure, persistArchive, archiveExtension);
     }
 
     public async Task<VerifyResult> VerifyZip(
@@ -41,7 +52,9 @@ partial class InnerVerifier
         Func<ZipArchiveEntry, bool>? include,
         object? info,
         FileScrubber? scrubber,
-        bool includeStructure)
+        bool includeStructure,
+        bool persistArchive,
+        string? archiveExtension = null)
     {
         var targets = new List<Target>();
         if (info is not null)
@@ -53,6 +66,14 @@ partial class InnerVerifier
                         settings,
                         counter,
                         info)));
+        }
+
+        if (persistArchive)
+        {
+            archiveExtension ??= "zip";
+            archiveExtension = archiveExtension.TrimStart('.');
+            var memoryStream = ArchiveToStream(archive, include);
+            targets.Add(new(archiveExtension, memoryStream, "target"));
         }
 
         include ??= _ => true;
@@ -90,5 +111,32 @@ partial class InnerVerifier
         }
 
         return await VerifyInner(targets);
+    }
+
+    static DateTimeOffset archiveEntryWriteTime = new(2020, 1, 1, 0, 0, 0, TimeSpan.Zero);
+
+    static MemoryStream ArchiveToStream(ZipArchive archive, Func<ZipArchiveEntry, bool>? include)
+    {
+        var stream = new MemoryStream();
+        using (var newArchive = new ZipArchive(stream, ZipArchiveMode.Create, true))
+        {
+            foreach (var entry in archive.Entries)
+            {
+                if (include != null && !include(entry))
+                {
+                    continue;
+                }
+
+                var newEntry = newArchive.CreateEntry(entry.FullName);
+                // hard code write time to prevent the binary of the zip being different every time
+                newEntry.LastWriteTime = archiveEntryWriteTime;
+                using var entryStream = entry.Open();
+                using var newEntryStream = newEntry.Open();
+                entryStream.CopyTo(newEntryStream);
+            }
+        }
+
+        stream.Position = 0;
+        return stream;
     }
 }

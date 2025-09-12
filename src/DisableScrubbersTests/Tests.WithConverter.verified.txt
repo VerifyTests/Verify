@@ -1,0 +1,13 @@
+﻿{
+  TheSolutionDir: C:/Code/TheSolution,
+  TheProjectDir: C:/Code/TheSolution/TheProject,
+  Date: 2020-01-01,
+  DateTime: 2020-01-01,
+  DateTimeOffset: 2020-01-01 01:01:01 +10,
+  Guid: ae8529a6-30a0-46e2-b7d6-9fcb7b23463c,
+  DateTimeMin: 0001-01-01,
+  DateTimeMax: 9999-12-31 23:59:59.9999999,
+  DateTimeOffsetMin: 0001-01-01 +0,
+  DateTimeOffsetMax: 9999-12-31 23:59:59.9999999 +0,
+  GuidEmpty: 00000000-0000-0000-0000-000000000000
+}

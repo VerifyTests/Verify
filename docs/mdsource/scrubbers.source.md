@@ -58,7 +58,7 @@ For example remove lines containing `text1` or `text2`
 
 snippet: ScrubLinesContaining
 
-Case insensitive by default (StringComparison.OrdinalIgnoreCase).
+Case insensitive by default (`StringComparison.OrdinalIgnoreCase`).
 
 `StringComparison` can be overridden:
 
@@ -91,6 +91,27 @@ snippet: ScrubUserName
 ### AddScrubber
 
 Adds a scrubber with full control over the text via a `Func`
+
+
+## DisableScrubbers
+
+Given the following target
+
+snippet: DisableScrubbersTarget
+
+When scrubbers are disabled the result will be:
+
+snippet: DisableScrubbersTests/Tests.Instance.verified.txt
+
+
+### Instance
+
+snippet: DisableScrubbers
+
+
+### Fluent
+
+snippet: DisableScrubbersFluent
 
 
 ## More complete example

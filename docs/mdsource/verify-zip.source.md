@@ -31,3 +31,23 @@ This applies to files where the extensions is a known text file as defined by [F
 Use `includeStructure: true` to include a file `structure.verified.md` that contains the zip directory structure.
 
 snippet: VerifyZipWithStructureXunitV3
+
+
+## PersistArchive
+
+`persistArchive` determines whether the original ZipArchive or zip file should be preserved as a verified file. Defaults to false.
+
+snippet: WithZipAndPersistArchiveV3
+
+
+## ArchiveExtension
+
+When using `persistArchive` the resulting verified archive file extension can be controlled using using the `archiveExtension` parameter.
+
+snippet: ArchiveExtension
+
+The default extension is `zip`.
+
+Using the `VerifyZip` with the `Stream` overload, when the streams is a `FileStream` the extension of underlying file will be respected.
+
+Using the `VerifyZip` with the `string path` overload the extension of underlying file will be respected.

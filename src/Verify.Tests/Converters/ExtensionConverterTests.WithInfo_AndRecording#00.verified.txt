@@ -1,0 +1,6 @@
+﻿{
+  target: {
+    Property: Value
+  },
+  RecordKey: RecordValue
+}

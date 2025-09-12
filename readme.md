@@ -526,7 +526,7 @@ await Verify(
         Bars = await repo.GetBars(id)
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L171-L180' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFuncOfTaskOfT' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L152-L161' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFuncOfTaskOfT' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -823,7 +823,7 @@ var result = await Verify(
     });
 Assert.Contains("Value To Check", result.Text);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L424-L433' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyResult' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L440-L449' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyResult' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If using `Verifier.Throws`, the resulting `Exception` will also be accessible
@@ -946,9 +946,9 @@ This readme will not discuss definitive list of details for proper setup of the 
 * [Verify Xunit Intro (26 Apr 2020)](https://www.youtube.com/watch?v=uGVogEltSkY)
 
 
-## Extensions
+## Plugins
 
-* [Verify.AngleSharp](https://github.com/VerifyTests/Verify.AngleSharp): Html verification utilities via [AngleSharp](https://github.com/AngleSharp/AngleSharp).
+* [Verify.AngleSharp](https://github.com/VerifyTests/Verify.AngleSharp): Html verification utilities via [AngleSharp](https://github.com/AngleSharp/AngleSharp).<!-- include: plugin-list. path: /docs/mdsource/plugin-list.include.md -->
 * [Verify.AspNetCore](https://github.com/VerifyTests/Verify.AspNetCore): Verification of AspNetCore bits.
 * [Verify.Aspose](https://github.com/VerifyTests/Verify.Aspose): Verification of documents (pdf, docx, xlsx, and pptx) via Aspose.
 * [Verify.Assertions](https://github.com/VerifyTests/Verify.Assertions): Extends Verify to allow an assertion callback. This enables using assertion libraries to interrogate during serialization.
@@ -972,6 +972,7 @@ This readme will not discuss definitive list of details for proper setup of the 
 * [Verify.ImageSharp.Compare](https://github.com/VerifyTests/Verify.ImageSharp.Compare): Verification and comparison of images via [Codeuctivity.ImageSharp.Compare](https://github.com/Codeuctivity/ImageSharp.Compare).
 * [Verify.ImageMagick](https://github.com/VerifyTests/Verify.ImageMagick): Verification and comparison of images via [Magick.NET](https://github.com/dlemstra/Magick.NET).
 * [Verify.ImageSharp](https://github.com/VerifyTests/Verify.ImageSharp): Verification of images via [ImageSharp](https://github.com/SixLabors/ImageSharp).
+* [Verify.TestableIO.System.IO.Abstractions](https://github.com/VerifyTests/Verify.TestableIO.System.IO.Abstractions): Verification of [TestableIO.System.IO.Abstractions](https://github.com/TestableIO/System.IO.Abstractions).
 * [Verify.MailMessage](https://github.com/VerifyTests/Verify.MailMessage): Verification of [MailMessage](https://learn.microsoft.com/en-us/dotnet/api/system.net.mail.mailmessage) and related types.
 * [YellowDogMan.Verify.Marshaling](https://github.com/Yellow-Dog-Man/Verify.Marshaling): Verification of [Struct Marshaling](https://learn.microsoft.com/en-us/dotnet/standard/native-interop/customize-struct-marshalling).
 * [Verify.MassTransit](https://github.com/VerifyTests/Verify.MassTransit): Support for MassTransit test helpers.
@@ -1008,6 +1009,7 @@ This readme will not discuss definitive list of details for proper setup of the 
 * [Verify.Wolverine](https://github.com/VerifyTests/Verify.Wolverine):Verifiable test context for [Wolverine](https://github.com/JasperFx/wolverine).
 * [Verify.Yaml](https://github.com/VerifyTests/Verify.Yaml): Support for [YamlDotNet](https://github.com/aaubry/YamlDotNet) types.
 * [Verify.ZeroLog](https://github.com/VerifyTests/Verify.ZeroLog): Verifiable test context for [ZeroLog](https://github.com/Abc-Arbitrage/ZeroLog).
+<!-- endInclude -->
 
 
 ## More Documentation
@@ -1054,7 +1056,8 @@ This readme will not discuss definitive list of details for proper setup of the 
   * [Recording](/docs/recording.md)
   * [Explicit Targets](/docs/explicit-targets.md)
   * [FSharp Usage](/docs/fsharp.md)
-  * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)<!-- endInclude -->
+  * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)
+  * [Plugins](/docs/plugins.md)<!-- endInclude -->
 
 
 ## Icon

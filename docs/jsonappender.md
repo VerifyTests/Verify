@@ -71,11 +71,10 @@ Then the appended content will be added to the `.verified.txt` file:
 <a id='snippet-JsonAppenderTests.Stream#00.verified.txt'></a>
 ```txt
 {
-  target: null,
   theData: theValue
 }
 ```
-<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.Stream#00.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppenderTests.Stream#00.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.Stream#00.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppenderTests.Stream#00.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 See [Converters](/docs/converter.md) for more information on `*.00.verified.txt` files.

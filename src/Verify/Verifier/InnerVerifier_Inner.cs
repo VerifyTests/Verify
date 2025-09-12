@@ -3,12 +3,12 @@
 partial class InnerVerifier
 {
     Task<VerifyResult> VerifyInner(IEnumerable<Target> targets) =>
-        VerifyInner(null, null, targets, true);
+        VerifyInner(null, null, targets, true, true);
 
-    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExtensionConversion)
+    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExtensionConversion, bool ignoreNullRoot)
     {
         var resultTargets = new List<Target>();
-        if (TryGetRootTarget(root, out var rootTarget))
+        if (TryGetRootTarget(root, ignoreNullRoot, out var rootTarget))
         {
             resultTargets.Add(rootTarget.Value);
         }
@@ -87,25 +87,14 @@ partial class InnerVerifier
         return (list, cleanup);
     }
 
-    bool TryGetRootTarget(object? root, [NotNullWhen(true)] out Target? target)
+    bool TryGetRootTarget(object? root,bool ignoreNullRoot, [NotNullWhen(true)] out Target? target)
     {
         var appends = VerifierSettings.GetJsonAppenders(settings);
 
         var hasAppends = appends.Count > 0;
 
-        if (root is null)
+        if (ignoreNullRoot && root == null && !hasAppends)
         {
-            if (hasAppends)
-            {
-                target = new(
-                    settings.TxtOrJson,
-                    JsonFormatter.AsJson(
-                        settings,
-                        counter,
-                        new InfoBuilder(null, appends)));
-                return true;
-            }
-
             target = null;
             return false;
         }
@@ -125,7 +114,7 @@ partial class InnerVerifier
                     JsonFormatter.AsJson(
                         settings,
                         counter,
-                        new InfoBuilder(stringRoot, appends)));
+                        new InfoBuilder(false, stringRoot, appends)));
             }
             else
             {
@@ -142,7 +131,7 @@ partial class InnerVerifier
             JsonFormatter.AsJson(
                 settings,
                 counter,
-                new InfoBuilder(root, appends)));
+                new InfoBuilder(ignoreNullRoot, root, appends)));
         return true;
     }
 }

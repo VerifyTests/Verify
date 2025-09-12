@@ -101,9 +101,9 @@ To disable this behavior globally use:
 snippet: DontIgnoreEmptyCollections
 
 
-## Changing Json.NET settings
+## Changing Argon settings
 
-Extra Json.NET settings can be made:
+Extra Argon settings can be made:
 
 
 ### Globally
@@ -116,23 +116,56 @@ snippet: ExtraSettingsGlobal
 snippet: ExtraSettingsInstance
 
 
-### Json.NET Converter
+### Argon Converter
 
 One common use case is to register a custom [JsonConverter](https://www.newtonsoft.com/json/help/html/CustomJsonConverter.htm). As only writing is required, to help with this there is `WriteOnlyJsonConverter`, and `WriteOnlyJsonConverter<T>`.
 
-snippet: CompanyConverter
+For example given the following JsonConverter:
 
 snippet: JsonConverter
+
+It can be added in a ModuleInitializer:
+
+snippet: AddJsonConverter
 
 
 #### VerifyJsonWriter
 
-`VerifyJsonWriter` exposes the following members:
+A `VerifyJsonWriter` is passed in to the `Write` methos. It exposes context and helper methos to the JsonConverter. For example:
 
  * `Counter` property that gives programmatic access to the counting behavior used by [Guid](guids.md), [Date](dates.md), and [Id](#numeric-ids-are-scrubbed) scrubbing.
  * `Serializer` property that exposes the current `JsonSerializer`.
  * `Serialize(object value)` is a convenience method that calls `JsonSerializer.Serialize` passing in the writer instance and the `value` parameter.
  * `WriteProperty<T, TMember>(T target, TMember value, string name)` method that writes a property name and value while respecting other custom serialization settings eg [member converters](#converting-a-member), [ignore rules](#ignoring-a-type) etc.
+
+
+#### Testing JsonConverters
+
+`WriteOnlyJsonConverter` has a `Execute` methods that executes a JsonConverter:
+
+snippet: WriteOnlyJsonConverter_Execute.cs
+
+This can be used to test a JsonConverter.
+
+Given the following JsonConverter:
+
+snippet: JsonConverter
+
+It can be tested with:
+
+snippet: TestJsonConverter
+
+Json converters often have instance level configuration or contextual settings.
+
+snippet: JsonConverterWithSettings
+
+snippet: ConverterSettings
+
+These can be tested:
+
+snippet: TestJsonConverterWithSettingsInstance
+
+snippet: TestJsonConverterWithSettings
 
 
 ## Scoped settings

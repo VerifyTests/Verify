@@ -2,7 +2,7 @@
 
 public partial class VerifySettings
 {
-    internal List<Action<StringBuilder, Counter>> InstanceScrubbers = [];
+    internal List<Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>>> InstanceScrubbers = [];
 
     /// <summary>
     /// Remove the <see cref="Environment.MachineName" /> from the test results.
@@ -25,7 +25,13 @@ public partial class VerifySettings
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
-    public void AddScrubber(Action<StringBuilder, Counter> scrubber, ScrubberLocation location = ScrubberLocation.First)
+    public void AddScrubber(Action<StringBuilder, Counter> scrubber, ScrubberLocation location = ScrubberLocation.First) => AddScrubber((builder, counter, _) =>
+        scrubber(builder, counter), location);
+
+    /// <summary>
+    /// Modify the resulting test content using custom code.
+    /// </summary>
+    public void AddScrubber(Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>> scrubber, ScrubberLocation location = ScrubberLocation.First)
     {
         switch (location)
         {
@@ -35,6 +41,8 @@ public partial class VerifySettings
             case ScrubberLocation.Last:
                 InstanceScrubbers.Add(scrubber);
                 break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(location), location, null);
         }
     }
 

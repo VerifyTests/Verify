@@ -208,9 +208,9 @@ VerifierSettings.DontIgnoreEmptyCollections();
 <!-- endSnippet -->
 
 
-## Changing Json.NET settings
+## Changing Argon settings
 
-Extra Json.NET settings can be made:
+Extra Argon settings can be made:
 
 
 ### Globally
@@ -238,41 +238,231 @@ settings.AddExtraSettings(
 <!-- endSnippet -->
 
 
-### Json.NET Converter
+### Argon Converter
 
 One common use case is to register a custom [JsonConverter](https://www.newtonsoft.com/json/help/html/CustomJsonConverter.htm). As only writing is required, to help with this there is `WriteOnlyJsonConverter`, and `WriteOnlyJsonConverter<T>`.
 
-<!-- snippet: CompanyConverter -->
-<a id='snippet-CompanyConverter'></a>
-```cs
-class CompanyConverter :
-    WriteOnlyJsonConverter<Company>
-{
-    public override void Write(VerifyJsonWriter writer, Company company) =>
-        writer.WriteMember(company, company.Name, "Name");
-}
-```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L153-L162' title='Snippet source file'>snippet source</a> | <a href='#snippet-CompanyConverter' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
+For example given the following JsonConverter:
 
 <!-- snippet: JsonConverter -->
 <a id='snippet-JsonConverter'></a>
 ```cs
-VerifierSettings.AddExtraSettings(
-    _ => _.Converters.Add(new CompanyConverter()));
+class CompanyConverter :
+    WriteOnlyJsonConverter<Company>
+{
+    public override void Write(VerifyJsonWriter writer, Company company)
+    {
+        writer.WriteMember(company, company.Name, "Name");
+        writer.WriteMember(company, company.Employees, "Employees");
+    }
+}
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L147-L150' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonConverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/JsonConverters.cs#L12-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonConverter' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+It can be added in a ModuleInitializer:
+
+<!-- snippet: AddJsonConverter -->
+<a id='snippet-AddJsonConverter'></a>
+```cs
+[ModuleInitializer]
+public static void Initialize() =>
+    VerifierSettings.AddExtraSettings(_ => _.Converters.Add(new CompanyConverter()));
+```
+<sup><a href='/src/Verify.Tests/Serialization/JsonConverters.cs#L3-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddJsonConverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 #### VerifyJsonWriter
 
-`VerifyJsonWriter` exposes the following members:
+A `VerifyJsonWriter` is passed in to the `Write` methos. It exposes context and helper methos to the JsonConverter. For example:
 
  * `Counter` property that gives programmatic access to the counting behavior used by [Guid](guids.md), [Date](dates.md), and [Id](#numeric-ids-are-scrubbed) scrubbing.
  * `Serializer` property that exposes the current `JsonSerializer`.
  * `Serialize(object value)` is a convenience method that calls `JsonSerializer.Serialize` passing in the writer instance and the `value` parameter.
  * `WriteProperty<T, TMember>(T target, TMember value, string name)` method that writes a property name and value while respecting other custom serialization settings eg [member converters](#converting-a-member), [ignore rules](#ignoring-a-type) etc.
+
+
+#### Testing JsonConverters
+
+`WriteOnlyJsonConverter` has a `Execute` methods that executes a JsonConverter:
+
+<!-- snippet: WriteOnlyJsonConverter_Execute.cs -->
+<a id='snippet-WriteOnlyJsonConverter_Execute.cs'></a>
+```cs
+namespace VerifyTests;
+
+public abstract partial class WriteOnlyJsonConverter
+{
+    public static string Execute<TConverter>(
+        object target,
+        VerifySettings? settings = null)
+        where TConverter : WriteOnlyJsonConverter, new() =>
+        Execute(new TConverter(), target, settings);
+
+    public static string Execute<TConverter>(TConverter converter, object target, VerifySettings? settings = null)
+        where TConverter : WriteOnlyJsonConverter
+    {
+        settings ??= new();
+        settings.UseStrictJson();
+        var builder = new StringBuilder("{");
+        using var counter = Counter.Start();
+        using (var writer = new VerifyJsonWriter(builder, settings, counter))
+        {
+            converter.Write(writer, target);
+        }
+
+        builder.Append('}');
+        return builder.ToString();
+    }
+}
+```
+<sup><a href='/src/Verify/Serialization/WriteOnlyJsonConverter_Execute.cs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-WriteOnlyJsonConverter_Execute.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+This can be used to test a JsonConverter.
+
+Given the following JsonConverter:
+
+<!-- snippet: JsonConverter -->
+<a id='snippet-JsonConverter'></a>
+```cs
+class CompanyConverter :
+    WriteOnlyJsonConverter<Company>
+{
+    public override void Write(VerifyJsonWriter writer, Company company)
+    {
+        writer.WriteMember(company, company.Name, "Name");
+        writer.WriteMember(company, company.Employees, "Employees");
+    }
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/JsonConverters.cs#L12-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonConverter' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+It can be tested with:
+
+<!-- snippet: TestJsonConverter -->
+<a id='snippet-TestJsonConverter'></a>
+```cs
+[Fact]
+public Task Test()
+{
+    var company = new Company(
+        "Company Name",
+        Employees:
+        [
+            "Employee1",
+            "Employee2"
+        ]);
+    var result = WriteOnlyJsonConverter.Execute<CompanyConverter>(company);
+    return VerifyJson(result);
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/JsonConverters.cs#L28-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestJsonConverter' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Json converters often have instance level configuration or contextual settings.
+
+<!-- snippet: JsonConverterWithSettings -->
+<a id='snippet-JsonConverterWithSettings'></a>
+```cs
+class CompanyConverter :
+    WriteOnlyJsonConverter<Company>
+{
+    bool ignoreEmployees;
+
+    public CompanyConverter()
+    {
+    }
+
+    public CompanyConverter(bool ignoreEmployees) =>
+        this.ignoreEmployees = ignoreEmployees;
+
+    public override void Write(VerifyJsonWriter writer, Company company)
+    {
+        writer.WriteMember(company, company.Name, "Name");
+
+        if (!ignoreEmployees)
+        {
+            if (writer.Context.TryGetValue("IgnoreCompanyEmployees", out var value))
+            {
+                if (value is true)
+                {
+                    return;
+                }
+            }
+
+            writer.WriteMember(company, company.Employees, "Employees");
+        }
+    }
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/JsonConverterWithSettings.cs#L3-L36' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonConverterWithSettings' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+<!-- snippet: ConverterSettings -->
+<a id='snippet-ConverterSettings'></a>
+```cs
+public static class CompanyConverterSettings
+{
+    public static void IgnoreCompanyEmployees(this VerifySettings settings) =>
+        settings.Context["IgnoreCompanyEmployees"] = true;
+
+    public static SettingsTask IgnoreCompanyEmployees(this SettingsTask settings)
+    {
+        settings.CurrentSettings.IgnoreCompanyEmployees();
+        return settings;
+    }
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/JsonConverterWithSettings.cs#L80-L94' title='Snippet source file'>snippet source</a> | <a href='#snippet-ConverterSettings' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+These can be tested:
+
+<!-- snippet: TestJsonConverterWithSettingsInstance -->
+<a id='snippet-TestJsonConverterWithSettingsInstance'></a>
+```cs
+[Fact]
+public Task TestWithConverterInstance()
+{
+    var company = new Company(
+        "Company Name",
+        Employees:
+        [
+            "Employee1",
+            "Employee2"
+        ]);
+    var converter = new CompanyConverter(ignoreEmployees: true);
+    var result = WriteOnlyJsonConverter.Execute(converter, company);
+    return VerifyJson(result);
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/JsonConverterWithSettings.cs#L60-L77' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestJsonConverterWithSettingsInstance' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+<!-- snippet: TestJsonConverterWithSettings -->
+<a id='snippet-TestJsonConverterWithSettings'></a>
+```cs
+[Fact]
+public Task TestWithSettings()
+{
+    var company = new Company(
+        "Company Name",
+        Employees:
+        [
+            "Employee1",
+            "Employee2"
+        ]);
+    var settings = new VerifySettings();
+    settings.IgnoreCompanyEmployees();
+    var result = WriteOnlyJsonConverter.Execute<CompanyConverter>(company, settings);
+    return VerifyJson(result);
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/JsonConverterWithSettings.cs#L40-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestJsonConverterWithSettings' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 
 ## Scoped settings

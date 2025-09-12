@@ -38,7 +38,7 @@ public partial class Counter
     {
         var value = Interlocked.Increment(ref currentDate);
 
-        if (dateCounting)
+        if (DateCounting)
         {
             return (value, $"Date_{value}");
         }

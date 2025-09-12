@@ -126,7 +126,7 @@ static class DateScrubber
             return false;
         }
 
-        if (DateTimePolyfill.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
+        if (DateTime.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
         {
             result = counter.Convert(date);
             return true;

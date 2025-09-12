@@ -181,7 +181,7 @@ partial class Counter
     }
 
     static bool TryParseDateTime(CharSpan value, string format, out DateTime dateTime) =>
-        DateTimePolyfill.TryParseExact(value, format, null, DateTimeStyles.None, out dateTime);
+        DateTime.TryParseExact(value, format, null, DateTimeStyles.None, out dateTime);
 
     internal bool TryParseConvertDateTimeOffset(CharSpan value, [NotNullWhen(true)] out string? result)
     {

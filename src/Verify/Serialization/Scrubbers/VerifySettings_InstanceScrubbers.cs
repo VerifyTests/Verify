@@ -75,7 +75,8 @@ public partial class VerifySettings
     /// Replace inline <see cref="DateTime" />s with a placeholder.
     /// </summary>
     public void ScrubInlineDateTimes(
-        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)]
+        string format,
         Culture? culture = null,
         ScrubberLocation location = ScrubberLocation.First) =>
         AddScrubber(
@@ -86,7 +87,8 @@ public partial class VerifySettings
     /// Replace inline <see cref="DateTime" />s with a placeholder.
     /// </summary>
     public void ScrubInlineDateTimeOffsets(
-        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)]
+        string format,
         Culture? culture = null,
         ScrubberLocation location = ScrubberLocation.First) =>
         AddScrubber(

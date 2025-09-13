@@ -5,13 +5,6 @@
 
 public class Tests
 {
-    [ModuleInitializer]
-    public static void Initialize()
-    {
-        VerifierSettings.AddExtraDateTimeFormat("F");
-        VerifierSettings.AddExtraDateTimeOffsetFormat("F");
-    }
-
     [Theory]
     [InlineData("a")]
     public Task ReplaceInvalidParamChar(string value) =>

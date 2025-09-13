@@ -115,7 +115,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        if (Counter.TryConvertString(value, out var result))
+        if (Counter.TryConvert(value, out var result))
         {
             WriteRawValueIfNoStrict(result);
             return;

@@ -95,7 +95,7 @@
 
         if (original is string stringValue)
         {
-            if (counter.TryParseConvert(stringValue.AsSpan(), out result))
+            if (counter.TryConvert(stringValue.AsSpan(), out result))
             {
                 return true;
             }

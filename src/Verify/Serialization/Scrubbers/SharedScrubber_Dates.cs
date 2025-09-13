@@ -22,7 +22,7 @@ partial class Counter
     }
 
 #if NET6_0_OR_GREATER
-    internal bool TryParseConvertDate(CharSpan value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvertDate(CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (ScrubDateTimes)
         {
@@ -67,7 +67,7 @@ partial class Counter
         return NextString(date);
     }
 
-    internal bool TryParseConvertTime(CharSpan value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvertTime(CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (ScrubDateTimes)
         {
@@ -156,7 +156,7 @@ partial class Counter
         return NextString(date);
     }
 
-    internal bool TryParseConvertDateTime(CharSpan value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvertDateTime(CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (ScrubDateTimes)
         {
@@ -183,7 +183,7 @@ partial class Counter
     static bool TryParseDateTime(CharSpan value, string format, out DateTime dateTime) =>
         DateTime.TryParseExact(value, format, null, DateTimeStyles.None, out dateTime);
 
-    internal bool TryParseConvertDateTimeOffset(CharSpan value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvertDateTimeOffset(CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (ScrubDateTimes)
         {

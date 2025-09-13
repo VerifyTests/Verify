@@ -20,7 +20,7 @@ It handles matching equivalent values and assigning a number to each match. It i
 
 Takes a CharSpan and attempts to parse it to one of the supported types, then return the tokenized scrubbed value for that value. 
 
-One example usage is inside a custom scrubber
+One example usage is inside a custom scrubber:
 
 <!-- snippet: CounterTryConvert -->
 <a id='snippet-CounterTryConvert'></a>
@@ -56,3 +56,10 @@ public Task CounterTryConvert()
 
 Results in:
 
+<!-- snippet: CounterTests.CounterTryConvert.verified.txt -->
+<a id='snippet-CounterTests.CounterTryConvert.verified.txt'></a>
+```txt
+The user with id Guid_1 was created on DateTime_1
+```
+<sup><a href='/src/Verify.Tests/Serialization/CounterTests.CounterTryConvert.verified.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#snippet-CounterTests.CounterTryConvert.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->

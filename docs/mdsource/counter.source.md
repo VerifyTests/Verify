@@ -13,9 +13,10 @@ It handles matching equivalent values and assigning a number to each match. It i
 
 Takes a CharSpan and attempts to parse it to one of the supported types, then return the tokenized scrubbed value for that value. 
 
-One example usage is inside a custom scrubber
+One example usage is inside a custom scrubber:
 
 snippet: CounterTryConvert
 
 Results in:
 
+snippet: CounterTests.CounterTryConvert.verified.txt

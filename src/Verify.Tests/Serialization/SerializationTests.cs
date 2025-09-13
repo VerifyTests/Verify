@@ -750,7 +750,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ScrubberUsingCounterTryConvert()
+    public Task CounterTryConvert()
     {
         var settings = new VerifySettings();
         settings.AddScrubber((builder, counter) =>

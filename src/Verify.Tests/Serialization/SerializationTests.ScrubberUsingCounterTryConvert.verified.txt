@@ -1,1 +1,0 @@
-﻿The user with id Guid_1 was created on DateTime_1 

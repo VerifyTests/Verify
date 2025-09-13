@@ -275,7 +275,7 @@ public static void Initialize() =>
 
 #### VerifyJsonWriter
 
-A `VerifyJsonWriter` is passed in to the `Write` methos. It exposes context and helper methos to the JsonConverter. For example:
+A `VerifyJsonWriter` is passed in to the `Write` methods. It exposes context and helper methods to the JsonConverter. For example:
 
  * `Counter` property that gives programmatic access to the counting behavior used by [Guid](guids.md), [Date](dates.md), and [Id](#numeric-ids-are-scrubbed) scrubbing.
  * `Serializer` property that exposes the current `JsonSerializer`.

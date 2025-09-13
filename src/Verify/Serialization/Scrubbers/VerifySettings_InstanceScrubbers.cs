@@ -32,8 +32,9 @@ public partial class VerifySettings
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
-    public void AddScrubber(Action<StringBuilder, Counter> scrubber, ScrubberLocation location = ScrubberLocation.First) => AddScrubber((builder, counter, _) =>
-        scrubber(builder, counter), location);
+    public void AddScrubber(Action<StringBuilder, Counter> scrubber, ScrubberLocation location = ScrubberLocation.First) =>
+        AddScrubber((builder, counter, _) =>
+            scrubber(builder, counter), location);
 
     /// <summary>
     /// Modify the resulting test content using custom code.
@@ -75,7 +76,8 @@ public partial class VerifySettings
     /// Replace inline <see cref="DateTime" />s with a placeholder.
     /// </summary>
     public void ScrubInlineDateTimes(
-        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)]
+        string format,
         Culture? culture = null,
         ScrubberLocation location = ScrubberLocation.First) =>
         AddScrubber(
@@ -86,7 +88,8 @@ public partial class VerifySettings
     /// Replace inline <see cref="DateTime" />s with a placeholder.
     /// </summary>
     public void ScrubInlineDateTimeOffsets(
-        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)]
+        string format,
         Culture? culture = null,
         ScrubberLocation location = ScrubberLocation.First) =>
         AddScrubber(

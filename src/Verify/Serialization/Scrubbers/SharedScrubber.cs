@@ -2,7 +2,7 @@
 
 public partial class Counter
 {
-    internal bool TryConvert(CharSpan value, [NotNullWhen(true)] out string? result)
+    public bool TryConvert(CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (TryConvertGuid(value, out result) ||
             TryConvertDateTimeOffset(value, out result) ||

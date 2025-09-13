@@ -17,9 +17,9 @@ public class CustomCounterTests
             after: () => local.Value = null
         );
 
-        AddCountConverter<CounterTarget>( _ => _.Property1);
-        AddCountConverter<CounterTarget>( _ => _.Property2);
-        AddCountConverter<CounterTarget>( _ => _.Property3);
+        AddCountConverter<CounterTarget>(_ => _.Property1);
+        AddCountConverter<CounterTarget>(_ => _.Property2);
+        AddCountConverter<CounterTarget>(_ => _.Property3);
     }
 
     static void AddCountConverter<T>(Expression<Func<T, string?>> expression) =>

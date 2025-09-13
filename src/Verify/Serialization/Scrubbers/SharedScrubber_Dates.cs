@@ -89,7 +89,7 @@ partial class Counter
     {
         if (ScrubDateTimes)
         {
-            result = Convert( value);
+            result = Convert(value);
             return true;
         }
 

@@ -5,7 +5,7 @@ public partial class Counter
     internal bool TryParseConvert(CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (TryParseConvertGuid(value, out result) ||
-            TryParseConvertDateTimeOffset( value, out result) ||
+            TryParseConvertDateTimeOffset(value, out result) ||
             TryParseConvertDateTime(value, out result))
         {
             return true;

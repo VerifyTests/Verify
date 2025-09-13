@@ -32,8 +32,9 @@ public partial class VerifySettings
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
-    public void AddScrubber(Action<StringBuilder, Counter> scrubber, ScrubberLocation location = ScrubberLocation.First) => AddScrubber((builder, counter, _) =>
-        scrubber(builder, counter), location);
+    public void AddScrubber(Action<StringBuilder, Counter> scrubber, ScrubberLocation location = ScrubberLocation.First) =>
+        AddScrubber((builder, counter, _) =>
+            scrubber(builder, counter), location);
 
     /// <summary>
     /// Modify the resulting test content using custom code.

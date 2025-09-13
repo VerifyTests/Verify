@@ -1029,6 +1029,7 @@ This readme will not discuss definitive list of details for proper setup of the 
     * [Guids](/docs/guids.md)
     * [Dates](/docs/dates.md)
     * [Scrubbing](/docs/scrubbers.md)
+    * [Counter](/docs/counter.md)
     * [Members that throw](/docs/members-throw.md)
     * [Ordering](/docs/ordering.md)
     * [Encoding](/docs/encoding.md)

@@ -20,6 +20,7 @@ To change this file edit the source file and then run MarkdownSnippets.
     * [Guids](/docs/guids.md)
     * [Dates](/docs/dates.md)
     * [Scrubbing](/docs/scrubbers.md)
+    * [Counter](/docs/counter.md)
     * [Members that throw](/docs/members-throw.md)
     * [Ordering](/docs/ordering.md)
     * [Encoding](/docs/encoding.md)

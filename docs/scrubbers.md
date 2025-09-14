@@ -152,7 +152,7 @@ static object BuildTarget() =>
         new DateTimeOffset(2020, 1, 1, 1, 1, 1, TimeSpan.FromHours(10)),
         new Guid("ae8529a6-30a0-46e2-b7d6-9fcb7b23463c"));
 ```
-<sup><a href='/src/DisableScrubbersTests/Tests.cs#L109-L120' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableScrubbersTarget' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DisableScrubbersTests/Tests.cs#L111-L122' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableScrubbersTarget' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 When scrubbers are disabled the result will be:

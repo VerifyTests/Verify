@@ -106,6 +106,8 @@
 
     public record Target(string TheSolutionDir, string TheProjectDir, Date Date, DateTime DateTime, DateTimeOffset DateTimeOffset, Guid Guid);
 
+    // ReSharper disable ArrangeObjectCreationWhenTypeNotEvident
+
     #region DisableScrubbersTarget
 
     static object BuildTarget() =>
@@ -118,4 +120,6 @@
             new Guid("ae8529a6-30a0-46e2-b7d6-9fcb7b23463c"));
 
     #endregion
+
+    // ReSharper restore ArrangeObjectCreationWhenTypeNotEvident
 }

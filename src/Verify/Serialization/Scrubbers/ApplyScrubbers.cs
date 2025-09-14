@@ -138,12 +138,17 @@ static class ApplyScrubbers
             scrubber(target, counter, settings.Context);
         }
 
+        ApplyReplacements(target);
+
+        target.FixNewlines();
+    }
+
+    static void ApplyReplacements(StringBuilder target)
+    {
         foreach (var replace in replacements)
         {
             target.ReplaceIfLonger(replace.Key, replace.Value);
         }
-
-        target.FixNewlines();
     }
 
     public static CharSpan ApplyForPropertyValue(CharSpan value, VerifySettings settings, Counter counter)
@@ -172,10 +177,7 @@ static class ApplyScrubbers
             scrubber(builder, counter, settings.Context);
         }
 
-        foreach (var replace in replacements)
-        {
-            builder.ReplaceIfLonger(replace.Key, replace.Value);
-        }
+        ApplyReplacements(builder);
 
         builder.FixNewlines();
     }

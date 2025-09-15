@@ -46,9 +46,9 @@ public class Tests
         Verify(
         [
             new Target(
-                    extension: "txt",
-                    data: "Raw target value",
-                    name: "targetName")
+                extension: "txt",
+                data: "Raw target value",
+                name: "targetName")
         ]);
 
     static string directoryPathToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
@@ -81,6 +81,7 @@ public class Tests
         VerifyZip(pathToArchive, includeStructure: true);
 
     #endregion
+
     [Test]
     public Task WithZipAndPersistArchive() =>
         VerifyZip(pathToArchive, persistArchive: true);
@@ -90,8 +91,7 @@ public class Tests
     {
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsAsync(
-            () => Verify("Bar", settings));
+        await Assert.ThrowsAsync(() => Verify("Bar", settings));
         var list = TestContext.Current!.Artifacts;
         await Assert.That(list.Count).IsEqualTo(1);
         var expected = $"Tests.ChangeHasAttachment.{Namer.TargetFrameworkNameAndVersion}.received.txt";
@@ -124,8 +124,7 @@ public class Tests
     {
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsAsync(
-            () => Verify("Bar", settings));
+        await Assert.ThrowsAsync(() => Verify("Bar", settings));
         var list = TestContext.Current!.Artifacts;
         await Assert.That(list.Count).IsEqualTo(1);
         await Assert.That(list[0].File.Name)
@@ -137,8 +136,7 @@ public class Tests
     {
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsAsync(
-            () => Verify("Bar", [new("txt", "Value")], settings));
+        await Assert.ThrowsAsync(() => Verify("Bar", [new("txt", "Value")], settings));
         var list = TestContext.Current!.Artifacts;
         await Assert.That(list.Count).IsEqualTo(2);
         await Assert.That(list[0].File.Name)
@@ -152,8 +150,7 @@ public class Tests
     {
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsAsync(
-            () => Verify("Bar", [new("txt", "Value")], settings));
+        await Assert.ThrowsAsync(() => Verify("Bar", [new("txt", "Value")], settings));
         var list = TestContext.Current!.Artifacts;
         await Assert.That(list.Count).IsEqualTo(2);
         await Assert.That(list[0].File.Name)

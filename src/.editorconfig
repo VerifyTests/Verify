@@ -34,6 +34,9 @@ resharper_replace_with_single_call_to_first_or_default_highlighting = error
 # Replace with single call to Any(..)
 resharper_replace_with_single_call_to_any_highlighting = error
 
+# Simplify negative equality expression
+resharper_negative_equality_expression_highlighting = error
+
 # Replace with single call to Count(..)
 resharper_replace_with_single_call_to_count_highlighting = error
 

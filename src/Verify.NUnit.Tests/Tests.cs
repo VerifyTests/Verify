@@ -56,7 +56,6 @@ public class Tests
                     extension: "txt",
                     data: "Raw target value",
                     name: "targetName")
-                data: "Raw target value",
         ]);
 
     static string directoryPathToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");

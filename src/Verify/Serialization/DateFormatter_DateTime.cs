@@ -1,6 +1,8 @@
-﻿static partial class DateFormatter
+﻿namespace VerifyTests;
+
+public static partial class DateFormatter
 {
-    public static string ToJsonString(DateTime value)
+    public static string Convert(DateTime value)
     {
         var result = GetJsonDatePart(value);
 

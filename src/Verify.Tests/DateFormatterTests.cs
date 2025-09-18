@@ -4,7 +4,7 @@
     public Task DateTimeOtherTimeZoneToJsonString()
     {
         var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.FromHours(1.5));
-        return Verify(DateFormatter.ToJsonString(date));
+        return Verify(DateFormatter.Convert(date));
     }
 
     [Fact]
@@ -18,7 +18,7 @@
     public Task DateTimeOtherTimeZoneNegativeToJsonString()
     {
         var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.FromHours(-1.5));
-        return Verify(DateFormatter.ToJsonString(date));
+        return Verify(DateFormatter.Convert(date));
     }
 
     [Fact]
@@ -32,7 +32,7 @@
     public Task DateTimeLocalToJsonString()
     {
         var date = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Local);
-        return Verify(DateFormatter.ToJsonString(date));
+        return Verify(DateFormatter.Convert(date));
     }
 
     [Fact]
@@ -46,7 +46,7 @@
     public Task DateTimeUnspecifiedToJsonString()
     {
         var date = new DateTime(2000, 10, 1, 0, 0, 0);
-        return Verify(DateFormatter.ToJsonString(date));
+        return Verify(DateFormatter.Convert(date));
     }
 
     [Fact]
@@ -60,7 +60,7 @@
     public Task DateTimeUtcToJsonString()
     {
         var date = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Utc);
-        return Verify(DateFormatter.ToJsonString(date));
+        return Verify(DateFormatter.Convert(date));
     }
 
     [Fact]
@@ -74,7 +74,7 @@
     public Task DateTimeOffsetUtcToJsonString()
     {
         var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero);
-        return Verify(DateFormatter.ToJsonString(date));
+        return Verify(DateFormatter.Convert(date));
     }
 
     [Fact]
@@ -129,7 +129,7 @@
                 value = value.AddSeconds(.5);
             }
 
-            jsonValues.Add(name.ToString(), DateFormatter.ToJsonString(value));
+            jsonValues.Add(name.ToString(), DateFormatter.Convert(value));
             parameterValues.Add(name.ToString(), DateFormatter.ToParameterString(value));
         }
 
@@ -183,7 +183,7 @@
                 value = value.AddSeconds(.5);
             }
 
-            jsonValues.Add(name.ToString(), DateFormatter.ToJsonString(value));
+            jsonValues.Add(name.ToString(), DateFormatter.Convert(value));
             parameterValues.Add(name.ToString(), DateFormatter.ToParameterString(value));
         }
 

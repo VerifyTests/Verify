@@ -169,7 +169,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        WriteRawValueWithScrubbers(DateFormatter.ToJsonString(value));
+        WriteRawValueWithScrubbers(DateFormatter.Convert(value));
     }
 
     public override void WriteValue(DateTime value)
@@ -180,7 +180,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        WriteRawValueWithScrubbers(DateFormatter.ToJsonString(value));
+        WriteRawValueWithScrubbers(DateFormatter.Convert(value));
     }
 
     public override void WriteValue(TimeSpan value) =>

@@ -101,10 +101,10 @@ public static partial class VerifierSettings
             typeof(Guid), (target, _) => ((Guid) target).ToString()
         },
         {
-            typeof(DateTime), (target, _) => DateFormatter.ToJsonString((DateTime) target)
+            typeof(DateTime), (target, _) => DateFormatter.Convert((DateTime) target)
         },
         {
-            typeof(DateTimeOffset), (target, _) => DateFormatter.ToJsonString((DateTimeOffset) target)
+            typeof(DateTimeOffset), (target, _) => DateFormatter.Convert((DateTimeOffset) target)
         },
         {
             typeof(XmlNode), (target, _) =>

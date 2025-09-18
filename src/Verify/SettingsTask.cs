@@ -31,6 +31,15 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.AppendValue(string,object)"/>
+    [Pure]
+    [OverloadResolutionPriority(-1)]
+    public SettingsTask AppendValue(object data, [CallerArgumentExpression(nameof(data))] string? name = null)
+    {
+        CurrentSettings.AppendValue(name!, data);
+        return this;
+    }
+
     /// <inheritdoc cref="VerifySettings.AppendValues(IEnumerable{KeyValuePair{string,object}})"/>
     [Pure]
     public SettingsTask AppendValues(IEnumerable<KeyValuePair<string, object>> values)

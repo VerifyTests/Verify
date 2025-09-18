@@ -35,6 +35,13 @@ public partial class VerifySettings
         Appends.Add(new(name, data));
 
     /// <summary>
+    /// Append a key-value pair to the serialized target.
+    /// </summary>
+    [OverloadResolutionPriority(-1)]
+    public void AppendValue(object data, [CallerArgumentExpression(nameof(data))] string? name = null) =>
+        Appends.Add(new(name!, data));
+
+    /// <summary>
     /// Append key-value pairs to the serialized target.
     /// </summary>
     public void AppendValues(IEnumerable<KeyValuePair<string, object>> values)

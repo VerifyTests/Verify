@@ -51,7 +51,8 @@ partial class InnerVerifier
             var result = new List<Target>();
             foreach (var target in list)
             {
-                if (!VerifierSettings.HasStreamConverter(target.Extension))
+                if (!target.PerformConversion ||
+                    !VerifierSettings.HasStreamConverter(target.Extension))
                 {
                     result.Add(target);
                     continue;

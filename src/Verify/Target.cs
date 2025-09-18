@@ -6,6 +6,7 @@ public readonly struct Target
     readonly Stream? streamData;
     public string Extension { get; }
     public string? Name { get; } = null;
+    public bool PerformConversion { get; } = true;
     public string NameOrTarget => Name ?? "target";
 
     public Stream StreamData
@@ -36,7 +37,13 @@ public readonly struct Target
         return false;
     }
 
-    public Target(string extension, Stream data, string? name = null)
+    [OverloadResolutionPriority(-1)]
+    public Target(string extension, Stream data, string? name = null) :
+        this(extension, data, name, true)
+    {
+    }
+
+    public Target(string extension, Stream data, string? name = null, bool performConversion = true)
     {
         Guards.AgainstBadExtension(extension);
 
@@ -52,6 +59,7 @@ public readonly struct Target
 
         Extension = extension;
         Name = name;
+        PerformConversion = performConversion;
         streamData = data;
         stringBuilderData = null;
     }

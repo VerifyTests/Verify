@@ -139,7 +139,7 @@ partial class InnerVerifier
         {
             var target = queue.Dequeue();
 
-            if (extension == target.Extension ||
+            if (//extension == target.Extension ||
                 !VerifierSettings.TryGetStreamConverter(target.Extension, out var conversion))
             {
                 targets.Add(target);

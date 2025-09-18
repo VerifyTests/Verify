@@ -23,7 +23,7 @@
         stream.Position = 0;
         VerifyTests.Target[] targets =
         [
-            new("reentrant", stream),
+            new("reentrant", stream, null, false),
             new("txt", instance.Property)
         ];
         return new(null, targets);

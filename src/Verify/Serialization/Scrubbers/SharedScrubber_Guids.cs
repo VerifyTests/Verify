@@ -2,7 +2,7 @@
 
 partial class Counter
 {
-    internal bool TryConvert(Guid value, [NotNullWhen(true)] out string? result)
+    public bool TryConvert(Guid value, [NotNullWhen(true)] out string? result)
     {
         if (ScrubGuids)
         {
@@ -24,7 +24,7 @@ partial class Counter
         return NextString(guid);
     }
 
-    internal bool TryConvertGuid(CharSpan value, [NotNullWhen(true)] out string? result)
+    public bool TryConvertGuid(CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (ScrubGuids)
         {

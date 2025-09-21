@@ -22,6 +22,9 @@ resharper_replace_with_single_call_to_single_or_default_highlighting = error
 # Replace with single call to LastOrDefault(..)
 resharper_replace_with_single_call_to_last_or_default_highlighting = error
 
+# Element is localizable
+resharper_localizable_element_highlighting = none
+
 # Replace with single call to Last(..)
 resharper_replace_with_single_call_to_last_highlighting = error
 

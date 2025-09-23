@@ -58,7 +58,7 @@ public readonly struct Target
         }
 
         Extension = extension;
-        Name = name;
+        Name = FileNameCleaner.SanitizeFilePath(name);
         PerformConversion = performConversion;
         streamData = data;
         stringBuilderData = null;
@@ -69,7 +69,7 @@ public readonly struct Target
         ValidateExtension(extension);
 
         Extension = extension;
-        Name = name;
+        Name = FileNameCleaner.SanitizeFilePath(name);
         streamData = null;
         stringBuilderData = data;
     }
@@ -96,7 +96,7 @@ public readonly struct Target
         ValidateExtension(extension);
 
         Extension = extension;
-        Name = name;
+        Name = FileNameCleaner.SanitizeFilePath(name);
         stringBuilderData = new(data);
         streamData = null;
     }

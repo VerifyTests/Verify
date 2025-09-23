@@ -83,6 +83,10 @@
         return Verify(new Target("EnsureInputs", stream, "name"));
     }
 
+    [Fact]
+    public Task InvalidFileCharactersInName() =>
+        Verify(new Target("txt", "value", "name*a?b|c"));
+
     [ModuleInitializer]
     public static void ExtensionConversionStringBuilderInit() =>
         VerifierSettings.RegisterStreamConverter(

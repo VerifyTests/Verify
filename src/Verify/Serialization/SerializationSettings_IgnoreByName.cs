@@ -2,7 +2,7 @@
 
 partial class SerializationSettings
 {
-    Dictionary<string, ScrubOrIgnore?> ignoredByNameMembers = [];
+    Dictionary<string, ScrubOrIgnore?>? ignoredByNameMembers;
 
     public void IgnoreStackTrace() =>
         IgnoreMember("StackTrace");
@@ -10,12 +10,14 @@ partial class SerializationSettings
     public void IgnoreMember(string name)
     {
         Guard.NotNullOrEmpty(name);
+        ignoredByNameMembers ??= [];
         ignoredByNameMembers[name] = ScrubOrIgnore.Ignore;
     }
 
     public void ScrubMember(string name)
     {
         Guard.NotNullOrEmpty(name);
+        ignoredByNameMembers ??= [];
         ignoredByNameMembers[name] = ScrubOrIgnore.Scrub;
     }
 
@@ -39,7 +41,8 @@ partial class SerializationSettings
 
     internal bool ShouldIgnoreByName(string name)
     {
-        if (ignoredByNameMembers.TryGetValue(name, out var scrubOrIgnore))
+        if (ignoredByNameMembers != null &&
+            ignoredByNameMembers.TryGetValue(name, out var scrubOrIgnore))
         {
             return scrubOrIgnore == ScrubOrIgnore.Ignore;
         }
@@ -54,7 +57,8 @@ partial class SerializationSettings
 
     internal bool ShouldScrubByName(string name)
     {
-        if (ignoredByNameMembers.TryGetValue(name, out var scrubOrIgnore))
+        if (ignoredByNameMembers != null &&
+            ignoredByNameMembers.TryGetValue(name, out var scrubOrIgnore))
         {
             return scrubOrIgnore == ScrubOrIgnore.Scrub;
         }
@@ -67,7 +71,17 @@ partial class SerializationSettings
         return false;
     }
 
-    internal bool TryGetScrubOrIgnoreByName(string name, [NotNullWhen(true)] out ScrubOrIgnore? scrubOrIgnore) =>
-        ignoredByNameMembers.TryGetValue(name, out scrubOrIgnore)
-        || TryGetScrubOrIgnorePredicateByName(name, null, out scrubOrIgnore);
+    internal bool TryGetScrubOrIgnoreByName(string name, [NotNullWhen(true)] out ScrubOrIgnore? scrubOrIgnore)
+    {
+        if (ignoredByNameMembers != null &&
+            ignoredByNameMembers.TryGetValue(name, out scrubOrIgnore))
+        {
+            if (scrubOrIgnore != null)
+            {
+                return true;
+            }
+        }
+
+        return TryGetScrubOrIgnorePredicateByName(name, null, out scrubOrIgnore);
+    }
 }

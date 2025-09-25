@@ -37,6 +37,8 @@ public partial class VerifySettings
         serialization = settings.serialization;
         stringComparer = settings.stringComparer;
         streamComparer = settings.streamComparer;
+        extensionStringComparers = settings.extensionStringComparers;
+        extensionStreamComparers = settings.extensionStreamComparers;
         parameters = settings.parameters;
         ignoredParameters = settings.ignoredParameters;
         ignoreParametersForVerified = settings.ignoreParametersForVerified;

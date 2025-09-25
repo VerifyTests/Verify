@@ -58,6 +58,7 @@ public partial class SettingsTask
 
     /// <inheritdoc cref="VerifySettings.UseStreamComparer(StreamCompare)"/>
     [Pure]
+    [Obsolete("Use UseStreamComparer(StreamCompare compare, params ReadOnlySpan<string> extensions)")]
     public SettingsTask UseStreamComparer(StreamCompare compare)
     {
         CurrentSettings.UseStreamComparer(compare);
@@ -66,9 +67,29 @@ public partial class SettingsTask
 
     /// <inheritdoc cref="VerifySettings.UseStringComparer(StringCompare)"/>
     [Pure]
+    [Obsolete("Use UseStringComparer(StringCompare compare, params ReadOnlySpan<string> extensions)")]
+
     public SettingsTask UseStringComparer(StringCompare compare)
     {
         CurrentSettings.UseStringComparer(compare);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.UseStreamComparer(StreamCompare)"/>
+    [Pure]
+    [OverloadResolutionPriority(1)]
+    public SettingsTask UseStreamComparer(StreamCompare compare, params ReadOnlySpan<string> extensions)
+    {
+        CurrentSettings.UseStreamComparer(compare, extensions);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.UseStringComparer(StringCompare)"/>
+    [Pure]
+    [OverloadResolutionPriority(1)]
+    public SettingsTask UseStringComparer(StringCompare compare, params ReadOnlySpan<string> extensions)
+    {
+        CurrentSettings.UseStringComparer(compare, extensions);
         return this;
     }
 

@@ -2,7 +2,7 @@
 
 public partial class VerifySettings
 {
-    internal List<Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>>> InstanceScrubbers = [];
+    internal List<Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>>>? InstanceScrubbers = [];
 
     internal bool ScrubbersEnabled { get; private set; } = true;
 
@@ -41,6 +41,12 @@ public partial class VerifySettings
     /// </summary>
     public void AddScrubber(Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>> scrubber, ScrubberLocation location = ScrubberLocation.First)
     {
+        if (InstanceScrubbers == null)
+        {
+            InstanceScrubbers = [scrubber];
+            return;
+        }
+
         switch (location)
         {
             case ScrubberLocation.First:

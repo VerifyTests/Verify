@@ -2,7 +2,7 @@
 
 public partial class VerifySettings
 {
-    internal Dictionary<string, List<Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>>>> ExtensionMappedInstanceScrubbers = [];
+    internal Dictionary<string, List<Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>>>>? ExtensionMappedInstanceScrubbers = [];
 
     /// <summary>
     /// Modify the resulting test content using custom code.
@@ -22,6 +22,8 @@ public partial class VerifySettings
     /// </summary>
     public void AddScrubber(string extension, Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>> scrubber, ScrubberLocation location = ScrubberLocation.First)
     {
+        ExtensionMappedInstanceScrubbers ??= [];
+
         if (!ExtensionMappedInstanceScrubbers.TryGetValue(extension, out var values))
         {
             ExtensionMappedInstanceScrubbers[extension] = values = [];

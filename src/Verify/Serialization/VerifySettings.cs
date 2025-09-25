@@ -26,20 +26,26 @@ public partial class VerifySettings
 
     bool strictJson;
 
-    internal List<ToAppend> Appends = [];
+    internal List<ToAppend>? Appends = [];
 
     /// <summary>
     /// Append a key-value pair to the serialized target.
     /// </summary>
-    public void AppendValue(string name, object data) =>
+    public void AppendValue(string name, object data)
+    {
+        Appends ??= [];
         Appends.Add(new(name, data));
+    }
 
     /// <summary>
     /// Append a key-value pair to the serialized target.
     /// </summary>
     [OverloadResolutionPriority(-1)]
-    public void AppendValue(object data, [CallerArgumentExpression(nameof(data))] string? name = null) =>
+    public void AppendValue(object data, [CallerArgumentExpression(nameof(data))] string? name = null)
+    {
+        Appends ??= [];
         Appends.Add(new(name!, data));
+    }
 
     /// <summary>
     /// Append key-value pairs to the serialized target.

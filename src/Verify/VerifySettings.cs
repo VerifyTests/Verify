@@ -24,8 +24,16 @@ public partial class VerifySettings
 
         ScrubbersEnabled = settings.ScrubbersEnabled;
         dateCountingEnable = settings.dateCountingEnable;
-        InstanceScrubbers = [..settings.InstanceScrubbers];
-        ExtensionMappedInstanceScrubbers = new(settings.ExtensionMappedInstanceScrubbers);
+        if (settings.InstanceScrubbers != null)
+        {
+            InstanceScrubbers = [..settings.InstanceScrubbers];
+        }
+
+        if (settings.ExtensionMappedInstanceScrubbers != null)
+        {
+            ExtensionMappedInstanceScrubbers = new(settings.ExtensionMappedInstanceScrubbers);
+        }
+
         diffEnabled = settings.diffEnabled;
         MethodName = settings.MethodName;
         TypeName = settings.TypeName;
@@ -52,21 +60,43 @@ public partial class VerifySettings
         UseUniqueDirectorySplitMode = settings.UseUniqueDirectorySplitMode;
         Namer = new(settings.Namer);
 #if NET6_0_OR_GREATER
-        namedDates = new(settings.namedDates);
-        namedTimes = new(settings.namedTimes);
-#endif
-        namedGuids = new(settings.namedGuids);
-        namedDateTimes = new(settings.namedDateTimes);
-        namedDateTimeOffsets = new(settings.namedDateTimeOffsets);
-        foreach (var append in settings.Appends)
+        if (settings.namedDates != null)
         {
-            if (append.Data is ICloneable cloneable)
+            namedDates = new(settings.namedDates);
+        }
+
+        if (settings.namedTimes != null)
+        {
+            namedTimes = new(settings.namedTimes);
+        }
+#endif
+        if (settings.namedGuids != null)
+        {
+            namedGuids = new(settings.namedGuids);
+        }
+
+        if (settings.namedDateTimes != null)
+        {
+            namedDateTimes = new(settings.namedDateTimes);
+        }
+
+        if (settings.namedDateTimeOffsets != null)
+        {
+            namedDateTimeOffsets = new(settings.namedDateTimeOffsets);
+        }
+
+        if (settings.Appends != null)
+        {
+            foreach (var append in settings.Appends)
             {
-                AppendValue(append.Name, cloneable.Clone());
-            }
-            else
-            {
-                AppendValue(append.Name, append.Data);
+                if (append.Data is ICloneable cloneable)
+                {
+                    AppendValue(append.Name, cloneable.Clone());
+                }
+                else
+                {
+                    AppendValue(append.Name, append.Data);
+                }
             }
         }
 

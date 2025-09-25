@@ -112,12 +112,16 @@ static class ApplyScrubbers
             return;
         }
 
-        foreach (var scrubber in settings.InstanceScrubbers)
+        if (settings.InstanceScrubbers != null)
         {
-            scrubber(target, counter, settings.Context);
+            foreach (var scrubber in settings.InstanceScrubbers)
+            {
+                scrubber(target, counter, settings.Context);
+            }
         }
 
-        if (settings.ExtensionMappedInstanceScrubbers.TryGetValue(extension, out var extensionBasedInstanceScrubbers))
+        if (settings.ExtensionMappedInstanceScrubbers != null &&
+            settings.ExtensionMappedInstanceScrubbers.TryGetValue(extension, out var extensionBasedInstanceScrubbers))
         {
             foreach (var scrubber in extensionBasedInstanceScrubbers)
             {
@@ -167,9 +171,12 @@ static class ApplyScrubbers
             return;
         }
 
-        foreach (var scrubber in settings.InstanceScrubbers)
+        if (settings.InstanceScrubbers != null)
         {
-            scrubber(builder, counter, settings.Context);
+            foreach (var scrubber in settings.InstanceScrubbers)
+            {
+                scrubber(builder, counter, settings.Context);
+            }
         }
 
         foreach (var scrubber in VerifierSettings.GlobalScrubbers)

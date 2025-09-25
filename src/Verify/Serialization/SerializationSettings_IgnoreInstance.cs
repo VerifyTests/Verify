@@ -1,6 +1,6 @@
 ﻿partial class SerializationSettings
 {
-    Dictionary<Type, List<Func<object, ScrubOrIgnore?>>> ignoredInstances = [];
+    Dictionary<Type, List<Func<object, ScrubOrIgnore?>>>? ignoredInstances;
 
     public void IgnoreInstance<T>(Func<T, bool> shouldIgnore)
         where T : notnull
@@ -13,6 +13,7 @@
 
     public void IgnoreInstance(Type type, ShouldIgnore shouldIgnore)
     {
+        ignoredInstances ??= [];
         if (!ignoredInstances.TryGetValue(type, out var list))
         {
             ignoredInstances[type] = list = [];
@@ -40,6 +41,7 @@
 
     public void ScrubInstance(Type type, ShouldScrub shouldScrub)
     {
+        ignoredInstances ??= [];
         if (!ignoredInstances.TryGetValue(type, out var list))
         {
             ignoredInstances[type] = list = [];
@@ -56,6 +58,13 @@
         });
     }
 
-    internal bool GetShouldIgnoreInstance(Type memberType, [NotNullWhen(true)] out List<Func<object, ScrubOrIgnore?>>? funcs) =>
-        ignoredInstances.TryGetValue(memberType, out funcs);
+    internal bool GetShouldIgnoreInstance(Type memberType, [NotNullWhen(true)] out List<Func<object, ScrubOrIgnore?>>? funcs)
+    {
+        if (ignoredInstances == null)
+        {
+            funcs = null;
+            return false;
+        }
+        return ignoredInstances.TryGetValue(memberType, out funcs);
+    }
 }

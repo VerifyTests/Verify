@@ -2,7 +2,7 @@
 
 public static partial class VerifierSettings
 {
-    static List<JsonAppender> jsonAppenders = [];
+    static List<JsonAppender>? jsonAppenders = [];
 
     internal static List<ToAppend> GetJsonAppenders(VerifySettings settings)
     {
@@ -13,17 +13,23 @@ public static partial class VerifierSettings
             list.AddRange(recorded);
         }
 
-        foreach (var appender in jsonAppenders)
+        if (jsonAppenders != null)
         {
-            var data = appender(settings.Context);
-            if (data is not null)
+            foreach (var appender in jsonAppenders)
             {
-                var append = data.Value;
-                list.Add(append);
+                var data = appender(settings.Context);
+                if (data is not null)
+                {
+                    var append = data.Value;
+                    list.Add(append);
+                }
             }
         }
 
-        list.AddRange(settings.Appends);
+        if (settings.Appends != null)
+        {
+            list.AddRange(settings.Appends);
+        }
 
         return list;
     }
@@ -31,6 +37,7 @@ public static partial class VerifierSettings
     public static void RegisterJsonAppender(JsonAppender appender)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
+        jsonAppenders ??= [];
         jsonAppenders.Add(appender);
     }
 }

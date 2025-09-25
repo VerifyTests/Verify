@@ -2,44 +2,58 @@
 
 public static partial class VerifierSettings
 {
-    static List<FileAppender> fileAppenders = [];
+    static List<FileAppender>? fileAppenders = [];
 
     internal static IEnumerable<Target> GetFileAppenders(VerifySettings settings)
     {
-        foreach (var appender in fileAppenders)
+        if (fileAppenders != null)
         {
-            var target = appender(settings.Context);
-            if (target.HasValue)
+            foreach (var appender in fileAppenders)
             {
-                yield return target.Value;
+                var target = appender(settings.Context);
+                if (target.HasValue)
+                {
+                    yield return target.Value;
+                }
             }
         }
 
-        foreach (var target in settings.appendedFiles)
+        if (settings.appendedFiles != null)
         {
-            yield return target;
+            foreach (var target in settings.appendedFiles)
+            {
+                yield return target;
+            }
         }
     }
 
     public static void RegisterFileAppender(FileAppender appender)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
+        fileAppenders ??= [];
         fileAppenders.Add(appender);
     }
 }
 
 public partial class VerifySettings
 {
-    internal List<Target> appendedFiles = [];
+    internal List<Target>? appendedFiles = [];
 
-    public void AppendContentAsFile(string content, string extension = "txt", string? name = null) =>
+    public void AppendContentAsFile(string content, string extension = "txt", string? name = null)
+    {
+        appendedFiles ??= [];
         appendedFiles.Add(new(extension, content, name));
+    }
 
-    public void AppendContentAsFile(StringBuilder content, string extension = "txt", string? name = null) =>
+    public void AppendContentAsFile(StringBuilder content, string extension = "txt", string? name = null)
+    {
+        appendedFiles ??= [];
         appendedFiles.Add(new(extension, content, name));
+    }
 
     public void AppendContentAsFile(byte[] content, string extension = "txt", string? name = null)
     {
+        appendedFiles ??= [];
         if (FileExtensions.IsTextExtension(extension))
         {
             appendedFiles.Add(new(extension, Encoding.UTF8.GetString(content), name));
@@ -62,6 +76,7 @@ public partial class VerifySettings
     public void AppendFile(Stream stream, string extension = "txt", string? name = null)
     {
         stream.MoveToStart();
+        appendedFiles ??= [];
         if (FileExtensions.IsTextExtension(extension))
         {
             using var reader = new StreamReader(stream, Encoding.UTF8);

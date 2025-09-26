@@ -1,4 +1,4 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 public static partial class VerifierSettings
 {
@@ -37,7 +37,7 @@ public static partial class VerifierSettings
 
 public partial class VerifySettings
 {
-    internal List<Target>? appendedFiles = [];
+    internal List<Target>? appendedFiles;
 
     public void AppendContentAsFile(string content, string extension = "txt", string? name = null)
     {

@@ -4334,4 +4334,24 @@ public class SerializationTests
                 },
             })
             .AddScrubber(_ => _.Replace("key", "scrubbed"));
+
+    [Fact]
+    Task SecondsFractionUpperLong() =>
+        Verify("""
+               2025-09-26T11:10:44.1
+               2025-09-26T11:10:44.11
+               2025-09-26T11:10:44.111
+               2025-09-26T11:10:44.1111
+               """)
+            .ScrubInlineDateTimes("yyyy-MM-ddTHH:mm:ss.FFFF");
+
+    [Fact]
+    Task SecondsFractionUpperShort() =>
+        Verify("""
+               2025-09-26T11:10:44.1
+               2025-09-26T11:10:44.11
+               2025-09-26T11:10:44.111
+               2025-09-26T11:10:44.1111
+               """)
+            .ScrubInlineDateTimes("yyyy-MM-ddTHH:mm:ss.F");
 }

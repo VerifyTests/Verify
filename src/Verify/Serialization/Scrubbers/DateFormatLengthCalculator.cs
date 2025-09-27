@@ -12,8 +12,7 @@
             _ =>
             {
                 format = culture.DateTimeFormat.ExpandFormat(format);
-                var length = InnerGetLength(format.AsSpan(), culture);
-                return length;
+                return InnerGetLength(format.AsSpan(), culture);
             });
     }
 
@@ -63,7 +62,6 @@
                         throw new FormatException("Too many second fraction digits");
                     }
 
-                    minLength += 1;
                     maxLength += tokenLen;
 
                     break;

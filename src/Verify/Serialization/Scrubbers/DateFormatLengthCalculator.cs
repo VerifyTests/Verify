@@ -12,8 +12,7 @@
             _ =>
             {
                 format = culture.DateTimeFormat.ExpandFormat(format);
-                var length = InnerGetLength(format.AsSpan(), culture);
-                return length;
+                return InnerGetLength(format.AsSpan(), culture);
             });
     }
 
@@ -46,7 +45,6 @@
                     maxLength += 2;
                     break;
                 case 'f':
-                case 'F':
                     tokenLen = ParseRepeatPattern(format, index, ch);
                     if (tokenLen > maxSecondsFractionDigits)
                     {
@@ -54,6 +52,16 @@
                     }
 
                     minLength += tokenLen;
+                    maxLength += tokenLen;
+
+                    break;
+                case 'F':
+                    tokenLen = ParseRepeatPattern(format, index, ch);
+                    if (tokenLen > maxSecondsFractionDigits)
+                    {
+                        throw new FormatException("Too many second fraction digits");
+                    }
+
                     maxLength += tokenLen;
 
                     break;

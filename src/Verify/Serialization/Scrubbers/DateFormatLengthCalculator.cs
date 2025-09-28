@@ -1,8 +1,15 @@
 ﻿static class DateFormatLengthCalculator
 {
+    static ConcurrentDictionary<string, (int max, int min)> cache = new();
     const int maxSecondsFractionDigits = 7;
 
-    static ConcurrentDictionary<string, (int max, int min)> cache = new();
+    static void ValidateSecondsFractionLength(int tokenLen)
+    {
+        if (tokenLen > maxSecondsFractionDigits)
+        {
+            throw new FormatException("Too many second fraction digits");
+        }
+    }
 
     public static (int max, int min) GetLength(string format, Culture culture)
     {
@@ -46,10 +53,7 @@
                     break;
                 case 'f':
                     tokenLen = ParseRepeatPattern(format, index, ch);
-                    if (tokenLen > maxSecondsFractionDigits)
-                    {
-                        throw new FormatException("Too many second fraction digits");
-                    }
+                    ValidateSecondsFractionLength(tokenLen);
 
                     minLength += tokenLen;
                     maxLength += tokenLen;
@@ -57,10 +61,7 @@
                     break;
                 case 'F':
                     tokenLen = ParseRepeatPattern(format, index, ch);
-                    if (tokenLen > maxSecondsFractionDigits)
-                    {
-                        throw new FormatException("Too many second fraction digits");
-                    }
+                    ValidateSecondsFractionLength(tokenLen);
 
                     maxLength += tokenLen;
 

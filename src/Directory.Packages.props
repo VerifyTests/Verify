@@ -6,7 +6,7 @@
   <ItemGroup>
     <PackageVersion Include="Argon" Version="0.32.0" />
     <PackageVersion Include="Argon.FSharp" Version="0.32.0" />
-    <PackageVersion Include="BenchmarkDotNet" Version="0.15.2" />
+    <PackageVersion Include="BenchmarkDotNet" Version="0.15.4" />
     <PackageVersion Include="DiffEngine" Version="16.6.0" />
     <PackageVersion Include="Expecto" Version="10.2.3" />
     <PackageVersion Include="Fixie" Version="4.1.0" />

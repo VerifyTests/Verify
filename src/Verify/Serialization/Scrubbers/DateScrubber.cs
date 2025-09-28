@@ -180,7 +180,7 @@ static class DateScrubber
         }
     }
 
-    private static bool TryGetFormatWithUpperMillisecondsTrimmed(string format, [NotNullWhen(true)] out string? trimmedFormat)
+    static bool TryGetFormatWithUpperMillisecondsTrimmed(string format, [NotNullWhen(true)] out string? trimmedFormat)
     {
         if (format.EndsWith(".FFFF"))
         {

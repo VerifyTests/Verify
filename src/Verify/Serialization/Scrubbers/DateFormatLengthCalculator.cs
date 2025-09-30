@@ -63,6 +63,7 @@
                     tokenLen = ParseRepeatPattern(format, index, ch);
                     ValidateSecondsFractionLength(tokenLen);
 
+                    minLength += 1;
                     maxLength += tokenLen;
 
                     break;
@@ -366,8 +367,8 @@
             .Where(_ => _.Length > 0)
             .OrderBy(_ => _.Length)
             .ToList();
-        var max = lengths.Last();
-        var min = lengths.First();
+        var max = lengths[^1];
+        var min = lengths[0];
         Debug.Assert(max.Length >= min.Length);
         return (max.Length, min.Length);
     }

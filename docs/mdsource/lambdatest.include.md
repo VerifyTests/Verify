@@ -1,4 +1,4 @@
-### Sponsored by LambdaTest
+### LambdaTest
 
 <p style="font-size:21px; color:black;">Browser testing via<br>
   <a href="https://www.lambdatest.com/" target="_blank">

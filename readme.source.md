@@ -21,6 +21,15 @@ include: intro
 include: zzz
 
 
+### LambdaTest
+
+<p style="font-size:21px; color:black;">Browser testing via 
+  <a href="https://www.lambdatest.com/" target="_blank">
+    <img src="https://www.lambdatest.com/blue-logo.png" style="vertical-align: middle;" width="250" height="45" />
+  </a>
+</p>
+
+
 ### JetBrains
 
 [![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)](https://jb.gg/OpenSourceSupport)
@@ -419,6 +428,15 @@ This readme will not discuss definitive list of details for proper setup of the 
 ## Plugins
 
 include: plugin-list
+
+
+### Sponsored by LambdaTest
+
+<p style="font-size:21px; color:black;">Browser testing via 
+  <a href="https://www.lambdatest.com/" target="_blank">
+    <img src="https://www.lambdatest.com/blue-logo.png" style="vertical-align: middle;" width="250" height="45" />
+  </a>
+</p>
 
 
 ## More Documentation

@@ -65,8 +65,8 @@
         if (format.Length > 1)
         {
             var result = DateTime.Now.ToString(format, culture);
-            Assert.True(result.Length <= max, $"{result.Length} <= {max}");
-            Assert.True(result.Length >= min, $"{result.Length} >= {min}");
+            Assert.True(result.Length <= max, $"{result.Length} <= {max}. {result}");
+            Assert.True(result.Length >= min, $"{result.Length} >= {min}. {result}");
         }
 
         var padded = $" {format} ";

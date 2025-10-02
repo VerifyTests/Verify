@@ -37,13 +37,13 @@ updated to the new result.<!-- endInclude -->
 [![Entity Framework Extensions](https://raw.githubusercontent.com/VerifyTests/Verify/refs/heads/main/docs/zzz.png)](https://entityframework-extensions.net/?utm_source=simoncropp&utm_medium=Verify)<!-- endInclude -->
 
 
-### LambdaTest
+### Sponsored by LambdaTest<!-- include: lambdatest. path: /docs/mdsource/lambdatest.include.md -->
 
-<p style="font-size:21px; color:black;">Browser testing via 
+<p style="font-size:21px; color:black;">Browser testing via<br>
   <a href="https://www.lambdatest.com/" target="_blank">
     <img src="https://www.lambdatest.com/blue-logo.png" style="vertical-align: middle;" width="250" height="45" />
   </a>
-</p>
+</p><!-- endInclude -->
 
 
 ### JetBrains
@@ -1024,13 +1024,13 @@ This readme will not discuss definitive list of details for proper setup of the 
 <!-- endInclude -->
 
 
-### Sponsored by LambdaTest
+### Sponsored by LambdaTest<!-- include: lambdatest. path: /docs/mdsource/lambdatest.include.md -->
 
-<p style="font-size:21px; color:black;">Browser testing via 
+<p style="font-size:21px; color:black;">Browser testing via<br>
   <a href="https://www.lambdatest.com/" target="_blank">
     <img src="https://www.lambdatest.com/blue-logo.png" style="vertical-align: middle;" width="250" height="45" />
   </a>
-</p>
+</p><!-- endInclude -->
 
 
 ## More Documentation

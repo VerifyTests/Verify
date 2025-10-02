@@ -52,8 +52,8 @@
     [InlineData("yyyy-MM-dd", 10, 10)]
     [InlineData("yyyy/MM/dd", 10, 10)]
     [InlineData("yyyy'/'MM'/'dd", 10, 10)]
-    [InlineData("yyyy-MM-ddTHH:mm:ss.FFFF", 24, 21)]
-    [InlineData("yyyy-MM-ddTHH:mm:ss.F", 21, 21)]
+    [InlineData("yyyy-MM-ddTHH:mm:ss.FFFF", 24, 19)]
+    [InlineData("yyyy-MM-ddTHH:mm:ss.F", 21, 19)]
     public void Combos(string format, int max, int min)
     {
         var culture = CultureInfo.InvariantCulture;

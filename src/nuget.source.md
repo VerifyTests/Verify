@@ -9,3 +9,6 @@ include: intro
 
 
 include: zzz
+
+
+include: lambdatest

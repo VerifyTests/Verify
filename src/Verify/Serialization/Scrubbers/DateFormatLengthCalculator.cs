@@ -28,12 +28,17 @@
         var cultureDates = GetCultureLengthInfo(culture);
 
         var index = 0;
-
         var minLength = 0;
         var maxLength = 0;
+        var previousIsPeriod = false;
         while (index < format.Length)
         {
             var ch = format[index];
+            if (index > 0)
+            {
+                previousIsPeriod = format[index - 1] == '.';
+            }
+
             int nextChar;
             int tokenLen;
             switch (ch)
@@ -63,7 +68,11 @@
                     tokenLen = ParseRepeatPattern(format, index, ch);
                     ValidateSecondsFractionLength(tokenLen);
 
-                    minLength += 1;
+                    if (previousIsPeriod)
+                    {
+                        minLength -= 1;
+                    }
+
                     maxLength += tokenLen;
 
                     break;

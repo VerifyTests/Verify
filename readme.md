@@ -37,7 +37,7 @@ updated to the new result.<!-- endInclude -->
 [![Entity Framework Extensions](https://raw.githubusercontent.com/VerifyTests/Verify/refs/heads/main/docs/zzz.png)](https://entityframework-extensions.net/?utm_source=simoncropp&utm_medium=Verify)<!-- endInclude -->
 
 
-### Sponsored by LambdaTest<!-- include: lambdatest. path: /docs/mdsource/lambdatest.include.md -->
+### LambdaTest<!-- include: lambdatest. path: /docs/mdsource/lambdatest.include.md -->
 
 <p style="font-size:21px; color:black;">Browser testing via<br>
   <a href="https://www.lambdatest.com/" target="_blank">
@@ -1024,7 +1024,7 @@ This readme will not discuss definitive list of details for proper setup of the 
 <!-- endInclude -->
 
 
-### Sponsored by LambdaTest<!-- include: lambdatest. path: /docs/mdsource/lambdatest.include.md -->
+### LambdaTest<!-- include: lambdatest. path: /docs/mdsource/lambdatest.include.md -->
 
 <p style="font-size:21px; color:black;">Browser testing via<br>
   <a href="https://www.lambdatest.com/" target="_blank">

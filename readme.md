@@ -37,6 +37,15 @@ updated to the new result.<!-- endInclude -->
 [![Entity Framework Extensions](https://raw.githubusercontent.com/VerifyTests/Verify/refs/heads/main/docs/zzz.png)](https://entityframework-extensions.net/?utm_source=simoncropp&utm_medium=Verify)<!-- endInclude -->
 
 
+### LambdaTest
+
+<p style="font-size:21px; color:black;">Browser testing via 
+  <a href="https://www.lambdatest.com/" target="_blank">
+    <img src="https://www.lambdatest.com/blue-logo.png" style="vertical-align: middle;" width="250" height="45" />
+  </a>
+</p>
+
+
 ### JetBrains
 
 [![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)](https://jb.gg/OpenSourceSupport)
@@ -1013,6 +1022,15 @@ This readme will not discuss definitive list of details for proper setup of the 
 * [Verify.Yaml](https://github.com/VerifyTests/Verify.Yaml): Support for [YamlDotNet](https://github.com/aaubry/YamlDotNet) types.
 * [Verify.ZeroLog](https://github.com/VerifyTests/Verify.ZeroLog): Verifiable test context for [ZeroLog](https://github.com/Abc-Arbitrage/ZeroLog).
 <!-- endInclude -->
+
+
+### Sponsored by LambdaTest
+
+<p style="font-size:21px; color:black;">Browser testing via 
+  <a href="https://www.lambdatest.com/" target="_blank">
+    <img src="https://www.lambdatest.com/blue-logo.png" style="vertical-align: middle;" width="250" height="45" />
+  </a>
+</p>
 
 
 ## More Documentation

@@ -84,6 +84,8 @@ partial class InnerVerifier
             return await Verify(info);
         }
 
+        stream.MoveToStart();
+
         using (stream)
         {
             if (VerifierSettings.HasStreamConverter(extension))

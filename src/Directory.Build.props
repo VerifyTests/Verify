@@ -17,6 +17,12 @@
     <PolyGuard>true</PolyGuard>
     <PolyStringInterpolation>true</PolyStringInterpolation>
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+
+    <!-- The MSTest property to use Microsoft.Testing.Platform (MSTest is used by Verify.MSTest.DerivePaths.Tests) -->
+    <EnableMSTestRunner>true</EnableMSTestRunner>
+
+    <!-- The xUnit property to use Microsoft.Testing.Platform (xUnit is used by Verify.MSTest.SourceGenerator.Tests) -->
+    <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
   </PropertyGroup>
   <ItemGroup>
     <Using Include="System.Diagnostics.CodeAnalysis" />

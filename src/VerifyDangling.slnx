@@ -1,0 +1,27 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="../.gitattributes" />
+    <File Path="../readme.source.md" />
+    <File Path=".editorconfig" />
+    <File Path="appveyor.yml" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
+    <File Path="mdsnippets.json" />
+    <File Path="nuget.config" />
+    <File Path="testenvironments.json" />
+  </Folder>
+  <Project Path="DanglingSnapshotsMSTestUsage/DanglingSnapshotsMSTestUsage.csproj" />
+  <Project Path="DanglingSnapshotsNUnitUsage/DanglingSnapshotsNUnitUsage.csproj" />
+  <Project Path="DanglingSnapshotsXunitUsage/DanglingSnapshotsXunitUsage.csproj" />
+  <Project Path="DanglingSnapshotsXunitV3Usage/DanglingSnapshotsXunitV3Usage.csproj" />
+  <Project Path="Verify.Expecto/Verify.Expecto.csproj" />
+  <Project Path="Verify.Fixie/Verify.Fixie.csproj" />
+  <Project Path="Verify.MSTest.SourceGenerator/Verify.MSTest.SourceGenerator.csproj" />
+  <Project Path="Verify.MSTest/Verify.MSTest.csproj" />
+  <Project Path="Verify.NUnit/Verify.NUnit.csproj" />
+  <Project Path="Verify.TUnit/Verify.TUnit.csproj" />
+  <Project Path="Verify.Xunit/Verify.Xunit.csproj" />
+  <Project Path="Verify.XunitV3/Verify.XunitV3.csproj" />
+  <Project Path="Verify/Verify.csproj" />
+</Solution>

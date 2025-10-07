@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="global.json" />
+  </Folder>
+  <Project Path="ExpectoNugetUsage/ExpectoNugetUsage.fsproj" />
+  <Project Path="FixieNugetUsage/FixieNugetUsage.csproj" />
+  <Project Path="MSTestNugetUsage/MSTestNugetUsage.csproj" />
+  <Project Path="NUnitNugetUsage/NUnitNugetUsage.csproj" />
+  <Project Path="TUnitNugetUsage/TUnitNugetUsage.csproj" />
+  <Project Path="XunitNugetUsage/XunitNugetUsage.csproj" />
+  <Project Path="XunitV3NugetUsage/XunitV3NugetUsage.csproj" />
+</Solution>

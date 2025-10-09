@@ -1,6 +1,6 @@
 ﻿{
   "solution": {
-    "path": "Verify.sln",
+    "path": "Verify.slnx",
     "projects": [
       "TargetLibrary\\TargetLibrary.csproj",
       "Verify.MSTest.DerivePaths.Tests\\Verify.MSTest.DerivePaths.Tests.csproj",

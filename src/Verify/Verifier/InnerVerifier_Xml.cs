@@ -101,7 +101,7 @@ partial class InnerVerifier
     string ConvertValue(string value)
     {
         var span = value.AsSpan();
-        if (counter.TryConvertString(span, out var result))
+        if (counter.TryConvert(span, out var result))
         {
             return result;
         }
@@ -130,7 +130,7 @@ partial class InnerVerifier
             }
 
             var span = attribute.Value.AsSpan();
-            if (counter.TryConvertString(span, out var result))
+            if (counter.TryConvert(span, out var result))
             {
                 attribute.Value = result;
             }

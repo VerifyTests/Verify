@@ -105,13 +105,24 @@ static class DateScrubber
         StringBuilder builder,
         [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
         Counter counter,
-        Culture culture) =>
+        Culture culture)
+    {
         ReplaceInner(
             builder,
             format,
             counter,
             culture,
             TryConvertDateTimeOffset);
+        if (TryGetFormatWithUpperMillisecondsTrimmed(format, out var trimmedFormat))
+        {
+            ReplaceInner(
+                builder,
+                trimmedFormat,
+                counter,
+                culture,
+                TryConvertDateTimeOffset);
+        }
+    }
 
     static bool TryConvertDateTime(
         CharSpan span,
@@ -150,13 +161,54 @@ static class DateScrubber
         return (builder, counter) => ReplaceDateTimes(builder, format, counter, culture ?? Culture.CurrentCulture);
     }
 
-    public static void ReplaceDateTimes(StringBuilder builder, string format, Counter counter, Culture culture) =>
+    public static void ReplaceDateTimes(StringBuilder builder, string format, Counter counter, Culture culture)
+    {
         ReplaceInner(
             builder,
             format,
             counter,
             culture,
             TryConvertDateTime);
+        if (TryGetFormatWithUpperMillisecondsTrimmed(format, out var trimmedFormat))
+        {
+            ReplaceInner(
+                builder,
+                trimmedFormat,
+                counter,
+                culture,
+                TryConvertDateTime);
+        }
+    }
+
+    static bool TryGetFormatWithUpperMillisecondsTrimmed(string format, [NotNullWhen(true)] out string? trimmedFormat)
+    {
+        if (format.EndsWith(".FFFF"))
+        {
+            trimmedFormat = format[..^5];
+            return true;
+        }
+
+        if (format.EndsWith(".FFF"))
+        {
+            trimmedFormat = format[..^4];
+            return true;
+        }
+
+        if (format.EndsWith(".FF"))
+        {
+            trimmedFormat = format[..^3];
+            return true;
+        }
+
+        if (format.EndsWith(".F"))
+        {
+            trimmedFormat = format[..^2];
+            return true;
+        }
+
+        trimmedFormat = null;
+        return false;
+    }
 
     static void ReplaceInner(StringBuilder builder, string format, Counter counter, Culture culture, TryConvert tryConvertDate)
     {

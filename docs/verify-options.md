@@ -86,7 +86,7 @@ public Task OnCallbacks()
     return Verify("value", settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L138-L166' title='Snippet source file'>snippet source</a> | <a href='#snippet-OnInstanceHandlers' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L131-L159' title='Snippet source file'>snippet source</a> | <a href='#snippet-OnInstanceHandlers' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -117,7 +117,7 @@ public Task OnFluentCallbacks() =>
                 return Task.CompletedTask;
             });
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L168-L192' title='Snippet source file'>snippet source</a> | <a href='#snippet-OnFluentHandlers' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L161-L185' title='Snippet source file'>snippet source</a> | <a href='#snippet-OnFluentHandlers' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

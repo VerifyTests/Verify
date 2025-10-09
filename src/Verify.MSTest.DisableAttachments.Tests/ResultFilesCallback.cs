@@ -1,5 +1,7 @@
-﻿sealed class ResultFilesCallback :
-    TestMethodAttribute
+﻿sealed class ResultFilesCallback(
+    [CallerFilePath] string callerFilePath = "",
+    [CallerLineNumber] int callerLineNumber = -1) :
+        TestMethodAttribute(callerFilePath, callerLineNumber)
 {
     public static Action<List<string>>? Callback;
 

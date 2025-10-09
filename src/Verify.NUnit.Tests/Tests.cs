@@ -148,6 +148,7 @@ public class Tests
         catch (VerifyException)
         {
         }
+
         var list = GetAttachments();
         AreEqual(1, list.Count);
         var file = Path.GetFileName(list[0].FilePath);
@@ -166,6 +167,7 @@ public class Tests
         catch (VerifyException)
         {
         }
+
         var list = GetAttachments();
         AreEqual(2, list.Count);
         var file0 = Path.GetFileName(list[0].FilePath);
@@ -186,6 +188,7 @@ public class Tests
         catch (VerifyException)
         {
         }
+
         var list = GetAttachments();
         AreEqual(2, list.Count);
         var file0 = Path.GetFileName(list[0].FilePath);

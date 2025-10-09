@@ -91,10 +91,10 @@ The default mapping is:
     typeof(Guid), (target, _) => ((Guid) target).ToString()
 },
 {
-    typeof(DateTime), (target, _) => DateFormatter.ToJsonString((DateTime) target)
+    typeof(DateTime), (target, _) => DateFormatter.Convert((DateTime) target)
 },
 {
-    typeof(DateTimeOffset), (target, _) => DateFormatter.ToJsonString((DateTimeOffset) target)
+    typeof(DateTimeOffset), (target, _) => DateFormatter.Convert((DateTimeOffset) target)
 },
 {
     typeof(XmlNode), (target, _) =>
@@ -128,9 +128,11 @@ How DateTimes are converted to a string:
 <!-- snippet: DateFormatter_DateTime.cs -->
 <a id='snippet-DateFormatter_DateTime.cs'></a>
 ```cs
-static partial class DateFormatter
+namespace VerifyTests;
+
+public static partial class DateFormatter
 {
-    public static string ToJsonString(DateTime value)
+    public static string Convert(DateTime value)
     {
         var result = GetJsonDatePart(value);
 
@@ -195,7 +197,7 @@ static partial class DateFormatter
     }
 }
 ```
-<sup><a href='/src/Verify/Serialization/DateFormatter_DateTime.cs#L1-L66' title='Snippet source file'>snippet source</a> | <a href='#snippet-DateFormatter_DateTime.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/DateFormatter_DateTime.cs#L1-L68' title='Snippet source file'>snippet source</a> | <a href='#snippet-DateFormatter_DateTime.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -206,9 +208,11 @@ How DateTimeOffset are converted to a string:
 <!-- snippet: DateFormatter_DateTimeOffset.cs -->
 <a id='snippet-DateFormatter_DateTimeOffset.cs'></a>
 ```cs
-static partial class DateFormatter
+namespace VerifyTests;
+
+public static partial class DateFormatter
 {
-    public static string ToJsonString(DateTimeOffset value)
+    public static string Convert(DateTimeOffset value)
     {
         var result = GetJsonDatePart(value);
         result += $" {GetDateOffset(value)}";
@@ -291,7 +295,7 @@ static partial class DateFormatter
     }
 }
 ```
-<sup><a href='/src/Verify/Serialization/DateFormatter_DateTimeOffset.cs#L1-L84' title='Snippet source file'>snippet source</a> | <a href='#snippet-DateFormatter_DateTimeOffset.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/DateFormatter_DateTimeOffset.cs#L1-L86' title='Snippet source file'>snippet source</a> | <a href='#snippet-DateFormatter_DateTimeOffset.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

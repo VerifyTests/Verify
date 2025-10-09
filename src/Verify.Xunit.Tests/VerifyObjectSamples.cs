@@ -1,4 +1,5 @@
-﻿// ReSharper disable NotAccessedField.Local
+﻿#pragma warning disable CS0649
+// ReSharper disable NotAccessedField.Local
 
 // Non-nullable field is uninitialized
 #pragma warning disable CS8618

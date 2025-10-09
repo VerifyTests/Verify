@@ -112,12 +112,16 @@ static class ApplyScrubbers
             return;
         }
 
-        foreach (var scrubber in settings.InstanceScrubbers)
+        if (settings.InstanceScrubbers != null)
         {
-            scrubber(target, counter, settings.Context);
+            foreach (var scrubber in settings.InstanceScrubbers)
+            {
+                scrubber(target, counter, settings.Context);
+            }
         }
 
-        if (settings.ExtensionMappedInstanceScrubbers.TryGetValue(extension, out var extensionBasedInstanceScrubbers))
+        if (settings.ExtensionMappedInstanceScrubbers != null &&
+            settings.ExtensionMappedInstanceScrubbers.TryGetValue(extension, out var extensionBasedInstanceScrubbers))
         {
             foreach (var scrubber in extensionBasedInstanceScrubbers)
             {
@@ -138,12 +142,17 @@ static class ApplyScrubbers
             scrubber(target, counter, settings.Context);
         }
 
+        ApplyReplacements(target);
+
+        target.FixNewlines();
+    }
+
+    static void ApplyReplacements(StringBuilder target)
+    {
         foreach (var replace in replacements)
         {
             target.ReplaceIfLonger(replace.Key, replace.Value);
         }
-
-        target.FixNewlines();
     }
 
     public static CharSpan ApplyForPropertyValue(CharSpan value, VerifySettings settings, Counter counter)
@@ -162,9 +171,12 @@ static class ApplyScrubbers
             return;
         }
 
-        foreach (var scrubber in settings.InstanceScrubbers)
+        if (settings.InstanceScrubbers != null)
         {
-            scrubber(builder, counter, settings.Context);
+            foreach (var scrubber in settings.InstanceScrubbers)
+            {
+                scrubber(builder, counter, settings.Context);
+            }
         }
 
         foreach (var scrubber in VerifierSettings.GlobalScrubbers)
@@ -172,10 +184,7 @@ static class ApplyScrubbers
             scrubber(builder, counter, settings.Context);
         }
 
-        foreach (var replace in replacements)
-        {
-            builder.ReplaceIfLonger(replace.Key, replace.Value);
-        }
+        ApplyReplacements(builder);
 
         builder.FixNewlines();
     }

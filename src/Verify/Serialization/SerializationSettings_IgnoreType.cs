@@ -2,7 +2,7 @@
 
 partial class SerializationSettings
 {
-    Dictionary<Type, ScrubOrIgnore> ignoredTypes = [];
+    Dictionary<Type, ScrubOrIgnore>? ignoredTypes;
 
     public void ScrubMembersWithType<T>()
         where T : notnull =>
@@ -27,6 +27,7 @@ partial class SerializationSettings
 
     void Add(Type type, ScrubOrIgnore scrubOrIgnore)
     {
+        ignoredTypes ??= [];
         ignoredTypes[type] = scrubOrIgnore;
 
         if (type.IsValueType)
@@ -38,18 +39,22 @@ partial class SerializationSettings
 
     bool TryGetScrubOrIgnoreByType(Type memberType, [NotNullWhen(true)] out ScrubOrIgnore? scrubOrIgnore)
     {
-        if (ignoredTypes.TryGetValue(memberType, out var value))
+        if (ignoredTypes != null &&
+            ignoredTypes.TryGetValue(memberType, out var value))
         {
             scrubOrIgnore = value;
             return true;
         }
 
-        foreach (var member in ignoredTypes)
+        if (ignoredTypes != null)
         {
-            if (memberType.InheritsFrom(member.Key))
+            foreach (var member in ignoredTypes)
             {
-                scrubOrIgnore = member.Value;
-                return true;
+                if (memberType.InheritsFrom(member.Key))
+                {
+                    scrubOrIgnore = member.Value;
+                    return true;
+                }
             }
         }
 

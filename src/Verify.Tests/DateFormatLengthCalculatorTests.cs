@@ -52,6 +52,8 @@
     [InlineData("yyyy-MM-dd", 10, 10)]
     [InlineData("yyyy/MM/dd", 10, 10)]
     [InlineData("yyyy'/'MM'/'dd", 10, 10)]
+    [InlineData("yyyy-MM-ddTHH:mm:ss.FFFF", 24, 19)]
+    [InlineData("yyyy-MM-ddTHH:mm:ss.F", 21, 19)]
     public void Combos(string format, int max, int min)
     {
         var culture = CultureInfo.InvariantCulture;
@@ -63,8 +65,8 @@
         if (format.Length > 1)
         {
             var result = DateTime.Now.ToString(format, culture);
-            Assert.True(result.Length <= max, $"{result.Length} <= {max}");
-            Assert.True(result.Length >= min, $"{result.Length} >= {min}");
+            Assert.True(result.Length <= max, $"{result.Length} <= {max}. {result}");
+            Assert.True(result.Length >= min, $"{result.Length} >= {min}. {result}");
         }
 
         var padded = $" {format} ";

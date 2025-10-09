@@ -1,6 +1,7 @@
 // ReSharper disable NotAccessedField.Local
 
 // Non-nullable field is uninitialized
+#pragma warning disable CS0649 // Field is never assigned to, and will always have its default value
 #pragma warning disable CS8618
 
 [TestClass]

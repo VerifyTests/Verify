@@ -1,3 +1,4 @@
+#pragma warning disable VerifySetParameters
 namespace VerifyMSTest;
 
 public static partial class Verifier

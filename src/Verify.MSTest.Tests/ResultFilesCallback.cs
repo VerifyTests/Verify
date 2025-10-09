@@ -1,5 +1,7 @@
-sealed class ResultFilesCallback :
-    TestMethodAttribute
+sealed class ResultFilesCallback(
+    [CallerFilePath] string callerFilePath = "",
+    [CallerLineNumber] int callerLineNumber = -1) :
+    TestMethodAttribute(callerFilePath, callerLineNumber)
 {
     public static Action<List<string>>? Callback;
 
@@ -15,9 +17,11 @@ sealed class ResultFilesCallback :
             }
 
             Callback(
-                [.. results
+            [
+                .. results
                     .Where(_ => _.ResultFiles != null)
-                    .SelectMany(_ => _.ResultFiles!)]);
+                    .SelectMany(_ => _.ResultFiles!)
+            ]);
 
             return results;
         }

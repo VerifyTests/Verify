@@ -1,3 +1,4 @@
+#pragma warning disable VerifySetParameters
 namespace VerifyXunit;
 
 public static partial class Verifier

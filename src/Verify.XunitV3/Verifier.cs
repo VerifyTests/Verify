@@ -5,12 +5,14 @@ public static partial class Verifier
     static async Task AddFile(FilePair pair)
     {
         if (!VerifierSettings.addAttachments)
+        {
             return;
+        }
 
         var context = TestContext.Current;
         var path = pair.ReceivedPath;
         context.AddAttachment(
-            $"Verify snapshot mismatch: {Path.GetFileName(path)}",
+            $"Verify snapshot mismatch: {path}",
             await File.ReadAllBytesAsync(path));
     }
 

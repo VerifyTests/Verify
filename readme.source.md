@@ -21,6 +21,9 @@ include: intro
 include: zzz
 
 
+include: lambdatest
+
+
 ### JetBrains
 
 [![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)](https://jb.gg/OpenSourceSupport)
@@ -419,6 +422,9 @@ This readme will not discuss definitive list of details for proper setup of the 
 ## Plugins
 
 include: plugin-list
+
+
+include: lambdatest
 
 
 ## More Documentation

@@ -42,8 +42,7 @@ public partial class Tests
         };
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsExactlyAsync<VerifyException>(
-            () => Verify("Bar", settings));
+        await Assert.ThrowsExactlyAsync<VerifyException>(() => Verify("Bar", settings));
     }
 
 #if NET9_0
@@ -82,8 +81,7 @@ public partial class Tests
         };
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsExactlyAsync<VerifyException>(
-            () => Verify("Bar", settings));
+        await Assert.ThrowsExactlyAsync<VerifyException>(() => Verify("Bar", settings));
     }
 
     [ResultFilesCallback]
@@ -100,8 +98,7 @@ public partial class Tests
         };
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsExactlyAsync<VerifyException>(
-            () => Verify("Bar", [new("txt", "Value")], settings));
+        await Assert.ThrowsExactlyAsync<VerifyException>(() => Verify("Bar", [new("txt", "Value")], settings));
     }
 
     [ResultFilesCallback]
@@ -118,8 +115,7 @@ public partial class Tests
         };
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsExactlyAsync<VerifyException>(
-            () => Verify("Bar", [new("txt", "Value")], settings));
+        await Assert.ThrowsExactlyAsync<VerifyException>(() => Verify("Bar", [new("txt", "Value")], settings));
     }
 
     #region ExplicitTargetsMSTest

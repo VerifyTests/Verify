@@ -44,9 +44,9 @@ public class Tests
         Verify(
         [
             new Target(
-                    extension: "txt",
-                    data: "Raw target value",
-                    name: "targetName")
+                extension: "txt",
+                data: "Raw target value",
+                name: "targetName")
         ]);
 
 #if NET9_0

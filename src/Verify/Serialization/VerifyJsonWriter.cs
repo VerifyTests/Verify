@@ -115,7 +115,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        if (Counter.TryConvertString(value, out var result))
+        if (Counter.TryConvert(value, out var result))
         {
             WriteRawValueIfNoStrict(result);
             return;
@@ -169,7 +169,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        WriteRawValueWithScrubbers(DateFormatter.ToJsonString(value));
+        WriteRawValueWithScrubbers(DateFormatter.Convert(value));
     }
 
     public override void WriteValue(DateTime value)
@@ -180,7 +180,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        WriteRawValueWithScrubbers(DateFormatter.ToJsonString(value));
+        WriteRawValueWithScrubbers(DateFormatter.Convert(value));
     }
 
     public override void WriteValue(TimeSpan value) =>

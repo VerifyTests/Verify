@@ -132,7 +132,7 @@ var settings = new JsonSerializerSettings
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup><a href='/src/Verify/Serialization/SerializationSettings.cs#L85-L94' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultSerialization' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/SerializationSettings.cs#L89-L98' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultSerialization' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -275,7 +275,7 @@ public static void Initialize() =>
 
 #### VerifyJsonWriter
 
-A `VerifyJsonWriter` is passed in to the `Write` methos. It exposes context and helper methos to the JsonConverter. For example:
+A `VerifyJsonWriter` is passed in to the `Write` methods. It exposes context and helper methods to the JsonConverter. For example:
 
  * `Counter` property that gives programmatic access to the counting behavior used by [Guid](guids.md), [Date](dates.md), and [Id](#numeric-ids-are-scrubbed) scrubbing.
  * `Serializer` property that exposes the current `JsonSerializer`.

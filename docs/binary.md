@@ -21,7 +21,7 @@ public Task StreamWithExtension()
     return Verify(stream, "png");
 }
 ```
-<sup><a href='/src/Verify.Tests/StreamTests.cs#L91-L100' title='Snippet source file'>snippet source</a> | <a href='#snippet-StreamWithExtension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/StreamTests.cs#L115-L124' title='Snippet source file'>snippet source</a> | <a href='#snippet-StreamWithExtension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 For a `FileStream` the extension is not required:
@@ -33,7 +33,7 @@ For a `FileStream` the extension is not required:
 public Task FileStream() =>
     Verify(File.OpenRead("sample.txt"));
 ```
-<sup><a href='/src/Verify.Tests/StreamTests.cs#L102-L108' title='Snippet source file'>snippet source</a> | <a href='#snippet-FileStream' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/StreamTests.cs#L126-L132' title='Snippet source file'>snippet source</a> | <a href='#snippet-FileStream' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

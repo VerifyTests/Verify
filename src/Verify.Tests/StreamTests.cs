@@ -8,6 +8,30 @@ public class StreamTests
                 1
             ]));
 
+#pragma warning disable IDE0017
+    [Fact]
+    public Task MemoryStreamNotAtStart()
+    {
+        var stream = new MemoryStream(
+        [
+            1
+        ]);
+        stream.Position = 1;
+        return Verify(stream);
+    }
+
+    [Fact]
+    public Task MemoryStreamWithExtensionNotAtStart()
+    {
+        var stream = new MemoryStream(
+        [
+            1
+        ]);
+        stream.Position = 1;
+        return Verify(stream, extension: "bin");
+    }
+#pragma warning restore IDE0017
+
     class LengthNotSupportedStream(byte[] bytes) : MemoryStream(bytes)
     {
         public override long Length =>

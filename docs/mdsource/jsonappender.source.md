@@ -14,6 +14,16 @@ The content from RegisterJsonAppender will be included in the output:
 
 snippet: JsonAppenderTests.WithJsonAppender.verified.txt
 
+
+The name part of the JsonAppender can be inferred:
+
+snippet: JsonAppenderInferredName
+
+Results in:
+
+snippet: JsonAppenderTests.WithInferredNameJsonAppender.verified.txt
+
+
 If the target is a stream or binary file:
 
 snippet: JsonAppenderStream

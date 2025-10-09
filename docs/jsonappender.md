@@ -53,6 +53,38 @@ The content from RegisterJsonAppender will be included in the output:
 <sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.WithJsonAppender.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppenderTests.WithJsonAppender.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+
+The name part of the JsonAppender can be inferred:
+
+<!-- snippet: JsonAppenderInferredName -->
+<a id='snippet-JsonAppenderInferredName'></a>
+```cs
+[Fact]
+public Task WithInferredNameJsonAppenderFluent()
+{
+    var name = "value";
+    return Verify("TheValue")
+        .AppendValue(name);
+}
+```
+<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.cs#L47-L55' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppenderInferredName' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Results in:
+
+<!-- snippet: JsonAppenderTests.WithInferredNameJsonAppender.verified.txt -->
+<a id='snippet-JsonAppenderTests.WithInferredNameJsonAppender.verified.txt'></a>
+```txt
+{
+  target: TheValue,
+  theData: theValue,
+  name: value
+}
+```
+<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.WithInferredNameJsonAppender.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppenderTests.WithInferredNameJsonAppender.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 If the target is a stream or binary file:
 
 <!-- snippet: JsonAppenderStream -->
@@ -62,7 +94,7 @@ If the target is a stream or binary file:
 public Task Stream() =>
     Verify(IoHelpers.OpenRead("sample.txt"));
 ```
-<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.cs#L64-L70' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppenderStream' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.cs#L83-L89' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppenderStream' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Then the appended content will be added to the `.verified.txt` file:

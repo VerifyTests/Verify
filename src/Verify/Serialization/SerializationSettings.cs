@@ -48,24 +48,28 @@ partial class SerializationSettings
 
     public SerializationSettings(SerializationSettings settings)
     {
-        ignoredMembers = settings.ignoredMembers.ToDictionary(
+        ignoredMembers = settings.ignoredMembers?.ToDictionary(
             _ => _.Key,
             _ => _.Value.Clone());
-        ignoredByNameMembers = settings.ignoredByNameMembers.Clone();
+        ignoredByNameMembers = settings.ignoredByNameMembers?.Clone();
         ignoreEmptyCollections = settings.ignoreEmptyCollections;
         extraSettings = settings.extraSettings.Clone();
-        ignoreMembersThatThrow = settings.ignoreMembersThatThrow.Clone();
-        ignoredTypes = settings.ignoredTypes.Clone();
-        ignoredInstances = settings.ignoredInstances
+        ignoreMembersThatThrow = settings.ignoreMembersThatThrow?.Clone();
+        ignoredTypes = settings.ignoredTypes?.Clone();
+        ignoredInstances = settings.ignoredInstances?
             .ToDictionary(
                 _ => _.Key,
                 _ => _.Value.Clone());
         ScrubDateTimes = settings.ScrubDateTimes;
-        enumerableInterceptors = new(settings.enumerableInterceptors);
+        if (settings.enumerableInterceptors != null)
+        {
+            enumerableInterceptors = new(settings.enumerableInterceptors);
+        }
+
         ScrubGuids = settings.ScrubGuids;
         includeObsoletes = settings.includeObsoletes;
-        ignoredMemberPredicatesByString = settings.ignoredMemberPredicatesByString.Clone();
-        ignoredMemberPredicatesByMember = settings.ignoredMemberPredicatesByMember.Clone();
+        ignoredMemberPredicatesByString = settings.ignoredMemberPredicatesByString?.Clone();
+        ignoredMemberPredicatesByMember = settings.ignoredMemberPredicatesByMember?.Clone();
 
         jsonSettings = BuildSettings();
     }

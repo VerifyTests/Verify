@@ -17,7 +17,7 @@
     <PolyGuard>true</PolyGuard>
     <PolyStringInterpolation>true</PolyStringInterpolation>
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
-	<ImportVerifyMsbuildFiles Condition="'$(MSBuildProjectName)' != '' And $(MSBuildProjectName.EndsWith('Tests'))">true</ImportVerifyMsbuildFiles>
+    <ImportVerifyMsbuildFiles Condition="'$(MSBuildProjectName)' != '' And $(MSBuildProjectName.EndsWith('Tests'))">true</ImportVerifyMsbuildFiles>
   </PropertyGroup>
   <ItemGroup>
     <Using Include="System.Diagnostics.CodeAnalysis" />

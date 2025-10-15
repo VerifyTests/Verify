@@ -3,8 +3,6 @@
   <PropertyGroup>
     <TargetFrameworks Condition="'$(OS)' == 'Windows_NT'">net462;net472;net48</TargetFrameworks>
     <TargetFrameworks>$(TargetFrameworks);net6.0;net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
-    <!-- work around System.ValueTuple issue in net10rc2. try remove when stable -->
-    <NoWarn>$(NoWarn);NU1510</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,8 +26,6 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
     <PackageReference Include="System.Memory" />
-    <!-- work around System.ValueTuple issue in net10rc2. try remove when stable -->
-    <PackageReference Include="System.ValueTuple" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net472'">

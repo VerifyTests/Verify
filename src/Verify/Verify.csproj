@@ -26,6 +26,7 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
     <PackageReference Include="System.Memory" />
+    <PackageReference Include="System.ValueTuple" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net472'">

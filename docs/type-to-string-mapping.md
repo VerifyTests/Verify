@@ -112,7 +112,7 @@ The default mapping is:
     }
 },
 ```
-<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L32-L119' title='Snippet source file'>snippet source</a> | <a href='#snippet-typeToStringMapping' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L52-L139' title='Snippet source file'>snippet source</a> | <a href='#snippet-typeToStringMapping' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

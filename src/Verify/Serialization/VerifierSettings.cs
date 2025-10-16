@@ -12,20 +12,40 @@ public static partial class VerifierSettings
         object target,
         [NotNullWhen(true)] out Func<object, IReadOnlyDictionary<string, object>, AsStringResult>? toString)
     {
-        if (target is Encoding encoding)
-        {
-            toString = (_, _) => encoding.EncodingName;
-            return true;
-        }
-
         if (TypeNameConverter.TryGetSimpleName(target, out var name))
         {
             toString = (_, _) => name;
             return true;
         }
 
-        return typeToString.TryGetValue(target.GetType(), out toString);
+        var type = target.GetType();
+        if (typeToString.TryGetValue(type, out toString))
+        {
+            return true;
+        }
+
+        foreach (var (key, value) in typeToStringWithInheritance)
+        {
+            if (type.IsAssignableTo(key))
+            {
+                toString = value;
+                return true;
+            }
+
+        }
+
+        return false;
     }
+
+    static Dictionary<Type, Func<object, IReadOnlyDictionary<string, object>, AsStringResult>> typeToStringWithInheritance = new()
+    {
+        {
+            typeof(Encoding), (target, _) => ((Encoding) target).EncodingName
+        },
+        {
+            typeof(Expression ), (target, _) => ((Expression ) target).ToString()
+        }
+    };
 
     static Dictionary<Type, Func<object, IReadOnlyDictionary<string, object>, AsStringResult>> typeToString = new()
     {
@@ -119,12 +139,19 @@ public static partial class VerifierSettings
         #endregion
     };
 
-    public static void TreatAsString<T>(AsString<T>? toString = null)
+    public static void TreatAsString<T>(AsString<T>? toString = null, bool checkInheritance = false)
         where T : notnull
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         toString ??= (target, _) => new(target.ToString()!);
-        typeToString[typeof(T)] = (target, settings) => toString((T)target, settings);
+        if (checkInheritance)
+        {
+            typeToStringWithInheritance[typeof(T)] = (target, settings) => toString((T) target, settings);
+        }
+        else
+        {
+            typeToString[typeof(T)] = (target, settings) => toString((T) target, settings);
+        }
     }
 
     internal static void Reset()

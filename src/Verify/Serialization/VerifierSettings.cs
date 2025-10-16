@@ -143,15 +143,9 @@ public static partial class VerifierSettings
         where T : notnull
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
+        var dictionary = checkInheritance ? typeToStringWithInheritance : typeToString;
         toString ??= (target, _) => new(target.ToString()!);
-        if (checkInheritance)
-        {
-            typeToStringWithInheritance[typeof(T)] = (target, settings) => toString((T) target, settings);
-        }
-        else
-        {
-            typeToString[typeof(T)] = (target, settings) => toString((T) target, settings);
-        }
+        dictionary[typeof(T)] = (target, settings) => toString((T) target, settings);
     }
 
     internal static void Reset()

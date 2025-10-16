@@ -18,12 +18,6 @@ public static partial class VerifierSettings
             return true;
         }
 
-        if (target is Expression expression)
-        {
-            toString = (_, _) => expression.ToString();
-            return true;
-        }
-
         if (TypeNameConverter.TryGetSimpleName(target, out var name))
         {
             toString = (_, _) => name;

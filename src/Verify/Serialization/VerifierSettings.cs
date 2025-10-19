@@ -150,6 +150,7 @@ public static partial class VerifierSettings
 
     internal static void Reset()
     {
+        serialization = new();
         InnerVerifier.verifyHasBeenRun = false;
         DateCountingEnabled = true;
         StrictJson = false;

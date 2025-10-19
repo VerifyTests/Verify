@@ -62,6 +62,8 @@ public static class CombinationSettings
     public static void Reset()
     {
         combinationException = null;
+        IncludeHeadersEnabled = false;
+        CaptureExceptionsEnabled = false;
         after = null;
         before = null;
     }

@@ -153,7 +153,7 @@ Exception capture can be enabled globally:
 public static void EnableCaptureExceptions() =>
     CombinationSettings.CaptureExceptions();
 ```
-<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L3-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-GlobalCaptureExceptions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L5-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-GlobalCaptureExceptions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If exception capture has been enabled globally, it can be disable at the method test level using `captureExceptions: false`.
@@ -175,7 +175,7 @@ public Task BuildAddressExceptionsDisabledTest()
             city);
 }
 ```
-<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L177-L193' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptionsFalse' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L185-L201' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptionsFalse' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -378,7 +378,7 @@ class CustomCombinationConverter :
         string.Join(", ", keys.Select(_ => _.Value));
 }
 ```
-<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L223-L232' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationConverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L231-L240' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationConverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Full control of serialization can be achieved by inheriting from `WriteOnlyJsonConverter<CombinationResults>`.
@@ -397,7 +397,7 @@ static CustomCombinationConverter customConverter = new();
 public static void Init() =>
     VerifierSettings.AddExtraSettings(_ => _.Converters.Insert(0, customConverter));
 ```
-<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L195-L203' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationModuleInitializer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L203-L211' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationModuleInitializer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -408,14 +408,14 @@ public static void Init() =>
 ```txt
 {
   streetNumbers, streets   , cities : Result,
-  1, Smith St, Sydney: 1 Smith St, Sydney,
-  1, Smith St, Chicago: 1 Smith St, Chicago,
-  1, Wallace St, Sydney: 1 Wallace St, Sydney,
-  1, Wallace St, Chicago: 1 Wallace St, Chicago,
-  10, Smith St, Sydney: 10 Smith St, Sydney,
-  10, Smith St, Chicago: 10 Smith St, Chicago,
-  10, Wallace St, Sydney: 10 Wallace St, Sydney,
-  10, Wallace St, Chicago: 10 Wallace St, Chicago
+              1, Smith St  , Sydney : 1 Smith St, Sydney,
+              1, Smith St  , Chicago: 1 Smith St, Chicago,
+              1, Wallace St, Sydney : 1 Wallace St, Sydney,
+              1, Wallace St, Chicago: 1 Wallace St, Chicago,
+             10, Smith St  , Sydney : 10 Smith St, Sydney,
+             10, Smith St  , Chicago: 10 Smith St, Chicago,
+             10, Wallace St, Sydney : 10 Wallace St, Sydney,
+             10, Wallace St, Chicago: 10 Wallace St, Chicago
 }
 ```
 <sup><a href='/src/StaticSettingsTests/CombinationTests.Combination_CustomSerialization.verified.txt#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationTests.Combination_CustomSerialization.verified.txt' title='Start of snippet'>anchor</a></sup>
@@ -528,5 +528,5 @@ Headers can be enabled globally:
 public static void EnableIncludeHeaders() =>
     CombinationSettings.IncludeHeaders();
 ```
-<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L234-L240' title='Snippet source file'>snippet source</a> | <a href='#snippet-GlobalCombinationHeader' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L243-L249' title='Snippet source file'>snippet source</a> | <a href='#snippet-GlobalCombinationHeader' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

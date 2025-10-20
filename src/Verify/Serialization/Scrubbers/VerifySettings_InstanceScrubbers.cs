@@ -75,8 +75,15 @@ public partial class VerifySettings
     /// <summary>
     /// Replace inline <see cref="Guid" />s with a placeholder.
     /// </summary>
-    public void ScrubInlineGuids(ScrubberLocation location = ScrubberLocation.First) =>
+    public void ScrubInlineGuids(ScrubberLocation location = ScrubberLocation.First)
+    {
+        if (serialization.ScrubGuids == false)
+        {
+            throw new("ScrubGuids is disabled. Call .ScrubGuids() before calling .ScrubInlineGuids().");
+        }
+
         AddScrubber(GuidScrubber.ReplaceGuids, location);
+    }
 
     /// <summary>
     /// Replace inline <see cref="DateTime" />s with a placeholder.
@@ -85,10 +92,17 @@ public partial class VerifySettings
         [StringSyntax(StringSyntaxAttribute.DateTimeFormat)]
         string format,
         Culture? culture = null,
-        ScrubberLocation location = ScrubberLocation.First) =>
+        ScrubberLocation location = ScrubberLocation.First)
+    {
+        if (serialization.ScrubDateTimes == false)
+        {
+            throw new("ScrubDateTimes is disabled. Call .ScrubDateTimes() before calling .ScrubInlineDateTimes().");
+        }
+
         AddScrubber(
             DateScrubber.BuildDateTimeScrubber(format, culture),
             location);
+    }
 
     /// <summary>
     /// Replace inline <see cref="DateTime" />s with a placeholder.
@@ -97,10 +111,17 @@ public partial class VerifySettings
         [StringSyntax(StringSyntaxAttribute.DateTimeFormat)]
         string format,
         Culture? culture = null,
-        ScrubberLocation location = ScrubberLocation.First) =>
+        ScrubberLocation location = ScrubberLocation.First)
+    {
+        if (serialization.ScrubDateTimes == false)
+        {
+            throw new("ScrubDateTimes is disabled. Call .ScrubDateTimes() before calling .ScrubInlineDateTimeOffsets().");
+        }
+
         AddScrubber(
             DateScrubber.BuildDateTimeOffsetScrubber(format, culture),
             location);
+    }
 
 #if NET6_0_OR_GREATER
 
@@ -110,10 +131,17 @@ public partial class VerifySettings
     public void ScrubInlineDates(
         [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)] string format,
         Culture? culture = null,
-        ScrubberLocation location = ScrubberLocation.First) =>
+        ScrubberLocation location = ScrubberLocation.First)
+    {
+        if (serialization.ScrubDateTimes == false)
+        {
+            throw new("ScrubDateTimes is disabled. Call .ScrubDateTimes() before calling .ScrubInlineDates().");
+        }
+
         AddScrubber(
             DateScrubber.BuildDateScrubber(format, culture),
             location);
+    }
 
 #endif
 

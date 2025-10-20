@@ -3,6 +3,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <NoWarn>$(NoWarn);CA1822</NoWarn>
     <OutputType>Exe</OutputType>
+    <RootNamespace>VerifyTUnitDerivePathsTests</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />

@@ -47,9 +47,9 @@ build_script:
 - dotnet test src/Verify.XunitV3.Tests --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet run --project src/Verify.XunitV3.Tests/Verify.XunitV3.Tests.csproj --configuration Release --no-build --no-restore --verbosity minimal --framework net10.0
 - dotnet test src/Verify.XunitV3.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity minimal
-- dotnet run src/Verify.TUnit.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity minimal
-- dotnet run src/Verify.TUnit.Tests --configuration Release --no-build --no-restore --verbosity minimal
-- dotnet run src/Verify.TUnit.DisableAttachments.Tests --configuration Release --no-build --no-restore --verbosity minimal
+- dotnet run --project src/Verify.TUnit.DerivePaths.Tests/Verify.TUnit.DerivePaths.Tests.csproj --configuration Release --no-build --no-restore --verbosity minimal
+- dotnet run --project src/Verify.TUnit.Tests/Verify.TUnit.Tests.csproj --configuration Release --no-build --no-restore --verbosity minimal
+- dotnet run --project src/Verify.TUnit.DisableAttachments.Tests/Verify.TUnit.DisableAttachments.Tests.csproj --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet build src/VerifyDangling.slnx --configuration Release --verbosity minimal
 #- dotnet test src/DanglingSnapshotsMSTestUsage --configuration Release --no-build --no-restore
 #- dotnet test src/DanglingSnapshotsNUnitUsage --configuration Release --no-build --no-restore

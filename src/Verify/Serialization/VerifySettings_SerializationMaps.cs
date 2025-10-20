@@ -5,13 +5,25 @@ public partial class VerifySettings
     public void DontScrubGuids()
     {
         CloneSettings();
-        serialization.DontScrubGuids();
+        serialization.ScrubGuids = false;
     }
 
     public void DontScrubDateTimes()
     {
         CloneSettings();
-        serialization.DontScrubDateTimes();
+        serialization.ScrubDateTimes = false;
+    }
+
+    public void ScrubGuids()
+    {
+        CloneSettings();
+        serialization.ScrubGuids = true;
+    }
+
+    public void ScrubDateTimes()
+    {
+        CloneSettings();
+        serialization.ScrubDateTimes = true;
     }
 
     public void DontSortDictionaries()

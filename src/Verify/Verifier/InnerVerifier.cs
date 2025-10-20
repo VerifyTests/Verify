@@ -159,8 +159,8 @@ public partial class InnerVerifier :
     static Counter StartCounter(VerifySettings settings) =>
         Counter.Start(
             settings is {DateCountingEnable: true, ScrubbersEnabled: true},
-            settings.serialization.ScrubDateTimes && settings.ScrubbersEnabled,
-            settings.serialization.ScrubGuids && settings.ScrubbersEnabled,
+            settings.serialization.ScrubDateTimes.GetValueOrDefault(true) && settings.ScrubbersEnabled,
+            settings.serialization.ScrubGuids.GetValueOrDefault(true) && settings.ScrubbersEnabled,
 #if NET6_0_OR_GREATER
             settings.namedDates,
             settings.namedTimes,

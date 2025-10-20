@@ -1,0 +1,4 @@
+﻿{
+  Type: Exception,
+  Message: ScrubGuids is disabled. Call .ScrubGuids() before calling .ScrubInlineGuids().
+}

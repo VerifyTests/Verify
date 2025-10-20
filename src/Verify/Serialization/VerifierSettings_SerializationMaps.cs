@@ -37,13 +37,13 @@ public static partial class VerifierSettings
     public static void DontScrubGuids()
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        serialization.DontScrubGuids();
+        serialization.ScrubGuids = false;
     }
 
     public static void DontScrubDateTimes()
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        serialization.DontScrubDateTimes();
+        serialization.ScrubDateTimes = false;
     }
 
     public static void DontSortDictionaries()

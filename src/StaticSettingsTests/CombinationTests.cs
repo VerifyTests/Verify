@@ -1,5 +1,7 @@
-﻿public class CombinationTests
+﻿public class CombinationTests :
+    BaseTest
 {
+    /**
     #region GlobalCaptureExceptions
 
     [ModuleInitializer]
@@ -7,6 +9,13 @@
         CombinationSettings.CaptureExceptions();
 
     #endregion
+    **/
+
+    public CombinationTests()
+    {
+        CombinationSettings.IncludeHeaders();
+        CombinationSettings.CaptureExceptions();
+    }
 
     [Fact]
     public Task Defaults()
@@ -150,19 +159,18 @@
     public Task WithNoCaptureExceptions()
     {
         string[] a = ["A", "b", "C"];
-        return Assert.ThrowsAsync<ArgumentException>(
-            () => Combination(captureExceptions: false)
-                .Verify(
-                    a =>
+        return Assert.ThrowsAsync<ArgumentException>(() => Combination(captureExceptions: false)
+            .Verify(
+                a =>
+                {
+                    if (a == "b")
                     {
-                        if (a == "b")
-                        {
-                            throw new ArgumentException("B is not allowed");
-                        }
+                        throw new ArgumentException("B is not allowed");
+                    }
 
-                        return a.ToLower();
-                    },
-                    a));
+                    return a.ToLower();
+                },
+                a));
     }
 
     static string BuildAddress(int streetNumber, string street, string city)
@@ -231,13 +239,15 @@
 
     #endregion
 
-    #region GlobalCombinationHeader
+    /**
+        #region GlobalCombinationHeader
 
-    [ModuleInitializer]
-    public static void EnableIncludeHeaders() =>
-        CombinationSettings.IncludeHeaders();
+        [ModuleInitializer]
+        public static void EnableIncludeHeaders() =>
+            CombinationSettings.IncludeHeaders();
 
-    #endregion
+        #endregion
+    **/
 
     [Fact]
     public Task WithGlobalHeaders()

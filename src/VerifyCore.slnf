@@ -1,12 +1,13 @@
 {
   "solution": {
-    "path": "Verify.sln",
+    "path": "Verify.slnx",
     "projects": [
       "TargetLibrary\\TargetLibrary.csproj",
       "Verify.NUnit\\Verify.NUnit.csproj",
       "Verify.SamplePlugin\\Verify.SamplePlugin.csproj",
       "Verify.Tests\\Verify.Tests.csproj",
       "Verify.Xunit\\Verify.Xunit.csproj",
+      "DisableScrubbersTests\\DisableScrubbersTests.csproj",
       "Verify\\Verify.csproj"
     ]
   }

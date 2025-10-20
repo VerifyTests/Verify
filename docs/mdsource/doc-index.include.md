@@ -11,6 +11,7 @@
     * [Guids](/docs/guids.md)
     * [Dates](/docs/dates.md)
     * [Scrubbing](/docs/scrubbers.md)
+    * [Counter](/docs/counter.md)
     * [Members that throw](/docs/members-throw.md)
     * [Ordering](/docs/ordering.md)
     * [Encoding](/docs/encoding.md)
@@ -41,3 +42,4 @@
   * [Explicit Targets](/docs/explicit-targets.md)
   * [FSharp Usage](/docs/fsharp.md)
   * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)
+  * [Plugins](/docs/plugins.md)

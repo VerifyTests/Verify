@@ -6,6 +6,7 @@ public class ClassConstructorMixedWithArgumentTests(string service)
     public async Task Test()
     {
         await Assert.That(service).IsNotNull();
-        await Verify(service);
+        await Verify(service)
+            .UseParameters(service);
     }
 }

@@ -1,3 +1,5 @@
+using TUnit.Core.Extensions;
+
 #pragma warning disable VerifySetParameters
 namespace VerifyTUnit;
 
@@ -25,7 +27,7 @@ public static partial class Verifier
         VerifierSettings.OnVerifyMismatch((pair, _, _) => AddFile(pair));
     }
 
-    static InnerVerifier BuildVerifier(string sourceFile, VerifySettings settings, bool useUniqueDirectory)
+    public static InnerVerifier BuildVerifier(string sourceFile, VerifySettings settings, bool useUniqueDirectory = false)
     {
         Guards.AgainstBadSourceFile(sourceFile);
         if (useUniqueDirectory)
@@ -34,7 +36,7 @@ public static partial class Verifier
         }
 
         var details = TestContext.Current!.TestDetails;
-        var type = details.TestClass.Type;
+        var type = details.MethodMetadata.Class.Type;
         var classArguments = details.TestClassArguments;
         var methodArguments = details.TestMethodArguments;
         if (!settings.HasParameters &&
@@ -46,8 +48,8 @@ public static partial class Verifier
 
         VerifierSettings.AssignTargetAssembly(type.Assembly);
 
-        var method = details.TestMethod;
-        var pathInfo = GetPathInfo(sourceFile, type, method.ReflectionInformation);
+        var method = details.MethodMetadata;
+        var pathInfo = GetPathInfo(sourceFile, type, method.GetReflectionInfo());
         return new(
             sourceFile,
             settings,

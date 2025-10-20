@@ -4,6 +4,21 @@ partial class InnerVerifier
 {
     public async Task<VerifyResult> VerifyJson(
         [StringSyntax(StringSyntaxAttribute.Json)]
+        Task<StringBuilder> target) =>
+        await VerifyJson(await target);
+
+    public async Task<VerifyResult> VerifyJson(
+        [StringSyntax(StringSyntaxAttribute.Json)]
+        ValueTask<StringBuilder> target) =>
+        await VerifyJson(await target);
+
+    public Task<VerifyResult> VerifyJson(
+        [StringSyntax(StringSyntaxAttribute.Json)]
+        StringBuilder? target) =>
+        VerifyJson(target?.ToString());
+
+    public async Task<VerifyResult> VerifyJson(
+        [StringSyntax(StringSyntaxAttribute.Json)]
         Task<string> target) =>
         await VerifyJson(await target);
 
@@ -18,7 +33,7 @@ partial class InnerVerifier
     {
         if (target is null)
         {
-            return VerifyInner(target, null, emptyTargets, true);
+            return VerifyInner(target, null, emptyTargets, true, false);
         }
 
         return VerifyJson(JToken.Parse(target));
@@ -34,7 +49,7 @@ partial class InnerVerifier
     {
         if (target is null)
         {
-            return await VerifyInner(target, null, emptyTargets, true);
+            return await VerifyInner(target, null, emptyTargets, true, false);
         }
 
         using var reader = new StreamReader(target);
@@ -44,5 +59,5 @@ partial class InnerVerifier
     }
 
     public Task<VerifyResult> VerifyJson(JToken target) =>
-        VerifyInner(target, null, emptyTargets, true);
+        VerifyInner(target, null, emptyTargets, true, false);
 }

@@ -31,7 +31,7 @@ public Task WithZipFiltered() =>
         zipPath,
         include: filePath => filePath.FullName.Contains("Doc"));
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L195-L203' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipFilterXunitV3' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L203-L211' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipFilterXunitV3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -48,7 +48,7 @@ public Task VerifyZipWithInfo() =>
         zipPath,
         info: "the info");
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L168-L176' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithInfoXunitV3' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L176-L184' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithInfoXunitV3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -72,7 +72,7 @@ public Task VerifyZipWithFileScrubber() =>
             }
         });
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L178-L193' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithFileScrubberXunitV3' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L186-L201' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithFileScrubberXunitV3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This applies to files where the extensions is a known text file as defined by [FileExtensions.IsText](https://github.com/VerifyTests/EmptyFiles#istext).
@@ -91,3 +91,42 @@ public Task WithZipAndStructure() =>
 ```
 <sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L160-L166' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithStructureXunitV3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+## PersistArchive
+
+`persistArchive` determines whether the original ZipArchive or zip file should be preserved as a verified file. Defaults to false.
+
+<!-- snippet: WithZipAndPersistArchiveV3 -->
+<a id='snippet-WithZipAndPersistArchiveV3'></a>
+```cs
+[Fact]
+public Task WithZipAndPersistArchive() =>
+    VerifyZip(zipPath, persistArchive: true);
+```
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L168-L174' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithZipAndPersistArchiveV3' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## ArchiveExtension
+
+When using `persistArchive` the resulting verified archive file extension can be controlled using using the `archiveExtension` parameter.
+
+<!-- snippet: ArchiveExtension -->
+<a id='snippet-ArchiveExtension'></a>
+```cs
+[Fact]
+public Task WithZipWithCustomExtension() =>
+    VerifyZip(
+        File.ReadAllBytes(simpleZipPath),
+        persistArchive: true,
+        archiveExtension: "nupkg");
+```
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L148-L157' title='Snippet source file'>snippet source</a> | <a href='#snippet-ArchiveExtension' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+The default extension is `zip`.
+
+Using the `VerifyZip` with the `Stream` overload, when the streams is a `FileStream` the extension of underlying file will be respected.
+
+Using the `VerifyZip` with the `string path` overload the extension of underlying file will be respected.

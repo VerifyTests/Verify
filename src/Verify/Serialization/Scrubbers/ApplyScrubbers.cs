@@ -106,16 +106,26 @@ static class ApplyScrubbers
 
     public static void ApplyForExtension(string extension, StringBuilder target, VerifySettings settings, Counter counter)
     {
-        foreach (var scrubber in settings.InstanceScrubbers)
+        if (!settings.ScrubbersEnabled)
         {
-            scrubber(target, counter);
+            target.FixNewlines();
+            return;
         }
 
-        if (settings.ExtensionMappedInstanceScrubbers.TryGetValue(extension, out var extensionBasedInstanceScrubbers))
+        if (settings.InstanceScrubbers != null)
+        {
+            foreach (var scrubber in settings.InstanceScrubbers)
+            {
+                scrubber(target, counter, settings.Context);
+            }
+        }
+
+        if (settings.ExtensionMappedInstanceScrubbers != null &&
+            settings.ExtensionMappedInstanceScrubbers.TryGetValue(extension, out var extensionBasedInstanceScrubbers))
         {
             foreach (var scrubber in extensionBasedInstanceScrubbers)
             {
-                scrubber(target, counter);
+                scrubber(target, counter, settings.Context);
             }
         }
 
@@ -123,7 +133,7 @@ static class ApplyScrubbers
         {
             foreach (var scrubber in extensionBasedScrubbers)
             {
-                scrubber(target, counter);
+                scrubber(target, counter, settings.Context);
             }
         }
 
@@ -132,12 +142,17 @@ static class ApplyScrubbers
             scrubber(target, counter, settings.Context);
         }
 
+        ApplyReplacements(target);
+
+        target.FixNewlines();
+    }
+
+    static void ApplyReplacements(StringBuilder target)
+    {
         foreach (var replace in replacements)
         {
             target.ReplaceIfLonger(replace.Key, replace.Value);
         }
-
-        target.FixNewlines();
     }
 
     public static CharSpan ApplyForPropertyValue(CharSpan value, VerifySettings settings, Counter counter)
@@ -150,9 +165,18 @@ static class ApplyScrubbers
 
     public static void ApplyForPropertyValue(VerifySettings settings, Counter counter, StringBuilder builder)
     {
-        foreach (var scrubber in settings.InstanceScrubbers)
+        if (!settings.ScrubbersEnabled)
         {
-            scrubber(builder, counter);
+            builder.FixNewlines();
+            return;
+        }
+
+        if (settings.InstanceScrubbers != null)
+        {
+            foreach (var scrubber in settings.InstanceScrubbers)
+            {
+                scrubber(builder, counter, settings.Context);
+            }
         }
 
         foreach (var scrubber in VerifierSettings.GlobalScrubbers)
@@ -160,10 +184,7 @@ static class ApplyScrubbers
             scrubber(builder, counter, settings.Context);
         }
 
-        foreach (var replace in replacements)
-        {
-            builder.ReplaceIfLonger(replace.Key, replace.Value);
-        }
+        ApplyReplacements(builder);
 
         builder.FixNewlines();
     }

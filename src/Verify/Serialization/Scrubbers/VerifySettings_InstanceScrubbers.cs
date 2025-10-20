@@ -2,7 +2,14 @@
 
 public partial class VerifySettings
 {
-    internal List<Action<StringBuilder, Counter>> InstanceScrubbers = [];
+    internal List<Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>>>? InstanceScrubbers = [];
+
+    internal bool ScrubbersEnabled { get; private set; } = true;
+
+    /// <summary>
+    /// Disables all scrubbers.
+    /// </summary>
+    public void DisableScrubbers() => ScrubbersEnabled = false;
 
     /// <summary>
     /// Remove the <see cref="Environment.MachineName" /> from the test results.
@@ -25,8 +32,21 @@ public partial class VerifySettings
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
-    public void AddScrubber(Action<StringBuilder, Counter> scrubber, ScrubberLocation location = ScrubberLocation.First)
+    public void AddScrubber(Action<StringBuilder, Counter> scrubber, ScrubberLocation location = ScrubberLocation.First) =>
+        AddScrubber((builder, counter, _) =>
+            scrubber(builder, counter), location);
+
+    /// <summary>
+    /// Modify the resulting test content using custom code.
+    /// </summary>
+    public void AddScrubber(Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>> scrubber, ScrubberLocation location = ScrubberLocation.First)
     {
+        if (InstanceScrubbers == null)
+        {
+            InstanceScrubbers = [scrubber];
+            return;
+        }
+
         switch (location)
         {
             case ScrubberLocation.First:
@@ -35,6 +55,8 @@ public partial class VerifySettings
             case ScrubberLocation.Last:
                 InstanceScrubbers.Add(scrubber);
                 break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(location), location, null);
         }
     }
 
@@ -53,30 +75,53 @@ public partial class VerifySettings
     /// <summary>
     /// Replace inline <see cref="Guid" />s with a placeholder.
     /// </summary>
-    public void ScrubInlineGuids(ScrubberLocation location = ScrubberLocation.First) =>
+    public void ScrubInlineGuids(ScrubberLocation location = ScrubberLocation.First)
+    {
+        if (serialization.ScrubGuids == false)
+        {
+            throw new("ScrubGuids is disabled. Call .ScrubGuids() before calling .ScrubInlineGuids().");
+        }
+
         AddScrubber(GuidScrubber.ReplaceGuids, location);
+    }
 
     /// <summary>
     /// Replace inline <see cref="DateTime" />s with a placeholder.
     /// </summary>
     public void ScrubInlineDateTimes(
-        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)]
+        string format,
         Culture? culture = null,
-        ScrubberLocation location = ScrubberLocation.First) =>
+        ScrubberLocation location = ScrubberLocation.First)
+    {
+        if (serialization.ScrubDateTimes == false)
+        {
+            throw new("ScrubDateTimes is disabled. Call .ScrubDateTimes() before calling .ScrubInlineDateTimes().");
+        }
+
         AddScrubber(
             DateScrubber.BuildDateTimeScrubber(format, culture),
             location);
+    }
 
     /// <summary>
     /// Replace inline <see cref="DateTime" />s with a placeholder.
     /// </summary>
     public void ScrubInlineDateTimeOffsets(
-        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)]
+        string format,
         Culture? culture = null,
-        ScrubberLocation location = ScrubberLocation.First) =>
+        ScrubberLocation location = ScrubberLocation.First)
+    {
+        if (serialization.ScrubDateTimes == false)
+        {
+            throw new("ScrubDateTimes is disabled. Call .ScrubDateTimes() before calling .ScrubInlineDateTimeOffsets().");
+        }
+
         AddScrubber(
             DateScrubber.BuildDateTimeOffsetScrubber(format, culture),
             location);
+    }
 
 #if NET6_0_OR_GREATER
 
@@ -86,10 +131,17 @@ public partial class VerifySettings
     public void ScrubInlineDates(
         [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)] string format,
         Culture? culture = null,
-        ScrubberLocation location = ScrubberLocation.First) =>
+        ScrubberLocation location = ScrubberLocation.First)
+    {
+        if (serialization.ScrubDateTimes == false)
+        {
+            throw new("ScrubDateTimes is disabled. Call .ScrubDateTimes() before calling .ScrubInlineDates().");
+        }
+
         AddScrubber(
             DateScrubber.BuildDateScrubber(format, culture),
             location);
+    }
 
 #endif
 

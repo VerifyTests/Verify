@@ -59,7 +59,7 @@ For example remove lines containing `text`:
 ```cs
 verifySettings.ScrubLines(line => line.Contains("text"));
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1852-L1856' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLines' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1870-L1874' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLines' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -74,10 +74,10 @@ For example remove lines containing `text1` or `text2`
 ```cs
 verifySettings.ScrubLinesContaining("text1", "text2");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1858-L1862' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesContaining' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1876-L1880' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesContaining' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Case insensitive by default (StringComparison.OrdinalIgnoreCase).
+Case insensitive by default (`StringComparison.OrdinalIgnoreCase`).
 
 `StringComparison` can be overridden:
 
@@ -86,7 +86,7 @@ Case insensitive by default (StringComparison.OrdinalIgnoreCase).
 ```cs
 verifySettings.ScrubLinesContaining(StringComparison.Ordinal, "text1", "text2");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1864-L1868' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesContainingOrdinal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1882-L1886' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesContainingOrdinal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -101,7 +101,7 @@ For example converts lines to upper case:
 ```cs
 verifySettings.ScrubLinesWithReplace(line => line.ToUpper());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1870-L1874' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesWithReplace' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1888-L1892' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesWithReplace' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -114,7 +114,7 @@ Replaces `Environment.MachineName` with `TheMachineName`.
 ```cs
 verifySettings.ScrubMachineName();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1876-L1880' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMachineName' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1894-L1898' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMachineName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -127,13 +127,81 @@ Replaces `Environment.UserName` with `TheUserName`.
 ```cs
 verifySettings.ScrubUserName();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1882-L1886' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubUserName' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1900-L1904' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubUserName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### AddScrubber
 
 Adds a scrubber with full control over the text via a `Func`
+
+
+## DisableScrubbers
+
+Given the following target
+
+<!-- snippet: DisableScrubbersTarget -->
+<a id='snippet-DisableScrubbersTarget'></a>
+```cs
+static object BuildTarget() =>
+    new Target(
+        "C:/Code/TheSolution",
+        "C:/Code/TheSolution/TheProject",
+        new Date(2020, 1, 1),
+        new DateTime(2020, 1, 1),
+        new DateTimeOffset(2020, 1, 1, 1, 1, 1, TimeSpan.FromHours(10)),
+        new Guid("ae8529a6-30a0-46e2-b7d6-9fcb7b23463c"));
+```
+<sup><a href='/src/DisableScrubbersTests/Tests.cs#L111-L122' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableScrubbersTarget' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+When scrubbers are disabled the result will be:
+
+<!-- snippet: DisableScrubbersTests/Tests.Instance.verified.txt -->
+<a id='snippet-DisableScrubbersTests/Tests.Instance.verified.txt'></a>
+```txt
+{
+  TheSolutionDir: C:/Code/TheSolution,
+  TheProjectDir: C:/Code/TheSolution/TheProject,
+  Date: 2020-01-01,
+  DateTime: 2020-01-01,
+  DateTimeOffset: 2020-01-01 01:01:01 +10,
+  Guid: ae8529a6-30a0-46e2-b7d6-9fcb7b23463c
+}
+```
+<sup><a href='/src/DisableScrubbersTests/Tests.Instance.verified.txt#L1-L8' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableScrubbersTests/Tests.Instance.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Instance
+
+<!-- snippet: DisableScrubbers -->
+<a id='snippet-DisableScrubbers'></a>
+```cs
+[Fact]
+public Task Instance()
+{
+    var settings = new VerifySettings();
+    settings.DisableScrubbers();
+    return Verify(BuildTarget(), settings);
+}
+```
+<sup><a href='/src/DisableScrubbersTests/Tests.cs#L9-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableScrubbers' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Fluent
+
+<!-- snippet: DisableScrubbersFluent -->
+<a id='snippet-DisableScrubbersFluent'></a>
+```cs
+[Fact]
+public Task Fluent() =>
+    Verify(BuildTarget())
+        .DisableScrubbers();
+```
+<sup><a href='/src/DisableScrubbersTests/Tests.cs#L21-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableScrubbersFluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 
 ## More complete example

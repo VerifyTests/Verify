@@ -2,7 +2,7 @@
 <Project>
   <PropertyGroup>
     <NoWarn>CA1822;CS1591;CS0649;xUnit1026;xUnit1013;CS1573;VerifyTestsProjectDir;VerifySetParameters;PolyFillTargetsForNuget;xUnit1051;NU1608;NU1109</NoWarn>
-    <Version>30.5.0</Version>
+    <Version>31.0.4</Version>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>preview</LangVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>
@@ -23,6 +23,9 @@
 
     <!-- The xUnit property to use Microsoft.Testing.Platform (xUnit is used by Verify.MSTest.SourceGenerator.Tests) -->
     <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
+    <ImportVerifyMsbuildFiles Condition="'$(MSBuildProjectName)' != '' And $(MSBuildProjectName.EndsWith('Tests'))">true</ImportVerifyMsbuildFiles>
+    <!-- Work around https://github.com/dotnet/sdk/issues/51265#issuecomment-3407578810 -->
+    <RestoreEnablePackagePruning>false</RestoreEnablePackagePruning>
   </PropertyGroup>
   <ItemGroup>
     <Using Include="System.Diagnostics.CodeAnalysis" />
@@ -30,6 +33,6 @@
     <Using Include="System.Linq.Expressions" />
     <Using Include="System.Collections.Specialized" />
   </ItemGroup>
-  <Import Condition="'$(MSBuildProjectName)' != '' And $(MSBuildProjectName.EndsWith('Tests'))"
+  <Import Condition="'$(ImportVerifyMsbuildFiles)' == 'true'"
           Project="$(MSBuildThisFileDirectory)Verify\buildTransitive\Verify.props" />
 </Project>

@@ -2,18 +2,7 @@
 
 public class ExtensionSample
 {
-    public Task AtMethod() =>
-        Verify(
-            target: """
-                    <note>
-                      <to>Joe</to>
-                      <from>Kim</from>
-                      <heading>Reminder</heading>
-                    </note>
-                    """,
-            extension: "xml");
-
-    public Task AtMethodFluent() =>
+    public Task Method() =>
         Verify(
             target: """
                     <note>

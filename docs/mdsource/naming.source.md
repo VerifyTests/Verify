@@ -157,10 +157,7 @@ UniqueForSample.Architecture.X64.verified.txt
 
 The default file extension is `.txt`. So the resulting verified file will be `TestClass.TestMethod.verified.txt`.
 
-It can be overridden at two levels:
-
- * Method: Change the extension for the current test method.
- * Class: Change the extension all verifications in all test methods for a test class.
+It can be overridden using the `extension` parameter.
 
 Usage:
 
@@ -168,7 +165,7 @@ snippet: XunitExtensionSample
 
 Result in:
 
-snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml
+snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.Method.verified.xml
 
 
 ## NamerRuntimeAndVersion

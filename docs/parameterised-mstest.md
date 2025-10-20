@@ -19,7 +19,7 @@ If not all parameters are required, a subset can be passed in. In this scenario,
 <!-- snippet: UseParametersSubSetMSTest -->
 <a id='snippet-UseParametersSubSetMSTest'></a>
 ```cs
-[DataTestMethod]
+[TestMethod]
 [DataRow("Value1", "Value2", "Value3")]
 public Task UseParametersSubSet(string arg1, string arg2, string arg3)
 {
@@ -39,7 +39,7 @@ If the number of parameters passed to `UseParameters()` is greater than the numb
 <!-- snippet: DataRowInstanceMSTest -->
 <a id='snippet-DataRowInstanceMSTest'></a>
 ```cs
-[DataTestMethod]
+[TestMethod]
 [DataRow("Value1")]
 [DataRow("Value2")]
 public Task DataRowUsage(string arg) =>
@@ -72,7 +72,7 @@ For the fluent case:
 <!-- snippet: UseTextForParametersMSTest -->
 <a id='snippet-UseTextForParametersMSTest'></a>
 ```cs
-[DataTestMethod]
+[TestMethod]
 [DataRow("Value1")]
 public Task UseTextForParameters(string arg) =>
     Verify(arg)
@@ -108,7 +108,7 @@ For the fluent case:
 <!-- snippet: IgnoreParametersForVerifiedMSTest -->
 <a id='snippet-IgnoreParametersForVerifiedMSTest'></a>
 ```cs
-[DataTestMethod]
+[TestMethod]
 [DataRow("One")]
 [DataRow("Two")]
 public Task IgnoreParametersForVerified(string arg)
@@ -127,7 +127,7 @@ public Task IgnoreParametersForVerified(string arg)
 <!-- snippet: IgnoreParametersForVerifiedFluentMSTest -->
 <a id='snippet-IgnoreParametersForVerifiedFluentMSTest'></a>
 ```cs
-[DataTestMethod]
+[TestMethod]
 [DataRow("One")]
 [DataRow("Two")]
 public Task IgnoreParametersForVerifiedFluent(string arg) =>
@@ -148,7 +148,7 @@ The parameters passed to IgnoreParametersForVerified can be used pass custom par
 <!-- snippet: IgnoreParametersForVerifiedCustomParamsMSTest -->
 <a id='snippet-IgnoreParametersForVerifiedCustomParamsMSTest'></a>
 ```cs
-[DataTestMethod]
+[TestMethod]
 [DataRow("One")]
 [DataRow("Two")]
 public Task IgnoreParametersForVerifiedCustomParams(string arg)
@@ -167,7 +167,7 @@ public Task IgnoreParametersForVerifiedCustomParams(string arg)
 <!-- snippet: IgnoreParametersForVerifiedCustomParamsFluentMSTest -->
 <a id='snippet-IgnoreParametersForVerifiedCustomParamsFluentMSTest'></a>
 ```cs
-[DataTestMethod]
+[TestMethod]
 [DataRow("One")]
 [DataRow("Two")]
 public Task IgnoreParametersForVerifiedFluentCustomParams(string arg) =>

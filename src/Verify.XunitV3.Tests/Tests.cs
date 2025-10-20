@@ -82,9 +82,9 @@ public class Tests
         Verify(
         [
             new Target(
-                    extension: "txt",
-                    data: "Raw target value",
-                    name: "targetName")
+                extension: "txt",
+                data: "Raw target value",
+                name: "targetName")
         ]);
 
     static string directoryToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
@@ -162,6 +162,14 @@ public class Tests
     [Fact]
     public Task WithZipAndStructure() =>
         VerifyZip(zipPath, includeStructure: true);
+
+    #endregion
+
+    #region WithZipAndPersistArchiveV3
+
+    [Fact]
+    public Task WithZipAndPersistArchive() =>
+        VerifyZip(zipPath, persistArchive: true);
 
     #endregion
 

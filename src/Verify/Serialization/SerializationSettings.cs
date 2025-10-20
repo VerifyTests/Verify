@@ -48,37 +48,43 @@ partial class SerializationSettings
 
     public SerializationSettings(SerializationSettings settings)
     {
-        ignoredMembers = settings.ignoredMembers.ToDictionary(
+        ignoredMembers = settings.ignoredMembers?.ToDictionary(
             _ => _.Key,
             _ => _.Value.Clone());
-        ignoredByNameMembers = settings.ignoredByNameMembers.Clone();
+        ignoredByNameMembers = settings.ignoredByNameMembers?.Clone();
         ignoreEmptyCollections = settings.ignoreEmptyCollections;
         extraSettings = settings.extraSettings.Clone();
-        ignoreMembersThatThrow = settings.ignoreMembersThatThrow.Clone();
-        ignoredTypes = settings.ignoredTypes.Clone();
-        ignoredInstances = settings.ignoredInstances
+        ignoreMembersThatThrow = settings.ignoreMembersThatThrow?.Clone();
+        ignoredTypes = settings.ignoredTypes?.Clone();
+        ignoredInstances = settings.ignoredInstances?
             .ToDictionary(
                 _ => _.Key,
                 _ => _.Value.Clone());
-        scrubDateTimes = settings.scrubDateTimes;
-        enumerableInterceptors = new(settings.enumerableInterceptors);
-        scrubGuids = settings.scrubGuids;
+        ScrubDateTimes = settings.ScrubDateTimes;
+        if (settings.enumerableInterceptors != null)
+        {
+            enumerableInterceptors = new(settings.enumerableInterceptors);
+        }
+
+        ScrubGuids = settings.ScrubGuids;
         includeObsoletes = settings.includeObsoletes;
-        ignoredMemberPredicatesByString = settings.ignoredMemberPredicatesByString.Clone();
-        ignoredMemberPredicatesByMember = settings.ignoredMemberPredicatesByMember.Clone();
+        ignoredMemberPredicatesByString = settings.ignoredMemberPredicatesByString?.Clone();
+        ignoredMemberPredicatesByMember = settings.ignoredMemberPredicatesByMember?.Clone();
 
         jsonSettings = BuildSettings();
     }
 
-    bool scrubGuids = true;
+    public bool? ScrubGuids { get; set; }
 
+    [Obsolete("Use ScrubGuids = false")]
     public void DontScrubGuids() =>
-        scrubGuids = false;
+        ScrubGuids = false;
 
-    bool scrubDateTimes = true;
+    public bool? ScrubDateTimes { get; set; }
 
+    [Obsolete("Use ScrubDateTimes = false")]
     public void DontScrubDateTimes() =>
-        scrubDateTimes = false;
+        ScrubDateTimes = false;
 
     JsonSerializerSettings BuildSettings()
     {

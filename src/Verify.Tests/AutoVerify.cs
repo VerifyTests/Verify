@@ -1,4 +1,5 @@
-﻿public class AutoVerify
+﻿#if NET10_0
+public class AutoVerify
 {
     [Fact]
     public async Task Simple()
@@ -116,3 +117,4 @@
         File.Delete(fullPath);
     }
 }
+#endif

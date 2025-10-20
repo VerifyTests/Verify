@@ -81,7 +81,7 @@ public class CombinationSample
         Date?[] dates = [new(2020, 10, 1), null, Date.MinValue];
         return Combination()
             .Verify(
-                (number, text, date) => string.Join(" ", number, text, date?.ToString("yyyy-MM-dd")),
+                (number, text, date) => string.Join(' ', number, text, date?.ToString("yyyy-MM-dd")),
                 numbers,
                 strings,
                 dates);
@@ -112,7 +112,7 @@ public class CombinationSample
     public Task InlineValues() =>
         Combination()
             .Verify(
-                (number, text) => string.Join(" ", number, text),
+                (number, text) => string.Join(' ', number, text),
                 [1, 100],
                 ["a", "bbbb"]);
 }

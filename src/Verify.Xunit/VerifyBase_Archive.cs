@@ -12,7 +12,9 @@ public partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
-        bool includeStructure = false) =>
+        bool includeStructure = false,
+        bool persistArchive = false,
+        string? archiveExtension = null) =>
         Verifier.Verify(
             archive,
             include,
@@ -20,6 +22,8 @@ public partial class VerifyBase
             info,
             fileScrubber,
             includeStructure,
+            persistArchive,
+            archiveExtension,
             sourceFile);
 
     /// <summary>
@@ -32,7 +36,8 @@ public partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
-        bool includeStructure = false) =>
+        bool includeStructure = false,
+        bool persistArchive = false) =>
         Verifier.VerifyZip(
             path,
             include,
@@ -40,6 +45,7 @@ public partial class VerifyBase
             info,
             fileScrubber,
             includeStructure,
+            persistArchive,
             sourceFile);
 
     /// <summary>
@@ -52,7 +58,9 @@ public partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
-        bool includeStructure = false) =>
+        bool includeStructure = false,
+        bool persistArchive = false,
+        string? archiveExtension = null) =>
         Verifier.VerifyZip(
             stream,
             include,
@@ -60,6 +68,8 @@ public partial class VerifyBase
             info,
             fileScrubber,
             includeStructure,
+            persistArchive,
+            archiveExtension,
             sourceFile);
 
     /// <summary>
@@ -72,7 +82,9 @@ public partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
-        bool includeStructure = false) =>
+        bool includeStructure = false,
+        bool persistArchive = false,
+        string? archiveExtension = null) =>
         Verifier.VerifyZip(
             bytes,
             include,
@@ -80,5 +92,7 @@ public partial class VerifyBase
             info,
             fileScrubber,
             includeStructure,
+            persistArchive,
+            archiveExtension,
             sourceFile);
 }

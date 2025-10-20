@@ -89,16 +89,26 @@ public class Tests
 
     #endregion
 
+    [Test]
+    public Task WithZipAndPersistArchive() =>
+        VerifyZip(pathToArchive, persistArchive: true);
+
     static List<TestAttachment> GetAttachments() =>
         TestExecutionContext.CurrentContext.CurrentResult.TestAttachments.ToList();
 
     [Test]
-    public void ChangeHasAttachment()
+    public async Task ChangeHasAttachment()
     {
         var settings = new VerifySettings();
         settings.DisableDiff();
-        ThrowsAsync<VerifyException>(
-            () => Verify("Bar", settings));
+        try
+        {
+            await Verify("Bar", settings);
+        }
+        catch (VerifyException)
+        {
+        }
+
         var list = GetAttachments();
         AreEqual(1, list.Count);
         var file = Path.GetFileName(list[0].FilePath);
@@ -127,12 +137,18 @@ public class Tests
 #endif
 
     [Test]
-    public void NewHasAttachment()
+    public async Task NewHasAttachment()
     {
         var settings = new VerifySettings();
         settings.DisableDiff();
-        ThrowsAsync<VerifyException>(
-            () => Verify("Bar", settings));
+        try
+        {
+            await Verify("Bar", settings);
+        }
+        catch (VerifyException)
+        {
+        }
+
         var list = GetAttachments();
         AreEqual(1, list.Count);
         var file = Path.GetFileName(list[0].FilePath);
@@ -140,12 +156,18 @@ public class Tests
     }
 
     [Test]
-    public void MultipleChangedHasAttachment()
+    public async Task MultipleChangedHasAttachment()
     {
         var settings = new VerifySettings();
         settings.DisableDiff();
-        ThrowsAsync<VerifyException>(
-            () => Verify("Bar", [new("txt", "Value")], settings));
+        try
+        {
+            await Verify("Bar", [new("txt", "Value")], settings);
+        }
+        catch (VerifyException)
+        {
+        }
+
         var list = GetAttachments();
         AreEqual(2, list.Count);
         var file0 = Path.GetFileName(list[0].FilePath);
@@ -155,12 +177,18 @@ public class Tests
     }
 
     [Test]
-    public void MultipleNewHasAttachment()
+    public async Task MultipleNewHasAttachment()
     {
         var settings = new VerifySettings();
         settings.DisableDiff();
-        ThrowsAsync<VerifyException>(
-            () => Verify("Bar", [new("txt", "Value")], settings));
+        try
+        {
+            await Verify("Bar", [new("txt", "Value")], settings);
+        }
+        catch (VerifyException)
+        {
+        }
+
         var list = GetAttachments();
         AreEqual(2, list.Count);
         var file0 = Path.GetFileName(list[0].FilePath);

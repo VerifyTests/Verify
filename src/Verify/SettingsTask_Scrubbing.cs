@@ -2,6 +2,14 @@
 
 public partial class SettingsTask
 {
+    /// <inheritdoc cref="VerifySettings.DisableScrubbers()"/>
+    [Pure]
+    public SettingsTask DisableScrubbers()
+    {
+        CurrentSettings.DisableScrubbers();
+        return this;
+    }
+
     /// <inheritdoc cref="VerifySettings.AddScrubber(Action{StringBuilder},VerifyTests.ScrubberLocation)"/>
     [Pure]
     public SettingsTask AddScrubber(Action<StringBuilder> scrubber, ScrubberLocation location = ScrubberLocation.First)
@@ -26,6 +34,14 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubGuids()"/>
+    [Pure]
+    public SettingsTask ScrubGuids()
+    {
+        CurrentSettings.ScrubGuids();
+        return this;
+    }
+
     /// <inheritdoc cref="VerifySettings.ScrubInlineGuids(string,ScrubberLocation)"/>
     [Pure]
     public SettingsTask ScrubInlineGuids(string extension, ScrubberLocation location = ScrubberLocation.First)
@@ -39,6 +55,14 @@ public partial class SettingsTask
     public SettingsTask DisableDateCounting()
     {
         CurrentSettings.DisableDateCounting();
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.ScrubDateTimes()"/>
+    [Pure]
+    public SettingsTask ScrubDateTimes()
+    {
+        CurrentSettings.ScrubDateTimes();
         return this;
     }
 

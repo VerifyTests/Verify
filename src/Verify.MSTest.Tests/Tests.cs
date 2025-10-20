@@ -20,7 +20,7 @@ public partial class Tests
         #endregion
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("Value1")]
     public Task UseFileNameWithParam(string arg) =>
         Verify(arg)
@@ -36,14 +36,13 @@ public partial class Tests
     {
         ResultFilesCallback.Callback = list =>
         {
-            Assert.AreEqual(1, list.Count);
+            Assert.HasCount(1, list);
             var file = Path.GetFileName(list[0]);
             Assert.AreEqual($"Tests.ChangeHasAttachment.{Namer.TargetFrameworkNameAndVersion}.received.txt", file);
         };
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsExceptionAsync<VerifyException>(
-            () => Verify("Bar", settings));
+        await Assert.ThrowsExactlyAsync<VerifyException>(() => Verify("Bar", settings));
     }
 
 #if NET9_0
@@ -76,14 +75,13 @@ public partial class Tests
     {
         ResultFilesCallback.Callback = list =>
         {
-            Assert.AreEqual(1, list.Count);
+            Assert.HasCount(1, list);
             var file = Path.GetFileName(list[0]);
             Assert.AreEqual($"Tests.NewHasAttachment.{Namer.TargetFrameworkNameAndVersion}.received.txt", file);
         };
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsExceptionAsync<VerifyException>(
-            () => Verify("Bar", settings));
+        await Assert.ThrowsExactlyAsync<VerifyException>(() => Verify("Bar", settings));
     }
 
     [ResultFilesCallback]
@@ -92,7 +90,7 @@ public partial class Tests
     {
         ResultFilesCallback.Callback = list =>
         {
-            Assert.AreEqual(2, list.Count);
+            Assert.HasCount(2, list);
             var file0 = Path.GetFileName(list[0]);
             var file1 = Path.GetFileName(list[1]);
             Assert.AreEqual($"Tests.MultipleChangedHasAttachment.{Namer.TargetFrameworkNameAndVersion}#00.received.txt", file0);
@@ -100,8 +98,7 @@ public partial class Tests
         };
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsExceptionAsync<VerifyException>(
-            () => Verify("Bar", [new("txt", "Value")], settings));
+        await Assert.ThrowsExactlyAsync<VerifyException>(() => Verify("Bar", [new("txt", "Value")], settings));
     }
 
     [ResultFilesCallback]
@@ -110,7 +107,7 @@ public partial class Tests
     {
         ResultFilesCallback.Callback = list =>
         {
-            Assert.AreEqual(2, list.Count);
+            Assert.HasCount(2, list);
             var file0 = Path.GetFileName(list[0]);
             var file1 = Path.GetFileName(list[1]);
             Assert.AreEqual($"Tests.MultipleNewHasAttachment.{Namer.TargetFrameworkNameAndVersion}#00.received.txt", file0);
@@ -118,8 +115,7 @@ public partial class Tests
         };
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsExceptionAsync<VerifyException>(
-            () => Verify("Bar", [new("txt", "Value")], settings));
+        await Assert.ThrowsExactlyAsync<VerifyException>(() => Verify("Bar", [new("txt", "Value")], settings));
     }
 
     #region ExplicitTargetsMSTest
@@ -174,7 +170,6 @@ public partial class Tests
     [TestMethod]
     public Task WithZipBytes() =>
         VerifyZip(File.ReadAllBytes(zipPath));
-
 
     [TestMethod]
     public Task VerifyFileWithRelativePath() =>

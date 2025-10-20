@@ -1,8 +1,15 @@
 ﻿static class DateFormatLengthCalculator
 {
+    static ConcurrentDictionary<string, (int max, int min)> cache = new();
     const int maxSecondsFractionDigits = 7;
 
-    static ConcurrentDictionary<string, (int max, int min)> cache = new();
+    static void ValidateSecondsFractionLength(int tokenLen)
+    {
+        if (tokenLen > maxSecondsFractionDigits)
+        {
+            throw new FormatException("Too many second fraction digits");
+        }
+    }
 
     public static (int max, int min) GetLength(string format, Culture culture)
     {
@@ -12,8 +19,7 @@
             _ =>
             {
                 format = culture.DateTimeFormat.ExpandFormat(format);
-                var length = InnerGetLength(format.AsSpan(), culture);
-                return length;
+                return InnerGetLength(format.AsSpan(), culture);
             });
     }
 
@@ -22,12 +28,17 @@
         var cultureDates = GetCultureLengthInfo(culture);
 
         var index = 0;
-
         var minLength = 0;
         var maxLength = 0;
+        var previousIsPeriod = false;
         while (index < format.Length)
         {
             var ch = format[index];
+            if (index > 0)
+            {
+                previousIsPeriod = format[index - 1] == '.';
+            }
+
             int nextChar;
             int tokenLen;
             switch (ch)
@@ -46,14 +57,22 @@
                     maxLength += 2;
                     break;
                 case 'f':
-                case 'F':
                     tokenLen = ParseRepeatPattern(format, index, ch);
-                    if (tokenLen > maxSecondsFractionDigits)
-                    {
-                        throw new FormatException("Too many second fraction digits");
-                    }
+                    ValidateSecondsFractionLength(tokenLen);
 
                     minLength += tokenLen;
+                    maxLength += tokenLen;
+
+                    break;
+                case 'F':
+                    tokenLen = ParseRepeatPattern(format, index, ch);
+                    ValidateSecondsFractionLength(tokenLen);
+
+                    if (previousIsPeriod)
+                    {
+                        minLength -= 1;
+                    }
+
                     maxLength += tokenLen;
 
                     break;
@@ -357,8 +376,8 @@
             .Where(_ => _.Length > 0)
             .OrderBy(_ => _.Length)
             .ToList();
-        var max = lengths.Last();
-        var min = lengths.First();
+        var max = lengths[^1];
+        var min = lengths[0];
         Debug.Assert(max.Length >= min.Length);
         return (max.Length, min.Length);
     }

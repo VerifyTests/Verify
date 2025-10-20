@@ -13,12 +13,8 @@ public partial class Tests
                 Assert.IsTrue(Directory.Exists(projectDirectory));
                 Assert.IsNotNull(methodName);
                 Assert.IsNotNull(typeName);
-                Assert.IsTrue(sourceFile
-                    .Replace(@"\", "/")
-                    .EndsWith("Verify.MSTest.DerivePaths.Tests/Tests.cs"));
-                Assert.IsTrue(projectDirectory
-                    .Replace(@"\", "/")
-                    .EndsWith("Verify.MSTest.DerivePaths.Tests/"));
+                Assert.EndsWith("Verify.MSTest.DerivePaths.Tests/Tests.cs", sourceFile.Replace(@"\", "/"));
+                Assert.EndsWith("Verify.MSTest.DerivePaths.Tests/", projectDirectory.Replace(@"\", "/"));
                 return new("CustomDir", "CustomTypeName", "CustomMethodName");
             });
         return Verify("Value");
@@ -56,7 +52,7 @@ public partial class Tests
             .GetInvalidFileNameChars()
             .First()
             .ToString()));
-        return Assert.ThrowsExceptionAsync<ArgumentException>(() => Verify("Value"));
+        return Assert.ThrowsExactlyAsync<ArgumentException>(() => Verify("Value"));
     }
 
     [TestMethod]
@@ -67,7 +63,7 @@ public partial class Tests
             .GetInvalidFileNameChars()
             .First()
             .ToString()));
-        return Assert.ThrowsExceptionAsync<ArgumentException>(() => Verify("Value"));
+        return Assert.ThrowsExactlyAsync<ArgumentException>(() => Verify("Value"));
     }
 
     [TestMethod]
@@ -78,6 +74,6 @@ public partial class Tests
             .GetInvalidPathChars()
             .First()
             .ToString()));
-        return Assert.ThrowsExceptionAsync<ArgumentException>(() => Verify("Value"));
+        return Assert.ThrowsExactlyAsync<ArgumentException>(() => Verify("Value"));
     }
 }

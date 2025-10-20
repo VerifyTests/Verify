@@ -1,10 +1,11 @@
-﻿// ReSharper disable NotAccessedField.Local
+// ReSharper disable NotAccessedField.Local
 
 // ReSharper disable RedundantSuppressNullableWarningExpression
 // ReSharper disable UnusedParameter.Local
 // ReSharper disable MemberCanBeMadeStatic.Local
 
 // Non-nullable field is uninitialized.
+
 #pragma warning disable CS8618
 
 public class SerializationTests
@@ -83,7 +84,24 @@ public class SerializationTests
                 })
             .UniqueForRuntime();
     }
+
 #endif
+
+    [Fact]
+    public Task ImmutableArray_Uninitialized() =>
+        Verify(new HasImmutableArray());
+
+    [Fact]
+    public Task ImmutableArray_Empty() =>
+        Verify(new HasImmutableArray
+        {
+            Array = []
+        });
+
+    internal class HasImmutableArray
+    {
+        public ImmutableArray<int> Array;
+    }
 
     [Fact]
     public Task PathInfos() =>
@@ -2581,14 +2599,50 @@ public class SerializationTests
         }
     }
 
+#if NET8_0_OR_GREATER
+
     [Fact]
-    public Task TestConverterInstance()
+    public Task TestConverterUsingCounterEdges()
     {
-        var target = new SimpleConverterTarget();
+        var target = new UsingCounterEdgesTarget();
         var settings = new VerifySettings();
-        settings.AddExtraSettings(_ => _.Converters.Add(new SimpleConverter()));
+        settings.AddExtraSettings(_ => _.Converters.Add(new UsingCounterEdgesConverter()));
         return Verify(target, settings);
     }
+
+    class UsingCounterEdgesTarget;
+
+    class UsingCounterEdgesConverter :
+        WriteOnlyJsonConverter<UsingCounterEdgesTarget>
+    {
+        public override void Write(VerifyJsonWriter writer, UsingCounterEdgesTarget target)
+        {
+            writer.WriteStartObject();
+
+            //TODO: Add dateonly WriteValue support to argon
+            // writer.WritePropertyName("DateMin");
+            // writer.WriteValue(Date.MinValue);
+            // writer.WritePropertyName("DateMax");
+            // writer.WriteValue(Date.MaxValue);
+
+            writer.WritePropertyName("DateTimeMin");
+            writer.WriteValue(DateTime.MinValue);
+            writer.WritePropertyName("DateTimeMax");
+            writer.WriteValue(DateTime.MaxValue);
+
+            writer.WritePropertyName("DateTimeOffsetMin");
+            writer.WriteValue(DateTimeOffset.MinValue);
+            writer.WritePropertyName("DateTimeOffsetMax");
+            writer.WriteValue(DateTimeOffset.MaxValue);
+
+            writer.WritePropertyName("GuidEmpty");
+            writer.WriteValue(Guid.Empty);
+
+            writer.WriteEndObject();
+        }
+    }
+
+#endif
 
     [Fact]
     public Task TestConverterFluent()
@@ -4210,7 +4264,7 @@ public class SerializationTests
     [Fact]
     public Task Ref()
     {
-        var json = """{ "a": { "$id": "x", "b": 1 }, "b": 2, "c": { "$ref": "#x/b" }, "d": { "$ref": "#/b" } }""";
+        var json = """{ "a": { "$id": "x", "b": 1 }, "b": 2, "c": { "$ref": "#x/b" }, "d": { "$ref": "#/b" }, "e": [ { "$ref": "#/b" } ] }""";
         return VerifyJson(json);
     }
 
@@ -4280,4 +4334,32 @@ public class SerializationTests
                 },
             })
             .AddScrubber(_ => _.Replace("key", "scrubbed"));
+
+    [Fact]
+    Task SecondsFractionUpperLong() =>
+        Verify("""
+               2025-09-26T11:10:44
+               2025-09-26T11:10:44.1
+               2025-09-26T11:10:44.11
+               2025-09-26T11:10:44.111
+               2025-09-26T11:10:44.1111
+               2025-09-26T11:10:44.1000
+               2025-09-26T11:10:44.1100
+               2025-09-26T11:10:44.1110
+               """)
+            .ScrubInlineDateTimes("yyyy-MM-ddTHH:mm:ss.FFFF");
+
+    [Fact]
+    Task SecondsFractionUpperShort() =>
+        Verify("""
+               2025-09-26T11:10:44
+               2025-09-26T11:10:44.1
+               2025-09-26T11:10:44.11
+               2025-09-26T11:10:44.111
+               2025-09-26T11:10:44.1111
+               2025-09-26T11:10:44.1000
+               2025-09-26T11:10:44.1100
+               2025-09-26T11:10:44.1110
+               """)
+            .ScrubInlineDateTimes("yyyy-MM-ddTHH:mm:ss.F");
 }

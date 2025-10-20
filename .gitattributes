@@ -4,6 +4,7 @@
 *.bmp binary
 *.tif binary
 *.zip binary
+*.nupkg binary
 
 src/Verify/EmptyFiles/* binary
 
@@ -13,9 +14,13 @@ src/Verify/EmptyFiles/* binary
 *.verified.json text eol=lf working-tree-encoding=UTF-8
 *.verified.props text eol=lf working-tree-encoding=UTF-8
 *.verified.nuspec text eol=lf working-tree-encoding=UTF-8
+*.verified.reentrant text eol=lf working-tree-encoding=UTF-8
+*.verified.ComparerDifferentTargets1 text eol=lf working-tree-encoding=UTF-8
+*.verified.ComparerDifferentTargets2 text eol=lf working-tree-encoding=UTF-8
 *.verified.bin binary
 
 src/.editorconfig text eol=lf working-tree-encoding=UTF-8
 *.sln.DotSettings text eol=lf working-tree-encoding=UTF-8
+*.slnx.DotSettings text eol=lf working-tree-encoding=UTF-8
 
 *NonStandardEncoding* binary

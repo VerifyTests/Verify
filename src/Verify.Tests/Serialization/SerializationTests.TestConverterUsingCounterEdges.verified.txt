@@ -1,0 +1,7 @@
+﻿{
+  DateTimeMin: Date_MinValue,
+  DateTimeMax: Date_MaxValue,
+  DateTimeOffsetMin: Date_MinValue,
+  DateTimeOffsetMax: Date_MaxValue,
+  GuidEmpty: Guid_Empty
+}

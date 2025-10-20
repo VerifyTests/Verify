@@ -1,38 +1,19 @@
-﻿partial class SerializationSettings
+﻿namespace VerifyTests;
+
+public partial class Counter
 {
-    internal bool TryParseConvert(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
+    public bool TryConvert(CharSpan value, [NotNullWhen(true)] out string? result)
     {
-        if (TryParseConvertGuid(counter, value, out result) ||
-            TryParseConvertDateTimeOffset(counter, value, out result) ||
-            TryParseConvertDateTime(counter, value, out result))
+        if (TryConvertGuid(value, out result) ||
+            TryConvertDateTimeOffset(value, out result) ||
+            TryConvertDateTime(value, out result))
         {
             return true;
         }
 
 #if NET6_0_OR_GREATER
-        if (TryParseConvertDate(counter, value, out result) ||
-            TryParseConvertTime(counter, value, out result))
-        {
-            return true;
-        }
-#endif
-
-        result = null;
-        return false;
-    }
-
-    internal bool TryConvertString(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
-    {
-        if (TryParseConvertGuid(counter, value, out result) ||
-            TryParseConvertDateTimeOffset(counter, value, out result)||
-            TryParseConvertDateTime(counter, value, out result))
-        {
-            return true;
-        }
-
-#if NET6_0_OR_GREATER
-        if (TryParseConvertDate(counter, value, out result) ||
-            TryParseConvertTime(counter, value, out result))
+        if (TryConvertDate(value, out result) ||
+            TryConvertTime(value, out result))
         {
             return true;
         }

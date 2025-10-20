@@ -44,6 +44,25 @@
 
     #endregion
 
+    #region JsonAppenderInferredName
+    [Fact]
+    public Task WithInferredNameJsonAppenderFluent()
+    {
+        var name = "value";
+        return Verify("TheValue")
+            .AppendValue(name);
+    }
+    #endregion
+
+    [Fact]
+    public Task WithInferredNameJsonAppender()
+    {
+        var name = "value";
+        var settings = new VerifySettings();
+        settings.AppendValue(name);
+        return Verify("TheValue", settings);
+    }
+
     [Fact]
     public Task WithDuplicate() =>
         Verify("TheValue")

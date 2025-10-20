@@ -23,7 +23,7 @@
 
         writer.WriteMember(new(), "value".AsSpan(), "name");
 
-        Assert.Contains("name:Scrubbed", builder.ToString());
+        Assert.Contains("name: Scrubbed", builder.ToString());
     }
 
     [Fact]
@@ -38,6 +38,6 @@
 
         writer.WriteMember(new(), "value".AsSpan(), "name");
 
-        Assert.Contains("name:value", builder.ToString());
+        Assert.Contains("name: value", builder.ToString());
     }
 }

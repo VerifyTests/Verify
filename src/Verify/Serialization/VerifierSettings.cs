@@ -12,26 +12,40 @@ public static partial class VerifierSettings
         object target,
         [NotNullWhen(true)] out Func<object, IReadOnlyDictionary<string, object>, AsStringResult>? toString)
     {
-        if (target is Encoding encoding)
-        {
-            toString = (_, _) => encoding.EncodingName;
-            return true;
-        }
-
-        if (target is Expression expression)
-        {
-            toString = (_, _) => expression.ToString();
-            return true;
-        }
-
         if (TypeNameConverter.TryGetSimpleName(target, out var name))
         {
             toString = (_, _) => name;
             return true;
         }
 
-        return typeToString.TryGetValue(target.GetType(), out toString);
+        var type = target.GetType();
+        if (typeToString.TryGetValue(type, out toString))
+        {
+            return true;
+        }
+
+        foreach (var (key, value) in typeToStringWithInheritance)
+        {
+            if (type.IsAssignableTo(key))
+            {
+                toString = value;
+                return true;
+            }
+
+        }
+
+        return false;
     }
+
+    static Dictionary<Type, Func<object, IReadOnlyDictionary<string, object>, AsStringResult>> typeToStringWithInheritance = new()
+    {
+        {
+            typeof(Encoding), (target, _) => ((Encoding) target).EncodingName
+        },
+        {
+            typeof(Expression ), (target, _) => ((Expression ) target).ToString()
+        }
+    };
 
     static Dictionary<Type, Func<object, IReadOnlyDictionary<string, object>, AsStringResult>> typeToString = new()
     {
@@ -101,10 +115,10 @@ public static partial class VerifierSettings
             typeof(Guid), (target, _) => ((Guid) target).ToString()
         },
         {
-            typeof(DateTime), (target, _) => DateFormatter.ToJsonString((DateTime) target)
+            typeof(DateTime), (target, _) => DateFormatter.Convert((DateTime) target)
         },
         {
-            typeof(DateTimeOffset), (target, _) => DateFormatter.ToJsonString((DateTimeOffset) target)
+            typeof(DateTimeOffset), (target, _) => DateFormatter.Convert((DateTimeOffset) target)
         },
         {
             typeof(XmlNode), (target, _) =>
@@ -125,16 +139,18 @@ public static partial class VerifierSettings
         #endregion
     };
 
-    public static void TreatAsString<T>(AsString<T>? toString = null)
+    public static void TreatAsString<T>(AsString<T>? toString = null, bool checkInheritance = false)
         where T : notnull
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
+        var dictionary = checkInheritance ? typeToStringWithInheritance : typeToString;
         toString ??= (target, _) => new(target.ToString()!);
-        typeToString[typeof(T)] = (target, settings) => toString((T)target, settings);
+        dictionary[typeof(T)] = (target, settings) => toString((T) target, settings);
     }
 
     internal static void Reset()
     {
+        serialization = new();
         InnerVerifier.verifyHasBeenRun = false;
         DateCountingEnabled = true;
         StrictJson = false;

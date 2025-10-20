@@ -1,0 +1,4 @@
+﻿{
+  Type: Exception,
+  Message: ScrubDateTimes is disabled. Call .ScrubDateTimes() before calling .ScrubInlineDates().
+}

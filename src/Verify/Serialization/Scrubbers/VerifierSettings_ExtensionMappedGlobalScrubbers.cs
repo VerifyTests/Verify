@@ -2,7 +2,7 @@
 
 public static partial class VerifierSettings
 {
-    internal static Dictionary<string, List<Action<StringBuilder, Counter>>> ExtensionMappedGlobalScrubbers = [];
+    internal static Dictionary<string, List<Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>>>> ExtensionMappedGlobalScrubbers = [];
 
     /// <summary>
     /// Modify the resulting test content using custom code.
@@ -16,7 +16,14 @@ public static partial class VerifierSettings
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
-    public static void AddScrubber(string extension, Action<StringBuilder, Counter> scrubber, ScrubberLocation location = ScrubberLocation.First)
+    public static void AddScrubber(string extension, Action<StringBuilder, Counter> scrubber, ScrubberLocation location = ScrubberLocation.First) =>
+        AddScrubber(extension, (builder, counter, _) =>
+            scrubber(builder, counter), location);
+
+    /// <summary>
+    /// Modify the resulting test content using custom code.
+    /// </summary>
+    public static void AddScrubber(string extension, Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>> scrubber, ScrubberLocation location = ScrubberLocation.First)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         if (!ExtensionMappedGlobalScrubbers.TryGetValue(extension, out var values))

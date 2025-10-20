@@ -37,6 +37,15 @@ updated to the new result.<!-- endInclude -->
 [![Entity Framework Extensions](https://raw.githubusercontent.com/VerifyTests/Verify/refs/heads/main/docs/zzz.png)](https://entityframework-extensions.net/?utm_source=simoncropp&utm_medium=Verify)<!-- endInclude -->
 
 
+### LambdaTest<!-- include: lambdatest. path: /docs/mdsource/lambdatest.include.md -->
+
+<p style="font-size:21px; color:black;">Browser testing via<br>
+  <a href="https://www.lambdatest.com/" target="_blank">
+    <img src="https://www.lambdatest.com/blue-logo.png" style="vertical-align: middle;" width="250" height="45" />
+  </a>
+</p><!-- endInclude -->
+
+
 ### JetBrains
 
 [![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)](https://jb.gg/OpenSourceSupport)
@@ -526,7 +535,7 @@ await Verify(
         Bars = await repo.GetBars(id)
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L171-L180' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFuncOfTaskOfT' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L152-L161' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFuncOfTaskOfT' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -564,7 +573,7 @@ public Task VerifyJsonJToken()
     return Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/JsonTests.cs#L183-L208' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyJson' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/JsonTests.cs#L198-L223' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyJson' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in a .txt file:
@@ -799,7 +808,7 @@ public static class StaticSettingsUsage
 
 In .net framework, where the Module Initializer feature is not enabled by default, either use a Polyfill package (eg https://github.com/SimonCropp/Polyfill) or add the following to the test project:
 
-```
+```csharp
 namespace System.Runtime.CompilerServices;
 
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
@@ -823,7 +832,7 @@ var result = await Verify(
     });
 Assert.Contains("Value To Check", result.Text);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L424-L433' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyResult' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L433-L442' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyResult' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If using `Verifier.Throws`, the resulting `Exception` will also be accessible
@@ -906,6 +915,7 @@ This readme will not discuss definitive list of details for proper setup of the 
 
 ### Blogs
 
+* [Verify.Cli - Snapshot testing without tests - David Gardiner (21 Jul 2025)](https://david.gardiner.net.au/2025/07/verify-cli)
 * [Snapshot testing .NET code with Verify - David Gardiner (21 Jul 2025)](https://david.gardiner.net.au/2025/07/verify)
 * [Library: Verify - Snapshot Testing - Simplify Complex Object Testing (2 Jan 2025)](https://vukvuk.com/posts/library-verify-and-snapshot-testing)
 * [Snapshot Testing in .NET with Verify - Khalid Abuhakmeh (12 Jul 2024)](https://blog.jetbrains.com/dotnet/2024/07/11/snapshot-testing-in-net-with-verify/)
@@ -945,9 +955,9 @@ This readme will not discuss definitive list of details for proper setup of the 
 * [Verify Xunit Intro (26 Apr 2020)](https://www.youtube.com/watch?v=uGVogEltSkY)
 
 
-## Extensions
+## Plugins
 
-* [Verify.AngleSharp](https://github.com/VerifyTests/Verify.AngleSharp): Html verification utilities via [AngleSharp](https://github.com/AngleSharp/AngleSharp).
+* [Verify.AngleSharp](https://github.com/VerifyTests/Verify.AngleSharp): Html verification utilities via [AngleSharp](https://github.com/AngleSharp/AngleSharp).<!-- include: plugin-list. path: /docs/mdsource/plugin-list.include.md -->
 * [Verify.AspNetCore](https://github.com/VerifyTests/Verify.AspNetCore): Verification of AspNetCore bits.
 * [Verify.Aspose](https://github.com/VerifyTests/Verify.Aspose): Verification of documents (pdf, docx, xlsx, and pptx) via Aspose.
 * [Verify.Assertions](https://github.com/VerifyTests/Verify.Assertions): Extends Verify to allow an assertion callback. This enables using assertion libraries to interrogate during serialization.
@@ -956,8 +966,11 @@ This readme will not discuss definitive list of details for proper setup of the 
 * [Verify.Blazor](https://github.com/VerifyTests/Verify.Blazor): Verification of [Blazor Component](https://docs.microsoft.com/en-us/aspnet/core/blazor/#components) Blazor rendering.
 * [Verify.Bunit](https://github.com/VerifyTests/Verify.Bunit): Verification of [Blazor Component](https://docs.microsoft.com/en-us/aspnet/core/blazor/#components) via [bunit](https://bunit.egilhansen.com).
 * [Verify.Brighter](https://github.com/VerifyTests/Verify.Brighter): Verification of [Brighter](https://www.goparamore.io/) bits.
+* [Verify.Cli](https://github.com/flcdrg/Verify.Cli): Command line tool for verifying files (outside of unit tests).
 * [Verify.CommunityToolkit.Mvvm](https://github.com/VerifyTests/Verify.CommunityToolkit.Mvvm): Verification of [CommunityToolkit.Mvvm](https://learn.microsoft.com/en-us/dotnet/communitytoolkit/mvvm/).
 * [Verify.Cosmos](https://github.com/VerifyTests/Verify.Cosmos): Verification of [Azure CosmosDB](https://docs.microsoft.com/en-us/azure/cosmos-db/).
+* [Verify.ClosedXml](https://github.com/VerifyTests/Verify.ClosedXml): Verification of Excel documents via [ClosedXml](https://github.com/ClosedXML/ClosedXML).
+* [Verify.CsvHelper](https://github.com/VerifyTests/Verify.CsvHelper): Verification of CSVs via [CsvHelper](https://joshclose.github.io/CsvHelper/).
 * [Verify.DiffPlex](https://github.com/VerifyTests/Verify.DiffPlex): Comparison of text via [DiffPlex](https://github.com/mmanela/diffplex).
 * [Verify.DocNet](https://github.com/VerifyTests/Verify.DocNet): Verification of pdfs via [DocNet](https://github.com/GowenGit/docnet).
 * [Verify.EntityFramework](https://github.com/VerifyTests/Verify.EntityFramework): Verification of EntityFramework bits.
@@ -970,6 +983,7 @@ This readme will not discuss definitive list of details for proper setup of the 
 * [Verify.ImageSharp.Compare](https://github.com/VerifyTests/Verify.ImageSharp.Compare): Verification and comparison of images via [Codeuctivity.ImageSharp.Compare](https://github.com/Codeuctivity/ImageSharp.Compare).
 * [Verify.ImageMagick](https://github.com/VerifyTests/Verify.ImageMagick): Verification and comparison of images via [Magick.NET](https://github.com/dlemstra/Magick.NET).
 * [Verify.ImageSharp](https://github.com/VerifyTests/Verify.ImageSharp): Verification of images via [ImageSharp](https://github.com/SixLabors/ImageSharp).
+* [Verify.TestableIO.System.IO.Abstractions](https://github.com/VerifyTests/Verify.TestableIO.System.IO.Abstractions): Verification of [TestableIO.System.IO.Abstractions](https://github.com/TestableIO/System.IO.Abstractions).
 * [Verify.MailMessage](https://github.com/VerifyTests/Verify.MailMessage): Verification of [MailMessage](https://learn.microsoft.com/en-us/dotnet/api/system.net.mail.mailmessage) and related types.
 * [YellowDogMan.Verify.Marshaling](https://github.com/Yellow-Dog-Man/Verify.Marshaling): Verification of [Struct Marshaling](https://learn.microsoft.com/en-us/dotnet/standard/native-interop/customize-struct-marshalling).
 * [Verify.MassTransit](https://github.com/VerifyTests/Verify.MassTransit): Support for MassTransit test helpers.
@@ -989,6 +1003,7 @@ This readme will not discuss definitive list of details for proper setup of the 
 * [Verify.QuestPDF](https://github.com/VerifyTests/Verify.QuestPDF): Verification of pdf documents via [QuestPDF](https://www.questpdf.com/).
 * [Verify.RavenDb](https://github.com/VerifyTests/Verify.RavenDb): Verification of [RavenDb](https://ravendb.net) bits.
 * [Verify.SendGrid](https://github.com/VerifyTests/Verify.SendGrid): Verification of [SendGrid](https://github.com/sendgrid/sendgrid-csharp).
+* [Verify.Sep](https://github.com/VerifyTests/Verify.Sep): Verification of CSVs via [Sep](https://github.com/nietras/Sep) bits.
 * [Verify.Serilog](https://github.com/VerifyTests/Verify.Serilog): Verification of [Serilog](https://serilog.net/) bits.
 * [YellowDogMan.Verify.ssimulacra2](https://github.com/Yellow-Dog-Man/Verify.ssimulacra2): Verification and comparison of images via [ssimulacra2](https://github.com/cloudinary/ssimulacra2).
 * [Verify.SqlServer](https://github.com/VerifyTests/Verify.SqlServer): Verification of SqlServer bits.
@@ -1003,9 +1018,19 @@ This readme will not discuss definitive list of details for proper setup of the 
 * [Spectre.Verify.Extensions](https://github.com/spectresystems/spectre.verify.extensions): Add an attribute driven file naming convention to Verify.
 * [Verify.Sylvan.Data.Excel](https://github.com/VerifyTests/Verify.Sylvan.Data.Excel): Verification of Excel documents via [Sylvan.Data.Excel](https://github.com/MarkPflug/Sylvan.Data.Excel/).
 * [Verify.Syncfusion](https://github.com/VerifyTests/Verify.Syncfusion): Verification of documents (pdf, docx, xlsx, and pptx) via [Syncfusion File Formats](https://help.syncfusion.com/file-formats/introduction).
-* [Verify.Yaml](https://github.com/VerifyTests/Verify.Yaml): Verifiable test context for [Wolverine](https://github.com/JasperFx/wolverine).
-* [Verify.Wolverine](https://github.com/VerifyTests/Verify.Wolverine): Support for [YamlDotNet](https://github.com/aaubry/YamlDotNet) types.
+* [Verify.Wolverine](https://github.com/VerifyTests/Verify.Wolverine):Verifiable test context for [Wolverine](https://github.com/JasperFx/wolverine).
+* [Verify.Yaml](https://github.com/VerifyTests/Verify.Yaml): Support for [YamlDotNet](https://github.com/aaubry/YamlDotNet) types.
 * [Verify.ZeroLog](https://github.com/VerifyTests/Verify.ZeroLog): Verifiable test context for [ZeroLog](https://github.com/Abc-Arbitrage/ZeroLog).
+<!-- endInclude -->
+
+
+### LambdaTest<!-- include: lambdatest. path: /docs/mdsource/lambdatest.include.md -->
+
+<p style="font-size:21px; color:black;">Browser testing via<br>
+  <a href="https://www.lambdatest.com/" target="_blank">
+    <img src="https://www.lambdatest.com/blue-logo.png" style="vertical-align: middle;" width="250" height="45" />
+  </a>
+</p><!-- endInclude -->
 
 
 ## More Documentation
@@ -1023,6 +1048,7 @@ This readme will not discuss definitive list of details for proper setup of the 
     * [Guids](/docs/guids.md)
     * [Dates](/docs/dates.md)
     * [Scrubbing](/docs/scrubbers.md)
+    * [Counter](/docs/counter.md)
     * [Members that throw](/docs/members-throw.md)
     * [Ordering](/docs/ordering.md)
     * [Encoding](/docs/encoding.md)
@@ -1052,7 +1078,8 @@ This readme will not discuss definitive list of details for proper setup of the 
   * [Recording](/docs/recording.md)
   * [Explicit Targets](/docs/explicit-targets.md)
   * [FSharp Usage](/docs/fsharp.md)
-  * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)<!-- endInclude -->
+  * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)
+  * [Plugins](/docs/plugins.md)<!-- endInclude -->
 
 
 ## Icon

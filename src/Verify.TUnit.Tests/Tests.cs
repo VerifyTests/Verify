@@ -2,8 +2,6 @@
 
 // ReSharper disable ArrangeObjectCreationWhenTypeNotEvident
 
-using VerifyTUnit;
-
 public class Tests
 {
     static void DerivePathInfo() =>
@@ -48,9 +46,9 @@ public class Tests
         Verify(
         [
             new Target(
-                    extension: "txt",
-                    data: "Raw target value",
-                    name: "targetName")
+                extension: "txt",
+                data: "Raw target value",
+                name: "targetName")
         ]);
 
     static string directoryPathToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
@@ -84,22 +82,17 @@ public class Tests
 
     #endregion
 
-    static List<Artifact> GetAttachments()
-    {
-        var context = TestContext.Current!;
-        var field = typeof(TestContext)
-            .GetField("Artifacts", BindingFlags.Instance | BindingFlags.NonPublic)!;
-        return (List<Artifact>)field.GetValue(context)!;
-    }
+    [Test]
+    public Task WithZipAndPersistArchive() =>
+        VerifyZip(pathToArchive, persistArchive: true);
 
     [Test]
     public async Task ChangeHasAttachment()
     {
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsAsync(
-            () => Verify("Bar", settings));
-        var list = GetAttachments();
+        await Assert.ThrowsAsync(() => Verify("Bar", settings));
+        var list = TestContext.Current!.Artifacts;
         await Assert.That(list.Count).IsEqualTo(1);
         var expected = $"Tests.ChangeHasAttachment.{Namer.TargetFrameworkNameAndVersion}.received.txt";
         await Assert.That(list[0].File.Name).IsEqualTo(expected);
@@ -118,7 +111,7 @@ public class Tests
         settings.DisableDiff();
         settings.AutoVerify();
         await Verify("Bar", settings);
-        var list = GetAttachments();
+        var list = TestContext.Current!.Artifacts;
         await Assert.That(list.Count).IsEqualTo(1);
         await Assert.That(list[0].File.Name)
             .IsEqualTo($"Tests.AutoVerifyHasAttachment.{Namer.TargetFrameworkNameAndVersion}.received.txt");
@@ -131,9 +124,8 @@ public class Tests
     {
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsAsync(
-            () => Verify("Bar", settings));
-        var list = GetAttachments();
+        await Assert.ThrowsAsync(() => Verify("Bar", settings));
+        var list = TestContext.Current!.Artifacts;
         await Assert.That(list.Count).IsEqualTo(1);
         await Assert.That(list[0].File.Name)
             .IsEqualTo($"Tests.NewHasAttachment.{Namer.TargetFrameworkNameAndVersion}.received.txt");
@@ -144,9 +136,8 @@ public class Tests
     {
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsAsync(
-            () => Verify("Bar", [new("txt", "Value")], settings));
-        var list = GetAttachments();
+        await Assert.ThrowsAsync(() => Verify("Bar", [new("txt", "Value")], settings));
+        var list = TestContext.Current!.Artifacts;
         await Assert.That(list.Count).IsEqualTo(2);
         await Assert.That(list[0].File.Name)
             .IsEqualTo($"Tests.MultipleChangedHasAttachment.{Namer.TargetFrameworkNameAndVersion}#00.received.txt");
@@ -159,9 +150,8 @@ public class Tests
     {
         var settings = new VerifySettings();
         settings.DisableDiff();
-        await Assert.ThrowsAsync(
-            () => Verify("Bar", [new("txt", "Value")], settings));
-        var list = GetAttachments();
+        await Assert.ThrowsAsync(() => Verify("Bar", [new("txt", "Value")], settings));
+        var list = TestContext.Current!.Artifacts;
         await Assert.That(list.Count).IsEqualTo(2);
         await Assert.That(list[0].File.Name)
             .IsEqualTo($"Tests.MultipleNewHasAttachment.{Namer.TargetFrameworkNameAndVersion}#00.received.txt");

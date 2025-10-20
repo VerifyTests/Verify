@@ -30,18 +30,11 @@ public class DateScrubberTests
     [InlineData("1998-10-01", "named")]
     public async Task DateTimeOffsets(string value, string name)
     {
-        var counter = Counter.Start();
-        try
-        {
-            var builder = new StringBuilder(value);
-            DateScrubber.ReplaceDateTimeOffsets(builder, "yyyy-MM-dd", counter, CultureInfo.InvariantCulture);
-            await Verify(builder)
-                .UseTextForParameters(name);
-        }
-        finally
-        {
-            Counter.Stop();
-        }
+        using var counter = Counter.Start();
+        var builder = new StringBuilder(value);
+        DateScrubber.ReplaceDateTimeOffsets(builder, "yyyy-MM-dd", counter, CultureInfo.InvariantCulture);
+        await Verify(builder)
+            .UseTextForParameters(name);
     }
 
     [Theory]
@@ -55,18 +48,11 @@ public class DateScrubberTests
     [InlineData("1998 October 01 Thursday", "named")]
     public async Task VariableLengthDateTimeOffsets(string value, string name)
     {
-        var counter = Counter.Start();
-        try
-        {
-            var builder = new StringBuilder(value);
-            DateScrubber.ReplaceDateTimeOffsets(builder, "yyyy MMMM dd dddd", counter, CultureInfo.InvariantCulture);
-            await Verify(builder)
-                .UseTextForParameters(name);
-        }
-        finally
-        {
-            Counter.Stop();
-        }
+        using var counter = Counter.Start();
+        var builder = new StringBuilder(value);
+        DateScrubber.ReplaceDateTimeOffsets(builder, "yyyy MMMM dd dddd", counter, CultureInfo.InvariantCulture);
+        await Verify(builder)
+            .UseTextForParameters(name);
     }
 
     [Theory]
@@ -92,18 +78,11 @@ public class DateScrubberTests
     [InlineData("1998-10-01", "named")]
     public async Task DateTimes(string value, string name)
     {
-        var counter = Counter.Start();
-        try
-        {
-            var builder = new StringBuilder(value);
-            DateScrubber.ReplaceDateTimes(builder, "yyyy-MM-dd", counter, CultureInfo.InvariantCulture);
-            await Verify(builder)
-                .UseTextForParameters(name);
-        }
-        finally
-        {
-            Counter.Stop();
-        }
+        using var counter = Counter.Start();
+        var builder = new StringBuilder(value);
+        DateScrubber.ReplaceDateTimes(builder, "yyyy-MM-dd", counter, CultureInfo.InvariantCulture);
+        await Verify(builder)
+            .UseTextForParameters(name);
     }
 
     [Fact]
@@ -151,18 +130,11 @@ public class DateScrubberTests
     [InlineData("1998 October 01 Thursday", "named")]
     public async Task VariableLengthDateTimes(string value, string name)
     {
-        var counter = Counter.Start();
-        try
-        {
-            var builder = new StringBuilder(value);
-            DateScrubber.ReplaceDateTimes(builder, "yyyy MMMM dd dddd", counter, CultureInfo.InvariantCulture);
-            await Verify(builder)
-                .UseTextForParameters(name);
-        }
-        finally
-        {
-            Counter.Stop();
-        }
+        using var counter = Counter.Start();
+        var builder = new StringBuilder(value);
+        DateScrubber.ReplaceDateTimes(builder, "yyyy MMMM dd dddd", counter, CultureInfo.InvariantCulture);
+        await Verify(builder)
+            .UseTextForParameters(name);
     }
 
     [Theory]
@@ -189,18 +161,11 @@ public class DateScrubberTests
     [InlineData("1998-10-01", "named")]
     public async Task Dates(string value, string name)
     {
-        var counter = Counter.Start();
-        try
-        {
-            var builder = new StringBuilder(value);
-            DateScrubber.ReplaceDates(builder, "yyyy-MM-dd", counter, CultureInfo.InvariantCulture);
-            await Verify(builder)
-                .UseTextForParameters(name);
-        }
-        finally
-        {
-            Counter.Stop();
-        }
+        using var counter = Counter.Start();
+        var builder = new StringBuilder(value);
+        DateScrubber.ReplaceDates(builder, "yyyy-MM-dd", counter, CultureInfo.InvariantCulture);
+        await Verify(builder)
+            .UseTextForParameters(name);
     }
 
     [Theory]
@@ -214,18 +179,11 @@ public class DateScrubberTests
     [InlineData("1998 October 01 Thursday", "named")]
     public async Task VariableLengthDates(string value, string name)
     {
-        var counter = Counter.Start();
-        try
-        {
-            var builder = new StringBuilder(value);
-            DateScrubber.ReplaceDates(builder, "yyyy MMMM dd dddd", counter, CultureInfo.InvariantCulture);
-            await Verify(builder)
-                .UseTextForParameters(name);
-        }
-        finally
-        {
-            Counter.Stop();
-        }
+        using var counter = Counter.Start();
+        var builder = new StringBuilder(value);
+        DateScrubber.ReplaceDates(builder, "yyyy MMMM dd dddd", counter, CultureInfo.InvariantCulture);
+        await Verify(builder)
+            .UseTextForParameters(name);
     }
 
     [Theory]

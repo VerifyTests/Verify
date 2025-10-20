@@ -83,6 +83,10 @@
         return Verify(new Target("EnsureInputs", stream, "name"));
     }
 
+    [Fact]
+    public Task InvalidFileCharactersInName() =>
+        Verify(new Target("txt", "value", "name*a?b|c"));
+
     [ModuleInitializer]
     public static void ExtensionConversionStringBuilderInit() =>
         VerifierSettings.RegisterStreamConverter(
@@ -192,6 +196,19 @@
     [Fact]
     public Task WithInfo() =>
         Verify(new MemoryStream([1]), "WithInfo");
+
+    [Fact]
+    public Task WithInfo_AndAppends() =>
+        Verify(new MemoryStream([1]), "WithInfo")
+            .AppendValue("AppendKey", "AppendValue");
+
+    [Fact]
+    public Task WithInfo_AndRecording()
+    {
+        Recording.Start();
+        Recording.Add("RecordKey", "RecordValue");
+        return Verify(new MemoryStream([1]), "WithInfo");
+    }
 
     [ModuleInitializer]
     public static void WithInfoAndBinaryInit() =>

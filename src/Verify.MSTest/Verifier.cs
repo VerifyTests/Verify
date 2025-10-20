@@ -1,3 +1,4 @@
+#pragma warning disable VerifySetParameters
 namespace VerifyMSTest;
 
 public static partial class Verifier
@@ -25,7 +26,7 @@ public static partial class Verifier
 
     public static readonly AsyncLocal<TestExecutionContext?> CurrentTestContext = new();
 
-    static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory)
+    public static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory = false)
     {
         if (useUniqueDirectory)
         {

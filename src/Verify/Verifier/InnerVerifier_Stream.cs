@@ -84,13 +84,15 @@ partial class InnerVerifier
             return await Verify(info);
         }
 
+        stream.MoveToStart();
+
         using (stream)
         {
             if (VerifierSettings.HasStreamConverter(extension))
             {
                 var (newInfo, converted, cleanup) = await DoExtensionConversion(extension, stream, info, null);
 
-                return await VerifyInner(newInfo, cleanup, converted, false);
+                return await VerifyInner(newInfo, cleanup, converted, false, true);
             }
 
             var target = await GetTarget(stream, extension);
@@ -139,7 +141,8 @@ partial class InnerVerifier
         {
             var target = queue.Dequeue();
 
-            if (!VerifierSettings.TryGetStreamConverter(target.Extension, out var conversion))
+            if (//extension == target.Extension ||
+                !VerifierSettings.TryGetStreamConverter(target.Extension, out var conversion))
             {
                 targets.Add(target);
                 continue;
@@ -151,6 +154,7 @@ partial class InnerVerifier
             {
                 cleanup += result.Cleanup;
             }
+
             if (result.Info != null)
             {
                 infos.Add(result.Info);

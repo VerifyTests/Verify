@@ -44,9 +44,9 @@ public class Tests
         Verify(
         [
             new Target(
-                    extension: "txt",
-                    data: "Raw target value",
-                    name: "targetName")
+                extension: "txt",
+                data: "Raw target value",
+                name: "targetName")
         ]);
 
 #if NET9_0
@@ -76,6 +76,8 @@ public class Tests
         VerifyZip(pathToArchive, includeStructure: true);
 
     #endregion
+    public Task WithZipAndPersistArchive() =>
+        VerifyZip(pathToArchive, persistArchive: true);
 
 #endif
 }

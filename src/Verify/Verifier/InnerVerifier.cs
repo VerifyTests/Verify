@@ -158,7 +158,9 @@ public partial class InnerVerifier :
 
     static Counter StartCounter(VerifySettings settings) =>
         Counter.Start(
-            settings.DateCountingEnable,
+            settings is {DateCountingEnable: true, ScrubbersEnabled: true},
+            settings.serialization.ScrubDateTimes.GetValueOrDefault(true) && settings.ScrubbersEnabled,
+            settings.serialization.ScrubGuids.GetValueOrDefault(true) && settings.ScrubbersEnabled,
 #if NET6_0_OR_GREATER
             settings.namedDates,
             settings.namedTimes,
@@ -378,7 +380,7 @@ public partial class InnerVerifier :
     }
 
     public Task<VerifyResult> Verify(object? target, IEnumerable<Target> rawTargets) =>
-        VerifyInner(target, null, rawTargets, true);
+        VerifyInner(target, null, rawTargets, true, false);
 
     public Task<VerifyResult> Verify(Target target) =>
         VerifyInner([target]);
@@ -401,6 +403,6 @@ public partial class InnerVerifier :
     {
         settings.RunAfterCallbacks();
 
-        Counter.Stop();
+        counter.Dispose();
     }
 }

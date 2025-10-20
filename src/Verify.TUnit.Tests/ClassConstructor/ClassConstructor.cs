@@ -10,9 +10,9 @@
             .AddSingleton<string>("SingletonValue")
             .BuildServiceProvider();
 
-    public object Create([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] Type type, ClassConstructorMetadata metadata)
+    public Task<object> Create([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] Type type, ClassConstructorMetadata metadata)
     {
         scope = provider.CreateAsyncScope();
-        return ActivatorUtilities.GetServiceOrCreateInstance(scope.ServiceProvider, type);
+        return Task.FromResult(ActivatorUtilities.GetServiceOrCreateInstance(scope.ServiceProvider, type));
     }
 }

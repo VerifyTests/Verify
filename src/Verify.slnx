@@ -11,6 +11,7 @@
     <File Path="mdsnippets.json" />
     <File Path="nuget.config" />
     <File Path="testenvironments.json" />
+    <File Path="Directory.Build.targets" />
   </Folder>
   <Project Path="Benchmarks/Benchmarks.csproj" />
   <Project Path="DeterministicTests/DeterministicTests.csproj" />

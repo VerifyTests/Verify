@@ -9,9 +9,5 @@
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0].Split('(')[0])</ParentFile>
       <DependentUpon>%(ParentFile).vb</DependentUpon>
     </None>
-    <None Include="**\*.received.*;**\*.verified.*" Condition="$(Language) == 'F#'">
-      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
-      <DependentUpon>%(ParentFile).fs</DependentUpon>
-    </None>
   </ItemGroup>
 </Project>

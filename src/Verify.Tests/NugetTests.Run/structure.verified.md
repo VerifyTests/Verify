@@ -24,9 +24,11 @@
 * buildTransitive
   * Verify.props
   * Verify.AfterMicrosoftNetSdk.props
+  * Verify.targets
 * build
   * Verify.props
   * Verify.AfterMicrosoftNetSdk.props
+  * Verify.targets
 * [Content_Types].xml
 * package
   * services

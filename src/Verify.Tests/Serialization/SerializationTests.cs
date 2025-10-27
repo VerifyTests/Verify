@@ -956,11 +956,11 @@ public class SerializationTests
     [Fact]
     public Task NullPropertyInclude() =>
         Verify(
-            new
-            {
-                nullProperty = (string?)null
-            })
-            .AddExtraSettings(_=>
+                new
+                {
+                    nullProperty = (string?) null
+                })
+            .AddExtraSettings(_ =>
             {
                 _.DefaultValueHandling = DefaultValueHandling.Include;
                 _.NullValueHandling = NullValueHandling.Include;
@@ -969,11 +969,11 @@ public class SerializationTests
     [Fact]
     public Task NullStructPropertyInclude() =>
         Verify(
-            new
-            {
-                nullProperty = (int?)null
-            })
-            .AddExtraSettings(_=>
+                new
+                {
+                    nullProperty = (int?) null
+                })
+            .AddExtraSettings(_ =>
             {
                 _.DefaultValueHandling = DefaultValueHandling.Include;
                 _.NullValueHandling = NullValueHandling.Include;
@@ -987,11 +987,11 @@ public class SerializationTests
     [Fact]
     public Task ClassWithNullStructPropertyInclude() =>
         Verify(
-            new TypeWithNullableStruct
-            {
-                nullProperty = null
-            })
-            .AddExtraSettings(_=>
+                new TypeWithNullableStruct
+                {
+                    nullProperty = null
+                })
+            .AddExtraSettings(_ =>
             {
                 _.DefaultValueHandling = DefaultValueHandling.Include;
                 _.NullValueHandling = NullValueHandling.Include;
@@ -1614,6 +1614,7 @@ public class SerializationTests
 
         return Verify("12/11/2024 10:36:43 AM", settings);
     }
+
     [Fact]
     public Task ScrubInlineDateTimesWithLongAmPm()
     {

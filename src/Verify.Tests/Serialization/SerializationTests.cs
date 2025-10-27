@@ -950,7 +950,7 @@ public class SerializationTests
             new
             {
                 property = "value1",
-                nullProperty = (string?)null
+                nullProperty = (string?) null
             });
 
     [Fact]

@@ -3459,6 +3459,7 @@ public class SerializationTests
                _.Name == "Proprty");
 
         #endregion
+
         #region IgnoreMemberByPredicateGlobal
 
         VerifierSettings.IgnoreMembers(
@@ -3469,6 +3470,7 @@ public class SerializationTests
     }
 
     class TargetClass;
+
     #region IgnoreMemberByName
 
     [Fact]
@@ -3714,6 +3716,7 @@ public class SerializationTests
         };
         return Verify(target, settings);
     }
+
     #endregion
 
     public class IgnoreTargetBase
@@ -4316,11 +4319,11 @@ public class SerializationTests
 
     [Fact]
     public Task StringCastToObject() =>
-        Verify((object)"value");
+        Verify((object) "value");
 
     [Fact]
     public Task StringCastToObjectWithAppend() =>
-        Verify((object)"item").AppendValue("key", "value");
+        Verify((object) "item").AppendValue("key", "value");
 
     [Fact]
     public Task Dictionary_ScrubDictionaryKeys() =>

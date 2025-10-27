@@ -2693,11 +2693,10 @@ public class SerializationTests
     {
         var member = GetType()
             .GetMethod("MethodThatThrows")!;
-        return Throws(
-                () =>
-                {
-                    member.Invoke(null, []);
-                })
+        return Throws(() =>
+            {
+                member.Invoke(null, []);
+            })
             .IgnoreStackTrace()
             .ScrubLinesContaining("(Object ");
     }

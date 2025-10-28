@@ -14,9 +14,19 @@ A temporary directory helper for tests that automatically cleans up directories.
 
 - Creates unique temporary directories in `%TEMP%\VerifyTempDirectory\{Path.GetRandomFileName()}`
 - Automatic cleanup on dispose
-- Removes orphaned directories older than 24 hours
 - Implicit conversion to `string` and `DirectoryInfo`
 - Thread-safe directory creation
+- Removes orphaned directories older than 24 hours
+
+
+#### Orphaned directories
+
+Orphaned directories can occur in the following scenario
+
+ * A breakpoint is set in a test that uses TempDirectory
+ * Debugger is launched and breakpoint is hit
+ * Debugger is force stopped, resulting in the `TempDirectory.Dispose()` not being executed
+
 
 ### Usage
 

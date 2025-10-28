@@ -3803,6 +3803,7 @@ public class SerializationTests
 
     class IgnoreExplicitTarget
     {
+        public string Field;
         public string Include;
         public string Property { get; init; }
 
@@ -3812,7 +3813,6 @@ public class SerializationTests
         public string PropertyByName { get; set; }
         public string GetOnlyProperty => "asd";
         public string PropertyThatThrows => throw new();
-        public string Field;
     }
 
     // ReSharper disable once UnusedMember.Local

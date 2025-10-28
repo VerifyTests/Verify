@@ -41,27 +41,106 @@ public void Usage()
     // wite a file to the temp directory
     File.WriteAllText(Path.Combine(temp, "test.txt"), "content");
 
-    // implicit conversion to DirectoryInfo
-    DirectoryInfo info = temp;
-    var filesViaInfo = info.EnumerateFiles();
-    Trace.WriteLine(filesViaInfo.Count());
+    // Directory and files automatically deleted here
+}
+```
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L31-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectory' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### String Implicit Conversion
+
+`TempDirectory` can be implicitly converter to a `string`:
+
+<!-- snippet: TempDirectoryStringConversion -->
+<a id='snippet-TempDirectoryStringConversion'></a>
+```cs
+[Fact]
+public void StringConversion()
+{
+    using var temp = new TempDirectory();
+
+    File.WriteAllText(Path.Combine(temp, "test.txt"), "content");
 
     // implicit conversion to string
     string path = temp;
-    var filesViaPath = Directory.EnumerateFiles(path);
-    Trace.WriteLine(filesViaPath.Count());
-
-    // Info property returns a DirectoryInfo for the directory
-    var fileViaInfoProp = temp.Info.EnumerateFiles();
-    Trace.WriteLine(fileViaInfoProp.Count());
-
-    // Accessing the root directory for all TempDirectory instances
-    Trace.WriteLine(TempDirectory.RootDirectory);
-
-    // Directory automatically deleted here
+    var files = Directory.EnumerateFiles(path);
+    Trace.WriteLine(files.Count());
 }
 ```
-<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L31-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectory' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L46-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryStringConversion' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### DirectoryInfo Implicit Conversion
+
+`TempDirectory` can be implicitly converter to a `DirectoryInfo`:
+
+<!-- snippet: TempDirectoryDirectoryInfoConversion -->
+<a id='snippet-TempDirectoryDirectoryInfoConversion'></a>
+```cs
+[Fact]
+public void DirectoryInfoConversion()
+{
+    using var temp = new TempDirectory();
+
+    File.WriteAllText(Path.Combine(temp, "test.txt"), "content");
+
+    // implicit conversion to DirectoryInfo
+    DirectoryInfo info = temp;
+    var files = info.EnumerateFiles();
+    Trace.WriteLine(files.Count());
+}
+```
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L63-L78' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryDirectoryInfoConversion' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Info Property
+
+`TempDirectory` has a convenience `Info` that can be used to access all the `DirectoryInfo` members:
+
+<!-- snippet: TempDirectoryInfoProperty -->
+<a id='snippet-TempDirectoryInfoProperty'></a>
+```cs
+[Fact]
+public void InfoProperty()
+{
+    using var temp = new TempDirectory();
+
+    File.WriteAllText(Path.Combine(temp, "test.txt"), "content");
+
+    var files = temp.Info.EnumerateFiles();
+    Trace.WriteLine(files.Count());
+
+    temp.Info.CreateSubdirectory("Subdirectory");
+}
+```
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L80-L95' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryInfoProperty' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### TempDirectory RootDirectory Property
+
+Allows access to the root directory for all TempDirectory instances:
+
+<!-- snippet: TempDirectoryInfoProperty -->
+<a id='snippet-TempDirectoryInfoProperty'></a>
+```cs
+[Fact]
+public void InfoProperty()
+{
+    using var temp = new TempDirectory();
+
+    File.WriteAllText(Path.Combine(temp, "test.txt"), "content");
+
+    var files = temp.Info.EnumerateFiles();
+    Trace.WriteLine(files.Count());
+
+    temp.Info.CreateSubdirectory("Subdirectory");
+}
+```
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L80-L95' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryInfoProperty' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

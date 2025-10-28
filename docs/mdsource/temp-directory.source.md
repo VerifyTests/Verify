@@ -26,6 +26,34 @@ Orphaned directories can occur in the following scenario
 snippet: TempDirectory
 
 
+### String Implicit Conversion
+
+`TempDirectory` can be implicitly converter to a `string`:
+
+snippet: TempDirectoryStringConversion
+
+
+### DirectoryInfo Implicit Conversion
+
+`TempDirectory` can be implicitly converter to a `DirectoryInfo`:
+
+snippet: TempDirectoryDirectoryInfoConversion
+
+
+### Info Property
+
+`TempDirectory` has a convenience `Info` that can be used to access all the `DirectoryInfo` members:
+
+snippet: TempDirectoryInfoProperty
+
+
+### TempDirectory RootDirectory Property
+
+Allows access to the root directory for all TempDirectory instances:
+
+snippet: TempDirectoryInfoProperty
+
+
 ### Cleanup Behavior
 
 The dispose cleans up the current instance.

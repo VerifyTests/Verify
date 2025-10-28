@@ -30,7 +30,6 @@
 
     #region TempDirectory
 
-
     [Fact]
     public void Usage()
     {
@@ -39,25 +38,68 @@
         // wite a file to the temp directory
         File.WriteAllText(Path.Combine(temp, "test.txt"), "content");
 
-        // implicit conversion to DirectoryInfo
-        DirectoryInfo info = temp;
-        var filesViaInfo = info.EnumerateFiles();
-        Trace.WriteLine(filesViaInfo.Count());
+        // Directory and files automatically deleted here
+    }
+
+    #endregion
+
+    #region TempDirectoryStringConversion
+
+    [Fact]
+    public void StringConversion()
+    {
+        using var temp = new TempDirectory();
+
+        File.WriteAllText(Path.Combine(temp, "test.txt"), "content");
 
         // implicit conversion to string
         string path = temp;
-        var filesViaPath = Directory.EnumerateFiles(path);
-        Trace.WriteLine(filesViaPath.Count());
+        var files = Directory.EnumerateFiles(path);
+        Trace.WriteLine(files.Count());
+    }
 
-        // Info property returns a DirectoryInfo for the directory
-        var fileViaInfoProp = temp.Info.EnumerateFiles();
-        Trace.WriteLine(fileViaInfoProp.Count());
+    #endregion
 
+    #region TempDirectoryDirectoryInfoConversion
+
+    [Fact]
+    public void DirectoryInfoConversion()
+    {
+        using var temp = new TempDirectory();
+
+        File.WriteAllText(Path.Combine(temp, "test.txt"), "content");
+
+        // implicit conversion to DirectoryInfo
+        DirectoryInfo info = temp;
+        var files = info.EnumerateFiles();
+        Trace.WriteLine(files.Count());
+    }
+
+    #endregion
+
+    #region TempDirectoryInfoProperty
+
+    [Fact]
+    public void InfoProperty()
+    {
+        using var temp = new TempDirectory();
+
+        File.WriteAllText(Path.Combine(temp, "test.txt"), "content");
+
+        var files = temp.Info.EnumerateFiles();
+        Trace.WriteLine(files.Count());
+
+        temp.Info.CreateSubdirectory("Subdirectory");
+    }
+
+    #endregion
+
+    #region TempDirectoryRootDirectory
+
+    [Fact]
+    public void RootDirectory() =>
         // Accessing the root directory for all TempDirectory instances
         Trace.WriteLine(TempDirectory.RootDirectory);
-
-        // Directory automatically deleted here
-    }
 
     #endregion
 

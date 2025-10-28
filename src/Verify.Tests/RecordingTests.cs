@@ -123,9 +123,9 @@
     [Fact]
     public void IsRecordingIdentifier()
     {
-        Assert.False(Recording.IsRecording("identifier"));
-        Recording.Start("identifier");
-        Assert.True(Recording.IsRecording("identifier"));
+        Assert.False(Recording.IsRecording("IsRecordingIdentifier"));
+        Recording.Start("IsRecordingIdentifier");
+        Assert.True(Recording.IsRecording("IsRecordingIdentifier"));
     }
 
     [Fact]
@@ -294,10 +294,10 @@
     [Fact]
     public Task AppendIdentifier()
     {
-        Recording.Start("identifier");
-        Recording.Add("identifier", "name", "value1");
-        Recording.Add("identifier", "name", "value2");
-        return Verify(Recording.Stop("identifier"));
+        Recording.Start("AppendIdentifier");
+        Recording.Add("AppendIdentifier", "name", "value1");
+        Recording.Add("AppendIdentifier", "name", "value2");
+        return Verify(Recording.Stop("AppendIdentifier"));
     }
 
     #region RecordingIgnoreCase

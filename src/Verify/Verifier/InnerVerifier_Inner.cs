@@ -31,6 +31,7 @@ partial class InnerVerifier
 
         await cleanup();
 
+        Recording.Reset();
         await engine.ThrowIfRequired();
 
         var filePairs = new List<FilePair>(engine.Equal);

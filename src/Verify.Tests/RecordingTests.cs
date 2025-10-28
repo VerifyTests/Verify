@@ -222,6 +222,15 @@
         return Verify(Recording.Stop("identifier"));
     }
 
+    [Fact]
+    public async Task Reset()
+    {
+        Recording.Start();
+        Recording.Add("name1", "value");
+        await Verify();
+        Assert.False(Recording.IsRecording());
+    }
+
     #region RecordingPauseResume
 
     [Fact]

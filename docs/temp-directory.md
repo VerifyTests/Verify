@@ -48,7 +48,12 @@ public void Usage()
 <!-- endSnippet -->
 
 
-### String Implicit Conversion
+### Implicit Conversion
+
+Implicit Conversion is helpful as it allows a `TempDirectory` instance to be passed to directly to method that takes a `string` or a `DirectoryInfo`.
+
+
+#### String Implicit Conversion
 
 `TempDirectory` can be implicitly converter to a `string`:
 
@@ -72,7 +77,7 @@ public void StringConversion()
 <!-- endSnippet -->
 
 
-### DirectoryInfo Implicit Conversion
+#### DirectoryInfo Implicit Conversion
 
 `TempDirectory` can be implicitly converter to a `DirectoryInfo`:
 

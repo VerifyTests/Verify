@@ -135,7 +135,7 @@
 
     [Fact]
     public Task NoRecordingIdentifier() =>
-        Throws(() => Recording.Add("identifier", "name", "value"))
+        Throws(() => Recording.Add("NoRecordingIdentifier", "name", "value"))
             .IgnoreStackTrace();
 
     #region RecordingStop
@@ -242,14 +242,14 @@
     [Fact]
     public Task PauseResumeIdentifier()
     {
-        Recording.Start("identifier");
-        Recording.Pause("identifier");
-        Recording.Add("identifier", "name1", "value");
-        Recording.Resume("identifier");
-        Recording.Add("identifier", "name2", "value");
-        Recording.Pause("identifier");
-        Recording.Add("identifier", "name3", "value");
-        return Verify(Recording.Stop("identifier"));
+        Recording.Start("PauseResumeIdentifier");
+        Recording.Pause("PauseResumeIdentifier");
+        Recording.Add("PauseResumeIdentifier", "name1", "value");
+        Recording.Resume("PauseResumeIdentifier");
+        Recording.Add("PauseResumeIdentifier", "name2", "value");
+        Recording.Pause("PauseResumeIdentifier");
+        Recording.Add("PauseResumeIdentifier", "name3", "value");
+        return Verify(Recording.Stop("PauseResumeIdentifier"));
     }
 
     [Fact]
@@ -272,10 +272,10 @@
     [Fact]
     public Task MultipleIdentifier()
     {
-        Recording.Start("identifier");
-        Recording.Add("identifier", "name1", "value1");
-        Recording.Add("identifier", "name2", "value2");
-        return Verify(Recording.Stop("identifier"));
+        Recording.Start("MultipleIdentifier");
+        Recording.Add("MultipleIdentifier", "name1", "value1");
+        Recording.Add("MultipleIdentifier", "name2", "value2");
+        return Verify(Recording.Stop("MultipleIdentifier"));
     }
 
     #region RecordingSameKey
@@ -327,9 +327,9 @@
     [Fact]
     public Task CaseIdentifier()
     {
-        Recording.Start("identifier");
-        Recording.Add("identifier", "name", "value1");
-        Recording.Add("identifier", "Name", "value2");
-        return Verify(Recording.Stop("identifier"));
+        Recording.Start("CaseIdentifier");
+        Recording.Add("CaseIdentifier", "name", "value1");
+        Recording.Add("CaseIdentifier", "Name", "value2");
+        return Verify(Recording.Stop("CaseIdentifier"));
     }
 }

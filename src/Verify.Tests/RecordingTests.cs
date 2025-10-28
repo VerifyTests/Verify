@@ -169,9 +169,9 @@
     [Fact]
     public Task StopIdentifier()
     {
-        Recording.Start("identifier");
-        Recording.Add("identifier", "name", "value");
-        return Verify(Recording.Stop("identifier"));
+        Recording.Start("StopIdentifier");
+        Recording.Add("StopIdentifier", "name", "value");
+        return Verify(Recording.Stop("StopIdentifier"));
     }
 
     [Fact]
@@ -215,11 +215,11 @@
     [Fact]
     public Task ClearIdentifier()
     {
-        Recording.Start("identifier");
-        Recording.Add("identifier", "name1", "value");
-        Recording.Clear("identifier");
-        Recording.Add("identifier", "name2", "value");
-        return Verify(Recording.Stop("identifier"));
+        Recording.Start("ClearIdentifier");
+        Recording.Add("ClearIdentifier", "name1", "value");
+        Recording.Clear("ClearIdentifier");
+        Recording.Add("ClearIdentifier", "name2", "value");
+        return Verify(Recording.Stop("ClearIdentifier"));
     }
 
     #region RecordingPauseResume

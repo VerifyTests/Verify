@@ -100,6 +100,34 @@ public class TempDirectory :
         }
     }
 
+    public void OpenExplorerAndDebug()
+    {
+        using var process = Process.Start(Command(), Path);
+        if (Debugger.IsAttached)
+        {
+            Debugger.Break();
+        }
+        else
+        {
+            Debugger.Launch();
+        }
+
+        static string Command()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return "explorer.exe";
+            }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                return "open";
+            }
+
+            throw new($"Unsupported operating system: {RuntimeInformation.OSDescription}");
+        }
+    }
+
     /// <summary>
     /// Implicitly converts a <see cref="TempDirectory"/> to its directory path string.
     /// </summary>

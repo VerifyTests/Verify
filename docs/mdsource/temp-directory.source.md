@@ -80,3 +80,20 @@ The static constructor automatically:
 ### Thread Safety
 
 Each instance creates a unique directory using `Path.GetRandomFileName()`, making concurrent usage safe.
+
+
+### VerifyDirectory
+
+`TempDirectory` is compatible with [VerifyDirectory](/docs/verify-directory.md).
+
+snippet: VerifyTempDirectory
+
+
+### Debugging
+
+
+
+
+#### Rider
+
+For `Debugger.Launch();` to work correctly in JetBrains Rider use [Set Rider as the default debugger](https://www.jetbrains.com/help/rider/Settings_Debugger.html#dotNet).

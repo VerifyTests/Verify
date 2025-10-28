@@ -49,7 +49,7 @@
         var filesViaPath = Directory.EnumerateFiles(path);
         Trace.WriteLine(filesViaPath.Count());
 
-        // implicit conversion to DirectoryInfo prop
+        // Info property retursn a DirectoryInfo for the directory
         var fileViaInfoProp = temp.Info.EnumerateFiles();
         Trace.WriteLine(fileViaInfoProp.Count());
 

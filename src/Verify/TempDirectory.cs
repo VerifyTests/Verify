@@ -99,7 +99,56 @@ public class TempDirectory :
             Directory.Delete(Path, true);
         }
     }
-
+    /// <summary>
+    /// Opens the temporary directory in the system file explorer and breaks into the debugger.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// This method is designed to help debug tests by inspecting the contents
+    /// of the temporary directory while the test is paused. It performs two actions:
+    /// </para>
+    /// <list type="number">
+    /// <item>
+    /// <description>
+    /// Opens the temporary directory in the system's default file explorer
+    /// (Explorer on Windows, Finder on macOS).
+    /// </description>
+    /// </item>
+    /// <item>
+    /// <description>
+    /// If a debugger is already attached, it breaks execution at this point.
+    /// If no debugger is attached, it attempts to launch one.
+    /// </description>
+    /// </item>
+    /// </list>
+    /// <para>
+    /// This enables examination of the directory contents at a specific point during test execution.
+    /// </para>
+    /// </remarks>
+    /// <exception cref="NotSupportedException">
+    /// Thrown when the method is called on an unsupported operating system.
+    /// Currently supports Windows and macOS only.
+    /// </exception>
+    /// <exception cref="System.ComponentModel.Win32Exception">
+    /// Thrown if the file explorer process cannot be started (e.g., the explorer command is not available).
+    /// </exception>
+    /// <example>
+    /// <code>
+    /// [Fact]
+    /// public void TestWithInspection()
+    /// {
+    ///     using var temp = new TempDirectory();
+    ///
+    ///     // Create some test files
+    ///     File.WriteAllText(Path.Combine(temp, "test.txt"), "content");
+    ///
+    ///     // Pause and inspect the directory
+    ///     temp.OpenExplorerAndDebug();
+    ///
+    ///     // Continue with assertions...
+    /// }
+    /// </code>
+    /// </example>
     public void OpenExplorerAndDebug()
     {
         using var process = Process.Start(Command(), Path);

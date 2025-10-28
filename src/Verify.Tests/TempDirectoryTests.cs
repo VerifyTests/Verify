@@ -21,6 +21,7 @@
     // }
 
     #region VerifyTempDirectory
+
     [Fact]
     public async Task VerifyDirectoryInstance()
     {
@@ -28,6 +29,7 @@
         await File.WriteAllTextAsync(Path.Combine(directory, "test.txt"), "test");
         await VerifyDirectory(directory);
     }
+
     #endregion
 
     #region TempDirectory
@@ -253,6 +255,8 @@
         Assert.Equal(temp.Path, temp.ToString());
     }
 
+    #region TempDirectoryOpenExplorerAndDebug
+
     [Fact]
     public void OpenExplorerAndDebug()
     {
@@ -262,6 +266,22 @@
 
         temp.OpenExplorerAndDebug();
     }
+
+    #endregion
+
+    #region TempDirectoryNoUsing
+
+    [Fact]
+    public void NoUsing()
+    {
+        var temp = new TempDirectory();
+
+        File.WriteAllText(Path.Combine(temp, "file.txt"), "content");
+
+        temp.OpenExplorerAndDebug();
+    }
+
+    #endregion
 
     // [Fact]
     // public void LockedFile()

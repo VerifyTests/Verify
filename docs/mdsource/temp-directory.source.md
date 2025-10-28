@@ -94,6 +94,30 @@ snippet: VerifyTempDirectory
 Given `TempDirectory` deletes its contents on test completion (even failure), it can be difficult to debug what caused the failure.
 
 
-#### Rider
+#### No Using
+
+snippet: TempDirectoryNoUsing
+
+
+#### OpenExplorerAndDebug
+
+Opens the temporary directory in the system file explorer and breaks into the debugger.
+
+snippet: TempDirectoryOpenExplorerAndDebug
+
+This method is designed to help debug tests by enabling the inspection of the contents of the temporary directory while the test is paused. It performs two actions:
+
+ 1. **Opens the directory in the file explorer** - Launches the system's default file explorer (Explorer on Windows, Finder on macOS) and navigates to the temporary directory
+ 1. **Breaks into the debugger** - If a debugger is already attached, execution breaks at this point. If no debugger is attached, it attempts to launch one
+
+This enables examination of the directory contents at a specific point during test execution.
+
+Supported Platforms:
+
+ * Windows (uses `explorer.exe`)
+ * macOS (uses `open`)
+
+
+##### Rider
 
 For `Debugger.Launch();` to work correctly in JetBrains Rider use [Set Rider as the default debugger](https://www.jetbrains.com/help/rider/Settings_Debugger.html#dotNet).

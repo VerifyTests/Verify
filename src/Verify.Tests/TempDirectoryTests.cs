@@ -35,7 +35,7 @@
     {
         using var temp = new TempDirectory();
 
-        // wite a file to the temp directory
+        // write a file to the temp directory
         File.WriteAllText(Path.Combine(temp, "test.txt"), "content");
 
         // Directory and files automatically deleted here

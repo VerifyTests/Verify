@@ -24,7 +24,7 @@ A temporary directory helper for tests that automatically cleans up directories.
 Orphaned directories can occur in the following scenario
 
  * A breakpoint is set in a test that uses TempDirectory
- * Debugger is launched and breakpoint is hit
+ * Debugger is launched and that breakpoint is hit
  * Debugger is force stopped, resulting in the `TempDirectory.Dispose()` not being executed
 
 

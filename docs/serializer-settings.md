@@ -1103,8 +1103,8 @@ Result:
 <a id='snippet-SerializationTests.ScrubMemberByExpression.verified.txt'></a>
 ```txt
 {
-  Include: Value,
   Field: {Scrubbed},
+  Include: Value,
   Property: {Scrubbed},
   _Custom: {Scrubbed},
   GetOnlyProperty: {Scrubbed},
@@ -1503,8 +1503,8 @@ Result:
 <a id='snippet-SerializationTests.ScrubMemberByPredicate.verified.txt'></a>
 ```txt
 {
-  Include: Value,
   Field: {Scrubbed},
+  Include: Value,
   Property: {Scrubbed},
   PropertyByName: {Scrubbed},
   GetOnlyProperty: asd,

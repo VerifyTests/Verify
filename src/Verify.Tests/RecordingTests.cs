@@ -189,7 +189,7 @@
     [Fact]
     public Task TryStopNoStartIdentifier()
     {
-        var result = Recording.TryStop("identifier", out var recorded);
+        var result = Recording.TryStop("TryStopNoStartIdentifier", out var recorded);
         return Verify(
             new
             {

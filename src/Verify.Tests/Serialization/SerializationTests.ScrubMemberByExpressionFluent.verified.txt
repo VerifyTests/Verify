@@ -1,6 +1,6 @@
 ﻿{
-  Field: {Scrubbed},
   Include: Value,
+  Field: {Scrubbed},
   Property: {Scrubbed},
   GetOnlyProperty: {Scrubbed},
   PropertyThatThrows: {Scrubbed}

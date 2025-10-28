@@ -26,6 +26,13 @@ Orphaned directories can occur in the following scenario
 snippet: TempDirectory
 
 
+### Path Property
+
+Contains the full path to the temporary directory.
+
+snippet: TempDirectoryPathProperty
+
+
 ### Implicit Conversion
 
 Implicit Conversion is helpful as it allows a `TempDirectory` instance to be passed to directly to method that takes a `string` or a `DirectoryInfo`.

@@ -1,4 +1,7 @@
-﻿namespace VerifyTests;
+﻿using IoPath = System.IO.Path;
+
+namespace VerifyTests;
+
 
 /// <summary>
 /// Provides a temporary directory that is automatically cleaned up when disposed.
@@ -33,13 +36,16 @@
 /// </example>
 public class TempDirectory : IDisposable
 {
-    string directory;
+    /// <summary>
+    /// The full path to the directory.
+    /// </summary>
+    public string Path { get; }
 
     /// <summary>
     /// Gets the root directory path where all temporary directories are created.
     /// </summary>
     /// <value>
-    /// The full path to the root directory, typically located at
+    /// The full path to the root directory, located at
     /// <c>[System.Temp]\VerifyTempDirectory</c>.
     /// </value>
     /// <remarks>
@@ -51,7 +57,7 @@ public class TempDirectory : IDisposable
 
     static TempDirectory()
     {
-        RootDirectory = Path.Combine(Path.GetTempPath(), "VerifyTempDirectory");
+        RootDirectory = IoPath.Combine(IoPath.GetTempPath(), "VerifyTempDirectory");
         Directory.CreateDirectory(RootDirectory);
 
         Cleanup();
@@ -87,12 +93,12 @@ public class TempDirectory : IDisposable
     /// </exception>
     public TempDirectory()
     {
-        directory = Path.Combine(RootDirectory, Path.GetRandomFileName());
-        Directory.CreateDirectory(directory);
+        Path = IoPath.Combine(RootDirectory, IoPath.GetRandomFileName());
+        Directory.CreateDirectory(Path);
     }
 
     public void Dispose() =>
-        Directory.Delete(directory, true);
+        Directory.Delete(Path, true);
 
     /// <summary>
     /// Implicitly converts a <see cref="TempDirectory"/> to its directory path string.
@@ -108,7 +114,7 @@ public class TempDirectory : IDisposable
     /// </code>
     /// </example>
     public static implicit operator string(TempDirectory temp) =>
-        temp.directory;
+        temp.Path;
 
     /// <summary>
     /// Implicitly converts a <see cref="TempDirectory"/> to a <see cref="DirectoryInfo"/> object.
@@ -123,7 +129,7 @@ public class TempDirectory : IDisposable
     /// </code>
     /// </example>
     public static implicit operator DirectoryInfo(TempDirectory temp) =>
-        new(temp.directory);
+        new(temp.Path);
 
     /// <summary>
     /// A <see cref="DirectoryInfo"/> represeting this instance.
@@ -134,5 +140,5 @@ public class TempDirectory : IDisposable
     /// var files = temp.Info.GetFiles("*.txt");
     /// </code>
     /// </example>
-    public DirectoryInfo Info => new(directory);
+    public DirectoryInfo Info => new(Path);
 }

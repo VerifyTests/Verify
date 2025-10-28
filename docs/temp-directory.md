@@ -48,6 +48,26 @@ public void Usage()
 <!-- endSnippet -->
 
 
+### Path Property
+
+Contains the full path to the temporary directory.
+
+<!-- snippet: TempDirectoryPathProperty -->
+<a id='snippet-TempDirectoryPathProperty'></a>
+```cs
+[Fact]
+public void PathProperty()
+{
+    using var temp = new TempDirectory();
+    var path = temp.Path;
+    Assert.True(Directory.Exists(path));
+    Assert.True(Path.IsPathRooted(path));
+}
+```
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L226-L237' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryPathProperty' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ### Implicit Conversion
 
 Implicit Conversion is helpful as it allows a `TempDirectory` instance to be passed to directly to method that takes a `string` or a `DirectoryInfo`.

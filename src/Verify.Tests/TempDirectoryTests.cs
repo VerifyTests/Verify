@@ -222,4 +222,17 @@
 
         Assert.All([path1, path2, path3], path => Assert.True(Directory.Exists(path)));
     }
+
+    #region TempDirectoryPathProperty
+
+    [Fact]
+    public void PathProperty()
+    {
+        using var temp = new TempDirectory();
+        var path = temp.Path;
+        Assert.True(Directory.Exists(path));
+        Assert.True(Path.IsPathRooted(path));
+    }
+
+    #endregion
 }

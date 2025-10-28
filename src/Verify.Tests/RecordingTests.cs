@@ -123,9 +123,9 @@
     [Fact]
     public void IsRecordingIdentifier()
     {
-        Assert.False(Recording.IsRecording("identifier"));
-        Recording.Start("identifier");
-        Assert.True(Recording.IsRecording("identifier"));
+        Assert.False(Recording.IsRecording("IsRecordingIdentifier"));
+        Recording.Start("IsRecordingIdentifier");
+        Assert.True(Recording.IsRecording("IsRecordingIdentifier"));
     }
 
     [Fact]
@@ -135,7 +135,7 @@
 
     [Fact]
     public Task NoRecordingIdentifier() =>
-        Throws(() => Recording.Add("identifier", "name", "value"))
+        Throws(() => Recording.Add("NoRecordingIdentifier", "name", "value"))
             .IgnoreStackTrace();
 
     #region RecordingStop
@@ -169,9 +169,9 @@
     [Fact]
     public Task StopIdentifier()
     {
-        Recording.Start("identifier");
-        Recording.Add("identifier", "name", "value");
-        return Verify(Recording.Stop("identifier"));
+        Recording.Start("StopIdentifier");
+        Recording.Add("StopIdentifier", "name", "value");
+        return Verify(Recording.Stop("StopIdentifier"));
     }
 
     [Fact]
@@ -189,7 +189,7 @@
     [Fact]
     public Task TryStopNoStartIdentifier()
     {
-        var result = Recording.TryStop("identifier", out var recorded);
+        var result = Recording.TryStop("TryStopNoStartIdentifier", out var recorded);
         return Verify(
             new
             {
@@ -215,11 +215,11 @@
     [Fact]
     public Task ClearIdentifier()
     {
-        Recording.Start("identifier");
-        Recording.Add("identifier", "name1", "value");
-        Recording.Clear("identifier");
-        Recording.Add("identifier", "name2", "value");
-        return Verify(Recording.Stop("identifier"));
+        Recording.Start("ClearIdentifier");
+        Recording.Add("ClearIdentifier", "name1", "value");
+        Recording.Clear("ClearIdentifier");
+        Recording.Add("ClearIdentifier", "name2", "value");
+        return Verify(Recording.Stop("ClearIdentifier"));
     }
 
     #region RecordingPauseResume
@@ -272,10 +272,10 @@
     [Fact]
     public Task MultipleIdentifier()
     {
-        Recording.Start("identifier");
-        Recording.Add("identifier", "name1", "value1");
-        Recording.Add("identifier", "name2", "value2");
-        return Verify(Recording.Stop("identifier"));
+        Recording.Start("MultipleIdentifier");
+        Recording.Add("MultipleIdentifier", "name1", "value1");
+        Recording.Add("MultipleIdentifier", "name2", "value2");
+        return Verify(Recording.Stop("MultipleIdentifier"));
     }
 
     #region RecordingSameKey
@@ -294,10 +294,10 @@
     [Fact]
     public Task AppendIdentifier()
     {
-        Recording.Start("identifier");
-        Recording.Add("identifier", "name", "value1");
-        Recording.Add("identifier", "name", "value2");
-        return Verify(Recording.Stop("identifier"));
+        Recording.Start("AppendIdentifier");
+        Recording.Add("AppendIdentifier", "name", "value1");
+        Recording.Add("AppendIdentifier", "name", "value2");
+        return Verify(Recording.Stop("AppendIdentifier"));
     }
 
     #region RecordingIgnoreCase
@@ -327,9 +327,9 @@
     [Fact]
     public Task CaseIdentifier()
     {
-        Recording.Start("identifier");
-        Recording.Add("identifier", "name", "value1");
-        Recording.Add("identifier", "Name", "value2");
-        return Verify(Recording.Stop("identifier"));
+        Recording.Start("CaseIdentifier");
+        Recording.Add("CaseIdentifier", "name", "value1");
+        Recording.Add("CaseIdentifier", "Name", "value2");
+        return Verify(Recording.Stop("CaseIdentifier"));
     }
 }

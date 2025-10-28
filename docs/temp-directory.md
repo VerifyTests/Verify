@@ -12,7 +12,7 @@ A temporary directory helper for tests that automatically cleans up directories.
 
 ### Features
 
-- Creates unique temporary directories
+- Creates unique temporary directories in `%TEMP%\VerifyTempDirectory\{Path.GetRandomFileName()}`
 - Automatic cleanup on dispose
 - Removes orphaned directories older than 24 hours
 - Implicit conversion to `string` and `DirectoryInfo`
@@ -61,7 +61,7 @@ The dispose cleans up the current instance.
 
 The static constructor automatically:
 
-1. Creates root directory at `%TEMP%\VerifyTempDirectory`
+1. Ensures the root directory `%TEMP%\VerifyTempDirectory` exists
 1. Deletes sub-directories not modified in the last 24 hours
 1. Runs once per application domain
 

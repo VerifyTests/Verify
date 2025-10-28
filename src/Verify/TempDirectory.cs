@@ -22,19 +22,12 @@ namespace VerifyTests;
 /// <code>
 /// // Basic usage
 /// using var temp = new TempDirectory();
-/// // Implicit conversion to string
-/// string path = temp;
-/// File.WriteAllText(Path.Combine(path, "test.txt"), "content");
+/// File.WriteAllText(Path.Combine(temp, "test.txt"), "content");
 /// // Directory is automatically deleted when disposed
-///
-/// // Using with DirectoryInfo
-/// using var temp = new TempDirectory();
-/// // Implicit conversion to DirectoryInfo
-/// DirectoryInfo dirInfo = temp;
-/// var files = dirInfo.GetFiles();
 /// </code>
 /// </example>
-public class TempDirectory : IDisposable
+public class TempDirectory :
+    IDisposable
 {
     /// <summary>
     /// The full path to the directory.

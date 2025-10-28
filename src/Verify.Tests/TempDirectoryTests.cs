@@ -235,4 +235,12 @@
     }
 
     #endregion
+
+    [Fact]
+    public void DeleteDirectory()
+    {
+        using var temp = new TempDirectory();
+        Directory.Delete(temp);
+        Assert.False(Directory.Exists(temp));
+    }
 }

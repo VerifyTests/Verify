@@ -97,8 +97,13 @@ public class TempDirectory : IDisposable
         Directory.CreateDirectory(Path);
     }
 
-    public void Dispose() =>
-        Directory.Delete(Path, true);
+    public void Dispose()
+    {
+        if (Directory.Exists(Path))
+        {
+            Directory.Delete(Path, true);
+        }
+    }
 
     /// <summary>
     /// Implicitly converts a <see cref="TempDirectory"/> to its directory path string.

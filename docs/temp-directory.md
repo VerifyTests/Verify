@@ -214,7 +214,7 @@ Given `TempDirectory` deletes its contents on test completion (even failure), it
 <!-- snippet: TempDirectoryNoUsing -->
 <a id='snippet-TempDirectoryNoUsing'></a>
 ```cs
-[Fact]
+[Fact(Explicit = true)]
 public void NoUsing()
 {
     var temp = new TempDirectory();

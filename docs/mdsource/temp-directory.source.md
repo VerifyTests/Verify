@@ -91,7 +91,7 @@ snippet: VerifyTempDirectory
 
 ### Debugging
 
-
+Given `TempDirectory` deletes its contents on test completion (even failure), it can be difficult to debug what caused the failure.
 
 
 #### Rider

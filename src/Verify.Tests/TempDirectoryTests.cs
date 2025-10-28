@@ -274,11 +274,12 @@
     [Fact(Explicit = true)]
     public void NoUsing()
     {
+        //using var temp = new TempDirectory();
         var temp = new TempDirectory();
 
         File.WriteAllText(Path.Combine(temp, "file.txt"), "content");
 
-        temp.OpenExplorerAndDebug();
+        Debug.WriteLine(temp);
     }
 
     #endregion

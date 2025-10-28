@@ -93,10 +93,18 @@ snippet: VerifyTempDirectory
 
 Given `TempDirectory` deletes its contents on test completion (even failure), it can be difficult to debug what caused the failure.
 
+There are several approaches that can be used to inspect the contents of the temp directory.
+
+**The below should be considered temporary approaches to be used only during debugging. The code should not be committed to source control.**
+
 
 #### No Using
 
+Omitting the `using` for the TempDirectory will prevent the temp directory from being deleted when the test finished.
+
 snippet: TempDirectoryNoUsing
+
+The directory can then be manually inspected.
 
 
 #### OpenExplorerAndDebug

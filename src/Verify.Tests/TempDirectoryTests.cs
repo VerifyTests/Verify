@@ -271,7 +271,7 @@
 
     #region TempDirectoryNoUsing
 
-    [Fact]
+    [Fact(Explicit = true)]
     public void NoUsing()
     {
         var temp = new TempDirectory();

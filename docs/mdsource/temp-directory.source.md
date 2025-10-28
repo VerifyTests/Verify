@@ -22,7 +22,7 @@ The dispose cleans up the current instance.
 
 The static constructor automatically:
 
-1. Creates root directory at `%TEMP%\VerifyTempDirectory`
+1. Ensures the root directory `%TEMP%\VerifyTempDirectory` exists
 1. Deletes sub-directories not modified in the last 24 hours
 1. Runs once per application domain
 

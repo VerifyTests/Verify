@@ -208,8 +208,14 @@ public async Task VerifyDirectoryInstance()
 
 Given `TempDirectory` deletes its contents on test completion (even failure), it can be difficult to debug what caused the failure.
 
+There are several approaches that can be used to inspect the contents of the temp directory.
+
+**The below should be considered temporary approaches to be used only during debugging. The code should not be committed to source control.**
+
 
 #### No Using
+
+Omitting the `using` for the TempDirectory will prevent the temp directory from being deleted when the test finished.
 
 <!-- snippet: TempDirectoryNoUsing -->
 <a id='snippet-TempDirectoryNoUsing'></a>
@@ -217,15 +223,18 @@ Given `TempDirectory` deletes its contents on test completion (even failure), it
 [Fact(Explicit = true)]
 public void NoUsing()
 {
+    //using var temp = new TempDirectory();
     var temp = new TempDirectory();
 
     File.WriteAllText(Path.Combine(temp, "file.txt"), "content");
 
-    temp.OpenExplorerAndDebug();
+    Debug.WriteLine(temp);
 }
 ```
-<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L272-L284' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryNoUsing' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L272-L285' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryNoUsing' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+The directory can then be manually inspected.
 
 
 #### OpenExplorerAndDebug

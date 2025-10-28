@@ -42,7 +42,8 @@ public void Usage()
     Trace.WriteLine(filesViaPath.Count());
 
     // implicit conversion to DirectoryInfo prop
-    Trace.WriteLine(temp.Info.EnumerateFiles().Count());
+    var fileViaInfoProp = temp.Info.EnumerateFiles();
+    Trace.WriteLine(fileViaInfoProp.Count());
 
     // Accessing the root directory for all TempDirectory instances
     Trace.WriteLine(TempDirectory.RootDirectory);
@@ -50,7 +51,7 @@ public void Usage()
     // Directory automatically deleted here
 }
 ```
-<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L31-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectory' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L31-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectory' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -24,6 +24,7 @@ partial class Verifier
     /// Differs from passing <see cref="DirectoryInfo" /> to <code>Verify(object? target)</code> which will verify the full path.
     /// </summary>
     [Pure]
+    [OverloadResolutionPriority(1)]
     public static SettingsTask VerifyDirectory(
         DirectoryInfo path,
         Func<string, bool>? include = null,
@@ -55,6 +56,7 @@ partial class Verifier
     /// Differs from passing <see cref="DirectoryInfo"/> to <code>Verify(object? target)</code> which will verify the full path.
     /// </summary>
     [Pure]
+    [OverloadResolutionPriority(1)]
     public static SettingsTask VerifyDirectory(
         DirectoryInfo path,
         Func<string, bool>? include = null,

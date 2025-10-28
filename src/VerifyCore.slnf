@@ -6,7 +6,7 @@
       "Verify.NUnit\\Verify.NUnit.csproj",
       "Verify.SamplePlugin\\Verify.SamplePlugin.csproj",
       "Verify.Tests\\Verify.Tests.csproj",
-      "Verify.Xunit\\Verify.Xunit.csproj",
+      "Verify.XunitV3\\Verify.XunitV3.csproj",
       "DisableScrubbersTests\\DisableScrubbersTests.csproj",
       "Verify\\Verify.csproj"
     ]

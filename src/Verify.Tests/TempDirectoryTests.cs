@@ -243,4 +243,18 @@
         Directory.Delete(temp);
         Assert.False(Directory.Exists(temp));
     }
+
+    [Fact]
+    public void ToStringOverride()
+    {
+        using var temp = new TempDirectory();
+        Assert.Equal(temp.Path, temp.ToString());
+    }
+
+    // [Fact]
+    // public void LockedFile()
+    // {
+    //     using var temp = new TempDirectory();
+    //     File.Create(Path.Combine(temp, "test.txt"));
+    // }
 }

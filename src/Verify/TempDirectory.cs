@@ -34,6 +34,8 @@ public class TempDirectory :
     /// </summary>
     public string Path { get; }
 
+    public override string ToString() => Path;
+
     /// <summary>
     /// Gets the root directory path where all temporary directories are created.
     /// </summary>

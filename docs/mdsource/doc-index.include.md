@@ -40,6 +40,7 @@
   * [Converters](/docs/converter.md)
   * [Recording](/docs/recording.md)
   * [Explicit Targets](/docs/explicit-targets.md)
+  * [TempDirectory](/docs/temp-directory.md)
   * [FSharp Usage](/docs/fsharp.md)
   * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)
   * [Plugins](/docs/plugins.md)

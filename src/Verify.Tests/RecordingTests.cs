@@ -242,14 +242,14 @@
     [Fact]
     public Task PauseResumeIdentifier()
     {
-        Recording.Start("identifier");
-        Recording.Pause("identifier");
-        Recording.Add("identifier", "name1", "value");
-        Recording.Resume("identifier");
-        Recording.Add("identifier", "name2", "value");
-        Recording.Pause("identifier");
-        Recording.Add("identifier", "name3", "value");
-        return Verify(Recording.Stop("identifier"));
+        Recording.Start("PauseResumeIdentifier");
+        Recording.Pause("PauseResumeIdentifier");
+        Recording.Add("PauseResumeIdentifier", "name1", "value");
+        Recording.Resume("PauseResumeIdentifier");
+        Recording.Add("PauseResumeIdentifier", "name2", "value");
+        Recording.Pause("PauseResumeIdentifier");
+        Recording.Add("PauseResumeIdentifier", "name3", "value");
+        return Verify(Recording.Stop("PauseResumeIdentifier"));
     }
 
     [Fact]

@@ -52,6 +52,6 @@
     <Reference Include="System.IO.Compression" />
   </ItemGroup>
 
-  <Import Project="$(ProjectDir)..\Verify.Xunit\buildTransitive\Verify.Xunit.props" />
+  <Import Project="$(ProjectDir)..\Verify.XunitV3\buildTransitive\Verify.XunitV3.props" />
 
 </Project>

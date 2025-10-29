@@ -876,14 +876,6 @@ public static class CurrentFile
 <sup><a href='/src/Verify/CurrentFile.cs#L1-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-CurrentFile.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-## Project inclusion for `*.received.*` and `*.verified.*` files
-Verify comes with default includes for `*.received.*` and `*.verified.*` files as `<None>` elements for C#, VB and F# projects.
-To opt out of this, include the following in your project file:
-```xml
-  <PropertyGroup>
-    <DisableDefaultVerifyNoneItems>true</DisableDefaultVerifyNoneItems>
-  </PropertyGroup>
-```
 
 ## Versioning
 

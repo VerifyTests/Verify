@@ -910,6 +910,39 @@ This readme will not discuss definitive list of details for proper setup of the 
   Use [Visual Studio Test Explorer](https://learn.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer).
 
 
+## Project inclusion for `*.received.*` and `*.verified.*` files
+
+Verify comes with default includes for snapshot files (`*.received.*` and `*.verified.*`) under the test that produced them. C#, VB and F# projects are supported.
+
+<!-- snippet: Verify.AfterMicrosoftNetSdk.props -->
+<a id='snippet-Verify.AfterMicrosoftNetSdk.props'></a>
+```props
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Condition="('$(DisableVerifyFileNesting)' != 'true')">
+    <None Include="**\*.received.*;**\*.verified.*" Condition="$(Language) == 'C#'">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0].Split('(')[0])</ParentFile>
+      <DependentUpon>%(ParentFile).cs</DependentUpon>
+    </None>
+    <None Include="**\*.received.*;**\*.verified.*" Condition="$(Language) == 'VB'">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0].Split('(')[0])</ParentFile>
+      <DependentUpon>%(ParentFile).vb</DependentUpon>
+    </None>
+  </ItemGroup>
+</Project>
+```
+<sup><a href='/src/Verify/buildTransitive/Verify.AfterMicrosoftNetSdk.props#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.AfterMicrosoftNetSdk.props' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+To opt out of this feature, include the following in the project file:
+
+```xml
+<PropertyGroup>
+  <DisableVerifyFileNesting>true</DisableVerifyFileNesting>
+</PropertyGroup>
+```
+
+
 ## Media
 
 

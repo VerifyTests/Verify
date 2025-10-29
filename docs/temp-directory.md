@@ -244,7 +244,7 @@ Opens the temporary directory in the system file explorer and breaks into the de
 <!-- snippet: TempDirectoryOpenExplorerAndDebug -->
 <a id='snippet-TempDirectoryOpenExplorerAndDebug'></a>
 ```cs
-[Fact]
+[Fact(Explicit = true)]
 public void OpenExplorerAndDebug()
 {
     using var temp = new TempDirectory();

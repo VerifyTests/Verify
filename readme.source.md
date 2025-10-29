@@ -376,7 +376,7 @@ This readme will not discuss definitive list of details for proper setup of the 
 
 ## Project inclusion for `*.received.*` and `*.verified.*` files
 
-Verify comes with default includes for snapshot files (`*.received.*` and `*.verified.*`) under the test that produced them. C#, VB and F# projects are supported.
+Verify comes with default MSBuild includes for snapshot files (`*.received.*` and `*.verified.*`) that nests those files under the test that produced them. C#, VB and F# projects are supported.
 
 snippet: Verify.AfterMicrosoftNetSdk.props
 

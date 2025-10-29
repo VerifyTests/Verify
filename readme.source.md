@@ -374,6 +374,21 @@ This readme will not discuss definitive list of details for proper setup of the 
   Use [Visual Studio Test Explorer](https://learn.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer).
 
 
+## Project inclusion for `*.received.*` and `*.verified.*` files
+
+Verify comes with default MSBuild includes for snapshot files (`*.received.*` and `*.verified.*`) that nests those files under the test that produced them. C#, VB and F# projects are supported.
+
+snippet: Verify.AfterMicrosoftNetSdk.props
+
+To opt out of this feature, include the following in the project file:
+
+```xml
+<PropertyGroup>
+  <DisableVerifyFileNesting>true</DisableVerifyFileNesting>
+</PropertyGroup>
+```
+
+
 ## Media
 
 

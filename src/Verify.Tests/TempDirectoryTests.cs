@@ -257,7 +257,7 @@
 
     #region TempDirectoryOpenExplorerAndDebug
 
-    [Fact]
+    [Fact(Explicit = true)]
     public void OpenExplorerAndDebug()
     {
         using var temp = new TempDirectory();

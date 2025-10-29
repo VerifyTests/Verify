@@ -11,7 +11,7 @@ public static partial class Verifier
             return Task.CompletedTask;
 
         var path = pair.ReceivedPath;
-        TestContext.Current!.AddArtifact(
+        TestContext.Current!.Output.AttachArtifact(
             new()
             {
                 File = new(path),

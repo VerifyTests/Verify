@@ -231,7 +231,7 @@ public void NoUsing()
     Debug.WriteLine(temp);
 }
 ```
-<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L272-L285' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryNoUsing' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L273-L286' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryNoUsing' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The directory can then be manually inspected.
@@ -251,10 +251,11 @@ public void OpenExplorerAndDebug()
 
     File.WriteAllText(Path.Combine(temp, "file.txt"), "content");
 
+    // this is temporary debugging code and should not be commited to source control
     temp.OpenExplorerAndDebug();
 }
 ```
-<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L258-L270' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryOpenExplorerAndDebug' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L258-L271' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryOpenExplorerAndDebug' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This method is designed to help debug tests by enabling the inspection of the contents of the temporary directory while the test is paused. It performs two actions:

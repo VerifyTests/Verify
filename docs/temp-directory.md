@@ -19,15 +19,6 @@ A temporary directory helper for tests that automatically cleans up directories.
 - Removes orphaned directories older than 24 hours
 
 
-#### Orphaned directories
-
-Orphaned directories can occur in the following scenario
-
- * A breakpoint is set in a test that uses TempDirectory
- * Debugger is launched and that breakpoint is hit
- * Debugger is force stopped, resulting in the `TempDirectory.Dispose()` not being executed
-
-
 ### Usage
 
 <!-- snippet: TempDirectory -->
@@ -46,6 +37,15 @@ public void Usage()
 ```
 <sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L35-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectory' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+### Orphaned directories
+
+Orphaned directories can occur in the following scenario
+
+ * A breakpoint is set in a test that uses TempDirectory
+ * Debugger is launched and that breakpoint is hit
+ * Debugger is force stopped, resulting in the `TempDirectory.Dispose()` not being executed
 
 
 ### Path Property
@@ -260,7 +260,7 @@ public void OpenExplorerAndDebug()
 This method is designed to help debug tests by enabling the inspection of the contents of the temporary directory while the test is paused. It performs two actions:
 
  1. **Opens the directory in the file explorer** - Launches the system's default file explorer (Explorer on Windows, Finder on macOS) and navigates to the temporary directory
- 1. **Breaks into the debugger** - If a debugger is already attached, execution breaks at this point. If no debugger is attached, it attempts to launch one
+ 1. **Breaks into the debugger** - If a debugger is already attached, execution breaks at this point. If no debugger is attached, it attempts to launch one. This prevents the directory being clean up by the `TempDirectory.Dispose`.
 
 This enables examination of the directory contents at a specific point during test execution.
 
@@ -268,6 +268,8 @@ Supported Platforms:
 
  * Windows (uses `explorer.exe`)
  * macOS (uses `open`)
+
+Throws an exception if used on a build server. Uses `DiffEngine.BuildServerDetector.Detected`.
 
 
 ##### Rider

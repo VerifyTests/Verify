@@ -2,7 +2,6 @@
 
 namespace VerifyTests;
 
-
 /// <summary>
 /// Provides a temporary directory that is automatically cleaned up when disposed.
 /// The class maintains a shared root directory and automatically deletes subdirectories older than 24 hours.
@@ -151,6 +150,11 @@ public class TempDirectory :
     /// </example>
     public void OpenExplorerAndDebug()
     {
+        if (BuildServerDetector.Detected)
+        {
+            throw new("OpenExplorerAndDebug is not supported on build servers.");
+        }
+
         using var process = Process.Start(Command(), Path);
         if (Debugger.IsAttached)
         {

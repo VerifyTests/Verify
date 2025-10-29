@@ -260,7 +260,7 @@ public void OpenExplorerAndDebug()
 This method is designed to help debug tests by enabling the inspection of the contents of the temporary directory while the test is paused. It performs two actions:
 
  1. **Opens the directory in the file explorer** - Launches the system's default file explorer (Explorer on Windows, Finder on macOS) and navigates to the temporary directory
- 1. **Breaks into the debugger** - If a debugger is already attached, execution breaks at this point. If no debugger is attached, it attempts to launch one. This prevents the directory being clean up by the `TempDirectory.Dispose`.
+ 1. **Breaks into the debugger** - If a debugger is already attached, execution breaks at this point. If no debugger is attached, it attempts to launch one. This prevents the directory being clean up by the `TempDirectory.Dispose()`.
 
 This enables examination of the directory contents at a specific point during test execution.
 

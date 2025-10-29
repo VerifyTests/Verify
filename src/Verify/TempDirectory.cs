@@ -120,9 +120,6 @@ public class TempDirectory :
     /// </description>
     /// </item>
     /// </list>
-    /// <para>
-    /// This enables examination of the directory contents at a specific point during test execution.
-    /// </para>
     /// </remarks>
     /// <exception cref="NotSupportedException">
     /// Thrown when the method is called on an unsupported operating system.

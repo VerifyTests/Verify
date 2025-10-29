@@ -75,7 +75,7 @@ Implicit Conversion is helpful as it allows a `TempDirectory` instance to be pas
 
 #### String Implicit Conversion
 
-`TempDirectory` can be implicitly converter to a `string`:
+`TempDirectory` can be implicitly converted to a `string`:
 
 <!-- snippet: TempDirectoryStringConversion -->
 <a id='snippet-TempDirectoryStringConversion'></a>
@@ -99,7 +99,7 @@ public void StringConversion()
 
 #### DirectoryInfo Implicit Conversion
 
-`TempDirectory` can be implicitly converter to a `DirectoryInfo`:
+`TempDirectory` can be implicitly converted to a `DirectoryInfo`:
 
 <!-- snippet: TempDirectoryDirectoryInfoConversion -->
 <a id='snippet-TempDirectoryDirectoryInfoConversion'></a>

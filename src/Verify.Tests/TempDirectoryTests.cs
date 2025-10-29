@@ -264,6 +264,7 @@
 
         File.WriteAllText(Path.Combine(temp, "file.txt"), "content");
 
+        // this is temporary debugging code and should not be commited to source control
         temp.OpenExplorerAndDebug();
     }
 

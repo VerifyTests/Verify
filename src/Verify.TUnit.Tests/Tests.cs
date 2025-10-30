@@ -133,7 +133,7 @@ public class Tests
         var settings = new VerifySettings();
         settings.DisableDiff();
         await Assert.ThrowsAsync(() => Verify("Bar", [new("txt", "Value")], settings));
-        var list = TestContext.Current!.Output.Artifacts.ToList();
+        var list = TestContext.Current!.Output.Artifacts.OrderBy(_=>_.File.Name).ToList();
         await Assert.That(list.Count).IsEqualTo(2);
         await Assert.That(list[0].File.Name)
             .IsEqualTo("Tests.MultipleChangedHasAttachment#00.received.txt");
@@ -147,11 +147,11 @@ public class Tests
         var settings = new VerifySettings();
         settings.DisableDiff();
         await Assert.ThrowsAsync(() => Verify("Bar", [new("txt", "Value")], settings));
-        var list = TestContext.Current!.Output.Artifacts.ToList();
+        var list = TestContext.Current!.Output.Artifacts.OrderBy(_=>_.File.Name).ToList();
         await Assert.That(list.Count).IsEqualTo(2);
         await Assert.That(list[0].File.Name)
             .IsEqualTo("Tests.MultipleNewHasAttachment#00.received.txt");
-        await Assert.That(list[0].File.Name)
-            .IsEqualTo("Tests.MultipleNewHasAttachment#00.received.txt");
+        await Assert.That(list[1].File.Name)
+            .IsEqualTo("Tests.MultipleNewHasAttachment#01.received.txt");
     }
 }

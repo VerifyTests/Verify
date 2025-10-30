@@ -1921,9 +1921,25 @@ public class SerializationTests
         return Verify(new
         {
             tempPath,
+            tempPathPrefixChar = $"a{tempPath}",
+            tempPathPrefixSymbol = $":{tempPath}",
+            tempPathPrefixSpace = $" {tempPath}",
+            tempPathPrefixTab = $"\t{tempPath}",
             altTempPath,
+            altTempPathPrefixChar = $"a{altTempPath}",
+            altTempPathPrefixCymbol = $":{altTempPath}",
+            altTempPathPrefixSpace = $" {altTempPath}",
+            altTempPathPrefixTab = $"\t{altTempPath}",
             tempPathTrailing = tempPath + Path.DirectorySeparatorChar,
-            altTempPathTrailing = altTempPath + Path.AltDirectorySeparatorChar
+            tempPathTrailingChar = $"{tempPath}{Path.DirectorySeparatorChar}a",
+            tempPathTrailingSpace = $"{tempPath}{Path.DirectorySeparatorChar} ",
+            tempPathTrailingSymbol = $"{tempPath}{Path.DirectorySeparatorChar}:",
+            tempPathTrailingTab = $"{tempPath}{Path.DirectorySeparatorChar}\t",
+            altTempPathTrailing = altTempPath + Path.AltDirectorySeparatorChar,
+            altTempPathTrailingChar = $"{altTempPath}{Path.AltDirectorySeparatorChar}a",
+            altTempPathTrailingSpace = $"{altTempPath}{Path.AltDirectorySeparatorChar} ",
+            altTempPathTrailingSymbol = $"{altTempPath}{Path.AltDirectorySeparatorChar}:",
+            altTempPathTrailingTab = $"{altTempPath}{Path.AltDirectorySeparatorChar}\t"
         });
     }
 

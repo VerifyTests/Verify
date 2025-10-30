@@ -151,7 +151,7 @@ static class ApplyScrubbers
     {
         foreach (var replace in replacements)
         {
-            target.ReplaceIfLonger(replace.Key, replace.Value);
+            target.ReplaceToken(replace.Key, replace.Value);
         }
     }
 

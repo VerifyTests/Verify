@@ -206,13 +206,12 @@ static class Extensions
         return dictionary[key] = factory(key);
     }
 
-    public static void ReplaceIfLonger(this StringBuilder builder, string oldValue, string newValue)
+    public static void ReplaceToken(this StringBuilder builder, string oldValue, string newValue)
     {
         if (builder.Length < oldValue.Length)
         {
             return;
         }
-
         builder.Replace(oldValue, newValue);
     }
 

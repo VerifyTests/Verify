@@ -4,6 +4,7 @@
     "projects": [
       "TargetLibrary\\TargetLibrary.csproj",
       "Verify.TUnit.DerivePaths.Tests\\Verify.TUnit.DerivePaths.Tests.csproj",
+      "Verify.TUnit.DisableAttachments.Tests\\Verify.TUnit.DisableAttachments.Tests.csproj",
       "Verify.TUnit.Tests\\Verify.TUnit.Tests.csproj",
       "Verify.TUnit\\Verify.TUnit.csproj",
       "Verify\\Verify.csproj"

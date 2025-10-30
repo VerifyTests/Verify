@@ -51,6 +51,7 @@
   </Project>
   <Project Path="Verify.TUnit.DerivePaths.Tests/Verify.TUnit.DerivePaths.Tests.csproj" />
   <Project Path="Verify.TUnit.DisableAttachments.Tests/Verify.TUnit.DisableAttachments.Tests.csproj" />
+  <Project Path="Verify.TUnit.DisableAttachments.Tests\Verify.TUnit.DisableAttachments.Tests.csproj" Type="Classic C#" />
   <Project Path="Verify.TUnit.Tests/Verify.TUnit.Tests.csproj" />
   <Project Path="Verify.TUnit/Verify.TUnit.csproj" />
   <Project Path="Verify.Xunit.DerivePaths.Tests/Verify.Xunit.DerivePaths.Tests.csproj" />

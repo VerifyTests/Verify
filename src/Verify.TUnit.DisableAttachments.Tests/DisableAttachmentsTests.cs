@@ -8,7 +8,7 @@ public class DisableAttachmentsTests
         settings.DisableDiff();
         await Assert.ThrowsAsync(
             () => Verify("Bar", settings));
-        var list = TestContext.Current!.Artifacts;
+        var list = TestContext.Current!.Output.Artifacts;
         await Assert.That(list.Count).IsEqualTo(0);
     }
 }

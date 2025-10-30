@@ -92,7 +92,7 @@ public class Tests
         var settings = new VerifySettings();
         settings.DisableDiff();
         await Assert.ThrowsAsync(() => Verify("Bar", settings));
-        var list = TestContext.Current!.Artifacts;
+        var list = TestContext.Current!.Output.Artifacts.ToList();
         await Assert.That(list.Count).IsEqualTo(1);
         var expected = "Tests.ChangeHasAttachment.received.txt";
         await Assert.That(list[0].File.Name).IsEqualTo(expected);
@@ -109,7 +109,7 @@ public class Tests
         settings.DisableDiff();
         settings.AutoVerify();
         await Verify("Bar", settings);
-        var list = TestContext.Current!.Artifacts;
+        var list = TestContext.Current!.Output.Artifacts.ToList();
         await Assert.That(list.Count).IsEqualTo(1);
         await Assert.That(list[0].File.Name)
             .IsEqualTo("Tests.AutoVerifyHasAttachment.received.txt");
@@ -121,7 +121,7 @@ public class Tests
         var settings = new VerifySettings();
         settings.DisableDiff();
         await Assert.ThrowsAsync(() => Verify("Bar", settings));
-        var list = TestContext.Current!.Artifacts;
+        var list = TestContext.Current!.Output.Artifacts.ToList();
         await Assert.That(list.Count).IsEqualTo(1);
         await Assert.That(list[0].File.Name)
             .IsEqualTo("Tests.NewHasAttachment.received.txt");
@@ -133,7 +133,7 @@ public class Tests
         var settings = new VerifySettings();
         settings.DisableDiff();
         await Assert.ThrowsAsync(() => Verify("Bar", [new("txt", "Value")], settings));
-        var list = TestContext.Current!.Artifacts;
+        var list = TestContext.Current!.Output.Artifacts.ToList();
         await Assert.That(list.Count).IsEqualTo(2);
         await Assert.That(list[0].File.Name)
             .IsEqualTo("Tests.MultipleChangedHasAttachment#00.received.txt");
@@ -147,7 +147,7 @@ public class Tests
         var settings = new VerifySettings();
         settings.DisableDiff();
         await Assert.ThrowsAsync(() => Verify("Bar", [new("txt", "Value")], settings));
-        var list = TestContext.Current!.Artifacts;
+        var list = TestContext.Current!.Output.Artifacts.ToList();
         await Assert.That(list.Count).IsEqualTo(2);
         await Assert.That(list[0].File.Name)
             .IsEqualTo("Tests.MultipleNewHasAttachment#00.received.txt");

@@ -35,7 +35,7 @@ public static partial class Verifier
             settings.UseUniqueDirectory();
         }
 
-        var details = TestContext.Current!.TestDetails;
+        var details = TestContext.Current!.Metadata.TestDetails;
         var type = details.MethodMetadata.Class.Type;
         var classArguments = details.TestClassArguments;
         var methodArguments = details.TestMethodArguments;

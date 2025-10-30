@@ -73,10 +73,7 @@ public static class Scrubbers
             }
         }
 
-        foreach (var replace in replacements.replace)
-        {
-            builder.ReplaceIfLonger(replace.Key, replace.Value);
-        }
+        builder.ReplaceTokens(replacements.replace);
     }
 
     public static string ScrubStackTrace(string stackTrace, bool removeParams = false)

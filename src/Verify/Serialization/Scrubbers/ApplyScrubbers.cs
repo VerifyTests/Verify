@@ -142,17 +142,9 @@ static class ApplyScrubbers
             scrubber(target, counter, settings.Context);
         }
 
-        ApplyReplacements(target);
+        target.ReplaceTokens(replacements);
 
         target.FixNewlines();
-    }
-
-    static void ApplyReplacements(StringBuilder target)
-    {
-        foreach (var replace in replacements)
-        {
-            target.ReplaceIfLonger(replace.Key, replace.Value);
-        }
     }
 
     public static CharSpan ApplyForPropertyValue(CharSpan value, VerifySettings settings, Counter counter)
@@ -184,7 +176,7 @@ static class ApplyScrubbers
             scrubber(builder, counter, settings.Context);
         }
 
-        ApplyReplacements(builder);
+        builder.ReplaceTokens(replacements);
 
         builder.FixNewlines();
     }

@@ -1006,6 +1006,7 @@ To opt out of this feature, include the following in the project file:
 * [Verify.CsvHelper](https://github.com/VerifyTests/Verify.CsvHelper): Verification of CSVs via [CsvHelper](https://joshclose.github.io/CsvHelper/).
 * [Verify.DiffPlex](https://github.com/VerifyTests/Verify.DiffPlex): Comparison of text via [DiffPlex](https://github.com/mmanela/diffplex).
 * [Verify.DocNet](https://github.com/VerifyTests/Verify.DocNet): Verification of pdfs via [DocNet](https://github.com/GowenGit/docnet).
+* [Verify.EmailPreviewServices](https://github.com/VerifyTests/Verify.EmailPreviewServices): Verification of html emails via [EmailPreviewServices](https://emailpreviewservices.com).
 * [Verify.EntityFramework](https://github.com/VerifyTests/Verify.EntityFramework): Verification of EntityFramework bits.
 * [Verify.FakeItEasy](https://github.com/VerifyTests/Verify.FakeItEasy): Verification of [FakeItEasy](https://fakeiteasy.github.io/) bits.
 * [Verify.Flurl](https://github.com/VerifyTests/Verify.Flurl): Verification of [Flurl](https://flurl.dev/) bits.

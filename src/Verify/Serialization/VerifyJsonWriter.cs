@@ -256,14 +256,15 @@ public class VerifyJsonWriter :
             return;
         }
 
-        var converter = VerifierSettings.GetMemberConverter(declaringType, name);
-        if (converter is not null)
+        var converters = VerifierSettings.GetMemberConverters(declaringType, name);
+        foreach (var converter in converters)
         {
             value = converter(target, value);
-            if (value is null)
-            {
-                return;
-            }
+        }
+
+        if (value is null)
+        {
+            return;
         }
 
         WritePropertyName(name);
@@ -302,14 +303,15 @@ public class VerifyJsonWriter :
             return;
         }
 
-        var converter = VerifierSettings.GetMemberConverter(declaringType, name);
-        if (converter is not null)
+        var converters = VerifierSettings.GetMemberConverters(declaringType, name);
+        foreach (var converter in converters)
         {
             value = (string?) converter(target, value);
-            if (value is null)
-            {
-                return;
-            }
+        }
+
+        if (value is null)
+        {
+            return;
         }
 
         WritePropertyName(name);

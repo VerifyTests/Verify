@@ -3395,6 +3395,11 @@ public class SerializationTests
         VerifierSettings.MemberConverter<MemberTarget, string>(
             expression: _ => _.Property,
             converter: (target, member) => $"{target}_{member}_Suffix");
+
+        // For a subclass, which should work in addition to the base class
+        VerifierSettings.MemberConverter<SubMemberTarget, string>(
+            expression: _ => _.SubclassProperty,
+            converter: _ => $"{_}_Suffix");
     }
 
     [Fact]
@@ -3409,12 +3414,30 @@ public class SerializationTests
         return Verify(input);
     }
 
+    [Fact]
+    public Task MemberConverterWithInheritance()
+    {
+        var input = new SubMemberTarget
+        {
+            Field = "FieldValue",
+            Property = "PropertyValue",
+            SubclassProperty = "SubClassPropertyValue"
+        };
+
+        return Verify(input);
+    }
+
     #endregion
 
     class MemberTarget
     {
         public string Property { get; set; }
         public string Field;
+    }
+
+    class SubMemberTarget : MemberTarget
+    {
+        public string SubclassProperty { get; set; }
     }
 
     // ReSharper disable once UnusedMember.Local

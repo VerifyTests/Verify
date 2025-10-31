@@ -2,7 +2,7 @@
     IValueProvider inner,
     Type type,
     Func<Exception, bool> ignoreException,
-    ConvertTargetMember? converter,
+    IEnumerable<ConvertTargetMember> converters,
     SerializationSettings settings) :
     IValueProvider
 {
@@ -11,15 +11,21 @@
 
     public object? GetValue(object target)
     {
-        if (converter is not null)
+        var hasConverter = false;
+        var value = inner.GetValue(target);
+        foreach (var converter in converters)
         {
-            var value = inner.GetValue(target);
-            return converter(target, value);
+            value = converter(target, value);
+            hasConverter = true;
+        }
+
+        if (hasConverter)
+        {
+            return value;
         }
 
         try
         {
-            var value = inner.GetValue(target);
             if (value is not null &&
                 settings.TryGetScrubOrIgnoreByInstance(value, out var scrubOrIgnore))
             {

@@ -4,24 +4,21 @@ public static partial class VerifierSettings
 {
     static Dictionary<Type, Dictionary<string, ConvertTargetMember>> membersConverters = [];
 
-    internal static ConvertTargetMember? GetMemberConverter(MemberInfo member) =>
-        GetMemberConverter(member.DeclaringType, member.Name);
+    internal static IEnumerable<ConvertTargetMember> GetMemberConverters(MemberInfo member) =>
+        GetMemberConverters(member.DeclaringType, member.Name);
 
-    internal static ConvertTargetMember? GetMemberConverter<T>(string name) =>
-        GetMemberConverter(typeof(T), name);
+    internal static IEnumerable<ConvertTargetMember> GetMemberConverters<T>(string name) =>
+        GetMemberConverters(typeof(T), name);
 
-    internal static ConvertTargetMember? GetMemberConverter(Type? declaringType, string name)
+    internal static IEnumerable<ConvertTargetMember> GetMemberConverters(Type? declaringType, string name)
     {
         foreach (var pair in membersConverters)
         {
-            if (pair.Key.IsAssignableFrom(declaringType))
+            if (pair.Key.IsAssignableFrom(declaringType) && pair.Value.TryGetValue(name, out var membersConverter))
             {
-                pair.Value.TryGetValue(name, out var membersConverter);
-                return membersConverter;
+                yield return membersConverter;
             }
         }
-
-        return null;
     }
 
     public static void MemberConverter<TTarget, TMember>(

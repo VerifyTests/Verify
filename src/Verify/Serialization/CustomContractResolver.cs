@@ -98,7 +98,7 @@
             valueProvider,
             memberType,
             settings.ShouldIgnoreException,
-            VerifierSettings.GetMemberConverter(member),
+            VerifierSettings.GetMemberConverters(member),
             settings);
 
         return property;

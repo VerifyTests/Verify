@@ -98,7 +98,7 @@ public class StreamTests
     public async Task EmptyBinary()
     {
         var exception = await Assert.ThrowsAsync<Exception>(() => Verify([], "bin"));
-        Assert.StartsWith("Empty data is not allowed. Path: ", exception.Message);
+        Assert.StartsWith("Empty data is not allowed. Path: ", exception.InnerException!.Message);
     }
 
     [Fact]

@@ -165,6 +165,8 @@ public class Tests
 
     #endregion
 
+#if  NET9_0_OR_GREATER
+
     #region WithZipAndPersistArchiveV3
 
     [Fact]
@@ -172,6 +174,8 @@ public class Tests
         VerifyZip(zipPath, persistArchive: true);
 
     #endregion
+
+#endif
 
     #region VerifyZipWithInfoXunitV3
 

@@ -89,9 +89,13 @@ public class Tests
 
     #endregion
 
+#if  NET9_0_OR_GREATER
+
     [Test]
     public Task WithZipAndPersistArchive() =>
         VerifyZip(pathToArchive, persistArchive: true);
+
+#endif
 
     static List<TestAttachment> GetAttachments() =>
         TestExecutionContext.CurrentContext.CurrentResult.TestAttachments.ToList();

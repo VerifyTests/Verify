@@ -130,6 +130,8 @@ partial class InnerVerifier
                 var newEntry = newArchive.CreateEntry(entry.FullName);
                 // hard code write time to prevent the binary of the zip being different every time
                 newEntry.LastWriteTime = archiveEntryWriteTime;
+                // Clear all platform-specific attributes
+                newEntry.ExternalAttributes = 0;
                 using var entryStream = entry.Open();
                 using var newEntryStream = newEntry.Open();
                 entryStream.CopyTo(newEntryStream);

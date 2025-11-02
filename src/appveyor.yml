@@ -22,6 +22,7 @@ before_build:
         sudo chmod u+x dotnet-install.sh
         sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/share/dotnet'
         sudo ./dotnet-install.sh --version 9.0.306 --architecture x64 --install-dir '/usr/share/dotnet'
+        sudo ./dotnet-install.sh --version 8.0.415 --architecture x64 --install-dir '/usr/share/dotnet'
       }
   - dotnet tool restore --tool-manifest src/.config/dotnet-tools.json
 build_script:

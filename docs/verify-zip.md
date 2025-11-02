@@ -31,7 +31,7 @@ public Task WithZipFiltered() =>
         zipPath,
         include: filePath => filePath.FullName.Contains("Doc"));
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L203-L211' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipFilterXunitV3' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L207-L215' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipFilterXunitV3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -48,7 +48,7 @@ public Task VerifyZipWithInfo() =>
         zipPath,
         info: "the info");
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L176-L184' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithInfoXunitV3' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L180-L188' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithInfoXunitV3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -72,7 +72,7 @@ public Task VerifyZipWithFileScrubber() =>
             }
         });
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L186-L201' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithFileScrubberXunitV3' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L190-L205' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithFileScrubberXunitV3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This applies to files where the extensions is a known text file as defined by [FileExtensions.IsText](https://github.com/VerifyTests/EmptyFiles#istext).
@@ -104,7 +104,7 @@ public Task WithZipAndStructure() =>
 public Task WithZipAndPersistArchive() =>
     VerifyZip(zipPath, persistArchive: true);
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L168-L174' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithZipAndPersistArchiveV3' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L170-L176' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithZipAndPersistArchiveV3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -233,30 +233,6 @@ public async Task BuildPath()
 <!-- endSnippet -->
 
 
-#### No Using
-
-Omitting the `using` for the TempDirectory will prevent the temp directory from being deleted when the test finished.
-
-<!-- snippet: TempDirectoryNoUsing -->
-<a id='snippet-TempDirectoryNoUsing'></a>
-```cs
-[Fact(Explicit = true)]
-public void NoUsing()
-{
-    //using var temp = new TempDirectory();
-    var temp = new TempDirectory();
-
-    File.WriteAllText(Path.Combine(temp, "file.txt"), "content");
-
-    Debug.WriteLine(temp);
-}
-```
-<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L273-L286' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryNoUsing' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-The directory can then be manually inspected.
-
-
 ### Debugging
 
 Given `TempDirectory` deletes its contents on test completion (even failure), it can be difficult to debug what caused the failure.

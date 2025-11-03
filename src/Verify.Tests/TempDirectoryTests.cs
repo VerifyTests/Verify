@@ -307,6 +307,23 @@
 
     #endregion
 
+    #region TempDirectoryScrubbing
+
+    [Fact]
+    public async Task Scrubbing()
+    {
+        using var temp = new TempDirectory();
+
+        await Verify(new
+        {
+            PropertyWithTempPath = temp,
+            PropertyWithTempFilePath = temp.BuildPath("file.txt"),
+            TempInStringProperty = $"The path is {temp}"
+        });
+    }
+
+    #endregion
+
     // [Fact]
     // public void LockedFile()
     // {

@@ -96,6 +96,15 @@ Combines the `TempDirectory.Path` with more paths via Path.Combine.
 snippet: TempDirectoryBuildPath
 
 
+### TempDirectory paths are scrubbed
+
+snippet: TempDirectoryScrubbing
+
+Result:
+
+snippet: C:\Code\Verify\src\Verify.Tests\TempDirectoryTests.Scrubbing.verified.txt
+
+
 ### Debugging
 
 Given `TempDirectory` deletes its contents on test completion (even failure), it can be difficult to debug what caused the failure.

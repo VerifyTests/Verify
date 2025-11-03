@@ -104,12 +104,13 @@ public class Tests
         var path = CurrentFile.Relative("Tests.AutoVerifyHasAttachment.verified.txt");
         var fullPath = Path.GetFullPath(path);
         File.Delete(fullPath);
+        var testOutput = TestContext.Current!.Output;
         await File.WriteAllTextAsync(fullPath,"Foo");
         var settings = new VerifySettings();
         settings.DisableDiff();
         settings.AutoVerify();
         await Verify("Bar", settings);
-        var list = TestContext.Current!.Output.Artifacts.ToList();
+        var list = testOutput.Artifacts.ToList();
         await Assert.That(list.Count).IsEqualTo(1);
         await Assert.That(list[0].File.Name)
             .IsEqualTo("Tests.AutoVerifyHasAttachment.received.txt");

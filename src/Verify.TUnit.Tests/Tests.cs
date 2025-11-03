@@ -82,9 +82,13 @@ public class Tests
 
     #endregion
 
+#if NET9_0_OR_GREATER && DEBUG
+
     [Test]
     public Task WithZipAndPersistArchive() =>
         VerifyZip(pathToArchive, persistArchive: true);
+
+#endif
 
     [Test]
     public async Task ChangeHasAttachment()

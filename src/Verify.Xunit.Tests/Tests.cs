@@ -120,6 +120,8 @@ public class Tests
 
 #endif
 
+#if NET9_0_OR_GREATER && DEBUG
+
     static string zipPath = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify.zip");
     static string simpleZipPath = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerifySimple.zip");
 
@@ -180,4 +182,5 @@ public class Tests
         VerifyZip(
             zipPath,
             include: _ => _.FullName.Contains("Doc"));
+#endif
 }

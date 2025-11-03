@@ -100,6 +100,7 @@ public class Tests
     static List<TestAttachment> GetAttachments() =>
         TestExecutionContext.CurrentContext.CurrentResult.TestAttachments.ToList();
 
+#if NET9_0
     [Test]
     public async Task ChangeHasAttachment()
     {
@@ -119,7 +120,6 @@ public class Tests
         AreEqual($"Tests.ChangeHasAttachment.{Namer.TargetFrameworkNameAndVersion}.received.txt", file);
     }
 
-#if NET9_0
 
     [Test]
     public async Task AutoVerifyHasAttachment()

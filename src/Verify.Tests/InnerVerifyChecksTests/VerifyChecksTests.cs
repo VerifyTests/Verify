@@ -19,6 +19,8 @@ public class VerifyChecksTests
         partialDirectory = GetDirectory("Partial");
         Assert.True(Directory.Exists(invalidDirectory));
         Assert.True(Directory.Exists(partialDirectory));
+        var gitIgnore = Path.Combine(invalidDirectory, ".gitIgnore");
+        Assert.True(File.Exists(gitIgnore));
     }
 
     [Fact]

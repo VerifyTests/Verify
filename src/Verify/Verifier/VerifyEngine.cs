@@ -25,14 +25,27 @@ class VerifyEngine(
 
     static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, Target target, bool previousTextFailed)
     {
-        if (target.TryGetStringBuilder(out var value))
+        try
         {
-            return await Comparer.Text(file, value, settings);
-        }
+            if (target.TryGetStringBuilder(out var value))
+            {
+                return await Comparer.Text(file, value, settings);
+            }
 
-        using var stream = target.StreamData;
-        stream.MoveToStart();
-        return await FileComparer.DoCompare(settings, file, previousTextFailed, stream);
+            using var stream = target.StreamData;
+            stream.MoveToStart();
+            return await FileComparer.DoCompare(settings, file, previousTextFailed, stream);
+        }
+        catch (Exception exception)
+        {
+            throw new(
+                $"""
+                 Failed to compare files:
+                 ReceivedPath: {file.ReceivedPath}
+                 VerifiedPath: {file.VerifiedPath}
+                 """,
+                exception);
+        }
     }
 
     public async Task HandleResults(List<Target> targetList)

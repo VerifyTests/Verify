@@ -1,0 +1,4 @@
+﻿{
+  path: {TempDirectory}\file.txt,
+  nestedPath: {TempDirectory}\nested\file.txt
+}

@@ -285,6 +285,28 @@
 
     #endregion
 
+    #region TempDirectoryBuildPath
+
+    [Fact]
+    public async Task BuildPath()
+    {
+        using var temp = new TempDirectory();
+
+        // path will be {temp.Path}/file.txt
+        var path = temp.BuildPath("file.txt");
+
+        // nestedPath will be {temp.Path}/nested/file.txt
+        var nestedPath = temp.BuildPath("nested", "file.txt");
+
+        await Verify(new
+        {
+            path,
+            nestedPath
+        });
+    }
+
+    #endregion
+
     // [Fact]
     // public void LockedFile()
     // {

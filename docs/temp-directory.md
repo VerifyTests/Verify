@@ -204,6 +204,59 @@ public async Task VerifyDirectoryInstance()
 <!-- endSnippet -->
 
 
+### BuildPath
+
+Combines the `TempDirectory.Path` with more paths via Path.Combine.
+
+<!-- snippet: TempDirectoryBuildPath -->
+<a id='snippet-TempDirectoryBuildPath'></a>
+```cs
+[Fact]
+public async Task BuildPath()
+{
+    using var temp = new TempDirectory();
+
+    // path will be {temp.Path}/file.txt
+    var path = temp.BuildPath("file.txt");
+
+    // nestedPath will be {temp.Path}/nested/file.txt
+    var nestedPath = temp.BuildPath("nested", "file.txt");
+
+    await Verify(new
+    {
+        path,
+        nestedPath
+    });
+}
+```
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L288-L308' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryBuildPath' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### No Using
+
+Omitting the `using` for the TempDirectory will prevent the temp directory from being deleted when the test finished.
+
+<!-- snippet: TempDirectoryNoUsing -->
+<a id='snippet-TempDirectoryNoUsing'></a>
+```cs
+[Fact(Explicit = true)]
+public void NoUsing()
+{
+    //using var temp = new TempDirectory();
+    var temp = new TempDirectory();
+
+    File.WriteAllText(Path.Combine(temp, "file.txt"), "content");
+
+    Debug.WriteLine(temp);
+}
+```
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L273-L286' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryNoUsing' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+The directory can then be manually inspected.
+
+
 ### Debugging
 
 Given `TempDirectory` deletes its contents on test completion (even failure), it can be difficult to debug what caused the failure.

@@ -122,7 +122,7 @@ public Task WithZipWithCustomExtension() =>
         persistArchive: true,
         archiveExtension: "nupkg");
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L148-L157' title='Snippet source file'>snippet source</a> | <a href='#snippet-ArchiveExtension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L150-L159' title='Snippet source file'>snippet source</a> | <a href='#snippet-ArchiveExtension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The default extension is `zip`.

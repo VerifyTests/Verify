@@ -233,6 +233,42 @@ public async Task BuildPath()
 <!-- endSnippet -->
 
 
+### TempDirectory paths are scrubbed
+
+<!-- snippet: TempDirectoryScrubbing -->
+<a id='snippet-TempDirectoryScrubbing'></a>
+```cs
+[Fact]
+public async Task Scrubbing()
+{
+    using var temp = new TempDirectory();
+
+    await Verify(new
+    {
+        PropertyWithTempPath = temp,
+        PropertyWithTempFilePath = temp.BuildPath("file.txt"),
+        TempInStringProperty = $"The path is {temp}"
+    });
+}
+```
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L310-L325' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryScrubbing' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Result:
+
+<!-- snippet: C:\Code\Verify\src\Verify.Tests\TempDirectoryTests.Scrubbing.verified.txt -->
+<a id='snippet-C:\Code\Verify\src\Verify.Tests\TempDirectoryTests.Scrubbing.verified.txt'></a>
+```txt
+{
+  PropertyWithTempPath: {TempDirectory},
+  PropertyWithTempFilePath: {TempDirectory}\file.txt,
+  TempInStringProperty: The path is {TempDirectory}
+}
+```
+<sup><a href='#snippet-C:\Code\Verify\src\Verify.Tests\TempDirectoryTests.Scrubbing.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ### Debugging
 
 Given `TempDirectory` deletes its contents on test completion (even failure), it can be difficult to debug what caused the failure.

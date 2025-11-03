@@ -189,4 +189,13 @@ public partial class Tests
         return VerifyFile(fullPath)
             .UseFileName("customFileName");
     }
+
+#if NET9_0_OR_GREATER && DEBUG
+
+    [TestMethod]
+    public Task WithZipAndPersistArchive() =>
+        VerifyZip(zipPath, persistArchive: true);
+
+#endif
+
 }

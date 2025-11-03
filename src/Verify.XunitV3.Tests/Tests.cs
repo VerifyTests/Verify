@@ -165,7 +165,7 @@ public class Tests
 
     #endregion
 
-#if  NET9_0_OR_GREATER
+#if NET9_0_OR_GREATER && DEBUG
 
     #region WithZipAndPersistArchiveV3
 

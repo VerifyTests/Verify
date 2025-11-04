@@ -47,12 +47,13 @@ public class TempDirectory :
     /// All temporary directories created by instances of this class are subdirectories
     /// of this root location.
     /// </remarks>
-    public static string RootDirectory { get; }
+    public static string RootDirectory { get; } = IoPath.Combine(IoPath.GetTempPath(), "VerifyTempDirectory");
 
-    static TempDirectory()
+    [ModuleInitializer]
+    public static void Init()
     {
-        RootDirectory = IoPath.Combine(IoPath.GetTempPath(), "VerifyTempDirectory");
         Directory.CreateDirectory(RootDirectory);
+
         VerifierSettings.OnVerify(
             before: () =>
             {
@@ -61,6 +62,7 @@ public class TempDirectory :
             {
                 paths.Value = null;
             });
+
         VerifierSettings.GlobalScrubbers.Add((scrubber, _, _) =>
         {
             if (paths.Value == null)
@@ -73,6 +75,7 @@ public class TempDirectory :
                 scrubber.Replace(path, "{TempDirectory}");
             }
         });
+
         Cleanup();
     }
 

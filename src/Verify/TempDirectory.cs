@@ -58,10 +58,7 @@ public class TempDirectory :
             before: () =>
             {
             },
-            after: () =>
-            {
-                paths.Value = null;
-            });
+            after: () => paths.Value = null);
 
         VerifierSettings.GlobalScrubbers.Add((scrubber, _, _) =>
         {

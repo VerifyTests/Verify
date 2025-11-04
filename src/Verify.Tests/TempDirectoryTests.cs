@@ -285,6 +285,49 @@
 
     #endregion
 
+#if DEBUG
+
+    #region TempDirectoryBuildPath
+
+    [Fact]
+    public async Task BuildPath()
+    {
+        using var temp = new TempDirectory();
+
+        // path will be {temp.Path}/file.txt
+        var path = temp.BuildPath("file.txt");
+
+        // nestedPath will be {temp.Path}/nested/file.txt
+        var nestedPath = temp.BuildPath("nested", "file.txt");
+
+        await Verify(new
+        {
+            path,
+            nestedPath
+        });
+    }
+
+    #endregion
+
+    #region TempDirectoryScrubbing
+
+    [Fact]
+    public async Task Scrubbing()
+    {
+        using var temp = new TempDirectory();
+
+        await Verify(new
+        {
+            PropertyWithTempPath = temp,
+            PropertyWithTempFilePath = temp.BuildPath("file.txt"),
+            TempInStringProperty = $"The path is {temp}"
+        });
+    }
+
+    #endregion
+
+#endif
+
     // [Fact]
     // public void LockedFile()
     // {

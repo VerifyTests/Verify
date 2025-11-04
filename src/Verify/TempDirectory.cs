@@ -53,9 +53,30 @@ public class TempDirectory :
     {
         RootDirectory = IoPath.Combine(IoPath.GetTempPath(), "VerifyTempDirectory");
         Directory.CreateDirectory(RootDirectory);
+        VerifierSettings.OnVerify(
+            before: () =>
+            {
+            },
+            after: () =>
+            {
+                paths.Value = null;
+            });
+        VerifierSettings.GlobalScrubbers.Add((scrubber, _, _) =>
+        {
+            if (paths.Value == null)
+            {
+                return;
+            }
 
+            foreach (var path in paths.Value)
+            {
+                scrubber.Replace(path, "{TempDirectory}");
+            }
+        });
         Cleanup();
     }
+
+    static AsyncLocal<List<string>?> paths = new();
 
     internal static void Cleanup()
     {
@@ -89,6 +110,15 @@ public class TempDirectory :
     {
         Path = IoPath.Combine(RootDirectory, IoPath.GetRandomFileName());
         Directory.CreateDirectory(Path);
+
+        if (paths.Value == null)
+        {
+            paths.Value = [Path];
+        }
+        else
+        {
+            paths.Value!.Add(Path);
+        }
     }
 
     public void Dispose()
@@ -97,7 +127,10 @@ public class TempDirectory :
         {
             Directory.Delete(Path, true);
         }
+
+        paths.Value!.Remove(Path);
     }
+
     /// <summary>
     /// Opens the temporary directory in the system file explorer and breaks into the debugger.
     /// </summary>
@@ -219,4 +252,10 @@ public class TempDirectory :
     /// </code>
     /// </example>
     public DirectoryInfo Info => new(Path);
+
+    /// <summary>
+    /// Combines the <see cref="Path"/> with <paramref name="paths"/> via Path.Combine.
+    /// </summary>
+    public string BuildPath(params ReadOnlySpan<string> paths) =>
+        IoPath.Combine([Path, ..paths]);
 }

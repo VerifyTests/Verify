@@ -285,6 +285,8 @@
 
     #endregion
 
+#if DEBUG
+
     #region TempDirectoryBuildPath
 
     [Fact]
@@ -323,6 +325,8 @@
     }
 
     #endregion
+
+#endif
 
     // [Fact]
     // public void LockedFile()

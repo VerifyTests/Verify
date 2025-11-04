@@ -229,7 +229,7 @@ public async Task BuildPath()
     });
 }
 ```
-<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L288-L308' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryBuildPath' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L290-L310' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryBuildPath' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -251,13 +251,13 @@ public async Task Scrubbing()
     });
 }
 ```
-<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L310-L325' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryScrubbing' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L312-L327' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryScrubbing' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
 
-<!-- snippet: C:\Code\Verify\src\Verify.Tests\TempDirectoryTests.Scrubbing.verified.txt -->
-<a id='snippet-C:\Code\Verify\src\Verify.Tests\TempDirectoryTests.Scrubbing.verified.txt'></a>
+<!-- snippet: TempDirectoryTests.Scrubbing.verified.txt -->
+<a id='snippet-TempDirectoryTests.Scrubbing.verified.txt'></a>
 ```txt
 {
   PropertyWithTempPath: {TempDirectory},
@@ -265,7 +265,7 @@ Result:
   TempInStringProperty: The path is {TempDirectory}
 }
 ```
-<sup><a href='#snippet-C:\Code\Verify\src\Verify.Tests\TempDirectoryTests.Scrubbing.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.Scrubbing.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryTests.Scrubbing.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

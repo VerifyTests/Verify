@@ -102,7 +102,7 @@ snippet: TempDirectoryScrubbing
 
 Result:
 
-snippet: C:\Code\Verify\src\Verify.Tests\TempDirectoryTests.Scrubbing.verified.txt
+snippet: TempDirectoryTests.Scrubbing.verified.txt
 
 
 ### Debugging

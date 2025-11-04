@@ -17,6 +17,8 @@ public class VerifyChecksTests
     {
         invalidDirectory = GetDirectory("Invalid");
         partialDirectory = GetDirectory("Partial");
+        Assert.True(Directory.Exists(invalidDirectory));
+        Assert.True(Directory.Exists(partialDirectory));
     }
 
     [Fact]

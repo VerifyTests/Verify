@@ -204,6 +204,71 @@ public async Task VerifyDirectoryInstance()
 <!-- endSnippet -->
 
 
+### BuildPath
+
+Combines the `TempDirectory.Path` with more paths via Path.Combine.
+
+<!-- snippet: TempDirectoryBuildPath -->
+<a id='snippet-TempDirectoryBuildPath'></a>
+```cs
+[Fact]
+public async Task BuildPath()
+{
+    using var temp = new TempDirectory();
+
+    // path will be {temp.Path}/file.txt
+    var path = temp.BuildPath("file.txt");
+
+    // nestedPath will be {temp.Path}/nested/file.txt
+    var nestedPath = temp.BuildPath("nested", "file.txt");
+
+    await Verify(new
+    {
+        path,
+        nestedPath
+    });
+}
+```
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L290-L310' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryBuildPath' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### TempDirectory paths are scrubbed
+
+<!-- snippet: TempDirectoryScrubbing -->
+<a id='snippet-TempDirectoryScrubbing'></a>
+```cs
+[Fact]
+public async Task Scrubbing()
+{
+    using var temp = new TempDirectory();
+
+    await Verify(new
+    {
+        PropertyWithTempPath = temp,
+        PropertyWithTempFilePath = temp.BuildPath("file.txt"),
+        TempInStringProperty = $"The path is {temp}"
+    });
+}
+```
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L312-L327' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryScrubbing' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Result:
+
+<!-- snippet: TempDirectoryTests.Scrubbing.verified.txt -->
+<a id='snippet-TempDirectoryTests.Scrubbing.verified.txt'></a>
+```txt
+{
+  PropertyWithTempPath: {TempDirectory},
+  PropertyWithTempFilePath: {TempDirectory}\file.txt,
+  TempInStringProperty: The path is {TempDirectory}
+}
+```
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.Scrubbing.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryTests.Scrubbing.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ### Debugging
 
 Given `TempDirectory` deletes its contents on test completion (even failure), it can be difficult to debug what caused the failure.

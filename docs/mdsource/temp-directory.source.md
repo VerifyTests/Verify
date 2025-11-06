@@ -89,6 +89,22 @@ Each instance creates a unique directory using `Path.GetRandomFileName()`, makin
 snippet: VerifyTempDirectory
 
 
+### BuildPath
+
+Combines the `TempDirectory.Path` with more paths via Path.Combine.
+
+snippet: TempDirectoryBuildPath
+
+
+### TempDirectory paths are scrubbed
+
+snippet: TempDirectoryScrubbing
+
+Result:
+
+snippet: TempDirectoryTests.Scrubbing.verified.txt
+
+
 ### Debugging
 
 Given `TempDirectory` deletes its contents on test completion (even failure), it can be difficult to debug what caused the failure.

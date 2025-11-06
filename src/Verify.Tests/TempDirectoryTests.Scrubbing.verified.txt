@@ -1,0 +1,5 @@
+﻿{
+  PropertyWithTempPath: {TempDirectory},
+  PropertyWithTempFilePath: {TempDirectory}\file.txt,
+  TempInStringProperty: The path is {TempDirectory}
+}

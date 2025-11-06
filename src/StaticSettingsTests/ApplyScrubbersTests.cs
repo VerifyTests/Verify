@@ -20,7 +20,7 @@
         var settings = new VerifySettings();
         using var counter = Counter.Start();
         // Act
-        ApplyScrubbers.UseAssembly(solutionDirectory, projectDirectory);
+        DirectoryReplacements.UseAssembly(solutionDirectory, projectDirectory);
         ApplyScrubbers.ApplyForExtension(extension, builder, settings, counter);
         // Assert
         Assert.Equal("{SolutionDirectory},{ProjectDirectory}", builder.ToString());

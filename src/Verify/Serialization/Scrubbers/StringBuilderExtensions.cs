@@ -91,9 +91,8 @@
                         var nextChar = builder[endPosition];
                         if (nextChar == '/' || nextChar == '\\')
                         {
+                            // Greedily consume the separator - it will be replaced
                             matchLength++;
-                            // Characters following a directory separator are always valid
-                            // so no additional boundary check needed
                         }
                     }
 
@@ -203,26 +202,24 @@
         int position,
         int length)
     {
-        // Check previous character - must not be letter or digit
+        // Check previous character - must not be letter, digit, or directory separator
         if (position > 0)
         {
             var prevChar = builder[position - 1];
-            if (char.IsLetterOrDigit(prevChar))
+            if (char.IsLetterOrDigit(prevChar) || prevChar == '/' || prevChar == '\\')
             {
                 return false;
             }
         }
 
         // Check trailing character - must not be letter or digit
-        // UNLESS it's a directory separator (which will be included greedily)
         var endPosition = position + length;
         if (endPosition < builder.Length)
         {
             var nextChar = builder[endPosition];
 
-            // Directory separators are valid boundaries (and will be included greedily)
-            // Any character following a separator is implicitly valid
-            if (nextChar is '/' or '\\')
+            // Directory separators are valid and will be consumed greedily
+            if (nextChar == '/' || nextChar == '\\')
             {
                 return true;
             }

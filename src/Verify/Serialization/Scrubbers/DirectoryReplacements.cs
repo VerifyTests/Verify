@@ -8,7 +8,7 @@ static class DirectoryReplacements
         directory.Replace(IoHelpers.DirectorySeparator, IoHelpers.AltDirectorySeparator);
 
     public static void Replace(StringBuilder builder) =>
-        builder.ReplaceTokens(replacements);
+        builder.ReplaceDirectoryPaths(replacements);
 
     public static void UseAssembly(string? solutionDir, string projectDir)
     {

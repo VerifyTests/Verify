@@ -64,7 +64,7 @@ public void PathProperty()
     Assert.True(Path.IsPathRooted(path));
 }
 ```
-<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L230-L241' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryPathProperty' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L231-L242' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryPathProperty' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -229,7 +229,7 @@ public async Task BuildPath()
     });
 }
 ```
-<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L290-L310' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryBuildPath' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L291-L311' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryBuildPath' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -251,7 +251,7 @@ public async Task Scrubbing()
     });
 }
 ```
-<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L312-L327' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryScrubbing' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L313-L328' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryScrubbing' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -296,7 +296,7 @@ public void NoUsing()
     Debug.WriteLine(temp);
 }
 ```
-<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L273-L286' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryNoUsing' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L274-L287' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryNoUsing' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The directory can then be manually inspected.
@@ -320,7 +320,7 @@ public void OpenExplorerAndDebug()
     temp.OpenExplorerAndDebug();
 }
 ```
-<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L258-L271' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryOpenExplorerAndDebug' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L259-L272' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryOpenExplorerAndDebug' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This method is designed to help debug tests by enabling the inspection of the contents of the temporary directory while the test is paused. It performs two actions:

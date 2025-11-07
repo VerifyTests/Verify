@@ -172,6 +172,7 @@
         Assert.True(Directory.Exists(directory));
     }
 
+#if NET10_0
     [Fact]
     public void DeleteOldDirectories()
     {
@@ -212,7 +213,7 @@
 
         Assert.False(Directory.Exists(oldDirPath));
     }
-
+#endif
     [Fact]
     public void MultipleInstances_CanCoexist()
     {

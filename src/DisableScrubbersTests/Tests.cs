@@ -3,7 +3,7 @@
     static Tests()
     {
         VerifierSettings.AssignTargetAssembly(typeof(Tests).Assembly);
-        ApplyScrubbers.UseAssembly("C:/Code/TheSolution", "C:/Code/TheSolution/TheProject");
+        DirectoryReplacements.UseAssembly("C:/Code/TheSolution", "C:/Code/TheSolution/TheProject");
     }
 
     #region DisableScrubbers

@@ -52,7 +52,7 @@ public static partial class VerifierSettings
             }
 
             SolutionDir = solutionDir;
-            ApplyScrubbers.UseAssembly(solutionDir, ProjectDir);
+            DirectoryReplacements.UseAssembly(solutionDir, ProjectDir);
             VerifierSettings.assembly = assembly;
         }
     }

@@ -43,6 +43,7 @@ static class DirectoryReplacements
 
     static void AddProjectAndSolutionReplacements(string? solutionDir, string projectDir, Dictionary<string, string> replacements)
     {
+        projectDir = CleanPath(projectDir);
         if (!VerifierSettings.scrubProjectDir &&
             !VerifierSettings.scrubSolutionDir)
         {
@@ -58,6 +59,7 @@ static class DirectoryReplacements
         }
 
         replacements[projectDir] = "{ProjectDirectory}";
+        solutionDir = CleanPath(solutionDir);
         if (solutionDir.Length > 1)
         {
             replacements[solutionDir] = "{SolutionDirectory}";

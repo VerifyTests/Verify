@@ -51,7 +51,6 @@ public static partial class VerifierSettings
                 TargetsMultipleFramework = targetFrameworks.Contains(';');
             }
 
-            SolutionDir = solutionDir;
             DirectoryReplacements.UseAssembly(solutionDir, ProjectDir);
             VerifierSettings.assembly = assembly;
         }

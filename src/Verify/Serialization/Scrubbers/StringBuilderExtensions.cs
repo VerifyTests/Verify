@@ -1,118 +1,147 @@
 ﻿public static class StringBuilderExtensions
 {
-    private static readonly bool IsWindows = OperatingSystem.IsWindows();
-
     public static void ReplaceDirectoryPaths(this StringBuilder builder, List<KeyValuePair<string, string>> paths)
     {
-        foreach (var (searchPath, replacement) in paths)
+        if (builder.Length == 0 || paths.Count == 0)
+            return;
+
+        // Copy StringBuilder content using GetChunks() to avoid string allocation
+        var buffer = ArrayPool<char>.Shared.Rent(builder.Length);
+        try
         {
-            // Normalize search path to use forward slashes
-            var normalizedSearch = searchPath.Replace('\\', '/');
-
-            // Find all matches using GetChunks
-            var matches = FindDirectoryPathMatches(builder, normalizedSearch);
-
-            // Replace from end to start to keep indices valid
-            foreach (var (startIndex, length) in matches.OrderByDescending(m => m.startIndex))
+            var position = 0;
+            foreach (var chunk in builder.GetChunks())
             {
-                builder.Remove(startIndex, length);
-                builder.Insert(startIndex, replacement);
+                chunk.Span.CopyTo(buffer.AsSpan(position));
+                position += chunk.Length;
             }
+
+            var content = buffer.AsSpan(0, builder.Length);
+
+            // Find all matches for all paths
+            var replacements = new List<Replacement>();
+
+            foreach (var kvp in paths)
+            {
+                FindMatches(content, kvp.Key, kvp.Value, replacements);
+            }
+
+            // Sort by position descending to maintain indices during replacement
+            replacements.Sort((a, b) => b.Index.CompareTo(a.Index));
+
+            // Apply replacements
+            foreach (var replacement in replacements)
+            {
+                builder.Remove(replacement.Index, replacement.Length);
+                builder.Insert(replacement.Index, replacement.Value);
+            }
+        }
+        finally
+        {
+            ArrayPool<char>.Shared.Return(buffer);
         }
     }
 
-    private static List<(int startIndex, int length)> FindDirectoryPathMatches(StringBuilder builder, string normalizedSearch)
+    private static void FindMatches(
+        ReadOnlySpan<char> content,
+        string find,
+        string replace,
+        List<Replacement> replacements)
     {
-        var matches = new List<(int, int)>();
-        var chunkStartPosition = 0;
+        var searchStart = 0;
 
-        // Use GetChunks to search through the StringBuilder efficiently
-        foreach (var chunk in builder.GetChunks())
+        while (searchStart <= content.Length - find.Length)
         {
-            var span = chunk.Span;
+            var matchIndex = FindNextMatch(content, find, searchStart);
+            if (matchIndex == -1)
+                break;
 
-            // Search for potential matches in this chunk
-            for (var i = 0; i < span.Length; i++)
+            // Validate preceding character
+            if (matchIndex > 0)
             {
-                var absolutePosition = chunkStartPosition + i;
-
-                // Check if a match could start at this position
-                if (IsMatchAt(builder, absolutePosition, normalizedSearch, out var matchLength))
+                var preceding = content[matchIndex - 1];
+                if (char.IsLetterOrDigit(preceding))
                 {
-                    matches.Add((absolutePosition, matchLength));
+                    searchStart = matchIndex + 1;
+                    continue;
                 }
             }
 
-            chunkStartPosition += span.Length;
-        }
+            // Check trailing character and determine match length
+            var matchLength = find.Length;
+            var trailingIndex = matchIndex + find.Length;
 
-        return matches;
+            if (trailingIndex < content.Length)
+            {
+                var trailing = content[trailingIndex];
+
+                // Invalid if trailing is letter or digit
+                if (char.IsLetterOrDigit(trailing))
+                {
+                    searchStart = matchIndex + 1;
+                    continue;
+                }
+
+                // Greedy: include trailing separator
+                if (trailing == '/' || trailing == '\\')
+                {
+                    matchLength++;
+                }
+            }
+
+            replacements.Add(new Replacement(matchIndex, matchLength, replace));
+            searchStart = matchIndex + find.Length;
+        }
     }
 
-    private static bool IsMatchAt(StringBuilder builder, int startIndex, string normalizedSearch, out int matchLength)
+    private static int FindNextMatch(ReadOnlySpan<char> content, string find, int startIndex)
     {
-        matchLength = 0;
+        for (var i = startIndex; i <= content.Length - find.Length; i++)
+        {
+            if (IsPathMatch(content.Slice(i, find.Length), find))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
 
-        // Check if we have enough characters remaining
-        if (startIndex + normalizedSearch.Length > builder.Length)
+    private static bool IsPathMatch(ReadOnlySpan<char> span, string find)
+    {
+        if (span.Length != find.Length)
             return false;
 
-        // Match the search path (normalizing directory separators)
-        for (var i = 0; i < normalizedSearch.Length; i++)
+        for (var i = 0; i < span.Length; i++)
         {
-            var builderChar = builder[startIndex + i];
-            var normalizedBuilderChar = builderChar == '\\' ? '/' : builderChar;
+            var c1 = span[i];
+            var c2 = find[i];
 
-            if (normalizedBuilderChar != normalizedSearch[i])
-                return false;
-        }
-
-        // Validate preceding character
-        if (startIndex > 0)
-        {
-            var precedingChar = builder[startIndex - 1];
-            if (IsInvalidPrecedingChar(precedingChar))
-                return false;
-        }
-
-        // Validate and determine trailing character behavior
-        var endIndex = startIndex + normalizedSearch.Length;
-        if (endIndex < builder.Length)
-        {
-            var trailingChar = builder[endIndex];
-
-            // Invalid if followed by letter or digit
-            if (IsInvalidTrailingChar(trailingChar))
-                return false;
-
-            // Greedy: include directory separator in the match
-            if (IsDirectorySeparator(trailingChar))
+            // Treat / and \ as equivalent
+            if (c1 == '/' || c1 == '\\')
             {
-                matchLength = normalizedSearch.Length + 1;
-                return true;
+                if (c2 != '/' && c2 != '\\')
+                    return false;
+            }
+            else if (c1 != c2)
+            {
+                return false;
             }
         }
 
-        matchLength = normalizedSearch.Length;
         return true;
     }
 
-    private static bool IsInvalidPrecedingChar(char c)
+    private readonly struct Replacement
     {
-        // Letters and digits are always invalid
-        if (char.IsLetterOrDigit(c))
-            return true;
+        public readonly int Index;
+        public readonly int Length;
+        public readonly string Value;
 
-        // Directory separator is invalid on Linux/Mac, valid on Windows
-        if (IsDirectorySeparator(c))
-            return !IsWindows;
-
-        return false;
+        public Replacement(int index, int length, string value)
+        {
+            Index = index;
+            Length = length;
+            Value = value;
+        }
     }
-
-    private static bool IsInvalidTrailingChar(char c) =>
-        char.IsLetterOrDigit(c);
-
-    private static bool IsDirectorySeparator(char c) =>
-        c == '/' || c == '\\';
 }

@@ -63,7 +63,7 @@
         // Check preceding character
         if (absolutePos > 0)
         {
-            var preceding = GetCharAt(builder, absolutePos - 1);
+            var preceding = builder[absolutePos - 1];
             if (char.IsLetterOrDigit(preceding))
             {
                 return false;
@@ -85,7 +85,7 @@
             return true;
         }
 
-        var trailing = GetCharAt(builder, trailingPos);
+        var trailing = builder[trailingPos];
 
         // Invalid if trailing is letter or digit
         if (char.IsLetterOrDigit(trailing))
@@ -124,18 +124,18 @@
             // Match characters in this chunk
             for (var i = startInChunk; i < span.Length && findIndex < find.Length; i++)
             {
-                var c1 = span[i];
-                var c2 = find[findIndex];
+                var currentCh = span[i];
+                var findCh = find[findIndex];
 
                 // Treat / and \ as equivalent
-                if (c1 is '/' or '\\')
+                if (currentCh is '/' or '\\')
                 {
-                    if (c2 != '/' && c2 != '\\')
+                    if (findCh != '/' && findCh != '\\')
                     {
                         return false;
                     }
                 }
-                else if (c1 != c2)
+                else if (currentCh != findCh)
                 {
                     return false;
                 }
@@ -153,24 +153,6 @@
         }
 
         return false;
-    }
-
-    static char GetCharAt(StringBuilder builder, int absolutePos)
-    {
-        var currentPos = 0;
-
-        foreach (var chunk in builder.GetChunks())
-        {
-            var span = chunk.Span;
-            if (absolutePos < currentPos + span.Length)
-            {
-                return span[absolutePos - currentPos];
-            }
-
-            currentPos += span.Length;
-        }
-
-        throw new ArgumentOutOfRangeException(nameof(absolutePos));
     }
 
     static List<Match> RemoveOverlaps(List<Match> matches)

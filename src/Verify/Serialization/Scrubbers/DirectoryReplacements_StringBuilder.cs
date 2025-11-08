@@ -1,57 +1,59 @@
 ﻿//Assumption is that directories wonr span chunks
 static partial class DirectoryReplacements
 {
-    public readonly struct Pair(string find, string replace)
+    public readonly struct Pair
     {
-        public string Find { get; } = find;
-        public string Replace { get; } = replace;
+        public Pair(string find, string replace)
+        {
+#if DEBUG
+            if (find.Contains('\\'))
+            {
+                throw new("Slashes should be sanitized");
+            }
+#endif
+            Find = find;
+            Replace = replace;
+        }
+
+        public string Find { get; }
+        public string Replace { get; }
     }
 
     public static void Replace(StringBuilder builder, List<Pair> paths)
     {
-        if (builder.Length == 0 || paths.Count == 0)
+        if (builder.Length == 0)
         {
             return;
         }
 
-        var matches = new List<Match>();
+        var matches = FindMatches(builder, paths);
 
-        foreach (var pair in paths)
-        {
-            FindMatches(builder, pair, matches);
-        }
-
-        matches = RemoveOverlaps(matches);
+        var removeOverlaps = RemoveOverlaps(matches);
 
         // Sort by position descending
-        matches.Sort((a, b) => b.Index.CompareTo(a.Index));
+        var orderByDescending = removeOverlaps.OrderByDescending(_ => _.Index);
 
         // Apply matches
-        foreach (var match in matches)
+        foreach (var match in orderByDescending)
         {
             builder.Remove(match.Index, match.Length);
             builder.Insert(match.Index, match.Value);
         }
     }
 
-    static void FindMatches(StringBuilder builder, Pair pair, List<Match> matches)
+    static IEnumerable<Match> FindMatches(StringBuilder builder, List<Pair> paths) =>
+        paths.SelectMany(_ => FindMatches(builder, _));
+
+    static IEnumerable<Match> FindMatches(StringBuilder builder, Pair pair)
     {
-#if DEBUG
-        if (pair.Find.Contains('\\'))
-        {
-            throw new("Slashes should be sanitized");
-        }
-#endif
         var position = 0;
 
         foreach (var chunk in builder.GetChunks())
         {
-            var span = chunk.Span;
-
-            for (var i = 0; i < span.Length; i++)
+            for (var i = 0; i < chunk.Length; i++)
             {
                 // Check if we have enough characters left in this chunk
-                if (i + pair.Find.Length > span.Length)
+                if (i + pair.Find.Length > chunk.Length)
                 {
                     break;
                 }
@@ -59,24 +61,25 @@ static partial class DirectoryReplacements
                 var absolutePosition = position + i;
 
                 // Try to match at this position
-                if (TryMatchAt(span, i, pair.Find, out var matchLength))
+                if (TryMatchAt(chunk, i, pair.Find, out var matchLength))
                 {
-                    matches.Add(new(absolutePosition, matchLength, pair.Replace));
+                    yield return new(absolutePosition, matchLength, pair.Replace);
                 }
             }
 
-            position += span.Length;
+            position += chunk.Length;
         }
     }
 
-    static bool TryMatchAt(CharSpan chunk, int chunkPos, string find, out int matchLength)
+    static bool TryMatchAt(ReadOnlyMemory<char> chunk, int chunkPos, string find, out int matchLength)
     {
+        var span = chunk.Span;
         matchLength = 0;
 
         // Check preceding character
         if (chunkPos > 0)
         {
-            var preceding = chunk[chunkPos - 1];
+            var preceding = span[chunkPos - 1];
             if (char.IsLetterOrDigit(preceding))
             {
                 return false;
@@ -84,7 +87,7 @@ static partial class DirectoryReplacements
         }
 
         // Check if the path matches
-        if (!IsPathMatchAt(chunk, chunkPos, find))
+        if (!IsPathMatchAt(span, chunkPos, find))
         {
             return false;
         }
@@ -93,12 +96,12 @@ static partial class DirectoryReplacements
         matchLength = find.Length;
         var trailingPos = chunkPos + find.Length;
 
-        if (trailingPos >= chunk.Length)
+        if (trailingPos >= span.Length)
         {
             return true;
         }
 
-        var trailing = chunk[trailingPos];
+        var trailing = span[trailingPos];
 
         // Invalid if trailing is letter or digit
         if (char.IsLetterOrDigit(trailing))
@@ -139,39 +142,23 @@ static partial class DirectoryReplacements
         return true;
     }
 
-    static List<Match> RemoveOverlaps(List<Match> matches)
+    static IEnumerable<Match> RemoveOverlaps(IEnumerable<Match> matches)
     {
-        if (matches.Count <= 1)
-        {
-            return matches;
-        }
-
-        // Sort by index, then by length descending (prefer longer matches)
-        matches.Sort((a, b) =>
-        {
-            var indexCompare = a.Index.CompareTo(b.Index);
-            if (indexCompare != 0)
-            {
-                return indexCompare;
-            }
-
-            return b.Length.CompareTo(a.Length);
-        });
-
-        var result = new List<Match>();
         var lastEnd = -1;
 
-        foreach (var match in matches)
+        foreach (var match in matches
+                     .OrderBy(_ => _.Index)
+                     .ThenByDescending(_ => _.Length))
         {
-            // If this match doesn't overlap with the last one, keep it
-            if (match.Index >= lastEnd)
+            // If this match overlaps with the last one, discard it
+            if (match.Index < lastEnd)
             {
-                result.Add(match);
-                lastEnd = match.Index + match.Length;
+                continue;
             }
-        }
 
-        return result;
+            yield return match;
+            lastEnd = match.Index + match.Length;
+        }
     }
 
     readonly struct Match(int index, int length, string value)

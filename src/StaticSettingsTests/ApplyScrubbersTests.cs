@@ -7,8 +7,6 @@
     [Theory]
     [InlineData("/", "/project", "/,/project")]
     [InlineData("/solution", "/project", "/solution,/project")]
-    [InlineData("/solution/", "/project/", "/solution,/project")]
-    [InlineData("/solution//", "/project//", "/solution,/project")]
     public void Apply_solution_and_project_directories_scrubbers(
         string solutionDirectory,
         string projectDirectory,

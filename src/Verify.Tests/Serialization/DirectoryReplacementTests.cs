@@ -7,30 +7,19 @@
     [InlineData(@"C:\path", "C:/path", "{replace}")]
     [InlineData(@"\C:\path", "C:/path", @"\{replace}")]
     [InlineData(@"C:\path\", "C:/path", "{replace}")]
-    [InlineData("C:/path", @"C:\path", "{replace}")]
-    [InlineData("C:/path/", @"C:\path", "{replace}")]
-    [InlineData(@"C:\path", @"C:\path", "{replace}")]
-    [InlineData(@"C:\path\", @"C:\path", "{replace}")]
     [InlineData("C:/path/a", "C:/path", "{replace}a")]
     [InlineData(@"C:\path\a", "C:/path", "{replace}a")]
-    [InlineData("C:/path/a", @"C:\path", "{replace}a")]
-    [InlineData(@"C:\path\a", @"C:\path", "{replace}a")]
     [InlineData("C:/path/a/", "C:/path", "{replace}a/")]
     [InlineData(@"C:\path\a/", "C:/path", "{replace}a/")]
-    [InlineData("C:/path/a/", @"C:\path", "{replace}a/")]
-    [InlineData(@"C:\path\a/", @"C:\path", "{replace}a/")]
     [InlineData("C:/path/ ", "C:/path", "{replace} ")]
     [InlineData(@"C:\path ", "C:/path", "{replace} ")]
     [InlineData(@"C:\path\ ", "C:/path", "{replace} ")]
-    [InlineData("C:/path ", @"C:\path", "{replace} ")]
-    [InlineData("C:/path/ ", @"C:\path", "{replace} ")]
-    [InlineData(@"C:\path ", @"C:\path", "{replace} ")]
-    [InlineData(@"C:\path\ ", @"C:\path", "{replace} ")]
-    [InlineData(@"\C:\path\ ", @"C:\path", @"\{replace} ")]
-    [InlineData(@"/C:\path\ ", @"C:\path", "/{replace} ")]
-    [InlineData(@":C:\path\ ", @"C:\path", ":{replace} ")]
-    [InlineData(@" C:\path\ ", @"C:\path", " {replace} ")]
-    [InlineData(@" C:\path\", @"C:\path", " {replace}")]
+    [InlineData("C:/path ", "C:/path", "{replace} ")]
+    [InlineData(@"\C:\path\ ", "C:/path", @"\{replace} ")]
+    [InlineData(@"/C:\path\ ", "C:/path", "/{replace} ")]
+    [InlineData(@":C:\path\ ", "C:/path", ":{replace} ")]
+    [InlineData(@" C:\path\ ", "C:/path", " {replace} ")]
+    [InlineData(@" C:\path\", "C:/path", " {replace}")]
     [InlineData("overlyeager/tmp/replacement", "/tmp", "overlyeager/tmp/replacement")]
     public void BasicReplacements(string input, string find, string expected)
     {
@@ -45,8 +34,8 @@
     {
         List<DirectoryReplacements.Pair> keyValuePairs =
         [
-            new(@"C:\Parent\Child", "{Child}"),
-            new(@"C:\Parent", "{Parent}"),
+            new("C:/Parent/Child", "{Child}"),
+            new("C:/Parent", "{Parent}"),
         ];
         var builder = new StringBuilder(@"C:\Parent\Child\Dir");
         DirectoryReplacements.Replace(builder, keyValuePairs);
@@ -58,8 +47,8 @@
     {
         List<DirectoryReplacements.Pair> keyValuePairs =
         [
-            new(@"C:\Parent", "{Parent}"),
-            new(@"C:\Parent\Child", "{Child}"),
+            new("C:/Parent", "{Parent}"),
+            new("C:/Parent/Child", "{Child}"),
         ];
         var builder = new StringBuilder(@"C:\Parent\Child\Dir");
         DirectoryReplacements.Replace(builder, keyValuePairs);
@@ -71,8 +60,8 @@
     {
         List<DirectoryReplacements.Pair> keyValuePairs =
         [
-            new(@"C:\Path1", "{Path1}"),
-            new(@"D:\Path2", "{Path2}"),
+            new("C:/Path1", "{Path1}"),
+            new("D:/Path2", "{Path2}"),
         ];
         var builder = new StringBuilder(@"C:\Path1\file.txt and D:\Path2\other.txt");
         DirectoryReplacements.Replace(builder, keyValuePairs);
@@ -84,7 +73,7 @@
     {
         List<DirectoryReplacements.Pair> keyValuePairs =
         [
-            new(@"C:\NotFound", "{replace}"),
+            new("C:/NotFound", "{replace}"),
         ];
         var builder = new StringBuilder(@"C:\Different\Path");
         DirectoryReplacements.Replace(builder, keyValuePairs);
@@ -96,7 +85,7 @@
     {
         List<DirectoryReplacements.Pair> keyValuePairs =
         [
-            new(@"C:\Path", "{replace}"),
+            new("C:/Path", "{replace}"),
         ];
         var builder = new StringBuilder();
         DirectoryReplacements.Replace(builder, keyValuePairs);
@@ -141,7 +130,7 @@
     public void LargeString_CrossChunkMatching()
     {
         // Create a string that will definitely span multiple chunks
-        var largePath = @"C:\VeryLongPath";
+        var largePath = "C:/VeryLongPath";
         // Force multiple chunks
         var padding = new string(' ', 8192);
 
@@ -160,7 +149,7 @@
     {
         List<DirectoryReplacements.Pair> keyValuePairs =
         [
-            new(@"C:\Path", "{Path}"),
+            new("C:/Path", "{Path}"),
         ];
         var builder = new StringBuilder(@"C:\Path\a.txt and C:\Path\b.txt");
         DirectoryReplacements.Replace(builder, keyValuePairs);
@@ -172,9 +161,9 @@
     {
         List<DirectoryReplacements.Pair> keyValuePairs =
         [
-            new(@"C:\A", "{A}"),
-            new(@"C:\A\B", "{B}"),
-            new(@"C:\A\B\C", "{C}"),
+            new("C:/A", "{A}"),
+            new("C:/A/B", "{B}"),
+            new("C:/A/B/C", "{C}"),
         ];
         var builder = new StringBuilder(@"C:\A\B\C\file.txt");
         DirectoryReplacements.Replace(builder, keyValuePairs);
@@ -186,8 +175,8 @@
     {
         List<DirectoryReplacements.Pair> keyValuePairs =
         [
-            new(@"C:\A", "{A}"),
-            new(@"D:\B", "{B}"),
+            new("C:/A", "{A}"),
+            new("D:/B", "{B}"),
         ];
         var builder = new StringBuilder(@"C:\A\file.txt in D:\B\other.txt");
         DirectoryReplacements.Replace(builder, keyValuePairs);
@@ -199,7 +188,7 @@
     {
         List<DirectoryReplacements.Pair> keyValuePairs =
         [
-            new(@"C:\Path", "{replace}"),
+            new("C:/Path", "{replace}"),
         ];
         var builder = new StringBuilder(@"C:\Path\file.txt");
         DirectoryReplacements.Replace(builder, keyValuePairs);
@@ -211,7 +200,7 @@
     {
         List<DirectoryReplacements.Pair> keyValuePairs =
         [
-            new(@"C:\Path", "{replace}"),
+            new("C:/Path", "{replace}"),
         ];
         var builder = new StringBuilder(@"Prefix C:\Path");
         DirectoryReplacements.Replace(builder, keyValuePairs);
@@ -223,7 +212,7 @@
     {
         List<DirectoryReplacements.Pair> keyValuePairs =
         [
-            new(@"C:\Path", "{replace}"),
+            new("C:/Path", "{replace}"),
         ];
         var builder = new StringBuilder(@"Prefix C:\Path\");
         DirectoryReplacements.Replace(builder, keyValuePairs);
@@ -235,7 +224,7 @@
     {
         List<DirectoryReplacements.Pair> keyValuePairs =
         [
-            new(@"C:\Path", "{replace}"),
+            new("C:/Path", "{replace}"),
         ];
         var builder = new StringBuilder(@"C:\Path\\file.txt");
         DirectoryReplacements.Replace(builder, keyValuePairs);
@@ -271,7 +260,7 @@
     {
         List<DirectoryReplacements.Pair> keyValuePairs =
         [
-            new(@"C:\Path", "{replace}"),
+            new("C:/Path", "{replace}"),
         ];
         var builder = new StringBuilder(
             """
@@ -288,7 +277,7 @@
     [Fact]
     public void VeryLongPath()
     {
-        var longPath = $@"C:\{string.Join(@"\", Enumerable.Range(1, 50).Select(i => $"Dir{i}"))}";
+        var longPath = $"C:/{string.Join('/', Enumerable.Range(1, 50).Select(i => $"Dir{i}"))}";
         List<DirectoryReplacements.Pair> keyValuePairs =
         [
             new(longPath, "{long}"),
@@ -303,7 +292,7 @@
     {
         List<DirectoryReplacements.Pair> keyValuePairs =
         [
-            new(@"C:\Program Files", "{pf}"),
+            new("C:/Program Files", "{pf}"),
         ];
         var builder = new StringBuilder(@"C:\Program Files\App\file.txt");
         DirectoryReplacements.Replace(builder, keyValuePairs);

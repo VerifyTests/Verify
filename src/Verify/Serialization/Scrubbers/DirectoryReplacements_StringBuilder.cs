@@ -35,6 +35,13 @@
 
     static void FindMatches(StringBuilder builder, Pair pair, List<Match> matches)
     {
+        #if DEBUG
+        if (pair.Find.Contains('\\'))
+        {
+            throw new("Slashes should be sanitized");
+        }
+        #endif
+
         var position = 0;
 
         foreach (var chunk in builder.GetChunks())

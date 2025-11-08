@@ -1,39 +1,33 @@
 ﻿static partial class DirectoryReplacements
 {
-    public static void Replace(StringBuilder builder, List<KeyValuePair<string, string>> paths)
+    public static void Replace(StringBuilder builder, List<Pair> paths)
     {
         if (builder.Length == 0 || paths.Count == 0)
         {
             return;
         }
 
-        var matches = new List<Replacement>();
+        var matches = new List<Match>();
 
-        // Find all matches
-        foreach (var kvp in paths)
+        foreach (var pair in paths)
         {
-            FindMatches(builder, kvp.Key, kvp.Value, matches);
+            FindMatches(builder, pair, matches);
         }
 
-        // Remove overlaps
         matches = RemoveOverlaps(matches);
 
         // Sort by position descending
         matches.Sort((a, b) => b.Index.CompareTo(a.Index));
 
-        // Apply replacements
-        foreach (var replacement in matches)
+        // Apply matches
+        foreach (var match in matches)
         {
-            builder.Remove(replacement.Index, replacement.Length);
-            builder.Insert(replacement.Index, replacement.Value);
+            builder.Remove(match.Index, match.Length);
+            builder.Insert(match.Index, match.Value);
         }
     }
 
-    static void FindMatches(
-        StringBuilder builder,
-        string find,
-        string replace,
-        List<Replacement> matches)
+    static void FindMatches(StringBuilder builder, Pair pair, List<Match> matches)
     {
         var position = 0;
 
@@ -43,18 +37,18 @@
 
             for (var i = 0; i < span.Length; i++)
             {
-                var absolutePos = position + i;
+                var absolutePosition = position + i;
 
                 // Check if we have enough characters left
-                if (absolutePos + find.Length > builder.Length)
+                if (absolutePosition + pair.Find.Length > builder.Length)
                 {
                     break;
                 }
 
                 // Try to match at this position
-                if (TryMatchAt(builder, absolutePos, find, out var matchLength))
+                if (TryMatchAt(builder, absolutePosition, pair.Find, out var matchLength))
                 {
-                    matches.Add(new(absolutePos, matchLength, replace));
+                    matches.Add(new(absolutePosition, matchLength, pair.Replace));
                 }
             }
 
@@ -62,11 +56,7 @@
         }
     }
 
-    static bool TryMatchAt(
-        StringBuilder builder,
-        int absolutePos,
-        string find,
-        out int matchLength)
+    static bool TryMatchAt(StringBuilder builder, int absolutePos, string find, out int matchLength)
     {
         matchLength = 0;
 
@@ -90,21 +80,23 @@
         matchLength = find.Length;
         var trailingPos = absolutePos + find.Length;
 
-        if (trailingPos < builder.Length)
+        if (trailingPos >= builder.Length)
         {
-            var trailing = GetCharAt(builder, trailingPos);
+            return true;
+        }
 
-            // Invalid if trailing is letter or digit
-            if (char.IsLetterOrDigit(trailing))
-            {
-                return false;
-            }
+        var trailing = GetCharAt(builder, trailingPos);
 
-            // Greedy: include trailing separator
-            if (trailing is '/' or '\\')
-            {
-                matchLength++;
-            }
+        // Invalid if trailing is letter or digit
+        if (char.IsLetterOrDigit(trailing))
+        {
+            return false;
+        }
+
+        // Greedy: include trailing separator
+        if (trailing is '/' or '\\')
+        {
+            matchLength++;
         }
 
         return true;
@@ -153,7 +145,9 @@
 
             // If we've matched everything, we're done
             if (findIndex == find.Length)
+            {
                 return true;
+            }
 
             currentPos += span.Length;
         }
@@ -179,39 +173,42 @@
         throw new ArgumentOutOfRangeException(nameof(absolutePos));
     }
 
-    static List<Replacement> RemoveOverlaps(List<Replacement> replacements)
+    static List<Match> RemoveOverlaps(List<Match> matches)
     {
-        if (replacements.Count <= 1)
+        if (matches.Count <= 1)
         {
-            return replacements;
+            return matches;
         }
 
         // Sort by index, then by length descending (prefer longer matches)
-        replacements.Sort((a, b) =>
+        matches.Sort((a, b) =>
         {
             var indexCompare = a.Index.CompareTo(b.Index);
             if (indexCompare != 0)
+            {
                 return indexCompare;
+            }
+
             return b.Length.CompareTo(a.Length);
         });
 
-        var result = new List<Replacement>();
+        var result = new List<Match>();
         var lastEnd = -1;
 
-        foreach (var replacement in replacements)
+        foreach (var match in matches)
         {
-            // If this replacement doesn't overlap with the last one, keep it
-            if (replacement.Index >= lastEnd)
+            // If this match doesn't overlap with the last one, keep it
+            if (match.Index >= lastEnd)
             {
-                result.Add(replacement);
-                lastEnd = replacement.Index + replacement.Length;
+                result.Add(match);
+                lastEnd = match.Index + match.Length;
             }
         }
 
         return result;
     }
 
-    private readonly struct Replacement(int index, int length, string value)
+    readonly struct Match(int index, int length, string value)
     {
         public readonly int Index = index;
         public readonly int Length = length;

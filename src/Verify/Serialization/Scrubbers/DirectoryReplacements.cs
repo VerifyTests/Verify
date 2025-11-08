@@ -2,20 +2,20 @@
 
 static partial class DirectoryReplacements
 {
-    public readonly struct KeyValuePair<TKey, TValue>(string key, string value)
+    public readonly struct Pair(string find, string replace)
     {
-        public string Key { get; } = key;
-        public string Value { get; } = value;
+        public string Find { get; } = find;
+        public string Replace { get; } = replace;
     }
 
-    static List<KeyValuePair<string, string>> replacements = [];
+    static List<Pair> items = [];
 
     public static void Replace(StringBuilder builder) =>
-        Replace(builder, replacements);
+        Replace(builder, items);
 
     public static void UseAssembly(string? solutionDir, string projectDir)
     {
-        var values = new List<KeyValuePair<string, string>>();
+        var values = new List<Pair>();
         var baseDir = CleanPath(AppDomain.CurrentDomain.BaseDirectory!);
         values.Add(new (baseDir, "{CurrentDirectory}"));
 
@@ -42,12 +42,12 @@ static partial class DirectoryReplacements
         }
 
         AddProjectAndSolutionReplacements(solutionDir, projectDir, values);
-        replacements = values
-            .OrderByDescending(_ => _.Key.Length)
+        items = values
+            .OrderByDescending(_ => _.Find.Length)
             .ToList();
     }
 
-    static void AddProjectAndSolutionReplacements(string? solutionDir, string projectDir, List<KeyValuePair<string, string>> replacements)
+    static void AddProjectAndSolutionReplacements(string? solutionDir, string projectDir, List<Pair> replacements)
     {
         projectDir = CleanPath(projectDir);
         if (!VerifierSettings.scrubProjectDir &&

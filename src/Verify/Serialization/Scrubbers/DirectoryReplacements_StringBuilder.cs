@@ -35,6 +35,13 @@
 
     static void FindMatches(StringBuilder builder, Pair pair, List<Match> matches)
     {
+        #if DEBUG
+        if (pair.Find.Contains('\\'))
+        {
+            throw new("Slashes should be sanitized");
+        }
+        #endif
+
         var position = 0;
 
         foreach (var chunk in builder.GetChunks())
@@ -43,16 +50,16 @@
 
             for (var i = 0; i < span.Length; i++)
             {
-                // Check if we have enough characters left in this chunk
-                if (i + pair.Find.Length > span.Length)
+                var absolutePosition = position + i;
+
+                // Check if we have enough characters left
+                if (absolutePosition + pair.Find.Length > builder.Length)
                 {
                     break;
                 }
 
-                var absolutePosition = position + i;
-
                 // Try to match at this position
-                if (TryMatchAt(builder, span, absolutePosition, i, pair.Find, out var matchLength))
+                if (TryMatchAt(builder, absolutePosition, pair.Find, out var matchLength))
                 {
                     matches.Add(new(absolutePosition, matchLength, pair.Replace));
                 }
@@ -62,7 +69,7 @@
         }
     }
 
-    static bool TryMatchAt(StringBuilder builder, ReadOnlySpan<char> chunk, int absolutePos, int chunkPos, string find, out int matchLength)
+    static bool TryMatchAt(StringBuilder builder, int absolutePos, string find, out int matchLength)
     {
         matchLength = 0;
 
@@ -77,7 +84,7 @@
         }
 
         // Check if the path matches
-        if (!IsPathMatchAt(chunk, chunkPos, find))
+        if (!IsPathMatchAt(builder, absolutePos, find))
         {
             return false;
         }
@@ -108,28 +115,57 @@
         return true;
     }
 
-    static bool IsPathMatchAt(ReadOnlySpan<char> chunk, int chunkPos, string find)
+    static bool IsPathMatchAt(StringBuilder builder, int absolutePos, string find)
     {
-        for (var i = 0; i < find.Length; i++)
-        {
-            var currentCh = chunk[chunkPos + i];
-            var findCh = find[i];
+        var findIndex = 0;
+        var currentPos = 0;
 
-            // Treat / and \ as equivalent
-            if (currentCh is '/' or '\\')
+        foreach (var chunk in builder.GetChunks())
+        {
+            var span = chunk.Span;
+
+            // Skip chunks before our start position
+            if (currentPos + span.Length <= absolutePos)
             {
-                if (findCh != '/')
+                currentPos += span.Length;
+                continue;
+            }
+
+            // Determine where to start in this chunk
+            var startInChunk = Math.Max(0, absolutePos - currentPos);
+
+            // Match characters in this chunk
+            for (var i = startInChunk; i < span.Length && findIndex < find.Length; i++)
+            {
+                var currentCh = span[i];
+                var findCh = find[findIndex];
+
+                // Treat / and \ as equivalent
+                if (currentCh is '/' or '\\')
+                {
+                    if (findCh != '/')
+                    {
+                        return false;
+                    }
+                }
+                else if (currentCh != findCh)
                 {
                     return false;
                 }
+
+                findIndex++;
             }
-            else if (currentCh != findCh)
+
+            // If we've matched everything, we're done
+            if (findIndex == find.Length)
             {
-                return false;
+                return true;
             }
+
+            currentPos += span.Length;
         }
 
-        return true;
+        return false;
     }
 
     static List<Match> RemoveOverlaps(List<Match> matches)

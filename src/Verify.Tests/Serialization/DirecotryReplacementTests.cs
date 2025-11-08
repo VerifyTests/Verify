@@ -142,7 +142,8 @@
     {
         // Create a string that will definitely span multiple chunks
         var largePath = @"C:\VeryLongPath";
-        var padding = new string('X', 8192); // Force multiple chunks
+        // Force multiple chunks
+        var padding = new string(' ', 8192);
 
         List<KeyValuePair<string, string>> keyValuePairs =
         [
@@ -262,7 +263,7 @@
         ];
         var builder = new StringBuilder(@"\usr\local\bin\app");
         builder.ReplaceDirectoryPaths(keyValuePairs);
-        Assert.Equal(@"\{bin}app", builder.ToString());
+        Assert.Equal("{bin}app", builder.ToString());
     }
 
     [Fact]

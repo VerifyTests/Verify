@@ -1,11 +1,11 @@
 // ReSharper disable RedundantSuppressNullableWarningExpression
 
-static class DirectoryReplacements
+static partial class DirectoryReplacements
 {
     static List<KeyValuePair<string, string>> replacements = [];
 
     public static void Replace(StringBuilder builder) =>
-        builder.ReplaceDirectoryPaths(replacements);
+        Replace(builder, replacements);
 
     public static void UseAssembly(string? solutionDir, string projectDir)
     {

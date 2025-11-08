@@ -1,37 +1,39 @@
-﻿public static class StringBuilderExtensions
+﻿static partial class DirectoryReplacements
 {
-    public static void ReplaceDirectoryPaths(this StringBuilder builder, List<KeyValuePair<string, string>> paths)
+    public static void Replace(StringBuilder builder, List<KeyValuePair<string, string>> paths)
     {
         if (builder.Length == 0 || paths.Count == 0)
+        {
             return;
+        }
 
-        var replacements = new List<Replacement>();
+        var matches = new List<Replacement>();
 
         // Find all matches
         foreach (var kvp in paths)
         {
-            FindMatches(builder, kvp.Key, kvp.Value, replacements);
+            FindMatches(builder, kvp.Key, kvp.Value, matches);
         }
 
         // Remove overlaps
-        replacements = RemoveOverlaps(replacements);
+        matches = RemoveOverlaps(matches);
 
         // Sort by position descending
-        replacements.Sort((a, b) => b.Index.CompareTo(a.Index));
+        matches.Sort((a, b) => b.Index.CompareTo(a.Index));
 
         // Apply replacements
-        foreach (var replacement in replacements)
+        foreach (var replacement in matches)
         {
             builder.Remove(replacement.Index, replacement.Length);
             builder.Insert(replacement.Index, replacement.Value);
         }
     }
 
-    private static void FindMatches(
+    static void FindMatches(
         StringBuilder builder,
         string find,
         string replace,
-        List<Replacement> replacements)
+        List<Replacement> matches)
     {
         var position = 0;
 
@@ -45,12 +47,14 @@
 
                 // Check if we have enough characters left
                 if (absolutePos + find.Length > builder.Length)
+                {
                     break;
+                }
 
                 // Try to match at this position
                 if (TryMatchAt(builder, absolutePos, find, out var matchLength))
                 {
-                    replacements.Add(new Replacement(absolutePos, matchLength, replace));
+                    matches.Add(new(absolutePos, matchLength, replace));
                 }
             }
 
@@ -58,7 +62,7 @@
         }
     }
 
-    private static bool TryMatchAt(
+    static bool TryMatchAt(
         StringBuilder builder,
         int absolutePos,
         string find,
@@ -71,12 +75,16 @@
         {
             var preceding = GetCharAt(builder, absolutePos - 1);
             if (char.IsLetterOrDigit(preceding))
+            {
                 return false;
+            }
         }
 
         // Check if the path matches
         if (!IsPathMatchAt(builder, absolutePos, find))
+        {
             return false;
+        }
 
         // Check trailing character
         matchLength = find.Length;
@@ -88,17 +96,21 @@
 
             // Invalid if trailing is letter or digit
             if (char.IsLetterOrDigit(trailing))
+            {
                 return false;
+            }
 
             // Greedy: include trailing separator
-            if (trailing == '/' || trailing == '\\')
+            if (trailing is '/' or '\\')
+            {
                 matchLength++;
+            }
         }
 
         return true;
     }
 
-    private static bool IsPathMatchAt(StringBuilder builder, int absolutePos, string find)
+    static bool IsPathMatchAt(StringBuilder builder, int absolutePos, string find)
     {
         var findIndex = 0;
         var currentPos = 0;
@@ -124,10 +136,12 @@
                 var c2 = find[findIndex];
 
                 // Treat / and \ as equivalent
-                if (c1 == '/' || c1 == '\\')
+                if (c1 is '/' or '\\')
                 {
                     if (c2 != '/' && c2 != '\\')
+                    {
                         return false;
+                    }
                 }
                 else if (c1 != c2)
                 {
@@ -147,7 +161,7 @@
         return false;
     }
 
-    private static char GetCharAt(StringBuilder builder, int absolutePos)
+    static char GetCharAt(StringBuilder builder, int absolutePos)
     {
         var currentPos = 0;
 
@@ -158,16 +172,19 @@
             {
                 return span[absolutePos - currentPos];
             }
+
             currentPos += span.Length;
         }
 
         throw new ArgumentOutOfRangeException(nameof(absolutePos));
     }
 
-    private static List<Replacement> RemoveOverlaps(List<Replacement> replacements)
+    static List<Replacement> RemoveOverlaps(List<Replacement> replacements)
     {
         if (replacements.Count <= 1)
+        {
             return replacements;
+        }
 
         // Sort by index, then by length descending (prefer longer matches)
         replacements.Sort((a, b) =>
@@ -194,17 +211,10 @@
         return result;
     }
 
-    private readonly struct Replacement
+    private readonly struct Replacement(int index, int length, string value)
     {
-        public readonly int Index;
-        public readonly int Length;
-        public readonly string Value;
-
-        public Replacement(int index, int length, string value)
-        {
-            Index = index;
-            Length = length;
-            Value = value;
-        }
+        public readonly int Index = index;
+        public readonly int Length = length;
+        public readonly string Value = value;
     }
 }

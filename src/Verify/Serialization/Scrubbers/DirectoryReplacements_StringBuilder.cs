@@ -130,7 +130,7 @@
                 // Treat / and \ as equivalent
                 if (currentCh is '/' or '\\')
                 {
-                    if (findCh != '/' && findCh != '\\')
+                    if (findCh != '/')
                     {
                         return false;
                     }

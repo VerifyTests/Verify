@@ -17,10 +17,10 @@ static partial class DirectoryReplacements
     {
         var values = new List<Pair>();
         var baseDir = CleanPath(AppDomain.CurrentDomain.BaseDirectory!);
-        values.Add(new (baseDir, "{CurrentDirectory}"));
+        values.Add(new(baseDir, "{CurrentDirectory}"));
 
         var currentDir = CleanPath(Environment.CurrentDirectory);
-        values.Add(new (currentDir, "{CurrentDirectory}"));
+        values.Add(new(currentDir, "{CurrentDirectory}"));
 #if !NET6_0_OR_GREATER
         if (CodeBaseLocation.CurrentDirectory is not null)
         {
@@ -30,14 +30,14 @@ static partial class DirectoryReplacements
 #endif
 
         var tempPath = CleanPath(Path.GetTempPath());
-        values.Add(new (tempPath, "{TempPath}"));
+        values.Add(new(tempPath, "{TempPath}"));
 
         if (VerifierSettings.scrubUserProfile)
         {
             var profileDir = CleanPath(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
             if (!string.IsNullOrWhiteSpace(profileDir))
             {
-                values.Add(new (profileDir, "{UserProfile}"));
+                values.Add(new(profileDir, "{UserProfile}"));
             }
         }
 
@@ -73,5 +73,5 @@ static partial class DirectoryReplacements
     }
 
     static string CleanPath(string directory) =>
-        directory.TrimEnd('/', '\\');
+        directory.Replace('\\', '/').TrimEnd('/');
 }

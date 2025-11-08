@@ -31,6 +31,7 @@
     [InlineData(@":C:\path\ ", @"C:\path", ":{replace} ")]
     [InlineData(@" C:\path\ ", @"C:\path", " {replace} ")]
     [InlineData(@" C:\path\", @"C:\path", " {replace}")]
+    [InlineData("overlyeager/tmp/replacement", "/tmp", "overlyeager/tmp/replacement")]
     public void BasicReplacements(string input, string find, string expected)
     {
         List<KeyValuePair<string, string>> keyValuePairs = [new(find, "{replace}")];

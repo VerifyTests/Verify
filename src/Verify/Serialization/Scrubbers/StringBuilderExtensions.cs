@@ -5,44 +5,163 @@
         if (builder.Length == 0 || paths.Count == 0)
             return;
 
-        // Copy StringBuilder content using GetChunks() to avoid string allocation
-        var buffer = ArrayPool<char>.Shared.Rent(builder.Length);
-        try
+        var replacements = new List<Replacement>();
+
+        // Find all matches
+        foreach (var kvp in paths)
         {
-            var position = 0;
-            foreach (var chunk in builder.GetChunks())
-            {
-                chunk.Span.CopyTo(buffer.AsSpan(position));
-                position += chunk.Length;
-            }
-
-            var content = buffer.AsSpan(0, builder.Length);
-
-            // Find all matches for all paths
-            var replacements = new List<Replacement>();
-
-            foreach (var kvp in paths)
-            {
-                FindMatches(content, kvp.Key, kvp.Value, replacements);
-            }
-
-            // Remove overlapping matches, keeping the longest one
-            replacements = RemoveOverlaps(replacements);
-
-            // Sort by position descending to maintain indices during replacement
-            replacements.Sort((a, b) => b.Index.CompareTo(a.Index));
-
-            // Apply replacements
-            foreach (var replacement in replacements)
-            {
-                builder.Remove(replacement.Index, replacement.Length);
-                builder.Insert(replacement.Index, replacement.Value);
-            }
+            FindMatches(builder, kvp.Key, kvp.Value, replacements);
         }
-        finally
+
+        // Remove overlaps
+        replacements = RemoveOverlaps(replacements);
+
+        // Sort by position descending
+        replacements.Sort((a, b) => b.Index.CompareTo(a.Index));
+
+        // Apply replacements
+        foreach (var replacement in replacements)
         {
-            ArrayPool<char>.Shared.Return(buffer);
+            builder.Remove(replacement.Index, replacement.Length);
+            builder.Insert(replacement.Index, replacement.Value);
         }
+    }
+
+    private static void FindMatches(
+        StringBuilder builder,
+        string find,
+        string replace,
+        List<Replacement> replacements)
+    {
+        var position = 0;
+
+        foreach (var chunk in builder.GetChunks())
+        {
+            var span = chunk.Span;
+
+            for (var i = 0; i < span.Length; i++)
+            {
+                var absolutePos = position + i;
+
+                // Check if we have enough characters left
+                if (absolutePos + find.Length > builder.Length)
+                    break;
+
+                // Try to match at this position
+                if (TryMatchAt(builder, absolutePos, find, out var matchLength))
+                {
+                    replacements.Add(new Replacement(absolutePos, matchLength, replace));
+                }
+            }
+
+            position += span.Length;
+        }
+    }
+
+    private static bool TryMatchAt(
+        StringBuilder builder,
+        int absolutePos,
+        string find,
+        out int matchLength)
+    {
+        matchLength = 0;
+
+        // Check preceding character
+        if (absolutePos > 0)
+        {
+            var preceding = GetCharAt(builder, absolutePos - 1);
+            if (char.IsLetterOrDigit(preceding))
+                return false;
+        }
+
+        // Check if the path matches
+        if (!IsPathMatchAt(builder, absolutePos, find))
+            return false;
+
+        // Check trailing character
+        matchLength = find.Length;
+        var trailingPos = absolutePos + find.Length;
+
+        if (trailingPos < builder.Length)
+        {
+            var trailing = GetCharAt(builder, trailingPos);
+
+            // Invalid if trailing is letter or digit
+            if (char.IsLetterOrDigit(trailing))
+                return false;
+
+            // Greedy: include trailing separator
+            if (trailing == '/' || trailing == '\\')
+                matchLength++;
+        }
+
+        return true;
+    }
+
+    private static bool IsPathMatchAt(StringBuilder builder, int absolutePos, string find)
+    {
+        var findIndex = 0;
+        var currentPos = 0;
+
+        foreach (var chunk in builder.GetChunks())
+        {
+            var span = chunk.Span;
+
+            // Skip chunks before our start position
+            if (currentPos + span.Length <= absolutePos)
+            {
+                currentPos += span.Length;
+                continue;
+            }
+
+            // Determine where to start in this chunk
+            var startInChunk = Math.Max(0, absolutePos - currentPos);
+
+            // Match characters in this chunk
+            for (var i = startInChunk; i < span.Length && findIndex < find.Length; i++)
+            {
+                var c1 = span[i];
+                var c2 = find[findIndex];
+
+                // Treat / and \ as equivalent
+                if (c1 == '/' || c1 == '\\')
+                {
+                    if (c2 != '/' && c2 != '\\')
+                        return false;
+                }
+                else if (c1 != c2)
+                {
+                    return false;
+                }
+
+                findIndex++;
+            }
+
+            // If we've matched everything, we're done
+            if (findIndex == find.Length)
+                return true;
+
+            currentPos += span.Length;
+        }
+
+        return false;
+    }
+
+    private static char GetCharAt(StringBuilder builder, int absolutePos)
+    {
+        var currentPos = 0;
+
+        foreach (var chunk in builder.GetChunks())
+        {
+            var span = chunk.Span;
+            if (absolutePos < currentPos + span.Length)
+            {
+                return span[absolutePos - currentPos];
+            }
+            currentPos += span.Length;
+        }
+
+        throw new ArgumentOutOfRangeException(nameof(absolutePos));
     }
 
     private static List<Replacement> RemoveOverlaps(List<Replacement> replacements)
@@ -73,95 +192,6 @@
         }
 
         return result;
-    }
-
-    private static void FindMatches(
-        ReadOnlySpan<char> content,
-        string find,
-        string replace,
-        List<Replacement> replacements)
-    {
-        var searchStart = 0;
-
-        while (searchStart <= content.Length - find.Length)
-        {
-            var matchIndex = FindNextMatch(content, find, searchStart);
-            if (matchIndex == -1)
-                break;
-
-            // Validate preceding character
-            if (matchIndex > 0)
-            {
-                var preceding = content[matchIndex - 1];
-                if (char.IsLetterOrDigit(preceding))
-                {
-                    searchStart = matchIndex + 1;
-                    continue;
-                }
-            }
-
-            // Check trailing character and determine match length
-            var matchLength = find.Length;
-            var trailingIndex = matchIndex + find.Length;
-
-            if (trailingIndex < content.Length)
-            {
-                var trailing = content[trailingIndex];
-
-                // Invalid if trailing is letter or digit
-                if (char.IsLetterOrDigit(trailing))
-                {
-                    searchStart = matchIndex + 1;
-                    continue;
-                }
-
-                // Greedy: include trailing separator
-                if (trailing == '/' || trailing == '\\')
-                {
-                    matchLength++;
-                }
-            }
-
-            replacements.Add(new Replacement(matchIndex, matchLength, replace));
-            searchStart = matchIndex + find.Length;
-        }
-    }
-
-    private static int FindNextMatch(ReadOnlySpan<char> content, string find, int startIndex)
-    {
-        for (var i = startIndex; i <= content.Length - find.Length; i++)
-        {
-            if (IsPathMatch(content.Slice(i, find.Length), find))
-            {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    private static bool IsPathMatch(ReadOnlySpan<char> span, string find)
-    {
-        if (span.Length != find.Length)
-            return false;
-
-        for (var i = 0; i < span.Length; i++)
-        {
-            var c1 = span[i];
-            var c2 = find[i];
-
-            // Treat / and \ as equivalent
-            if (c1 == '/' || c1 == '\\')
-            {
-                if (c2 != '/' && c2 != '\\')
-                    return false;
-            }
-            else if (c1 != c2)
-            {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     private readonly struct Replacement

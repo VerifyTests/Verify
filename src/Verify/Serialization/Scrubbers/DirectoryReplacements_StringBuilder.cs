@@ -1,5 +1,11 @@
 ﻿static partial class DirectoryReplacements
 {
+    public readonly struct Pair(string find, string replace)
+    {
+        public string Find { get; } = find;
+        public string Replace { get; } = replace;
+    }
+
     public static void Replace(StringBuilder builder, List<Pair> paths)
     {
         if (builder.Length == 0 || paths.Count == 0)

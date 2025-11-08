@@ -2,12 +2,6 @@
 
 static partial class DirectoryReplacements
 {
-    public readonly struct Pair(string find, string replace)
-    {
-        public string Find { get; } = find;
-        public string Replace { get; } = replace;
-    }
-
     static List<Pair> items = [];
 
     public static void Replace(StringBuilder builder) =>

@@ -28,7 +28,7 @@ static class DirectoryReplacements
 
         if (VerifierSettings.scrubUserProfile)
         {
-            var profileDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            var profileDir = CleanPath(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
             if (!string.IsNullOrWhiteSpace(profileDir))
             {
                 values[profileDir] = "{UserProfile}";

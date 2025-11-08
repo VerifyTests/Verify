@@ -26,6 +26,9 @@
                 FindMatches(content, kvp.Key, kvp.Value, replacements);
             }
 
+            // Remove overlapping matches, keeping the longest one
+            replacements = RemoveOverlaps(replacements);
+
             // Sort by position descending to maintain indices during replacement
             replacements.Sort((a, b) => b.Index.CompareTo(a.Index));
 
@@ -40,6 +43,36 @@
         {
             ArrayPool<char>.Shared.Return(buffer);
         }
+    }
+
+    private static List<Replacement> RemoveOverlaps(List<Replacement> replacements)
+    {
+        if (replacements.Count <= 1)
+            return replacements;
+
+        // Sort by index, then by length descending (prefer longer matches)
+        replacements.Sort((a, b) =>
+        {
+            var indexCompare = a.Index.CompareTo(b.Index);
+            if (indexCompare != 0)
+                return indexCompare;
+            return b.Length.CompareTo(a.Length);
+        });
+
+        var result = new List<Replacement>();
+        var lastEnd = -1;
+
+        foreach (var replacement in replacements)
+        {
+            // If this replacement doesn't overlap with the last one, keep it
+            if (replacement.Index >= lastEnd)
+            {
+                result.Add(replacement);
+                lastEnd = replacement.Index + replacement.Length;
+            }
+        }
+
+        return result;
     }
 
     private static void FindMatches(

@@ -2,6 +2,12 @@
 
 static partial class DirectoryReplacements
 {
+    public readonly struct KeyValuePair<TKey, TValue>(string key, string value)
+    {
+        public string Key { get; } = key;
+        public string Value { get; } = value;
+    }
+
     static List<KeyValuePair<string, string>> replacements = [];
 
     public static void Replace(StringBuilder builder) =>
@@ -9,29 +15,29 @@ static partial class DirectoryReplacements
 
     public static void UseAssembly(string? solutionDir, string projectDir)
     {
-        var values = new Dictionary<string, string>();
+        var values = new List<KeyValuePair<string, string>>();
         var baseDir = CleanPath(AppDomain.CurrentDomain.BaseDirectory!);
-        values[baseDir] = "{CurrentDirectory}";
+        values.Add(new (baseDir, "{CurrentDirectory}"));
 
         var currentDir = CleanPath(Environment.CurrentDirectory);
-        values[currentDir] = "{CurrentDirectory}";
+        values.Add(new (currentDir, "{CurrentDirectory}"));
 #if !NET6_0_OR_GREATER
         if (CodeBaseLocation.CurrentDirectory is not null)
         {
             var codeBaseLocation = CleanPath(CodeBaseLocation.CurrentDirectory);
-            values[codeBaseLocation] = "{CurrentDirectory}";
+            values.Add(new (codeBaseLocation, "{CurrentDirectory}"));
         }
 #endif
 
         var tempPath = CleanPath(Path.GetTempPath());
-        values[tempPath] = "{TempPath}";
+        values.Add(new (tempPath, "{TempPath}"));
 
         if (VerifierSettings.scrubUserProfile)
         {
             var profileDir = CleanPath(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
             if (!string.IsNullOrWhiteSpace(profileDir))
             {
-                values[profileDir] = "{UserProfile}";
+                values.Add(new (profileDir, "{UserProfile}"));
             }
         }
 
@@ -41,7 +47,7 @@ static partial class DirectoryReplacements
             .ToList();
     }
 
-    static void AddProjectAndSolutionReplacements(string? solutionDir, string projectDir, Dictionary<string, string> replacements)
+    static void AddProjectAndSolutionReplacements(string? solutionDir, string projectDir, List<KeyValuePair<string, string>> replacements)
     {
         projectDir = CleanPath(projectDir);
         if (!VerifierSettings.scrubProjectDir &&
@@ -53,16 +59,16 @@ static partial class DirectoryReplacements
         if (!VerifierSettings.scrubSolutionDir ||
             solutionDir is null)
         {
-            replacements[projectDir] = "{ProjectDirectory}";
+            replacements.Add(new(projectDir, "{ProjectDirectory}"));
 
             return;
         }
 
-        replacements[projectDir] = "{ProjectDirectory}";
+        replacements.Add(new(projectDir, "{ProjectDirectory}"));
         solutionDir = CleanPath(solutionDir);
         if (solutionDir.Length > 1)
         {
-            replacements[solutionDir] = "{SolutionDirectory}";
+            replacements.Add(new(solutionDir, "{SolutionDirectory}"));
         }
     }
 

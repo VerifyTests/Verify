@@ -34,7 +34,7 @@
     [InlineData("overlyeager/tmp/replacement", "/tmp", "overlyeager/tmp/replacement")]
     public void BasicReplacements(string input, string find, string expected)
     {
-        List<KeyValuePair<string, string>> keyValuePairs = [new(find, "{replace}")];
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs = [new(find, "{replace}")];
         var builder = new StringBuilder(input);
         DirectoryReplacements.Replace(builder, keyValuePairs);
         Assert.Equal(expected, builder.ToString());
@@ -43,7 +43,7 @@
     [Fact]
     public void ProcessLongerDirectoryFirst()
     {
-        List<KeyValuePair<string, string>> keyValuePairs =
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs =
         [
             new(@"C:\Parent\Child", "{Child}"),
             new(@"C:\Parent", "{Parent}"),
@@ -56,7 +56,7 @@
     [Fact]
     public void ProcessLongerDirectoryFirst_Reversed()
     {
-        List<KeyValuePair<string, string>> keyValuePairs =
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs =
         [
             new(@"C:\Parent", "{Parent}"),
             new(@"C:\Parent\Child", "{Child}"),
@@ -69,7 +69,7 @@
     [Fact]
     public void MultipleReplacements()
     {
-        List<KeyValuePair<string, string>> keyValuePairs =
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs =
         [
             new(@"C:\Path1", "{Path1}"),
             new(@"D:\Path2", "{Path2}"),
@@ -82,7 +82,7 @@
     [Fact]
     public void NoMatches()
     {
-        List<KeyValuePair<string, string>> keyValuePairs =
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs =
         [
             new(@"C:\NotFound", "{replace}"),
         ];
@@ -94,7 +94,7 @@
     [Fact]
     public void EmptyStringBuilder()
     {
-        List<KeyValuePair<string, string>> keyValuePairs =
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs =
         [
             new(@"C:\Path", "{replace}"),
         ];
@@ -106,7 +106,7 @@
     [Fact]
     public void EmptyPathsList()
     {
-        List<KeyValuePair<string, string>> keyValuePairs = [];
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs = [];
         var builder = new StringBuilder(@"C:\Path\file.txt");
         DirectoryReplacements.Replace(builder, keyValuePairs);
         Assert.Equal(@"C:\Path\file.txt", builder.ToString());
@@ -119,7 +119,7 @@
     [InlineData("C:/path9", "C:/path", "C:/path9")] // Digit after
     public void InvalidPrecedingOrTrailingCharacters(string input, string find, string expected)
     {
-        List<KeyValuePair<string, string>> keyValuePairs = [new(find, "{replace}")];
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs = [new(find, "{replace}")];
         var builder = new StringBuilder(input);
         DirectoryReplacements.Replace(builder, keyValuePairs);
         Assert.Equal(expected, builder.ToString());
@@ -128,7 +128,7 @@
     [Fact]
     public void MixedSeparators()
     {
-        List<KeyValuePair<string, string>> keyValuePairs =
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs =
         [
             new("C:/path", "{replace}"),
         ];
@@ -145,7 +145,7 @@
         // Force multiple chunks
         var padding = new string(' ', 8192);
 
-        List<KeyValuePair<string, string>> keyValuePairs =
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs =
         [
             new(largePath, "{replaced}"),
         ];
@@ -158,7 +158,7 @@
     [Fact]
     public void MultipleOccurrencesOfSamePath()
     {
-        List<KeyValuePair<string, string>> keyValuePairs =
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs =
         [
             new(@"C:\Path", "{Path}"),
         ];
@@ -170,7 +170,7 @@
     [Fact]
     public void OverlappingPaths_ThreeLevels()
     {
-        List<KeyValuePair<string, string>> keyValuePairs =
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs =
         [
             new(@"C:\A", "{A}"),
             new(@"C:\A\B", "{B}"),
@@ -184,7 +184,7 @@
     [Fact]
     public void NonOverlappingMultiplePaths()
     {
-        List<KeyValuePair<string, string>> keyValuePairs =
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs =
         [
             new(@"C:\A", "{A}"),
             new(@"D:\B", "{B}"),
@@ -197,7 +197,7 @@
     [Fact]
     public void PathAtStart()
     {
-        List<KeyValuePair<string, string>> keyValuePairs =
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs =
         [
             new(@"C:\Path", "{replace}"),
         ];
@@ -209,7 +209,7 @@
     [Fact]
     public void PathAtEnd()
     {
-        List<KeyValuePair<string, string>> keyValuePairs =
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs =
         [
             new(@"C:\Path", "{replace}"),
         ];
@@ -221,7 +221,7 @@
     [Fact]
     public void PathAtEndWithSeparator()
     {
-        List<KeyValuePair<string, string>> keyValuePairs =
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs =
         [
             new(@"C:\Path", "{replace}"),
         ];
@@ -233,7 +233,7 @@
     [Fact]
     public void DoubleSlashes()
     {
-        List<KeyValuePair<string, string>> keyValuePairs =
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs =
         [
             new(@"C:\Path", "{replace}"),
         ];
@@ -245,7 +245,7 @@
     [Fact]
     public void UnixStylePaths()
     {
-        List<KeyValuePair<string, string>> keyValuePairs =
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs =
         [
             new("/usr/local/bin", "{bin}"),
         ];
@@ -257,7 +257,7 @@
     [Fact]
     public void UnixStylePathsWithBackslashInContent()
     {
-        List<KeyValuePair<string, string>> keyValuePairs =
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs =
         [
             new("/usr/local/bin", "{bin}"),
         ];
@@ -269,7 +269,7 @@
     [Fact]
     public void PathsInQuotes()
     {
-        List<KeyValuePair<string, string>> keyValuePairs =
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs =
         [
             new(@"C:\Path", "{replace}"),
         ];
@@ -289,7 +289,7 @@
     public void VeryLongPath()
     {
         var longPath = $@"C:\{string.Join(@"\", Enumerable.Range(1, 50).Select(i => $"Dir{i}"))}";
-        List<KeyValuePair<string, string>> keyValuePairs =
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs =
         [
             new(longPath, "{long}"),
         ];
@@ -301,7 +301,7 @@
     [Fact]
     public void SpaceInPath()
     {
-        List<KeyValuePair<string, string>> keyValuePairs =
+        List<DirectoryReplacements.KeyValuePair<string, string>> keyValuePairs =
         [
             new(@"C:\Program Files", "{pf}"),
         ];

@@ -1,5 +1,6 @@
 ﻿public class AttachmentTests
 {
+#if NET10_0
     [Fact]
     public async Task Simple()
     {
@@ -39,4 +40,5 @@
             _ => _.Contains("Verify snapshot mismatch") &&
                  _.Contains("AttachmentTests.Simple."));
     }
+#endif
 }

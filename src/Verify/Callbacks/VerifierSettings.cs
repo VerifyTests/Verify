@@ -2,6 +2,30 @@
 
 public static partial class VerifierSettings
 {
+    static Func<string,Task>? addTestAttachment;
+
+    internal static Task RunAddTestAttachment(string path)
+    {
+        if (addTestAttachment is null ||
+            !addAttachments)
+        {
+            return Task.CompletedTask;
+        }
+
+        return addTestAttachment(path);
+    }
+
+    internal static void AddTestAttachment(Func<string, Task> action)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        if (addTestAttachment != null)
+        {
+            throw new("AddTestAttachment already defined");
+        }
+
+        addTestAttachment = action;
+    }
+
     static FirstVerify? handleOnFirstVerify;
 
     public static void OnFirstVerify(FirstVerify firstVerify)
@@ -9,14 +33,6 @@ public static partial class VerifierSettings
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         handleOnFirstVerify += firstVerify;
     }
-
-    public static void OnDelete(VerifyDelete verifyDelete)
-    {
-        InnerVerifier.ThrowIfVerifyHasBeenRun();
-        handleOnVerifyDelete += verifyDelete;
-    }
-
-    static VerifyDelete? handleOnVerifyDelete;
 
     internal static Task RunOnFirstVerify(NewResult item, bool autoVerify)
     {
@@ -26,6 +42,14 @@ public static partial class VerifierSettings
         }
 
         return handleOnFirstVerify(item.File, item.ReceivedText?.ToString(), autoVerify);
+    }
+
+    static VerifyDelete? handleOnVerifyDelete;
+
+    public static void OnDelete(VerifyDelete verifyDelete)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        handleOnVerifyDelete += verifyDelete;
     }
 
     static VerifyMismatch? handleOnVerifyMismatch;

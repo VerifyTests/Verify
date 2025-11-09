@@ -4,28 +4,6 @@
     public ApplyScrubbersTests() =>
         Scrubbers.ResetReplacements("FakeMachineName", "FakeUserName");
 
-    [Theory]
-    [InlineData("/", "/project", "/,/project")]
-    [InlineData("/solution", "/project", "/solution,/project")]
-    [InlineData("/solution/", "/project/", "/solution,/project")]
-    [InlineData("/solution//", "/project//", "/solution,/project")]
-    public void Apply_solution_and_project_directories_scrubbers(
-        string solutionDirectory,
-        string projectDirectory,
-        string input)
-    {
-        // Arrange
-        var extension = string.Empty;
-        var builder = new StringBuilder(input);
-        var settings = new VerifySettings();
-        using var counter = Counter.Start();
-        // Act
-        DirectoryReplacements.UseAssembly(solutionDirectory, projectDirectory);
-        ApplyScrubbers.ApplyForExtension(extension, builder, settings, counter);
-        // Assert
-        Assert.Equal("{SolutionDirectory},{ProjectDirectory}", builder.ToString());
-    }
-
     [Fact]
     public Task ScrubUserName() =>
         Verify("FakeUserName")

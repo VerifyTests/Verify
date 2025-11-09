@@ -47,8 +47,8 @@
     {
         List<DirectoryReplacements.Pair> pairs =
         [
-            new("C:/Parent", "{Parent}"),
             new("C:/Parent/Child", "{Child}"),
+            new("C:/Parent", "{Parent}"),
         ];
         var builder = new StringBuilder(@"C:\Parent\Child\Dir");
         DirectoryReplacements.Replace(builder, pairs);
@@ -161,9 +161,9 @@
     {
         List<DirectoryReplacements.Pair> pairs =
         [
-            new("C:/A", "{A}"),
-            new("C:/A/B", "{B}"),
             new("C:/A/B/C", "{C}"),
+            new("C:/A/B", "{B}"),
+            new("C:/A", "{A}"),
         ];
         var builder = new StringBuilder(@"C:\A\B\C\file.txt");
         DirectoryReplacements.Replace(builder, pairs);

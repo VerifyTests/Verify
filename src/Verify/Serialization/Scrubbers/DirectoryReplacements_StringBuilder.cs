@@ -23,10 +23,11 @@ static partial class DirectoryReplacements
     {
 #if DEBUG
         var finds = paths.Select(_=>_.Find).ToList();
-        if (!finds.OrderByDescending(_ => _).SequenceEqual(finds))
+        if (!finds.OrderByDescending(_ => _.Length).SequenceEqual(finds))
         {
             throw new("Pairs should be ordered");
         }
+        //TODO: throw for duplicates
 #endif
         if (builder.Length == 0)
         {

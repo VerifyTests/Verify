@@ -42,10 +42,10 @@ static partial class DirectoryReplacements
         // Apply matches
         foreach (var match in orderByDescending)
         {
-            builder.Remove(match.Index, match.Length);
-            builder.Insert(match.Index, match.Value);
+            builder.Overwrite(match.Value, match.Index, match.Length);
         }
     }
+
     static IEnumerable<Match> FindMatches(StringBuilder builder, List<Pair> pairs)
     {
         var absolutePosition = 0;
@@ -145,25 +145,6 @@ static partial class DirectoryReplacements
         }
 
         return true;
-    }
-
-    static IEnumerable<Match> RemoveOverlaps(IEnumerable<Match> matches)
-    {
-        var lastEnd = -1;
-
-        foreach (var match in matches
-                     .OrderBy(_ => _.Index)
-                     .ThenByDescending(_ => _.Length))
-        {
-            // If this match overlaps with the last one, discard it
-            if (match.Index < lastEnd)
-            {
-                continue;
-            }
-
-            yield return match;
-            lastEnd = match.Index + match.Length;
-        }
     }
 
     readonly struct Match(int index, int length, string value)

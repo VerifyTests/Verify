@@ -82,14 +82,21 @@ public class TempDirectory :
     {
         var cutoffTime = DateTime.Now.AddDays(-1);
 
-        var directories = Directory.GetDirectories(RootDirectory);
-        foreach (var dir in directories)
+        foreach (var dir in Directory.EnumerateDirectories(RootDirectory))
         {
             var dirInfo = new DirectoryInfo(dir);
 
-            if (dirInfo.LastWriteTime < cutoffTime)
+            if (!dirInfo.Exists || dirInfo.LastWriteTime >= cutoffTime)
+            {
+                continue;
+            }
+            try
             {
                 Directory.Delete(dir, recursive: true);
+            }
+            catch (DirectoryNotFoundException)
+            {
+                //Ignore directory cleanup race condition
             }
         }
     }

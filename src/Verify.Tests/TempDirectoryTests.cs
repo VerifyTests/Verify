@@ -75,6 +75,7 @@
 
         // implicit conversion to DirectoryInfo
         DirectoryInfo info = temp;
+
         var files = info.EnumerateFiles();
         Trace.WriteLine(files.Count());
     }

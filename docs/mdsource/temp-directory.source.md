@@ -63,7 +63,7 @@ snippet: TempDirectoryInfoProperty
 
 Allows access to the root directory for all TempDirectory instances:
 
-snippet: TempDirectoryInfoProperty
+snippet: TempDirectoryRootDirectory
 
 
 ### Cleanup Behavior

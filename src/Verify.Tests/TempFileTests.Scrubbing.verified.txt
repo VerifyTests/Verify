@@ -1,0 +1,4 @@
+﻿{
+  PropertyWithTempPath: {TempFile},
+  TempInStringProperty: The path is {TempFile}
+}

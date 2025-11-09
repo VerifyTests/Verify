@@ -123,6 +123,7 @@ public class TempFile :
     /// </exception>
     public TempFile(string? extension = null)
     {
+        Guard.NotEmpty(extension);
         var fileName = IoPath.GetRandomFileName();
         if (extension != null)
         {
@@ -139,6 +140,19 @@ public class TempFile :
         {
             paths.Value!.Add(Path);
         }
+    }
+
+    public static TempFile Create(string? extension = null, Encoding? encoding = null)
+    {
+        var file = new TempFile(extension);
+
+        if (extension == null ||
+            !AllFiles.TryCreateFile(file, true, encoding))
+        {
+            File.Create(file).Dispose();
+        }
+
+        return file;
     }
 
     public void Dispose()
@@ -198,35 +212,7 @@ public class TempFile :
     /// </example>
     public void OpenExplorerAndDebug()
     {
-        if (BuildServerDetector.Detected)
-        {
-            throw new("OpenExplorerAndDebug is not supported on build servers.");
-        }
-
-        using var process = Process.Start(Command(), Arguments());
-        if (Debugger.IsAttached)
-        {
-            Debugger.Break();
-        }
-        else
-        {
-            Debugger.Launch();
-        }
-
-        static string Command()
-        {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                return "explorer.exe";
-            }
-
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                return "open";
-            }
-
-            throw new($"Unsupported operating system: {RuntimeInformation.OSDescription}");
-        }
+        PathLauncher.Launch(Arguments());
 
         string Arguments()
         {

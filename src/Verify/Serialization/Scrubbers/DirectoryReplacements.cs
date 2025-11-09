@@ -14,12 +14,19 @@ static partial class DirectoryReplacements
         values.Add(new(baseDir, "{CurrentDirectory}"));
 
         var currentDir = CleanPath(Environment.CurrentDirectory);
-        values.Add(new(currentDir, "{CurrentDirectory}"));
+        if (currentDir != baseDir)
+        {
+            values.Add(new(currentDir, "{CurrentDirectory}"));
+        }
 #if !NET6_0_OR_GREATER
         if (CodeBaseLocation.CurrentDirectory is not null)
         {
             var codeBaseLocation = CleanPath(CodeBaseLocation.CurrentDirectory);
-            values.Add(new (codeBaseLocation, "{CurrentDirectory}"));
+            if (baseDir != codeBaseLocation &&
+                currentDir != codeBaseLocation)
+            {
+                values.Add(new(codeBaseLocation, "{CurrentDirectory}"));
+            }
         }
 #endif
 

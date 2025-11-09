@@ -22,12 +22,16 @@ static partial class DirectoryReplacements
     public static void Replace(StringBuilder builder, List<Pair> paths)
     {
 #if DEBUG
-        var finds = paths.Select(_=>_.Find).ToList();
+        var finds = paths.Select(_ => _.Find).ToList();
         if (!finds.OrderByDescending(_ => _.Length).SequenceEqual(finds))
         {
             throw new("Pairs should be ordered");
         }
-        //TODO: throw for duplicates
+
+        if (finds.Count != finds.Distinct().Count())
+        {
+            throw new("Find should be distinct");
+        }
 #endif
         if (builder.Length == 0)
         {

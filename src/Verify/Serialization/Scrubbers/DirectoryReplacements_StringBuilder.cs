@@ -36,10 +36,8 @@ static partial class DirectoryReplacements
 
         var matches = FindMatches(builder, paths);
 
-        var removeOverlaps = RemoveOverlaps(matches);
-
         // Sort by position descending
-        var orderByDescending = removeOverlaps.OrderByDescending(_ => _.Index);
+        var orderByDescending = matches.OrderByDescending(_ => _.Index);
 
         // Apply matches
         foreach (var match in orderByDescending)
@@ -48,35 +46,33 @@ static partial class DirectoryReplacements
             builder.Insert(match.Index, match.Value);
         }
     }
-
     static IEnumerable<Match> FindMatches(StringBuilder builder, List<Pair> pairs)
     {
+        var absolutePosition = 0;
 
-        foreach (var pair in pairs)
+        foreach (var chunk in builder.GetChunks())
         {
-            var position = 0;
-
-            foreach (var chunk in builder.GetChunks())
+            for (var chunkIndex = 0; chunkIndex < chunk.Length; chunkIndex++)
             {
-                for (var i = 0; i < chunk.Length; i++)
+                foreach (var pair in pairs)
                 {
                     // Check if we have enough characters left in this chunk
-                    if (i + pair.Find.Length > chunk.Length)
+                    if (chunkIndex + pair.Find.Length > chunk.Length)
                     {
-                        break;
+                        continue;
                     }
-
-                    var absolutePosition = position + i;
 
                     // Try to match at this position
-                    if (TryMatchAt(chunk, i, pair.Find, out var matchLength))
+                    if (TryMatchAt(chunk, chunkIndex, pair.Find, out var matchLength))
                     {
-                        yield return new(absolutePosition, matchLength, pair.Replace);
+                        var startReplaceIndex = absolutePosition + chunkIndex;
+                        yield return new(startReplaceIndex, matchLength, pair.Replace);
+                        chunkIndex += pair.Find.Length;
                     }
                 }
-
-                position += chunk.Length;
             }
+
+            absolutePosition += chunk.Length;
         }
     }
 

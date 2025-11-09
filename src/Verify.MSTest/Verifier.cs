@@ -18,7 +18,9 @@ public static partial class Verifier
         return Task.CompletedTask;
     }
 
-    static Verifier()
+    [ModuleInitializer]
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public static void AddAttachmentEvents()
     {
         VerifierSettings.OnFirstVerify((pair, _, autoVerify) => AddFile(pair, autoVerify));
         VerifierSettings.OnVerifyMismatch((pair, _, autoVerify) => AddFile(pair, autoVerify));

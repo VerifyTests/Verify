@@ -17,7 +17,9 @@ public static partial class Verifier
             await File.ReadAllBytesAsync(path));
     }
 
-    static Verifier()
+    [ModuleInitializer]
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public static void AddAttachmentEvents()
     {
         VerifierSettings.OnFirstVerify((pair, _, _) => AddFile(pair));
         VerifierSettings.OnVerifyMismatch((pair, _, _) => AddFile(pair));

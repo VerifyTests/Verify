@@ -213,6 +213,7 @@ class VerifyEngine(
         var verified = true;
         foreach (var notEqual in notEquals)
         {
+            await VerifierSettings.RunAddTestAttachment(notEqual.File.ReceivedPath);
             var autoVerify = IsAutoVerify(notEqual.File.VerifiedPath);
             await settings.RunOnVerifyMismatch(notEqual.File, notEqual.Message, autoVerify);
             if (!await RunDiffAutoCheck(notEqual.File, autoVerify))
@@ -272,6 +273,7 @@ class VerifyEngine(
         var verified = true;
         foreach (var file in @new)
         {
+            await VerifierSettings.RunAddTestAttachment(file.File.ReceivedPath);
             var autoVerify = IsAutoVerify(file.File.VerifiedPath);
             await settings.RunOnFirstVerify(file, autoVerify);
             if (!await RunDiffAutoCheck(file.File, autoVerify))

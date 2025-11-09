@@ -12,6 +12,7 @@ public partial class InnerVerifier :
     IEnumerable<string> verifiedFiles = null!;
     Counter counter;
     internal static bool verifyHasBeenRun;
+    internal static string? verifyHasBeenRunBy;
     string? typeName;
     string? methodName;
 
@@ -26,7 +27,7 @@ public partial class InnerVerifier :
         var stackTrace = new StackTrace(1, false);
         var method = stackTrace.GetFrame(1)!.GetMethod()!;
         var type = method.DeclaringType;
-        throw new($"The API '{type}.{method.Name}' must be called prior to any Verify has run. Usually this is done in a [ModuleInitializer].");
+        throw new($"The API '{type}.{method.Name}' must be called prior to any Verify has run. Usually this is done in a [ModuleInitializer]. Verify run by: {verifyHasBeenRunBy}");
     }
 
     public InnerVerifier(
@@ -41,7 +42,7 @@ public partial class InnerVerifier :
         Guard.NotEmpty(typeName);
         Guard.NotEmpty(methodName);
         Guard.NotEmpty(methodParameters);
-        verifyHasBeenRun = true;
+        SetVerifyHasBeenRun($"{typeName}.{methodName}");
         settings.RunBeforeCallbacks();
         this.settings = settings;
 
@@ -117,7 +118,7 @@ public partial class InnerVerifier :
             this.settings = settings;
         }
 
-        verifyHasBeenRun = true;
+        SetVerifyHasBeenRun(name);
 
         this.directory = directory;
 
@@ -154,6 +155,17 @@ public partial class InnerVerifier :
                 $"{prefix}#{target.Name}.{index}.verified.{target.Extension}",
                 target.IsString);
         };
+    }
+
+    static void SetVerifyHasBeenRun(string name)
+    {
+        if (verifyHasBeenRun)
+        {
+            return;
+        }
+
+        verifyHasBeenRun = true;
+        verifyHasBeenRunBy = name;
     }
 
     static Counter StartCounter(VerifySettings settings) =>

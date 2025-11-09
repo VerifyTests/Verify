@@ -5,12 +5,14 @@ namespace VerifyTUnit;
 
 public static partial class Verifier
 {
-    static Task AddFile(FilePair pair)
+    static Task AddFile(FilePair pair, string? message, bool autoVerify)
     {
         if (!VerifierSettings.addAttachments)
+        {
             return Task.CompletedTask;
+        }
 
-        var path = pair.ReceivedPath;
+        var path = autoVerify ? pair.VerifiedPath : pair.ReceivedPath;
         TestContext.Current!.Output.AttachArtifact(
             new()
             {
@@ -23,8 +25,8 @@ public static partial class Verifier
 
     static Verifier()
     {
-        VerifierSettings.OnFirstVerify((pair, _, _) => AddFile(pair));
-        VerifierSettings.OnVerifyMismatch((pair, _, _) => AddFile(pair));
+        VerifierSettings.OnFirstVerify(AddFile);
+        VerifierSettings.OnVerifyMismatch(AddFile);
     }
 
     public static InnerVerifier BuildVerifier(string sourceFile, VerifySettings settings, bool useUniqueDirectory = false)

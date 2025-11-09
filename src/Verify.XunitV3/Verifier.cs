@@ -3,24 +3,23 @@ namespace VerifyXunit;
 
 public static partial class Verifier
 {
-    static async Task AddFile(FilePair pair)
+    static async Task AddFile(FilePair pair, string? receivedText, bool autoVerify)
     {
         if (!VerifierSettings.addAttachments)
         {
             return;
         }
 
-        var context = TestContext.Current;
-        var path = pair.ReceivedPath;
-        context.AddAttachment(
+        var path = autoVerify ? pair.VerifiedPath : pair.ReceivedPath;
+        TestContext.Current.AddAttachment(
             $"Verify snapshot mismatch: {path}",
             await File.ReadAllBytesAsync(path));
     }
 
     static Verifier()
     {
-        VerifierSettings.OnFirstVerify((pair, _, _) => AddFile(pair));
-        VerifierSettings.OnVerifyMismatch((pair, _, _) => AddFile(pair));
+        VerifierSettings.OnFirstVerify(AddFile);
+        VerifierSettings.OnVerifyMismatch(AddFile);
     }
 
     public static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory = false)

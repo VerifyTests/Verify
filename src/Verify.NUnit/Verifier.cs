@@ -3,20 +3,14 @@ namespace VerifyNUnit;
 
 public static partial class Verifier
 {
-    static Task AddFile(FilePair path)
+    static Task AddFile(string path)
     {
-        if (!VerifierSettings.addAttachments)
-            return Task.CompletedTask;
-
-        TestContext.AddTestAttachment(path.ReceivedPath);
+        TestContext.AddTestAttachment(path);
         return Task.CompletedTask;
     }
 
-    static Verifier()
-    {
-        VerifierSettings.OnFirstVerify((pair, _, _) => AddFile(pair));
-        VerifierSettings.OnVerifyMismatch((pair, _, _) => AddFile(pair));
-    }
+    static Verifier() =>
+        VerifierSettings.AddTestAttachment(AddFile);
 
     public static InnerVerifier BuildVerifier(string sourceFile, VerifySettings settings, bool useUniqueDirectory = false)
     {

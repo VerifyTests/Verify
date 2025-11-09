@@ -33,7 +33,15 @@ public class InnerVerifyTests
     }
 
     [ModuleInitializer]
-    public static void Init() =>
+    public static void Init()
+    {
+        // Force VerifyXunitV3 to module init to avoid
+        // "must be called prior to any Verify has run" race condition
+        // since otherwise VerifyExternalFileLocked sets verifyHasBeenRun
+        // before the VerifyXunitV3 init
+        var assembly = typeof(Verifier).Assembly;
+        Trace.WriteLine(assembly);
+
         VerifierSettings.RegisterStreamConverter(
             "innersplit",
             (_, stream, _) =>
@@ -47,6 +55,7 @@ public class InnerVerifyTests
                         new("txt", "text2")
                     ]);
             });
+    }
 
     [Fact]
     public async Task Split()

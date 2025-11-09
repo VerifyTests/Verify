@@ -107,7 +107,6 @@ public class TempFile :
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TempFile"/> class.
-    /// Creates a new temporary file with a random name.
     /// </summary>
     /// <param name="extension">
     /// Optional file extension (e.g., ".txt", ".json").
@@ -131,7 +130,6 @@ public class TempFile :
         }
 
         Path = IoPath.Combine(RootDirectory, fileName);
-        File.WriteAllBytes(Path, []);
 
         if (paths.Value == null)
         {

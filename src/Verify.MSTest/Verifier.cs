@@ -3,26 +3,15 @@ namespace VerifyMSTest;
 
 public static partial class Verifier
 {
-    static Task AddFile(FilePair path, string? receivedText, bool autoVerify)
+    static Task AddFile(string path)
     {
-        if (!VerifierSettings.addAttachments)
-            return Task.CompletedTask;
-
         var context = CurrentTestContext.Value?.TestContext;
-        if (context != null)
-        {
-            var fileName = autoVerify ? path.VerifiedPath : path.ReceivedPath;
-            context.AddResultFile(fileName);
-        }
-
+        context?.AddResultFile(path);
         return Task.CompletedTask;
     }
 
-    static Verifier()
-    {
-        VerifierSettings.OnFirstVerify(AddFile);
-        VerifierSettings.OnVerifyMismatch(AddFile);
-    }
+    static Verifier() =>
+        VerifierSettings.AddTestAttachment(AddFile);
 
     public static readonly AsyncLocal<TestExecutionContext?> CurrentTestContext = new();
 

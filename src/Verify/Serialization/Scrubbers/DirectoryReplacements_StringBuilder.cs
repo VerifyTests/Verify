@@ -21,6 +21,13 @@ static partial class DirectoryReplacements
 
     public static void Replace(StringBuilder builder, List<Pair> paths)
     {
+#if DEBUG
+        var finds = paths.Select(_=>_.Find).ToList();
+        if (!finds.OrderByDescending(_ => _).SequenceEqual(finds))
+        {
+            throw new("Pairs should be ordered");
+        }
+#endif
         if (builder.Length == 0)
         {
             return;

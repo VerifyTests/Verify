@@ -48,33 +48,34 @@ static partial class DirectoryReplacements
         }
     }
 
-    static IEnumerable<Match> FindMatches(StringBuilder builder, List<Pair> paths) =>
-        paths.SelectMany(_ => FindMatches(builder, _));
-
-    static IEnumerable<Match> FindMatches(StringBuilder builder, Pair pair)
+    static IEnumerable<Match> FindMatches(StringBuilder builder, List<Pair> pairs)
     {
-        var position = 0;
 
-        foreach (var chunk in builder.GetChunks())
+        foreach (var pair in pairs)
         {
-            for (var i = 0; i < chunk.Length; i++)
+            var position = 0;
+
+            foreach (var chunk in builder.GetChunks())
             {
-                // Check if we have enough characters left in this chunk
-                if (i + pair.Find.Length > chunk.Length)
+                for (var i = 0; i < chunk.Length; i++)
                 {
-                    break;
+                    // Check if we have enough characters left in this chunk
+                    if (i + pair.Find.Length > chunk.Length)
+                    {
+                        break;
+                    }
+
+                    var absolutePosition = position + i;
+
+                    // Try to match at this position
+                    if (TryMatchAt(chunk, i, pair.Find, out var matchLength))
+                    {
+                        yield return new(absolutePosition, matchLength, pair.Replace);
+                    }
                 }
 
-                var absolutePosition = position + i;
-
-                // Try to match at this position
-                if (TryMatchAt(chunk, i, pair.Find, out var matchLength))
-                {
-                    yield return new(absolutePosition, matchLength, pair.Replace);
-                }
+                position += chunk.Length;
             }
-
-            position += chunk.Length;
         }
     }
 

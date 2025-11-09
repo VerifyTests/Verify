@@ -127,18 +127,21 @@ static partial class DirectoryReplacements
     {
         for (var i = 0; i < find.Length; i++)
         {
-            var currentCh = chunk[chunkPos + i];
-            var findCh = find[i];
+            var chunkChar = chunk[chunkPos + i];
+            var findChar = find[i];
 
             // Treat / and \ as equivalent
-            if (currentCh is '/' or '\\')
+            if (chunkChar is '/' or '\\')
             {
-                if (findCh != '/')
+                if (findChar != '/')
                 {
                     return false;
                 }
+
+                continue;
             }
-            else if (currentCh != findCh)
+
+            if (chunkChar != findChar)
             {
                 return false;
             }

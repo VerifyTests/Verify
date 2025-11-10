@@ -36,7 +36,7 @@ public partial class SettingsTask
 
     /// <inheritdoc cref="VerifySettings.OrderEnumerableBy{T}"/>
     [Pure]
-    public SettingsTask OrderEnumerableBy<T>(Func<T, object?> keySelector)
+    public SettingsTask OrderEnumerableBy<T>(Func<T, object?>? keySelector = null)
     {
         CurrentSettings.OrderEnumerableBy(keySelector);
         return this;
@@ -44,7 +44,7 @@ public partial class SettingsTask
 
     /// <inheritdoc cref="VerifySettings.OrderEnumerableByDescending{T}"/>
     [Pure]
-    public SettingsTask OrderEnumerableByDescending<T>(Func<T, object?> keySelector)
+    public SettingsTask OrderEnumerableByDescending<T>(Func<T, object?>? keySelector = null)
     {
         CurrentSettings.OrderEnumerableByDescending(keySelector);
         return this;

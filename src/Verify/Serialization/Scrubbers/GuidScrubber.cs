@@ -12,6 +12,7 @@
         {
             return;
         }
+
         var matches = FindMatches(builder, counter);
 
         // Sort by position descending
@@ -30,6 +31,11 @@
 
         foreach (var chunk in builder.GetChunks())
         {
+            if (chunk.Length < 36)
+            {
+                continue;
+            }
+
             for (var chunkIndex = 0; chunkIndex < chunk.Length; chunkIndex++)
             {
                 var end = chunkIndex + 36;
@@ -39,19 +45,23 @@
                 }
 
                 var value = chunk.Span;
-                if ((chunkIndex == 0 || !IsInvalidStartingChar(value[chunkIndex - 1])) &&
-                    (end == value.Length || !IsInvalidEndingChar(value[end])))
+                if ((chunkIndex != 0 && IsInvalidStartingChar(value[chunkIndex - 1])) ||
+                    (end != value.Length && IsInvalidEndingChar(value[end])))
                 {
-                    var slice = value.Slice(chunkIndex, 36);
-                    if (!slice.ContainsNewline() &&
-                        Guid.TryParseExact(slice, "D", out var guid))
-                    {
-                        var convert = counter.Convert(guid);
-                        var startReplaceIndex = absolutePosition + chunkIndex;
-                        yield return new(startReplaceIndex, convert);
-                        chunkIndex += 35;
-                    }
+                    continue;
                 }
+                var slice = value.Slice(chunkIndex, 36);
+
+                if (slice.ContainsNewline() ||
+                    !Guid.TryParseExact(slice, "D", out var guid))
+                {
+                    continue;
+                }
+
+                var convert = counter.Convert(guid);
+                var startReplaceIndex = absolutePosition + chunkIndex;
+                yield return new(startReplaceIndex, convert);
+                chunkIndex += 35;
             }
 
             absolutePosition += chunk.Length;
@@ -71,6 +81,7 @@
         IsInvalidChar(ch) &&
         ch != '{' &&
         ch != '(';
+
     readonly struct Match(int index, string value)
     {
         public readonly int Index = index;

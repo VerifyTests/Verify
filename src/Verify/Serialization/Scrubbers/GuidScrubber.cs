@@ -50,6 +50,7 @@
                 {
                     continue;
                 }
+
                 var slice = value.Slice(chunkIndex, 36);
 
                 if (slice.ContainsNewline() ||

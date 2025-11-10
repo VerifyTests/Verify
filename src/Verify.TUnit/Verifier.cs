@@ -3,13 +3,9 @@ namespace VerifyTUnit;
 
 public static partial class Verifier
 {
-    static Task AddFile(FilePair pair)
+    static Task AddFile(string path)
     {
-        if (!VerifierSettings.addAttachments)
-            return Task.CompletedTask;
-
-        var path = pair.ReceivedPath;
-        TestContext.Current!.Output.AttachArtifact(
+        TestContext.Current?.Output.AttachArtifact(
             new()
             {
                 File = new(path),
@@ -21,11 +17,8 @@ public static partial class Verifier
 
     [ModuleInitializer]
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public static void AddAttachmentEvents()
-    {
-        VerifierSettings.OnFirstVerify((pair, _, _) => AddFile(pair));
-        VerifierSettings.OnVerifyMismatch((pair, _, _) => AddFile(pair));
-    }
+    public static void AddAttachmentEvents() =>
+        VerifierSettings.AddTestAttachment(AddFile);
 
     public static InnerVerifier BuildVerifier(string sourceFile, VerifySettings settings, bool useUniqueDirectory = false)
     {

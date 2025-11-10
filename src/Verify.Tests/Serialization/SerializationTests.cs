@@ -1967,8 +1967,9 @@ public class SerializationTests
     [Fact]
     public Task ScrubUserProfile()
     {
+        var profile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         var target = Path
-            .Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "SomePath")
+            .Combine(profile, "SomePath")
             .Replace('\\', '/');
         return Verify(target);
     }

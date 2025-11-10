@@ -6,12 +6,6 @@ public partial class VerifySettings
 
     public void OnFirstVerify(FirstVerify firstVerify) =>
         handleOnFirstVerify += firstVerify;
-
-    public void OnDelete(VerifyDelete verifyDelete) =>
-        handleOnVerifyDelete += verifyDelete;
-
-    VerifyDelete? handleOnVerifyDelete;
-
     internal async Task RunOnFirstVerify(NewResult item, bool autoVerify)
     {
         if (handleOnFirstVerify is not null)
@@ -22,7 +16,11 @@ public partial class VerifySettings
         await VerifierSettings.RunOnFirstVerify(item, autoVerify);
     }
 
-    VerifyMismatch? handleOnVerifyMismatch;
+    VerifyDelete? handleOnVerifyDelete;
+
+    public void OnDelete(VerifyDelete verifyDelete) =>
+        handleOnVerifyDelete += verifyDelete;
+
 
     internal async Task RunOnVerifyDelete(string file, bool autoVerify)
     {
@@ -33,6 +31,8 @@ public partial class VerifySettings
 
         await VerifierSettings.RunOnVerifyDelete(file, autoVerify);
     }
+
+    VerifyMismatch? handleOnVerifyMismatch;
 
     internal async Task RunOnVerifyMismatch(FilePair item, string? message, bool autoVerify)
     {

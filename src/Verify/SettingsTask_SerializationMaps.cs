@@ -42,11 +42,28 @@ public partial class SettingsTask
         return this;
     }
 
+
+    /// <inheritdoc cref="VerifySettings.OrderEnumerableBy{T}"/>
+    [Pure]
+    public SettingsTask OrderEnumerableBy<T>()
+    {
+        CurrentSettings.OrderEnumerableBy<T>();
+        return this;
+    }
+
     /// <inheritdoc cref="VerifySettings.OrderEnumerableByDescending{T}"/>
     [Pure]
     public SettingsTask OrderEnumerableByDescending<T>(Func<T, object?> keySelector)
     {
         CurrentSettings.OrderEnumerableByDescending(keySelector);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.OrderEnumerableByDescending{T}"/>
+    [Pure]
+    public SettingsTask OrderEnumerableByDescending<T>()
+    {
+        CurrentSettings.OrderEnumerableByDescending<T>();
         return this;
     }
 

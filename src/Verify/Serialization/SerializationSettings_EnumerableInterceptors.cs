@@ -18,6 +18,12 @@
             .OrderByDescending(keySelector);
     }
 
+    public void OrderEnumerableBy<T>() =>
+        OrderEnumerableBy<T>(_=>_);
+
+    public void OrderEnumerableByDescending<T>() =>
+        OrderEnumerableByDescending<T>(_=>_);
+
     internal bool TryGetEnumerableInterceptors(Type memberType, [NotNullWhen(true)] out Func<IEnumerable, IEnumerable>? order)
     {
         if (enumerableInterceptors == null)

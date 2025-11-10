@@ -62,6 +62,57 @@
     #endregion
 
     [Fact]
+    public Task EnumerableOrderDirect()
+    {
+        var settings = new VerifySettings();
+        settings.OrderEnumerableBy<string>();
+        return Verify(
+            new List<string>
+            {
+                "a",
+                "c",
+                "b"
+            },
+            settings);
+    }
+    [Fact]
+    public Task OrderEnumerableByDescendingDirect()
+    {
+        var settings = new VerifySettings();
+        settings.OrderEnumerableByDescending<string>();
+        return Verify(
+            new List<string>
+            {
+                "a",
+                "c",
+                "b"
+            },
+            settings);
+    }
+
+    [Fact]
+    public Task EnumerableOrderDirectFluent() =>
+        Verify(
+            new List<string>
+            {
+                "a",
+                "c",
+                "b"
+            })
+            .OrderEnumerableBy<string>();
+
+    [Fact]
+    public Task OrderEnumerableByDescendingDirectFluent() =>
+        Verify(
+                new List<string>
+                {
+                    "a",
+                    "c",
+                    "b"
+                })
+            .OrderEnumerableByDescending<string>();
+
+    [Fact]
     public Task EnumerableOrderWithNull()
     {
         var settings = new VerifySettings();

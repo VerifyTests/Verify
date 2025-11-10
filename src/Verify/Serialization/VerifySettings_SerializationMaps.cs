@@ -180,6 +180,18 @@ public partial class VerifySettings
         serialization.OrderEnumerableByDescending(keySelector);
     }
 
+    public void OrderEnumerableBy<T>()
+    {
+        CloneSettings();
+        serialization.OrderEnumerableBy<T>();
+    }
+
+    public void OrderEnumerableByDescending<T>()
+    {
+        CloneSettings();
+        serialization.OrderEnumerableByDescending<T>();
+    }
+
     public void IgnoreInstance(Type type, ShouldIgnore shouldIgnore)
     {
         CloneSettings();

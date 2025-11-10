@@ -41,7 +41,7 @@
         // Apply matches
         foreach (var match in orderByDescending)
         {
-            builder.Overwrite(replace, match, replace.Length);
+            builder.Overwrite(replace, match, find.Length);
         }
     }
 

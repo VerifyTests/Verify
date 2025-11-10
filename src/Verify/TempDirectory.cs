@@ -185,38 +185,8 @@ public class TempDirectory :
     /// }
     /// </code>
     /// </example>
-    public void OpenExplorerAndDebug()
-    {
-        if (BuildServerDetector.Detected)
-        {
-            throw new("OpenExplorerAndDebug is not supported on build servers.");
-        }
-
-        using var process = Process.Start(Command(), Path);
-        if (Debugger.IsAttached)
-        {
-            Debugger.Break();
-        }
-        else
-        {
-            Debugger.Launch();
-        }
-
-        static string Command()
-        {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                return "explorer.exe";
-            }
-
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                return "open";
-            }
-
-            throw new($"Unsupported operating system: {RuntimeInformation.OSDescription}");
-        }
-    }
+    public void OpenExplorerAndDebug() =>
+        PathLauncher.Launch(Path);
 
     /// <summary>
     /// Implicitly converts a <see cref="TempDirectory"/> to its directory path string.

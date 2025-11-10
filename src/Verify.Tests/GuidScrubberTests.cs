@@ -11,10 +11,16 @@ public class GuidScrubberTests
     [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "no match")]
     [InlineData("aaaaaaaaaaaaaaaaaaaaaaaa", "no match short")]
     [InlineData("173535ae-995b-4cc6-a74e-8cd4be57039c", "simple")]
+    [InlineData("173535ae-995b-4cc6-a74e-8cd4be57039c 173535ae-995b-4cc6-a74e-8cd4be57039d", "simple-multiple")]
+    [InlineData("173535ae-995b-4cc6-a74e-8cd4be57039c 173535ae-995b-4cc6-a74e-8cd4be57039c", "simple-duplicate")]
     [InlineData("{173535ae-995b-4cc6-a74e-8cd4be57039c}", "curly")]
+    [InlineData("{173535ae-995b-4cc6-a74e-8cd4be57039c} {173535ae-995b-4cc6-a74e-8cd4be57039d}", "curly-multiple")]
+    [InlineData("{173535ae-995b-4cc6-a74e-8cd4be57039c} {173535ae-995b-4cc6-a74e-8cd4be57039c}", "curly-duplicate")]
     [InlineData("{173535ae-995b-4cc6-a74e-8cd4be57039c", "start-curly")]
     [InlineData("173535ae-995b-4cc6-a74e-8cd4be57039c}", "end-curly")]
     [InlineData("-173535ae-995b-4cc6-a74e-8cd4be57039c-", "dash")]
+    [InlineData("-173535ae-995b-4cc6-a74e-8cd4be57039c- -173535ae-995b-4cc6-a74e-8cd4be57039d-", "dash-multiple")]
+    [InlineData("-173535ae-995b-4cc6-a74e-8cd4be57039c- -173535ae-995b-4cc6-a74e-8cd4be57039c-", "dash-duplicate")]
     [InlineData("-173535ae-995b-4cc6-a74e-8cd4be57039c", "start-dash")]
     [InlineData("173535ae-995b-4cc6-a74e-8cd4be57039c-", "end-dash")]
     [InlineData("/173535ae-995b-4cc6-a74e-8cd4be57039c/", "fslash")]
@@ -24,6 +30,8 @@ public class GuidScrubberTests
     [InlineData("\\173535ae-995b-4cc6-a74e-8cd4be57039c", "start-bslash")]
     [InlineData("173535ae-995b-4cc6-a74e-8cd4be57039c\\", "end-bslash")]
     [InlineData("[173535ae-995b-4cc6-a74e-8cd4be57039c]", "square")]
+    [InlineData("[173535ae-995b-4cc6-a74e-8cd4be57039c] [173535ae-995b-4cc6-a74e-8cd4be57039d]", "square-multiple")]
+    [InlineData("[173535ae-995b-4cc6-a74e-8cd4be57039c] [173535ae-995b-4cc6-a74e-8cd4be57039c]", "square-duplicate")]
     [InlineData("[173535ae-995b-4cc6-a74e-8cd4be57039c", "start-square")]
     [InlineData("173535ae-995b-4cc6-a74e-8cd4be57039c]", "end-square")]
     [InlineData("a173535ae-995b-4cc6-a74e-8cd4be57039ca", "letters")]
@@ -38,6 +46,7 @@ public class GuidScrubberTests
         var builder = new StringBuilder(guid);
         GuidScrubber.ReplaceGuids(builder, counter);
         await Verify(builder)
+            .DontScrubGuids()
             .UseTextForParameters(name);
     }
 

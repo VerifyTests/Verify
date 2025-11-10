@@ -8,7 +8,9 @@ public static partial class Verifier
             $"Verify snapshot mismatch: {path}",
             await File.ReadAllBytesAsync(path));
 
-    static Verifier() =>
+    [ModuleInitializer]
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public static void AddAttachmentEvents() =>
         VerifierSettings.AddTestAttachment(AddFile);
 
     public static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory = false)

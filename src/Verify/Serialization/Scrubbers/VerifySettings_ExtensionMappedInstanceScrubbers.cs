@@ -44,13 +44,13 @@ public partial class VerifySettings
     /// Remove the <see cref="Environment.MachineName" /> from the test results.
     /// </summary>
     public void ScrubMachineName(string extension, ScrubberLocation location = ScrubberLocation.First) =>
-        AddScrubber(extension, Scrubbers.ScrubMachineName, location);
+        AddScrubber(extension, UserMachineScrubber.Machine, location);
 
     /// <summary>
     /// Remove the <see cref="Environment.UserName" /> from the test results.
     /// </summary>
     public void ScrubUserName(string extension, ScrubberLocation location = ScrubberLocation.First) =>
-        AddScrubber(extension, Scrubbers.ScrubUserName, location);
+        AddScrubber(extension, UserMachineScrubber.User, location);
 
     /// <summary>
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.

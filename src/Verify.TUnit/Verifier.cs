@@ -1,5 +1,3 @@
-using TUnit.Core.Extensions;
-
 #pragma warning disable VerifySetParameters
 namespace VerifyTUnit;
 
@@ -17,7 +15,9 @@ public static partial class Verifier
         return Task.CompletedTask;
     }
 
-    static Verifier() =>
+    [ModuleInitializer]
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public static void AddAttachmentEvents() =>
         VerifierSettings.AddTestAttachment(AddFile);
 
     public static InnerVerifier BuildVerifier(string sourceFile, VerifySettings settings, bool useUniqueDirectory = false)

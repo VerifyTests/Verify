@@ -23,7 +23,7 @@ var target = new GuidTarget
 
 await Verify(target);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2112-L2125' title='Snippet source file'>snippet source</a> | <a href='#snippet-guid' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2113-L2126' title='Snippet source file'>snippet source</a> | <a href='#snippet-guid' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in the following:
@@ -161,7 +161,7 @@ public Task NamedGuidInstance()
         settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L56-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-NamedGuidInstance' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L65-L81' title='Snippet source file'>snippet source</a> | <a href='#snippet-NamedGuidInstance' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -182,7 +182,7 @@ public Task NamedGuidFluent()
         .AddNamedGuid(guid, "instanceNamed");
 }
 ```
-<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L84-L98' title='Snippet source file'>snippet source</a> | <a href='#snippet-NamedGuidFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L93-L107' title='Snippet source file'>snippet source</a> | <a href='#snippet-NamedGuidFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -217,7 +217,7 @@ public Task InferredNamedGuidFluent()
         .AddNamedGuid(namedGuid);
 }
 ```
-<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L100-L114' title='Snippet source file'>snippet source</a> | <a href='#snippet-InferredNamedGuidFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L109-L123' title='Snippet source file'>snippet source</a> | <a href='#snippet-InferredNamedGuidFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result: 

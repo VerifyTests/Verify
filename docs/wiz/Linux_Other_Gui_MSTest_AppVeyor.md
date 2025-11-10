@@ -19,7 +19,7 @@ Add the following packages to the test project:
 ```csproj
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
 <PackageReference Include="MSTest" Version="4.0.1" />
-<PackageReference Include="Verify.MSTest" Version="31.4.3" />
+<PackageReference Include="Verify.MSTest" Version="31.5.1" />
 ```
 <sup><a href='/usages/MSTestNugetUsage/MSTestNugetUsage.csproj#L7-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-mstest-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

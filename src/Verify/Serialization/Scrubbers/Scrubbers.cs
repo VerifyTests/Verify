@@ -53,6 +53,7 @@
         {
             if (chunk.Length < find.Length)
             {
+                absolutePosition += chunk.Length;
                 continue;
             }
 
@@ -73,7 +74,7 @@
                 }
 
                 if ((chunkIndex != 0 && !IsValidWrapper(value[chunkIndex - 1])) ||
-                    (end != value.Length && IsValidWrapper(value[end])))
+                    (end != value.Length && !IsValidWrapper(value[end])))
                 {
                     chunkIndex++;
                     continue;

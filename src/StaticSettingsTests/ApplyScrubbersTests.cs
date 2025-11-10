@@ -2,7 +2,7 @@
     BaseTest
 {
     public ApplyScrubbersTests() =>
-        Scrubbers.ResetReplacements("FakeMachineName", "FakeUserName");
+        UserMachineScrubber.ResetReplacements("FakeMachineName", "FakeUserName");
 
     [Fact]
     public Task ScrubUserName() =>

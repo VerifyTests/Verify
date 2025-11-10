@@ -1,78 +1,85 @@
-﻿namespace VerifyTests;
-
-public static class Scrubbers
+﻿static class UserMachineScrubber
 {
-    static (FrozenDictionary<string, string> exact, FrozenDictionary<string, string> replace) machineNameReplacements;
-    static (FrozenDictionary<string, string> exact, FrozenDictionary<string, string> replace) userNameReplacements;
+    static string machineName;
+    static string userName;
 
-    static Scrubbers() =>
+    static UserMachineScrubber() =>
         ResetReplacements(Environment.MachineName, Environment.UserName);
 
+    [MemberNotNull(nameof(machineName), nameof(userName))]
     internal static void ResetReplacements(string machineName, string userName)
     {
-        machineNameReplacements = CreateWrappedReplacements(machineName, "TheMachineName");
-        userNameReplacements = CreateWrappedReplacements(userName, "TheUserName");
+        UserMachineScrubber.machineName = machineName;
+        UserMachineScrubber.userName = userName;
     }
 
-    static char[] validWrappingChars =
-    [
-        ' ',
-        '\t',
-        '\n',
-        '\r'
-    ];
+    static bool IsValidWrapper(char ch) =>
+        ch is
+            ' ' or
+            '\t' or
+            '\n' or
+            '\r';
 
-    static (FrozenDictionary<string, string> exact, FrozenDictionary<string, string> replace) CreateWrappedReplacements(string toReplace, string toReplaceWith)
+    public static void Machine(StringBuilder builder) =>
+        PerformReplacements(builder, machineName, "TheMachineName");
+
+    public static void User(StringBuilder builder) =>
+        PerformReplacements(builder, userName, "TheUserName");
+
+    static void PerformReplacements(StringBuilder builder, string find, string replace)
     {
-        var replace = new Dictionary<string, string>(validWrappingChars.Length * 2);
-        foreach (var wrappingChar in validWrappingChars)
+        if (builder.Length < find.Length)
         {
-            replace[wrappingChar + toReplace] = wrappingChar + toReplaceWith;
-            replace[toReplace + wrappingChar] = toReplaceWith + wrappingChar;
+            return;
         }
 
-        var exact = new Dictionary<string, string>(2 + validWrappingChars.Length * validWrappingChars.Length)
+        var matches = FindMatches(builder, find);
+
+        // Sort by position descending
+        var orderByDescending = matches.OrderByDescending(_ => _);
+
+        // Apply matches
+        foreach (var match in orderByDescending)
         {
+            builder.Overwrite(replace, match, find.Length);
+        }
+    }
+
+    static IEnumerable<int> FindMatches(StringBuilder builder, string find)
+    {
+        var absolutePosition = 0;
+
+        foreach (var chunk in builder.GetChunks())
+        {
+            if (chunk.Length < find.Length)
             {
-                toReplace, toReplaceWith
+                absolutePosition += chunk.Length;
+                continue;
             }
-        };
-        foreach (var beforeChar in validWrappingChars)
-        foreach (var afterChar in validWrappingChars)
-        {
-            exact[beforeChar + toReplace + afterChar] = beforeChar + toReplaceWith + afterChar;
-        }
 
-        return (exact.ToFrozenDictionary(), replace.ToFrozenDictionary());
-    }
-
-    public static void ScrubMachineName(StringBuilder builder) =>
-        PerformReplacements(builder, machineNameReplacements);
-
-    public static void ScrubUserName(StringBuilder builder) =>
-        PerformReplacements(builder, userNameReplacements);
-
-    static void PerformReplacements(StringBuilder builder, (IReadOnlyDictionary<string, string> exact, IReadOnlyDictionary<string, string> replace) replacements)
-    {
-        var exactMatchingLength = replacements.exact
-            .Where(_ => _.Key.Length == builder.Length)
-            .ToList();
-        if (exactMatchingLength.Count > 0)
-        {
-            var value = builder.ToString();
-            foreach (var exact in exactMatchingLength)
+            var chunkIndex = 0;
+            while (true)
             {
-                if (value != exact.Key)
+                var value = chunk.Span;
+                chunkIndex = value[chunkIndex..].IndexOf(find);
+                if (chunkIndex == -1)
                 {
+                    break;
+                }
+
+                var end = chunkIndex + find.Length;
+                if ((chunkIndex != 0 && !IsValidWrapper(value[chunkIndex - 1])) ||
+                    (end != value.Length && !IsValidWrapper(value[end])))
+                {
+                    chunkIndex++;
                     continue;
                 }
 
-                builder.Clear();
-                builder.Append(exact.Value);
-                return;
+                yield return absolutePosition + chunkIndex;
+                chunkIndex += find.Length;
             }
-        }
 
-        builder.ReplaceTokens(replacements.replace);
+            absolutePosition += chunk.Length;
+        }
     }
 }

@@ -1,9 +1,9 @@
-﻿public class ScrubStackTrace
+﻿public class ScrubStackTraceTests
 {
     [Fact]
     public Task Dotnet()
     {
-        var scrubbed = Scrubbers.ScrubStackTrace(
+        var scrubbed = ScrubStackTrace.Scrub(
             """
             Elmah.TestException: This is a test exception that can be safely ignored.
                 at Elmah.ErrorLogPageFactory.FindHandler(String name) in C:\ELMAH\src\Elmah\ErrorLogPageFactory.cs:line 126
@@ -18,7 +18,7 @@
     [Fact]
     public Task Dotnet_RemoveParams()
     {
-        var scrubbed = Scrubbers.ScrubStackTrace(
+        var scrubbed = ScrubStackTrace.Scrub(
             """
             Elmah.TestException: This is a test exception that can be safely ignored.
                 at Elmah.ErrorLogPageFactory.FindHandler(String name) in C:\ELMAH\src\Elmah\ErrorLogPageFactory.cs:line 126
@@ -34,7 +34,7 @@
     [Fact]
     public Task WhiteSpace()
     {
-        var scrubbed = Scrubbers.ScrubStackTrace(
+        var scrubbed = ScrubStackTrace.Scrub(
             """
             System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
                 at SerializationTests.Method() in /Users/appveyor/projects/verify/src/Verify.Tests/Serialization/SerializationTests.cs:line 2634

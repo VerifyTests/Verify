@@ -12,6 +12,6 @@ public static partial class VerifierSettings
                     return null;
                 }
 
-                return Scrubbers.ScrubStackTrace(value);
+                return ScrubStackTrace.Scrub(value);
             });
 }

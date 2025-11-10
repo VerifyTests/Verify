@@ -55,7 +55,7 @@ public Task DontOrderDictionaries()
         .DontSortDictionaries();
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/OrderTests.cs#L172-L194' title='Snippet source file'>snippet source</a> | <a href='#snippet-DontOrderDictionaries' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/OrderTests.cs#L223-L245' title='Snippet source file'>snippet source</a> | <a href='#snippet-DontOrderDictionaries' title='Start of snippet'>anchor</a></sup>
 <a id='snippet-DontOrderDictionaries-1'></a>
 ```cs
 [Fact]
@@ -165,7 +165,7 @@ public Task EnumerableOrderFluent() =>
             })
         .OrderEnumerableBy<Target>(_ => _.Value);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/OrderTests.cs#L98-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-OrderEnumerableByFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/OrderTests.cs#L149-L162' title='Snippet source file'>snippet source</a> | <a href='#snippet-OrderEnumerableByFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -228,7 +228,7 @@ public Task OrderEnumerableByDescending()
         settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/OrderTests.cs#L79-L96' title='Snippet source file'>snippet source</a> | <a href='#snippet-OrderEnumerableByDescending' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/OrderTests.cs#L130-L147' title='Snippet source file'>snippet source</a> | <a href='#snippet-OrderEnumerableByDescending' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -248,7 +248,7 @@ public Task OrderEnumerableByDescendingFluent() =>
             })
         .OrderEnumerableByDescending<Target>(_ => _.Value);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/OrderTests.cs#L113-L126' title='Snippet source file'>snippet source</a> | <a href='#snippet-OrderEnumerableByDescendingFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/OrderTests.cs#L164-L177' title='Snippet source file'>snippet source</a> | <a href='#snippet-OrderEnumerableByDescendingFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -60,19 +60,14 @@
             var chunkIndex = 0;
             while (true)
             {
-                var end = chunkIndex + find.Length;
-                if (end > chunk.Length)
+                var value = chunk.Span;
+                chunkIndex = value[chunkIndex..].IndexOf(find);
+                if (chunkIndex == -1)
                 {
                     break;
                 }
 
-                var value = chunk.Span;
-                chunkIndex = value.IndexOf(find);
-                if (chunkIndex == -1)
-                {
-                    yield break;
-                }
-
+                var end = chunkIndex + find.Length;
                 if ((chunkIndex != 0 && !IsValidWrapper(value[chunkIndex - 1])) ||
                     (end != value.Length && !IsValidWrapper(value[end])))
                 {
@@ -80,8 +75,7 @@
                     continue;
                 }
 
-                var startReplaceIndex = absolutePosition + chunkIndex;
-                yield return startReplaceIndex;
+                yield return absolutePosition + chunkIndex;
                 chunkIndex += find.Length;
             }
 

@@ -75,6 +75,7 @@
                 if ((chunkIndex != 0 && !IsValidWrapper(value[chunkIndex - 1])) ||
                     (end != value.Length && IsValidWrapper(value[end])))
                 {
+                    chunkIndex++;
                     continue;
                 }
 

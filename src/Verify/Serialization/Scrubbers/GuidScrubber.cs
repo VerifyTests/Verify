@@ -12,40 +12,49 @@
         {
             return;
         }
+        var matches = FindMatches(builder, counter);
 
-        if (builder.Count('-') < 4)
+        // Sort by position descending
+        var orderByDescending = matches.OrderByDescending(_ => _.Index);
+
+        // Apply matches
+        foreach (var match in orderByDescending)
         {
-            return;
+            builder.Overwrite(match.Value, match.Index, 36);
         }
+    }
 
-        var value = builder.ToString().AsSpan();
+    static IEnumerable<Match> FindMatches(StringBuilder builder, Counter counter)
+    {
+        var absolutePosition = 0;
 
-        var builderIndex = 0;
-        for (var index = 0; index <= value.Length; index++)
+        foreach (var chunk in builder.GetChunks())
         {
-            var end = index + 36;
-            if (end > value.Length)
+            for (var chunkIndex = 0; chunkIndex < chunk.Length; chunkIndex++)
             {
-                return;
-            }
-
-            if ((index == 0 || !IsInvalidStartingChar(value[index - 1])) &&
-                (end == value.Length || !IsInvalidEndingChar(value[end])))
-            {
-                var slice = value.Slice(index, 36);
-                if (!slice.ContainsNewline() &&
-                    Guid.TryParseExact(slice, "D", out var guid))
+                var end = chunkIndex + 36;
+                if (end > chunk.Length)
                 {
-                    var convert = counter.Convert(guid);
-                    builder.Overwrite(convert, builderIndex, 36);
-                    builderIndex += convert.Length;
-                    index += 35;
+                    break;
+                }
 
-                    continue;
+                var value = chunk.Span;
+                if ((chunkIndex == 0 || !IsInvalidStartingChar(value[chunkIndex - 1])) &&
+                    (end == value.Length || !IsInvalidEndingChar(value[end])))
+                {
+                    var slice = value.Slice(chunkIndex, 36);
+                    if (!slice.ContainsNewline() &&
+                        Guid.TryParseExact(slice, "D", out var guid))
+                    {
+                        var convert = counter.Convert(guid);
+                        var startReplaceIndex = absolutePosition + chunkIndex;
+                        yield return new(startReplaceIndex, convert);
+                        chunkIndex += 35;
+                    }
                 }
             }
 
-            builderIndex++;
+            absolutePosition += chunk.Length;
         }
     }
 
@@ -62,4 +71,9 @@
         IsInvalidChar(ch) &&
         ch != '{' &&
         ch != '(';
+    readonly struct Match(int index, string value)
+    {
+        public readonly int Index = index;
+        public readonly string Value = value;
+    }
 }

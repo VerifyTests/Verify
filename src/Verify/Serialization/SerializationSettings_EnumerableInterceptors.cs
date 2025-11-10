@@ -2,27 +2,45 @@
 {
     Dictionary<Type, Func<IEnumerable, IEnumerable>>? enumerableInterceptors;
 
-    public void OrderEnumerableBy<T>(Func<T, object?> keySelector)
+    public void OrderEnumerableBy<T>(Func<T, object?>? keySelector = null)
     {
         enumerableInterceptors ??= [];
-        enumerableInterceptors[typeof(T)] = _ => _
-            .Cast<T>()
-            .OrderBy(keySelector);
+        Func<IEnumerable, IEnumerable> interceptor;
+        if (keySelector == null)
+        {
+            interceptor = _ => _
+                .Cast<T>()
+                .OrderBy(_=>_);
+        }
+        else
+        {
+            interceptor = _ => _
+                .Cast<T>()
+                .OrderBy(keySelector);
+        }
+
+        enumerableInterceptors[typeof(T)] = interceptor;
     }
 
-    public void OrderEnumerableByDescending<T>(Func<T, object?> keySelector)
+    public void OrderEnumerableByDescending<T>(Func<T, object?>? keySelector = null)
     {
         enumerableInterceptors ??= [];
-        enumerableInterceptors[typeof(T)] = _ => _
-            .Cast<T>()
-            .OrderByDescending(keySelector);
+        Func<IEnumerable, IEnumerable> interceptor;
+        if (keySelector == null)
+        {
+            interceptor = _ => _
+                .Cast<T>()
+                .OrderByDescending(_=>_);
+        }
+        else
+        {
+            interceptor = _ => _
+                .Cast<T>()
+                .OrderByDescending(keySelector);
+        }
+
+        enumerableInterceptors[typeof(T)] = interceptor;
     }
-
-    public void OrderEnumerableBy<T>() =>
-        OrderEnumerableBy<T>(_=>_);
-
-    public void OrderEnumerableByDescending<T>() =>
-        OrderEnumerableByDescending<T>(_=>_);
 
     internal bool TryGetEnumerableInterceptors(Type memberType, [NotNullWhen(true)] out Func<IEnumerable, IEnumerable>? order)
     {

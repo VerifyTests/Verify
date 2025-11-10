@@ -2,8 +2,8 @@
 public class ScrubStackTraceBenchmarks
 {
     [Benchmark]
-    public void ScrubStackTrace() =>
-        Scrubbers.ScrubStackTrace(
+    public void Scrub() =>
+        ScrubStackTrace.Scrub(
             """
             Elmah.TestException: This is a test exception that can be safely ignored.
                 at Elmah.ErrorLogPageFactory.FindHandler(String name) in C:\ELMAH\src\Elmah\ErrorLogPageFactory.cs:line 126

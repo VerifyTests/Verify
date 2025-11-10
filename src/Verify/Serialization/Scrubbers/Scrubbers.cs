@@ -1,11 +1,9 @@
-﻿namespace VerifyTests;
-
-public static class Scrubbers
+﻿static class UserMachineScrubber
 {
     static (FrozenDictionary<string, string> exact, FrozenDictionary<string, string> replace) machineNameReplacements;
     static (FrozenDictionary<string, string> exact, FrozenDictionary<string, string> replace) userNameReplacements;
 
-    static Scrubbers() =>
+    static UserMachineScrubber() =>
         ResetReplacements(Environment.MachineName, Environment.UserName);
 
     internal static void ResetReplacements(string machineName, string userName)
@@ -13,6 +11,13 @@ public static class Scrubbers
         machineNameReplacements = CreateWrappedReplacements(machineName, "TheMachineName");
         userNameReplacements = CreateWrappedReplacements(userName, "TheUserName");
     }
+
+    static bool IsValidWrapper(char ch) =>
+        ch is
+            ' ' or
+            '\t' or
+            '\n' or
+            '\r';
 
     static char[] validWrappingChars =
     [
@@ -46,10 +51,10 @@ public static class Scrubbers
         return (exact.ToFrozenDictionary(), replace.ToFrozenDictionary());
     }
 
-    public static void ScrubMachineName(StringBuilder builder) =>
+    public static void Machine(StringBuilder builder) =>
         PerformReplacements(builder, machineNameReplacements);
 
-    public static void ScrubUserName(StringBuilder builder) =>
+    public static void User(StringBuilder builder) =>
         PerformReplacements(builder, userNameReplacements);
 
     static void PerformReplacements(StringBuilder builder, (IReadOnlyDictionary<string, string> exact, IReadOnlyDictionary<string, string> replace) replacements)

@@ -15,13 +15,13 @@ public partial class VerifySettings
     /// Remove the <see cref="Environment.MachineName" /> from the test results.
     /// </summary>
     public void ScrubMachineName(ScrubberLocation location = ScrubberLocation.First) =>
-        AddScrubber(Scrubbers.ScrubMachineName, location);
+        AddScrubber(UserMachineScrubber.Machine, location);
 
     /// <summary>
     /// Remove the <see cref="Environment.UserName" /> from the test results.
     /// </summary>
     public void ScrubUserName(ScrubberLocation location = ScrubberLocation.First) =>
-        AddScrubber(Scrubbers.ScrubUserName, location);
+        AddScrubber(UserMachineScrubber.User, location);
 
     /// <summary>
     /// Modify the resulting test content using custom code.

@@ -112,7 +112,7 @@ public static partial class VerifierSettings
     public static void ScrubMachineName(string extension, ScrubberLocation location = ScrubberLocation.First)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(extension, Scrubbers.ScrubMachineName, location);
+        AddScrubber(extension, UserMachineScrubber.Machine, location);
     }
 
     /// <summary>
@@ -121,6 +121,6 @@ public static partial class VerifierSettings
     public static void ScrubUserName(string extension, ScrubberLocation location = ScrubberLocation.First)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(extension, Scrubbers.ScrubUserName, location);
+        AddScrubber(extension, UserMachineScrubber.User, location);
     }
 }

@@ -157,7 +157,7 @@ public static partial class VerifierSettings
     public static void ScrubMachineName(ScrubberLocation location = ScrubberLocation.First)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(Scrubbers.ScrubMachineName, location);
+        AddScrubber(UserMachineScrubber.Machine, location);
     }
 
     /// <summary>
@@ -166,6 +166,6 @@ public static partial class VerifierSettings
     public static void ScrubUserName(ScrubberLocation location = ScrubberLocation.First)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(Scrubbers.ScrubUserName, location);
+        AddScrubber(UserMachineScrubber.User, location);
     }
 }

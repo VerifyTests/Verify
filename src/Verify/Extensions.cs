@@ -23,9 +23,6 @@ static class Extensions
     public static string Extension(this FileStream file) =>
         Path.GetExtension(file.Name)[1..];
 
-    public static bool ContainsNewline(this CharSpan span) =>
-        span.IndexOfAny('\r', '\n') != -1;
-
     public static Version MajorMinor(this Version version) =>
         new(version.Major, version.Minor);
 

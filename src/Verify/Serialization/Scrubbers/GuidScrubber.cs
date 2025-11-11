@@ -75,8 +75,7 @@
                         continue;
                     }
 
-                    if (buffer.ContainsNewline() ||
-                        !Guid.TryParseExact(buffer, "D", out var guid))
+                    if (!Guid.TryParseExact(buffer, "D", out var guid))
                     {
                         continue;
                     }
@@ -106,8 +105,7 @@
 
                     var slice = value.Slice(chunkIndex, 36);
 
-                    if (slice.ContainsNewline() ||
-                        !Guid.TryParseExact(slice, "D", out var guid))
+                    if (!Guid.TryParseExact(slice, "D", out var guid))
                     {
                         continue;
                     }

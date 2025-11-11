@@ -17,12 +17,6 @@ static class DateScrubber
         Culture culture,
         [NotNullWhen(true)] out string? result)
     {
-        if (span.ContainsNewline())
-        {
-            result = null;
-            return false;
-        }
-
         if (Date.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
         {
             result = counter.Convert(date);
@@ -85,12 +79,6 @@ static class DateScrubber
         Culture culture,
         [NotNullWhen(true)] out string? result)
     {
-        if (span.ContainsNewline())
-        {
-            result = null;
-            return false;
-        }
-
         if (DateTimeOffset.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
         {
             result = counter.Convert(date);
@@ -131,12 +119,6 @@ static class DateScrubber
         Culture culture,
         [NotNullWhen(true)] out string? result)
     {
-        if (span.ContainsNewline())
-        {
-            result = null;
-            return false;
-        }
-
         if (DateTime.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
         {
             result = counter.Convert(date);

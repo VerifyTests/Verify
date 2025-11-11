@@ -29,6 +29,23 @@
         Assert.Equal(expected, builder.ToString());
     }
 
+
+    [Fact]
+    public void MultipleChunks()
+    {
+        List<DirectoryReplacements.Pair> pairs =
+        [
+            new("C:/Parent/Child", "{Child}"),
+            new("C:/Parent", "{Parent}"),
+        ];
+        var builder = new StringBuilder(capacity: 8, maxCapacity: int.MaxValue);
+        builder.Append("C:/Parent/Child ");
+        builder.Append("C:/Parent ");
+        using var counter = Counter.Start();
+        DirectoryReplacements.Replace(builder, pairs);
+        Assert.Equal("{Child} {Parent} ", builder.ToString());
+    }
+
     [Fact]
     public void ProcessLongerDirectoryFirst()
     {

@@ -1,7 +1,7 @@
-﻿public class ApplyScrubbersTests :
+﻿public class UserMachineScrubberTests :
     BaseTest
 {
-    public ApplyScrubbersTests() =>
+    public UserMachineScrubberTests() =>
         UserMachineScrubber.ResetReplacements("FakeMachineName", "FakeUserName");
 
     [Fact]

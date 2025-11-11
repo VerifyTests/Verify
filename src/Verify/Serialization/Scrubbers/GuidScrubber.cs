@@ -58,16 +58,31 @@
 
                     // Check boundary characters
                     var startPosition = previousChunkAbsoluteEnd - carryoverLength + carryoverIndex;
-                    var hasValidStart = startPosition == 0 || !IsInvalidStartingChar(builder[startPosition - 1]);
-                    var hasValidEnd = neededFromCurrent >= chunkSpan.Length || !IsInvalidEndingChar(chunkSpan[neededFromCurrent]);
 
-                    if (hasValidStart && hasValidEnd &&
-                        !buffer.ContainsNewline() &&
-                        Guid.TryParseExact(buffer, "D", out var guid))
+                    var hasValidStart = startPosition == 0 ||
+                                        !IsInvalidStartingChar(builder[startPosition - 1]);
+
+                    if (!hasValidStart)
                     {
-                        var convert = counter.Convert(guid);
-                        matches.Add(new(startPosition, convert));
+                        continue;
                     }
+
+                    var hasValidEnd = neededFromCurrent >= chunkSpan.Length ||
+                                      !IsInvalidEndingChar(chunkSpan[neededFromCurrent]);
+
+                    if (!hasValidEnd)
+                    {
+                        continue;
+                    }
+
+                    if (buffer.ContainsNewline() ||
+                        !Guid.TryParseExact(buffer, "D", out var guid))
+                    {
+                        continue;
+                    }
+
+                    var convert = counter.Convert(guid);
+                    matches.Add(new(startPosition, convert));
                 }
             }
 

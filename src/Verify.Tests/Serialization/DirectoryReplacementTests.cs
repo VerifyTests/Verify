@@ -29,7 +29,6 @@
         Assert.Equal(expected, builder.ToString());
     }
 
-
     [Fact]
     public void MultipleChunks()
     {

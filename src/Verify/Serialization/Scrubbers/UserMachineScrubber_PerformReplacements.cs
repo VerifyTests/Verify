@@ -49,32 +49,44 @@
                     var remainingInCarryover = carryoverLength - carryoverIndex;
                     var neededFromCurrent = find.Length - remainingInCarryover;
 
-                    if (neededFromCurrent <= 0 || neededFromCurrent > chunkSpan.Length)
+                    if (neededFromCurrent <= 0 ||
+                        neededFromCurrent > chunkSpan.Length)
                     {
                         continue;
                     }
 
                     // Build combined buffer
                     carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(combinedBuffer);
-                    chunkSpan.Slice(0, neededFromCurrent).CopyTo(combinedBuffer.Slice(remainingInCarryover));
+                    chunkSpan[..neededFromCurrent].CopyTo(combinedBuffer[remainingInCarryover..]);
 
                     // Check if it matches
-                    if (combinedBuffer.SequenceEqual(find))
+                    if (!combinedBuffer.SequenceEqual(find))
                     {
-                        var startPosition = previousChunkAbsoluteEnd - carryoverLength + carryoverIndex;
-
-                        // Check preceding character
-                        var hasValidStart = startPosition == 0 || IsValidWrapper(builder[startPosition - 1]);
-
-                        // Check trailing character
-                        var endPosition = startPosition + find.Length;
-                        var hasValidEnd = endPosition >= builder.Length || IsValidWrapper(chunkSpan[neededFromCurrent]);
-
-                        if (hasValidStart && hasValidEnd)
-                        {
-                            matches.Add(startPosition);
-                        }
+                        continue;
                     }
+
+                    var startPosition = previousChunkAbsoluteEnd - carryoverLength + carryoverIndex;
+
+                    // Check preceding character
+                    var validStart = startPosition == 0 ||
+                                     IsValidWrapper(builder[startPosition - 1]);
+
+                    if (!validStart)
+                    {
+                        continue;
+                    }
+
+                    // Check trailing character
+                    var endPosition = startPosition + find.Length;
+                    var validEnd = endPosition >= builder.Length ||
+                                   IsValidWrapper(chunkSpan[neededFromCurrent]);
+
+                    if (!validEnd)
+                    {
+                        continue;
+                    }
+
+                    matches.Add(startPosition);
                 }
             }
 

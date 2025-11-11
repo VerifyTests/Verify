@@ -62,7 +62,7 @@
         var absolutePosition = 0;
 
         // Find the longest path to determine buffer sizes
-        var maxPathLength = pairs.Max(p => p.Find.Length);
+        var maxPathLength = pairs.Max(_ => _.Find.Length);
         var carryoverSize = maxPathLength - 1;
 
         Span<char> carryoverBuffer = stackalloc char[carryoverSize];
@@ -84,14 +84,15 @@
                         var remainingInCarryover = carryoverLength - carryoverIndex;
                         var neededFromCurrent = pair.Find.Length - remainingInCarryover;
 
-                        if (neededFromCurrent <= 0 || neededFromCurrent > chunkSpan.Length)
+                        if (neededFromCurrent <= 0 ||
+                            neededFromCurrent > chunkSpan.Length)
                         {
                             continue;
                         }
 
                         var combinedLength = remainingInCarryover + neededFromCurrent;
                         carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(combinedBuffer);
-                        chunkSpan.Slice(0, neededFromCurrent).CopyTo(combinedBuffer.Slice(remainingInCarryover));
+                        chunkSpan[..neededFromCurrent].CopyTo(combinedBuffer[remainingInCarryover..]);
 
                         var startPosition = previousChunkAbsoluteEnd - carryoverLength + carryoverIndex;
 
@@ -101,20 +102,22 @@
                             continue;
                         }
 
-                        if (TryMatchAtCrossChunk(
+                        if (!TryMatchAtCrossChunk(
                                 builder,
-                                combinedBuffer.Slice(0, combinedLength),
+                                combinedBuffer[..combinedLength],
                                 chunkSpan,
                                 startPosition,
                                 neededFromCurrent,
                                 pair.Find,
                                 out var matchLength))
                         {
-                            matches.Add(new(startPosition, matchLength, pair.Replace));
-                            matchedRanges.Add((startPosition, startPosition + matchLength));
-                            // Found a match at this position, skip other pairs
-                            break;
+                            continue;
                         }
+
+                        matches.Add(new(startPosition, matchLength, pair.Replace));
+                        matchedRanges.Add((startPosition, startPosition + matchLength));
+                        // Found a match at this position, skip other pairs
+                        break;
                     }
                 }
             }
@@ -145,15 +148,17 @@
                     }
 
                     // Try to match at this position
-                    if (TryMatchAt(chunk, chunkIndex, pair.Find, out var matchLength))
+                    if (!TryMatchAt(chunk, chunkIndex, pair.Find, out var matchLength))
                     {
-                        matches.Add(new(absoluteIndex, matchLength, pair.Replace));
-                        matchedRanges.Add((absoluteIndex, absoluteIndex + matchLength));
-                        // Skip past this match
-                        chunkIndex += matchLength - 1;
-                        // Found a match, skip other pairs at this position
-                        break;
+                        continue;
                     }
+
+                    matches.Add(new(absoluteIndex, matchLength, pair.Replace));
+                    matchedRanges.Add((absoluteIndex, absoluteIndex + matchLength));
+                    // Skip past this match
+                    chunkIndex += matchLength - 1;
+                    // Found a match, skip other pairs at this position
+                    break;
                 }
             }
 
@@ -170,9 +175,9 @@
 
     static bool IsPositionMatched(int position, List<(int Start, int End)> matchedRanges)
     {
-        foreach (var range in matchedRanges)
+        foreach (var (start, end) in matchedRanges)
         {
-            if (position >= range.Start && position < range.End)
+            if (position >= start && position < end)
             {
                 return true;
             }

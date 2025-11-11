@@ -30,6 +30,7 @@
         var absolutePosition = 0;
         var matches = new List<Match>();
         Span<char> carryoverBuffer = stackalloc char[35];
+        Span<char> buffer = stackalloc char[36]; // Move outside loop
         var carryoverLength = 0;
         var previousChunkAbsoluteEnd = 0;
 
@@ -44,7 +45,6 @@
 
                 if (chunkSpan.Length >= neededFromCurrent)
                 {
-                    Span<char> buffer = stackalloc char[36];
                     carryoverBuffer.Slice(0, carryoverLength).CopyTo(buffer);
                     chunkSpan.Slice(0, neededFromCurrent).CopyTo(buffer.Slice(carryoverLength));
 

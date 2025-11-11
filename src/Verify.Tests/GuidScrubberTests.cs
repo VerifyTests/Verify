@@ -90,6 +90,17 @@ public class GuidScrubberTests
         return Verify(guid, settings);
     }
 
+    [Fact]
+    public void MultipleChunks()
+    {
+        var builder = new StringBuilder(capacity: 8, maxCapacity: int.MaxValue);
+        builder.Append("[2e6bddf7-fcf7-4b09-bb6f-a7948e1eecf3]");
+        builder.Append("[c2eeaf99-d5c4-4341-8543-4597c3fd40d9]");
+        using var counter = Counter.Start();
+        GuidScrubber.ReplaceGuids(builder, counter);
+        Assert.Equal("[Guid_1][Guid_2]", builder.ToString());
+    }
+
     #region NamedGuidFluent
 
     [Fact]

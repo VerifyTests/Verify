@@ -25,12 +25,12 @@
         }
     }
 
-    public static List<Match> FindMatches(StringBuilder builder, Counter counter)
+    static List<Match> FindMatches(StringBuilder builder, Counter counter)
     {
         var absolutePosition = 0;
         var matches = new List<Match>();
         Span<char> carryoverBuffer = stackalloc char[35];
-        Span<char> buffer = stackalloc char[36]; // Move outside loop
+        Span<char> buffer = stackalloc char[36];
         var carryoverLength = 0;
         var previousChunkAbsoluteEnd = 0;
 
@@ -41,15 +41,23 @@
             // Check for GUIDs spanning from previous chunk to current chunk
             if (carryoverLength > 0)
             {
-                var neededFromCurrent = 36 - carryoverLength;
-
-                if (chunkSpan.Length >= neededFromCurrent)
+                // Check each possible starting position in the carryover
+                for (var carryoverIndex = 0; carryoverIndex < carryoverLength; carryoverIndex++)
                 {
-                    carryoverBuffer.Slice(0, carryoverLength).CopyTo(buffer);
-                    chunkSpan.Slice(0, neededFromCurrent).CopyTo(buffer.Slice(carryoverLength));
+                    var remainingInCarryover = carryoverLength - carryoverIndex;
+                    var neededFromCurrent = 36 - remainingInCarryover;
+
+                    if (neededFromCurrent <= 0 ||
+                        chunkSpan.Length < neededFromCurrent)
+                    {
+                        continue;
+                    }
+
+                    carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(buffer);
+                    chunkSpan[..neededFromCurrent].CopyTo(buffer[remainingInCarryover..]);
 
                     // Check boundary characters
-                    var startPosition = previousChunkAbsoluteEnd - carryoverLength;
+                    var startPosition = previousChunkAbsoluteEnd - carryoverLength + carryoverIndex;
                     var hasValidStart = startPosition == 0 || !IsInvalidStartingChar(builder[startPosition - 1]);
                     var hasValidEnd = neededFromCurrent >= chunkSpan.Length || !IsInvalidEndingChar(chunkSpan[neededFromCurrent]);
 

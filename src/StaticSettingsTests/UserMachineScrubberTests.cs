@@ -15,6 +15,11 @@
     }
 
     [Fact]
+    public Task ScrubBoth() =>
+        Verify("FakeUserName FakeUserName")
+            .ScrubUserName();
+
+    [Fact]
     public Task ScrubUserName() =>
         Verify("FakeUserName")
             .ScrubUserName();

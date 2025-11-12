@@ -54,7 +54,7 @@ public partial class VerifySettings
     /// </summary>
     public void UseParameters(params object?[] parameters)
     {
-        Guard.NotNullOrEmpty(parameters);
+        Ensure.NotNullOrEmpty(parameters);
         ThrowIfFileNameDefined();
         ThrowIfParametersTextDefined();
         this.parameters = parameters;

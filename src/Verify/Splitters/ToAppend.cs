@@ -7,7 +7,7 @@ public readonly struct ToAppend
 
     public ToAppend(string name, object data)
     {
-        Guard.NotNullOrWhiteSpace(name);
+        Ensure.NotNullOrWhiteSpace(name);
         Name = name;
         Data = data;
     }

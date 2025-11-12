@@ -12,7 +12,7 @@ partial class InnerVerifier
         object? info,
         FileScrubber? fileScrubber)
     {
-        Guard.DirectoryExists(path);
+        Ensure.DirectoryExists(path);
         path = Path.GetFullPath(path);
         pattern ??= "*";
         option ??= new()
@@ -41,7 +41,7 @@ partial class InnerVerifier
         object? info,
         FileScrubber? fileScrubber)
     {
-        Guard.DirectoryExists(path);
+        Ensure.DirectoryExists(path);
         path = Path.GetFullPath(path);
         pattern ??= "*";
         var targets = await ToTargetsForDirectory(

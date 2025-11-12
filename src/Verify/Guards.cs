@@ -14,7 +14,7 @@
 
     public static void BadFileName(string name, [CallerArgumentExpression("name")] string argumentName = "")
     {
-        Guard.NotNullOrEmpty(name, argumentName);
+        Ensure.NotNullOrEmpty(name, argumentName);
         foreach (var invalidChar in invalidFileChars)
         {
             if (name.IndexOf(invalidChar) == -1)
@@ -39,7 +39,7 @@
             return;
         }
 
-        Guard.NotEmpty(name, argumentName);
+        Ensure.NotEmpty(name, argumentName);
         foreach (var invalidChar in invalidPathChars)
         {
             if (name.IndexOf(invalidChar) == -1)
@@ -73,7 +73,7 @@
 
     public static void AgainstBadExtension(string value, [CallerArgumentExpression("value")] string argumentName = "")
     {
-        Guard.NotNullOrEmpty(value, argumentName);
+        Ensure.NotNullOrEmpty(value, argumentName);
 
         if (value.StartsWith('.'))
         {

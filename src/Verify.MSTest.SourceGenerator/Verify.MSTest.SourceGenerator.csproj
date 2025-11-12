@@ -13,4 +13,8 @@
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
   </ItemGroup>
 
+  <Target Name="CheckPackageVersion" BeforeTargets="Build">
+    <!-- https://learn.microsoft.com/en-us/visualstudio/extensibility/roslyn-version-support?view=vs-2022 -->
+    <Error Condition="'%(PackageVersion.Identity)' == 'Microsoft.CodeAnalysis.CSharp' AND '%(PackageVersion.Version)' != '4.9.2'" Text="Invalid package version for Microsoft.CodeAnalysis.CSharp. Expected: 4.9.2." />
+  </Target>
 </Project>

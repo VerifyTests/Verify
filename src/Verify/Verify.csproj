@@ -39,5 +39,8 @@
   <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
     <PackageReference Include="System.Memory" />
   </ItemGroup>
-
+  <Target Name="CheckPackageVersion" BeforeTargets="Build">
+    <Error Condition="'%(PackageVersion.Identity)' == 'System.ValueTuple' AND '%(PackageVersion.Version)' != '4.5.0'" Text="Invalid package version for System.ValueTuple. Expected: 4.5.0." />
+    <Error Condition="'%(PackageVersion.Identity)' == 'System.Collections.Immutable' AND '%(PackageVersion.Version)' != '8.0.0'" Text="Invalid package version for System.Collections.Immutable. Expected: 8.0.0." />
+  </Target>
 </Project>

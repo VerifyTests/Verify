@@ -61,12 +61,12 @@
         var matchedRanges = new List<(int Start, int End)>();
         var absolutePosition = 0;
 
-        // Find the longest path to determine buffer sizes
-        var maxPathLength = pairs.Max(_ => _.Find.Length);
-        var carryoverSize = maxPathLength - 1;
+        // pairs are ordered by length. so max length is the first one
+        var maxLength = pairs[0].Find.Length;
+        var carryoverSize = maxLength - 1;
 
         Span<char> carryoverBuffer = stackalloc char[carryoverSize];
-        Span<char> combinedBuffer = stackalloc char[maxPathLength * 2];
+        Span<char> combinedBuffer = stackalloc char[maxLength * 2];
         var carryoverLength = 0;
         var previousChunkAbsoluteEnd = 0;
 

@@ -123,7 +123,7 @@ public class TempFile :
     /// </exception>
     public TempFile(string? extension = null)
     {
-        Guard.NotEmpty(extension);
+        Ensure.NotEmpty(extension);
         var fileName = IoPath.GetRandomFileName();
         if (extension != null)
         {

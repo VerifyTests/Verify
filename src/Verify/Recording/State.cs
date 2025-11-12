@@ -8,7 +8,7 @@
 
     public void Add(string name, object item)
     {
-        Guard.NotNullOrEmpty(name);
+        Ensure.NotNullOrEmpty(name);
         if (Paused)
         {
             return;

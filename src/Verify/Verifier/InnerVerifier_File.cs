@@ -4,7 +4,7 @@ partial class InnerVerifier
 {
     public Task<VerifyResult> VerifyFile(string path, object? info = null, string? extension = null)
     {
-        Guard.FileExists(path);
+        Ensure.FileExists(path);
         if (extension == null)
         {
             return VerifyStream(IoHelpers.OpenRead(path), info);

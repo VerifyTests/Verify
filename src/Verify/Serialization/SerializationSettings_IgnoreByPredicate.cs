@@ -5,28 +5,28 @@
 
     public void IgnoreMembers(Func<MemberInfo, bool> predicate)
     {
-        Guard.NotNull(predicate);
+        Ensure.NotNull(predicate);
         ignoredMemberPredicatesByMember ??= [];
         ignoredMemberPredicatesByMember.Add(_ => predicate(_) ? ScrubOrIgnore.Ignore : null);
     }
 
     public void IgnoreMembers(Func<string, bool> predicate)
     {
-        Guard.NotNull(predicate);
+        Ensure.NotNull(predicate);
         ignoredMemberPredicatesByString ??= [];
         ignoredMemberPredicatesByString.Add(_ => predicate(_) ? ScrubOrIgnore.Ignore : null);
     }
 
     public void ScrubMembers(Func<MemberInfo, bool> predicate)
     {
-        Guard.NotNull(predicate);
+        Ensure.NotNull(predicate);
         ignoredMemberPredicatesByMember ??= [];
         ignoredMemberPredicatesByMember.Add(_ => predicate(_) ? ScrubOrIgnore.Scrub : null);
     }
 
     public void ScrubMembers(Func<string, bool> predicate)
     {
-        Guard.NotNull(predicate);
+        Ensure.NotNull(predicate);
         ignoredMemberPredicatesByString ??= [];
         ignoredMemberPredicatesByString.Add(_ => predicate(_) ? ScrubOrIgnore.Scrub : null);
     }

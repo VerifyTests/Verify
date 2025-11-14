@@ -111,6 +111,9 @@ public static partial class Recording
         return new Disposable();
     }
 
+    internal static void Reset() =>
+        asyncLocal.Value = null;
+
     class Disposable :
         IDisposable
     {

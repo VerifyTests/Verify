@@ -17,7 +17,7 @@ Add the following packages to the test project:
 <!-- snippet: fixie-nugets -->
 <a id='snippet-fixie-nugets'></a>
 ```csproj
-<PackageReference Include="Fixie" Version="4.1.0" />
+<PackageReference Include="Fixie" Version="4.2.0" />
 <PackageReference Include="Verify.Fixie" Version="31.7.1" />
 ```
 <sup><a href='/usages/FixieNugetUsage/FixieNugetUsage.csproj#L7-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-fixie-nugets' title='Start of snippet'>anchor</a></sup>

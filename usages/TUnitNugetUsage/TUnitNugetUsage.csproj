@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <OutputType>Exe</OutputType>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
     <!-- begin-snippet: tunit-nugets -->
-    <PackageReference Include="TUnit" Version="1.1.10" />
-    <PackageReference Include="Verify.TUnit" Version="31.7.1" />
+    <PackageReference Include="TUnit" Version="1.2.11" />
+    <PackageReference Include="Verify.TUnit" Version="31.7.2" />
     <!-- end-snippet -->
   </ItemGroup>
 </Project>

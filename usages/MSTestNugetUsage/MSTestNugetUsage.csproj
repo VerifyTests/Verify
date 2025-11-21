@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
     <!-- begin-snippet: mstest-nugets -->
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
     <PackageReference Include="MSTest" Version="4.0.2" />
-    <PackageReference Include="Verify.MSTest" Version="31.7.1" />
+    <PackageReference Include="Verify.MSTest" Version="31.7.2" />
     <!-- end-snippet -->
   </ItemGroup>
 </Project>

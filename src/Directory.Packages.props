@@ -12,7 +12,7 @@
     <PackageVersion Include="Fixie" Version="4.2.0" />
     <PackageVersion Include="Fixie.TestAdapter" Version="4.2.0" />
     <PackageVersion Include="FSharp.Core" Version="10.0.100" />
-    <PackageVersion Include="MarkdownSnippets.MsBuild" Version="28.0.0-beta.7" />
+    <PackageVersion Include="MarkdownSnippets.MsBuild" Version="28.0.0-beta.8" />
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" />
@@ -22,7 +22,7 @@
     <PackageVersion Include="MSTest" Version="4.0.2" />
     <PackageVersion Include="MSTest.TestFramework" Version="4.0.2" />
     <PackageVersion Include="NUnit3TestAdapter" Version="5.2.0" />
-    <PackageVersion Include="Polyfill" Version="9.2.0" />
+    <PackageVersion Include="Polyfill" Version="9.3.0" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.162" />
     <PackageVersion Include="PublicApiGenerator" Version="11.5.1" />
     <PackageVersion Include="SimpleInfoName" Version="3.1.2" />

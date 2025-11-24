@@ -234,7 +234,6 @@ resharper_built_in_type_reference_style_for_member_access_highlighting = hint
 resharper_built_in_type_reference_style_highlighting = hint
 resharper_check_namespace_highlighting = none
 resharper_convert_to_using_declaration_highlighting = error
-resharper_css_not_resolved_highlighting = warning
 resharper_field_can_be_made_read_only_local_highlighting = none
 resharper_merge_into_logical_pattern_highlighting = warning
 resharper_merge_into_pattern_highlighting = error
@@ -331,8 +330,6 @@ resharper_blank_lines_inside_type = 0
 
 insert_final_newline = false
 resharper_place_attribute_on_same_line = false
-resharper_space_around_lambda_arrow = true
-resharper_place_constructor_initializer_on_same_line = false
 
 #braces https://www.jetbrains.com/help/resharper/EditorConfig_CSHARP_CSharpCodeStylePageImplSchema.html#Braces
 resharper_braces_for_ifelse = required
@@ -345,7 +342,6 @@ resharper_braces_for_for = required
 
 resharper_return_value_of_pure_method_is_not_used_highlighting = error
 
-resharper_all_underscore_local_parameter_name_highlighting = none
 
 resharper_misleading_body_like_statement_highlighting = error
 
@@ -367,7 +363,7 @@ ij_xml_space_inside_empty_tag = true
 indent_size = 2
 
 # Verify settings
-[*.{received,verified}.{txt,xml,json,md,sql,csv,html,htm,md,nuspec,rels}]
+[*.{received,verified}.{txt,xml,json,md,sql,csv,html,htm,nuspec,rels}]
 charset = utf-8-bom
 end_of_line = lf
 indent_size = unset

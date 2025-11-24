@@ -1,5 +1,9 @@
-﻿static class GuidScrubber
+﻿using Match = StringBuilderChunkMatcher.Match;
+
+static class GuidScrubber
 {
+    const int GuidLength = 36;
+
     public static void ReplaceGuids(StringBuilder builder, Counter counter)
     {
         if (!counter.ScrubGuids)
@@ -8,29 +12,22 @@
         }
 
         //{173535ae-995b-4cc6-a74e-8cd4be57039c}
-        if (builder.Length < 36)
+        if (builder.Length < GuidLength)
         {
             return;
         }
 
         var matches = FindMatches(builder, counter);
-
-        // Sort by position descending
-        var orderByDescending = matches.OrderByDescending(_ => _.Index);
-
-        // Apply matches
-        foreach (var match in orderByDescending)
-        {
-            builder.Overwrite(match.Value, match.Index, 36);
-        }
+        StringBuilderChunkMatcher.ApplyMatches(builder, matches);
     }
 
     static List<Match> FindMatches(StringBuilder builder, Counter counter)
     {
+        const int carryoverSize = GuidLength - 1;
         var absolutePosition = 0;
         var matches = new List<Match>();
-        Span<char> carryoverBuffer = stackalloc char[35];
-        Span<char> buffer = stackalloc char[36];
+        Span<char> carryoverBuffer = stackalloc char[carryoverSize];
+        Span<char> buffer = stackalloc char[GuidLength];
         var carryoverLength = 0;
         var previousChunkAbsoluteEnd = 0;
 
@@ -45,7 +42,7 @@
                 for (var carryoverIndex = 0; carryoverIndex < carryoverLength; carryoverIndex++)
                 {
                     var remainingInCarryover = carryoverLength - carryoverIndex;
-                    var neededFromCurrent = 36 - remainingInCarryover;
+                    var neededFromCurrent = GuidLength - remainingInCarryover;
 
                     if (neededFromCurrent <= 0 ||
                         chunkSpan.Length < neededFromCurrent)
@@ -81,16 +78,16 @@
                     }
 
                     var convert = counter.Convert(guid);
-                    matches.Add(new(startPosition, convert));
+                    matches.Add(new(startPosition, GuidLength, convert));
                 }
             }
 
             // Process GUIDs entirely within this chunk
-            if (chunk.Length >= 36)
+            if (chunk.Length >= GuidLength)
             {
                 for (var chunkIndex = 0; chunkIndex < chunk.Length; chunkIndex++)
                 {
-                    var end = chunkIndex + 36;
+                    var end = chunkIndex + GuidLength;
                     if (end > chunk.Length)
                     {
                         break;
@@ -103,7 +100,7 @@
                         continue;
                     }
 
-                    var slice = value.Slice(chunkIndex, 36);
+                    var slice = value.Slice(chunkIndex, GuidLength);
 
                     if (!Guid.TryParseExact(slice, "D", out var guid))
                     {
@@ -112,13 +109,13 @@
 
                     var convert = counter.Convert(guid);
                     var startReplaceIndex = absolutePosition + chunkIndex;
-                    matches.Add(new(startReplaceIndex, convert));
-                    chunkIndex += 35;
+                    matches.Add(new(startReplaceIndex, GuidLength, convert));
+                    chunkIndex += carryoverSize;
                 }
             }
 
             // Save last 35 chars for next iteration
-            carryoverLength = Math.Min(35, chunk.Length);
+            carryoverLength = Math.Min(carryoverSize, chunk.Length);
             chunkSpan.Slice(chunk.Length - carryoverLength, carryoverLength).CopyTo(carryoverBuffer);
 
             previousChunkAbsoluteEnd = absolutePosition + chunk.Length;
@@ -141,10 +138,4 @@
         IsInvalidChar(ch) &&
         ch != '{' &&
         ch != '(';
-
-    internal readonly struct Match(int index, string value)
-    {
-        public readonly int Index = index;
-        public readonly string Value = value;
-    }
 }

@@ -1,4 +1,6 @@
-﻿static partial class DirectoryReplacements
+﻿using Match = StringBuilderChunkMatcher.Match;
+
+static partial class DirectoryReplacements
 {
     public readonly struct Pair
     {
@@ -38,15 +40,7 @@
         }
 
         var matches = FindMatches(builder, paths);
-
-        // Sort by position descending
-        var orderByDescending = matches.OrderByDescending(_ => _.Index);
-
-        // Apply matches
-        foreach (var match in orderByDescending)
-        {
-            builder.Overwrite(match.Value, match.Index, match.Length);
-        }
+        StringBuilderChunkMatcher.ApplyMatches(builder, matches);
     }
 
     static List<Match> FindMatches(StringBuilder builder, List<Pair> pairs)
@@ -323,12 +317,5 @@
         }
 
         return true;
-    }
-
-    readonly struct Match(int index, int length, string value)
-    {
-        public readonly int Index = index;
-        public readonly int Length = length;
-        public readonly string Value = value;
     }
 }

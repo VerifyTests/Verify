@@ -15,7 +15,7 @@ static class GuidScrubber
 
         var context = new MatchContext(counter);
 
-        CrossChunkMatcher.ReplaceAll(
+        CrossChunkMatcher.ReplaceAll<MatchContext, Match>(
             builder,
             carryoverSize: 35,
             context,

@@ -15,14 +15,13 @@ static class GuidScrubber
 
         var context = new MatchContext(counter);
 
-        CrossChunkMatcher.ReplaceAll<MatchContext, Match>(
+        CrossChunkMatcher.ReplaceAll<MatchContext>(
             builder,
             carryoverSize: 35,
             context,
             OnCrossChunk,
             OnWithinChunk,
             getMatches: c => c.Matches,
-            getIndex: m => m.Index,
             getLength: _ => 36,
             getValue: m => m.Value);
     }
@@ -69,7 +68,7 @@ static class GuidScrubber
         }
 
         var convert = context.Counter.Convert(guid);
-        context.Matches.Add(new(absoluteStartPosition, convert));
+        context.Matches.Add(new(absoluteStartPosition, 36, convert));
     }
 
     static int OnWithinChunk(
@@ -104,7 +103,7 @@ static class GuidScrubber
         }
 
         var convert = context.Counter.Convert(guid);
-        context.Matches.Add(new(absoluteIndex, convert));
+        context.Matches.Add(new(absoluteIndex, 36, convert));
         return 36; // Skip past the matched GUID
     }
 
@@ -126,11 +125,5 @@ static class GuidScrubber
     {
         public Counter Counter { get; } = counter;
         public List<Match> Matches { get; } = [];
-    }
-
-    internal readonly struct Match(int index, string value)
-    {
-        public readonly int Index = index;
-        public readonly string Value = value;
     }
 }

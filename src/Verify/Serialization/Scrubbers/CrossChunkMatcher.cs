@@ -12,19 +12,17 @@ static class CrossChunkMatcher
     /// <param name="onCrossChunk">Called for each potential cross-chunk match position</param>
     /// <param name="onWithinChunk">Called for each position within a chunk</param>
     /// <param name="getMatches">Retrieves the list of matches from the context</param>
-    /// <param name="getIndex">Gets the start index from a match</param>
     /// <param name="getLength">Gets the original length from a match</param>
     /// <param name="getValue">Gets the replacement value from a match</param>
-    public static void ReplaceAll<TContext, TMatch>(
+    public static void ReplaceAll<TContext>(
         StringBuilder builder,
         int carryoverSize,
         TContext context,
         CrossChunkHandler<TContext> onCrossChunk,
         WithinChunkHandler<TContext> onWithinChunk,
-        Func<TContext, List<TMatch>> getMatches,
-        Func<TMatch, int> getIndex,
-        Func<TMatch, int> getLength,
-        Func<TMatch, string> getValue)
+        Func<TContext, List<Match>> getMatches,
+        Func<Match, int> getLength,
+        Func<Match, string> getValue)
     {
         Span<char> carryoverBuffer = stackalloc char[carryoverSize];
         var carryoverLength = 0;
@@ -73,9 +71,9 @@ static class CrossChunkMatcher
 
         // Apply matches in descending position order
         var matches = getMatches(context);
-        foreach (var match in matches.OrderByDescending(getIndex))
+        foreach (var match in matches.OrderByDescending(_ => _.Index))
         {
-            builder.Overwrite(getValue(match), getIndex(match), getLength(match));
+            builder.Overwrite(match.Value, match.Index, match.Length);
         }
     }
 
@@ -101,4 +99,12 @@ static class CrossChunkMatcher
         int chunkIndex,
         int absoluteIndex,
         TContext context);
+}
+
+
+readonly struct Match(int index, int length, string value)
+{
+    public readonly int Index = index;
+    public readonly int Length = length;
+    public readonly string Value = value;
 }

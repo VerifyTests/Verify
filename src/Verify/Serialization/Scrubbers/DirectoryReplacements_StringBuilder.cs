@@ -41,14 +41,13 @@ static partial class DirectoryReplacements
         var maxLength = paths[0].Find.Length;
         var context = new MatchContext(paths);
 
-        CrossChunkMatcher.ReplaceAll<MatchContext, Match>(
+        CrossChunkMatcher.ReplaceAll<MatchContext>(
             builder,
             carryoverSize: maxLength - 1,
             context,
             OnCrossChunk,
             OnWithinChunk,
             getMatches: c => c.Matches,
-            getIndex: m => m.Index,
             getLength: m => m.Length,
             getValue: m => m.Value);
     }
@@ -269,26 +268,20 @@ static partial class DirectoryReplacements
         return true;
     }
 
-    sealed class MatchContext
+    sealed class MatchContext(List<Pair> pairs)
     {
-        public List<Pair> Pairs { get; }
+        public List<Pair> Pairs { get; } = pairs;
         public List<Match> Matches { get; } = [];
-        public int MaxLength { get; }
+        public int MaxLength { get; } = pairs.Count > 0 ? pairs[0].Find.Length : 0;
 
-        List<(int Start, int End)> _matchedRanges = [];
-
-        public MatchContext(List<Pair> pairs)
-        {
-            Pairs = pairs;
-            MaxLength = pairs.Count > 0 ? pairs[0].Find.Length : 0;
-        }
+        List<(int Start, int End)> matchedRanges = [];
 
         public void AddMatchedRange(int start, int end) =>
-            _matchedRanges.Add((start, end));
+            matchedRanges.Add((start, end));
 
         public bool IsPositionMatched(int position)
         {
-            foreach (var (start, end) in _matchedRanges)
+            foreach (var (start, end) in matchedRanges)
             {
                 if (position >= start && position < end)
                 {
@@ -302,7 +295,7 @@ static partial class DirectoryReplacements
         public bool OverlapsExistingMatch(int start, int length)
         {
             var end = start + length;
-            foreach (var range in _matchedRanges)
+            foreach (var range in matchedRanges)
             {
                 if (start < range.End && end > range.Start)
                 {
@@ -312,12 +305,5 @@ static partial class DirectoryReplacements
 
             return false;
         }
-    }
-
-    readonly struct Match(int index, int length, string value)
-    {
-        public readonly int Index = index;
-        public readonly int Length = length;
-        public readonly string Value = value;
     }
 }

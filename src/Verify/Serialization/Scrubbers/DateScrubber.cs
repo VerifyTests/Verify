@@ -208,15 +208,14 @@ static class DateScrubber
 
         var context = new MatchContext(format, counter, culture, tryConvert, max, min);
 
-        CrossChunkMatcher.ReplaceAll<MatchContext, Match>(
+        CrossChunkMatcher.ReplaceAll<MatchContext>(
             builder,
             carryoverSize: max - 1,
             context,
             OnCrossChunk,
             OnWithinChunk,
             getMatches: c => c.Matches,
-            getIndex: m => m.Index,
-            getLength: m => m.OriginalLength,
+            getLength: m => m.Length,
             getValue: m => m.Value);
     }
 
@@ -298,12 +297,5 @@ static class DateScrubber
         public int MaxLength { get; } = maxLength;
         public int MinLength { get; } = minLength;
         public List<Match> Matches { get; } = [];
-    }
-
-    readonly struct Match(int index, int originalLength, string value)
-    {
-        public readonly int Index = index;
-        public readonly int OriginalLength = originalLength;
-        public readonly string Value = value;
     }
 }

@@ -46,8 +46,7 @@ static partial class DirectoryReplacements
             carryoverSize: maxLength - 1,
             context,
             OnCrossChunk,
-            OnWithinChunk,
-            getMatches: c => c.Matches);
+            OnWithinChunk);
     }
 
     static void OnCrossChunk(
@@ -57,7 +56,8 @@ static partial class DirectoryReplacements
         int remainingInCarryover,
         CharSpan currentChunkSpan,
         int absoluteStartPosition,
-        MatchContext context)
+        MatchContext context,
+        Action<Match> addMatch)
     {
         Span<char> combinedBuffer = stackalloc char[context.MaxLength * 2];
 
@@ -93,7 +93,7 @@ static partial class DirectoryReplacements
                 continue;
             }
 
-            context.Matches.Add(new(absoluteStartPosition, matchLength, pair.Replace));
+            addMatch(new(absoluteStartPosition, matchLength, pair.Replace));
             context.AddMatchedRange(absoluteStartPosition, absoluteStartPosition + matchLength);
             // Found a match at this position, skip other pairs
             break;
@@ -105,7 +105,8 @@ static partial class DirectoryReplacements
         CharSpan chunkSpan,
         int chunkIndex,
         int absoluteIndex,
-        MatchContext context)
+        MatchContext context,
+        Action<Match> addMatch)
     {
         // Skip if already matched
         if (context.IsPositionMatched(absoluteIndex))
@@ -133,7 +134,7 @@ static partial class DirectoryReplacements
                 continue;
             }
 
-            context.Matches.Add(new(absoluteIndex, matchLength, pair.Replace));
+            addMatch(new(absoluteIndex, matchLength, pair.Replace));
             context.AddMatchedRange(absoluteIndex, absoluteIndex + matchLength);
             // Skip past this match
             return matchLength;
@@ -269,7 +270,6 @@ static partial class DirectoryReplacements
     sealed class MatchContext(List<Pair> pairs)
     {
         public List<Pair> Pairs { get; } = pairs;
-        public List<Match> Matches { get; } = [];
         public int MaxLength { get; } = pairs.Count > 0 ? pairs[0].Find.Length : 0;
 
         List<(int Start, int End)> matchedRanges = [];

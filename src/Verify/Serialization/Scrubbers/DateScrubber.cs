@@ -213,8 +213,7 @@ static class DateScrubber
             carryoverSize: max - 1,
             context,
             OnCrossChunk,
-            OnWithinChunk,
-            getMatches: c => c.Matches);
+            OnWithinChunk);
     }
 
     static void OnCrossChunk(
@@ -224,7 +223,8 @@ static class DateScrubber
         int remainingInCarryover,
         CharSpan currentChunkSpan,
         int absoluteStartPosition,
-        MatchContext context)
+        MatchContext context,
+        Action<Match> addMatch)
     {
         Span<char> combinedBuffer = stackalloc char[context.MaxLength];
 
@@ -247,7 +247,7 @@ static class DateScrubber
 
             if (context.TryConvert(slice, context.Format, context.Counter, context.Culture, out var convert))
             {
-                context.Matches.Add(new(absoluteStartPosition, length, convert));
+                addMatch(new(absoluteStartPosition, length, convert));
                 return; // Found match at this position
             }
         }
@@ -258,7 +258,8 @@ static class DateScrubber
         CharSpan chunkSpan,
         int chunkIndex,
         int absoluteIndex,
-        MatchContext context)
+        MatchContext context,
+        Action<Match> addMatch)
     {
         // Try lengths from longest to shortest (greedy matching)
         for (var length = context.MaxLength; length >= context.MinLength; length--)
@@ -272,7 +273,7 @@ static class DateScrubber
 
             if (context.TryConvert(slice, context.Format, context.Counter, context.Culture, out var convert))
             {
-                context.Matches.Add(new(absoluteIndex, length, convert));
+                addMatch(new(absoluteIndex, length, convert));
                 return length; // Skip past match
             }
         }
@@ -294,6 +295,5 @@ static class DateScrubber
         public TryConvert TryConvert { get; } = tryConvert;
         public int MaxLength { get; } = maxLength;
         public int MinLength { get; } = minLength;
-        public List<Match> Matches { get; } = [];
     }
 }

@@ -20,8 +20,7 @@ static class GuidScrubber
             carryoverSize: 35,
             context,
             OnCrossChunk,
-            OnWithinChunk,
-            getMatches: c => c.Matches);
+            OnWithinChunk);
     }
 
     static void OnCrossChunk(
@@ -31,7 +30,8 @@ static class GuidScrubber
         int remainingInCarryover,
         CharSpan currentChunkSpan,
         int absoluteStartPosition,
-        MatchContext context)
+        MatchContext context,
+        Action<Match> addMatch)
     {
         var neededFromCurrent = 36 - remainingInCarryover;
 
@@ -66,7 +66,7 @@ static class GuidScrubber
         }
 
         var convert = context.Counter.Convert(guid);
-        context.Matches.Add(new(absoluteStartPosition, 36, convert));
+        addMatch(new(absoluteStartPosition, 36, convert));
     }
 
     static int OnWithinChunk(
@@ -74,7 +74,8 @@ static class GuidScrubber
         CharSpan chunkSpan,
         int chunkIndex,
         int absoluteIndex,
-        MatchContext context)
+        MatchContext context,
+        Action<Match> addMatch)
     {
         var end = chunkIndex + 36;
         if (end > chunk.Length)
@@ -101,7 +102,7 @@ static class GuidScrubber
         }
 
         var convert = context.Counter.Convert(guid);
-        context.Matches.Add(new(absoluteIndex, 36, convert));
+        addMatch(new(absoluteIndex, 36, convert));
         return 36; // Skip past the matched GUID
     }
 
@@ -122,6 +123,5 @@ static class GuidScrubber
     sealed class MatchContext(Counter counter)
     {
         public Counter Counter { get; } = counter;
-        public List<Match> Matches { get; } = [];
     }
 }

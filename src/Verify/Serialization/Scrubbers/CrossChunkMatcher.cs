@@ -17,14 +17,14 @@ static class CrossChunkMatcher
         int carryoverSize,
         TContext context,
         CrossChunkHandler<TContext> onCrossChunk,
-        WithinChunkHandler<TContext> onWithinChunk,
-        Func<TContext, List<Match>> getMatches)
+        WithinChunkHandler<TContext> onWithinChunk)
     {
         Span<char> carryoverBuffer = stackalloc char[carryoverSize];
         var carryoverLength = 0;
         var previousChunkAbsoluteEnd = 0;
         var absolutePosition = 0;
-
+        List<Match> matches  = [];
+        var addMatch = matches.Add;
         foreach (var chunk in builder.GetChunks())
         {
             var chunkSpan = chunk.Span;
@@ -44,7 +44,8 @@ static class CrossChunkMatcher
                         remainingInCarryover,
                         chunkSpan,
                         startPosition,
-                        context);
+                        context,
+                        addMatch);
                 }
             }
 
@@ -53,7 +54,7 @@ static class CrossChunkMatcher
             while (chunkIndex < chunk.Length)
             {
                 var absoluteIndex = absolutePosition + chunkIndex;
-                var skipAhead = onWithinChunk(chunk, chunkSpan, chunkIndex, absoluteIndex, context);
+                var skipAhead = onWithinChunk(chunk, chunkSpan, chunkIndex, absoluteIndex, context, addMatch);
                 chunkIndex += skipAhead > 0 ? skipAhead : 1;
             }
 
@@ -66,7 +67,6 @@ static class CrossChunkMatcher
         }
 
         // Apply matches in descending position order
-        var matches = getMatches(context);
         foreach (var match in matches.OrderByDescending(_ => _.Index))
         {
             builder.Overwrite(match.Value, match.Index, match.Length);
@@ -83,7 +83,8 @@ static class CrossChunkMatcher
         int remainingInCarryover,
         CharSpan currentChunkSpan,
         int absoluteStartPosition,
-        TContext context);
+        TContext context,
+        Action<Match> addMatch);
 
     /// <summary>
     /// Callback for processing positions within a chunk.
@@ -94,7 +95,8 @@ static class CrossChunkMatcher
         CharSpan chunkSpan,
         int chunkIndex,
         int absoluteIndex,
-        TContext context);
+        TContext context,
+        Action<Match> addMatch);
 }
 
 

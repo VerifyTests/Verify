@@ -17,11 +17,11 @@ static class CrossChunkMatcher
         CrossChunkHandler<TContext> onCrossChunk,
         WithinChunkHandler<TContext> onWithinChunk)
     {
-        Span<char> carryoverBuffer = stackalloc char[maxLength-1];
+        Span<char> carryoverBuffer = stackalloc char[maxLength - 1];
         var carryoverLength = 0;
         var previousChunkAbsoluteEnd = 0;
         var absolutePosition = 0;
-        List<Match> matches  = [];
+        List<Match> matches = [];
         var addMatch = matches.Add;
         foreach (var chunk in builder.GetChunks())
         {

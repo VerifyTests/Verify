@@ -1,4 +1,4 @@
-﻿static class GuidScrubber
+static class GuidScrubber
 {
     public static void ReplaceGuids(StringBuilder builder, Counter counter)
     {
@@ -13,119 +13,102 @@
             return;
         }
 
-        var matches = FindMatches(builder, counter);
+        var context = new MatchContext(counter);
 
-        // Sort by position descending
-        var orderByDescending = matches.OrderByDescending(_ => _.Index);
+        CrossChunkMatcher.ProcessChunks(
+            builder,
+            carryoverSize: 35,
+            context,
+            OnCrossChunk,
+            OnWithinChunk);
 
-        // Apply matches
-        foreach (var match in orderByDescending)
-        {
-            builder.Overwrite(match.Value, match.Index, 36);
-        }
+        CrossChunkMatcher.ApplyMatches(
+            builder,
+            context.Matches,
+            getIndex: m => m.Index,
+            getLength: _ => 36,
+            getValue: m => m.Value);
     }
 
-    static List<Match> FindMatches(StringBuilder builder, Counter counter)
+    static void OnCrossChunk(
+        StringBuilder builder,
+        Span<char> carryoverBuffer,
+        int carryoverIndex,
+        int remainingInCarryover,
+        CharSpan currentChunkSpan,
+        int absoluteStartPosition,
+        MatchContext context)
     {
-        var absolutePosition = 0;
-        var matches = new List<Match>();
-        Span<char> carryoverBuffer = stackalloc char[35];
-        Span<char> buffer = stackalloc char[36];
-        var carryoverLength = 0;
-        var previousChunkAbsoluteEnd = 0;
+        var neededFromCurrent = 36 - remainingInCarryover;
 
-        foreach (var chunk in builder.GetChunks())
+        if (neededFromCurrent <= 0 ||
+            currentChunkSpan.Length < neededFromCurrent)
         {
-            var chunkSpan = chunk.Span;
-
-            // Check for GUIDs spanning from previous chunk to current chunk
-            if (carryoverLength > 0)
-            {
-                // Check each possible starting position in the carryover
-                for (var carryoverIndex = 0; carryoverIndex < carryoverLength; carryoverIndex++)
-                {
-                    var remainingInCarryover = carryoverLength - carryoverIndex;
-                    var neededFromCurrent = 36 - remainingInCarryover;
-
-                    if (neededFromCurrent <= 0 ||
-                        chunkSpan.Length < neededFromCurrent)
-                    {
-                        continue;
-                    }
-
-                    carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(buffer);
-                    chunkSpan[..neededFromCurrent].CopyTo(buffer[remainingInCarryover..]);
-
-                    // Check boundary characters
-                    var startPosition = previousChunkAbsoluteEnd - carryoverLength + carryoverIndex;
-
-                    var hasValidStart = startPosition == 0 ||
-                                        !IsInvalidStartingChar(builder[startPosition - 1]);
-
-                    if (!hasValidStart)
-                    {
-                        continue;
-                    }
-
-                    var hasValidEnd = neededFromCurrent >= chunkSpan.Length ||
-                                      !IsInvalidEndingChar(chunkSpan[neededFromCurrent]);
-
-                    if (!hasValidEnd)
-                    {
-                        continue;
-                    }
-
-                    if (!Guid.TryParseExact(buffer, "D", out var guid))
-                    {
-                        continue;
-                    }
-
-                    var convert = counter.Convert(guid);
-                    matches.Add(new(startPosition, convert));
-                }
-            }
-
-            // Process GUIDs entirely within this chunk
-            if (chunk.Length >= 36)
-            {
-                for (var chunkIndex = 0; chunkIndex < chunk.Length; chunkIndex++)
-                {
-                    var end = chunkIndex + 36;
-                    if (end > chunk.Length)
-                    {
-                        break;
-                    }
-
-                    var value = chunkSpan;
-                    if ((chunkIndex != 0 && IsInvalidStartingChar(value[chunkIndex - 1])) ||
-                        (end != value.Length && IsInvalidEndingChar(value[end])))
-                    {
-                        continue;
-                    }
-
-                    var slice = value.Slice(chunkIndex, 36);
-
-                    if (!Guid.TryParseExact(slice, "D", out var guid))
-                    {
-                        continue;
-                    }
-
-                    var convert = counter.Convert(guid);
-                    var startReplaceIndex = absolutePosition + chunkIndex;
-                    matches.Add(new(startReplaceIndex, convert));
-                    chunkIndex += 35;
-                }
-            }
-
-            // Save last 35 chars for next iteration
-            carryoverLength = Math.Min(35, chunk.Length);
-            chunkSpan.Slice(chunk.Length - carryoverLength, carryoverLength).CopyTo(carryoverBuffer);
-
-            previousChunkAbsoluteEnd = absolutePosition + chunk.Length;
-            absolutePosition += chunk.Length;
+            return;
         }
 
-        return matches;
+        // Validate start boundary
+        if (absoluteStartPosition > 0 &&
+            IsInvalidStartingChar(builder[absoluteStartPosition - 1]))
+        {
+            return;
+        }
+
+        // Validate end boundary
+        if (neededFromCurrent < currentChunkSpan.Length &&
+            IsInvalidEndingChar(currentChunkSpan[neededFromCurrent]))
+        {
+            return;
+        }
+
+        // Combine carryover and current chunk into buffer
+        Span<char> buffer = stackalloc char[36];
+        carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(buffer);
+        currentChunkSpan[..neededFromCurrent].CopyTo(buffer[remainingInCarryover..]);
+
+        if (!Guid.TryParseExact(buffer, "D", out var guid))
+        {
+            return;
+        }
+
+        var convert = context.Counter.Convert(guid);
+        context.Matches.Add(new(absoluteStartPosition, convert));
+    }
+
+    static int OnWithinChunk(
+        ReadOnlyMemory<char> chunk,
+        CharSpan chunkSpan,
+        int chunkIndex,
+        int absoluteIndex,
+        MatchContext context)
+    {
+        var end = chunkIndex + 36;
+        if (end > chunk.Length)
+        {
+            return 1;
+        }
+
+        // Validate boundaries
+        if (chunkIndex > 0 && IsInvalidStartingChar(chunkSpan[chunkIndex - 1]))
+        {
+            return 1;
+        }
+
+        if (end < chunkSpan.Length && IsInvalidEndingChar(chunkSpan[end]))
+        {
+            return 1;
+        }
+
+        var slice = chunkSpan.Slice(chunkIndex, 36);
+
+        if (!Guid.TryParseExact(slice, "D", out var guid))
+        {
+            return 1;
+        }
+
+        var convert = context.Counter.Convert(guid);
+        context.Matches.Add(new(absoluteIndex, convert));
+        return 36; // Skip past the matched GUID
     }
 
     static bool IsInvalidEndingChar(char ch) =>
@@ -142,7 +125,13 @@
         ch != '{' &&
         ch != '(';
 
-    internal readonly struct Match(int index, string value)
+    sealed class MatchContext(Counter counter)
+    {
+        public Counter Counter { get; } = counter;
+        public List<Match> Matches { get; } = [];
+    }
+
+    readonly struct Match(int index, string value)
     {
         public readonly int Index = index;
         public readonly string Value = value;

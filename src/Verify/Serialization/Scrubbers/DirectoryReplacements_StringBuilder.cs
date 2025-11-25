@@ -1,4 +1,4 @@
-﻿static partial class DirectoryReplacements
+static partial class DirectoryReplacements
 {
     public readonly struct Pair
     {
@@ -32,173 +32,120 @@
             throw new("Find should be distinct");
         }
 #endif
-        if (builder.Length == 0)
+        if (builder.Length == 0 || paths.Count == 0)
         {
             return;
         }
 
-        var matches = FindMatches(builder, paths);
+        // pairs are ordered by length, so max length is the first one
+        var maxLength = paths[0].Find.Length;
+        var context = new MatchContext(paths);
 
-        // Sort by position descending
-        var orderByDescending = matches.OrderByDescending(_ => _.Index);
+        CrossChunkMatcher.ProcessChunks(
+            builder,
+            carryoverSize: maxLength - 1,
+            context,
+            OnCrossChunk,
+            OnWithinChunk);
 
-        // Apply matches
-        foreach (var match in orderByDescending)
+        CrossChunkMatcher.ApplyMatches(
+            builder,
+            context.Matches,
+            getIndex: m => m.Index,
+            getLength: m => m.Length,
+            getValue: m => m.Value);
+    }
+
+    static void OnCrossChunk(
+        StringBuilder builder,
+        Span<char> carryoverBuffer,
+        int carryoverIndex,
+        int remainingInCarryover,
+        CharSpan currentChunkSpan,
+        int absoluteStartPosition,
+        MatchContext context)
+    {
+        Span<char> combinedBuffer = stackalloc char[context.MaxLength * 2];
+
+        foreach (var pair in context.Pairs)
         {
-            builder.Overwrite(match.Value, match.Index, match.Length);
+            var neededFromCurrent = pair.Find.Length - remainingInCarryover;
+
+            if (neededFromCurrent <= 0 ||
+                neededFromCurrent > currentChunkSpan.Length)
+            {
+                continue;
+            }
+
+            // Check if this position overlaps with existing match
+            if (context.OverlapsExistingMatch(absoluteStartPosition, pair.Find.Length))
+            {
+                continue;
+            }
+
+            var combinedLength = remainingInCarryover + neededFromCurrent;
+            carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(combinedBuffer);
+            currentChunkSpan[..neededFromCurrent].CopyTo(combinedBuffer[remainingInCarryover..]);
+
+            if (!TryMatchAtCrossChunk(
+                    builder,
+                    combinedBuffer[..combinedLength],
+                    currentChunkSpan,
+                    absoluteStartPosition,
+                    neededFromCurrent,
+                    pair.Find,
+                    out var matchLength))
+            {
+                continue;
+            }
+
+            context.Matches.Add(new(absoluteStartPosition, matchLength, pair.Replace));
+            context.AddMatchedRange(absoluteStartPosition, absoluteStartPosition + matchLength);
+            // Found a match at this position, skip other pairs
+            break;
         }
     }
 
-    static List<Match> FindMatches(StringBuilder builder, List<Pair> pairs)
+    static int OnWithinChunk(
+        ReadOnlyMemory<char> chunk,
+        CharSpan chunkSpan,
+        int chunkIndex,
+        int absoluteIndex,
+        MatchContext context)
     {
-        if (pairs.Count == 0)
+        // Skip if already matched
+        if (context.IsPositionMatched(absoluteIndex))
         {
-            return [];
+            return 1;
         }
 
-        var matches = new List<Match>();
-        // Track matched positions
-        var matchedRanges = new List<(int Start, int End)>();
-        var absolutePosition = 0;
-
-        // pairs are ordered by length. so max length is the first one
-        var maxLength = pairs[0].Find.Length;
-        var carryoverSize = maxLength - 1;
-
-        Span<char> carryoverBuffer = stackalloc char[carryoverSize];
-        Span<char> combinedBuffer = stackalloc char[maxLength * 2];
-        var carryoverLength = 0;
-        var previousChunkAbsoluteEnd = 0;
-
-        foreach (var chunk in builder.GetChunks())
+        foreach (var pair in context.Pairs)
         {
-            var chunkSpan = chunk.Span;
-
-            // Check for matches spanning from previous chunk to current chunk
-            if (carryoverLength > 0)
+            // Check if we have enough characters left in this chunk
+            if (chunkIndex + pair.Find.Length > chunk.Length)
             {
-                for (var carryoverIndex = 0; carryoverIndex < carryoverLength; carryoverIndex++)
-                {
-                    foreach (var pair in pairs)
-                    {
-                        var remainingInCarryover = carryoverLength - carryoverIndex;
-                        var neededFromCurrent = pair.Find.Length - remainingInCarryover;
-
-                        if (neededFromCurrent <= 0 ||
-                            neededFromCurrent > chunkSpan.Length)
-                        {
-                            continue;
-                        }
-
-                        var combinedLength = remainingInCarryover + neededFromCurrent;
-                        carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(combinedBuffer);
-                        chunkSpan[..neededFromCurrent].CopyTo(combinedBuffer[remainingInCarryover..]);
-
-                        var startPosition = previousChunkAbsoluteEnd - carryoverLength + carryoverIndex;
-
-                        // Check if this position overlaps with existing match
-                        if (OverlapsExistingMatch(startPosition, pair.Find.Length, matchedRanges))
-                        {
-                            continue;
-                        }
-
-                        if (!TryMatchAtCrossChunk(
-                                builder,
-                                combinedBuffer[..combinedLength],
-                                chunkSpan,
-                                startPosition,
-                                neededFromCurrent,
-                                pair.Find,
-                                out var matchLength))
-                        {
-                            continue;
-                        }
-
-                        matches.Add(new(startPosition, matchLength, pair.Replace));
-                        matchedRanges.Add((startPosition, startPosition + matchLength));
-                        // Found a match at this position, skip other pairs
-                        break;
-                    }
-                }
+                continue;
             }
 
-            // Process matches entirely within this chunk
-            for (var chunkIndex = 0; chunkIndex < chunk.Length; chunkIndex++)
+            // Check if this would overlap with existing match
+            if (context.OverlapsExistingMatch(absoluteIndex, pair.Find.Length))
             {
-                var absoluteIndex = absolutePosition + chunkIndex;
-
-                // Skip if already matched
-                if (IsPositionMatched(absoluteIndex, matchedRanges))
-                {
-                    continue;
-                }
-
-                foreach (var pair in pairs)
-                {
-                    // Check if we have enough characters left in this chunk
-                    if (chunkIndex + pair.Find.Length > chunk.Length)
-                    {
-                        continue;
-                    }
-
-                    // Check if this would overlap with existing match
-                    if (OverlapsExistingMatch(absoluteIndex, pair.Find.Length, matchedRanges))
-                    {
-                        continue;
-                    }
-
-                    // Try to match at this position
-                    if (!TryMatchAt(chunk, chunkIndex, pair.Find, out var matchLength))
-                    {
-                        continue;
-                    }
-
-                    matches.Add(new(absoluteIndex, matchLength, pair.Replace));
-                    matchedRanges.Add((absoluteIndex, absoluteIndex + matchLength));
-                    // Skip past this match
-                    chunkIndex += matchLength - 1;
-                    // Found a match, skip other pairs at this position
-                    break;
-                }
+                continue;
             }
 
-            // Save last N chars for next iteration
-            carryoverLength = Math.Min(carryoverSize, chunk.Length);
-            chunkSpan.Slice(chunk.Length - carryoverLength, carryoverLength).CopyTo(carryoverBuffer);
+            // Try to match at this position
+            if (!TryMatchAt(chunk, chunkIndex, pair.Find, out var matchLength))
+            {
+                continue;
+            }
 
-            previousChunkAbsoluteEnd = absolutePosition + chunk.Length;
-            absolutePosition += chunk.Length;
+            context.Matches.Add(new(absoluteIndex, matchLength, pair.Replace));
+            context.AddMatchedRange(absoluteIndex, absoluteIndex + matchLength);
+            // Skip past this match
+            return matchLength;
         }
 
-        return matches;
-    }
-
-    static bool IsPositionMatched(int position, List<(int Start, int End)> matchedRanges)
-    {
-        foreach (var (start, end) in matchedRanges)
-        {
-            if (position >= start && position < end)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    static bool OverlapsExistingMatch(int start, int length, List<(int Start, int End)> matchedRanges)
-    {
-        var end = start + length;
-        foreach (var range in matchedRanges)
-        {
-            // Check if ranges overlap
-            if (start < range.End && end > range.Start)
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return 1;
     }
 
     static bool TryMatchAtCrossChunk(
@@ -323,6 +270,45 @@
         }
 
         return true;
+    }
+
+    sealed class MatchContext(List<Pair> pairs)
+    {
+        public List<Pair> Pairs { get; } = pairs;
+        public List<Match> Matches { get; } = [];
+        public int MaxLength { get; } = pairs.Count > 0 ? pairs[0].Find.Length : 0;
+
+        List<(int Start, int End)> matchedRanges = [];
+
+        public void AddMatchedRange(int start, int end) =>
+            matchedRanges.Add((start, end));
+
+        public bool IsPositionMatched(int position)
+        {
+            foreach (var (start, end) in matchedRanges)
+            {
+                if (position >= start && position < end)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool OverlapsExistingMatch(int start, int length)
+        {
+            var end = start + length;
+            foreach (var range in matchedRanges)
+            {
+                if (start < range.End && end > range.Start)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 
     readonly struct Match(int index, int length, string value)

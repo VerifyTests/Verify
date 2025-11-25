@@ -41,7 +41,7 @@ static partial class DirectoryReplacements
         var maxLength = paths[0].Find.Length;
         var context = new MatchContext(paths);
 
-        CrossChunkMatcher.ReplaceAll<MatchContext>(
+        CrossChunkMatcher.ReplaceAll(
             builder,
             carryoverSize: maxLength - 1,
             context,

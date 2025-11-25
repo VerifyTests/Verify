@@ -208,7 +208,7 @@ static class DateScrubber
 
         var context = new MatchContext(format, counter, culture, tryConvert, max, min);
 
-        CrossChunkMatcher.ReplaceAll<MatchContext>(
+        CrossChunkMatcher.ReplaceAll(
             builder,
             carryoverSize: max - 1,
             context,

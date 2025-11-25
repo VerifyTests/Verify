@@ -244,12 +244,14 @@ static class DateScrubber
 
             var slice = buffer[..length];
 
-            if (context.TryConvert(slice, context.Format, context.Counter, context.Culture, out var convert))
+            if (!context.TryConvert(slice, context.Format, context.Counter, context.Culture, out var convert))
             {
-                addMatch(new(absoluteStartPosition, length, convert));
-                // Found match at this position
-                return;
+                continue;
             }
+
+            addMatch(new(absoluteStartPosition, length, convert));
+            // Found match at this position
+            return;
         }
     }
 

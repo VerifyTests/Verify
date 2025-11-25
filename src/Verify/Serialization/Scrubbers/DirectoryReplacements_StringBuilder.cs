@@ -59,7 +59,7 @@ static partial class DirectoryReplacements
         MatchContext context,
         Action<Match> addMatch)
     {
-        Span<char> combinedBuffer = stackalloc char[context.MaxLength * 2];
+        Span<char> combinedBuffer = stackalloc char[context.MaxLength];
 
         foreach (var pair in context.Pairs)
         {

@@ -12,8 +12,6 @@ static class CrossChunkMatcher
     /// <param name="onCrossChunk">Called for each potential cross-chunk match position</param>
     /// <param name="onWithinChunk">Called for each position within a chunk</param>
     /// <param name="getMatches">Retrieves the list of matches from the context</param>
-    /// <param name="getLength">Gets the original length from a match</param>
-    /// <param name="getValue">Gets the replacement value from a match</param>
     public static void ReplaceAll<TContext>(
         StringBuilder builder,
         int carryoverSize,

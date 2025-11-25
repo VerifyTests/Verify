@@ -219,6 +219,7 @@ static class DateScrubber
     static void OnCrossChunk(
         StringBuilder builder,
         Span<char> carryoverBuffer,
+        Span<char> buffer,
         int carryoverIndex,
         int remainingInCarryover,
         CharSpan currentChunkSpan,
@@ -226,8 +227,6 @@ static class DateScrubber
         MatchContext context,
         Action<Match> addMatch)
     {
-        Span<char> combinedBuffer = stackalloc char[context.MaxLength];
-
         // Try lengths from longest to shortest (greedy matching)
         for (var length = context.MaxLength; length >= context.MinLength; length--)
         {
@@ -240,15 +239,16 @@ static class DateScrubber
             }
 
             // Combine carryover and current chunk
-            carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(combinedBuffer);
-            currentChunkSpan[..neededFromCurrent].CopyTo(combinedBuffer[remainingInCarryover..]);
+            carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(buffer);
+            currentChunkSpan[..neededFromCurrent].CopyTo(buffer[remainingInCarryover..]);
 
-            var slice = combinedBuffer[..length];
+            var slice = buffer[..length];
 
             if (context.TryConvert(slice, context.Format, context.Counter, context.Culture, out var convert))
             {
                 addMatch(new(absoluteStartPosition, length, convert));
-                return; // Found match at this position
+                // Found match at this position
+                return;
             }
         }
     }

@@ -17,6 +17,7 @@ static class CrossChunkMatcher
         CrossChunkHandler<TContext> onCrossChunk,
         WithinChunkHandler<TContext> onWithinChunk)
     {
+        Span<char> buffer = stackalloc char[maxLength];
         Span<char> carryoverBuffer = stackalloc char[maxLength - 1];
         var carryoverLength = 0;
         var previousChunkAbsoluteEnd = 0;
@@ -38,6 +39,7 @@ static class CrossChunkMatcher
                     onCrossChunk(
                         builder,
                         carryoverBuffer,
+                        buffer,
                         carryoverIndex,
                         remainingInCarryover,
                         chunkSpan,
@@ -77,6 +79,7 @@ static class CrossChunkMatcher
     public delegate void CrossChunkHandler<TContext>(
         StringBuilder builder,
         Span<char> carryoverBuffer,
+        Span<char> buffer,
         int carryoverIndex,
         int remainingInCarryover,
         CharSpan currentChunkSpan,

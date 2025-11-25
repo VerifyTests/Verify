@@ -52,6 +52,7 @@ static partial class DirectoryReplacements
     static void OnCrossChunk(
         StringBuilder builder,
         Span<char> carryoverBuffer,
+        Span<char> buffer,
         int carryoverIndex,
         int remainingInCarryover,
         CharSpan currentChunkSpan,
@@ -59,8 +60,6 @@ static partial class DirectoryReplacements
         MatchContext context,
         Action<Match> addMatch)
     {
-        Span<char> combinedBuffer = stackalloc char[context.MaxLength];
-
         foreach (var pair in context.Pairs)
         {
             var neededFromCurrent = pair.Find.Length - remainingInCarryover;
@@ -78,12 +77,12 @@ static partial class DirectoryReplacements
             }
 
             var combinedLength = remainingInCarryover + neededFromCurrent;
-            carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(combinedBuffer);
-            currentChunkSpan[..neededFromCurrent].CopyTo(combinedBuffer[remainingInCarryover..]);
+            carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(buffer);
+            currentChunkSpan[..neededFromCurrent].CopyTo(buffer[remainingInCarryover..]);
 
             if (!TryMatchAtCrossChunk(
                     builder,
-                    combinedBuffer[..combinedLength],
+                    buffer[..combinedLength],
                     currentChunkSpan,
                     absoluteStartPosition,
                     neededFromCurrent,

@@ -24,6 +24,7 @@ static class GuidScrubber
     static void OnCrossChunk(
         StringBuilder builder,
         Span<char> carryoverBuffer,
+        Span<char> buffer,
         int carryoverIndex,
         int remainingInCarryover,
         CharSpan currentChunkSpan,
@@ -54,7 +55,6 @@ static class GuidScrubber
         }
 
         // Combine carryover and current chunk into buffer
-        Span<char> buffer = stackalloc char[36];
         carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(buffer);
         currentChunkSpan[..neededFromCurrent].CopyTo(buffer[remainingInCarryover..]);
 

@@ -15,16 +15,13 @@ static class GuidScrubber
 
         var context = new MatchContext(counter);
 
-        CrossChunkMatcher.ProcessChunks(
+        CrossChunkMatcher.ReplaceAll(
             builder,
             carryoverSize: 35,
             context,
             OnCrossChunk,
-            OnWithinChunk);
-
-        CrossChunkMatcher.ApplyMatches(
-            builder,
-            context.Matches,
+            OnWithinChunk,
+            getMatches: c => c.Matches,
             getIndex: m => m.Index,
             getLength: _ => 36,
             getValue: m => m.Value);

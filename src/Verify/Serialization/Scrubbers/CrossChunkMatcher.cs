@@ -1,23 +1,30 @@
 /// <summary>
-/// Helper for matching patterns in StringBuilder that may span across chunk boundaries.
+/// Helper for matching and replacing patterns in StringBuilder that may span across chunk boundaries.
 /// </summary>
 static class CrossChunkMatcher
 {
     /// <summary>
-    /// Iterates through StringBuilder chunks, invoking callbacks for potential matches
-    /// both within chunks and spanning chunk boundaries.
+    /// Finds all matches in a StringBuilder (handling patterns spanning chunk boundaries) and applies replacements.
     /// </summary>
-    /// <param name="builder">The StringBuilder to search</param>
+    /// <param name="builder">The StringBuilder to search and modify</param>
     /// <param name="carryoverSize">Size of carryover buffer (typically maxPatternLength - 1)</param>
     /// <param name="context">User context passed to callbacks</param>
     /// <param name="onCrossChunk">Called for each potential cross-chunk match position</param>
     /// <param name="onWithinChunk">Called for each position within a chunk</param>
-    public static void ProcessChunks<TContext>(
+    /// <param name="getMatches">Retrieves the list of matches from the context</param>
+    /// <param name="getIndex">Gets the start index from a match</param>
+    /// <param name="getLength">Gets the original length from a match</param>
+    /// <param name="getValue">Gets the replacement value from a match</param>
+    public static void ReplaceAll<TContext, TMatch>(
         StringBuilder builder,
         int carryoverSize,
         TContext context,
         CrossChunkHandler<TContext> onCrossChunk,
-        WithinChunkHandler<TContext> onWithinChunk)
+        WithinChunkHandler<TContext> onWithinChunk,
+        Func<TContext, List<TMatch>> getMatches,
+        Func<TMatch, int> getIndex,
+        Func<TMatch, int> getLength,
+        Func<TMatch, string> getValue)
     {
         Span<char> carryoverBuffer = stackalloc char[carryoverSize];
         var carryoverLength = 0;
@@ -63,18 +70,9 @@ static class CrossChunkMatcher
             previousChunkAbsoluteEnd = absolutePosition + chunk.Length;
             absolutePosition += chunk.Length;
         }
-    }
 
-    /// <summary>
-    /// Applies matches to a StringBuilder in descending position order.
-    /// </summary>
-    public static void ApplyMatches<TMatch>(
-        StringBuilder builder,
-        List<TMatch> matches,
-        Func<TMatch, int> getIndex,
-        Func<TMatch, int> getLength,
-        Func<TMatch, string> getValue)
-    {
+        // Apply matches in descending position order
+        var matches = getMatches(context);
         foreach (var match in matches.OrderByDescending(getIndex))
         {
             builder.Overwrite(getValue(match), getIndex(match), getLength(match));
@@ -84,13 +82,6 @@ static class CrossChunkMatcher
     /// <summary>
     /// Callback for processing potential cross-chunk matches.
     /// </summary>
-    /// <param name="builder">The StringBuilder being processed</param>
-    /// <param name="carryoverBuffer">Buffer containing end of previous chunk</param>
-    /// <param name="carryoverIndex">Starting index within carryover buffer</param>
-    /// <param name="remainingInCarryover">Characters remaining from carryoverIndex to end</param>
-    /// <param name="currentChunkSpan">Span of the current chunk</param>
-    /// <param name="absoluteStartPosition">Absolute position in StringBuilder where potential match starts</param>
-    /// <param name="context">User context</param>
     public delegate void CrossChunkHandler<TContext>(
         StringBuilder builder,
         Span<char> carryoverBuffer,
@@ -103,11 +94,6 @@ static class CrossChunkMatcher
     /// <summary>
     /// Callback for processing positions within a chunk.
     /// </summary>
-    /// <param name="chunk">The current chunk memory</param>
-    /// <param name="chunkSpan">Span of the current chunk</param>
-    /// <param name="chunkIndex">Current index within the chunk</param>
-    /// <param name="absoluteIndex">Absolute position in StringBuilder</param>
-    /// <param name="context">User context</param>
     /// <returns>Number of positions to skip ahead (0 or 1 for normal iteration, more to skip past a match)</returns>
     public delegate int WithinChunkHandler<TContext>(
         ReadOnlyMemory<char> chunk,

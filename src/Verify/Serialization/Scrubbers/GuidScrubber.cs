@@ -131,7 +131,7 @@ static class GuidScrubber
         public List<Match> Matches { get; } = [];
     }
 
-    readonly struct Match(int index, string value)
+    internal readonly struct Match(int index, string value)
     {
         public readonly int Index = index;
         public readonly string Value = value;

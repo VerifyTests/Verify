@@ -1,4 +1,4 @@
-﻿// ReSharper disable ReturnValueOfPureMethodIsNotUsed
+// ReSharper disable ReturnValueOfPureMethodIsNotUsed
 static class DateScrubber
 {
     delegate bool TryConvert(
@@ -192,7 +192,7 @@ static class DateScrubber
         return false;
     }
 
-    static void ReplaceInner(StringBuilder builder, string format, Counter counter, Culture culture, TryConvert tryConvertDate)
+    static void ReplaceInner(StringBuilder builder, string format, Counter counter, Culture culture, TryConvert tryConvert)
     {
         if (!counter.ScrubDateTimes)
         {
@@ -206,69 +206,107 @@ static class DateScrubber
             return;
         }
 
-        if (min == max)
-        {
-            ReplaceFixedLength(builder, format, counter, culture, tryConvertDate, max);
+        var context = new MatchContext(format, counter, culture, tryConvert, max, min);
 
-            return;
-        }
+        CrossChunkMatcher.ProcessChunks(
+            builder,
+            carryoverSize: max - 1,
+            context,
+            OnCrossChunk,
+            OnWithinChunk);
 
-        ReplaceVariableLength(builder, format, counter, culture, tryConvertDate, max, min);
+        CrossChunkMatcher.ApplyMatches(
+            builder,
+            context.Matches,
+            getIndex: m => m.Index,
+            getLength: m => m.OriginalLength,
+            getValue: m => m.Value);
     }
 
-    static void ReplaceVariableLength(StringBuilder builder, string format, Counter counter, Culture culture, TryConvert tryConvertDate, int longest, int shortest)
+    static void OnCrossChunk(
+        StringBuilder builder,
+        Span<char> carryoverBuffer,
+        int carryoverIndex,
+        int remainingInCarryover,
+        CharSpan currentChunkSpan,
+        int absoluteStartPosition,
+        MatchContext context)
     {
-        var value = builder.AsSpan();
-        var builderIndex = 0;
-        for (var index = 0; index <= value.Length; index++)
+        Span<char> combinedBuffer = stackalloc char[context.MaxLength];
+
+        // Try lengths from longest to shortest (greedy matching)
+        for (var length = context.MaxLength; length >= context.MinLength; length--)
         {
-            var found = false;
-            for (var length = longest; length >= shortest; length--)
-            {
-                var end = index + length;
-                if (end > value.Length)
-                {
-                    continue;
-                }
+            var neededFromCurrent = length - remainingInCarryover;
 
-                var slice = value.Slice(index, length);
-                if (tryConvertDate(slice, format, counter, culture, out var convert))
-                {
-                    builder.Overwrite(convert, builderIndex, length);
-                    builderIndex += convert.Length;
-                    index += length - 1;
-                    found = true;
-                    break;
-                }
-            }
-
-            if (found)
+            if (neededFromCurrent <= 0 ||
+                neededFromCurrent > currentChunkSpan.Length)
             {
                 continue;
             }
 
-            builderIndex++;
+            // Combine carryover and current chunk
+            carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(combinedBuffer);
+            currentChunkSpan[..neededFromCurrent].CopyTo(combinedBuffer[remainingInCarryover..]);
+
+            var slice = combinedBuffer[..length];
+
+            if (context.TryConvert(slice, context.Format, context.Counter, context.Culture, out var convert))
+            {
+                context.Matches.Add(new(absoluteStartPosition, length, convert));
+                return; // Found match at this position
+            }
         }
     }
 
-    static void ReplaceFixedLength(StringBuilder builder, string format, Counter counter, Culture culture, TryConvert tryConvertDate, int length)
+    static int OnWithinChunk(
+        ReadOnlyMemory<char> chunk,
+        CharSpan chunkSpan,
+        int chunkIndex,
+        int absoluteIndex,
+        MatchContext context)
     {
-        var value = builder.AsSpan();
-        var builderIndex = 0;
-        var increment = length - 1;
-        for (var index = 0; index <= value.Length - length; index++)
+        // Try lengths from longest to shortest (greedy matching)
+        for (var length = context.MaxLength; length >= context.MinLength; length--)
         {
-            var slice = value.Slice(index, length);
-            if (tryConvertDate(slice, format, counter, culture, out var convert))
+            if (chunkIndex + length > chunk.Length)
             {
-                builder.Overwrite(convert, builderIndex, length);
-                builderIndex += convert.Length;
-                index += increment;
+                continue;
             }
-            else
+
+            var slice = chunkSpan.Slice(chunkIndex, length);
+
+            if (context.TryConvert(slice, context.Format, context.Counter, context.Culture, out var convert))
             {
-                builderIndex++;
+                context.Matches.Add(new(absoluteIndex, length, convert));
+                return length; // Skip past match
             }
         }
+
+        return 1;
+    }
+
+    sealed class MatchContext(
+        string format,
+        Counter counter,
+        Culture culture,
+        TryConvert tryConvert,
+        int maxLength,
+        int minLength)
+    {
+        public string Format { get; } = format;
+        public Counter Counter { get; } = counter;
+        public Culture Culture { get; } = culture;
+        public TryConvert TryConvert { get; } = tryConvert;
+        public int MaxLength { get; } = maxLength;
+        public int MinLength { get; } = minLength;
+        public List<Match> Matches { get; } = [];
+    }
+
+    readonly struct Match(int index, int originalLength, string value)
+    {
+        public readonly int Index = index;
+        public readonly int OriginalLength = originalLength;
+        public readonly string Value = value;
     }
 }

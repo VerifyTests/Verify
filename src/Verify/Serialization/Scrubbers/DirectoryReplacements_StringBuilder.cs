@@ -272,20 +272,26 @@ static partial class DirectoryReplacements
         return true;
     }
 
-    sealed class MatchContext(List<Pair> pairs)
+    sealed class MatchContext
     {
-        public List<Pair> Pairs { get; } = pairs;
+        public List<Pair> Pairs { get; }
         public List<Match> Matches { get; } = [];
-        public int MaxLength { get; } = pairs.Count > 0 ? pairs[0].Find.Length : 0;
+        public int MaxLength { get; }
 
-        List<(int Start, int End)> matchedRanges = [];
+        List<(int Start, int End)> _matchedRanges = [];
+
+        public MatchContext(List<Pair> pairs)
+        {
+            Pairs = pairs;
+            MaxLength = pairs.Count > 0 ? pairs[0].Find.Length : 0;
+        }
 
         public void AddMatchedRange(int start, int end) =>
-            matchedRanges.Add((start, end));
+            _matchedRanges.Add((start, end));
 
         public bool IsPositionMatched(int position)
         {
-            foreach (var (start, end) in matchedRanges)
+            foreach (var (start, end) in _matchedRanges)
             {
                 if (position >= start && position < end)
                 {
@@ -299,7 +305,7 @@ static partial class DirectoryReplacements
         public bool OverlapsExistingMatch(int start, int length)
         {
             var end = start + length;
-            foreach (var range in matchedRanges)
+            foreach (var range in _matchedRanges)
             {
                 if (start < range.End && end > range.Start)
                 {

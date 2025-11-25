@@ -15,7 +15,7 @@ static class GuidScrubber
 
         CrossChunkMatcher.ReplaceAll(
             builder,
-            carryoverSize: 35,
+            maxLength: 36,
             counter,
             OnCrossChunk,
             OnWithinChunk);

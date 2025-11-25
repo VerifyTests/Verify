@@ -43,7 +43,7 @@ static partial class DirectoryReplacements
 
         CrossChunkMatcher.ReplaceAll(
             builder,
-            carryoverSize: maxLength - 1,
+            maxLength: maxLength,
             context,
             OnCrossChunk,
             OnWithinChunk);

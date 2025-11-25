@@ -7,18 +7,17 @@ static class CrossChunkMatcher
     /// Finds all matches in a StringBuilder (handling patterns spanning chunk boundaries) and applies replacements.
     /// </summary>
     /// <param name="builder">The StringBuilder to search and modify</param>
-    /// <param name="carryoverSize">Size of carryover buffer (typically maxPatternLength - 1)</param>
     /// <param name="context">User context passed to callbacks</param>
     /// <param name="onCrossChunk">Called for each potential cross-chunk match position</param>
     /// <param name="onWithinChunk">Called for each position within a chunk</param>
     public static void ReplaceAll<TContext>(
         StringBuilder builder,
-        int carryoverSize,
+        int maxLength,
         TContext context,
         CrossChunkHandler<TContext> onCrossChunk,
         WithinChunkHandler<TContext> onWithinChunk)
     {
-        Span<char> carryoverBuffer = stackalloc char[carryoverSize];
+        Span<char> carryoverBuffer = stackalloc char[maxLength-1];
         var carryoverLength = 0;
         var previousChunkAbsoluteEnd = 0;
         var absolutePosition = 0;
@@ -58,7 +57,7 @@ static class CrossChunkMatcher
             }
 
             // Save last N chars for next iteration
-            carryoverLength = Math.Min(carryoverSize, chunk.Length);
+            carryoverLength = Math.Min(maxLength - 1, chunk.Length);
             chunkSpan.Slice(chunk.Length - carryoverLength, carryoverLength).CopyTo(carryoverBuffer);
 
             previousChunkAbsoluteEnd = absolutePosition + chunk.Length;

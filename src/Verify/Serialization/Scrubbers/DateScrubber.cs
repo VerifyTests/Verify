@@ -210,7 +210,7 @@ static class DateScrubber
 
         CrossChunkMatcher.ReplaceAll(
             builder,
-            carryoverSize: max - 1,
+            maxLength: max,
             context,
             OnCrossChunk,
             OnWithinChunk);

@@ -21,9 +21,7 @@ static class GuidScrubber
             context,
             OnCrossChunk,
             OnWithinChunk,
-            getMatches: c => c.Matches,
-            getLength: _ => 36,
-            getValue: m => m.Value);
+            getMatches: c => c.Matches);
     }
 
     static void OnCrossChunk(

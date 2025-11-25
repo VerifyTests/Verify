@@ -20,9 +20,7 @@ static class CrossChunkMatcher
         TContext context,
         CrossChunkHandler<TContext> onCrossChunk,
         WithinChunkHandler<TContext> onWithinChunk,
-        Func<TContext, List<Match>> getMatches,
-        Func<Match, int> getLength,
-        Func<Match, string> getValue)
+        Func<TContext, List<Match>> getMatches)
     {
         Span<char> carryoverBuffer = stackalloc char[carryoverSize];
         var carryoverLength = 0;

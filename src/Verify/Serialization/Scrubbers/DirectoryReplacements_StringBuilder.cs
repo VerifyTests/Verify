@@ -47,9 +47,7 @@ static partial class DirectoryReplacements
             context,
             OnCrossChunk,
             OnWithinChunk,
-            getMatches: c => c.Matches,
-            getLength: m => m.Length,
-            getValue: m => m.Value);
+            getMatches: c => c.Matches);
     }
 
     static void OnCrossChunk(

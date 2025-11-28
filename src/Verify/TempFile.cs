@@ -132,13 +132,14 @@ public class TempFile :
 
         Path = IoPath.Combine(RootDirectory, fileName);
 
-        if (paths.Value == null)
+        var pathsValue = paths.Value;
+        if (pathsValue == null)
         {
             paths.Value = [Path];
         }
         else
         {
-            paths.Value!.Add(Path);
+            pathsValue.Add(Path);
         }
     }
 
@@ -162,7 +163,7 @@ public class TempFile :
             File.Delete(Path);
         }
 
-        paths.Value!.Remove(Path);
+        paths.Value?.Remove(Path);
     }
 
     /// <summary>

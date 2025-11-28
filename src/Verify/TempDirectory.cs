@@ -62,12 +62,13 @@ public class TempDirectory :
 
         VerifierSettings.GlobalScrubbers.Add((scrubber, _, _) =>
         {
-            if (paths.Value == null)
+            var pathsValue = paths.Value;
+            if (pathsValue == null)
             {
                 return;
             }
 
-            foreach (var path in paths.Value)
+            foreach (var path in pathsValue)
             {
                 scrubber.Replace(path, "{TempDirectory}");
             }
@@ -118,13 +119,14 @@ public class TempDirectory :
         Path = IoPath.Combine(RootDirectory, IoPath.GetRandomFileName());
         Directory.CreateDirectory(Path);
 
-        if (paths.Value == null)
+        var pathsValue = paths.Value;
+        if (pathsValue == null)
         {
             paths.Value = [Path];
         }
         else
         {
-            paths.Value!.Add(Path);
+            pathsValue.Add(Path);
         }
     }
 
@@ -135,7 +137,7 @@ public class TempDirectory :
             Directory.Delete(Path, true);
         }
 
-        paths.Value!.Remove(Path);
+        paths.Value?.Remove(Path);
     }
 
     /// <summary>

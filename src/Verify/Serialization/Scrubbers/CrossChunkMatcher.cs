@@ -76,7 +76,7 @@ static class CrossChunkMatcher
     /// <summary>
     /// Callback for processing potential cross-chunk matches.
     /// </summary>
-    public delegate void CrossChunkHandler<TContext>(
+    public delegate void CrossChunkHandler<in TContext>(
         StringBuilder builder,
         Span<char> carryoverBuffer,
         Span<char> buffer,
@@ -91,11 +91,11 @@ static class CrossChunkMatcher
     /// Callback for processing positions within a chunk.
     /// </summary>
     /// <returns>
-    /// Number of positions to skip ahead. 
-    /// Returning 0 or 1 will both advance by 1 position (normal iteration); 
+    /// Number of positions to skip ahead.
+    /// Returning 0 or 1 will both advance by 1 position (normal iteration);
     /// returning a value greater than 1 will skip past a match.
     /// </returns>
-    public delegate int WithinChunkHandler<TContext>(
+    public delegate int WithinChunkHandler<in TContext>(
         ReadOnlyMemory<char> chunk,
         CharSpan chunkSpan,
         int chunkIndex,
@@ -103,7 +103,6 @@ static class CrossChunkMatcher
         TContext context,
         Action<Match> addMatch);
 }
-
 
 readonly struct Match(int index, int length, string value)
 {

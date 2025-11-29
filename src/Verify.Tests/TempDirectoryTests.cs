@@ -32,6 +32,12 @@
 
     #endregion
 
+    [Fact]
+    public void WithNoVerify()
+    {
+        using var directory = new TempDirectory();
+    }
+
     #region TempDirectory
 
     [Fact]

@@ -1,6 +1,12 @@
 ﻿public class TempFileTests
 {
     [Fact]
+    public void WithNoVerify()
+    {
+        using var temp = new TempFile();
+    }
+
+    [Fact]
     public void Constructor_CreatesFilePathInRootDirectory()
     {
         using var temp = new TempFile();

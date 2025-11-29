@@ -16,11 +16,12 @@
   <Project Path="Benchmarks/Benchmarks.csproj" />
   <Project Path="DeterministicTests/DeterministicTests.csproj" />
   <Project Path="DisableScrubbersTests/DisableScrubbersTests.csproj" />
-  <Project Path="DisableVerifyFileNestingTests/DisableVerifyFileNestingTests.csproj" Type="C#" />
+  <Project Path="DisableVerifyFileNestingTests/DisableVerifyFileNestingTests.csproj" />
   <Project Path="FakeDiffTool/FakeDiffTool.csproj" />
   <Project Path="FSharpTests/FSharpTests.fsproj" />
   <Project Path="ModuleInitDocs/ModuleInitDocs.csproj" />
   <Project Path="NullComparer/NullComparer.csproj" />
+  <Project Path="RawTempUsage/RawTempUsage.csproj" />
   <Project Path="StaticSettingsTests/StaticSettingsTests.csproj" />
   <Project Path="StrictJsonTests/StrictJsonTests.csproj" />
   <Project Path="TargetLibrary/TargetLibrary.csproj" />

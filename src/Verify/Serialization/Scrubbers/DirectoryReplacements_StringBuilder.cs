@@ -269,8 +269,6 @@ static partial class DirectoryReplacements
     sealed class MatchContext(List<Pair> pairs)
     {
         public List<Pair> Pairs { get; } = pairs;
-        public int MaxLength { get; } = pairs.Count > 0 ? pairs[0].Find.Length : 0;
-
         List<(int Start, int End)> matchedRanges = [];
 
         public void AddMatchedRange(int start, int end) =>

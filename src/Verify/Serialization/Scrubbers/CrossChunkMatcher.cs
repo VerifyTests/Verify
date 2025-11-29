@@ -90,7 +90,11 @@ static class CrossChunkMatcher
     /// <summary>
     /// Callback for processing positions within a chunk.
     /// </summary>
-    /// <returns>Number of positions to skip ahead (0 or 1 for normal iteration, more to skip past a match)</returns>
+    /// <returns>
+    /// Number of positions to skip ahead. 
+    /// Returning 0 or 1 will both advance by 1 position (normal iteration); 
+    /// returning a value greater than 1 will skip past a match.
+    /// </returns>
     public delegate int WithinChunkHandler<TContext>(
         ReadOnlyMemory<char> chunk,
         CharSpan chunkSpan,

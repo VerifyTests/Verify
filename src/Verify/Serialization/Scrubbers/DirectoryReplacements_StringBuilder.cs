@@ -290,15 +290,7 @@ static partial class DirectoryReplacements
         public bool OverlapsExistingMatch(int start, int length)
         {
             var end = start + length;
-            foreach (var range in matchedRanges)
-            {
-                if (start < range.End && end > range.Start)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return matchedRanges.Any(range => start < range.End && end > range.Start);
         }
     }
 }

@@ -212,75 +212,27 @@ static class DateScrubber
             builder,
             maxLength: max,
             context,
-            OnCrossChunk,
-            OnWithinChunk);
-    }
-
-    static void OnCrossChunk(
-        StringBuilder builder,
-        Span<char> carryoverBuffer,
-        Span<char> buffer,
-        int carryoverIndex,
-        int remainingInCarryover,
-        CharSpan currentChunkSpan,
-        int absoluteStartPosition,
-        MatchContext context,
-        Action<Match> addMatch)
-    {
-        // Try lengths from longest to shortest (greedy matching)
-        for (var length = context.MaxLength; length >= context.MinLength; length--)
-        {
-            var neededFromCurrent = length - remainingInCarryover;
-
-            if (neededFromCurrent <= 0 ||
-                neededFromCurrent > currentChunkSpan.Length)
+            matcher: static (content, _, context) =>
             {
-                continue;
-            }
+                // Try lengths from longest to shortest (greedy matching)
+                for (var length = context.MaxLength; length >= context.MinLength; length--)
+                {
+                    // Not enough content for this length
+                    if (content.Length < length)
+                    {
+                        continue;
+                    }
 
-            // Combine carryover and current chunk
-            carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(buffer);
-            currentChunkSpan[..neededFromCurrent].CopyTo(buffer[remainingInCarryover..]);
+                    var slice = content.Slice(0, length);
 
-            var slice = buffer[..length];
+                    if (context.TryConvert(slice, context.Format, context.Counter, context.Culture, out var converted))
+                    {
+                        return MatchResult.Match(length, converted);
+                    }
+                }
 
-            if (!context.TryConvert(slice, context.Format, context.Counter, context.Culture, out var convert))
-            {
-                continue;
-            }
-
-            addMatch(new(absoluteStartPosition, length, convert));
-            // Found match at this position
-            return;
-        }
-    }
-
-    static int OnWithinChunk(
-        ReadOnlyMemory<char> chunk,
-        CharSpan chunkSpan,
-        int chunkIndex,
-        int absoluteIndex,
-        MatchContext context,
-        Action<Match> addMatch)
-    {
-        // Try lengths from longest to shortest (greedy matching)
-        for (var length = context.MaxLength; length >= context.MinLength; length--)
-        {
-            if (chunkIndex + length > chunk.Length)
-            {
-                continue;
-            }
-
-            var slice = chunkSpan.Slice(chunkIndex, length);
-
-            if (context.TryConvert(slice, context.Format, context.Counter, context.Culture, out var convert))
-            {
-                addMatch(new(absoluteIndex, length, convert));
-                return length; // Skip past match
-            }
-        }
-
-        return 1;
+                return MatchResult.NoMatch();
+            });
     }
 
     sealed class MatchContext(

@@ -16,92 +16,41 @@ static class GuidScrubber
         CrossChunkMatcher.ReplaceAll(
             builder,
             maxLength: 36,
-            counter,
-            OnCrossChunk,
-            OnWithinChunk);
-    }
+            context: (Builder: builder, Counter: counter),
+            matcher: static (content, absolutePosition, context) =>
+            {
+                // Need at least 36 characters for a GUID
+                if (content.Length < 36)
+                {
+                    return MatchResult.NoMatch();
+                }
 
-    static void OnCrossChunk(
-        StringBuilder builder,
-        Span<char> carryoverBuffer,
-        Span<char> buffer,
-        int carryoverIndex,
-        int remainingInCarryover,
-        CharSpan currentChunkSpan,
-        int absoluteStartPosition,
-        Counter counter,
-        Action<Match> addMatch)
-    {
-        var neededFromCurrent = 36 - remainingInCarryover;
+                // Validate start boundary (check character before the potential GUID)
+                if (absolutePosition > 0 &&
+                    IsInvalidStartingChar(context.Builder[absolutePosition - 1]))
+                {
+                    return MatchResult.NoMatch();
+                }
 
-        if (neededFromCurrent <= 0 ||
-            currentChunkSpan.Length < neededFromCurrent)
-        {
-            return;
-        }
+                // Validate end boundary (check character after the potential GUID)
+                var endPosition = absolutePosition + 36;
+                if (endPosition < context.Builder.Length &&
+                    IsInvalidEndingChar(context.Builder[endPosition]))
+                {
+                    return MatchResult.NoMatch();
+                }
 
-        // Validate start boundary
-        if (absoluteStartPosition > 0 &&
-            IsInvalidStartingChar(builder[absoluteStartPosition - 1]))
-        {
-            return;
-        }
+                // Try to parse as GUID
+                var slice = content.Slice(0, 36);
+                if (!Guid.TryParseExact(slice, "D", out var guid))
+                {
+                    return MatchResult.NoMatch();
+                }
 
-        // Validate end boundary
-        if (neededFromCurrent < currentChunkSpan.Length &&
-            IsInvalidEndingChar(currentChunkSpan[neededFromCurrent]))
-        {
-            return;
-        }
-
-        // Combine carryover and current chunk into buffer
-        carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(buffer);
-        currentChunkSpan[..neededFromCurrent].CopyTo(buffer[remainingInCarryover..]);
-
-        if (!Guid.TryParseExact(buffer, "D", out var guid))
-        {
-            return;
-        }
-
-        var convert = counter.Convert(guid);
-        addMatch(new(absoluteStartPosition, 36, convert));
-    }
-
-    static int OnWithinChunk(
-        ReadOnlyMemory<char> chunk,
-        CharSpan chunkSpan,
-        int chunkIndex,
-        int absoluteIndex,
-        Counter counter,
-        Action<Match> addMatch)
-    {
-        var end = chunkIndex + 36;
-        if (end > chunk.Length)
-        {
-            return 1;
-        }
-
-        // Validate boundaries
-        if (chunkIndex > 0 && IsInvalidStartingChar(chunkSpan[chunkIndex - 1]))
-        {
-            return 1;
-        }
-
-        if (end < chunkSpan.Length && IsInvalidEndingChar(chunkSpan[end]))
-        {
-            return 1;
-        }
-
-        var slice = chunkSpan.Slice(chunkIndex, 36);
-
-        if (!Guid.TryParseExact(slice, "D", out var guid))
-        {
-            return 1;
-        }
-
-        var convert = counter.Convert(guid);
-        addMatch(new(absoluteIndex, 36, convert));
-        return 36; // Skip past the matched GUID
+                // Convert and return match
+                var converted = context.Counter.Convert(guid);
+                return MatchResult.Match(36, converted);
+            });
     }
 
     static bool IsInvalidEndingChar(char ch) =>

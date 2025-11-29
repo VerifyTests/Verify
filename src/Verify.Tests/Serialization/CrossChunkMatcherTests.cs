@@ -9,20 +9,14 @@ public class CrossChunkMatcherTests
             builder,
             maxLength: 5,
             context: "World",
-            onCrossChunk: static (_, _, _, _, _, _, _, _, _) =>
+            matcher: static (content, _, context) =>
             {
-            },
-            onWithinChunk: static (chunk, chunkSpan, chunkIndex, absoluteIndex, context, addMatch) =>
-            {
-                var remaining = chunk.Length - chunkIndex;
-                if (remaining >= context.Length &&
-                    chunkSpan.Slice(chunkIndex, context.Length).SequenceEqual(context))
+                if (content.Length >= context.Length &&
+                    content[..context.Length].SequenceEqual(context))
                 {
-                    addMatch(new(absoluteIndex, context.Length, "Universe"));
-                    return context.Length;
+                    return MatchResult.Match(context.Length, "Universe");
                 }
-
-                return 1;
+                return MatchResult.NoMatch();
             });
 
         return Verify(builder.ToString());
@@ -37,20 +31,14 @@ public class CrossChunkMatcherTests
             builder,
             maxLength: 3,
             context: "foo",
-            onCrossChunk: static (_, _, _, _, _, _, _, _, _) =>
+            matcher: static (content, _, context) =>
             {
-            },
-            onWithinChunk: static (chunk, chunkSpan, chunkIndex, absoluteIndex, context, addMatch) =>
-            {
-                var remaining = chunk.Length - chunkIndex;
-                if (remaining >= context.Length &&
-                    chunkSpan.Slice(chunkIndex, context.Length).SequenceEqual(context))
+                if (content.Length >= context.Length &&
+                    content[..context.Length].SequenceEqual(context))
                 {
-                    addMatch(new(absoluteIndex, context.Length, "bar"));
-                    return context.Length;
+                    return MatchResult.Match(context.Length, "bar");
                 }
-
-                return 1;
+                return MatchResult.NoMatch();
             });
 
         return Verify(builder.ToString());
@@ -69,34 +57,14 @@ public class CrossChunkMatcherTests
             builder,
             maxLength: 5,
             context: "MATCH",
-            onCrossChunk: static (_, carryoverBuffer, buffer, carryoverIndex, remainingInCarryover, currentChunkSpan, absoluteStartPosition, context, addMatch) =>
+            matcher: static (content, _, context) =>
             {
-                var neededFromCurrent = context.Length - remainingInCarryover;
-                if (neededFromCurrent <= 0 || neededFromCurrent > currentChunkSpan.Length)
+                if (content.Length >= context.Length &&
+                    content[..context.Length].SequenceEqual(context))
                 {
-                    return;
+                    return MatchResult.Match(context.Length, "FOUND");
                 }
-
-                // Combine carryover + current chunk into buffer
-                carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(buffer);
-                currentChunkSpan[..neededFromCurrent].CopyTo(buffer[remainingInCarryover..]);
-
-                if (buffer[..context.Length].SequenceEqual(context))
-                {
-                    addMatch(new(absoluteStartPosition, context.Length, "FOUND"));
-                }
-            },
-            onWithinChunk: static (chunk, chunkSpan, chunkIndex, absoluteIndex, context, addMatch) =>
-            {
-                var remaining = chunk.Length - chunkIndex;
-                if (remaining >= context.Length &&
-                    chunkSpan.Slice(chunkIndex, context.Length).SequenceEqual(context))
-                {
-                    addMatch(new(absoluteIndex, context.Length, "FOUND"));
-                    return context.Length;
-                }
-
-                return 1;
+                return MatchResult.NoMatch();
             });
 
         var result = builder.ToString();
@@ -122,20 +90,14 @@ public class CrossChunkMatcherTests
             builder,
             maxLength: 10,
             context: "NotFound",
-            onCrossChunk: static (_, _, _, _, _, _, _, _, _) =>
+            matcher: static (content, _, context) =>
             {
-            },
-            onWithinChunk: static (chunk, chunkSpan, chunkIndex, absoluteIndex, context, addMatch) =>
-            {
-                var remaining = chunk.Length - chunkIndex;
-                if (remaining >= context.Length &&
-                    chunkSpan.Slice(chunkIndex, context.Length).SequenceEqual(context))
+                if (content.Length >= context.Length &&
+                    content[..context.Length].SequenceEqual(context))
                 {
-                    addMatch(new(absoluteIndex, context.Length, "Replaced"));
-                    return context.Length;
+                    return MatchResult.Match(context.Length, "Replaced");
                 }
-
-                return 1;
+                return MatchResult.NoMatch();
             });
 
         return Verify(builder.ToString());
@@ -150,10 +112,15 @@ public class CrossChunkMatcherTests
             builder,
             maxLength: 5,
             context: "test",
-            onCrossChunk: static (_, _, _, _, _, _, _, _, _) =>
+            matcher: static (content, _, context) =>
             {
-            },
-            onWithinChunk: static (_, _, _, _, _, _) => 1);
+                if (content.Length >= context.Length &&
+                    content[..context.Length].SequenceEqual(context))
+                {
+                    return MatchResult.Match(context.Length, "replaced");
+                }
+                return MatchResult.NoMatch();
+            });
 
         return Verify(builder.ToString());
     }
@@ -167,20 +134,14 @@ public class CrossChunkMatcherTests
             builder,
             maxLength: 6,
             context: "Target",
-            onCrossChunk: static (_, _, _, _, _, _, _, _, _) =>
+            matcher: static (content, _, context) =>
             {
-            },
-            onWithinChunk: static (chunk, chunkSpan, chunkIndex, absoluteIndex, context, addMatch) =>
-            {
-                var remaining = chunk.Length - chunkIndex;
-                if (remaining >= context.Length &&
-                    chunkSpan.Slice(chunkIndex, context.Length).SequenceEqual(context))
+                if (content.Length >= context.Length &&
+                    content[..context.Length].SequenceEqual(context))
                 {
-                    addMatch(new(absoluteIndex, context.Length, "Result"));
-                    return context.Length;
+                    return MatchResult.Match(context.Length, "Result");
                 }
-
-                return 1;
+                return MatchResult.NoMatch();
             });
 
         return Verify(builder.ToString());
@@ -195,20 +156,14 @@ public class CrossChunkMatcherTests
             builder,
             maxLength: 6,
             context: "Target",
-            onCrossChunk: static (_, _, _, _, _, _, _, _, _) =>
+            matcher: static (content, _, context) =>
             {
-            },
-            onWithinChunk: static (chunk, chunkSpan, chunkIndex, absoluteIndex, context, addMatch) =>
-            {
-                var remaining = chunk.Length - chunkIndex;
-                if (remaining >= context.Length &&
-                    chunkSpan.Slice(chunkIndex, context.Length).SequenceEqual(context))
+                if (content.Length >= context.Length &&
+                    content[..context.Length].SequenceEqual(context))
                 {
-                    addMatch(new(absoluteIndex, context.Length, "Result"));
-                    return context.Length;
+                    return MatchResult.Match(context.Length, "Result");
                 }
-
-                return 1;
+                return MatchResult.NoMatch();
             });
 
         return Verify(builder.ToString());
@@ -223,20 +178,14 @@ public class CrossChunkMatcherTests
             builder,
             maxLength: 2,
             context: "aa",
-            onCrossChunk: static (_, _, _, _, _, _, _, _, _) =>
+            matcher: static (content, _, context) =>
             {
-            },
-            onWithinChunk: static (chunk, chunkSpan, chunkIndex, absoluteIndex, context, addMatch) =>
-            {
-                var remaining = chunk.Length - chunkIndex;
-                if (remaining >= context.Length &&
-                    chunkSpan.Slice(chunkIndex, context.Length).SequenceEqual(context))
+                if (content.Length >= context.Length &&
+                    content[..context.Length].SequenceEqual(context))
                 {
-                    addMatch(new(absoluteIndex, context.Length, "bb"));
-                    return context.Length;
+                    return MatchResult.Match(context.Length, "bb");
                 }
-
-                return 1;
+                return MatchResult.NoMatch();
             });
 
         return Verify(builder.ToString());
@@ -251,27 +200,19 @@ public class CrossChunkMatcherTests
             builder,
             maxLength: 5,
             context: (Short: "short", Long: "long"),
-            onCrossChunk: static (_, _, _, _, _, _, _, _, _) =>
+            matcher: static (content, _, context) =>
             {
-            },
-            onWithinChunk: static (chunk, chunkSpan, chunkIndex, absoluteIndex, context, addMatch) =>
-            {
-                var remaining = chunk.Length - chunkIndex;
-                if (remaining >= context.Short.Length &&
-                    chunkSpan.Slice(chunkIndex, context.Short.Length).SequenceEqual(context.Short))
+                if (content.Length >= context.Short.Length &&
+                    content[..context.Short.Length].SequenceEqual(context.Short))
                 {
-                    addMatch(new(absoluteIndex, context.Short.Length, "replaced"));
-                    return context.Short.Length;
+                    return MatchResult.Match(context.Short.Length, "replaced");
                 }
-
-                if (remaining >= context.Long.Length &&
-                    chunkSpan.Slice(chunkIndex, context.Long.Length).SequenceEqual(context.Long))
+                if (content.Length >= context.Long.Length &&
+                    content[..context.Long.Length].SequenceEqual(context.Long))
                 {
-                    addMatch(new(absoluteIndex, context.Long.Length, "r"));
-                    return context.Long.Length;
+                    return MatchResult.Match(context.Long.Length, "r");
                 }
-
-                return 1;
+                return MatchResult.NoMatch();
             });
 
         return Verify(builder.ToString());
@@ -286,17 +227,13 @@ public class CrossChunkMatcherTests
             builder,
             maxLength: 1,
             context: 'a',
-            onCrossChunk: static (_, _, _, _, _, _, _, _, _) =>
+            matcher: static (content, _, context) =>
             {
-            },
-            onWithinChunk: static (_, chunkSpan, chunkIndex, absoluteIndex, context, addMatch) =>
-            {
-                if (chunkSpan[chunkIndex] == context)
+                if (content.Length >= 1 && content[0] == context)
                 {
-                    addMatch(new(absoluteIndex, 1, "x"));
+                    return MatchResult.Match(1, "x");
                 }
-
-                return 1;
+                return MatchResult.NoMatch();
             });
 
         return Verify(builder.ToString());
@@ -317,33 +254,14 @@ public class CrossChunkMatcherTests
             builder,
             maxLength: 7,
             context: "PATTERN",
-            onCrossChunk: static (_, carryoverBuffer, buffer, carryoverIndex, remainingInCarryover, currentChunkSpan, absoluteStartPosition, context, addMatch) =>
+            matcher: static (content, _, context) =>
             {
-                var neededFromCurrent = context.Length - remainingInCarryover;
-                if (neededFromCurrent <= 0 || neededFromCurrent > currentChunkSpan.Length)
+                if (content.Length >= context.Length &&
+                    content[..context.Length].SequenceEqual(context))
                 {
-                    return;
+                    return MatchResult.Match(context.Length, "MATCH");
                 }
-
-                carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(buffer);
-                currentChunkSpan[..neededFromCurrent].CopyTo(buffer.Slice(remainingInCarryover));
-
-                if (buffer[..context.Length].SequenceEqual(context))
-                {
-                    addMatch(new(absoluteStartPosition, context.Length, "MATCH"));
-                }
-            },
-            onWithinChunk: static (chunk, chunkSpan, chunkIndex, absoluteIndex, context, addMatch) =>
-            {
-                var remaining = chunk.Length - chunkIndex;
-                if (remaining >= context.Length &&
-                    chunkSpan.Slice(chunkIndex, context.Length).SequenceEqual(context))
-                {
-                    addMatch(new(absoluteIndex, context.Length, "MATCH"));
-                    return context.Length;
-                }
-
-                return 1;
+                return MatchResult.NoMatch();
             });
 
         var result = builder.ToString();
@@ -355,7 +273,7 @@ public class CrossChunkMatcherTests
             index += "MATCH".Length;
         }
 
-        return Verify(new {MatchCount = matchCount});
+        return Verify(new { MatchCount = matchCount });
     }
 
     [Fact]
@@ -374,33 +292,14 @@ public class CrossChunkMatcherTests
             builder,
             maxLength: 7,
             context: "PATTERN",
-            onCrossChunk: static (_, carryoverBuffer, buffer, carryoverIndex, remainingInCarryover, currentChunkSpan, absoluteStartPosition, context, addMatch) =>
+            matcher: static (content, _, context) =>
             {
-                var neededFromCurrent = context.Length - remainingInCarryover;
-                if (neededFromCurrent <= 0 || neededFromCurrent > currentChunkSpan.Length)
+                if (content.Length >= context.Length &&
+                    content[..context.Length].SequenceEqual(context))
                 {
-                    return;
+                    return MatchResult.Match(context.Length, "SUCCESS");
                 }
-
-                carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(buffer);
-                currentChunkSpan[..neededFromCurrent].CopyTo(buffer.Slice(remainingInCarryover));
-
-                if (buffer[..context.Length].SequenceEqual(context))
-                {
-                    addMatch(new(absoluteStartPosition, context.Length, "SUCCESS"));
-                }
-            },
-            onWithinChunk: static (chunk, chunkSpan, chunkIndex, absoluteIndex, context, addMatch) =>
-            {
-                var remaining = chunk.Length - chunkIndex;
-                if (remaining >= context.Length &&
-                    chunkSpan.Slice(chunkIndex, context.Length).SequenceEqual(context))
-                {
-                    addMatch(new(absoluteIndex, context.Length, "SUCCESS"));
-                    return context.Length;
-                }
-
-                return 1;
+                return MatchResult.NoMatch();
             });
 
         var result = builder.ToString();
@@ -423,45 +322,185 @@ public class CrossChunkMatcherTests
             builder,
             maxLength: 2,
             context: "AB",
-            onCrossChunk: static (_, _, _, _, _, _, _, _, _) =>
+            matcher: static (content, _, context) =>
             {
-            },
-            onWithinChunk: static (chunk, chunkSpan, chunkIndex, absoluteIndex, context, addMatch) =>
-            {
-                var remaining = chunk.Length - chunkIndex;
-                if (remaining >= context.Length &&
-                    chunkSpan.Slice(chunkIndex, context.Length).SequenceEqual(context))
+                if (content.Length >= context.Length &&
+                    content[..context.Length].SequenceEqual(context))
                 {
-                    addMatch(new(absoluteIndex, context.Length, "XY"));
-                    return context.Length;
+                    return MatchResult.Match(context.Length, "XY");
                 }
-
-                return 1;
+                return MatchResult.NoMatch();
             });
 
         return Verify(builder.ToString());
     }
 
     [Fact]
-    public Task SkipAheadFunctionality()
+    public Task PatternSpanningThreeChunks()
     {
-        var builder = new StringBuilder("one two three four");
-        var positions = new List<int>();
+        // Pattern "ABCDEFGH" spans 3 chunks
+        var builder = new StringBuilder();
+
+        // Chunk 1: ends with "ABC"
+        builder.Append(new string('x', 8000) + "ABC");
+        // Chunk 2: contains "DEF"
+        builder.Append("DEF");
+        // Chunk 3: starts with "GH"
+        builder.Append("GH" + new string('y', 8000));
 
         CrossChunkMatcher.ReplaceAll(
             builder,
-            maxLength: 5,
-            context: positions,
-            onCrossChunk: static (_, _, _, _, _, _, _, _, _) =>
+            maxLength: 8,
+            context: "ABCDEFGH",
+            matcher: static (content, _, context) =>
             {
-            },
-            onWithinChunk: static (_, _, _, absoluteIndex, context, _) =>
-            {
-                context.Add(absoluteIndex);
-                // Skip ahead by 3 positions every time
-                return 3;
+                if (content.Length >= context.Length &&
+                    content[..context.Length].SequenceEqual(context))
+                {
+                    return MatchResult.Match(context.Length, "FOUND!!!");
+                }
+                return MatchResult.NoMatch();
             });
 
-        return Verify(positions);
+        var result = builder.ToString();
+        var matchFound = result.Contains("FOUND!!!");
+        var originalPatternExists = result.Contains("ABCDEFGH");
+
+        return Verify(new
+        {
+            MatchFound = matchFound,
+            OriginalPatternExists = originalPatternExists,
+            Note = "Pattern spanning 3 chunks should now be detected"
+        });
+    }
+
+    [Fact]
+    public Task PatternSpanningThreeChunks_AlternativeLayout()
+    {
+        // Another layout: AB | CDEF | GH
+        var builder = new StringBuilder();
+
+        builder.Append(new string('x', 8000) + "AB");
+        builder.Append("CDEF");
+        builder.Append("GH" + new string('y', 8000));
+
+        CrossChunkMatcher.ReplaceAll(
+            builder,
+            maxLength: 8,
+            context: "ABCDEFGH",
+            matcher: static (content, _, context) =>
+            {
+                if (content.Length >= context.Length &&
+                    content[..context.Length].SequenceEqual(context))
+                {
+                    return MatchResult.Match(context.Length, "FOUND!!!");
+                }
+                return MatchResult.NoMatch();
+            });
+
+        var result = builder.ToString();
+
+        return Verify(new
+        {
+            MatchFound = result.Contains("FOUND!!!"),
+            OriginalPatternExists = result.Contains("ABCDEFGH"),
+            Note = "Pattern spanning 3 chunks should now be detected"
+        });
+    }
+
+    [Fact]
+    public Task PatternSpanningFourChunks()
+    {
+        // Extreme case: A | BC | DE | FGH
+        var builder = new StringBuilder();
+
+        builder.Append(new string('x', 8000) + "A");
+        builder.Append("BC");
+        builder.Append("DE");
+        builder.Append("FGH" + new string('y', 8000));
+
+        CrossChunkMatcher.ReplaceAll(
+            builder,
+            maxLength: 8,
+            context: "ABCDEFGH",
+            matcher: static (content, _, context) =>
+            {
+                if (content.Length >= context.Length &&
+                    content[..context.Length].SequenceEqual(context))
+                {
+                    return MatchResult.Match(context.Length, "SUCCESS!");
+                }
+                return MatchResult.NoMatch();
+            });
+
+        var result = builder.ToString();
+
+        return Verify(new
+        {
+            MatchFound = result.Contains("SUCCESS!"),
+            OriginalPatternExists = result.Contains("ABCDEFGH"),
+            Note = "Pattern spanning 4 chunks should now be detected"
+        });
+    }
+
+    [Fact]
+    public Task MultipleMatchesAcrossChunks()
+    {
+        var builder = new StringBuilder();
+
+        // Multiple patterns across chunks
+        builder.Append(new string('x', 7000) + "PAT");
+        builder.Append("TERN1" + new string('y', 7000) + "PAT");
+        builder.Append("TERN2" + new string('z', 7000));
+
+        CrossChunkMatcher.ReplaceAll(
+            builder,
+            maxLength: 7,
+            context: "PATTERN",
+            matcher: static (content, _, context) =>
+            {
+                if (content.Length >= context.Length &&
+                    content[..context.Length].SequenceEqual(context))
+                {
+                    return MatchResult.Match(context.Length, "MATCH");
+                }
+                return MatchResult.NoMatch();
+            });
+
+        var result = builder.ToString();
+        var matchCount = 0;
+        var index = 0;
+        while ((index = result.IndexOf("MATCH", index, StringComparison.Ordinal)) != -1)
+        {
+            matchCount++;
+            index += "MATCH".Length;
+        }
+
+        return Verify(new { MatchCount = matchCount });
+    }
+
+    [Fact]
+    public Task VariableLengthMatches()
+    {
+        var builder = new StringBuilder("cat dog bird elephant");
+
+        CrossChunkMatcher.ReplaceAll(
+            builder,
+            maxLength: 8,
+            context: new[] { "cat", "dog", "bird", "elephant" },
+            matcher: static (content, _, context) =>
+            {
+                foreach (var word in context)
+                {
+                    if (content.Length >= word.Length &&
+                        content[..word.Length].SequenceEqual(word))
+                    {
+                        return MatchResult.Match(word.Length, "animal");
+                    }
+                }
+                return MatchResult.NoMatch();
+            });
+
+        return Verify(builder.ToString());
     }
 }

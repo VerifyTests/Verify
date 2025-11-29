@@ -39,124 +39,61 @@ static partial class DirectoryReplacements
 
         // pairs are ordered by length, so max length is the first one
         var maxLength = paths[0].Find.Length;
-        var context = new MatchContext(paths);
+        var context = new MatchContext(builder, paths);
 
         CrossChunkMatcher.ReplaceAll(
             builder,
             maxLength: maxLength,
             context,
-            OnCrossChunk,
-            OnWithinChunk);
+            matcher: static (content, absolutePosition, context) =>
+            {
+                // Skip if already matched
+                if (context.IsPositionMatched(absolutePosition))
+                {
+                    return MatchResult.NoMatch();
+                }
+
+                foreach (var pair in context.Pairs)
+                {
+                    // Not enough content for this pattern
+                    if (content.Length < pair.Find.Length)
+                    {
+                        continue;
+                    }
+
+                    // Check if this would overlap with existing match
+                    if (context.OverlapsExistingMatch(absolutePosition, pair.Find.Length))
+                    {
+                        continue;
+                    }
+
+                    // Try to match at this position
+                    if (!TryMatchAt(context.Builder, content, absolutePosition, pair.Find, out var matchLength))
+                    {
+                        continue;
+                    }
+
+                    context.AddMatchedRange(absolutePosition, absolutePosition + matchLength);
+                    return MatchResult.Match(matchLength, pair.Replace);
+                }
+
+                return MatchResult.NoMatch();
+            });
     }
 
-    static void OnCrossChunk(
+    static bool TryMatchAt(
         StringBuilder builder,
-        Span<char> carryoverBuffer,
-        Span<char> buffer,
-        int carryoverIndex,
-        int remainingInCarryover,
-        CharSpan currentChunkSpan,
-        int absoluteStartPosition,
-        MatchContext context,
-        Action<Match> addMatch)
-    {
-        foreach (var pair in context.Pairs)
-        {
-            var neededFromCurrent = pair.Find.Length - remainingInCarryover;
-
-            if (neededFromCurrent <= 0 ||
-                neededFromCurrent > currentChunkSpan.Length)
-            {
-                continue;
-            }
-
-            // Check if this position overlaps with existing match
-            if (context.OverlapsExistingMatch(absoluteStartPosition, pair.Find.Length))
-            {
-                continue;
-            }
-
-            var combinedLength = remainingInCarryover + neededFromCurrent;
-            carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(buffer);
-            currentChunkSpan[..neededFromCurrent].CopyTo(buffer[remainingInCarryover..]);
-
-            if (!TryMatchAtCrossChunk(
-                    builder,
-                    buffer[..combinedLength],
-                    currentChunkSpan,
-                    absoluteStartPosition,
-                    neededFromCurrent,
-                    pair.Find,
-                    out var matchLength))
-            {
-                continue;
-            }
-
-            addMatch(new(absoluteStartPosition, matchLength, pair.Replace));
-            context.AddMatchedRange(absoluteStartPosition, absoluteStartPosition + matchLength);
-            // Found a match at this position, skip other pairs
-            break;
-        }
-    }
-
-    static int OnWithinChunk(
-        ReadOnlyMemory<char> chunk,
-        CharSpan chunkSpan,
-        int chunkIndex,
-        int absoluteIndex,
-        MatchContext context,
-        Action<Match> addMatch)
-    {
-        // Skip if already matched
-        if (context.IsPositionMatched(absoluteIndex))
-        {
-            return 1;
-        }
-
-        foreach (var pair in context.Pairs)
-        {
-            // Check if we have enough characters left in this chunk
-            if (chunkIndex + pair.Find.Length > chunk.Length)
-            {
-                continue;
-            }
-
-            // Check if this would overlap with existing match
-            if (context.OverlapsExistingMatch(absoluteIndex, pair.Find.Length))
-            {
-                continue;
-            }
-
-            // Try to match at this position
-            if (!TryMatchAt(chunk, chunkIndex, pair.Find, out var matchLength))
-            {
-                continue;
-            }
-
-            addMatch(new(absoluteIndex, matchLength, pair.Replace));
-            context.AddMatchedRange(absoluteIndex, absoluteIndex + matchLength);
-            // Skip past this match
-            return matchLength;
-        }
-
-        return 1;
-    }
-
-    static bool TryMatchAtCrossChunk(
-        StringBuilder builder,
-        CharSpan combinedSpan,
-        CharSpan currentChunkSpan,
-        int absoluteStartPosition,
-        int neededFromCurrent,
+        CharSpan content,
+        int absolutePosition,
         string find,
         out int matchLength)
     {
         matchLength = 0;
 
         // Check preceding character
-        if (absoluteStartPosition > 0)
+        if (absolutePosition > 0)
         {
-            var preceding = builder[absoluteStartPosition - 1];
+            var preceding = builder[absolutePosition - 1];
             if (char.IsLetterOrDigit(preceding))
             {
                 return false;
@@ -164,65 +101,33 @@ static partial class DirectoryReplacements
         }
 
         // Check if the path matches
-        if (!IsPathMatchAt(combinedSpan, 0, find))
+        if (!IsPathMatchAt(content, 0, find))
         {
             return false;
         }
 
         matchLength = find.Length;
-
-        // Check trailing character (it's in the current chunk)
-        if (neededFromCurrent < currentChunkSpan.Length)
-        {
-            var trailing = currentChunkSpan[neededFromCurrent];
-
-            // Invalid if trailing is letter or digit
-            if (char.IsLetterOrDigit(trailing))
-            {
-                return false;
-            }
-
-            // Greedy: include trailing separator
-            if (trailing is '/' or '\\')
-            {
-                matchLength++;
-            }
-        }
-
-        return true;
-    }
-
-    static bool TryMatchAt(ReadOnlyMemory<char> chunk, int chunkPos, string find, out int matchLength)
-    {
-        var span = chunk.Span;
-        matchLength = 0;
-
-        // Check preceding character
-        if (chunkPos > 0)
-        {
-            var preceding = span[chunkPos - 1];
-            if (char.IsLetterOrDigit(preceding))
-            {
-                return false;
-            }
-        }
-
-        // Check if the path matches
-        if (!IsPathMatchAt(span, chunkPos, find))
-        {
-            return false;
-        }
 
         // Check trailing character
-        matchLength = find.Length;
-        var trailingPos = chunkPos + find.Length;
-
-        if (trailingPos >= span.Length)
+        var trailingPosition = absolutePosition + find.Length;
+        if (trailingPosition >= builder.Length)
         {
             return true;
         }
 
-        var trailing = span[trailingPos];
+        // Check if we have the trailing character in our content window
+        // or need to look it up in the builder
+        char trailing;
+        if (find.Length < content.Length)
+        {
+            // Trailing char is in our window
+            trailing = content[find.Length];
+        }
+        else
+        {
+            // Need to look up in builder
+            trailing = builder[trailingPosition];
+        }
 
         // Invalid if trailing is letter or digit
         if (char.IsLetterOrDigit(trailing))
@@ -239,15 +144,15 @@ static partial class DirectoryReplacements
         return true;
     }
 
-    static bool IsPathMatchAt(CharSpan chunk, int chunkPos, string find)
+    static bool IsPathMatchAt(CharSpan content, int contentPos, string find)
     {
         for (var i = 0; i < find.Length; i++)
         {
-            var chunkChar = chunk[chunkPos + i];
+            var contentChar = content[contentPos + i];
             var findChar = find[i];
 
             // Treat / and \ as equivalent
-            if (chunkChar is '/' or '\\')
+            if (contentChar is '/' or '\\')
             {
                 if (findChar != '/')
                 {
@@ -257,7 +162,7 @@ static partial class DirectoryReplacements
                 continue;
             }
 
-            if (chunkChar != findChar)
+            if (contentChar != findChar)
             {
                 return false;
             }
@@ -266,8 +171,9 @@ static partial class DirectoryReplacements
         return true;
     }
 
-    sealed class MatchContext(List<Pair> pairs)
+    sealed class MatchContext(StringBuilder builder, List<Pair> pairs)
     {
+        public StringBuilder Builder { get; } = builder;
         public List<Pair> Pairs { get; } = pairs;
         List<(int Start, int End)> matchedRanges = [];
 

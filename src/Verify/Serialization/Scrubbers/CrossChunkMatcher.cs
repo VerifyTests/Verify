@@ -7,101 +7,146 @@ static class CrossChunkMatcher
     /// Finds all matches in a StringBuilder (handling patterns spanning chunk boundaries) and applies replacements.
     /// </summary>
     /// <param name="builder">The StringBuilder to search and modify</param>
+    /// <param name="maxLength">Maximum pattern length to search for</param>
     /// <param name="context">User context passed to callbacks</param>
-    /// <param name="onCrossChunk">Called for each potential cross-chunk match position</param>
-    /// <param name="onWithinChunk">Called for each position within a chunk</param>
+    /// <param name="matcher">Called for each potential match position with accumulated buffer</param>
     public static void ReplaceAll<TContext>(
         StringBuilder builder,
         int maxLength,
         TContext context,
-        CrossChunkHandler<TContext> onCrossChunk,
-        WithinChunkHandler<TContext> onWithinChunk)
+        MatchHandler<TContext> matcher)
     {
+        if (maxLength <= 0)
+        {
+            throw new ArgumentException("maxLength must be positive", nameof(maxLength));
+        }
+
         Span<char> buffer = stackalloc char[maxLength];
-        Span<char> carryoverBuffer = stackalloc char[maxLength - 1];
-        var carryoverLength = 0;
-        var previousChunkAbsoluteEnd = 0;
-        var absolutePosition = 0;
         List<Match> matches = [];
-        var addMatch = matches.Add;
+        var position = 0;
+
         foreach (var chunk in builder.GetChunks())
         {
-            var chunkSpan = chunk.Span;
-
-            // Check for matches spanning from previous chunk to current chunk
-            if (carryoverLength > 0)
+            for (var chunkIndex = 0; chunkIndex < chunk.Length; chunkIndex++)
             {
-                for (var carryoverIndex = 0; carryoverIndex < carryoverLength; carryoverIndex++)
-                {
-                    var remainingInCarryover = carryoverLength - carryoverIndex;
-                    var startPosition = previousChunkAbsoluteEnd - carryoverLength + carryoverIndex;
+                var absolutePosition = position + chunkIndex;
 
-                    onCrossChunk(
-                        builder,
-                        carryoverBuffer,
-                        buffer,
-                        carryoverIndex,
-                        remainingInCarryover,
-                        chunkSpan,
-                        startPosition,
-                        context,
-                        addMatch);
+                // Build content window starting at current position
+                var bufferLength = FillBuffer(builder, absolutePosition, buffer);
+
+                // Check for match at this position
+                var windowSlice = buffer[..bufferLength];
+                var result = matcher(windowSlice, absolutePosition, context);
+
+                if (result.IsMatch)
+                {
+                    matches.Add(new Match(absolutePosition, result.MatchLength, result.Replacement));
+
+                    // Skip past the match
+                    var skipAmount = result.MatchLength - 1;
+                    if (skipAmount > 0)
+                    {
+                        var remaining = chunk.Length - chunkIndex - 1;
+                        var toSkip = Math.Min(skipAmount, remaining);
+                        chunkIndex += toSkip;
+                    }
                 }
             }
 
-            // Process matches entirely within this chunk
-            var chunkIndex = 0;
-            while (chunkIndex < chunk.Length)
-            {
-                var absoluteIndex = absolutePosition + chunkIndex;
-                var skipAhead = onWithinChunk(chunk, chunkSpan, chunkIndex, absoluteIndex, context, addMatch);
-                chunkIndex += skipAhead > 0 ? skipAhead : 1;
-            }
-
-            // Save last N chars for next iteration
-            carryoverLength = Math.Min(maxLength - 1, chunk.Length);
-            chunkSpan.Slice(chunk.Length - carryoverLength, carryoverLength).CopyTo(carryoverBuffer);
-
-            previousChunkAbsoluteEnd = absolutePosition + chunk.Length;
-            absolutePosition += chunk.Length;
+            position += chunk.Length;
         }
 
-        // Apply matches in descending position order
-        foreach (var match in matches.OrderByDescending(_ => _.Index))
+        // Apply matches in descending position order to maintain correct indices
+        foreach (var match in matches.OrderByDescending(m => m.Index))
         {
             builder.Overwrite(match.Value, match.Index, match.Length);
         }
     }
 
-    /// <summary>
-    /// Callback for processing potential cross-chunk matches.
-    /// </summary>
-    public delegate void CrossChunkHandler<in TContext>(
-        StringBuilder builder,
-        Span<char> carryoverBuffer,
-        Span<char> buffer,
-        int carryoverIndex,
-        int remainingInCarryover,
-        CharSpan currentChunkSpan,
-        int absoluteStartPosition,
-        TContext context,
-        Action<Match> addMatch);
+    static int FillBuffer(StringBuilder builder, int startPosition, Span<char> buffer)
+    {
+        var bufferIndex = 0;
+        var currentPosition = 0;
+
+        foreach (var chunk in builder.GetChunks())
+        {
+            var chunkSpan = chunk.Span;
+            var chunkEnd = currentPosition + chunk.Length;
+
+            // Skip chunks before our start position
+            if (chunkEnd <= startPosition)
+            {
+                currentPosition = chunkEnd;
+                continue;
+            }
+
+            // Determine where to start in this chunk
+            var chunkStartIndex = startPosition > currentPosition ? startPosition - currentPosition : 0;
+
+            // Copy what we can from this chunk
+            for (var i = chunkStartIndex; i < chunk.Length && bufferIndex < buffer.Length; i++)
+            {
+                buffer[bufferIndex++] = chunkSpan[i];
+            }
+
+            // If buffer is full, we're done
+            if (bufferIndex >= buffer.Length)
+            {
+                break;
+            }
+
+            currentPosition = chunkEnd;
+        }
+
+        return bufferIndex;
+    }
 
     /// <summary>
-    /// Callback for processing positions within a chunk.
+    /// Callback for checking if content matches and should be replaced.
     /// </summary>
-    /// <returns>
-    /// Number of positions to skip ahead.
-    /// Returning 0 or 1 will both advance by 1 position (normal iteration);
-    /// returning a value greater than 1 will skip past a match.
-    /// </returns>
-    public delegate int WithinChunkHandler<in TContext>(
-        ReadOnlyMemory<char> chunk,
-        CharSpan chunkSpan,
-        int chunkIndex,
-        int absoluteIndex,
-        TContext context,
-        Action<Match> addMatch);
+    /// <param name="content">The current window content to check</param>
+    /// <param name="absolutePosition">Absolute position in the StringBuilder where this content starts</param>
+    /// <param name="context">User-provided context</param>
+    /// <returns>Match result indicating if a match was found and replacement details</returns>
+    public delegate MatchResult MatchHandler<in TContext>(
+        CharSpan content,
+        int absolutePosition,
+        TContext context);
+}
+
+/// <summary>
+/// Result of a match check operation.
+/// </summary>
+readonly struct MatchResult
+{
+    public readonly bool IsMatch;
+    public readonly int MatchLength;
+    public readonly string Replacement;
+
+    private MatchResult(bool isMatch, int matchLength, string replacement)
+    {
+        IsMatch = isMatch;
+        MatchLength = matchLength;
+        Replacement = replacement;
+    }
+
+    /// <summary>
+    /// Creates a result indicating a match was found.
+    /// </summary>
+    public static MatchResult Match(int length, string replacement)
+    {
+        if (length <= 0)
+        {
+            throw new ArgumentException("Match length must be positive", nameof(length));
+        }
+
+        return new MatchResult(true, length, replacement);
+    }
+
+    /// <summary>
+    /// Creates a result indicating no match was found.
+    /// </summary>
+    public static MatchResult NoMatch() => default;
 }
 
 readonly struct Match(int index, int length, string value)

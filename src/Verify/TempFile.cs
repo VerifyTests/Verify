@@ -32,6 +32,8 @@ namespace VerifyTests;
 public class TempFile :
     IDisposable
 {
+    List<string> paths;
+
     /// <summary>
     /// The full path to the file.
     /// </summary>
@@ -61,16 +63,17 @@ public class TempFile :
             before: () =>
             {
             },
-            after: () => paths.Value = null);
+            after: () => asyncPaths.Value = null);
 
         VerifierSettings.GlobalScrubbers.Add((scrubber, _, _) =>
         {
-            if (paths.Value == null)
+            var pathsValue = asyncPaths.Value;
+            if (pathsValue == null)
             {
                 return;
             }
 
-            foreach (var path in paths.Value)
+            foreach (var path in pathsValue)
             {
                 scrubber.Replace(path, "{TempFile}");
             }
@@ -79,7 +82,7 @@ public class TempFile :
         Cleanup();
     }
 
-    static AsyncLocal<List<string>?> paths = new();
+    static AsyncLocal<List<string>?> asyncPaths = new();
 
     internal static void Cleanup()
     {
@@ -132,14 +135,14 @@ public class TempFile :
 
         Path = IoPath.Combine(RootDirectory, fileName);
 
-        var pathsValue = paths.Value;
-        if (pathsValue == null)
+        paths = asyncPaths.Value!;
+        if (paths == null)
         {
-            paths.Value = [Path];
+            paths = asyncPaths.Value = [Path];
         }
         else
         {
-            pathsValue.Add(Path);
+            paths.Add(Path);
         }
     }
 
@@ -163,7 +166,7 @@ public class TempFile :
             File.Delete(Path);
         }
 
-        paths.Value?.Remove(Path);
+        paths.Remove(Path);
     }
 
     /// <summary>

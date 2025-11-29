@@ -28,6 +28,8 @@ namespace VerifyTests;
 public class TempDirectory :
     IDisposable
 {
+    List<string> paths;
+
     /// <summary>
     /// The full path to the directory.
     /// </summary>
@@ -58,11 +60,11 @@ public class TempDirectory :
             before: () =>
             {
             },
-            after: () => paths.Value = null);
+            after: () => asyncPaths.Value = null);
 
         VerifierSettings.GlobalScrubbers.Add((scrubber, _, _) =>
         {
-            var pathsValue = paths.Value;
+            var pathsValue = asyncPaths.Value;
             if (pathsValue == null)
             {
                 return;
@@ -77,7 +79,7 @@ public class TempDirectory :
         Cleanup();
     }
 
-    static AsyncLocal<List<string>?> paths = new();
+    static AsyncLocal<List<string>?> asyncPaths = new();
 
     internal static void Cleanup()
     {
@@ -119,14 +121,14 @@ public class TempDirectory :
         Path = IoPath.Combine(RootDirectory, IoPath.GetRandomFileName());
         Directory.CreateDirectory(Path);
 
-        var pathsValue = paths.Value;
-        if (pathsValue == null)
+        paths = asyncPaths.Value!;
+        if (paths == null)
         {
-            paths.Value = [Path];
+            paths = asyncPaths.Value = [Path];
         }
         else
         {
-            pathsValue.Add(Path);
+            paths.Add(Path);
         }
     }
 
@@ -137,7 +139,7 @@ public class TempDirectory :
             Directory.Delete(Path, true);
         }
 
-        paths.Value?.Remove(Path);
+        paths.Remove(Path);
     }
 
     /// <summary>

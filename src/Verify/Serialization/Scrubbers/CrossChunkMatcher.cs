@@ -7,6 +7,7 @@ static class CrossChunkMatcher
     /// Finds all matches in a StringBuilder (handling patterns spanning chunk boundaries) and applies replacements.
     /// </summary>
     /// <param name="builder">The StringBuilder to search and modify</param>
+    /// <param name="maxLength">Maximum length of patterns to search for</param>
     /// <param name="context">User context passed to callbacks</param>
     /// <param name="onCrossChunk">Called for each potential cross-chunk match position</param>
     /// <param name="onWithinChunk">Called for each position within a chunk</param>

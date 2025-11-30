@@ -90,10 +90,12 @@ static class CrossChunkMatcher
             var chunkStart = start > currentPosition ? start - currentPosition : 0;
 
             // Copy what we can from this chunk
-            for (var i = chunkStart; i < chunk.Length && bufferIndex < buffer.Length; i++)
-            {
-                buffer[bufferIndex++] = chunkSpan[i];
-            }
+            var sourceSlice = chunkSpan[chunkStart..];
+            var destinationSlice = buffer[bufferIndex..];
+            var toCopy = Math.Min(sourceSlice.Length, destinationSlice.Length);
+
+            sourceSlice[..toCopy].CopyTo(destinationSlice);
+            bufferIndex += toCopy;
 
             // If buffer is full, we're done
             if (bufferIndex >= buffer.Length)

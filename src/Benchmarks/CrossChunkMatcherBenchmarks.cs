@@ -1,4 +1,5 @@
-﻿[MemoryDiagnoser]
+﻿
+[MemoryDiagnoser]
 [SimpleJob(warmupCount: 3, iterationCount: 5)]
 public class CrossChunkMatcherBenchmarks
 {
@@ -15,31 +16,31 @@ public class CrossChunkMatcherBenchmarks
         smallBuilder = new();
         for (var i = 0; i < 10; i++)
         {
-            smallBuilder.Append("Hello <TAG>world</TAG> this is ");
-            smallBuilder.Append("a test with some <TAG>patterns</TAG> to match. ");
+            smallBuilder.AppendLine("Hello <TAG>world</TAG> this is");
+            smallBuilder.AppendLine("a test with some <TAG>patterns</TAG> to match.");
         }
 
         // Medium: ~10KB with more chunks
         mediumBuilder = new();
         for (var i = 0; i < 100; i++)
         {
-            mediumBuilder.Append("Hello <TAG>world</TAG> this is ");
-            mediumBuilder.Append("a test with some <TAG>patterns</TAG> to match. ");
+            mediumBuilder.AppendLine("Hello <TAG>world</TAG> this is");
+            mediumBuilder.AppendLine("a test with some <TAG>patterns</TAG> to match.");
         }
 
         // Large: ~100KB with many chunks
         largeBuilder = new();
         for (var i = 0; i < 1000; i++)
         {
-            largeBuilder.Append("Hello <TAG>world</TAG> this is ");
-            largeBuilder.Append("a test with some <TAG>patterns</TAG> to match. ");
+            largeBuilder.AppendLine("Hello <TAG>world</TAG> this is");
+            largeBuilder.AppendLine("a test with some <TAG>patterns</TAG> to match.");
         }
 
         // Many matches: Lots of patterns to replace
         manyMatchesBuilder = new();
         for (var i = 0; i < 500; i++)
         {
-            manyMatchesBuilder.Append("<TAG>");
+            manyMatchesBuilder.AppendLine("<TAG>");
         }
 
         // Force cross-chunk pattern matching by creating multiple chunks
@@ -50,12 +51,13 @@ public class CrossChunkMatcherBenchmarks
             // Create chunks where <TAG> might span boundaries
             crossChunkBuilder.Append("Hello <T");
             crossChunkBuilder.Append("AG>world</T");
-            crossChunkBuilder.Append("AG> test ");
+            crossChunkBuilder.AppendLine("AG> test");
         }
     }
 
-    [Benchmark]
-    public void Small_FewMatches()
+    // Baseline benchmarks (without skipChar)
+    [Benchmark(Baseline = true)]
+    public void Small_FewMatches_Baseline()
     {
         var builder = new StringBuilder(smallBuilder.ToString());
         CrossChunkMatcher.ReplaceAll(
@@ -74,7 +76,26 @@ public class CrossChunkMatcherBenchmarks
     }
 
     [Benchmark]
-    public void Medium_FewMatches()
+    public void Small_FewMatches_WithSkipChar()
+    {
+        var builder = new StringBuilder(smallBuilder.ToString());
+        CrossChunkMatcher.ReplaceAll(
+            builder,
+            maxLength: 20,
+            context: (string?) null,
+            matcher: static (content, _, _) =>
+            {
+                if (content.StartsWith("<TAG>"))
+                {
+                    return new MatchResult(5, "[REPLACED]");
+                }
+
+                return null;
+            });
+    }
+
+    [Benchmark]
+    public void Medium_FewMatches_Baseline()
     {
         var builder = new StringBuilder(mediumBuilder.ToString());
         CrossChunkMatcher.ReplaceAll(
@@ -93,7 +114,26 @@ public class CrossChunkMatcherBenchmarks
     }
 
     [Benchmark]
-    public void Large_FewMatches()
+    public void Medium_FewMatches_WithSkipChar()
+    {
+        var builder = new StringBuilder(mediumBuilder.ToString());
+        CrossChunkMatcher.ReplaceAll(
+            builder,
+            maxLength: 20,
+            context: (string?) null,
+            matcher: static (content, _, _) =>
+            {
+                if (content.StartsWith("<TAG>"))
+                {
+                    return new MatchResult(5, "[REPLACED]");
+                }
+
+                return null;
+            });
+    }
+
+    [Benchmark]
+    public void Large_FewMatches_Baseline()
     {
         var builder = new StringBuilder(largeBuilder.ToString());
         CrossChunkMatcher.ReplaceAll(
@@ -112,12 +152,12 @@ public class CrossChunkMatcherBenchmarks
     }
 
     [Benchmark]
-    public void ManyMatches()
+    public void Large_FewMatches_WithSkipChar()
     {
-        var builder = new StringBuilder(manyMatchesBuilder.ToString());
+        var builder = new StringBuilder(largeBuilder.ToString());
         CrossChunkMatcher.ReplaceAll(
             builder,
-            maxLength: 10,
+            maxLength: 20,
             context: (string?) null,
             matcher: static (content, _, _) =>
             {
@@ -131,51 +171,7 @@ public class CrossChunkMatcherBenchmarks
     }
 
     [Benchmark]
-    public void ComplexPattern_LargeWindow()
-    {
-        var builder = new StringBuilder(mediumBuilder.ToString());
-        CrossChunkMatcher.ReplaceAll(
-            builder,
-            maxLength: 100,
-            context: (string?) null,
-            matcher: static (content, _, _) =>
-            {
-                // More complex pattern matching with larger window
-                if (content.StartsWith("<TAG>world</TAG>"))
-                {
-                    return new MatchResult(16, "[COMPLEX_MATCH]");
-                }
-
-                return null;
-            });
-    }
-
-    [Benchmark]
-    public void MultiplePatterns()
-    {
-        var builder = new StringBuilder(mediumBuilder.ToString());
-        CrossChunkMatcher.ReplaceAll(
-            builder,
-            maxLength: 30,
-            context: (string?) null,
-            matcher: static (content, _, _) =>
-            {
-                if (content.StartsWith("<TAG>world</TAG>"))
-                {
-                    return new MatchResult(16, "[WORLD]");
-                }
-
-                if (content.StartsWith("<TAG>patterns</TAG>"))
-                {
-                    return new MatchResult(19, "[PATTERN]");
-                }
-
-                return null;
-            });
-    }
-
-    [Benchmark]
-    public void NoMatches()
+    public void NoMatches_Baseline()
     {
         var builder = new StringBuilder(mediumBuilder.ToString());
         CrossChunkMatcher.ReplaceAll(
@@ -184,7 +180,6 @@ public class CrossChunkMatcherBenchmarks
             context: (string?) null,
             matcher: static (content, _, _) =>
             {
-                // Pattern that will never match
                 if (content.StartsWith("<NOMATCH>"))
                 {
                     return new MatchResult(9, "[REPLACED]");
@@ -195,18 +190,56 @@ public class CrossChunkMatcherBenchmarks
     }
 
     [Benchmark]
-    public void CrossChunkPatterns()
+    public void NoMatches_WithSkipChar()
     {
-        var builder = new StringBuilder(crossChunkBuilder.ToString());
+        var builder = new StringBuilder(mediumBuilder.ToString());
         CrossChunkMatcher.ReplaceAll(
             builder,
             maxLength: 20,
             context: (string?) null,
             matcher: static (content, _, _) =>
             {
-                if (content.StartsWith("<TAG>"))
+                if (content.StartsWith("<NOMATCH>"))
                 {
-                    return new MatchResult(5, "[REPLACED]");
+                    return new MatchResult(9, "[REPLACED]");
+                }
+
+                return null;
+            });
+    }
+
+    [Benchmark]
+    public void ComplexPattern_Baseline()
+    {
+        var builder = new StringBuilder(mediumBuilder.ToString());
+        CrossChunkMatcher.ReplaceAll(
+            builder,
+            maxLength: 100,
+            context: (string?) null,
+            matcher: static (content, _, _) =>
+            {
+                if (content.StartsWith("<TAG>world</TAG>"))
+                {
+                    return new MatchResult(16, "[COMPLEX_MATCH]");
+                }
+
+                return null;
+            });
+    }
+
+    [Benchmark]
+    public void ComplexPattern_WithSkipChar()
+    {
+        var builder = new StringBuilder(mediumBuilder.ToString());
+        CrossChunkMatcher.ReplaceAll(
+            builder,
+            maxLength: 100,
+            context: (string?) null,
+            matcher: static (content, _, _) =>
+            {
+                if (content.StartsWith("<TAG>world</TAG>"))
+                {
+                    return new MatchResult(16, "[COMPLEX_MATCH]");
                 }
 
                 return null;

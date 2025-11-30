@@ -29,6 +29,13 @@ static class CrossChunkMatcher
         {
             for (var chunkIndex = 0; chunkIndex < chunk.Length; chunkIndex++)
             {
+                // Quick character check to skip positions that can't match
+                var ch = chunk.Span[chunkIndex];
+                if (ch is '\n' or '\r')
+                {
+                    continue;
+                }
+
                 var absolutePosition = position + chunkIndex;
 
                 // Build content window starting at current position

@@ -3,6 +3,7 @@
     "path": "Verify.slnx",
     "projects": [
       "DisableScrubbersTests\\DisableScrubbersTests.csproj",
+      "Benchmarks\\Benchmarks.csproj",
       "RawTempUsage\\RawTempUsage.csproj",
       "TargetLibrary\\TargetLibrary.csproj",
       "Verify.NUnit\\Verify.NUnit.csproj",

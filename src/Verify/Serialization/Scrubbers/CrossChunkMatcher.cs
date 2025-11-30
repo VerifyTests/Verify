@@ -32,10 +32,8 @@ static class CrossChunkMatcher
                 var absolutePosition = position + chunkIndex;
 
                 // Build content window starting at current position
-                var bufferLength = FillBuffer(builder, absolutePosition, buffer);
+                var windowSlice = FillBuffer(builder, absolutePosition, buffer);
 
-                // Check for match at this position
-                var windowSlice = buffer[..bufferLength];
                 var potentialMatch = matcher(windowSlice, absolutePosition, context);
 
                 if (potentialMatch == null)
@@ -69,7 +67,7 @@ static class CrossChunkMatcher
         }
     }
 
-    static int FillBuffer(StringBuilder builder, int start, Span<char> buffer)
+    static Span<char> FillBuffer(StringBuilder builder, int start, Span<char> buffer)
     {
         var bufferIndex = 0;
         var currentPosition = 0;
@@ -103,8 +101,7 @@ static class CrossChunkMatcher
 
             currentPosition = chunkEnd;
         }
-
-        return bufferIndex;
+        return buffer[..bufferIndex];
     }
 
     /// <summary>

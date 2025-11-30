@@ -38,19 +38,23 @@ static class CrossChunkMatcher
                 var windowSlice = buffer[..bufferLength];
                 var result = matcher(windowSlice, absolutePosition, context);
 
-                if (result.IsMatch)
+                if (!result.IsMatch)
                 {
-                    matches.Add(new Match(absolutePosition, result.MatchLength, result.Replacement));
-
-                    // Skip past the match
-                    var skipAmount = result.MatchLength - 1;
-                    if (skipAmount > 0)
-                    {
-                        var remaining = chunk.Length - chunkIndex - 1;
-                        var toSkip = Math.Min(skipAmount, remaining);
-                        chunkIndex += toSkip;
-                    }
+                    continue;
                 }
+
+                matches.Add(new(absolutePosition, result.MatchLength, result.Replacement));
+
+                // Skip past the match
+                var skipAmount = result.MatchLength - 1;
+                if (skipAmount <= 0)
+                {
+                    continue;
+                }
+
+                var remaining = chunk.Length - chunkIndex - 1;
+                var toSkip = Math.Min(skipAmount, remaining);
+                chunkIndex += toSkip;
             }
 
             position += chunk.Length;
@@ -140,7 +144,7 @@ readonly struct MatchResult
             throw new ArgumentException("Match length must be positive", nameof(length));
         }
 
-        return new MatchResult(true, length, replacement);
+        return new(true, length, replacement);
     }
 
     /// <summary>

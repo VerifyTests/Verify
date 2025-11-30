@@ -1,7 +1,7 @@
 ﻿[MemoryDiagnoser(false)]
 public class ReadStringBuilderWithFixedLinesBenchmarks
 {
-    readonly IEnumerable<string> files;
+    List<string> files;
 
     public ReadStringBuilderWithFixedLinesBenchmarks()
     {
@@ -18,7 +18,7 @@ public class ReadStringBuilderWithFixedLinesBenchmarks
     {
         foreach (var file in files)
         {
-            using var reader = IoHelpers.OpenRead(file);
+            await using var reader = IoHelpers.OpenRead(file);
             await reader.ReadStringBuilderWithFixedLines();
         }
     }

@@ -68,6 +68,7 @@ static class CrossChunkMatcher
             builder.Overwrite(match.Value, match.Index, match.Length);
         }
     }
+
     static int FillBuffer(StringBuilder builder, int start, Span<char> buffer)
     {
         var bufferIndex = 0;
@@ -75,7 +76,6 @@ static class CrossChunkMatcher
 
         foreach (var chunk in builder.GetChunks())
         {
-            var chunkSpan = chunk.Span;
             var chunkEnd = currentPosition + chunk.Length;
 
             // Skip chunks before our start position
@@ -92,7 +92,7 @@ static class CrossChunkMatcher
             var destinationSlice = buffer[bufferIndex..];
             var toCopy = Math.Min(chunk.Length - chunkStart, destinationSlice.Length);
 
-            chunkSpan.Slice(chunkStart, toCopy).CopyTo(destinationSlice);
+            chunk.Span.Slice(chunkStart, toCopy).CopyTo(destinationSlice);
             bufferIndex += toCopy;
 
             // If buffer is full, we're done

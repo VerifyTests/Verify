@@ -15,7 +15,7 @@
 
   <Target Name="CheckPackageVersion" BeforeTargets="Build">
     <!-- https://learn.microsoft.com/en-us/visualstudio/extensibility/roslyn-version-support?view=vs-2022 -->
-    <Error Condition="'%(PackageVersion.Identity)' == 'Microsoft.CodeAnalysis.Analyzers' AND '%(PackageVersion.Version)' != '3.3.4'" Text="Invalid package version for Microsoft.CodeAnalysis.Analyzers. Expected: 3.3.4." />
-    <Error Condition="'%(PackageVersion.Identity)' == 'Microsoft.CodeAnalysis.CSharp' AND '%(PackageVersion.Version)' != '4.9.2'" Text="Invalid package version for Microsoft.CodeAnalysis.CSharp. Expected: 4.9.2." />
+    <Error Condition="'%(PackageVersion.Identity)' == 'Microsoft.CodeAnalysis.Analyzers' AND '%(PackageVersion.Version)' != '3.11.0'" Text="Invalid package version for Microsoft.CodeAnalysis.Analyzers. Expected: 3.11.0." />
+    <Error Condition="'%(PackageVersion.Identity)' == 'Microsoft.CodeAnalysis.CSharp' AND '%(PackageVersion.Version)' != '4.14.0'" Text="Invalid package version for Microsoft.CodeAnalysis.CSharp. Expected: 4.14.0." />
   </Target>
 </Project>

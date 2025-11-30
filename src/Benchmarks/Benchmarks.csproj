@@ -11,7 +11,7 @@
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" VersionOverride="3.11.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" VersionOverride="4.14.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
   </ItemGroup>
 </Project>

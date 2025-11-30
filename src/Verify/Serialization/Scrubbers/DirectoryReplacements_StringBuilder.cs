@@ -50,7 +50,7 @@ static partial class DirectoryReplacements
                 // Skip if already matched
                 if (context.IsPositionMatched(absolutePosition))
                 {
-                    return MatchResult.NoMatch();
+                    return null;
                 }
 
                 foreach (var pair in context.Pairs)
@@ -74,10 +74,10 @@ static partial class DirectoryReplacements
                     }
 
                     context.AddMatchedRange(absolutePosition, absolutePosition + matchLength);
-                    return MatchResult.Match(matchLength, pair.Replace);
+                    return new MatchResult(matchLength, pair.Replace);
                 }
 
-                return MatchResult.NoMatch();
+                return null;
             });
     }
 

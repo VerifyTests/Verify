@@ -14,9 +14,10 @@ public class CrossChunkMatcherTests
                 if (content.Length >= context.Length &&
                     content[..context.Length].SequenceEqual(context))
                 {
-                    return MatchResult.Match(context.Length, "Universe");
+                    return new(context.Length, "Universe");
                 }
-                return MatchResult.NoMatch();
+
+                return null;
             });
 
         return Verify(builder.ToString());
@@ -36,9 +37,10 @@ public class CrossChunkMatcherTests
                 if (content.Length >= context.Length &&
                     content[..context.Length].SequenceEqual(context))
                 {
-                    return MatchResult.Match(context.Length, "bar");
+                    return new(context.Length, "bar");
                 }
-                return MatchResult.NoMatch();
+
+                return null;
             });
 
         return Verify(builder.ToString());
@@ -62,9 +64,10 @@ public class CrossChunkMatcherTests
                 if (content.Length >= context.Length &&
                     content[..context.Length].SequenceEqual(context))
                 {
-                    return MatchResult.Match(context.Length, "FOUND");
+                    return new(context.Length, "FOUND");
                 }
-                return MatchResult.NoMatch();
+
+                return null;
             });
 
         var result = builder.ToString();
@@ -95,9 +98,10 @@ public class CrossChunkMatcherTests
                 if (content.Length >= context.Length &&
                     content[..context.Length].SequenceEqual(context))
                 {
-                    return MatchResult.Match(context.Length, "Replaced");
+                    return new(context.Length, "Replaced");
                 }
-                return MatchResult.NoMatch();
+
+                return null;
             });
 
         return Verify(builder.ToString());
@@ -117,9 +121,10 @@ public class CrossChunkMatcherTests
                 if (content.Length >= context.Length &&
                     content[..context.Length].SequenceEqual(context))
                 {
-                    return MatchResult.Match(context.Length, "replaced");
+                    return new(context.Length, "replaced");
                 }
-                return MatchResult.NoMatch();
+
+                return null;
             });
 
         return Verify(builder.ToString());
@@ -139,9 +144,10 @@ public class CrossChunkMatcherTests
                 if (content.Length >= context.Length &&
                     content[..context.Length].SequenceEqual(context))
                 {
-                    return MatchResult.Match(context.Length, "Result");
+                    return new(context.Length, "Result");
                 }
-                return MatchResult.NoMatch();
+
+                return null;
             });
 
         return Verify(builder.ToString());
@@ -161,9 +167,10 @@ public class CrossChunkMatcherTests
                 if (content.Length >= context.Length &&
                     content[..context.Length].SequenceEqual(context))
                 {
-                    return MatchResult.Match(context.Length, "Result");
+                    return new(context.Length, "Result");
                 }
-                return MatchResult.NoMatch();
+
+                return null;
             });
 
         return Verify(builder.ToString());
@@ -183,9 +190,10 @@ public class CrossChunkMatcherTests
                 if (content.Length >= context.Length &&
                     content[..context.Length].SequenceEqual(context))
                 {
-                    return MatchResult.Match(context.Length, "bb");
+                    return new(context.Length, "bb");
                 }
-                return MatchResult.NoMatch();
+
+                return null;
             });
 
         return Verify(builder.ToString());
@@ -205,14 +213,16 @@ public class CrossChunkMatcherTests
                 if (content.Length >= context.Short.Length &&
                     content[..context.Short.Length].SequenceEqual(context.Short))
                 {
-                    return MatchResult.Match(context.Short.Length, "replaced");
+                    return new(context.Short.Length, "replaced");
                 }
+
                 if (content.Length >= context.Long.Length &&
                     content[..context.Long.Length].SequenceEqual(context.Long))
                 {
-                    return MatchResult.Match(context.Long.Length, "r");
+                    return new(context.Long.Length, "r");
                 }
-                return MatchResult.NoMatch();
+
+                return null;
             });
 
         return Verify(builder.ToString());
@@ -231,9 +241,10 @@ public class CrossChunkMatcherTests
             {
                 if (content.Length >= 1 && content[0] == context)
                 {
-                    return MatchResult.Match(1, "x");
+                    return new(1, "x");
                 }
-                return MatchResult.NoMatch();
+
+                return null;
             });
 
         return Verify(builder.ToString());
@@ -259,9 +270,10 @@ public class CrossChunkMatcherTests
                 if (content.Length >= context.Length &&
                     content[..context.Length].SequenceEqual(context))
                 {
-                    return MatchResult.Match(context.Length, "MATCH");
+                    return new(context.Length, "MATCH");
                 }
-                return MatchResult.NoMatch();
+
+                return null;
             });
 
         var result = builder.ToString();
@@ -273,7 +285,7 @@ public class CrossChunkMatcherTests
             index += "MATCH".Length;
         }
 
-        return Verify(new { MatchCount = matchCount });
+        return Verify(new {MatchCount = matchCount});
     }
 
     [Fact]
@@ -297,9 +309,10 @@ public class CrossChunkMatcherTests
                 if (content.Length >= context.Length &&
                     content[..context.Length].SequenceEqual(context))
                 {
-                    return MatchResult.Match(context.Length, "SUCCESS");
+                    return new(context.Length, "SUCCESS");
                 }
-                return MatchResult.NoMatch();
+
+                return null;
             });
 
         var result = builder.ToString();
@@ -327,9 +340,10 @@ public class CrossChunkMatcherTests
                 if (content.Length >= context.Length &&
                     content[..context.Length].SequenceEqual(context))
                 {
-                    return MatchResult.Match(context.Length, "XY");
+                    return new(context.Length, "XY");
                 }
-                return MatchResult.NoMatch();
+
+                return null;
             });
 
         return Verify(builder.ToString());
@@ -357,9 +371,10 @@ public class CrossChunkMatcherTests
                 if (content.Length >= context.Length &&
                     content[..context.Length].SequenceEqual(context))
                 {
-                    return MatchResult.Match(context.Length, "FOUND!!!");
+                    return new(context.Length, "FOUND!!!");
                 }
-                return MatchResult.NoMatch();
+
+                return null;
             });
 
         var result = builder.ToString();
@@ -393,9 +408,10 @@ public class CrossChunkMatcherTests
                 if (content.Length >= context.Length &&
                     content[..context.Length].SequenceEqual(context))
                 {
-                    return MatchResult.Match(context.Length, "FOUND!!!");
+                    return new(context.Length, "FOUND!!!");
                 }
-                return MatchResult.NoMatch();
+
+                return null;
             });
 
         var result = builder.ToString();
@@ -428,9 +444,10 @@ public class CrossChunkMatcherTests
                 if (content.Length >= context.Length &&
                     content[..context.Length].SequenceEqual(context))
                 {
-                    return MatchResult.Match(context.Length, "SUCCESS!");
+                    return new(context.Length, "SUCCESS!");
                 }
-                return MatchResult.NoMatch();
+
+                return null;
             });
 
         var result = builder.ToString();
@@ -462,9 +479,10 @@ public class CrossChunkMatcherTests
                 if (content.Length >= context.Length &&
                     content[..context.Length].SequenceEqual(context))
                 {
-                    return MatchResult.Match(context.Length, "MATCH");
+                    return new(context.Length, "MATCH");
                 }
-                return MatchResult.NoMatch();
+
+                return null;
             });
 
         var result = builder.ToString();
@@ -476,7 +494,7 @@ public class CrossChunkMatcherTests
             index += "MATCH".Length;
         }
 
-        return Verify(new { MatchCount = matchCount });
+        return Verify(new {MatchCount = matchCount});
     }
 
     [Fact]
@@ -487,7 +505,7 @@ public class CrossChunkMatcherTests
         CrossChunkMatcher.ReplaceAll(
             builder,
             maxLength: 8,
-            context: new[] { "cat", "dog", "bird", "elephant" },
+            context: new[] {"cat", "dog", "bird", "elephant"},
             matcher: static (content, _, context) =>
             {
                 foreach (var word in context)
@@ -495,10 +513,11 @@ public class CrossChunkMatcherTests
                     if (content.Length >= word.Length &&
                         content[..word.Length].SequenceEqual(word))
                     {
-                        return MatchResult.Match(word.Length, "animal");
+                        return new(word.Length, "animal");
                     }
                 }
-                return MatchResult.NoMatch();
+
+                return null;
             });
 
         return Verify(builder.ToString());

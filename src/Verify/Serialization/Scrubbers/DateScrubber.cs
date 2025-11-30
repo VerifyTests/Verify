@@ -227,11 +227,11 @@ static class DateScrubber
 
                     if (context.TryConvert(slice, context.Format, context.Counter, context.Culture, out var converted))
                     {
-                        return MatchResult.Match(length, converted);
+                        return new MatchResult(length, converted);
                     }
                 }
 
-                return MatchResult.NoMatch();
+                return null;
             });
     }
 

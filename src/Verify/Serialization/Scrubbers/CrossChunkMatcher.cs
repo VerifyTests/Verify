@@ -36,17 +36,19 @@ static class CrossChunkMatcher
 
                 // Check for match at this position
                 var windowSlice = buffer[..bufferLength];
-                var result = matcher(windowSlice, absolutePosition, context);
+                var potentialMatch = matcher(windowSlice, absolutePosition, context);
 
-                if (!result.IsMatch)
+                if (potentialMatch == null)
                 {
                     continue;
                 }
 
-                matches.Add(new(absolutePosition, result.MatchLength, result.Replacement));
+                var match = potentialMatch.Value;
+
+                matches.Add(new(absolutePosition, match.Length, match.Replacement));
 
                 // Skip past the match
-                var skipAmount = result.MatchLength - 1;
+                var skipAmount = match.Length - 1;
                 if (skipAmount <= 0)
                 {
                     continue;
@@ -112,7 +114,7 @@ static class CrossChunkMatcher
     /// <param name="absolutePosition">Absolute position in the StringBuilder where this content starts</param>
     /// <param name="context">User-provided context</param>
     /// <returns>Match result indicating if a match was found and replacement details</returns>
-    public delegate MatchResult MatchHandler<in TContext>(
+    public delegate MatchResult? MatchHandler<in TContext>(
         CharSpan content,
         int absolutePosition,
         TContext context);
@@ -121,29 +123,10 @@ static class CrossChunkMatcher
 /// <summary>
 /// Result of a match check operation.
 /// </summary>
-readonly struct MatchResult
+readonly struct MatchResult(int length, string replacement)
 {
-    public readonly bool IsMatch;
-    public readonly int MatchLength;
-    public readonly string Replacement;
-
-    MatchResult(bool isMatch, int matchLength, string replacement)
-    {
-        IsMatch = isMatch;
-        MatchLength = matchLength;
-        Replacement = replacement;
-    }
-
-    /// <summary>
-    /// Creates a result indicating a match was found.
-    /// </summary>
-    public static MatchResult Match(int length, string replacement) =>
-        new(true, length, replacement);
-
-    /// <summary>
-    /// Creates a result indicating no match was found.
-    /// </summary>
-    public static MatchResult NoMatch() => default;
+    public readonly int Length = length;
+    public readonly string Replacement = replacement;
 }
 
 readonly struct Match(int index, int length, string value)

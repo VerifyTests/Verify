@@ -22,14 +22,14 @@ static class GuidScrubber
                 // Need at least 36 characters for a GUID
                 if (content.Length < 36)
                 {
-                    return MatchResult.NoMatch();
+                    return null;
                 }
 
                 // Validate start boundary (check character before the potential GUID)
                 if (absolutePosition > 0 &&
                     IsInvalidStartingChar(context.Builder[absolutePosition - 1]))
                 {
-                    return MatchResult.NoMatch();
+                    return null;
                 }
 
                 // Validate end boundary (check character after the potential GUID)
@@ -37,19 +37,19 @@ static class GuidScrubber
                 if (endPosition < context.Builder.Length &&
                     IsInvalidEndingChar(context.Builder[endPosition]))
                 {
-                    return MatchResult.NoMatch();
+                    return null;
                 }
 
                 // Try to parse as GUID
                 var slice = content.Slice(0, 36);
                 if (!Guid.TryParseExact(slice, "D", out var guid))
                 {
-                    return MatchResult.NoMatch();
+                    return null;
                 }
 
                 // Convert and return match
                 var converted = context.Counter.Convert(guid);
-                return MatchResult.Match(36, converted);
+                return new MatchResult(36, converted);
             });
     }
 

@@ -101,6 +101,7 @@ static class CrossChunkMatcher
 
             currentPosition = chunkEnd;
         }
+
         return buffer[..bufferIndex];
     }
 

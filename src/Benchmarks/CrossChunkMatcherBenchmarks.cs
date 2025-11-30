@@ -12,7 +12,7 @@ public class CrossChunkMatcherBenchmarks
     public void Setup()
     {
         // Small: ~1KB with a few chunks
-        smallBuilder = new StringBuilder();
+        smallBuilder = new();
         for (var i = 0; i < 10; i++)
         {
             smallBuilder.Append("Hello <TAG>world</TAG> this is ");
@@ -20,7 +20,7 @@ public class CrossChunkMatcherBenchmarks
         }
 
         // Medium: ~10KB with more chunks
-        mediumBuilder = new StringBuilder();
+        mediumBuilder = new();
         for (var i = 0; i < 100; i++)
         {
             mediumBuilder.Append("Hello <TAG>world</TAG> this is ");
@@ -28,7 +28,7 @@ public class CrossChunkMatcherBenchmarks
         }
 
         // Large: ~100KB with many chunks
-        largeBuilder = new StringBuilder();
+        largeBuilder = new();
         for (var i = 0; i < 1000; i++)
         {
             largeBuilder.Append("Hello <TAG>world</TAG> this is ");
@@ -36,7 +36,7 @@ public class CrossChunkMatcherBenchmarks
         }
 
         // Many matches: Lots of patterns to replace
-        manyMatchesBuilder = new StringBuilder();
+        manyMatchesBuilder = new();
         for (var i = 0; i < 500; i++)
         {
             manyMatchesBuilder.Append("<TAG>");
@@ -44,7 +44,7 @@ public class CrossChunkMatcherBenchmarks
 
         // Force cross-chunk pattern matching by creating multiple chunks
         // Pattern spans across chunk boundaries
-        crossChunkBuilder = new StringBuilder();
+        crossChunkBuilder = new();
         for (var i = 0; i < 100; i++)
         {
             // Create chunks where <TAG> might span boundaries

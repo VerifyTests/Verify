@@ -61,13 +61,13 @@ static class CrossChunkMatcher
         }
 
         // Apply matches in descending position order to maintain correct indices
-        foreach (var match in matches.OrderByDescending(m => m.Index))
+        foreach (var match in matches.OrderByDescending(_ => _.Index))
         {
             builder.Overwrite(match.Value, match.Index, match.Length);
         }
     }
 
-    static int FillBuffer(StringBuilder builder, int startPosition, Span<char> buffer)
+    static int FillBuffer(StringBuilder builder, int start, Span<char> buffer)
     {
         var bufferIndex = 0;
         var currentPosition = 0;
@@ -78,17 +78,17 @@ static class CrossChunkMatcher
             var chunkEnd = currentPosition + chunk.Length;
 
             // Skip chunks before our start position
-            if (chunkEnd <= startPosition)
+            if (chunkEnd <= start)
             {
                 currentPosition = chunkEnd;
                 continue;
             }
 
             // Determine where to start in this chunk
-            var chunkStartIndex = startPosition > currentPosition ? startPosition - currentPosition : 0;
+            var chunkStart = start > currentPosition ? start - currentPosition : 0;
 
             // Copy what we can from this chunk
-            for (var i = chunkStartIndex; i < chunk.Length && bufferIndex < buffer.Length; i++)
+            for (var i = chunkStart; i < chunk.Length && bufferIndex < buffer.Length; i++)
             {
                 buffer[bufferIndex++] = chunkSpan[i];
             }
@@ -127,7 +127,7 @@ readonly struct MatchResult
     public readonly int MatchLength;
     public readonly string Replacement;
 
-    private MatchResult(bool isMatch, int matchLength, string replacement)
+    MatchResult(bool isMatch, int matchLength, string replacement)
     {
         IsMatch = isMatch;
         MatchLength = matchLength;
@@ -137,15 +137,8 @@ readonly struct MatchResult
     /// <summary>
     /// Creates a result indicating a match was found.
     /// </summary>
-    public static MatchResult Match(int length, string replacement)
-    {
-        if (length <= 0)
-        {
-            throw new ArgumentException("Match length must be positive", nameof(length));
-        }
-
-        return new(true, length, replacement);
-    }
+    public static MatchResult Match(int length, string replacement) =>
+        new(true, length, replacement);
 
     /// <summary>
     /// Creates a result indicating no match was found.

@@ -6,6 +6,7 @@ public class CrossChunkMatcherBenchmarks
     StringBuilder mediumBuilder = null!;
     StringBuilder largeBuilder = null!;
     StringBuilder manyMatchesBuilder = null!;
+    StringBuilder crossChunkBuilder = null!;
 
     [GlobalSetup]
     public void Setup()
@@ -39,6 +40,17 @@ public class CrossChunkMatcherBenchmarks
         for (var i = 0; i < 500; i++)
         {
             manyMatchesBuilder.Append("<TAG>");
+        }
+
+        // Force cross-chunk pattern matching by creating multiple chunks
+        // Pattern spans across chunk boundaries
+        crossChunkBuilder = new StringBuilder();
+        for (var i = 0; i < 100; i++)
+        {
+            // Create chunks where <TAG> might span boundaries
+            crossChunkBuilder.Append("Hello <T");
+            crossChunkBuilder.Append("AG>world</T");
+            crossChunkBuilder.Append("AG> test ");
         }
     }
 
@@ -176,6 +188,25 @@ public class CrossChunkMatcherBenchmarks
                 if (content.StartsWith("<NOMATCH>"))
                 {
                     return new MatchResult(9, "[REPLACED]");
+                }
+
+                return null;
+            });
+    }
+
+    [Benchmark]
+    public void CrossChunkPatterns()
+    {
+        var builder = new StringBuilder(crossChunkBuilder.ToString());
+        CrossChunkMatcher.ReplaceAll(
+            builder,
+            maxLength: 20,
+            context: (string?) null,
+            matcher: static (content, _, _) =>
+            {
+                if (content.StartsWith("<TAG>"))
+                {
+                    return new MatchResult(5, "[REPLACED]");
                 }
 
                 return null;

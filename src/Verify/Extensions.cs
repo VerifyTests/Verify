@@ -203,17 +203,6 @@ static class Extensions
         return dictionary[key] = factory(key);
     }
 
-    public static void ReplaceTokens(this StringBuilder builder, IReadOnlyCollection<KeyValuePair<string, string>> replaces)
-    {
-        foreach (var replace in replaces)
-        {
-            if (builder.Length >= replace.Key.Length)
-            {
-                builder.Replace(replace.Key, replace.Value);
-            }
-        }
-    }
-
     public static void Overwrite(this StringBuilder builder, string value, int index, int length)
     {
         builder.Remove(index, length);

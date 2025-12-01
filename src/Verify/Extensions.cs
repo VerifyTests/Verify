@@ -209,20 +209,6 @@ static class Extensions
         builder.Insert(index, value);
     }
 
-    public static int Count(this StringBuilder builder, char ch)
-    {
-        var count = 0;
-        for (var index = 0; index < builder.Length; index++)
-        {
-            if (builder[index] == ch)
-            {
-                count++;
-            }
-        }
-
-        return count;
-    }
-
     public static bool IsException(this Type type) =>
         type.IsAssignableTo<Exception>();
 }

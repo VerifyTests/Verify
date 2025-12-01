@@ -22,21 +22,32 @@ static class CrossChunkMatcher
         }
 
         // Fast path for single chunk
-        var chunks = builder.GetChunks();
-        var enumerator = chunks.GetEnumerator();
-        if (enumerator.MoveNext())
+        if (builder.TryGetHasSingleChunk(out var chunk))
         {
-            var firstChunk = enumerator.Current;
-            if (!enumerator.MoveNext())
-            {
-                // Only one chunk - use optimized path
-                ReplaceAllSingleChunk(builder, firstChunk.Span, maxLength, context, matcher);
-                return;
-            }
+            // Only one chunk - use optimized path
+            ReplaceAllSingleChunk(builder, chunk.Span, maxLength, context, matcher);
+            return;
         }
 
         // Multi-chunk path
         ReplaceAllMultiChunk(builder, maxLength, context, matcher);
+    }
+
+    static bool TryGetHasSingleChunk(this StringBuilder builder, out ReadOnlyMemory<char> single)
+    {
+        var chunks = builder.GetChunks();
+        var enumerator = chunks.GetEnumerator();
+        if (enumerator.MoveNext())
+        {
+            single = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                return true;
+            }
+        }
+
+        single = null;
+        return false;
     }
 
     static void ReplaceAllSingleChunk<TContext>(

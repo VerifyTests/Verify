@@ -30,10 +30,10 @@ static class CrossChunkMatcher
 
         var chunks = builder.GetChunks();
         // Fast path for single chunk
-        if (TryGetSingleChunk(builder, chunks, out var chunk))
+        if (TryGetSingleChunk(builder, out var chunk))
         {
             // Only one chunk - use optimized path
-            ReplaceAllSingleChunk(builder, chunk.Span, maxLength, context, matcher);
+            ReplaceAllSingleChunk(builder, chunk, maxLength, context, matcher);
             return;
         }
 
@@ -44,36 +44,31 @@ static class CrossChunkMatcher
 #if NET8_0_OR_GREATER
     [UnsafeAccessor(UnsafeAccessorKind.Field, Name = "m_ChunkPrevious")]
     static extern ref StringBuilder? GetChunkPrevious(StringBuilder builder);
+    [UnsafeAccessor(UnsafeAccessorKind.Field, Name = "m_ChunkChars")]
+    static extern ref char[] GetChunkChars(StringBuilder builder);
+    [UnsafeAccessor(UnsafeAccessorKind.Field, Name = "m_ChunkLength")]
+    static extern ref int GetChunkLength(StringBuilder builder);
 
-    static bool HasMultipleChunks(StringBuilder builder) =>
-        GetChunkPrevious(builder) != null;
-
-    static bool TryGetSingleChunk(StringBuilder builder, StringBuilder.ChunkEnumerator chunks, out ReadOnlyMemory<char> single)
+    static bool TryGetSingleChunk(StringBuilder builder, out CharSpan single)
     {
-        if (HasMultipleChunks(builder))
+        if (GetChunkPrevious(builder) != null)
         {
             single = null;
             return false;
         }
 
-        var enumerator = chunks.GetEnumerator();
-        if (enumerator.MoveNext())
-        {
-            single = enumerator.Current;
-            return true;
-        }
-
-        single = null;
-        return false;
+        single = new(GetChunkChars(builder), 0, GetChunkLength(builder));
+        return true;
     }
 #else
     // ReSharper disable once UnusedParameter.Local
-    static bool TryGetSingleChunk(StringBuilder builder, ChunkEnumerator chunks, out ReadOnlyMemory<char> single)
+    static bool TryGetSingleChunk(StringBuilder builder, out CharSpan single)
     {
+        var chunks = builder.GetChunks();
         var enumerator = chunks.GetEnumerator();
         if (enumerator.MoveNext())
         {
-            single = enumerator.Current;
+            single = enumerator.Current.Span;
             if (!enumerator.MoveNext())
             {
                 return true;
@@ -106,12 +101,14 @@ static class CrossChunkMatcher
             var windowLength = Math.Min(maxLength, remainingLength);
             var window = span.Slice(i, windowLength);
 
-            if (TryMatch(window, i, context, matcher, out var match))
+            if (!TryMatch(window, i, context, matcher, out var match))
             {
-                matches.Add(match);
-                // Skip past the match
-                i += match.Length - 1;
+                continue;
             }
+
+            matches.Add(match);
+            // Skip past the match
+            i += match.Length - 1;
         }
 
         ApplyMatches(builder, matches);
@@ -142,19 +139,23 @@ static class CrossChunkMatcher
                 // Build content window starting at current position
                 var windowSlice = FillBuffer(builder, absolutePosition, buffer);
 
-                if (TryMatch(windowSlice, absolutePosition, context, matcher, out var match))
+                if (!TryMatch(windowSlice, absolutePosition, context, matcher, out var match))
                 {
-                    matches.Add(match);
-
-                    // Skip past the match
-                    var skipAmount = match.Length - 1;
-                    if (skipAmount > 0)
-                    {
-                        var remaining = chunk.Length - chunkIndex - 1;
-                        var toSkip = Math.Min(skipAmount, remaining);
-                        chunkIndex += toSkip;
-                    }
+                    continue;
                 }
+
+                matches.Add(match);
+
+                // Skip past the match
+                var skipAmount = match.Length - 1;
+                if (skipAmount <= 0)
+                {
+                    continue;
+                }
+
+                var remaining = chunk.Length - chunkIndex - 1;
+                var toSkip = Math.Min(skipAmount, remaining);
+                chunkIndex += toSkip;
             }
 
             position += chunk.Length;

@@ -168,8 +168,8 @@ static class Extensions
             input.AppendLineN(line);
         }
 
-        if (input.Length > 0 &&
-            !theString.EndsWith('\n'))
+        var endsWithNewLine = theString.EndsWith('\n');
+        if (input.Length > 0 && !endsWithNewLine)
         {
             input.Length -= 1;
         }

@@ -164,22 +164,34 @@ static class Extensions
             return;
         }
 
-        var span = input.AsSpan();
-        var hasTrailingNewline = span[^1] == '\n';
+        var length = input.Length;
+        var pool = ArrayPool<char>.Shared;
+        var array = pool.Rent(length);
 
-        input.Clear();
-
-        foreach (var line in span.EnumerateLines())
+        try
         {
-            if (!removeLine(line))
+            input.CopyTo(0, array, 0, length);
+            var span = array.AsSpan(0, length);
+            var hasTrailingNewline = span[^1] == '\n';
+
+            input.Clear();
+
+            foreach (var line in span.EnumerateLines())
             {
-                input.AppendLineN(line);
+                if (!removeLine(line))
+                {
+                    input.AppendLineN(line);
+                }
+            }
+
+            if (input.Length > 0 && !hasTrailingNewline)
+            {
+                input.Length--;
             }
         }
-
-        if (input.Length > 0 && !hasTrailingNewline)
+        finally
         {
-            input.Length--;
+            pool.Return(array);
         }
     }
 

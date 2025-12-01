@@ -1,3 +1,10 @@
+
+#if !NET6_0_OR_GREATER
+using ChunkEnumerator = Polyfills.Polyfill.ChunkEnumerator;
+#else
+using ChunkEnumerator = System.Text.StringBuilder.ChunkEnumerator;
+#endif
+
 /// <summary>
 /// Helper for matching and replacing patterns in StringBuilder that may span across chunk boundaries.
 /// </summary>
@@ -21,8 +28,9 @@ static class CrossChunkMatcher
             throw new ArgumentException("maxLength must be positive", nameof(maxLength));
         }
 
+        var chunks = builder.GetChunks();
         // Fast path for single chunk
-        if (builder.TryGetSingleChunk(out var chunk))
+        if (TryGetSingleChunk(builder, chunks, out var chunk))
         {
             // Only one chunk - use optimized path
             ReplaceAllSingleChunk(builder, chunk.Span, maxLength, context, matcher);
@@ -30,16 +38,17 @@ static class CrossChunkMatcher
         }
 
         // Multi-chunk path
-        ReplaceAllMultiChunk(builder, maxLength, context, matcher);
+        ReplaceAllMultiChunk(builder, chunks, maxLength, context, matcher);
     }
+
 #if NET8_0_OR_GREATER
     [UnsafeAccessor(UnsafeAccessorKind.Field, Name = "m_ChunkPrevious")]
     static extern ref StringBuilder? GetChunkPrevious(StringBuilder builder);
 
-    static bool HasMultipleChunks(this StringBuilder builder) =>
+    static bool HasMultipleChunks(StringBuilder builder) =>
         GetChunkPrevious(builder) != null;
 
-    static bool TryGetSingleChunk(this StringBuilder builder, out ReadOnlyMemory<char> single)
+    static bool TryGetSingleChunk(StringBuilder builder, StringBuilder.ChunkEnumerator chunks, out ReadOnlyMemory<char> single)
     {
         if (HasMultipleChunks(builder))
         {
@@ -47,7 +56,6 @@ static class CrossChunkMatcher
             return false;
         }
 
-        var chunks = builder.GetChunks();
         var enumerator = chunks.GetEnumerator();
         if (enumerator.MoveNext())
         {
@@ -59,10 +67,9 @@ static class CrossChunkMatcher
         return false;
     }
 #else
-
-    static bool TryGetSingleChunk(this StringBuilder builder, out ReadOnlyMemory<char> single)
+    // ReSharper disable once UnusedParameter.Local
+    static bool TryGetSingleChunk(StringBuilder builder, ChunkEnumerator chunks, out ReadOnlyMemory<char> single)
     {
-        var chunks = builder.GetChunks();
         var enumerator = chunks.GetEnumerator();
         if (enumerator.MoveNext())
         {
@@ -89,9 +96,7 @@ static class CrossChunkMatcher
 
         for (var i = 0; i < span.Length; i++)
         {
-            // Quick character check to skip positions that can't match
-            var ch = span[i];
-            if (ch is '\n' or '\r')
+            if (ShouldSkipPosition(span[i]))
             {
                 continue;
             }
@@ -101,29 +106,20 @@ static class CrossChunkMatcher
             var windowLength = Math.Min(maxLength, remainingLength);
             var window = span.Slice(i, windowLength);
 
-            var potentialMatch = matcher(window, i, context);
-
-            if (potentialMatch == null)
+            if (TryMatch(window, i, context, matcher, out var match))
             {
-                continue;
+                matches.Add(match);
+                // Skip past the match
+                i += match.Length - 1;
             }
-
-            var match = potentialMatch.Value;
-            matches.Add(new(i, match.Length, match.Replacement));
-
-            // Skip past the match
-            i += match.Length - 1;
         }
 
-        // Apply matches in descending position order to maintain correct indices
-        foreach (var match in matches.OrderByDescending(_ => _.Index))
-        {
-            builder.Overwrite(match.Value, match.Index, match.Length);
-        }
+        ApplyMatches(builder, matches);
     }
 
     static void ReplaceAllMultiChunk<TContext>(
         StringBuilder builder,
+        ChunkEnumerator chunks,
         int maxLength,
         TContext context,
         MatchHandler<TContext> matcher)
@@ -132,13 +128,11 @@ static class CrossChunkMatcher
         List<Match> matches = [];
         var position = 0;
 
-        foreach (var chunk in builder.GetChunks())
+        foreach (var chunk in chunks)
         {
             for (var chunkIndex = 0; chunkIndex < chunk.Length; chunkIndex++)
             {
-                // Quick character check to skip positions that can't match
-                var ch = chunk.Span[chunkIndex];
-                if (ch is '\n' or '\r')
+                if (ShouldSkipPosition(chunk.Span[chunkIndex]))
                 {
                     continue;
                 }
@@ -148,32 +142,52 @@ static class CrossChunkMatcher
                 // Build content window starting at current position
                 var windowSlice = FillBuffer(builder, absolutePosition, buffer);
 
-                var potentialMatch = matcher(windowSlice, absolutePosition, context);
-
-                if (potentialMatch == null)
+                if (TryMatch(windowSlice, absolutePosition, context, matcher, out var match))
                 {
-                    continue;
+                    matches.Add(match);
+
+                    // Skip past the match
+                    var skipAmount = match.Length - 1;
+                    if (skipAmount > 0)
+                    {
+                        var remaining = chunk.Length - chunkIndex - 1;
+                        var toSkip = Math.Min(skipAmount, remaining);
+                        chunkIndex += toSkip;
+                    }
                 }
-
-                var match = potentialMatch.Value;
-                matches.Add(new(absolutePosition, match.Length, match.Replacement));
-
-                // Skip past the match
-                var skipAmount = match.Length - 1;
-                if (skipAmount <= 0)
-                {
-                    continue;
-                }
-
-                var remaining = chunk.Length - chunkIndex - 1;
-                var toSkip = Math.Min(skipAmount, remaining);
-                chunkIndex += toSkip;
             }
 
             position += chunk.Length;
         }
 
-        // Apply matches in descending position order to maintain correct indices
+        ApplyMatches(builder, matches);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static bool ShouldSkipPosition(char ch) => ch is '\n' or '\r';
+
+    static bool TryMatch<TContext>(
+        CharSpan window,
+        int position,
+        TContext context,
+        MatchHandler<TContext> matcher,
+        out Match match)
+    {
+        var potentialMatch = matcher(window, position, context);
+
+        if (potentialMatch == null)
+        {
+            match = default;
+            return false;
+        }
+
+        var result = potentialMatch.Value;
+        match = new(position, result.Length, result.Replacement);
+        return true;
+    }
+
+    static void ApplyMatches(StringBuilder builder, List<Match> matches)
+    {
         foreach (var match in matches.OrderByDescending(_ => _.Index))
         {
             builder.Overwrite(match.Value, match.Index, match.Length);

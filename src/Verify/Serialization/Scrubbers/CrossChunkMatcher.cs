@@ -22,7 +22,7 @@ static class CrossChunkMatcher
         }
 
         // Fast path for single chunk
-        if (builder.TryGetHasSingleChunk(out var chunk))
+        if (builder.TryGetSingleChunk(out var chunk))
         {
             // Only one chunk - use optimized path
             ReplaceAllSingleChunk(builder, chunk.Span, maxLength, context, matcher);
@@ -32,8 +32,35 @@ static class CrossChunkMatcher
         // Multi-chunk path
         ReplaceAllMultiChunk(builder, maxLength, context, matcher);
     }
+#if NET8_0_OR_GREATER
+    [UnsafeAccessor(UnsafeAccessorKind.Field, Name = "m_ChunkPrevious")]
+    static extern ref StringBuilder? GetChunkPrevious(StringBuilder builder);
 
-    static bool TryGetHasSingleChunk(this StringBuilder builder, out ReadOnlyMemory<char> single)
+    static bool HasMultipleChunks(this StringBuilder builder) =>
+        GetChunkPrevious(builder) != null;
+
+    static bool TryGetSingleChunk(this StringBuilder builder, out ReadOnlyMemory<char> single)
+    {
+        if (HasMultipleChunks(builder))
+        {
+            single = null;
+            return false;
+        }
+
+        var chunks = builder.GetChunks();
+        var enumerator = chunks.GetEnumerator();
+        if (enumerator.MoveNext())
+        {
+            single = enumerator.Current;
+            return true;
+        }
+
+        single = null;
+        return false;
+    }
+#else
+
+    static bool TryGetSingleChunk(this StringBuilder builder, out ReadOnlyMemory<char> single)
     {
         var chunks = builder.GetChunks();
         var enumerator = chunks.GetEnumerator();
@@ -49,6 +76,7 @@ static class CrossChunkMatcher
         single = null;
         return false;
     }
+#endif
 
     static void ReplaceAllSingleChunk<TContext>(
         StringBuilder builder,

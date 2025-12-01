@@ -21,6 +21,74 @@ static class CrossChunkMatcher
             throw new ArgumentException("maxLength must be positive", nameof(maxLength));
         }
 
+        // Fast path for single chunk
+        var chunks = builder.GetChunks();
+        var enumerator = chunks.GetEnumerator();
+        if (enumerator.MoveNext())
+        {
+            var firstChunk = enumerator.Current;
+            if (!enumerator.MoveNext())
+            {
+                // Only one chunk - use optimized path
+                ReplaceAllSingleChunk(builder, firstChunk.Span, maxLength, context, matcher);
+                return;
+            }
+        }
+
+        // Multi-chunk path
+        ReplaceAllMultiChunk(builder, maxLength, context, matcher);
+    }
+
+    static void ReplaceAllSingleChunk<TContext>(
+        StringBuilder builder,
+        CharSpan span,
+        int maxLength,
+        TContext context,
+        MatchHandler<TContext> matcher)
+    {
+        List<Match> matches = [];
+
+        for (var i = 0; i < span.Length; i++)
+        {
+            // Quick character check to skip positions that can't match
+            var ch = span[i];
+            if (ch is '\n' or '\r')
+            {
+                continue;
+            }
+
+            // Get window at current position
+            var remainingLength = span.Length - i;
+            var windowLength = Math.Min(maxLength, remainingLength);
+            var window = span.Slice(i, windowLength);
+
+            var potentialMatch = matcher(window, i, context);
+
+            if (potentialMatch == null)
+            {
+                continue;
+            }
+
+            var match = potentialMatch.Value;
+            matches.Add(new(i, match.Length, match.Replacement));
+
+            // Skip past the match
+            i += match.Length - 1;
+        }
+
+        // Apply matches in descending position order to maintain correct indices
+        foreach (var match in matches.OrderByDescending(_ => _.Index))
+        {
+            builder.Overwrite(match.Value, match.Index, match.Length);
+        }
+    }
+
+    static void ReplaceAllMultiChunk<TContext>(
+        StringBuilder builder,
+        int maxLength,
+        TContext context,
+        MatchHandler<TContext> matcher)
+    {
         Span<char> buffer = stackalloc char[maxLength];
         List<Match> matches = [];
         var position = 0;
@@ -49,7 +117,6 @@ static class CrossChunkMatcher
                 }
 
                 var match = potentialMatch.Value;
-
                 matches.Add(new(absolutePosition, match.Length, match.Replacement));
 
                 // Skip past the match

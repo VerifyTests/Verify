@@ -1,5 +1,7 @@
 ﻿// ReSharper disable UnusedVariable
 
+public delegate bool RemoveLine(CharSpan line);
+
 static class Extensions
 {
     static HashSet<Type> numericTypes =
@@ -152,26 +154,32 @@ static class Extensions
         return null;
     }
 
-    public static void FilterLines(this StringBuilder input, Func<string, bool> removeLine)
+    // public static void FilterLines(this StringBuilder input, Func<string, bool> removeLine) =>
+    //     FilterLines(input, (CharSpan line) => removeLine(line.ToString()));
+
+    public static void FilterLines(this StringBuilder input, RemoveLine removeLine)
     {
-        var theString = input.ToString();
-        using var reader = new StringReader(theString);
-        input.Clear();
-
-        while (reader.ReadLine() is { } line)
+        if (input.Length == 0)
         {
-            if (removeLine(line))
-            {
-                continue;
-            }
-
-            input.AppendLineN(line);
+            return;
         }
 
-        if (input.Length > 0 &&
-            !theString.EndsWith('\n'))
+        var span = input.AsSpan();
+        var hasTrailingNewline = span[^1] == '\n';
+
+        input.Clear();
+
+        foreach (var line in span.EnumerateLines())
         {
-            input.Length -= 1;
+            if (!removeLine(line))
+            {
+                input.AppendLineN(line);
+            }
+        }
+
+        if (input.Length > 0 && !hasTrailingNewline)
+        {
+            input.Length--;
         }
     }
 

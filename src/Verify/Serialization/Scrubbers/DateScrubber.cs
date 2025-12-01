@@ -223,7 +223,7 @@ static class DateScrubber
                         continue;
                     }
 
-                    var slice = content.Slice(0, length);
+                    var slice = content[..length];
 
                     if (context.TryConvert(slice, context.Format, context.Counter, context.Culture, out var converted))
                     {

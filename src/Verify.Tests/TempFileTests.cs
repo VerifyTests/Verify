@@ -724,11 +724,11 @@
     [Fact]
     public async Task CreateBinaryWithExtension()
     {
-        var imageBinaryData = await File.ReadAllBytesAsync("source.png");
+        byte[] byteArray = [];
 
         #region TempFileCreateBinaryWithExtension
 
-        using var temp = await TempFile.CreateBinary(imageBinaryData, ".png");
+        using var temp = await TempFile.CreateBinary(byteArray, ".png");
 
         // Process the temporary image file
 

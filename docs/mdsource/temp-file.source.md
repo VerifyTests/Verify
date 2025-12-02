@@ -98,6 +98,58 @@ Result:
 snippet: TempFileTests.Scrubbing.verified.txt
 
 
+### Create Method
+
+Creates a new temporary file with optional extension and encoding.
+
+snippet: TempFileCreate
+
+
+#### With Extension
+
+Create a temporary file with a specific extension:
+
+snippet: TempFileCreateWithExtension
+
+
+#### With Encoding
+
+Create a temporary file with a specific text encoding and BOM:
+
+snippet: TempFileCreateWithEncoding
+
+
+### CreateText Method
+
+Creates a new temporary file with text content asynchronously.
+
+snippet: TempFileCreateText
+
+
+#### With Extension
+
+snippet: TempFileCreateTextWithExtension
+
+
+#### With Encoding
+
+Create a text file with specific encoding:
+
+snippet: TempFileCreateTextWithEncoding
+
+
+### CreateBinary Method
+
+Creates a new temporary file with binary content asynchronously.
+
+snippet: TempFileCreateBinary
+
+
+#### With Extension
+
+snippet: TempFileCreateBinaryWithExtension
+
+
 ### Debugging
 
 Given `TempFile` deletes the file on test completion (even failure), it can be difficult to debug what caused the failure.

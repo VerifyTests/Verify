@@ -91,7 +91,7 @@ public void StringConversion()
     Trace.WriteLine(content);
 }
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L333-L348' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileStringConversion' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L344-L359' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileStringConversion' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -114,7 +114,7 @@ public void FileInfoConversion()
     Trace.WriteLine(directoryName);
 }
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L350-L364' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileFileInfoConversion' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L361-L375' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileFileInfoConversion' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -135,7 +135,7 @@ public void InfoProperty()
     Trace.WriteLine(directoryName);
 }
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L366-L378' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileInfoProperty' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L377-L389' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileInfoProperty' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -221,6 +221,139 @@ Result:
 }
 ```
 <sup><a href='/src/Verify.Tests/TempFileTests.Scrubbing.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileTests.Scrubbing.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Create Method
+
+Creates a new temporary file with optional extension and encoding.
+
+<!-- snippet: TempFileCreate -->
+<a id='snippet-TempFileCreate'></a>
+```cs
+using var temp = TempFile.Create();
+
+File.WriteAllText(temp, "content");
+
+// file automatically deleted here
+```
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L620-L628' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreate' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### With Extension
+
+Create a temporary file with a specific extension:
+
+<!-- snippet: TempFileCreateWithExtension -->
+<a id='snippet-TempFileCreateWithExtension'></a>
+```cs
+using var temp = TempFile.Create(".txt");
+
+File.WriteAllText(temp, "content");
+```
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L635-L641' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateWithExtension' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### With Encoding
+
+Create a temporary file with a specific text encoding and BOM:
+
+<!-- snippet: TempFileCreateWithEncoding -->
+<a id='snippet-TempFileCreateWithEncoding'></a>
+```cs
+using var temp = TempFile.Create(".txt", Encoding.UTF8);
+
+File.Exists(temp.Path);
+```
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L649-L655' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateWithEncoding' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### CreateText Method
+
+Creates a new temporary file with text content asynchronously.
+
+<!-- snippet: TempFileCreateText -->
+<a id='snippet-TempFileCreateText'></a>
+```cs
+using var temp = await TempFile.CreateText("Hello, World!");
+
+var content = await File.ReadAllTextAsync(temp);
+Assert.Equal("Hello, World!", content);
+```
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L661-L668' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateText' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### With Extension
+
+<!-- snippet: TempFileCreateTextWithExtension -->
+<a id='snippet-TempFileCreateTextWithExtension'></a>
+```cs
+var json = """
+           {
+             "name": "test",
+             "value": 123
+           }
+           """;
+
+using var temp = await TempFile.CreateText(json, ".json");
+
+var content = await File.ReadAllTextAsync(temp);
+Assert.Equal(json, content);
+```
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L674-L688' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateTextWithExtension' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### With Encoding
+
+Create a text file with specific encoding:
+
+<!-- snippet: TempFileCreateTextWithEncoding -->
+<a id='snippet-TempFileCreateTextWithEncoding'></a>
+```cs
+using var temp = await TempFile.CreateText(
+    "Content with special chars: äöü",
+    ".txt",
+    Encoding.UTF8);
+
+var content = await File.ReadAllTextAsync(temp, Encoding.UTF8);
+Assert.Equal("Content with special chars: äöü", content);
+```
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L694-L704' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateTextWithEncoding' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### CreateBinary Method
+
+Creates a new temporary file with binary content asynchronously.
+
+<!-- snippet: TempFileCreateBinary -->
+<a id='snippet-TempFileCreateBinary'></a>
+```cs
+byte[] data = [0x01, 0x02, 0x03, 0x04];
+
+using var temp = await TempFile.CreateBinary(data);
+
+var readData = await File.ReadAllBytesAsync(temp);
+Assert.Equal(data, readData);
+```
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L712-L721' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateBinary' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### With Extension
+
+<!-- snippet: TempFileCreateBinaryWithExtension -->
+<a id='snippet-TempFileCreateBinaryWithExtension'></a>
+```cs
+byte[] data = [0x01, 0x02, 0x03, 0x04];
+using var temp = await TempFile.CreateBinary(data, ".bin");
+```
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L727-L732' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateBinaryWithExtension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

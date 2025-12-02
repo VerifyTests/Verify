@@ -729,8 +729,6 @@
         byte[] data = [0x01, 0x02, 0x03, 0x04];
         using var temp = await TempFile.CreateBinary(data, ".bin");
 
-        // Process the temporary image file
-
         #endregion
     }
 }

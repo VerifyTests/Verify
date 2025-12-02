@@ -409,7 +409,7 @@
     {
         var content = "Test content";
 
-         using var temp = await TempFile.CreateText(content, ".txt");
+        using var temp = await TempFile.CreateText(content, ".txt");
 
         Assert.EndsWith(".txt", temp.Path);
         Assert.True(File.Exists(temp.Path));
@@ -612,5 +612,126 @@
         Assert.EndsWith(".xml", temp.Path);
         var readContent = await File.ReadAllTextAsync(temp.Path);
         Assert.Equal(xmlContent, readContent);
+    }
+
+    [Fact]
+    public void Create()
+    {
+        #region TempFileCreate
+
+        using var temp = TempFile.Create();
+
+        File.WriteAllText(temp, "content");
+
+        // file automatically deleted here
+
+        #endregion
+    }
+
+
+    [Fact]
+    public void CreateWithExtension()
+    {
+        #region TempFileCreateWithExtension
+
+        using var temp = TempFile.Create(".txt");
+
+        File.WriteAllText(temp, "content");
+
+        #endregion
+    }
+
+
+
+    [Fact]
+    public void CreateWithEncoding()
+    {
+        #region TempFileCreateWithEncoding
+
+        using var temp = TempFile.Create(".txt", Encoding.UTF8);
+
+        File.Exists(temp.Path);
+
+        #endregion
+    }
+
+    [Fact]
+    public async Task CreateText()
+    {
+        #region TempFileCreateText
+
+        using var temp = await TempFile.CreateText("Hello, World!");
+
+        var content = await File.ReadAllTextAsync(temp);
+        Assert.Equal("Hello, World!", content);
+
+        #endregion
+    }
+
+    [Fact]
+    public async Task CreateTextWithExtension()
+    {
+        #region TempFileCreateTextWithExtension
+
+        var json = """
+                   {
+                     "name": "test",
+                     "value": 123
+                   }
+                   """;
+
+        using var temp = await TempFile.CreateText(json, ".json");
+
+        var content = await File.ReadAllTextAsync(temp);
+        Assert.Equal(json, content);
+
+        #endregion
+    }
+
+    [Fact]
+    public async Task CreateTextWithEncoding()
+    {
+        #region TempFileCreateTextWithEncoding
+
+        using var temp = await TempFile.CreateText(
+            "Content with special chars: äöü",
+            ".txt",
+            Encoding.UTF8);
+
+        var content = await File.ReadAllTextAsync(temp, Encoding.UTF8);
+        Assert.Equal("Content with special chars: äöü", content);
+
+        #endregion
+    }
+
+
+
+    [Fact]
+    public async Task CreateBinary()
+    {
+        #region TempFileCreateBinary
+
+        byte[] data = [0x01, 0x02, 0x03, 0x04];
+
+        using var temp = await TempFile.CreateBinary(data);
+
+        var readData = await File.ReadAllBytesAsync(temp);
+        Assert.Equal(data, readData);
+
+        #endregion
+    }
+
+    [Fact]
+    public async Task CreateBinaryWithExtension()
+    {
+        var imageBinaryData = await File.ReadAllBytesAsync("source.png");
+
+        #region TempFileCreateBinaryWithExtension
+
+        using var temp = await TempFile.CreateBinary(imageBinaryData, ".png");
+
+        // Process the temporary image file
+
+        #endregion
     }
 }

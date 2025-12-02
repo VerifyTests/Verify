@@ -159,6 +159,31 @@ public class TempFile :
         return file;
     }
 
+    public static async Task<TempFile> CreateText(string content, string? extension = null, Encoding? encoding = null)
+    {
+        var file = new TempFile(extension);
+
+        if (encoding == null)
+        {
+            await File.WriteAllTextAsync(file, content);
+        }
+        else
+        {
+            await File.WriteAllTextAsync(file, content, encoding);
+        }
+
+        return file;
+    }
+
+    public static async Task<TempFile> CreateBinary(ReadOnlyMemory<byte> content, string? extension = null)
+    {
+        var file = new TempFile(extension);
+
+        await File.WriteAllBytesAsync(file, content);
+
+        return file;
+    }
+
     public void Dispose()
     {
         if (File.Exists(Path))

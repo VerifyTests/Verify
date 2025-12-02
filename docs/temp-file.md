@@ -91,7 +91,7 @@ public void StringConversion()
     Trace.WriteLine(content);
 }
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L333-L348' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileStringConversion' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L344-L359' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileStringConversion' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -114,7 +114,7 @@ public void FileInfoConversion()
     Trace.WriteLine(directoryName);
 }
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L350-L364' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileFileInfoConversion' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L361-L375' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileFileInfoConversion' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -135,7 +135,7 @@ public void InfoProperty()
     Trace.WriteLine(directoryName);
 }
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L366-L378' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileInfoProperty' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L377-L389' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileInfoProperty' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

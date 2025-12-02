@@ -350,11 +350,10 @@ Assert.Equal(data, readData);
 <!-- snippet: TempFileCreateBinaryWithExtension -->
 <a id='snippet-TempFileCreateBinaryWithExtension'></a>
 ```cs
-using var temp = await TempFile.CreateBinary(byteArray, ".png");
-
-// Process the temporary image file
+byte[] data = [0x01, 0x02, 0x03, 0x04];
+using var temp = await TempFile.CreateBinary(data, ".bin");
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L729-L735' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateBinaryWithExtension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L727-L732' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateBinaryWithExtension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

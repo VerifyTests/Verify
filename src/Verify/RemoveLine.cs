@@ -1,0 +1,1 @@
+public delegate bool RemoveLine(CharSpan line);

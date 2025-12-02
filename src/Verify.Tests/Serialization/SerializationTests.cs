@@ -504,9 +504,8 @@ public class SerializationTests
     {
         var settings = new VerifySettings();
         settings
-            .AddExtraSettings(
-                _ => _.SerializeError = (currentObject, originalObject, location, member, exception, handled) =>
-                    Console.WriteLine(member));
+            .AddExtraSettings(_ => _.SerializeError = (currentObject, originalObject, location, member, exception, handled) =>
+                Console.WriteLine(member));
         return Verify("Value", settings);
     }
 
@@ -517,9 +516,8 @@ public class SerializationTests
     [Fact]
     public Task AddExtraSettingsFluent() =>
         Verify("Value")
-            .AddExtraSettings(
-                _ => _.SerializeError = (currentObject, originalObject, location, member, exception, handled) =>
-                    Console.WriteLine(member));
+            .AddExtraSettings(_ => _.SerializeError = (currentObject, originalObject, location, member, exception, handled) =>
+                Console.WriteLine(member));
 
     #endregion
 
@@ -1870,7 +1868,7 @@ public class SerializationTests
 
         #region ScrubLines
 
-        verifySettings.ScrubLines(line => line.Contains("text"));
+        verifySettings.ScrubLines(line => line.Contains("text", StringComparison.OrdinalIgnoreCase));
 
         #endregion
 
@@ -3455,17 +3453,15 @@ public class SerializationTests
 
         #region ScrubMemberByPredicateGlobal
 
-        VerifierSettings.ScrubMembers(
-            _=>_.DeclaringType == typeof(TargetClass) &&
-               _.Name == "Proprty");
+        VerifierSettings.ScrubMembers(_ => _.DeclaringType == typeof(TargetClass) &&
+                                           _.Name == "Proprty");
 
         #endregion
 
         #region IgnoreMemberByPredicateGlobal
 
-        VerifierSettings.IgnoreMembers(
-            _=>_.DeclaringType == typeof(TargetClass) &&
-               _.Name == "Proprty");
+        VerifierSettings.IgnoreMembers(_ => _.DeclaringType == typeof(TargetClass) &&
+                                            _.Name == "Proprty");
 
         #endregion
     }

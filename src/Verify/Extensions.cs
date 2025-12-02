@@ -1,7 +1,5 @@
 ﻿// ReSharper disable UnusedVariable
 
-public delegate bool RemoveLine(CharSpan line);
-
 static class Extensions
 {
     static HashSet<Type> numericTypes =
@@ -185,7 +183,7 @@ static class Extensions
 
     public static void RemoveEmptyLines(this StringBuilder builder)
     {
-        builder.FilterLines(string.IsNullOrWhiteSpace);
+        builder.FilterLines(_ => _.Length == 0 || _.IsWhiteSpace());
         if (builder.FirstChar() is '\n')
         {
             builder.Remove(0, 1);

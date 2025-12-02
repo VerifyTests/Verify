@@ -169,15 +169,15 @@ public partial class SettingsTask
 
     /// <inheritdoc cref="VerifySettings.ScrubLinesContaining(string,StringComparison,ScrubberLocation,string[])"/>
     [Pure]
-    public SettingsTask ScrubLines(Func<string, bool> removeLine, ScrubberLocation location = ScrubberLocation.First)
+    public SettingsTask ScrubLines(RemoveLine removeLine, ScrubberLocation location = ScrubberLocation.First)
     {
         CurrentSettings.ScrubLines(removeLine, location);
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubLines(Func{string,bool},ScrubberLocation)"/>
+    /// <inheritdoc cref="VerifySettings.ScrubLines(RemoveLine,ScrubberLocation)"/>
     [Pure]
-    public SettingsTask ScrubLines(string extension, Func<string, bool> removeLine, ScrubberLocation location = ScrubberLocation.First)
+    public SettingsTask ScrubLines(string extension, RemoveLine removeLine, ScrubberLocation location = ScrubberLocation.First)
     {
         CurrentSettings.ScrubLines(extension, removeLine, location);
         return this;

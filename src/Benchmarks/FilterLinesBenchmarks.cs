@@ -32,7 +32,7 @@ public class FilterLinesBenchmarks
     }
 
     // Remove every other line
-    static bool RemoveEvenLines(string line) =>
+    static bool RemoveEvenLines(ReadOnlySpan<char> line) =>
         line.Length > 0 && char.IsDigit(line[^1]) && (line[^1] - '0') % 2 == 0;
 
     [Benchmark(Baseline = true)]

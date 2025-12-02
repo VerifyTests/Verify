@@ -1,4 +1,4 @@
-﻿static partial class DirectoryReplacements
+static partial class DirectoryReplacements
 {
     public readonly struct Pair
     {
@@ -32,190 +32,68 @@
             throw new("Find should be distinct");
         }
 #endif
-        if (builder.Length == 0)
+        if (builder.Length == 0 || paths.Count == 0)
         {
             return;
         }
 
-        var matches = FindMatches(builder, paths);
+        // pairs are ordered by length, so max length is the first one
+        var maxLength = paths[0].Find.Length;
+        var context = new MatchContext(builder, paths);
 
-        // Sort by position descending
-        var orderByDescending = matches.OrderByDescending(_ => _.Index);
-
-        // Apply matches
-        foreach (var match in orderByDescending)
-        {
-            builder.Overwrite(match.Value, match.Index, match.Length);
-        }
-    }
-
-    static List<Match> FindMatches(StringBuilder builder, List<Pair> pairs)
-    {
-        if (pairs.Count == 0)
-        {
-            return [];
-        }
-
-        var matches = new List<Match>();
-        // Track matched positions
-        var matchedRanges = new List<(int Start, int End)>();
-        var absolutePosition = 0;
-
-        // pairs are ordered by length. so max length is the first one
-        var maxLength = pairs[0].Find.Length;
-        var carryoverSize = maxLength - 1;
-
-        Span<char> carryoverBuffer = stackalloc char[carryoverSize];
-        Span<char> combinedBuffer = stackalloc char[maxLength * 2];
-        var carryoverLength = 0;
-        var previousChunkAbsoluteEnd = 0;
-
-        foreach (var chunk in builder.GetChunks())
-        {
-            var chunkSpan = chunk.Span;
-
-            // Check for matches spanning from previous chunk to current chunk
-            if (carryoverLength > 0)
+        CrossChunkMatcher.ReplaceAll(
+            builder,
+            maxLength: maxLength,
+            context,
+            matcher: static (content, absolutePosition, context) =>
             {
-                for (var carryoverIndex = 0; carryoverIndex < carryoverLength; carryoverIndex++)
-                {
-                    foreach (var pair in pairs)
-                    {
-                        var remainingInCarryover = carryoverLength - carryoverIndex;
-                        var neededFromCurrent = pair.Find.Length - remainingInCarryover;
-
-                        if (neededFromCurrent <= 0 ||
-                            neededFromCurrent > chunkSpan.Length)
-                        {
-                            continue;
-                        }
-
-                        var combinedLength = remainingInCarryover + neededFromCurrent;
-                        carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(combinedBuffer);
-                        chunkSpan[..neededFromCurrent].CopyTo(combinedBuffer[remainingInCarryover..]);
-
-                        var startPosition = previousChunkAbsoluteEnd - carryoverLength + carryoverIndex;
-
-                        // Check if this position overlaps with existing match
-                        if (OverlapsExistingMatch(startPosition, pair.Find.Length, matchedRanges))
-                        {
-                            continue;
-                        }
-
-                        if (!TryMatchAtCrossChunk(
-                                builder,
-                                combinedBuffer[..combinedLength],
-                                chunkSpan,
-                                startPosition,
-                                neededFromCurrent,
-                                pair.Find,
-                                out var matchLength))
-                        {
-                            continue;
-                        }
-
-                        matches.Add(new(startPosition, matchLength, pair.Replace));
-                        matchedRanges.Add((startPosition, startPosition + matchLength));
-                        // Found a match at this position, skip other pairs
-                        break;
-                    }
-                }
-            }
-
-            // Process matches entirely within this chunk
-            for (var chunkIndex = 0; chunkIndex < chunk.Length; chunkIndex++)
-            {
-                var absoluteIndex = absolutePosition + chunkIndex;
-
                 // Skip if already matched
-                if (IsPositionMatched(absoluteIndex, matchedRanges))
+                if (context.IsPositionMatched(absolutePosition))
                 {
-                    continue;
+                    return null;
                 }
 
-                foreach (var pair in pairs)
+                foreach (var pair in context.Pairs)
                 {
-                    // Check if we have enough characters left in this chunk
-                    if (chunkIndex + pair.Find.Length > chunk.Length)
+                    // Not enough content for this pattern
+                    if (content.Length < pair.Find.Length)
                     {
                         continue;
                     }
 
                     // Check if this would overlap with existing match
-                    if (OverlapsExistingMatch(absoluteIndex, pair.Find.Length, matchedRanges))
+                    if (context.OverlapsExistingMatch(absolutePosition, pair.Find.Length))
                     {
                         continue;
                     }
 
                     // Try to match at this position
-                    if (!TryMatchAt(chunk, chunkIndex, pair.Find, out var matchLength))
+                    if (!TryMatchAt(context.Builder, content, absolutePosition, pair.Find, out var matchLength))
                     {
                         continue;
                     }
 
-                    matches.Add(new(absoluteIndex, matchLength, pair.Replace));
-                    matchedRanges.Add((absoluteIndex, absoluteIndex + matchLength));
-                    // Skip past this match
-                    chunkIndex += matchLength - 1;
-                    // Found a match, skip other pairs at this position
-                    break;
+                    context.AddMatchedRange(absolutePosition, absolutePosition + matchLength);
+                    return new MatchResult(matchLength, pair.Replace);
                 }
-            }
 
-            // Save last N chars for next iteration
-            carryoverLength = Math.Min(carryoverSize, chunk.Length);
-            chunkSpan.Slice(chunk.Length - carryoverLength, carryoverLength).CopyTo(carryoverBuffer);
-
-            previousChunkAbsoluteEnd = absolutePosition + chunk.Length;
-            absolutePosition += chunk.Length;
-        }
-
-        return matches;
+                return null;
+            });
     }
 
-    static bool IsPositionMatched(int position, List<(int Start, int End)> matchedRanges)
-    {
-        foreach (var (start, end) in matchedRanges)
-        {
-            if (position >= start && position < end)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    static bool OverlapsExistingMatch(int start, int length, List<(int Start, int End)> matchedRanges)
-    {
-        var end = start + length;
-        foreach (var range in matchedRanges)
-        {
-            // Check if ranges overlap
-            if (start < range.End && end > range.Start)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    static bool TryMatchAtCrossChunk(
+    static bool TryMatchAt(
         StringBuilder builder,
-        CharSpan combinedSpan,
-        CharSpan currentChunkSpan,
-        int absoluteStartPosition,
-        int neededFromCurrent,
+        CharSpan content,
+        int absolutePosition,
         string find,
         out int matchLength)
     {
         matchLength = 0;
 
         // Check preceding character
-        if (absoluteStartPosition > 0)
+        if (absolutePosition > 0)
         {
-            var preceding = builder[absoluteStartPosition - 1];
+            var preceding = builder[absolutePosition - 1];
             if (char.IsLetterOrDigit(preceding))
             {
                 return false;
@@ -223,65 +101,33 @@
         }
 
         // Check if the path matches
-        if (!IsPathMatchAt(combinedSpan, 0, find))
+        if (!IsPathMatchAt(content, 0, find))
         {
             return false;
         }
 
         matchLength = find.Length;
-
-        // Check trailing character (it's in the current chunk)
-        if (neededFromCurrent < currentChunkSpan.Length)
-        {
-            var trailing = currentChunkSpan[neededFromCurrent];
-
-            // Invalid if trailing is letter or digit
-            if (char.IsLetterOrDigit(trailing))
-            {
-                return false;
-            }
-
-            // Greedy: include trailing separator
-            if (trailing is '/' or '\\')
-            {
-                matchLength++;
-            }
-        }
-
-        return true;
-    }
-
-    static bool TryMatchAt(ReadOnlyMemory<char> chunk, int chunkPos, string find, out int matchLength)
-    {
-        var span = chunk.Span;
-        matchLength = 0;
-
-        // Check preceding character
-        if (chunkPos > 0)
-        {
-            var preceding = span[chunkPos - 1];
-            if (char.IsLetterOrDigit(preceding))
-            {
-                return false;
-            }
-        }
-
-        // Check if the path matches
-        if (!IsPathMatchAt(span, chunkPos, find))
-        {
-            return false;
-        }
 
         // Check trailing character
-        matchLength = find.Length;
-        var trailingPos = chunkPos + find.Length;
-
-        if (trailingPos >= span.Length)
+        var trailingPosition = absolutePosition + find.Length;
+        if (trailingPosition >= builder.Length)
         {
             return true;
         }
 
-        var trailing = span[trailingPos];
+        // Check if we have the trailing character in our content window
+        // or need to look it up in the builder
+        char trailing;
+        if (find.Length < content.Length)
+        {
+            // Trailing char is in our window
+            trailing = content[find.Length];
+        }
+        else
+        {
+            // Need to look up in builder
+            trailing = builder[trailingPosition];
+        }
 
         // Invalid if trailing is letter or digit
         if (char.IsLetterOrDigit(trailing))
@@ -298,15 +144,15 @@
         return true;
     }
 
-    static bool IsPathMatchAt(CharSpan chunk, int chunkPos, string find)
+    static bool IsPathMatchAt(CharSpan content, int contentPos, string find)
     {
         for (var i = 0; i < find.Length; i++)
         {
-            var chunkChar = chunk[chunkPos + i];
+            var contentChar = content[contentPos + i];
             var findChar = find[i];
 
             // Treat / and \ as equivalent
-            if (chunkChar is '/' or '\\')
+            if (contentChar is '/' or '\\')
             {
                 if (findChar != '/')
                 {
@@ -316,7 +162,7 @@
                 continue;
             }
 
-            if (chunkChar != findChar)
+            if (contentChar != findChar)
             {
                 return false;
             }
@@ -325,10 +171,32 @@
         return true;
     }
 
-    readonly struct Match(int index, int length, string value)
+    sealed class MatchContext(StringBuilder builder, List<Pair> pairs)
     {
-        public readonly int Index = index;
-        public readonly int Length = length;
-        public readonly string Value = value;
+        public StringBuilder Builder { get; } = builder;
+        public List<Pair> Pairs { get; } = pairs;
+        List<(int Start, int End)> matchedRanges = [];
+
+        public void AddMatchedRange(int start, int end) =>
+            matchedRanges.Add((start, end));
+
+        public bool IsPositionMatched(int position)
+        {
+            foreach (var (start, end) in matchedRanges)
+            {
+                if (position >= start && position < end)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool OverlapsExistingMatch(int start, int length)
+        {
+            var end = start + length;
+            return matchedRanges.Any(range => start < range.End && end > range.Start);
+        }
     }
 }

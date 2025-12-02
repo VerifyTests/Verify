@@ -83,7 +83,7 @@
     {
         var builder = new StringBuilder("line1\nline2\nline3");
 
-        builder.FilterLines(line => line == "line2");
+        builder.FilterLines(line => line is "line2");
 
         Assert.Equal("line1\nline3", builder.ToString());
     }
@@ -154,7 +154,7 @@
     {
         var builder = new StringBuilder("line1\nline2\n");
 
-        builder.FilterLines(line => line == "line2");
+        builder.FilterLines(line => line is "line2");
 
         Assert.Equal("line1\n", builder.ToString());
     }
@@ -164,7 +164,7 @@
     {
         var builder = new StringBuilder("line1\nline2");
 
-        builder.FilterLines(line => line == "line1");
+        builder.FilterLines(line => line is "line1");
 
         Assert.Equal("line2", builder.ToString());
     }
@@ -174,7 +174,7 @@
     {
         var builder = new StringBuilder("line1\n\nline3");
 
-        builder.FilterLines(string.IsNullOrEmpty);
+        builder.FilterLines(line => line.Length == 0);
 
         Assert.Equal("line1\nline3", builder.ToString());
     }
@@ -184,7 +184,7 @@
     {
         var builder = new StringBuilder("line1\n\nline3");
 
-        builder.FilterLines(line => line == "line1");
+        builder.FilterLines(line => line is "line1");
 
         Assert.Equal("\nline3", builder.ToString());
     }
@@ -204,7 +204,7 @@
     {
         var builder = new StringBuilder("remove\nkeep1\nkeep2");
 
-        builder.FilterLines(line => line == "remove");
+        builder.FilterLines(line => line is "remove");
 
         Assert.Equal("keep1\nkeep2", builder.ToString());
     }
@@ -214,7 +214,7 @@
     {
         var builder = new StringBuilder("keep1\nkeep2\nremove");
 
-        builder.FilterLines(line => line == "remove");
+        builder.FilterLines(line => line is "remove");
 
         Assert.Equal("keep1\nkeep2", builder.ToString());
     }
@@ -224,7 +224,7 @@
     {
         var builder = new StringBuilder("keep1\nkeep2\nremove\n");
 
-        builder.FilterLines(line => line == "remove");
+        builder.FilterLines(line => line is "remove");
 
         Assert.Equal("keep1\nkeep2\n", builder.ToString());
     }
@@ -234,7 +234,19 @@
     {
         var builder = new StringBuilder("abc123\ndef456\nghi789\njkl012");
 
-        builder.FilterLines(line => line.Any(char.IsDigit) && line.Contains('4'));
+        builder.FilterLines(line =>
+        {
+            var hasDigit = false;
+            foreach (var c in line)
+            {
+                if (char.IsDigit(c))
+                {
+                    hasDigit = true;
+                    break;
+                }
+            }
+            return hasDigit && line.Contains('4');
+        });
 
         Assert.Equal("abc123\nghi789\njkl012", builder.ToString());
     }
@@ -244,7 +256,7 @@
     {
         var builder = new StringBuilder("line1\r\nline2\r\nline3");
 
-        builder.FilterLines(line => line == "line2");
+        builder.FilterLines(line => line is "line2");
 
         // Note: StringReader normalizes \r\n to \n
         Assert.Equal("line1\nline3", builder.ToString());
@@ -255,7 +267,7 @@
     {
         var builder = new StringBuilder("line1\nline2\r\nline3");
 
-        builder.FilterLines(line => line == "line2");
+        builder.FilterLines(line => line is "line2");
 
         Assert.Equal("line1\nline3", builder.ToString());
     }
@@ -266,7 +278,7 @@
         var lines = Enumerable.Range(1, 1000).Select(i => $"line{i}");
         var builder = new StringBuilder(string.Join('\n', lines));
 
-        builder.FilterLines(line => int.Parse(line[4..]) % 2 == 0);
+        builder.FilterLines(line => int.Parse(line.Slice(4)) % 2 == 0);
 
         var remaining = builder.ToString().Split('\n');
         Assert.Equal(500, remaining.Length);
@@ -278,7 +290,7 @@
     {
         var builder = new StringBuilder("  line1  \n\t line2\t\nline3   ");
 
-        builder.FilterLines(line => line.Trim() == "line2");
+        builder.FilterLines(line => line.Trim() is "line2");
 
         Assert.Equal("  line1  \nline3   ", builder.ToString());
     }

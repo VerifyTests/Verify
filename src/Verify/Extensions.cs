@@ -157,27 +157,24 @@ static class Extensions
 
     public static void FilterLines(this StringBuilder input, RemoveLine removeLine)
     {
-        if (input.Length == 0)
-        {
-            return;
-        }
-
-        var span = input.AsSpan();
-        var hasTrailingNewline = span[^1] == '\n';
-
+        var theString = input.ToString();
+        using var reader = new StringReader(theString);
         input.Clear();
 
-        foreach (var line in span.EnumerateLines())
+        while (reader.ReadLine() is { } line)
         {
-            if (!removeLine(line))
+            if (removeLine(line))
             {
-                input.AppendLineN(line);
+                continue;
             }
+
+            input.AppendLineN(line);
         }
 
-        if (input.Length > 0 && !hasTrailingNewline)
+        var endsWithNewLine = theString.EndsWith('\n');
+        if (input.Length > 0 && !endsWithNewLine)
         {
-            input.Length--;
+            input.Length -= 1;
         }
     }
 

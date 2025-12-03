@@ -41,6 +41,7 @@
   * [Recording](/docs/recording.md)
   * [Explicit Targets](/docs/explicit-targets.md)
   * [TempDirectory](/docs/temp-directory.md)
+  * [TempFile](/docs/temp-file.md)
   * [FSharp Usage](/docs/fsharp.md)
   * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)
   * [Plugins](/docs/plugins.md)

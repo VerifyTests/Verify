@@ -337,7 +337,7 @@
         builder.Append(longLine);
         builder.Append("\nkeep2");
 
-        builder.FilterLines(line => line == longLine);
+        builder.FilterLines(line => line.SequenceEqual(longLine));
 
         Assert.Equal("keep1\nkeep2", builder.ToString());
     }
@@ -352,7 +352,7 @@
         builder.Append('\n');
         builder.Append("line2");
 
-        builder.FilterLines(line => line == chunkFiller);
+        builder.FilterLines(line => line.SequenceEqual(chunkFiller));
 
         Assert.Equal("line2", builder.ToString());
     }
@@ -367,7 +367,7 @@
         builder.Append("\r\n");
         builder.Append("nextline");
 
-        builder.FilterLines(line => line == lineContent);
+        builder.FilterLines(line => line.SequenceEqual(lineContent));
 
         Assert.Equal("nextline", builder.ToString());
     }
@@ -391,7 +391,7 @@
         }
 
         // Remove even-indexed lines
-        builder.FilterLines(line => lines.IndexOf(line) % 2 == 0);
+        builder.FilterLines(line => lines.IndexOf(line.ToString()) % 2 == 0);
 
         var expected = string.Join('\n', lines.Where((_, i) => i % 2 == 1));
         Assert.Equal(expected, builder.ToString());
@@ -406,7 +406,7 @@
         builder.Append(longLine);
         builder.Append("\nremove");
 
-        builder.FilterLines(line => line == "remove");
+        builder.FilterLines(line => line is "remove");
 
         Assert.Equal(longLine, builder.ToString());
     }
@@ -457,7 +457,7 @@
         builder.Append(fullLine);
         builder.Append("\nafter");
 
-        builder.FilterLines(line => line == "before");
+        builder.FilterLines(line => line is "before");
 
         Assert.Equal(fullLine + "\nafter", builder.ToString());
     }
@@ -471,7 +471,7 @@
         builder.Append("\n\n\n");
         builder.Append("keep");
 
-        builder.FilterLines(string.IsNullOrEmpty);
+        builder.FilterLines(_ => _.IsWhiteSpace());
 
         Assert.Equal(longLine + "\nkeep", builder.ToString());
     }

@@ -152,44 +152,26 @@ static class Extensions
         return null;
     }
 
-    // public static void FilterLines(this StringBuilder input, Func<string, bool> removeLine) =>
-    //     FilterLines(input, (CharSpan line) => removeLine(line.ToString()));
-
     public static void FilterLines(this StringBuilder input, RemoveLine removeLine)
     {
-        if (input.Length == 0)
+        var theString = input.ToString();
+        using var reader = new StringReader(theString);
+        input.Clear();
+
+        while (reader.ReadLine() is { } line)
         {
-            return;
-        }
-
-        var length = input.Length;
-        var pool = ArrayPool<char>.Shared;
-        var array = pool.Rent(length);
-
-        try
-        {
-            input.CopyTo(0, array, 0, length);
-            var span = array.AsSpan(0, length);
-            var hasTrailingNewline = span[^1] == '\n';
-
-            input.Clear();
-
-            foreach (var line in span.EnumerateLines())
+            if (removeLine(line))
             {
-                if (!removeLine(line))
-                {
-                    input.AppendLineN(line);
-                }
+                continue;
             }
 
-            if (input.Length > 0 && !hasTrailingNewline)
-            {
-                input.Length--;
-            }
+            input.AppendLineN(line);
         }
-        finally
+
+        var endsWithNewLine = theString.EndsWith('\n');
+        if (input.Length > 0 && !endsWithNewLine)
         {
-            pool.Return(array);
+            input.Length -= 1;
         }
     }
 

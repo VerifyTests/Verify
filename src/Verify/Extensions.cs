@@ -195,7 +195,7 @@ static class Extensions
 
     public static void RemoveEmptyLines(this StringBuilder builder)
     {
-        builder.FilterLines(_ => _.IsEmpty || _.IsWhiteSpace());
+        builder.FilterLines(_ => _.IsWhiteSpace());
         if (builder.FirstChar() is '\n')
         {
             builder.Remove(0, 1);

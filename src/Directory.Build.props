@@ -17,6 +17,12 @@
     <PolyEnsure>true</PolyEnsure>
     <PolyStringInterpolation>true</PolyStringInterpolation>
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+
+    <!-- The MSTest property to use Microsoft.Testing.Platform (MSTest is used by Verify.MSTest.DerivePaths.Tests) -->
+    <EnableMSTestRunner>true</EnableMSTestRunner>
+
+    <!-- The xUnit property to use Microsoft.Testing.Platform (xUnit is used by Verify.MSTest.SourceGenerator.Tests) -->
+    <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
     <ImportVerifyMsbuildFiles Condition="'$(MSBuildProjectName)' != '' And $(MSBuildProjectName.EndsWith('Tests'))">true</ImportVerifyMsbuildFiles>
     <!-- Work around https://github.com/dotnet/sdk/issues/51265#issuecomment-3407578810 -->
     <RestoreEnablePackagePruning>false</RestoreEnablePackagePruning>

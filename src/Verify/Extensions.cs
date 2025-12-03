@@ -1,7 +1,5 @@
 ﻿// ReSharper disable UnusedVariable
 
-public delegate bool RemoveLine(CharSpan line);
-
 static class Extensions
 {
     static HashSet<Type> numericTypes =

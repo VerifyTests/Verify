@@ -278,7 +278,8 @@
         var lines = Enumerable.Range(1, 1000).Select(i => $"line{i}");
         var builder = new StringBuilder(string.Join('\n', lines));
 
-        builder.FilterLines(line => int.Parse(line.Slice(4)) % 2 == 0);
+        //TODO: remove the ToString when added to polyfill
+        builder.FilterLines(line => int.Parse(line.Slice(4).ToString()) % 2 == 0);
 
         var remaining = builder.ToString().Split('\n');
         Assert.Equal(500, remaining.Length);

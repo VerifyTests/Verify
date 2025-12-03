@@ -167,7 +167,7 @@ static class Extensions
         {
             input.CopyTo(0, rented, 0, length);
 
-            // Trim trailing line ending to match StringReader.ReadLine behavior
+            // Trim trailing line ending to match previous StringReader.ReadLine behavior
             // (StringReader doesn't yield an empty line after a trailing newline)
             var enumLength = length;
             if (endsWithNewLine)

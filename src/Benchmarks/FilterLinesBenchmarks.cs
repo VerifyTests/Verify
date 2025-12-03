@@ -35,6 +35,9 @@ public class FilterLinesBenchmarks
     static bool RemoveEvenLines(string line) =>
         line.Length > 0 && char.IsDigit(line[^1]) && (line[^1] - '0') % 2 == 0;
 
+    // Never matches - no lines removed
+    static bool NeverMatches(string line) => false;
+
     [Benchmark(Baseline = true)]
     public void Small()
     {
@@ -54,5 +57,26 @@ public class FilterLinesBenchmarks
     {
         var builder = new StringBuilder(largeInput.ToString());
         builder.FilterLines(RemoveEvenLines);
+    }
+
+    [Benchmark]
+    public void Small_NoMatches()
+    {
+        var builder = new StringBuilder(smallInput.ToString());
+        builder.FilterLines(NeverMatches);
+    }
+
+    [Benchmark]
+    public void Medium_NoMatches()
+    {
+        var builder = new StringBuilder(mediumInput.ToString());
+        builder.FilterLines(NeverMatches);
+    }
+
+    [Benchmark]
+    public void Large_NoMatches()
+    {
+        var builder = new StringBuilder(largeInput.ToString());
+        builder.FilterLines(NeverMatches);
     }
 }

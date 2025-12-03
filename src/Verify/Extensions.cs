@@ -154,24 +154,59 @@ static class Extensions
 
     public static void FilterLines(this StringBuilder input, RemoveLine removeLine)
     {
-        var theString = input.ToString();
-        using var reader = new StringReader(theString);
-        input.Clear();
-
-        while (reader.ReadLine() is { } line)
+        if (input.Length == 0)
         {
-            if (removeLine(line))
-            {
-                continue;
-            }
-
-            input.AppendLineN(line);
+            return;
         }
 
-        var endsWithNewLine = theString.EndsWith('\n');
-        if (input.Length > 0 && !endsWithNewLine)
+        var length = input.Length;
+        var endsWithNewLine = input[length - 1] == '\n';
+
+        var rented = ArrayPool<char>.Shared.Rent(length);
+        try
         {
-            input.Length -= 1;
+            input.CopyTo(0, rented, 0, length);
+
+            // Trim trailing line ending to match StringReader.ReadLine behavior
+            // (StringReader doesn't yield an empty line after a trailing newline)
+            var enumLength = length;
+            if (endsWithNewLine)
+            {
+                enumLength--;
+                if (enumLength > 0 && rented[enumLength - 1] == '\r')
+                {
+                    enumLength--;
+                }
+            }
+
+            var span = rented.AsSpan(0, enumLength);
+            input.Clear();
+            var isFirst = true;
+
+            foreach (var line in span.EnumerateLines())
+            {
+                if (removeLine(line))
+                {
+                    continue;
+                }
+
+                if (!isFirst)
+                {
+                    input.Append('\n');
+                }
+
+                input.Append(line);
+                isFirst = false;
+            }
+
+            if (input.Length > 0 && endsWithNewLine)
+            {
+                input.Append('\n');
+            }
+        }
+        finally
+        {
+            ArrayPool<char>.Shared.Return(rented);
         }
     }
 

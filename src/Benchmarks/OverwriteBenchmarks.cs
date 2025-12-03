@@ -10,9 +10,9 @@ public class OverwriteBenchmarks
     [GlobalSetup]
     public void Setup()
     {
-        smallBuilder = new StringBuilder("Hello World! This is a small test string.");
+        smallBuilder = new("Hello World! This is a small test string.");
 
-        mediumBuilder = new StringBuilder();
+        mediumBuilder = new();
         for (var i = 0; i < 100; i++)
         {
             mediumBuilder.Append("This is sentence number ");
@@ -20,14 +20,14 @@ public class OverwriteBenchmarks
             mediumBuilder.Append(". ");
         }
 
-        largeBuilder = new StringBuilder();
+        largeBuilder = new();
         for (var i = 0; i < 10000; i++)
         {
             largeBuilder.Append("Content ");
         }
 
         // Force multiple chunks
-        multiChunkBuilder = new StringBuilder();
+        multiChunkBuilder = new();
         for (var i = 0; i < 50; i++)
         {
             multiChunkBuilder.Append("Chunk ");

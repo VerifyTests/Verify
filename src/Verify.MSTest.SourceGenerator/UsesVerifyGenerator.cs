@@ -1,5 +1,7 @@
 namespace VerifyMSTest.SourceGenerator;
 
+//https://github.com/dotnet/roslyn-analyzers/issues/6229
+#pragma warning disable RS1036
 [Generator]
 public class UsesVerifyGenerator : IIncrementalGenerator
 {

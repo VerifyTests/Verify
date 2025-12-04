@@ -4,7 +4,7 @@ public readonly struct Target
 {
     readonly StringBuilder? stringBuilderData;
     readonly Stream? streamData;
-    public string Extension { get; }
+    public string? Extension { get; }
     public string? Name { get; } = null;
     public bool PerformConversion { get; } = true;
     public string NameOrTarget => Name ?? "target";

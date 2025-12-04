@@ -2,9 +2,9 @@
 
 static class ApplyScrubbers
 {
-    public static void ApplyForExtension(string extension, StringBuilder target, VerifySettings settings, Counter counter)
+    public static void ApplyForExtension(string? extension, StringBuilder target, VerifySettings settings, Counter counter)
     {
-        if (!settings.ScrubbersEnabled)
+        if (!settings.ScrubbersEnabled || extension == null)
         {
             target.FixNewlines();
             return;

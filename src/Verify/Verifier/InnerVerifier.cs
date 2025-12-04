@@ -132,27 +132,31 @@ public partial class InnerVerifier :
         verifiedFiles = MatchingFileFinder.FindVerified(name, directory);
 
         getFileNames = target =>
-            new(
-                target.Extension,
-                $"{prefix}.received.{target.Extension}",
-                $"{prefix}.verified.{target.Extension}",
+        {
+            var extension = target.Extension ?? this.settings.TxtOrJson;
+            return new(
+                extension,
+                $"{prefix}.received.{extension}",
+                $"{prefix}.verified.{extension}",
                 target.IsString);
+        };
 
         getIndexedFileNames = (target, index) =>
         {
+            var extension = target.Extension ?? this.settings.TxtOrJson;
             if (target.Name is null)
             {
                 return new(
-                    target.Extension,
-                    $"{prefix}#{index}.received.{target.Extension}",
-                    $"{prefix}#{index}.verified.{target.Extension}",
+                    extension,
+                    $"{prefix}#{index}.received.{extension}",
+                    $"{prefix}#{index}.verified.{extension}",
                     target.IsString);
             }
 
             return new(
-                target.Extension,
-                $"{prefix}#{target.Name}.{index}.received.{target.Extension}",
-                $"{prefix}#{target.Name}.{index}.verified.{target.Extension}",
+                extension,
+                $"{prefix}#{target.Name}.{index}.received.{extension}",
+                $"{prefix}#{target.Name}.{index}.verified.{extension}",
                 target.IsString);
         };
     }
@@ -197,18 +201,20 @@ public partial class InnerVerifier :
 
             getFileNames = target =>
             {
-                var fileName = $"{target.NameOrTarget}.{target.Extension}";
+                var extension = target.Extension ?? settings.TxtOrJson;
+                var fileName = $"{target.NameOrTarget}.{extension}";
                 return new(
-                    target.Extension,
+                    extension,
                     Path.Combine(receivedDirectory, fileName),
                     Path.Combine(verifiedDirectory, fileName),
                     target.IsString);
             };
             getIndexedFileNames = (target, index) =>
             {
-                var fileName = $"{target.NameOrTarget}#{index}.{target.Extension}";
+                var extension = target.Extension ?? settings.TxtOrJson;
+                var fileName = $"{target.NameOrTarget}#{index}.{extension}";
                 return new(
-                    target.Extension,
+                    extension,
                     Path.Combine(receivedDirectory, fileName),
                     Path.Combine(verifiedDirectory, fileName),
                     target.IsString);
@@ -222,17 +228,23 @@ public partial class InnerVerifier :
             verifiedFiles = IoHelpers.Files(directoryPrefix, "*.verified.*");
 
             getFileNames = target =>
-                new(
-                    target.Extension,
-                    Path.Combine(directoryPrefix, $"{target.NameOrTarget}.received.{target.Extension}"),
-                    Path.Combine(directoryPrefix, $"{target.NameOrTarget}.verified.{target.Extension}"),
+            {
+                var extension = target.Extension ?? settings.TxtOrJson;
+                return new(
+                    extension,
+                    Path.Combine(directoryPrefix, $"{target.NameOrTarget}.received.{extension}"),
+                    Path.Combine(directoryPrefix, $"{target.NameOrTarget}.verified.{extension}"),
                     target.IsString);
+            };
             getIndexedFileNames = (target, index) =>
-                new(
-                    target.Extension,
-                    Path.Combine(directoryPrefix, $"{target.NameOrTarget}#{index}.received.{target.Extension}"),
-                    Path.Combine(directoryPrefix, $"{target.NameOrTarget}#{index}.verified.{target.Extension}"),
+            {
+                var extension = target.Extension ?? settings.TxtOrJson;
+                return new(
+                    extension,
+                    Path.Combine(directoryPrefix, $"{target.NameOrTarget}#{index}.received.{extension}"),
+                    Path.Combine(directoryPrefix, $"{target.NameOrTarget}#{index}.verified.{extension}"),
                     target.IsString);
+            };
 
             IoHelpers.DeleteFiles(directoryPrefix, "*.received.*");
         }
@@ -275,36 +287,38 @@ public partial class InnerVerifier :
 
         getFileNames = target =>
         {
+            var extension = target.Extension ?? settings.TxtOrJson;
             if (target.Name is null)
             {
                 return new(
-                    target.Extension,
-                    $"{pathPrefixReceived}.received.{target.Extension}",
-                    $"{pathPrefixVerified}.verified.{target.Extension}",
+                    extension,
+                    $"{pathPrefixReceived}.received.{extension}",
+                    $"{pathPrefixVerified}.verified.{extension}",
                     target.IsString);
             }
 
             return new(
-                target.Extension,
-                $"{pathPrefixReceived}#{target.Name}.received.{target.Extension}",
-                $"{pathPrefixVerified}#{target.Name}.verified.{target.Extension}",
+                extension,
+                $"{pathPrefixReceived}#{target.Name}.received.{extension}",
+                $"{pathPrefixVerified}#{target.Name}.verified.{extension}",
                 target.IsString);
         };
         getIndexedFileNames = (target, index) =>
         {
+            var extension = target.Extension ?? settings.TxtOrJson;
             if (target.Name is null)
             {
                 return new(
-                    target.Extension,
-                    $"{pathPrefixReceived}#{index}.received.{target.Extension}",
-                    $"{pathPrefixVerified}#{index}.verified.{target.Extension}",
+                    extension,
+                    $"{pathPrefixReceived}#{index}.received.{extension}",
+                    $"{pathPrefixVerified}#{index}.verified.{extension}",
                     target.IsString);
             }
 
             return new(
-                target.Extension,
-                $"{pathPrefixReceived}#{target.Name}.{index}.received.{target.Extension}",
-                $"{pathPrefixVerified}#{target.Name}.{index}.verified.{target.Extension}",
+                extension,
+                $"{pathPrefixReceived}#{target.Name}.{index}.received.{extension}",
+                $"{pathPrefixVerified}#{target.Name}.{index}.verified.{extension}",
                 target.IsString);
         };
 

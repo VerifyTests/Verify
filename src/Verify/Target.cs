@@ -37,12 +37,6 @@ public readonly struct Target
         return false;
     }
 
-    [OverloadResolutionPriority(-1)]
-    public Target(string extension, Stream data, string? name = null) :
-        this(extension, data, name, true)
-    {
-    }
-
     public Target(string extension, Stream data, string? name = null, bool performConversion = true)
     {
         Guards.AgainstBadExtension(extension);

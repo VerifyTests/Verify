@@ -3,7 +3,7 @@
 public readonly struct Target
 {
     internal readonly StringBuilder? stringBuilderData;
-    readonly object? objectData;
+    internal readonly object? objectData;
     internal readonly Stream? streamData;
     public string Extension { get; }
     public string? Name { get; } = null;

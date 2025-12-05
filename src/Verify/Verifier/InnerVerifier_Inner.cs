@@ -20,13 +20,26 @@ partial class InnerVerifier
         resultTargets.AddRange(extraTargets);
 
         var stringOrStreams = resultTargets.Select(_ =>
-                new StringOrStream
+            {
+                if (_.IsObject)
+                {
+                    return new()
+                    {
+                        Extension = _.Extension,
+                        Name = _.Name,
+                        Stream = _.streamData,
+                        StringBuilder = JsonFormatter.AsJson(settings, counter, _.objectData!),
+                    };
+                }
+
+                return new StringOrStream
                 {
                     Extension = _.Extension,
                     Name = _.Name,
                     Stream = _.streamData,
                     StringBuilder = _.stringBuilderData,
-                })
+                };
+            })
             .ToList();
         var engine = new VerifyEngine(
             directory,
@@ -98,7 +111,7 @@ partial class InnerVerifier
         return (list, cleanup);
     }
 
-    bool TryGetRootTarget(object? root,bool ignoreNullRoot, [NotNullWhen(true)] out Target? target)
+    bool TryGetRootTarget(object? root, bool ignoreNullRoot, [NotNullWhen(true)] out Target? target)
     {
         var appends = VerifierSettings.GetJsonAppenders(settings);
 
@@ -120,12 +133,7 @@ partial class InnerVerifier
 
             if (hasAppends)
             {
-                target = new(
-                    settings.TxtOrJson,
-                    JsonFormatter.AsJson(
-                        settings,
-                        counter,
-                        new InfoBuilder(false, stringRoot, appends)));
+                target = new(new InfoBuilder(false, stringRoot, appends), settings.TxtOrJson);
             }
             else
             {
@@ -137,12 +145,7 @@ partial class InnerVerifier
             return true;
         }
 
-        target = new(
-            settings.TxtOrJson,
-            JsonFormatter.AsJson(
-                settings,
-                counter,
-                new InfoBuilder(ignoreNullRoot, root, appends)));
+        target = new(new InfoBuilder(ignoreNullRoot, root, appends), settings.TxtOrJson);
         return true;
     }
 }

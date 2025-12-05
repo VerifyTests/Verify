@@ -27,7 +27,16 @@ partial class InnerVerifier
             settings.TypeName ?? typeName,
             settings.MethodName ?? methodName);
 
-        await engine.HandleResults(resultTargets);
+        await engine.HandleResults(
+            resultTargets.Select(_ =>
+                    new StringOrStream
+                    {
+                        Extension = _.Extension,
+                        Name = _.Name,
+                        Stream = _.streamData,
+                        StringBuilder = _.stringBuilderData,
+                    })
+                .ToList());
 
         await cleanup();
 

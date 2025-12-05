@@ -1,3 +1,3 @@
-﻿delegate FilePair GetFileNames(Target target);
+﻿delegate FilePair GetFileNames(StringOrStream target);
 
-delegate FilePair GetIndexedFileNames(Target target, string index);
+delegate FilePair GetIndexedFileNames(StringOrStream target, string index);

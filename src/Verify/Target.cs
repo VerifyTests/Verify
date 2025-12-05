@@ -2,12 +2,25 @@
 
 public readonly struct Target
 {
-    readonly StringBuilder? stringBuilderData;
-    readonly Stream? streamData;
+    internal readonly StringBuilder? stringBuilderData;
+    internal readonly Stream? streamData;
     public string Extension { get; }
     public string? Name { get; } = null;
     public bool PerformConversion { get; } = true;
     public string NameOrTarget => Name ?? "target";
+
+    public StringBuilder StringBuilderData
+    {
+        get
+        {
+            if (stringBuilderData is null)
+            {
+                throw new("Use StreamData.");
+            }
+
+            return stringBuilderData;
+        }
+    }
 
     public Stream StreamData
     {

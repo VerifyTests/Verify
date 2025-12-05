@@ -23,16 +23,16 @@ class VerifyEngine(
     public IReadOnlyList<FilePair> Equal => equal;
     public IReadOnlyList<FilePair> AutoVerified => autoVerified;
 
-    static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, Target target, bool previousTextFailed)
+    static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, StringOrStream target, bool previousTextFailed)
     {
         try
         {
-            if (target.TryGetStringBuilder(out var value))
+            if (target.StringBuilder != null)
             {
-                return await Comparer.Text(file, value, settings);
+                return await Comparer.Text(file, target.StringBuilder, settings);
             }
 
-            using var stream = target.StreamData;
+            using var stream = target.Stream!;
             stream.MoveToStart();
             return await FileComparer.DoCompare(settings, file, previousTextFailed, stream);
         }
@@ -48,7 +48,7 @@ class VerifyEngine(
         }
     }
 
-    public async Task HandleResults(List<Target> targetList)
+    public async Task HandleResults(List<StringOrStream> targetList)
     {
         if (targetList.Count == 1)
         {
@@ -61,7 +61,7 @@ class VerifyEngine(
 
         var textHasFailed = false;
 
-        async Task Inner(FilePair file, Target target)
+        async Task Inner(FilePair file, StringOrStream target)
         {
             var result = await GetResult(settings, file, target, textHasFailed);
 
@@ -290,4 +290,17 @@ class VerifyEngine(
         File.Delete(file.VerifiedPath);
         File.Move(file.ReceivedPath, file.VerifiedPath);
     }
+}
+
+class StringOrStream
+{
+    public required string? Name { get; init; }
+    //TODO: should be nullable
+    public required string Extension { get; init; }
+    [MemberNotNullWhen(true, nameof(IsString))]
+    public StringBuilder? StringBuilder { get; init; }
+    [MemberNotNullWhen(false, nameof(IsString))]
+    public Stream? Stream { get; init; }
+    public string NameOrTarget => Name ?? "target";
+    public bool IsString => StringBuilder != null;
 }

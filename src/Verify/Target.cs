@@ -3,24 +3,12 @@
 public readonly struct Target
 {
     internal readonly StringBuilder? stringBuilderData;
+    readonly object? objectData;
     internal readonly Stream? streamData;
     public string Extension { get; }
     public string? Name { get; } = null;
     public bool PerformConversion { get; } = true;
     public string NameOrTarget => Name ?? "target";
-
-    public StringBuilder StringBuilderData
-    {
-        get
-        {
-            if (stringBuilderData is null)
-            {
-                throw new("Use StreamData.");
-            }
-
-            return stringBuilderData;
-        }
-    }
 
     public Stream StreamData
     {
@@ -35,14 +23,40 @@ public readonly struct Target
         }
     }
 
+
+    public StringBuilder StringBuilderData
+    {
+        get
+        {
+            if (stringBuilderData is null)
+            {
+                throw new("Use StreamData.");
+            }
+
+            return stringBuilderData;
+        }
+    }
     public bool IsStream => streamData is not null;
-    public bool IsString => stringBuilderData is not null;
+    public bool IsString => stringBuilderData is not null || objectData is not null;
+    public bool IsObject => objectData is not null;
 
     internal bool TryGetStringBuilder([NotNullWhen(true)] out StringBuilder? value)
     {
         if (stringBuilderData is { } builder)
         {
             value = builder;
+            return true;
+        }
+
+        value = null;
+        return false;
+    }
+
+    internal bool TryGetObject([NotNullWhen(true)] out object? value)
+    {
+        if (objectData is { } @object)
+        {
+            value = @object;
             return true;
         }
 
@@ -83,8 +97,14 @@ public readonly struct Target
 
         Extension = extension;
         Name = FileNameCleaner.SanitizeFilePath(name);
-        streamData = null;
         stringBuilderData = data;
+    }
+
+    public Target(object data, string extension, string? name = null)
+    {
+        Extension = extension;
+        Name = FileNameCleaner.SanitizeFilePath(name);
+        objectData = data;
     }
 
     static void ValidateExtension(string extension)
@@ -111,6 +131,5 @@ public readonly struct Target
         Extension = extension;
         Name = FileNameCleaner.SanitizeFilePath(name);
         stringBuilderData = new(data);
-        streamData = null;
     }
 }

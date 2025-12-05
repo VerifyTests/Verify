@@ -18,6 +18,16 @@ partial class InnerVerifier
         var (extraTargets, extraCleanup) = await GetTargets(targets, doExtensionConversion);
         cleanup += extraCleanup;
         resultTargets.AddRange(extraTargets);
+
+        var stringOrStreams = resultTargets.Select(_ =>
+                new StringOrStream
+                {
+                    Extension = _.Extension,
+                    Name = _.Name,
+                    Stream = _.streamData,
+                    StringBuilder = _.stringBuilderData,
+                })
+            .ToList();
         var engine = new VerifyEngine(
             directory,
             settings,
@@ -27,16 +37,7 @@ partial class InnerVerifier
             settings.TypeName ?? typeName,
             settings.MethodName ?? methodName);
 
-        await engine.HandleResults(
-            resultTargets.Select(_ =>
-                    new StringOrStream
-                    {
-                        Extension = _.Extension,
-                        Name = _.Name,
-                        Stream = _.streamData,
-                        StringBuilder = _.stringBuilderData,
-                    })
-                .ToList());
+        await engine.HandleResults(stringOrStreams);
 
         await cleanup();
 

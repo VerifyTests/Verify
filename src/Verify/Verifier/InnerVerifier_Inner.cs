@@ -7,40 +7,7 @@ partial class InnerVerifier
 
     async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExtensionConversion, bool ignoreNullRoot)
     {
-        var resultTargets = new List<Target>();
-        if (TryGetRootTarget(root, ignoreNullRoot, out var rootTarget))
-        {
-            resultTargets.Add(rootTarget.Value);
-        }
-
-        cleanup ??= () => Task.CompletedTask;
-
-        var (extraTargets, extraCleanup) = await GetTargets(targets, doExtensionConversion);
-        cleanup += extraCleanup;
-        resultTargets.AddRange(extraTargets);
-
-        var stringOrStreams = resultTargets.Select(_ =>
-            {
-                if (_.IsObject)
-                {
-                    return new()
-                    {
-                        Extension = _.Extension,
-                        Name = _.Name,
-                        Stream = _.streamData,
-                        StringBuilder = JsonFormatter.AsJson(settings, counter, _.objectData!),
-                    };
-                }
-
-                return new StringOrStream
-                {
-                    Extension = _.Extension,
-                    Name = _.Name,
-                    Stream = _.streamData,
-                    StringBuilder = _.stringBuilderData,
-                };
-            })
-            .ToList();
+        (cleanup, var stringOrStreams) = await ProcessTargets(root, cleanup, targets, doExtensionConversion, ignoreNullRoot);
         var engine = new VerifyEngine(
             directory,
             settings,
@@ -65,10 +32,17 @@ partial class InnerVerifier
         return new(filePairs, root);
     }
 
-    async Task<(List<Target> extra, Func<Task> cleanup)> GetTargets(IEnumerable<Target> targets, bool doExtensionConversion)
+    async Task<(Func<Task> cleanup, List<StringOrStream> stringOrStreams)> ProcessTargets(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExtensionConversion, bool ignoreNullRoot)
     {
+        var resultTargets = new List<Target>();
+        if (TryGetRootTarget(root, ignoreNullRoot, out var rootTarget))
+        {
+            resultTargets.Add(rootTarget.Value);
+        }
+
+        cleanup ??= () => Task.CompletedTask;
+
         List<Target> list = [..targets, ..VerifierSettings.GetFileAppenders(settings)];
-        var cleanup = () => Task.CompletedTask;
         if (doExtensionConversion)
         {
             var result = new List<Target>();
@@ -100,7 +74,9 @@ partial class InnerVerifier
             list = result;
         }
 
-        foreach (var target in list)
+        resultTargets.AddRange(list);
+
+        foreach (var target in resultTargets)
         {
             if (target.TryGetStringBuilder(out var builder))
             {
@@ -108,7 +84,29 @@ partial class InnerVerifier
             }
         }
 
-        return (list, cleanup);
+        var stringOrStreams = resultTargets.Select(_ =>
+            {
+                if (_.IsObject)
+                {
+                    return new()
+                    {
+                        Extension = _.Extension,
+                        Name = _.Name,
+                        Stream = _.streamData,
+                        StringBuilder = JsonFormatter.AsJson(settings, counter, _.objectData!),
+                    };
+                }
+
+                return new StringOrStream
+                {
+                    Extension = _.Extension,
+                    Name = _.Name,
+                    Stream = _.streamData,
+                    StringBuilder = _.stringBuilderData,
+                };
+            })
+            .ToList();
+        return (cleanup, stringOrStreams);
     }
 
     bool TryGetRootTarget(object? root, bool ignoreNullRoot, [NotNullWhen(true)] out Target? target)
@@ -137,9 +135,7 @@ partial class InnerVerifier
             }
             else
             {
-                var builder = new StringBuilder(stringRoot);
-                ApplyScrubbers.ApplyForExtension("txt", builder, settings, counter);
-                target = new("txt", builder);
+                target = new("txt", new StringBuilder(stringRoot));
             }
 
             return true;

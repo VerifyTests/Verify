@@ -35,10 +35,18 @@ partial class InnerVerifier
     async Task<(Func<Task> cleanup, List<StringOrStream> stringOrStreams)> ProcessTargets(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExtensionConversion, bool ignoreNullRoot)
     {
         var resultTargets = new List<Target>();
-        if (ignoreNullRoot && root == null)
+        if (root == null)
         {
-            targets = [new((object?)null, settings.TxtOrJson, null), ..targets];
+            if (!ignoreNullRoot)
+            {
+                targets = [new((object?) null, settings.TxtOrJson, null), ..targets];
+            }
         }
+        else
+        {
+            targets = [new(root, settings.TxtOrJson, null), ..targets];
+        }
+
         cleanup ??= () => Task.CompletedTask;
 
         List<Target> list = [..targets, ..VerifierSettings.GetFileAppenders(settings)];
@@ -116,7 +124,8 @@ partial class InnerVerifier
             }
         }
 
-        var stringOrStreams = resultTargets.Select(_ =>
+        var stringOrStreams = resultTargets
+            .Select(_ =>
             {
                 if (_.IsObject)
                 {

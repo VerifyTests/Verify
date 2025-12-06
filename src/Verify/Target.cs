@@ -105,6 +105,7 @@ public readonly struct Target
         Extension = extension;
         Name = FileNameCleaner.SanitizeFilePath(name);
         objectData = data;
+        IsObject = true;
     }
 
     static void ValidateExtension(string extension)

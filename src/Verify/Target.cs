@@ -38,7 +38,7 @@ public readonly struct Target
     }
     public bool IsStream => streamData is not null;
     public bool IsString => stringBuilderData is not null || objectData is not null;
-    public bool IsObject => objectData is not null;
+    public bool IsObject { get; }
 
     internal bool TryGetStringBuilder([NotNullWhen(true)] out StringBuilder? value)
     {
@@ -100,7 +100,7 @@ public readonly struct Target
         stringBuilderData = data;
     }
 
-    public Target(object data, string extension, string? name = null)
+    public Target(object? data, string extension, string? name = null)
     {
         Extension = extension;
         Name = FileNameCleaner.SanitizeFilePath(name);

@@ -35,11 +35,10 @@ partial class InnerVerifier
     async Task<(Func<Task> cleanup, List<StringOrStream> stringOrStreams)> ProcessTargets(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExtensionConversion, bool ignoreNullRoot)
     {
         var resultTargets = new List<Target>();
-        if (TryGetRootTarget(root, ignoreNullRoot, out var rootTarget))
+        if (ignoreNullRoot && root == null)
         {
-            resultTargets.Add(rootTarget.Value);
+            targets = [new((object?)null, settings.TxtOrJson, null), ..targets];
         }
-
         cleanup ??= () => Task.CompletedTask;
 
         List<Target> list = [..targets, ..VerifierSettings.GetFileAppenders(settings)];
@@ -76,6 +75,39 @@ partial class InnerVerifier
 
         resultTargets.AddRange(list);
 
+        var appends = VerifierSettings.GetJsonAppenders(settings);
+        var hasAppends = appends.Count > 0;
+        if (hasAppends)
+        {
+            var resultTarget = resultTargets[0];
+            if (resultTarget.IsStream)
+            {
+                var target = new Target(new InfoBuilder(ignoreNullRoot, null, appends), settings.TxtOrJson);
+                resultTargets.Insert(0, target);
+            }
+            else if (resultTarget.IsString)
+            {
+                var stringData = resultTarget.stringBuilderData!;
+                string stringRoot;
+                if (stringData.Length == 0)
+                {
+                    stringRoot = "emptyString";
+                }
+                else
+                {
+                    stringRoot = stringData.ToString();
+                }
+
+                var target = new Target(new InfoBuilder(false, stringRoot, appends), settings.TxtOrJson);
+                resultTargets.Insert(0, target);
+            }
+            else
+            {
+                var target = new Target(new InfoBuilder(ignoreNullRoot, resultTarget.objectData!, appends), settings.TxtOrJson);
+                resultTargets.Insert(0, target);
+            }
+        }
+
         foreach (var target in resultTargets)
         {
             if (target.TryGetStringBuilder(out var builder))
@@ -107,41 +139,5 @@ partial class InnerVerifier
             })
             .ToList();
         return (cleanup, stringOrStreams);
-    }
-
-    bool TryGetRootTarget(object? root, bool ignoreNullRoot, [NotNullWhen(true)] out Target? target)
-    {
-        var appends = VerifierSettings.GetJsonAppenders(settings);
-
-        var hasAppends = appends.Count > 0;
-
-        if (ignoreNullRoot && root == null && !hasAppends)
-        {
-            target = null;
-            return false;
-        }
-
-        if (root is string stringRoot)
-        {
-            stringRoot = stringRoot.TrimPreamble();
-            if (stringRoot.Length == 0)
-            {
-                stringRoot = "emptyString";
-            }
-
-            if (hasAppends)
-            {
-                target = new(new InfoBuilder(false, stringRoot, appends), settings.TxtOrJson);
-            }
-            else
-            {
-                target = new("txt", new StringBuilder(stringRoot));
-            }
-
-            return true;
-        }
-
-        target = new(new InfoBuilder(ignoreNullRoot, root, appends), settings.TxtOrJson);
-        return true;
     }
 }

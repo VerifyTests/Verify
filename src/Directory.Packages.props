@@ -24,7 +24,7 @@
     <PackageVersion Include="NUnit3TestAdapter" Version="6.0.0" />
     <PackageVersion Include="Polyfill" Version="9.3.1" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.163" />
-    <PackageVersion Include="PublicApiGenerator" Version="11.5.3" />
+    <PackageVersion Include="PublicApiGenerator" Version="11.5.4" />
     <PackageVersion Include="SimpleInfoName" Version="3.1.2" />
     <PackageVersion Include="System.Drawing.Common" Version="10.0.0" />
     <PackageVersion Include="System.Memory" Version="4.6.3" />

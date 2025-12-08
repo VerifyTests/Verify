@@ -7,13 +7,12 @@ partial class InnerVerifier
 
     async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExtensionConversion, bool ignoreNullRoot)
     {
+        cleanup ??= () => Task.CompletedTask;
         var resultTargets = new List<Target>();
         if (TryGetRootTarget(root, ignoreNullRoot, out var rootTarget))
         {
             resultTargets.Add(rootTarget.Value);
         }
-
-        cleanup ??= () => Task.CompletedTask;
 
         var (extraTargets, extraCleanup) = await GetTargets(targets, doExtensionConversion);
         cleanup += extraCleanup;
@@ -51,27 +50,8 @@ partial class InnerVerifier
             var result = new List<Target>();
             foreach (var target in list)
             {
-                if (!target.PerformConversion ||
-                    !VerifierSettings.HasStreamConverter(target.Extension))
-                {
-                    result.Add(target);
-                    continue;
-                }
-
-                var (info, converted, itemCleanup) = await DoExtensionConversion(target.Extension, target.StreamData, null, target.Name);
+                var itemCleanup = await ProcessTarget(target, result);
                 cleanup += itemCleanup;
-                if (info != null)
-                {
-                    result.Add(
-                        new(
-                            settings.TxtOrJson,
-                            JsonFormatter.AsJson(
-                                settings,
-                                counter,
-                                info)));
-                }
-
-                result.AddRange(converted);
             }
 
             list = result;
@@ -86,6 +66,31 @@ partial class InnerVerifier
         }
 
         return (list, cleanup);
+    }
+
+    private async Task<Func<Task>?> ProcessTarget(Target target, List<Target> result)
+    {
+        if (!target.PerformConversion ||
+            !VerifierSettings.HasStreamConverter(target.Extension))
+        {
+            result.Add(target);
+            return null;
+        }
+
+        var (info, converted, cleanup) = await DoExtensionConversion(target.Extension, target.StreamData, null, target.Name);
+        if (info != null)
+        {
+            result.Add(
+                new(
+                    settings.TxtOrJson,
+                    JsonFormatter.AsJson(
+                        settings,
+                        counter,
+                        info)));
+        }
+
+        result.AddRange(converted);
+        return cleanup;
     }
 
     bool TryGetRootTarget(object? root,bool ignoreNullRoot, [NotNullWhen(true)] out Target? target)

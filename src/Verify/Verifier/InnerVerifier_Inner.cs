@@ -8,15 +8,8 @@ partial class InnerVerifier
     async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExtensionConversion, bool ignoreNullRoot)
     {
         cleanup ??= () => Task.CompletedTask;
-        var resultTargets = new List<Target>();
-        if (TryGetRootTarget(root, ignoreNullRoot, out var rootTarget))
-        {
-            resultTargets.Add(rootTarget.Value);
-        }
-
-        var (extraTargets, extraCleanup) = await GetTargets(targets, doExtensionConversion);
+        var (resultTargets, extraCleanup) = await GetTargets(root, targets, doExtensionConversion, ignoreNullRoot);
         cleanup += extraCleanup;
-        resultTargets.AddRange(extraTargets);
         var engine = new VerifyEngine(
             directory,
             settings,
@@ -39,6 +32,19 @@ partial class InnerVerifier
         }
 
         return new(filePairs, root);
+    }
+
+    async Task<(List<Target> resultTargets, Func<Task> extraCleanup)> GetTargets(object? root, IEnumerable<Target> targets, bool doExtensionConversion, bool ignoreNullRoot)
+    {
+        var resultTargets = new List<Target>();
+        if (TryGetRootTarget(root, ignoreNullRoot, out var rootTarget))
+        {
+            resultTargets.Add(rootTarget.Value);
+        }
+
+        var (extraTargets, extraCleanup) = await GetTargets(targets, doExtensionConversion);
+        resultTargets.AddRange(extraTargets);
+        return (resultTargets, extraCleanup);
     }
 
     async Task<(List<Target> extra, Func<Task> cleanup)> GetTargets(IEnumerable<Target> targets, bool doExtensionConversion)

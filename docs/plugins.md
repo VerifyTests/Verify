@@ -137,6 +137,7 @@ public static class ModuleInitializer
 * [Verify.NServiceBus](https://github.com/VerifyTests/Verify.NServiceBus): Verify NServiceBus Test Contexts.
 * [Verify.NSubstitute](https://github.com/VerifyTests/Verify.NSubstitute): Support for [NSubstitute](https://nsubstitute.github.io/) types.
 * [Verify.Nupkg](https://github.com/MattKotsenas/Verify.Nupkg/): Verification of [NuGet .nupkg](https://learn.microsoft.com/en-us/nuget/what-is-nuget) files.
+* [Verify.OpenXml](https://github.com/MattKotsenas/Verify.OpenXml/): Verification of Excel documents via  [OpenXML](https://github.com/dotnet/Open-XML-SDK/).
 * [Verify.Pandoc](https://github.com/VerifyTests/Verify.Pandoc): Verification of documents via [PandocNet](https://github.com/SimonCropp/PandocNet).
 * [Verify.PdfPig](https://github.com/VerifyTests/Verify.PdfPig): Verification of pdfs via [PdfPig](https://github.com/UglyToad/PdfPig).
 * [Verify.ParametersHashing](https://github.com/VerifyTests/Verify.ParametersHashing): Extends Verify to allow hashing of parameters to mitigate long file names.

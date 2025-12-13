@@ -23,7 +23,7 @@ class VerifyEngine(
     public IReadOnlyList<FilePair> Equal => equal;
     public IReadOnlyList<FilePair> AutoVerified => autoVerified;
 
-    static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, Target target, bool previousTextFailed)
+    static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, ResolvedTarget target, bool previousTextFailed)
     {
         try
         {
@@ -48,7 +48,7 @@ class VerifyEngine(
         }
     }
 
-    public async Task HandleResults(List<Target> targetList)
+    public async Task HandleResults(List<ResolvedTarget> targetList)
     {
         if (targetList.Count == 1)
         {
@@ -61,7 +61,7 @@ class VerifyEngine(
 
         var textHasFailed = false;
 
-        async Task Inner(FilePair file, Target target)
+        async Task Inner(FilePair file, ResolvedTarget target)
         {
             var result = await GetResult(settings, file, target, textHasFailed);
 

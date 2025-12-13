@@ -141,7 +141,8 @@ partial class InnerVerifier
         {
             var target = queue.Dequeue();
 
-            if (!VerifierSettings.TryGetStreamConverter(target.Extension, out var conversion))
+            if (target.Extension is null ||
+                !VerifierSettings.TryGetStreamConverter(target.Extension, out var conversion))
             {
                 targets.Add(target);
                 continue;

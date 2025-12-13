@@ -1,4 +1,4 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 partial class InnerVerifier
 {
@@ -32,9 +32,9 @@ partial class InnerVerifier
         return new(filePairs, root);
     }
 
-    async Task<(Func<Task> cleanup, List<Target> resultTargets)> GetTargets(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExtensionConversion, bool ignoreNullRoot)
+    async Task<(Func<Task> cleanup, List<ResolvedTarget> resultTargets)> GetTargets(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExtensionConversion, bool ignoreNullRoot)
     {
-        var resultTargets = new List<Target>();
+        var resultTargets = new List<ResolvedTarget>();
         if (TryGetRootTarget(root, ignoreNullRoot, out var rootTarget))
         {
             resultTargets.Add(rootTarget.Value);
@@ -50,6 +50,7 @@ partial class InnerVerifier
             foreach (var target in list)
             {
                 if (!target.PerformConversion ||
+                    target.Extension is null ||
                     !VerifierSettings.HasStreamConverter(target.Extension))
                 {
                     result.Add(target);
@@ -75,7 +76,17 @@ partial class InnerVerifier
             list = result;
         }
 
+        // Resolve all targets (including objects) to ResolvedTargets
+        var extraTargets = new List<ResolvedTarget>();
         foreach (var target in list)
+        {
+            var (resolvedList, resolveCleanup) = await ResolveTarget(target);
+            cleanup1 += resolveCleanup;
+            extraTargets.AddRange(resolvedList);
+        }
+
+        // Apply scrubbers to StringBuilder targets (not to root target)
+        foreach (var target in extraTargets)
         {
             if (target.TryGetStringBuilder(out var builder))
             {
@@ -83,13 +94,103 @@ partial class InnerVerifier
             }
         }
 
-        var (extraTargets, extraCleanup) = ((List<Target> extra, Func<Task> cleanup)) (list, cleanup: cleanup1);
-        cleanup += extraCleanup;
+        cleanup += cleanup1;
         resultTargets.AddRange(extraTargets);
         return (cleanup, resultTargets);
     }
 
-    bool TryGetRootTarget(object? root,bool ignoreNullRoot, [NotNullWhen(true)] out Target? target)
+    async Task<(List<ResolvedTarget> targets, Func<Task> cleanup)> ResolveTarget(Target target)
+    {
+        var cleanup = () => Task.CompletedTask;
+        var results = new List<ResolvedTarget>();
+
+        // If target has an extension, it's already resolved (Stream or StringBuilder)
+        if (target.Extension is not null)
+        {
+            if (target.TryGetStream(out var stream))
+            {
+                results.Add(new ResolvedTarget(target.Extension, stream, target.Name));
+            }
+            else if (target.TryGetStringBuilder(out var sb))
+            {
+                results.Add(new ResolvedTarget(target.Extension, sb, target.Name));
+            }
+            return (results, cleanup);
+        }
+
+        // Target contains an arbitrary object - resolve it
+        var data = target.Data;
+        if (data is null)
+        {
+            return (results, cleanup);
+        }
+
+        // Handle Stream without extension
+        if (data is Stream stream2)
+        {
+            results.Add(new ResolvedTarget("bin", stream2, target.Name));
+            return (results, cleanup);
+        }
+
+        // Handle StringBuilder
+        if (data is StringBuilder sb2)
+        {
+            results.Add(new ResolvedTarget("txt", sb2, target.Name));
+            return (results, cleanup);
+        }
+
+        // Handle string
+        if (data is string str)
+        {
+            results.Add(new ResolvedTarget("txt", str, target.Name));
+            return (results, cleanup);
+        }
+
+        // Try typed converter
+        if (VerifierSettings.TryGetTypedConverter(data, settings, out var converter))
+        {
+            var conversionResult = await converter.Conversion(data, settings.Context);
+            if (conversionResult.Cleanup != null)
+            {
+                cleanup += conversionResult.Cleanup;
+            }
+
+            // Recursively resolve the conversion result targets
+            foreach (var convTarget in conversionResult.Targets)
+            {
+                var (resolved, resolveCleanup) = await ResolveTarget(convTarget);
+                cleanup += resolveCleanup;
+                results.AddRange(resolved);
+            }
+
+            // Add info as a separate target if present
+            if (conversionResult.Info != null)
+            {
+                results.Insert(0, new ResolvedTarget(
+                    settings.TxtOrJson,
+                    JsonFormatter.AsJson(settings, counter, conversionResult.Info)));
+            }
+
+            return (results, cleanup);
+        }
+
+        // Try ToString converter
+        if (VerifierSettings.TryGetToString(data, out var toString))
+        {
+            var stringResult = toString(data, settings.Context);
+            var extension = stringResult.Extension ?? "txt";
+            results.Add(new ResolvedTarget(extension, stringResult.Value, target.Name));
+            return (results, cleanup);
+        }
+
+        // Fall back to JSON serialization
+        results.Add(new ResolvedTarget(
+            settings.TxtOrJson,
+            JsonFormatter.AsJson(settings, counter, data)));
+        return (results, cleanup);
+    }
+
+    bool TryGetRootTarget(object? root, bool ignoreNullRoot, [NotNullWhen(true)] out ResolvedTarget? target)
     {
         var appends = VerifierSettings.GetJsonAppenders(settings);
 

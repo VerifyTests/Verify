@@ -38,4 +38,14 @@ public readonly struct ConversionResult
         Cleanup = cleanup;
         Targets = [new(extension, data)];
     }
+
+    /// <summary>
+    /// Creates a ConversionResult with an arbitrary object that will be resolved later in the pipeline.
+    /// </summary>
+    public ConversionResult(object? info, object data, Func<Task>? cleanup = null)
+    {
+        Info = info;
+        Cleanup = cleanup;
+        Targets = [new Target(data)];
+    }
 }

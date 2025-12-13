@@ -1,10 +1,9 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 public readonly struct Target
 {
-    readonly StringBuilder? stringBuilderData;
-    readonly Stream? streamData;
-    public string Extension { get; }
+    public object? Data { get; }
+    public string? Extension { get; }
     public string? Name { get; } = null;
     public bool PerformConversion { get; } = true;
     public string NameOrTarget => Name ?? "target";
@@ -13,23 +12,37 @@ public readonly struct Target
     {
         get
         {
-            if (streamData is null)
+            if (Data is not Stream stream)
             {
-                throw new("Use StringData or StringBuilderData.");
+                throw new("Data is not a Stream. Use Data property to access the underlying data.");
             }
 
-            return streamData;
+            return stream;
         }
     }
 
-    public bool IsStream => streamData is not null;
-    public bool IsString => stringBuilderData is not null;
+    public bool IsStream => Data is Stream;
+    public bool IsStringBuilder => Data is StringBuilder;
+    public bool IsString => Data is string;
+    public bool IsObject => Data is not null && !IsStream && !IsStringBuilder && !IsString;
 
     internal bool TryGetStringBuilder([NotNullWhen(true)] out StringBuilder? value)
     {
-        if (stringBuilderData is { } builder)
+        if (Data is StringBuilder builder)
         {
             value = builder;
+            return true;
+        }
+
+        value = null;
+        return false;
+    }
+
+    internal bool TryGetStream([NotNullWhen(true)] out Stream? value)
+    {
+        if (Data is Stream stream)
+        {
+            value = stream;
             return true;
         }
 
@@ -52,7 +65,7 @@ public readonly struct Target
             throw new(
                 $"""
                  Don't pass a stream for text.
-                 If {extension} is not a text extension then use `FileExtensions.RemoveTextExtensions(\"{extension}\")` at initialization;
+                 If {extension} is not a text extension then use `FileExtensions.RemoveTextExtensions("{extension}")` at initialization;
                  Otherwise use `Target(string extension, string data)` or `Target(string extension, StringBuilder data, string? name)`.
                  """);
         }
@@ -60,21 +73,19 @@ public readonly struct Target
         Extension = extension;
         Name = FileNameCleaner.SanitizeFilePath(name);
         PerformConversion = performConversion;
-        streamData = data;
-        stringBuilderData = null;
+        Data = data;
     }
 
     public Target(string extension, StringBuilder data, string? name = null)
     {
-        ValidateExtension(extension);
+        ValidateTextExtension(extension);
 
         Extension = extension;
         Name = FileNameCleaner.SanitizeFilePath(name);
-        streamData = null;
-        stringBuilderData = data;
+        Data = data;
     }
 
-    static void ValidateExtension(string extension)
+    static void ValidateTextExtension(string extension)
     {
         Guards.AgainstBadExtension(extension);
         if (extension == "noextension" ||
@@ -93,11 +104,22 @@ public readonly struct Target
 
     public Target(string extension, string data, string? name = null)
     {
-        ValidateExtension(extension);
+        ValidateTextExtension(extension);
 
         Extension = extension;
         Name = FileNameCleaner.SanitizeFilePath(name);
-        stringBuilderData = new(data);
-        streamData = null;
+        Data = new StringBuilder(data);
+    }
+
+    /// <summary>
+    /// Creates a Target wrapping an arbitrary object.
+    /// The object will be resolved to a stream or string later in the verification pipeline.
+    /// </summary>
+    public Target(object data, string? name = null)
+    {
+        Data = data;
+        Extension = null;
+        Name = FileNameCleaner.SanitizeFilePath(name);
+        PerformConversion = true;
     }
 }

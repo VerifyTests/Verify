@@ -7,17 +7,7 @@ partial class InnerVerifier
 
     async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExtensionConversion, bool ignoreNullRoot)
     {
-        var resultTargets = new List<Target>();
-        if (TryGetRootTarget(root, ignoreNullRoot, out var rootTarget))
-        {
-            resultTargets.Add(rootTarget.Value);
-        }
-
-        cleanup ??= () => Task.CompletedTask;
-
-        var (extraTargets, extraCleanup) = await GetTargets(targets, doExtensionConversion);
-        cleanup += extraCleanup;
-        resultTargets.AddRange(extraTargets);
+        (cleanup, var resultTargets) = await GetTargets(root, cleanup, targets, doExtensionConversion, ignoreNullRoot);
         var engine = new VerifyEngine(
             directory,
             settings,
@@ -42,10 +32,18 @@ partial class InnerVerifier
         return new(filePairs, root);
     }
 
-    async Task<(List<Target> extra, Func<Task> cleanup)> GetTargets(IEnumerable<Target> targets, bool doExtensionConversion)
+    async Task<(Func<Task> cleanup, List<Target> resultTargets)> GetTargets(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExtensionConversion, bool ignoreNullRoot)
     {
+        var resultTargets = new List<Target>();
+        if (TryGetRootTarget(root, ignoreNullRoot, out var rootTarget))
+        {
+            resultTargets.Add(rootTarget.Value);
+        }
+
+        cleanup ??= () => Task.CompletedTask;
+
         List<Target> list = [..targets, ..VerifierSettings.GetFileAppenders(settings)];
-        var cleanup = () => Task.CompletedTask;
+        var cleanup1 = () => Task.CompletedTask;
         if (doExtensionConversion)
         {
             var result = new List<Target>();
@@ -59,7 +57,7 @@ partial class InnerVerifier
                 }
 
                 var (info, converted, itemCleanup) = await DoExtensionConversion(target.Extension, target.StreamData, null, target.Name);
-                cleanup += itemCleanup;
+                cleanup1 += itemCleanup;
                 if (info != null)
                 {
                     result.Add(
@@ -85,7 +83,10 @@ partial class InnerVerifier
             }
         }
 
-        return (list, cleanup);
+        var (extraTargets, extraCleanup) = ((List<Target> extra, Func<Task> cleanup)) (list, cleanup: cleanup1);
+        cleanup += extraCleanup;
+        resultTargets.AddRange(extraTargets);
+        return (cleanup, resultTargets);
     }
 
     bool TryGetRootTarget(object? root,bool ignoreNullRoot, [NotNullWhen(true)] out Target? target)

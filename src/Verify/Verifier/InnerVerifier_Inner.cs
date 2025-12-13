@@ -118,18 +118,56 @@ partial class InnerVerifier
             return (results, cleanup);
         }
 
-        // Target contains an arbitrary object - resolve it
+        // Target contains an arbitrary object - resolve it using full type matching
         var data = target.Data;
         if (data is null)
         {
             return (results, cleanup);
         }
 
-        // Handle Stream without extension
+        // Handle XContainer (XDocument, XElement)
+        if (data is XContainer container)
+        {
+            var xmlString = ConvertXmlToString(container);
+            results.Add(new ResolvedTarget("xml", xmlString, target.Name));
+            return (results, cleanup);
+        }
+
+        // Handle XmlNode
+        if (data is XmlNode node)
+        {
+            using var reader = new XmlNodeReader(node);
+            reader.MoveToContent();
+            var xdoc = XDocument.Load(reader);
+            var xmlString = ConvertXmlToString(xdoc);
+            results.Add(new ResolvedTarget("xml", xmlString, target.Name));
+            return (results, cleanup);
+        }
+
+        // Handle FileStream (get extension from filename)
+        if (data is FileStream fileStream)
+        {
+            var extension = fileStream.Extension();
+            return await ResolveStream(fileStream, extension, target.Name);
+        }
+
+        // Handle Stream
         if (data is Stream stream2)
         {
-            results.Add(new ResolvedTarget("bin", stream2, target.Name));
-            return (results, cleanup);
+            return await ResolveStream(stream2, "bin", target.Name);
+        }
+
+        // Handle byte[]
+        if (data is byte[] bytes)
+        {
+            var memStream = new MemoryStream(bytes);
+            return await ResolveStream(memStream, "bin", target.Name);
+        }
+
+        // Handle IEnumerable<Stream> - throw error as in Verify(object)
+        if (data is IEnumerable<Stream>)
+        {
+            throw new("Use Verify(IEnumerable<T> targets, string extension)");
         }
 
         // Handle StringBuilder
@@ -143,6 +181,15 @@ partial class InnerVerifier
         if (data is string str)
         {
             results.Add(new ResolvedTarget("txt", str, target.Name));
+            return (results, cleanup);
+        }
+
+        // Try ToString converter (before typed converter, matching Verify(object) order)
+        if (VerifierSettings.TryGetToString(data, out var toString))
+        {
+            var stringResult = toString(data, settings.Context);
+            var extension = stringResult.Extension ?? "txt";
+            results.Add(new ResolvedTarget(extension, stringResult.Value, target.Name));
             return (results, cleanup);
         }
 
@@ -174,20 +221,141 @@ partial class InnerVerifier
             return (results, cleanup);
         }
 
-        // Try ToString converter
-        if (VerifierSettings.TryGetToString(data, out var toString))
-        {
-            var stringResult = toString(data, settings.Context);
-            var extension = stringResult.Extension ?? "txt";
-            results.Add(new ResolvedTarget(extension, stringResult.Value, target.Name));
-            return (results, cleanup);
-        }
-
         // Fall back to JSON serialization
         results.Add(new ResolvedTarget(
             settings.TxtOrJson,
             JsonFormatter.AsJson(settings, counter, data)));
         return (results, cleanup);
+    }
+
+    async Task<(List<ResolvedTarget> targets, Func<Task> cleanup)> ResolveStream(Stream stream, string extension, string? name)
+    {
+        var cleanup = () => Task.CompletedTask;
+        var results = new List<ResolvedTarget>();
+
+        stream.MoveToStart();
+
+        // Check for stream converter
+        if (VerifierSettings.HasStreamConverter(extension))
+        {
+            var (info, converted, convCleanup) = await DoExtensionConversion(extension, stream, null, name);
+            cleanup += convCleanup;
+
+            // Add info target if present
+            if (info != null)
+            {
+                results.Add(new ResolvedTarget(
+                    settings.TxtOrJson,
+                    JsonFormatter.AsJson(settings, counter, info)));
+            }
+
+            // Recursively resolve converted targets (they may contain objects)
+            foreach (var convTarget in converted)
+            {
+                var (resolved, resolveCleanup) = await ResolveTarget(convTarget);
+                cleanup += resolveCleanup;
+                results.AddRange(resolved);
+            }
+
+            return (results, cleanup);
+        }
+
+        // No converter - convert stream directly to ResolvedTarget
+        if (FileExtensions.IsTextExtension(extension))
+        {
+            results.Add(new ResolvedTarget(extension, await stream.ReadStringBuilderWithFixedLines(), name));
+        }
+        else
+        {
+            results.Add(new ResolvedTarget(extension, stream, name));
+        }
+
+        return (results, cleanup);
+    }
+
+    string ConvertXmlToString(XContainer target)
+    {
+        var serialization = settings.serialization;
+        var elements = target
+            .Descendants()
+            .ToList();
+
+        foreach (var element in elements)
+        {
+            if (serialization.TryGetScrubOrIgnoreByName(element.Name.LocalName, out var scrubOrIgnore))
+            {
+                if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+                {
+                    element.Remove();
+                }
+                else
+                {
+                    element.Value = "Scrubbed";
+                }
+
+                continue;
+            }
+
+            ScrubXmlAttributes(element, serialization);
+        }
+
+        foreach (var node in target.DescendantNodes())
+        {
+            switch (node)
+            {
+                case XText text:
+                    text.Value = ConvertXmlValue(text.Value);
+                    continue;
+                case XComment comment:
+                    comment.Value = ConvertXmlValue(comment.Value);
+                    continue;
+            }
+        }
+
+        return target.ToString();
+    }
+
+    string ConvertXmlValue(string value)
+    {
+        var span = value.AsSpan();
+        if (counter.TryConvert(span, out var result))
+        {
+            return result;
+        }
+
+        return ApplyScrubbers.ApplyForPropertyValue(span, settings, counter).ToString();
+    }
+
+    void ScrubXmlAttributes(XElement node, SerializationSettings serialization)
+    {
+        foreach (var attribute in node
+                     .Attributes()
+                     .ToList())
+        {
+            if (serialization.TryGetScrubOrIgnoreByName(attribute.Name.LocalName, out var scrubOrIgnore))
+            {
+                if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+                {
+                    attribute.Remove();
+                }
+                else
+                {
+                    attribute.Value = "Scrubbed";
+                }
+
+                continue;
+            }
+
+            var span = attribute.Value.AsSpan();
+            if (counter.TryConvert(span, out var result))
+            {
+                attribute.Value = result;
+            }
+            else
+            {
+                attribute.Value = ApplyScrubbers.ApplyForPropertyValue(span, settings, counter).ToString();
+            }
+        }
     }
 
     bool TryGetRootTarget(object? root, bool ignoreNullRoot, [NotNullWhen(true)] out ResolvedTarget? target)

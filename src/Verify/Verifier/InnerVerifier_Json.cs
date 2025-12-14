@@ -33,7 +33,7 @@ partial class InnerVerifier
     {
         if (target is null)
         {
-            return VerifyInner(target, null, emptyTargets, true, false);
+            return VerifyInner(target, null, emptyTargets, false);
         }
 
         return VerifyJson(JToken.Parse(target));
@@ -49,7 +49,7 @@ partial class InnerVerifier
     {
         if (target is null)
         {
-            return await VerifyInner(target, null, emptyTargets, true, false);
+            return await VerifyInner(target, null, emptyTargets, false);
         }
 
         using var reader = new StreamReader(target);
@@ -59,5 +59,5 @@ partial class InnerVerifier
     }
 
     public Task<VerifyResult> VerifyJson(JToken target) =>
-        VerifyInner(target, null, emptyTargets, true, false);
+        VerifyInner(target, null, emptyTargets, false);
 }

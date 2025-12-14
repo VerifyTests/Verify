@@ -9,7 +9,7 @@ partial class InnerVerifier
     }
 
     public Task<VerifyResult> VerifyString(string? value) =>
-        VerifyInner(value, null, emptyTargets, true, false);
+        VerifyInner(value, null, emptyTargets, false);
 
     public async Task<VerifyResult> VerifyString(Task<string> task, string extension)
     {

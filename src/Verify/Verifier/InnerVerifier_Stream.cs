@@ -96,7 +96,7 @@ partial class InnerVerifier
             target = new(extension, stream);
         }
 
-        return await VerifyInner(info, stream.DisposeAsyncEx, [target], true, true);
+        return await VerifyInner(info, stream.DisposeAsyncEx, [target], true);
     }
 
     //TODO: possibly pass in the target here

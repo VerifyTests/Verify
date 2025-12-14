@@ -392,7 +392,7 @@ public partial class InnerVerifier :
     }
 
     public Task<VerifyResult> Verify(object? target, IEnumerable<Target> rawTargets) =>
-        VerifyInner(target, null, rawTargets, true, false);
+        VerifyInner(target, null, rawTargets, false);
 
     public Task<VerifyResult> Verify(Target target) =>
         VerifyInner([target]);

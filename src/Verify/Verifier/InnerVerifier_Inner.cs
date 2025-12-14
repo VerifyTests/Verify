@@ -3,11 +3,11 @@ namespace VerifyTests;
 partial class InnerVerifier
 {
     Task<VerifyResult> VerifyInner(IEnumerable<Target> targets) =>
-        VerifyInner(null, null, targets, true, true);
+        VerifyInner(null, null, targets, true);
 
-    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExtensionConversion, bool ignoreNullRoot)
+    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool ignoreNullRoot)
     {
-        (cleanup, var resultTargets) = await GetTargets(root, cleanup, targets, doExtensionConversion, ignoreNullRoot);
+        (cleanup, var resultTargets) = await GetTargets(root, cleanup, targets, ignoreNullRoot);
         var engine = new VerifyEngine(
             directory,
             settings,
@@ -32,7 +32,7 @@ partial class InnerVerifier
         return new(filePairs, root);
     }
 
-    async Task<(Func<Task> cleanup, List<ResolvedTarget> resultTargets)> GetTargets(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExtensionConversion, bool ignoreNullRoot)
+    async Task<(Func<Task> cleanup, List<ResolvedTarget> resultTargets)> GetTargets(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool ignoreNullRoot)
     {
         var resultTargets = new List<ResolvedTarget>();
         cleanup ??= () => Task.CompletedTask;
@@ -42,91 +42,68 @@ partial class InnerVerifier
         // Check if root is in targets list (to avoid duplicate processing)
         var rootInTargets = root != null && list.Any(t => ReferenceEquals(t.Data, root));
 
-        // Process extension conversions first (may produce converter info that becomes root)
-        List<object>? converterInfos = null;
-        if (doExtensionConversion)
+        // Process stream converters (may produce converter info that becomes root)
+        var converted = new List<Target>();
+        var converterInfos = new List<object>();
+        foreach (var target in list)
         {
-            var result = new List<Target>();
-            converterInfos = [];
-            foreach (var target in list)
+            if (!target.PerformConversion ||
+                target.Extension is null ||
+                !VerifierSettings.HasStreamConverter(target.Extension))
             {
-                if (!target.PerformConversion ||
-                    target.Extension is null ||
-                    !VerifierSettings.HasStreamConverter(target.Extension))
-                {
-                    result.Add(target);
-                    continue;
-                }
-
-                var (info, converted, itemCleanup) = await DoExtensionConversion(target.Extension, target.StreamData, null, target.Name);
-                cleanup += itemCleanup;
-                if (info != null)
-                {
-                    converterInfos.Add(info);
-                }
-
-                result.AddRange(converted);
+                converted.Add(target);
+                continue;
             }
 
-            // If root is null and converters returned info, use converter info as root (for appenders)
-            if (!rootInTargets && root == null && converterInfos.Count > 0)
+            var (info, convTargets, itemCleanup) = await DoExtensionConversion(target.Extension, target.StreamData, null, target.Name);
+            cleanup += itemCleanup;
+            if (info != null)
             {
-                root = converterInfos.Count == 1 ? converterInfos[0] : converterInfos;
-                converterInfos = null; // Already used as root, don't add again
+                converterInfos.Add(info);
             }
 
-            list = result;
+            converted.AddRange(convTargets);
         }
 
-        // Process root via TryGetRootTarget (after extension conversion so converter info can become root)
+        // If root is null and converters returned info, use converter info as root (for appenders)
+        if (!rootInTargets && root == null && converterInfos.Count > 0)
+        {
+            root = converterInfos.Count == 1 ? converterInfos[0] : converterInfos;
+            converterInfos.Clear();
+        }
+
+        // Add root target first
         if (!rootInTargets && TryGetRootTarget(root, ignoreNullRoot, out var rootTarget))
         {
             resultTargets.Add(rootTarget.Value);
         }
 
-        // Add converter infos right after root (before other targets)
-        if (converterInfos != null)
+        // Add converter infos after root
+        foreach (var info in converterInfos)
         {
-            foreach (var info in converterInfos)
-            {
-                resultTargets.Add(
-                    new(
-                        settings.TxtOrJson,
-                        JsonFormatter.AsJson(
-                            settings,
-                            counter,
-                            info)));
-            }
+            resultTargets.Add(
+                new(
+                    settings.TxtOrJson,
+                    JsonFormatter.AsJson(settings, counter, info)));
         }
 
-        // Resolve all targets (including objects) to ResolvedTargets
-        var extraTargets = new List<ResolvedTarget>();
-        var noScrubTargets = new List<ResolvedTarget>();
-        foreach (var target in list)
+        // Resolve remaining targets and apply scrubbers inline
+        foreach (var target in converted)
         {
             var (resolvedList, resolveCleanup, applyScrubbers) = await ResolveTarget(target);
             cleanup += resolveCleanup;
-            if (applyScrubbers)
+
+            foreach (var resolved in resolvedList)
             {
-                extraTargets.AddRange(resolvedList);
-            }
-            else
-            {
-                noScrubTargets.AddRange(resolvedList);
+                if (applyScrubbers && resolved.TryGetStringBuilder(out var builder))
+                {
+                    ApplyScrubbers.ApplyForExtension(resolved.Extension, builder, settings, counter);
+                }
+
+                resultTargets.Add(resolved);
             }
         }
 
-        // Apply scrubbers to StringBuilder targets (not to root-like targets)
-        foreach (var target in extraTargets)
-        {
-            if (target.TryGetStringBuilder(out var builder))
-            {
-                ApplyScrubbers.ApplyForExtension(target.Extension, builder, settings, counter);
-            }
-        }
-
-        resultTargets.AddRange(noScrubTargets);
-        resultTargets.AddRange(extraTargets);
         return (cleanup, resultTargets);
     }
 

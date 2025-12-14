@@ -22,7 +22,7 @@ partial class InnerVerifier
 
         try
         {
-            return await VerifyInner(list, null, emptyTargets, true, false);
+            return await VerifyInner(list, null, emptyTargets, false);
         }
         finally
         {

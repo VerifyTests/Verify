@@ -14,7 +14,7 @@ partial class InnerVerifier
     {
         if (target is null)
         {
-            return VerifyInner(target, null, emptyTargets, true, false);
+            return VerifyInner(target, null, emptyTargets, false);
         }
 
         return VerifyXml(XDocument.Parse(target));
@@ -31,7 +31,7 @@ partial class InnerVerifier
     {
         if (target is null)
         {
-            return await VerifyInner(target, null, emptyTargets, true, false);
+            return await VerifyInner(target, null, emptyTargets, false);
         }
 
         var document = await XDocument.LoadAsync(target, LoadOptions.None, default);
@@ -42,7 +42,7 @@ partial class InnerVerifier
     {
         if (target is null)
         {
-            return await VerifyInner(target, null, emptyTargets, true, false);
+            return await VerifyInner(target, null, emptyTargets, false);
         }
 
         using var reader = new XmlNodeReader(target);
@@ -55,7 +55,7 @@ partial class InnerVerifier
     {
         if (target is null)
         {
-            return VerifyInner(target, null, emptyTargets, true, false);
+            return VerifyInner(target, null, emptyTargets, false);
         }
 
         ScrubXml(target);

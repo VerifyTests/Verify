@@ -5,8 +5,8 @@ partial class InnerVerifier
     static IEnumerable<Target> emptyTargets = [];
 
     public Task<VerifyResult> Verify() =>
-        VerifyInner(null, null, emptyTargets, true, true);
+        VerifyInner(null, null, emptyTargets, true);
 
     public Task<VerifyResult> Verify(object? target) =>
-        VerifyInner(target, null, [new(target)], true, true);
+        VerifyInner(target, null, [new(target)], true);
 }

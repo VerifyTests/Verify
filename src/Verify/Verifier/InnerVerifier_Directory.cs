@@ -28,7 +28,7 @@ partial class InnerVerifier
                 pattern,
                 option),
             fileScrubber);
-        return await VerifyInner(info, null, targets, true, true);
+        return await VerifyInner(info, null, targets, true);
     }
 
 #else
@@ -51,12 +51,12 @@ partial class InnerVerifier
                 pattern,
                 option),
             fileScrubber);
-        return await VerifyInner(info, null, targets, true, true);
+        return await VerifyInner(info, null, targets, true);
     }
 
 #endif
 
-    async Task<List<Target>> ToTargetsForDirectory(
+    static async Task<List<Target>> ToTargetsForDirectory(
         string directoryPath,
         Func<string, bool>? include,
         IEnumerable<string> enumerateFiles,

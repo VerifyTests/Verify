@@ -21,17 +21,15 @@ partial class InnerVerifier
         object? info,
         FileScrubber? fileScrubber)
     {
-        var targets = await ToTargetsForFiles(paths, info, fileScrubber);
-        return await VerifyInner(targets);
+        var targets = await ToTargetsForFiles(paths, fileScrubber);
+        return await VerifyInner(info, null, targets, true, true);
     }
 
     async Task<List<Target>> ToTargetsForFiles(
         IEnumerable<string> enumerateFiles,
-        object? info,
         FileScrubber? fileScrubber)
     {
-        var targets = new List<Target>(1);
-        AddInfoIfNotNull(info, targets);
+        var targets = new List<Target>();
 
         foreach (var path in enumerateFiles)
         {

@@ -27,9 +27,8 @@ partial class InnerVerifier
                 path,
                 pattern,
                 option),
-            info,
             fileScrubber);
-        return await VerifyInner(targets);
+        return await VerifyInner(info, null, targets, true, true);
     }
 
 #else
@@ -51,9 +50,8 @@ partial class InnerVerifier
                 path,
                 pattern,
                 option),
-            info,
             fileScrubber);
-        return await VerifyInner(targets);
+        return await VerifyInner(info, null, targets, true, true);
     }
 
 #endif
@@ -62,11 +60,9 @@ partial class InnerVerifier
         string directoryPath,
         Func<string, bool>? include,
         IEnumerable<string> enumerateFiles,
-        object? info,
         FileScrubber? fileScrubber)
     {
-        var targets = new List<Target>(1);
-        AddInfoIfNotNull(info, targets);
+        var targets = new List<Target>();
 
         include ??= _ => true;
 
@@ -102,22 +98,6 @@ partial class InnerVerifier
         }
 
         return relativePath;
-    }
-
-    void AddInfoIfNotNull(object? info, List<Target> targets)
-    {
-        if (info is null)
-        {
-            return;
-        }
-
-        targets.Add(
-            new(
-                settings.TxtOrJson,
-                JsonFormatter.AsJson(
-                    settings,
-                    counter,
-                    info)));
     }
 
     static async Task<Target> TargetFromFile(string path, string name, FileScrubber? fileScrubber, Func<Stream> openStream)

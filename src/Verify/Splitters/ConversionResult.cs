@@ -46,6 +46,6 @@ public readonly struct ConversionResult
     {
         Info = info;
         Cleanup = cleanup;
-        Targets = [new Target(data)];
+        Targets = [new(data)];
     }
 }

@@ -8,5 +8,5 @@ partial class InnerVerifier
         VerifyInner(null, null, emptyTargets, true, true);
 
     public Task<VerifyResult> Verify(object? target) =>
-        VerifyInner(target, null, [new Target(target)], true, true);
+        VerifyInner(target, null, [new(target)], true, true);
 }

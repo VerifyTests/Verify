@@ -332,7 +332,7 @@
     public static void ReturnsObjectWithInfoInit() =>
         VerifierSettings.RegisterStreamConverter(
             "ReturnsObjectWithInfo",
-            (_, _, _) => new ConversionResult(
+            (_, _, _) => new(
                 new { InfoProperty = "InfoValue" },
                 new { DataProperty = "DataValue" }));
 

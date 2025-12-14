@@ -51,7 +51,7 @@ partial class InnerVerifier
         {
             resultTargets.Add(rootTarget.Value);
         }
-        var cleanup1 = () => Task.CompletedTask;
+
         if (doExtensionConversion)
         {
             var result = new List<Target>();
@@ -66,7 +66,7 @@ partial class InnerVerifier
                 }
 
                 var (info, converted, itemCleanup) = await DoExtensionConversion(target.Extension, target.StreamData, null, target.Name);
-                cleanup1 += itemCleanup;
+                cleanup += itemCleanup;
                 if (info != null)
                 {
                     result.Add(
@@ -90,7 +90,7 @@ partial class InnerVerifier
         foreach (var target in list)
         {
             var (resolvedList, resolveCleanup, applyScrubbers) = await ResolveTarget(target);
-            cleanup1 += resolveCleanup;
+            cleanup += resolveCleanup;
             if (applyScrubbers)
             {
                 extraTargets.AddRange(resolvedList);
@@ -110,7 +110,6 @@ partial class InnerVerifier
             }
         }
 
-        cleanup += cleanup1;
         resultTargets.AddRange(noScrubTargets);
         resultTargets.AddRange(extraTargets);
         return (cleanup, resultTargets);
@@ -127,11 +126,11 @@ partial class InnerVerifier
         {
             if (target.TryGetStream(out var stream))
             {
-                results.Add(new ResolvedTarget(target.Extension, stream, target.Name));
+                results.Add(new(target.Extension, stream, target.Name));
             }
             else if (target.TryGetStringBuilder(out var sb))
             {
-                results.Add(new ResolvedTarget(target.Extension, sb, target.Name));
+                results.Add(new(target.Extension, sb, target.Name));
             }
             return (results, cleanup, true);
         }
@@ -141,7 +140,7 @@ partial class InnerVerifier
         if (data is null)
         {
             // Serialize null to JSON using InfoBuilder - no scrubbing for JSON
-            results.Add(new ResolvedTarget(
+            results.Add(new(
                 settings.TxtOrJson,
                 JsonFormatter.AsJson(settings, counter, new InfoBuilder(false, null, []))));
             return (results, cleanup, false);
@@ -151,7 +150,7 @@ partial class InnerVerifier
         if (data is XContainer container)
         {
             var xmlString = ConvertXmlToString(container);
-            results.Add(new ResolvedTarget("xml", xmlString, target.Name));
+            results.Add(new("xml", xmlString, target.Name));
             return (results, cleanup, true);
         }
 
@@ -162,7 +161,7 @@ partial class InnerVerifier
             reader.MoveToContent();
             var xdoc = XDocument.Load(reader);
             var xmlString = ConvertXmlToString(xdoc);
-            results.Add(new ResolvedTarget("xml", xmlString, target.Name));
+            results.Add(new("xml", xmlString, target.Name));
             return (results, cleanup, true);
         }
 
@@ -198,7 +197,7 @@ partial class InnerVerifier
         // Handle StringBuilder - apply scrubbers
         if (data is StringBuilder sb2)
         {
-            results.Add(new ResolvedTarget("txt", sb2, target.Name));
+            results.Add(new("txt", sb2, target.Name));
             return (results, cleanup, true);
         }
 
@@ -215,14 +214,14 @@ partial class InnerVerifier
             if (appends.Count > 0)
             {
                 // Format as JSON with appenders - no scrubbing for JSON
-                results.Add(new ResolvedTarget(
+                results.Add(new(
                     settings.TxtOrJson,
                     JsonFormatter.AsJson(settings, counter, new InfoBuilder(false, str, appends))));
                 return (results, cleanup, false);
             }
 
             // Plain text - apply scrubbers
-            results.Add(new ResolvedTarget("txt", str, target.Name));
+            results.Add(new("txt", str, target.Name));
             return (results, cleanup, true);
         }
 
@@ -231,7 +230,7 @@ partial class InnerVerifier
         {
             var stringResult = toString(data, settings.Context);
             var extension = stringResult.Extension ?? "txt";
-            results.Add(new ResolvedTarget(extension, stringResult.Value, target.Name));
+            results.Add(new(extension, stringResult.Value, target.Name));
             return (results, cleanup, true);
         }
 
@@ -256,7 +255,7 @@ partial class InnerVerifier
             // Add info as a separate target if present
             if (conversionResult.Info != null)
             {
-                results.Insert(0, new ResolvedTarget(
+                results.Insert(0, new(
                     settings.TxtOrJson,
                     JsonFormatter.AsJson(settings, counter, conversionResult.Info)));
             }
@@ -266,7 +265,7 @@ partial class InnerVerifier
 
         // Fall back to JSON serialization with appenders - NO scrubbing (matches original TryGetRootTarget behavior)
         var jsonAppends = VerifierSettings.GetJsonAppenders(settings);
-        results.Add(new ResolvedTarget(
+        results.Add(new(
             settings.TxtOrJson,
             JsonFormatter.AsJson(settings, counter, new InfoBuilder(true, data, jsonAppends))));
         return (results, cleanup, false);
@@ -288,7 +287,7 @@ partial class InnerVerifier
             // Add info target if present
             if (info != null)
             {
-                results.Add(new ResolvedTarget(
+                results.Add(new(
                     settings.TxtOrJson,
                     JsonFormatter.AsJson(settings, counter, info)));
             }
@@ -307,11 +306,11 @@ partial class InnerVerifier
         // No converter - convert stream directly to ResolvedTarget
         if (FileExtensions.IsTextExtension(extension))
         {
-            results.Add(new ResolvedTarget(extension, await stream.ReadStringBuilderWithFixedLines(), name));
+            results.Add(new(extension, await stream.ReadStringBuilderWithFixedLines(), name));
         }
         else
         {
-            results.Add(new ResolvedTarget(extension, stream, name));
+            results.Add(new(extension, stream, name));
         }
 
         return (results, cleanup);

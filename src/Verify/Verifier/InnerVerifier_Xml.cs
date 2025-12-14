@@ -58,6 +58,13 @@ partial class InnerVerifier
             return VerifyInner(target, null, emptyTargets, true, false);
         }
 
+        ScrubXml(target);
+
+        return VerifyString(target.ToString(), "xml");
+    }
+
+    void ScrubXml(XContainer target)
+    {
         var serialization = settings.serialization;
         var elements = target
             .Descendants()
@@ -94,8 +101,6 @@ partial class InnerVerifier
                     continue;
             }
         }
-
-        return VerifyString(target.ToString(), "xml");
     }
 
     string ConvertValue(string value)

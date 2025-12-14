@@ -142,25 +142,6 @@ partial class InnerVerifier
             return (results, cleanup, false, converterInfos);
         }
 
-        // Handle XContainer (XDocument, XElement) - apply scrubbers
-        if (data is XContainer container)
-        {
-            var xmlString = ConvertXmlToString(container);
-            results.Add(new("xml", xmlString, target.Name));
-            return (results, cleanup, true, converterInfos);
-        }
-
-        // Handle XmlNode - apply scrubbers
-        if (data is XmlNode node)
-        {
-            using var reader = new XmlNodeReader(node);
-            reader.MoveToContent();
-            var xdoc = XDocument.Load(reader);
-            var xmlString = ConvertXmlToString(xdoc);
-            results.Add(new("xml", xmlString, target.Name));
-            return (results, cleanup, true, converterInfos);
-        }
-
         // Handle FileStream (get extension from filename) - apply scrubbers
         if (data is FileStream fileStream)
         {
@@ -226,7 +207,7 @@ partial class InnerVerifier
         // Try typed converter - apply scrubbers
         if (VerifierSettings.TryGetTypedConverter(data, settings, out var converter))
         {
-            var conversionResult = await converter.Conversion(data, settings.Context);
+            var conversionResult = await converter.Conversion(data, settings);
             if (conversionResult.Cleanup != null)
             {
                 cleanup += conversionResult.Cleanup;
@@ -312,91 +293,6 @@ partial class InnerVerifier
         }
 
         return (results, cleanup, converterInfos);
-    }
-
-    string ConvertXmlToString(XContainer target)
-    {
-        var serialization = settings.serialization;
-        var elements = target
-            .Descendants()
-            .ToList();
-
-        foreach (var element in elements)
-        {
-            if (serialization.TryGetScrubOrIgnoreByName(element.Name.LocalName, out var scrubOrIgnore))
-            {
-                if (scrubOrIgnore == ScrubOrIgnore.Ignore)
-                {
-                    element.Remove();
-                }
-                else
-                {
-                    element.Value = "Scrubbed";
-                }
-
-                continue;
-            }
-
-            ScrubXmlAttributes(element, serialization);
-        }
-
-        foreach (var node in target.DescendantNodes())
-        {
-            switch (node)
-            {
-                case XText text:
-                    text.Value = ConvertXmlValue(text.Value);
-                    continue;
-                case XComment comment:
-                    comment.Value = ConvertXmlValue(comment.Value);
-                    continue;
-            }
-        }
-
-        return target.ToString();
-    }
-
-    string ConvertXmlValue(string value)
-    {
-        var span = value.AsSpan();
-        if (counter.TryConvert(span, out var result))
-        {
-            return result;
-        }
-
-        return ApplyScrubbers.ApplyForPropertyValue(span, settings, counter).ToString();
-    }
-
-    void ScrubXmlAttributes(XElement node, SerializationSettings serialization)
-    {
-        foreach (var attribute in node
-                     .Attributes()
-                     .ToList())
-        {
-            if (serialization.TryGetScrubOrIgnoreByName(attribute.Name.LocalName, out var scrubOrIgnore))
-            {
-                if (scrubOrIgnore == ScrubOrIgnore.Ignore)
-                {
-                    attribute.Remove();
-                }
-                else
-                {
-                    attribute.Value = "Scrubbed";
-                }
-
-                continue;
-            }
-
-            var span = attribute.Value.AsSpan();
-            if (counter.TryConvert(span, out var result))
-            {
-                attribute.Value = result;
-            }
-            else
-            {
-                attribute.Value = ApplyScrubbers.ApplyForPropertyValue(span, settings, counter).ToString();
-            }
-        }
     }
 
     bool TryGetRootTarget(object? root, bool ignoreNullRoot, [NotNullWhen(true)] out ResolvedTarget? target)

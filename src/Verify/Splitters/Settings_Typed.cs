@@ -7,6 +7,22 @@ public static partial class VerifierSettings
     static void InitBuiltInTypedConverters() =>
         typedConverters =
         [
+            // XContainer (XDocument, XElement) - scrub and return as xml
+            new(
+                (target, settings) => Task.FromResult(new ConversionResult(null, "xml", XmlScrubber.Scrub((XContainer) target, settings))),
+                (target, _) => target is XContainer),
+
+            // XmlNode - convert to XDocument, scrub, and return as xml
+            new(
+                (target, settings) =>
+                {
+                    using var reader = new XmlNodeReader((XmlNode) target);
+                    reader.MoveToContent();
+                    var xdoc = XDocument.Load(reader);
+                    return Task.FromResult(new ConversionResult(null, "xml", XmlScrubber.Scrub(xdoc, settings)));
+                },
+                (target, _) => target is XmlNode),
+
             // StringBuilder - use "txt" extension
             new(
                 (target, _) => Task.FromResult(new ConversionResult(null, "txt", (StringBuilder) target)),
@@ -36,7 +52,7 @@ public static partial class VerifierSettings
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         RegisterFileConverter(
-            (target, context) => Task.FromResult(conversion(target, context)),
+            (target, settings) => Task.FromResult(conversion(target, settings)),
             canConvert);
     }
 
@@ -45,7 +61,7 @@ public static partial class VerifierSettings
         CanConvert<T>? canConvert = null)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        var converter = new TypeConverter((target, context) => conversion((T) target, context), DefaultCanConvert(canConvert));
+        var converter = new TypeConverter((target, settings) => conversion((T) target, settings), DefaultCanConvert(canConvert));
         // Insert at beginning so user converters take precedence over built-in converters
         typedConverters.Insert(0, converter);
     }
@@ -56,7 +72,7 @@ public static partial class VerifierSettings
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         RegisterFileConverter(
-            (target, context) => Task.FromResult(conversion(target, context)),
+            (target, settings) => Task.FromResult(conversion(target, settings)),
             canConvert);
     }
 

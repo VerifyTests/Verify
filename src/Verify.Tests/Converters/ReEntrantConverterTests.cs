@@ -7,14 +7,14 @@
         VerifierSettings.RegisterFileConverter<Target>(Convert);
     }
 
-    static ConversionResult Convert(Stream target, IReadOnlyDictionary<string, object> settings)
+    static ConversionResult Convert(Stream target, VerifySettings settings)
     {
         var reader = new StreamReader(target);
         var readToEnd = reader.ReadToEnd();
         return Convert(new Target {Property = readToEnd}, settings);
     }
 
-    static ConversionResult Convert(Target instance, IReadOnlyDictionary<string, object> settings)
+    static ConversionResult Convert(Target instance, VerifySettings settings)
     {
         var stream = new MemoryStream();
         var writer = new StreamWriter(stream);

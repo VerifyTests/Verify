@@ -16,7 +16,7 @@ public static partial class VerifierSettings
         Conversion<Stream> conversion) =>
         RegisterFileConverter(
             fromExtension,
-            (stream, context) => Task.FromResult(conversion(stream, context)));
+            (stream, settings) => Task.FromResult(conversion(stream, settings)));
 
     [Obsolete("Use RegisterStreamConverter instead")]
     public static void RegisterFileConverter(
@@ -24,14 +24,14 @@ public static partial class VerifierSettings
         AsyncConversion<Stream> conversion) =>
         RegisterStreamConverter(
             fromExtension,
-            (_, stream, context) => conversion(stream, context));
+            (_, stream, settings) => conversion(stream, settings));
 
     public static void RegisterStreamConverter(
         string extension,
         StreamConversion conversion) =>
         RegisterStreamConverter(
             extension,
-            (name, stream, context) => Task.FromResult(conversion(name, stream, context)));
+            (name, stream, settings) => Task.FromResult(conversion(name, stream, settings)));
 
     public static void RegisterStreamConverter(
         string extension,

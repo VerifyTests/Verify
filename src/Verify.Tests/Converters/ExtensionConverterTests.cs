@@ -210,6 +210,12 @@
         return Verify(new MemoryStream([1]), "WithInfo");
     }
 
+    // Test: Explicit root info + converter that returns its own info
+    // Expected order: root info, converter info, converter text
+    [Fact]
+    public Task WithInfo_AndRootInfo() =>
+        Verify(new MemoryStream([1]), "WithInfo", null, new { RootProperty = "RootValue" });
+
     [ModuleInitializer]
     public static void WithInfoAndBinaryInit() =>
         VerifierSettings.RegisterStreamConverter(

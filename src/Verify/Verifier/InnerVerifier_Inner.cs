@@ -39,22 +39,15 @@ partial class InnerVerifier
 
         List<Target> list = [..targets, ..VerifierSettings.GetFileAppenders(settings)];
 
-        // Process root via TryGetRootTarget when root is NOT already in the targets list
-        // This handles:
-        // - VerifyStream with converter: root (info) is separate from targets → process both
-        // - Verify(object, IEnumerable<Target>): root is separate from targets → process both
-        // - Verify(): root is null, targets is empty → TryGetRootTarget handles null appropriately
-        // Skip when:
-        // - Verify(object): root is in targets list → avoid duplicate processing
+        // Check if root is in targets list (to avoid duplicate processing)
         var rootInTargets = root != null && list.Any(t => ReferenceEquals(t.Data, root));
-        if (!rootInTargets && TryGetRootTarget(root, ignoreNullRoot, out var rootTarget))
-        {
-            resultTargets.Add(rootTarget.Value);
-        }
 
+        // Process extension conversions first (may produce converter info that becomes root)
+        List<object>? converterInfos = null;
         if (doExtensionConversion)
         {
             var result = new List<Target>();
+            converterInfos = [];
             foreach (var target in list)
             {
                 if (!target.PerformConversion ||
@@ -69,19 +62,41 @@ partial class InnerVerifier
                 cleanup += itemCleanup;
                 if (info != null)
                 {
-                    result.Add(
-                        new(
-                            settings.TxtOrJson,
-                            JsonFormatter.AsJson(
-                                settings,
-                                counter,
-                                info)));
+                    converterInfos.Add(info);
                 }
 
                 result.AddRange(converted);
             }
 
+            // If root is null and converters returned info, use converter info as root (for appenders)
+            if (!rootInTargets && root == null && converterInfos.Count > 0)
+            {
+                root = converterInfos.Count == 1 ? converterInfos[0] : converterInfos;
+                converterInfos = null; // Already used as root, don't add again
+            }
+
             list = result;
+        }
+
+        // Process root via TryGetRootTarget (after extension conversion so converter info can become root)
+        if (!rootInTargets && TryGetRootTarget(root, ignoreNullRoot, out var rootTarget))
+        {
+            resultTargets.Add(rootTarget.Value);
+        }
+
+        // Add converter infos right after root (before other targets)
+        if (converterInfos != null)
+        {
+            foreach (var info in converterInfos)
+            {
+                resultTargets.Add(
+                    new(
+                        settings.TxtOrJson,
+                        JsonFormatter.AsJson(
+                            settings,
+                            counter,
+                            info)));
+            }
         }
 
         // Resolve all targets (including objects) to ResolvedTargets
@@ -258,6 +273,15 @@ partial class InnerVerifier
                 results.Insert(0, new(
                     settings.TxtOrJson,
                     JsonFormatter.AsJson(settings, counter, conversionResult.Info)));
+            }
+
+            // Add appends as first target if present (typed converters don't include appends in their output)
+            var converterAppends = VerifierSettings.GetJsonAppenders(settings);
+            if (converterAppends.Count > 0)
+            {
+                results.Insert(0, new(
+                    settings.TxtOrJson,
+                    JsonFormatter.AsJson(settings, counter, new InfoBuilder(true, null, converterAppends))));
             }
 
             return (results, cleanup, true);

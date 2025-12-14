@@ -86,14 +86,6 @@ partial class InnerVerifier
 
         stream.MoveToStart();
 
-        // Check for stream converter first - converter info should be root for appenders
-        if (VerifierSettings.HasStreamConverter(extension))
-        {
-            var (newInfo, converted, cleanup) = await DoExtensionConversion(extension, stream, info, null);
-            return await VerifyInner(newInfo, cleanup, converted, false, true);
-        }
-
-        // No converter - create target directly
         Target target;
         if (FileExtensions.IsTextExtension(extension))
         {

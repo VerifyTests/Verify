@@ -2,6 +2,7 @@
 global using System.Drawing;
 global using System.Drawing.Imaging;
 global using System.Runtime.InteropServices;
+global using System.Xml.Linq;
 global using Argon;
 global using DiffEngine;
 global using EmptyFiles;

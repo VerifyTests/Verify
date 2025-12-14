@@ -1,0 +1,4 @@
+﻿{
+  Name: Test,
+  Value: 42
+}

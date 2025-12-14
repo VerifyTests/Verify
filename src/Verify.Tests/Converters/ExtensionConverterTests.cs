@@ -243,4 +243,113 @@
     }
 
 #endif
+
+    #region Object Return Tests
+
+    // Test: Converter returns an anonymous object (should be JSON serialized)
+    [ModuleInitializer]
+    public static void ReturnsAnonObjectInit() =>
+        VerifierSettings.RegisterStreamConverter(
+            "ReturnsAnonObject",
+            (_, _, _) => new ConversionResult(null, new { Name = "Test", Value = 42 }));
+
+    [Fact]
+    public Task ReturnsAnonObject() =>
+        Verify(new MemoryStream([1]), "ReturnsAnonObject");
+
+    // Test: Converter returns a string (should be text)
+    [ModuleInitializer]
+    public static void ReturnsStringInit() =>
+        VerifierSettings.RegisterStreamConverter(
+            "ReturnsString",
+            (_, _, _) => new ConversionResult(null, "Hello from converter"));
+
+    [Fact]
+    public Task ReturnsString() =>
+        Verify(new MemoryStream([1]), "ReturnsString");
+
+    // Test: Converter returns a StringBuilder (should be text)
+    [ModuleInitializer]
+    public static void ReturnsStringBuilderInit() =>
+        VerifierSettings.RegisterStreamConverter(
+            "ReturnsStringBuilder",
+            (_, _, _) => new ConversionResult(null, new StringBuilder("StringBuilder content")));
+
+    [Fact]
+    public Task ReturnsStringBuilder() =>
+        Verify(new MemoryStream([1]), "ReturnsStringBuilder");
+
+    // Test: Converter returns an XDocument (should be XML)
+    [ModuleInitializer]
+    public static void ReturnsXDocumentInit() =>
+        VerifierSettings.RegisterStreamConverter(
+            "ReturnsXDocument",
+            (_, _, _) => new ConversionResult(null, new XDocument(
+                new XElement("Root",
+                    new XElement("Child", "Value")))));
+
+    [Fact]
+    public Task ReturnsXDocument() =>
+        Verify(new MemoryStream([1]), "ReturnsXDocument");
+
+    // Test: Converter returns an XElement (should be XML)
+    [ModuleInitializer]
+    public static void ReturnsXElementInit() =>
+        VerifierSettings.RegisterStreamConverter(
+            "ReturnsXElement",
+            (_, _, _) => new ConversionResult(null, new XElement("Element",
+                new XAttribute("attr", "value"),
+                "Content")));
+
+    [Fact]
+    public Task ReturnsXElement() =>
+        Verify(new MemoryStream([1]), "ReturnsXElement");
+
+    // Test: Converter returns a Stream (should be processed as binary)
+    [ModuleInitializer]
+    public static void ReturnsStreamInit() =>
+        VerifierSettings.RegisterStreamConverter(
+            "ReturnsStream",
+            (_, _, _) => new ConversionResult(null, new MemoryStream([0x89, 0x50, 0x4E, 0x47])));
+
+    [Fact]
+    public Task ReturnsStream() =>
+        Verify(new MemoryStream([1]), "ReturnsStream");
+
+    // Test: Converter returns a byte array (should be processed as binary)
+    [ModuleInitializer]
+    public static void ReturnsBytesInit() =>
+        VerifierSettings.RegisterStreamConverter(
+            "ReturnsBytes",
+            (_, _, _) => new ConversionResult(null, new byte[] { 0x89, 0x50, 0x4E, 0x47 }));
+
+    [Fact]
+    public Task ReturnsBytes() =>
+        Verify(new MemoryStream([1]), "ReturnsBytes");
+
+    // Test: Converter returns object with info (info should be first target)
+    [ModuleInitializer]
+    public static void ReturnsObjectWithInfoInit() =>
+        VerifierSettings.RegisterStreamConverter(
+            "ReturnsObjectWithInfo",
+            (_, _, _) => new ConversionResult(
+                new { InfoProperty = "InfoValue" },
+                new { DataProperty = "DataValue" }));
+
+    [Fact]
+    public Task ReturnsObjectWithInfo() =>
+        Verify(new MemoryStream([1]), "ReturnsObjectWithInfo");
+
+    // Test: Converter returns FileStream (should use file extension)
+    [ModuleInitializer]
+    public static void ReturnsFileStreamInit() =>
+        VerifierSettings.RegisterStreamConverter(
+            "ReturnsFileStream",
+            (_, _, _) => new ConversionResult(null, File.OpenRead("sample.txt")));
+
+    [Fact]
+    public Task ReturnsFileStream() =>
+        Verify(new MemoryStream([1]), "ReturnsFileStream");
+
+    #endregion
 }

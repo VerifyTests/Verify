@@ -115,7 +115,7 @@ public readonly struct Target
     /// Creates a Target wrapping an arbitrary object.
     /// The object will be resolved to a stream or string later in the verification pipeline.
     /// </summary>
-    public Target(object data, string? name = null)
+    public Target(object? data, string? name = null)
     {
         Data = data;
         Extension = null;

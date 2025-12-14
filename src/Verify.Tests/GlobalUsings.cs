@@ -9,3 +9,4 @@ global using EmptyFiles;
 global using Polyfills;
 global using System.Collections.ObjectModel;
 global using System.Security.Claims;
+global using System.Xml;

@@ -1,7 +1,4 @@
-﻿using System.Xml;
-using System.Xml.Linq;
-
-public class XmlTests
+﻿public class XmlTests
 {
     string xml = """
                  <?xml version="1.0" encoding="UTF-8"?>

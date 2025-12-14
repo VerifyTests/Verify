@@ -38,7 +38,7 @@ This code:
 public Task Xml() =>
     VerifyXml(xml);
 ```
-<sup><a href='/src/Verify.Tests/XmlTests.cs#L13-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyXml' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/XmlTests.cs#L10-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyXml' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will produce
@@ -66,7 +66,7 @@ public Task XmlIgnoreMember() =>
     VerifyXml(xml)
         .IgnoreMember("node");
 ```
-<sup><a href='/src/Verify.Tests/XmlTests.cs#L95-L102' title='Snippet source file'>snippet source</a> | <a href='#snippet-XmlIgnoreMember' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/XmlTests.cs#L92-L99' title='Snippet source file'>snippet source</a> | <a href='#snippet-XmlIgnoreMember' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will produce
@@ -92,7 +92,7 @@ public Task XmlScrubMember() =>
     VerifyXml(xml)
         .ScrubMember("node");
 ```
-<sup><a href='/src/Verify.Tests/XmlTests.cs#L104-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-XmlScrubMember' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/XmlTests.cs#L101-L108' title='Snippet source file'>snippet source</a> | <a href='#snippet-XmlScrubMember' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will produce

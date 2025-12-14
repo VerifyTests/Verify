@@ -42,27 +42,20 @@ partial class InnerVerifier
         // Check if root is in targets list (to avoid duplicate processing)
         var rootInTargets = root != null && list.Any(t => ReferenceEquals(t.Data, root));
 
-        // Process stream converters (may produce converter info that becomes root)
-        var converted = new List<Target>();
+        // Resolve all targets and collect converter infos
         var converterInfos = new List<object>();
+        var resolvedTargets = new List<(ResolvedTarget target, bool applyScrubbers)>();
+
         foreach (var target in list)
         {
-            if (!target.PerformConversion ||
-                target.Extension is null ||
-                !VerifierSettings.HasStreamConverter(target.Extension))
-            {
-                converted.Add(target);
-                continue;
-            }
+            var (resolvedList, resolveCleanup, applyScrubbers, infos) = await ResolveTarget(target);
+            cleanup += resolveCleanup;
+            converterInfos.AddRange(infos);
 
-            var (info, convTargets, itemCleanup) = await DoExtensionConversion(target.Extension, target.StreamData, null, target.Name);
-            cleanup += itemCleanup;
-            if (info != null)
+            foreach (var resolved in resolvedList)
             {
-                converterInfos.Add(info);
+                resolvedTargets.Add((resolved, applyScrubbers));
             }
-
-            converted.AddRange(convTargets);
         }
 
         // If root is null and converters returned info, use converter info as root (for appenders)
@@ -87,44 +80,45 @@ partial class InnerVerifier
                     JsonFormatter.AsJson(settings, counter, info)));
         }
 
-        // Resolve remaining targets and apply scrubbers inline
-        foreach (var target in converted)
+        // Add resolved targets and apply scrubbers
+        foreach (var (resolved, applyScrubbers) in resolvedTargets)
         {
-            var (resolvedList, resolveCleanup, applyScrubbers) = await ResolveTarget(target);
-            cleanup += resolveCleanup;
-
-            foreach (var resolved in resolvedList)
+            if (applyScrubbers && resolved.TryGetStringBuilder(out var builder))
             {
-                if (applyScrubbers && resolved.TryGetStringBuilder(out var builder))
-                {
-                    ApplyScrubbers.ApplyForExtension(resolved.Extension, builder, settings, counter);
-                }
-
-                resultTargets.Add(resolved);
+                ApplyScrubbers.ApplyForExtension(resolved.Extension, builder, settings, counter);
             }
+
+            resultTargets.Add(resolved);
         }
 
         return (cleanup, resultTargets);
     }
 
-    async Task<(List<ResolvedTarget> targets, Func<Task> cleanup, bool applyScrubbers)> ResolveTarget(Target target)
+    async Task<(List<ResolvedTarget> targets, Func<Task> cleanup, bool applyScrubbers, List<object> converterInfos)> ResolveTarget(Target target)
     {
         var cleanup = () => Task.CompletedTask;
         var results = new List<ResolvedTarget>();
+        var converterInfos = new List<object>();
 
-        // If target has an extension, it's already resolved (Stream or StringBuilder)
-        // These come from converters or explicit targets, so apply scrubbers
+        // If target has an extension with stream data, check for stream converter
         if (target.Extension is not null)
         {
             if (target.TryGetStream(out var stream))
             {
+                if (target.PerformConversion)
+                {
+                    var (streamResults, streamCleanup, infos) = await ResolveStream(stream, target.Extension, target.Name);
+                    return (streamResults, streamCleanup, true, infos);
+                }
+
                 results.Add(new(target.Extension, stream, target.Name));
             }
             else if (target.TryGetStringBuilder(out var sb))
             {
                 results.Add(new(target.Extension, sb, target.Name));
             }
-            return (results, cleanup, true);
+
+            return (results, cleanup, true, converterInfos);
         }
 
         // Target contains an arbitrary object - resolve it using full type matching
@@ -135,7 +129,7 @@ partial class InnerVerifier
             results.Add(new(
                 settings.TxtOrJson,
                 JsonFormatter.AsJson(settings, counter, new InfoBuilder(false, null, []))));
-            return (results, cleanup, false);
+            return (results, cleanup, false, converterInfos);
         }
 
         // Handle XContainer (XDocument, XElement) - apply scrubbers
@@ -143,7 +137,7 @@ partial class InnerVerifier
         {
             var xmlString = ConvertXmlToString(container);
             results.Add(new("xml", xmlString, target.Name));
-            return (results, cleanup, true);
+            return (results, cleanup, true, converterInfos);
         }
 
         // Handle XmlNode - apply scrubbers
@@ -154,30 +148,30 @@ partial class InnerVerifier
             var xdoc = XDocument.Load(reader);
             var xmlString = ConvertXmlToString(xdoc);
             results.Add(new("xml", xmlString, target.Name));
-            return (results, cleanup, true);
+            return (results, cleanup, true, converterInfos);
         }
 
         // Handle FileStream (get extension from filename) - apply scrubbers
         if (data is FileStream fileStream)
         {
             var extension = fileStream.Extension();
-            var (streamResults, streamCleanup) = await ResolveStream(fileStream, extension, target.Name);
-            return (streamResults, streamCleanup, true);
+            var (streamResults, streamCleanup, infos) = await ResolveStream(fileStream, extension, target.Name);
+            return (streamResults, streamCleanup, true, infos);
         }
 
         // Handle Stream - apply scrubbers
         if (data is Stream stream2)
         {
-            var (streamResults, streamCleanup) = await ResolveStream(stream2, "bin", target.Name);
-            return (streamResults, streamCleanup, true);
+            var (streamResults, streamCleanup, infos) = await ResolveStream(stream2, "bin", target.Name);
+            return (streamResults, streamCleanup, true, infos);
         }
 
         // Handle byte[] - apply scrubbers
         if (data is byte[] bytes)
         {
             var memStream = new MemoryStream(bytes);
-            var (streamResults, streamCleanup) = await ResolveStream(memStream, "bin", target.Name);
-            return (streamResults, streamCleanup, true);
+            var (streamResults, streamCleanup, infos) = await ResolveStream(memStream, "bin", target.Name);
+            return (streamResults, streamCleanup, true, infos);
         }
 
         // Handle IEnumerable<Stream> - throw error as in Verify(object)
@@ -190,7 +184,7 @@ partial class InnerVerifier
         if (data is StringBuilder sb2)
         {
             results.Add(new("txt", sb2, target.Name));
-            return (results, cleanup, true);
+            return (results, cleanup, true, converterInfos);
         }
 
         // Handle string - check for JSON appenders first (matches TryGetRootTarget behavior)
@@ -209,12 +203,12 @@ partial class InnerVerifier
                 results.Add(new(
                     settings.TxtOrJson,
                     JsonFormatter.AsJson(settings, counter, new InfoBuilder(false, str, appends))));
-                return (results, cleanup, false);
+                return (results, cleanup, false, converterInfos);
             }
 
             // Plain text - apply scrubbers
             results.Add(new("txt", str, target.Name));
-            return (results, cleanup, true);
+            return (results, cleanup, true, converterInfos);
         }
 
         // Try ToString converter (before typed converter, matching Verify(object) order) - apply scrubbers
@@ -223,7 +217,7 @@ partial class InnerVerifier
             var stringResult = toString(data, settings.Context);
             var extension = stringResult.Extension ?? "txt";
             results.Add(new(extension, stringResult.Value, target.Name));
-            return (results, cleanup, true);
+            return (results, cleanup, true, converterInfos);
         }
 
         // Try typed converter - apply scrubbers
@@ -238,10 +232,10 @@ partial class InnerVerifier
             // Recursively resolve the conversion result targets
             foreach (var convTarget in conversionResult.Targets)
             {
-                // Note: We ignore the applyScrubbers from recursive calls since converter output should be scrubbed
-                var (resolved, resolveCleanup, _) = await ResolveTarget(convTarget);
+                var (resolved, resolveCleanup, _, nestedInfos) = await ResolveTarget(convTarget);
                 cleanup += resolveCleanup;
                 results.AddRange(resolved);
+                converterInfos.AddRange(nestedInfos);
             }
 
             // Add info as a separate target if present
@@ -261,7 +255,7 @@ partial class InnerVerifier
                     JsonFormatter.AsJson(settings, counter, new InfoBuilder(true, null, converterAppends))));
             }
 
-            return (results, cleanup, true);
+            return (results, cleanup, true, converterInfos);
         }
 
         // Fall back to JSON serialization with appenders - NO scrubbing (matches original TryGetRootTarget behavior)
@@ -269,13 +263,14 @@ partial class InnerVerifier
         results.Add(new(
             settings.TxtOrJson,
             JsonFormatter.AsJson(settings, counter, new InfoBuilder(true, data, jsonAppends))));
-        return (results, cleanup, false);
+        return (results, cleanup, false, converterInfos);
     }
 
-    async Task<(List<ResolvedTarget> targets, Func<Task> cleanup)> ResolveStream(Stream stream, string extension, string? name)
+    async Task<(List<ResolvedTarget> targets, Func<Task> cleanup, List<object> converterInfos)> ResolveStream(Stream stream, string extension, string? name)
     {
         var cleanup = () => Task.CompletedTask;
         var results = new List<ResolvedTarget>();
+        var converterInfos = new List<object>();
 
         stream.MoveToStart();
 
@@ -285,23 +280,21 @@ partial class InnerVerifier
             var (info, converted, convCleanup) = await DoExtensionConversion(extension, stream, null, name);
             cleanup += convCleanup;
 
-            // Add info target if present
             if (info != null)
             {
-                results.Add(new(
-                    settings.TxtOrJson,
-                    JsonFormatter.AsJson(settings, counter, info)));
+                converterInfos.Add(info);
             }
 
             // Recursively resolve converted targets (they may contain objects)
             foreach (var convTarget in converted)
             {
-                var (resolved, resolveCleanup, _) = await ResolveTarget(convTarget);
+                var (resolved, resolveCleanup, _, nestedInfos) = await ResolveTarget(convTarget);
                 cleanup += resolveCleanup;
                 results.AddRange(resolved);
+                converterInfos.AddRange(nestedInfos);
             }
 
-            return (results, cleanup);
+            return (results, cleanup, converterInfos);
         }
 
         // No converter - convert stream directly to ResolvedTarget
@@ -314,7 +307,7 @@ partial class InnerVerifier
             results.Add(new(extension, stream, name));
         }
 
-        return (results, cleanup);
+        return (results, cleanup, converterInfos);
     }
 
     string ConvertXmlToString(XContainer target)

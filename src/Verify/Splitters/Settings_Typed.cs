@@ -2,7 +2,16 @@
 
 public static partial class VerifierSettings
 {
-    static List<TypeConverter> typedConverters = [];
+    static List<TypeConverter> typedConverters = null!;
+
+    static void InitBuiltInTypedConverters() =>
+        typedConverters =
+        [
+            // StringBuilder - use "txt" extension
+            new(
+                (target, _) => Task.FromResult(new ConversionResult(null, "txt", (StringBuilder) target)),
+                (target, _) => target is StringBuilder)
+        ];
 
     internal static bool TryGetTypedConverter<T>(
         T target,
@@ -37,7 +46,8 @@ public static partial class VerifierSettings
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         var converter = new TypeConverter((target, context) => conversion((T) target, context), DefaultCanConvert(canConvert));
-        typedConverters.Add(converter);
+        // Insert at beginning so user converters take precedence over built-in converters
+        typedConverters.Insert(0, converter);
     }
 
     public static void RegisterFileConverter(
@@ -56,7 +66,8 @@ public static partial class VerifierSettings
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         var converter = new TypeConverter(conversion, canConvert);
-        typedConverters.Add(converter);
+        // Insert at beginning so user converters take precedence over built-in converters
+        typedConverters.Insert(0, converter);
     }
 
     static CanConvert DefaultCanConvert<T>(CanConvert<T>? canConvert)

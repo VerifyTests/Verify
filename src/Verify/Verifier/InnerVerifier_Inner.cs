@@ -94,7 +94,7 @@ partial class InnerVerifier
         return (cleanup, resultTargets);
     }
 
-    async Task<(List<ResolvedTarget> targets, Func<Task> cleanup, bool applyScrubbers, List<object> converterInfos)> ResolveTarget(Target target)
+    async Task<(List<ResolvedTarget> targets, Func<Task> cleanup, bool applyScrubbers, List<object> converterInfos)> ResolveTarget(Target target, string? skipConverterForExtension = null)
     {
         var cleanup = () => Task.CompletedTask;
         var results = new List<ResolvedTarget>();
@@ -105,13 +105,23 @@ partial class InnerVerifier
         {
             if (target.TryGetStream(out var stream))
             {
-                if (target.PerformConversion)
+                // Skip converter if same extension (prevents infinite recursion)
+                if (target.PerformConversion && target.Extension != skipConverterForExtension)
                 {
                     var (streamResults, streamCleanup, infos) = await ResolveStream(stream, target.Extension, target.Name);
                     return (streamResults, streamCleanup, true, infos);
                 }
 
-                results.Add(new(target.Extension, stream, target.Name));
+                // Direct conversion without converter
+                stream.MoveToStart();
+                if (FileExtensions.IsTextExtension(target.Extension))
+                {
+                    results.Add(new(target.Extension, await stream.ReadStringBuilderWithFixedLines(), target.Name));
+                }
+                else
+                {
+                    results.Add(new(target.Extension, stream, target.Name));
+                }
             }
             else if (target.TryGetStringBuilder(out var sb))
             {
@@ -178,13 +188,6 @@ partial class InnerVerifier
         if (data is IEnumerable<Stream>)
         {
             throw new("Use Verify(IEnumerable<T> targets, string extension)");
-        }
-
-        // Handle StringBuilder - apply scrubbers
-        if (data is StringBuilder sb2)
-        {
-            results.Add(new("txt", sb2, target.Name));
-            return (results, cleanup, true, converterInfos);
         }
 
         // Handle string - check for JSON appenders first (matches TryGetRootTarget behavior)
@@ -286,9 +289,10 @@ partial class InnerVerifier
             }
 
             // Recursively resolve converted targets (they may contain objects)
+            // Pass extension to prevent infinite recursion for same-extension targets
             foreach (var convTarget in converted)
             {
-                var (resolved, resolveCleanup, _, nestedInfos) = await ResolveTarget(convTarget);
+                var (resolved, resolveCleanup, _, nestedInfos) = await ResolveTarget(convTarget, extension);
                 cleanup += resolveCleanup;
                 results.AddRange(resolved);
                 converterInfos.AddRange(nestedInfos);

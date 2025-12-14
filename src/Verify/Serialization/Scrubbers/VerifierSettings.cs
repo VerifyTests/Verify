@@ -2,7 +2,10 @@
 
 public static partial class VerifierSettings
 {
-    static VerifierSettings() =>
+    static VerifierSettings()
+    {
+        InitBuiltInTypedConverters();
+
         MemberConverter<Exception, string>(
             _ => _.StackTrace,
             (_, value) =>
@@ -14,4 +17,5 @@ public static partial class VerifierSettings
 
                 return ScrubStackTrace.Scrub(value);
             });
+    }
 }

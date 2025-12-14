@@ -86,40 +86,25 @@ partial class InnerVerifier
 
         stream.MoveToStart();
 
-        using (stream)
+        // Check for stream converter first - converter info should be root for appenders
+        if (VerifierSettings.HasStreamConverter(extension))
         {
-            if (VerifierSettings.HasStreamConverter(extension))
-            {
-                var (newInfo, converted, cleanup) = await DoExtensionConversion(extension, stream, info, null);
-
-                return await VerifyInner(newInfo, cleanup, converted, false, true);
-            }
-
-            var target = await GetTarget(stream, extension);
-
-            var targets = new List<Target>(1);
-
-            if (info is not null)
-            {
-                targets.Add(
-                    new(
-                        settings.TxtOrJson,
-                        JsonFormatter.AsJson(settings, counter, info)));
-            }
-
-            targets.Add(target);
-            return await VerifyInner(targets);
+            var (newInfo, converted, cleanup) = await DoExtensionConversion(extension, stream, info, null);
+            return await VerifyInner(newInfo, cleanup, converted, false, true);
         }
-    }
 
-    static async Task<Target> GetTarget(Stream stream, string extension)
-    {
+        // No converter - create target directly
+        Target target;
         if (FileExtensions.IsTextExtension(extension))
         {
-            return new(extension, await stream.ReadStringBuilderWithFixedLines());
+            target = new(extension, await stream.ReadStringBuilderWithFixedLines());
+        }
+        else
+        {
+            target = new(extension, stream);
         }
 
-        return new(extension, stream);
+        return await VerifyInner(info, stream.DisposeAsyncEx, [target], true, true);
     }
 
     //TODO: possibly pass in the target here

@@ -8,7 +8,12 @@
     static ServiceProvider CreateServiceProvider() =>
         new ServiceCollection()
             .AddSingleton<string>("SingletonValue")
-            .BuildServiceProvider();
+            .BuildServiceProvider(
+            new ServiceProviderOptions
+            {
+                ValidateOnBuild = true,
+                ValidateScopes = true
+            });
 
     public Task<object> Create([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] Type type, ClassConstructorMetadata metadata)
     {

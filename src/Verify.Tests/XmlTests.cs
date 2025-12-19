@@ -168,7 +168,7 @@ public class XmlTests
     }
 
     [Fact]
-    public Task ScrubAttribute()
+    public Task IgnoreAttribute()
     {
         var document = XDocument.Parse(
             """
@@ -182,7 +182,7 @@ public class XmlTests
     }
 
     [Fact]
-    public Task IgnoreAttribute()
+    public Task ScrubAttribute()
     {
         var document = XDocument.Parse(
             """

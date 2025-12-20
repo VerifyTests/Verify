@@ -330,7 +330,6 @@ resharper_blank_lines_inside_namespace = 0
 resharper_blank_lines_after_file_scoped_namespace_directive = 1
 resharper_blank_lines_inside_type = 0
 
-insert_final_newline = false
 resharper_place_attribute_on_same_line = false
 
 #braces https://www.jetbrains.com/help/resharper/EditorConfig_CSHARP_CSharpCodeStylePageImplSchema.html#Braces

@@ -1,0 +1,374 @@
+root = true
+
+[*]
+indent_style = space
+end_of_line = lf
+insert_final_newline = true
+
+[*.cs]
+indent_size = 4
+charset = utf-8
+
+# Redundant accessor body
+resharper_redundant_accessor_body_highlighting = error
+
+# Replace with field keyword
+resharper_replace_with_field_keyword_highlighting = error
+
+# Replace with single call to Single(..)
+resharper_replace_with_single_call_to_single_highlighting = error
+
+# Replace with single call to SingleOrDefault(..)
+resharper_replace_with_single_call_to_single_or_default_highlighting = error
+
+# Replace with single call to LastOrDefault(..)
+resharper_replace_with_single_call_to_last_or_default_highlighting = error
+
+# Element is localizable
+resharper_localizable_element_highlighting = none
+
+# Replace with single call to Last(..)
+resharper_replace_with_single_call_to_last_highlighting = error
+
+# Replace with single call to First(..)
+resharper_replace_with_single_call_to_first_highlighting = error
+
+# Replace with single call to FirstOrDefault(..)
+resharper_replace_with_single_call_to_first_or_default_highlighting = error
+
+# Replace with single call to Any(..)
+resharper_replace_with_single_call_to_any_highlighting = error
+
+# Simplify negative equality expression
+resharper_negative_equality_expression_highlighting = error
+
+# Replace with single call to Count(..)
+resharper_replace_with_single_call_to_count_highlighting = error
+
+# Declare types in namespaces
+dotnet_diagnostic.CA1050.severity = none
+
+# Use Literals Where Appropriate
+dotnet_diagnostic.CA1802.severity = error
+
+# Template should be a static expression
+dotnet_diagnostic.CA2254.severity = error
+
+# Potentially misleading parameter name in lambda or local function
+resharper_all_underscore_local_parameter_name_highlighting = none
+
+# Redundant explicit collection creation in argument of 'params' parameter
+resharper_redundant_explicit_params_array_creation_highlighting = error
+
+# Do not initialize unnecessarily
+dotnet_diagnostic.CA1805.severity = error
+
+# Avoid unsealed attributes
+dotnet_diagnostic.CA1813.severity = error
+
+# Test for empty strings using string length
+dotnet_diagnostic.CA1820.severity = none
+
+# Remove empty finalizers
+dotnet_diagnostic.CA1821.severity = error
+
+# Mark members as static
+dotnet_diagnostic.CA1822.severity = error
+
+# Avoid unused private fields
+dotnet_diagnostic.CA1823.severity = error
+
+# Avoid zero-length array allocations
+dotnet_diagnostic.CA1825.severity = error
+
+# Use property instead of Linq Enumerable method
+dotnet_diagnostic.CA1826.severity = error
+
+# Do not use Count()/LongCount() when Any() can be used
+dotnet_diagnostic.CA1827.severity = error
+dotnet_diagnostic.CA1828.severity = error
+
+# Use Length/Count property instead of Enumerable.Count method
+dotnet_diagnostic.CA1829.severity = error
+
+# Prefer strongly-typed Append and Insert method overloads on StringBuilder
+dotnet_diagnostic.CA1830.severity = error
+
+# Use AsSpan instead of Range-based indexers for string when appropriate
+dotnet_diagnostic.CA1831.severity = error
+
+# Use AsSpan instead of Range-based indexers for string when appropriate
+dotnet_diagnostic.CA1831.severity = error
+dotnet_diagnostic.CA1832.severity = error
+dotnet_diagnostic.CA1833.severity = error
+
+# Use StringBuilder.Append(char) for single character strings
+dotnet_diagnostic.CA1834.severity = error
+
+# Prefer IsEmpty over Count when available
+dotnet_diagnostic.CA1836.severity = error
+
+# Prefer IsEmpty over Count when available
+dotnet_diagnostic.CA1836.severity = error
+
+# Use Environment.ProcessId instead of Process.GetCurrentProcess().Id
+dotnet_diagnostic.CA1837.severity = error
+
+# Use Environment.ProcessPath instead of Process.GetCurrentProcess().MainModule.FileName
+dotnet_diagnostic.CA1839.severity = error
+
+# Use Environment.CurrentManagedThreadId instead of Thread.CurrentThread.ManagedThreadId
+dotnet_diagnostic.CA1840.severity = error
+
+# Prefer Dictionary Contains methods
+dotnet_diagnostic.CA1841.severity = error
+
+# Do not use WhenAll with a single task
+dotnet_diagnostic.CA1842.severity = error
+
+# Do not use WhenAll/WaitAll with a single task
+dotnet_diagnostic.CA1842.severity = error
+dotnet_diagnostic.CA1843.severity = error
+
+# Use span-based 'string.Concat'
+dotnet_diagnostic.CA1845.severity = error
+
+# Prefer AsSpan over Substring
+dotnet_diagnostic.CA1846.severity = error
+
+# Use string.Contains(char) instead of string.Contains(string) with single characters
+dotnet_diagnostic.CA1847.severity = error
+
+# Prefer static HashData method over ComputeHash
+dotnet_diagnostic.CA1850.severity = error
+
+# Possible multiple enumerations of IEnumerable collection
+dotnet_diagnostic.CA1851.severity = error
+
+# Unnecessary call to Dictionary.ContainsKey(key)
+dotnet_diagnostic.CA1853.severity = error
+
+# Prefer the IDictionary.TryGetValue(TKey, out TValue) method
+dotnet_diagnostic.CA1854.severity = error
+
+# Use Span<T>.Clear() instead of Span<T>.Fill()
+dotnet_diagnostic.CA1855.severity = error
+
+# Incorrect usage of ConstantExpected attribute
+dotnet_diagnostic.CA1856.severity = error
+
+# The parameter expects a constant for optimal performance
+dotnet_diagnostic.CA1857.severity = error
+
+# Use StartsWith instead of IndexOf
+dotnet_diagnostic.CA1858.severity = error
+
+# Avoid using Enumerable.Any() extension method
+dotnet_diagnostic.CA1860.severity = error
+
+# Avoid constant arrays as arguments
+dotnet_diagnostic.CA1861.severity = error
+
+# Use the StringComparison method overloads to perform case-insensitive string comparisons
+dotnet_diagnostic.CA1862.severity = error
+
+# Prefer the IDictionary.TryAdd(TKey, TValue) method
+dotnet_diagnostic.CA1864.severity = error
+
+# Use string.Method(char) instead of string.Method(string) for string with single char
+dotnet_diagnostic.CA1865.severity = error
+dotnet_diagnostic.CA1866.severity = error
+dotnet_diagnostic.CA1867.severity = error
+
+# Unnecessary call to 'Contains' for sets
+dotnet_diagnostic.CA1868.severity = error
+
+# Cache and reuse 'JsonSerializerOptions' instances
+dotnet_diagnostic.CA1869.severity = error
+
+# Use a cached 'SearchValues' instance
+dotnet_diagnostic.CA1870.severity = error
+
+# Microsoft .NET properties
+trim_trailing_whitespace = true
+csharp_preferred_modifier_order = public, private, protected, internal, new, static, abstract, virtual, sealed, readonly, override, extern, unsafe, volatile, async:suggestion
+resharper_namespace_body = file_scoped
+dotnet_naming_rule.private_constants_rule.severity = warning
+dotnet_naming_rule.private_constants_rule.style = lower_camel_case_style
+dotnet_naming_rule.private_constants_rule.symbols = private_constants_symbols
+dotnet_naming_rule.private_instance_fields_rule.severity = warning
+dotnet_naming_rule.private_instance_fields_rule.style = lower_camel_case_style
+dotnet_naming_rule.private_instance_fields_rule.symbols = private_instance_fields_symbols
+dotnet_naming_rule.private_static_fields_rule.severity = warning
+dotnet_naming_rule.private_static_fields_rule.style = lower_camel_case_style
+dotnet_naming_rule.private_static_fields_rule.symbols = private_static_fields_symbols
+dotnet_naming_rule.private_static_readonly_rule.severity = warning
+dotnet_naming_rule.private_static_readonly_rule.style = lower_camel_case_style
+dotnet_naming_rule.private_static_readonly_rule.symbols = private_static_readonly_symbols
+dotnet_naming_style.lower_camel_case_style.capitalization = camel_case
+dotnet_naming_style.upper_camel_case_style.capitalization = pascal_case
+dotnet_naming_symbols.private_constants_symbols.applicable_accessibilities = private
+dotnet_naming_symbols.private_constants_symbols.applicable_kinds = field
+dotnet_naming_symbols.private_constants_symbols.required_modifiers = const
+dotnet_naming_symbols.private_instance_fields_symbols.applicable_accessibilities = private
+dotnet_naming_symbols.private_instance_fields_symbols.applicable_kinds = field
+dotnet_naming_symbols.private_static_fields_symbols.applicable_accessibilities = private
+dotnet_naming_symbols.private_static_fields_symbols.applicable_kinds = field
+dotnet_naming_symbols.private_static_fields_symbols.required_modifiers = static
+dotnet_naming_symbols.private_static_readonly_symbols.applicable_accessibilities = private
+dotnet_naming_symbols.private_static_readonly_symbols.applicable_kinds = field
+dotnet_naming_symbols.private_static_readonly_symbols.required_modifiers = static, readonly
+dotnet_style_parentheses_in_arithmetic_binary_operators = never_if_unnecessary:none
+dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:none
+dotnet_style_parentheses_in_relational_binary_operators = never_if_unnecessary:none
+
+# ReSharper properties
+resharper_object_creation_when_type_not_evident = target_typed
+
+# ReSharper inspection severities
+resharper_arrange_object_creation_when_type_evident_highlighting = error
+resharper_arrange_object_creation_when_type_not_evident_highlighting = error
+resharper_arrange_redundant_parentheses_highlighting = error
+resharper_arrange_static_member_qualifier_highlighting = error
+resharper_arrange_this_qualifier_highlighting = error
+resharper_arrange_type_member_modifiers_highlighting = none
+resharper_built_in_type_reference_style_for_member_access_highlighting = hint
+resharper_built_in_type_reference_style_highlighting = hint
+resharper_check_namespace_highlighting = none
+resharper_convert_to_using_declaration_highlighting = error
+resharper_field_can_be_made_read_only_local_highlighting = none
+resharper_merge_into_logical_pattern_highlighting = warning
+resharper_merge_into_pattern_highlighting = error
+resharper_method_has_async_overload_highlighting = warning
+# because stop rider giving errors before source generators have run
+resharper_partial_type_with_single_part_highlighting = warning
+resharper_redundant_base_qualifier_highlighting = warning
+resharper_redundant_cast_highlighting = error
+resharper_redundant_empty_object_creation_argument_list_highlighting = error
+resharper_redundant_empty_object_or_collection_initializer_highlighting = error
+resharper_redundant_name_qualifier_highlighting = error
+resharper_redundant_suppress_nullable_warning_expression_highlighting = error
+resharper_redundant_using_directive_highlighting = error
+resharper_redundant_verbatim_string_prefix_highlighting = error
+resharper_redundant_lambda_signature_parentheses_highlighting = error
+resharper_replace_substring_with_range_indexer_highlighting = warning
+resharper_suggest_var_or_type_built_in_types_highlighting = error
+resharper_suggest_var_or_type_elsewhere_highlighting = error
+resharper_suggest_var_or_type_simple_types_highlighting = error
+resharper_unnecessary_whitespace_highlighting = error
+resharper_use_await_using_highlighting = warning
+resharper_use_deconstruction_highlighting = warning
+
+# Sort using and Import directives with System.* appearing first
+dotnet_sort_system_directives_first = true
+
+# Avoid "this." and "Me." if not necessary
+dotnet_style_qualification_for_field = false:error
+dotnet_style_qualification_for_property = false:error
+dotnet_style_qualification_for_method = false:error
+dotnet_style_qualification_for_event = false:error
+
+# Use language keywords instead of framework type names for type references
+dotnet_style_predefined_type_for_locals_parameters_members = true:error
+dotnet_style_predefined_type_for_member_access = true:error
+
+# Suggest more modern language features when available
+dotnet_style_object_initializer = true:error
+dotnet_style_collection_initializer = true:error
+dotnet_style_coalesce_expression = false:error
+dotnet_style_null_propagation = true:error
+dotnet_style_explicit_tuple_names = true:error
+
+# Use collection expression syntax
+resharper_use_collection_expression_highlighting = error
+
+# Prefer "var" everywhere
+csharp_style_var_for_built_in_types = true:error
+csharp_style_var_when_type_is_apparent = true:error
+csharp_style_var_elsewhere = true:error
+
+# Prefer method-like constructs to have a block body
+csharp_style_expression_bodied_methods = true:error
+csharp_style_expression_bodied_local_functions = true:error
+csharp_style_expression_bodied_constructors = true:error
+csharp_style_expression_bodied_operators = true:error
+resharper_place_expr_method_on_single_line = false
+
+# Prefer property-like constructs to have an expression-body
+csharp_style_expression_bodied_properties = true:error
+csharp_style_expression_bodied_indexers = true:error
+csharp_style_expression_bodied_accessors = true:error
+
+# Suggest more modern language features when available
+csharp_style_pattern_matching_over_is_with_cast_check = true:error
+csharp_style_pattern_matching_over_as_with_null_check = true:error
+csharp_style_inlined_variable_declaration = true:suggestion
+csharp_style_throw_expression = true:suggestion
+csharp_style_conditional_delegate_call = true:suggestion
+
+# Newline settings
+#csharp_new_line_before_open_brace = all:error
+resharper_max_array_initializer_elements_on_line = 1
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+csharp_new_line_before_members_in_object_initializers = true
+csharp_new_line_before_members_in_anonymous_types = true
+resharper_wrap_before_first_type_parameter_constraint = true
+resharper_wrap_extends_list_style = chop_always
+resharper_wrap_after_dot_in_method_calls = false
+resharper_wrap_before_binary_pattern_op = false
+resharper_wrap_object_and_collection_initializer_style = chop_always
+resharper_place_simple_initializer_on_single_line = false
+
+# space
+resharper_space_around_lambda_arrow = true
+
+dotnet_style_require_accessibility_modifiers = never:error
+resharper_place_type_constraints_on_same_line = false
+resharper_blank_lines_inside_namespace = 0
+resharper_blank_lines_after_file_scoped_namespace_directive = 1
+resharper_blank_lines_inside_type = 0
+
+resharper_place_attribute_on_same_line = false
+
+#braces https://www.jetbrains.com/help/resharper/EditorConfig_CSHARP_CSharpCodeStylePageImplSchema.html#Braces
+resharper_braces_for_ifelse = required
+resharper_braces_for_foreach = required
+resharper_braces_for_while = required
+resharper_braces_for_dowhile = required
+resharper_braces_for_lock = required
+resharper_braces_for_fixed = required
+resharper_braces_for_for = required
+
+resharper_return_value_of_pure_method_is_not_used_highlighting = error
+
+
+resharper_misleading_body_like_statement_highlighting = error
+
+resharper_redundant_record_class_keyword_highlighting = error
+
+resharper_redundant_extends_list_entry_highlighting = error
+
+resharper_redundant_type_arguments_inside_nameof_highlighting = error
+
+# Xml files
+[*.{xml,config,nuspec,resx,vsixmanifest,csproj,targets,props,fsproj}]
+indent_size = 2
+# https://www.jetbrains.com/help/resharper/EditorConfig_XML_XmlCodeStylePageSchema.html#resharper_xml_blank_line_after_pi
+resharper_blank_line_after_pi = false
+resharper_space_before_self_closing = true
+ij_xml_space_inside_empty_tag = true
+
+[*.json]
+indent_size = 2
+
+# Verify settings
+[*.{received,verified}.{txt,xml,json,md,sql,csv,html,htm,nuspec,rels}]
+charset = utf-8-bom
+end_of_line = lf
+indent_size = unset
+indent_style = unset
+insert_final_newline = false
+tab_width = unset
+trim_trailing_whitespace = false

@@ -1,4 +1,4 @@
-﻿static class GuidScrubber
+static class GuidScrubber
 {
     public static void ReplaceGuids(StringBuilder builder, Counter counter)
     {
@@ -13,119 +13,44 @@
             return;
         }
 
-        var matches = FindMatches(builder, counter);
-
-        // Sort by position descending
-        var orderByDescending = matches.OrderByDescending(_ => _.Index);
-
-        // Apply matches
-        foreach (var match in orderByDescending)
-        {
-            builder.Overwrite(match.Value, match.Index, 36);
-        }
-    }
-
-    static List<Match> FindMatches(StringBuilder builder, Counter counter)
-    {
-        var absolutePosition = 0;
-        var matches = new List<Match>();
-        Span<char> carryoverBuffer = stackalloc char[35];
-        Span<char> buffer = stackalloc char[36];
-        var carryoverLength = 0;
-        var previousChunkAbsoluteEnd = 0;
-
-        foreach (var chunk in builder.GetChunks())
-        {
-            var chunkSpan = chunk.Span;
-
-            // Check for GUIDs spanning from previous chunk to current chunk
-            if (carryoverLength > 0)
+        CrossChunkMatcher.ReplaceAll(
+            builder,
+            maxLength: 36,
+            context: (Builder: builder, Counter: counter),
+            matcher: static (content, absolutePosition, context) =>
             {
-                // Check each possible starting position in the carryover
-                for (var carryoverIndex = 0; carryoverIndex < carryoverLength; carryoverIndex++)
+                // Need at least 36 characters for a GUID
+                if (content.Length < 36)
                 {
-                    var remainingInCarryover = carryoverLength - carryoverIndex;
-                    var neededFromCurrent = 36 - remainingInCarryover;
-
-                    if (neededFromCurrent <= 0 ||
-                        chunkSpan.Length < neededFromCurrent)
-                    {
-                        continue;
-                    }
-
-                    carryoverBuffer.Slice(carryoverIndex, remainingInCarryover).CopyTo(buffer);
-                    chunkSpan[..neededFromCurrent].CopyTo(buffer[remainingInCarryover..]);
-
-                    // Check boundary characters
-                    var startPosition = previousChunkAbsoluteEnd - carryoverLength + carryoverIndex;
-
-                    var hasValidStart = startPosition == 0 ||
-                                        !IsInvalidStartingChar(builder[startPosition - 1]);
-
-                    if (!hasValidStart)
-                    {
-                        continue;
-                    }
-
-                    var hasValidEnd = neededFromCurrent >= chunkSpan.Length ||
-                                      !IsInvalidEndingChar(chunkSpan[neededFromCurrent]);
-
-                    if (!hasValidEnd)
-                    {
-                        continue;
-                    }
-
-                    if (!Guid.TryParseExact(buffer, "D", out var guid))
-                    {
-                        continue;
-                    }
-
-                    var convert = counter.Convert(guid);
-                    matches.Add(new(startPosition, convert));
+                    return null;
                 }
-            }
 
-            // Process GUIDs entirely within this chunk
-            if (chunk.Length >= 36)
-            {
-                for (var chunkIndex = 0; chunkIndex < chunk.Length; chunkIndex++)
+                // Validate start boundary (check character before the potential GUID)
+                if (absolutePosition > 0 &&
+                    IsInvalidStartingChar(context.Builder[absolutePosition - 1]))
                 {
-                    var end = chunkIndex + 36;
-                    if (end > chunk.Length)
-                    {
-                        break;
-                    }
-
-                    var value = chunkSpan;
-                    if ((chunkIndex != 0 && IsInvalidStartingChar(value[chunkIndex - 1])) ||
-                        (end != value.Length && IsInvalidEndingChar(value[end])))
-                    {
-                        continue;
-                    }
-
-                    var slice = value.Slice(chunkIndex, 36);
-
-                    if (!Guid.TryParseExact(slice, "D", out var guid))
-                    {
-                        continue;
-                    }
-
-                    var convert = counter.Convert(guid);
-                    var startReplaceIndex = absolutePosition + chunkIndex;
-                    matches.Add(new(startReplaceIndex, convert));
-                    chunkIndex += 35;
+                    return null;
                 }
-            }
 
-            // Save last 35 chars for next iteration
-            carryoverLength = Math.Min(35, chunk.Length);
-            chunkSpan.Slice(chunk.Length - carryoverLength, carryoverLength).CopyTo(carryoverBuffer);
+                // Validate end boundary (check character after the potential GUID)
+                var endPosition = absolutePosition + 36;
+                if (endPosition < context.Builder.Length &&
+                    IsInvalidEndingChar(context.Builder[endPosition]))
+                {
+                    return null;
+                }
 
-            previousChunkAbsoluteEnd = absolutePosition + chunk.Length;
-            absolutePosition += chunk.Length;
-        }
+                // Try to parse as GUID
+                var slice = content.Slice(0, 36);
+                if (!Guid.TryParseExact(slice, "D", out var guid))
+                {
+                    return null;
+                }
 
-        return matches;
+                // Convert and return match
+                var converted = context.Counter.Convert(guid);
+                return new MatchResult(36, converted);
+            });
     }
 
     static bool IsInvalidEndingChar(char ch) =>
@@ -141,10 +66,4 @@
         IsInvalidChar(ch) &&
         ch != '{' &&
         ch != '(';
-
-    internal readonly struct Match(int index, string value)
-    {
-        public readonly int Index = index;
-        public readonly string Value = value;
-    }
 }

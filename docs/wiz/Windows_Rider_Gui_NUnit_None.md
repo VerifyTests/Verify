@@ -264,4 +264,5 @@ Tools supported by Windows:
  * [Rider](https://www.jetbrains.com/rider/)
  * [Vim](https://www.vim.org/)
  * [Neovim](https://neovim.io/)
+ * [MsWordDiff](https://github.com/SimonCropp/MsWordDiff)
 

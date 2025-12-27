@@ -77,6 +77,7 @@ public static class ClipboardAccept
             return;
         }
 
+#pragma warning disable CS0618 // Type or member is obsolete
         if (DiffEngineTray.IsRunning)
         {
             return;

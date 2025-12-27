@@ -203,7 +203,7 @@ class VerifyEngine(
             return true;
         }
 
-        await DiffEngineTray.AddDeleteAsync(file);
+        await DiffRunner.AddDeleteAsync(file);
 
         return false;
     }

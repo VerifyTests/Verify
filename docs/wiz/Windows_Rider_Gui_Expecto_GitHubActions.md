@@ -19,8 +19,8 @@ Add the following packages to the test project:
 ```fsproj
 <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.15.5" />
 <PackageReference Include="Expecto" Version="10.2.3" />
-<PackageReference Update="FSharp.Core" Version="10.0.100" />
-<PackageReference Include="Verify.Expecto" Version="31.7.2" />
+<PackageReference Update="FSharp.Core" Version="10.0.101" />
+<PackageReference Include="Verify.Expecto" Version="31.9.3" />
 ```
 <sup><a href='/usages/ExpectoNugetUsage/ExpectoNugetUsage.fsproj#L8-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-expecto-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -264,6 +264,7 @@ Tools supported by Windows:
  * [Rider](https://www.jetbrains.com/rider/)
  * [Vim](https://www.vim.org/)
  * [Neovim](https://neovim.io/)
+ * [MsWordDiff](https://github.com/SimonCropp/MsWordDiff)
 
 ## Getting .received in output on GitHub Actions
 

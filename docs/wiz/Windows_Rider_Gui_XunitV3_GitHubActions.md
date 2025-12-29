@@ -18,9 +18,9 @@ Add the following packages to the test project:
 <a id='snippet-xunitv3-nugets'></a>
 ```csproj
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
-<PackageReference Include="Verify.XunitV3" Version="31.7.2" />
+<PackageReference Include="Verify.XunitV3" Version="31.9.3" />
 <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5" PrivateAssets="all" />
-<PackageReference Include="xunit.v3" Version="3.2.0" />
+<PackageReference Include="xunit.v3" Version="3.2.1" />
 ```
 <sup><a href='/usages/XunitV3NugetUsage/XunitV3NugetUsage.csproj#L8-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitv3-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -262,6 +262,7 @@ Tools supported by Windows:
  * [Rider](https://www.jetbrains.com/rider/)
  * [Vim](https://www.vim.org/)
  * [Neovim](https://neovim.io/)
+ * [MsWordDiff](https://github.com/SimonCropp/MsWordDiff)
 
 ## Getting .received in output on GitHub Actions
 

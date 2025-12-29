@@ -19,7 +19,7 @@ Add the following packages to the test project:
 ```csproj
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
 <PackageReference Include="MSTest" Version="4.0.2" />
-<PackageReference Include="Verify.MSTest" Version="31.7.2" />
+<PackageReference Include="Verify.MSTest" Version="31.9.3" />
 ```
 <sup><a href='/usages/MSTestNugetUsage/MSTestNugetUsage.csproj#L7-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-mstest-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -310,6 +310,7 @@ Tools supported by Windows:
  * [Rider](https://www.jetbrains.com/rider/)
  * [Vim](https://www.vim.org/)
  * [Neovim](https://neovim.io/)
+ * [MsWordDiff](https://github.com/SimonCropp/MsWordDiff)
 
 ## Getting .received in output on GitHub Actions
 

@@ -1,4 +1,4 @@
-* text
+* text=auto eol=lf
 *.snk binary
 *.png binary
 *.bmp binary

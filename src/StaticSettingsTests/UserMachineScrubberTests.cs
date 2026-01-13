@@ -88,4 +88,24 @@
     public Task ScrubMachineNameInValidWrapped() =>
         Verify("AFakeMachineNameA")
             .ScrubMachineName();
+
+    [Fact]
+    public Task ScrubMachineNameInQuotes() =>
+        Verify("\"FakeMachineName\"")
+            .ScrubMachineName();
+
+    [Fact]
+    public Task ScrubMachineNameInJson() =>
+        Verify(" \"Message\": \"Machine name: FakeMachineName\",")
+            .ScrubMachineName();
+
+    [Fact]
+    public Task ScrubUserNameInQuotes() =>
+        Verify("\"FakeUserName\"")
+            .ScrubUserName();
+
+    [Fact]
+    public Task ScrubUserNameInJson() =>
+        Verify(" \"Message\": \"User name: FakeUserName\",")
+            .ScrubUserName();
 }

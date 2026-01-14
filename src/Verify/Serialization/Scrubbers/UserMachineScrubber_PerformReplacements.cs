@@ -1,11 +1,7 @@
 ﻿static partial class UserMachineScrubber
 {
     static bool IsValidWrapper(char ch) =>
-        ch is
-            ' ' or
-            '\t' or
-            '\n' or
-            '\r';
+        !char.IsLetterOrDigit(ch);
 
     public static void PerformReplacements(StringBuilder builder, string find, string replace)
     {

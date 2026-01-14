@@ -8,8 +8,6 @@ Note: New issues raised, where it is clear the submitter has not read the issue 
 
 #### Preamble
 
-General questions may be better placed [StackOveflow](https://stackoverflow.com/).
-
 Where relevant, ensure you are using the current stable versions on your development stack. For example:
 
  * Visual Studio or Rider

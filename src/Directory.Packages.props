@@ -12,7 +12,7 @@
     <PackageVersion Include="Fixie" Version="4.2.0" />
     <PackageVersion Include="Fixie.TestAdapter" Version="4.2.0" />
     <PackageVersion Include="FSharp.Core" Version="10.0.102" />
-    <PackageVersion Include="MarkdownSnippets.MsBuild" Version="28.0.0-beta.10" />
+    <PackageVersion Include="MarkdownSnippets.MsBuild" Version="28.0.0-beta.11" />
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.2" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" Pinned="true" />
@@ -22,7 +22,7 @@
     <PackageVersion Include="MSTest" Version="4.0.2" />
     <PackageVersion Include="MSTest.TestFramework" Version="4.0.2" />
     <PackageVersion Include="NUnit3TestAdapter" Version="5.2.0" Pinned="true" />
-    <PackageVersion Include="Polyfill" Version="9.7.2" />
+    <PackageVersion Include="Polyfill" Version="9.7.3" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.170" />
     <PackageVersion Include="PublicApiGenerator" Version="11.5.4" />
     <PackageVersion Include="SimpleInfoName" Version="3.2.0" />
@@ -31,14 +31,14 @@
     <!-- keep at 4.5.0 -->
     <PackageVersion Include="System.ValueTuple" Version="4.5.0" Pinned="true" />
     <PackageVersion Include="TextCopy" Version="6.2.1" />
-    <PackageVersion Include="TUnit" Version="1.10.0" />
-    <PackageVersion Include="TUnit.Core" Version="1.10.0" />
+    <PackageVersion Include="TUnit" Version="1.11.28" />
+    <PackageVersion Include="TUnit.Core" Version="1.11.28" />
     <PackageVersion Include="Xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.abstractions" Version="2.0.3" />
     <PackageVersion Include="xunit.extensibility.execution" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
-    <PackageVersion Include="xunit.v3" Version="3.2.1" />
-    <PackageVersion Include="xunit.v3.extensibility.core" Version="3.2.1" />
+    <PackageVersion Include="xunit.v3" Version="3.2.2" />
+    <PackageVersion Include="xunit.v3.extensibility.core" Version="3.2.2" />
     <PackageVersion Include="YoloDev.Expecto.TestSdk" Version="0.15.5" />
     <PackageVersion Include="Microsoft.Sbom.Targets" Version="4.1.5" />
   </ItemGroup>

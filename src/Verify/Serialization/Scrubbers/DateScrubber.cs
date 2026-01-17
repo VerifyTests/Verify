@@ -1,4 +1,4 @@
-﻿// ReSharper disable ReturnValueOfPureMethodIsNotUsed
+// ReSharper disable ReturnValueOfPureMethodIsNotUsed
 static class DateScrubber
 {
     delegate bool TryConvert(
@@ -192,7 +192,7 @@ static class DateScrubber
         return false;
     }
 
-    static void ReplaceInner(StringBuilder builder, string format, Counter counter, Culture culture, TryConvert tryConvertDate)
+    static void ReplaceInner(StringBuilder builder, string format, Counter counter, Culture culture, TryConvert tryConvert)
     {
         if (!counter.ScrubDateTimes)
         {
@@ -206,69 +206,48 @@ static class DateScrubber
             return;
         }
 
-        if (min == max)
-        {
-            ReplaceFixedLength(builder, format, counter, culture, tryConvertDate, max);
+        var context = new MatchContext(format, counter, culture, tryConvert, max, min);
 
-            return;
-        }
-
-        ReplaceVariableLength(builder, format, counter, culture, tryConvertDate, max, min);
-    }
-
-    static void ReplaceVariableLength(StringBuilder builder, string format, Counter counter, Culture culture, TryConvert tryConvertDate, int longest, int shortest)
-    {
-        var value = builder.AsSpan();
-        var builderIndex = 0;
-        for (var index = 0; index <= value.Length; index++)
-        {
-            var found = false;
-            for (var length = longest; length >= shortest; length--)
+        CrossChunkMatcher.ReplaceAll(
+            builder,
+            maxLength: max,
+            context,
+            matcher: static (content, _, context) =>
             {
-                var end = index + length;
-                if (end > value.Length)
+                // Try lengths from longest to shortest (greedy matching)
+                for (var length = context.MaxLength; length >= context.MinLength; length--)
                 {
-                    continue;
+                    // Not enough content for this length
+                    if (content.Length < length)
+                    {
+                        continue;
+                    }
+
+                    var slice = content[..length];
+
+                    if (context.TryConvert(slice, context.Format, context.Counter, context.Culture, out var converted))
+                    {
+                        return new MatchResult(length, converted);
+                    }
                 }
 
-                var slice = value.Slice(index, length);
-                if (tryConvertDate(slice, format, counter, culture, out var convert))
-                {
-                    builder.Overwrite(convert, builderIndex, length);
-                    builderIndex += convert.Length;
-                    index += length - 1;
-                    found = true;
-                    break;
-                }
-            }
-
-            if (found)
-            {
-                continue;
-            }
-
-            builderIndex++;
-        }
+                return null;
+            });
     }
 
-    static void ReplaceFixedLength(StringBuilder builder, string format, Counter counter, Culture culture, TryConvert tryConvertDate, int length)
+    sealed class MatchContext(
+        string format,
+        Counter counter,
+        Culture culture,
+        TryConvert tryConvert,
+        int maxLength,
+        int minLength)
     {
-        var value = builder.AsSpan();
-        var builderIndex = 0;
-        var increment = length - 1;
-        for (var index = 0; index <= value.Length - length; index++)
-        {
-            var slice = value.Slice(index, length);
-            if (tryConvertDate(slice, format, counter, culture, out var convert))
-            {
-                builder.Overwrite(convert, builderIndex, length);
-                builderIndex += convert.Length;
-                index += increment;
-            }
-            else
-            {
-                builderIndex++;
-            }
-        }
+        public string Format { get; } = format;
+        public Counter Counter { get; } = counter;
+        public Culture Culture { get; } = culture;
+        public TryConvert TryConvert { get; } = tryConvert;
+        public int MaxLength { get; } = maxLength;
+        public int MinLength { get; } = minLength;
     }
 }

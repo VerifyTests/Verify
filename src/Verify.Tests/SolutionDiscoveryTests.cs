@@ -248,6 +248,39 @@ public class SolutionDiscoveryTests
         Assert.Null(solutionName);
     }
 
+    [Fact]
+    public async Task ExplicitCommandLineArguments_OverrideDiscovery()
+    {
+        using var directory = new TempDirectory();
+        var tempDir = directory.Path;
+
+        // Create directory structure
+        var projectDir = Path.Combine(tempDir, "TestProject");
+        Directory.CreateDirectory(projectDir);
+
+        // Create .slnx file (would normally be discovered)
+        var slnxPath = Path.Combine(tempDir, "DiscoveredSolution.slnx");
+        await File.WriteAllTextAsync(slnxPath, CreateMinimalSlnxContent());
+
+        // Create .csproj file
+        var csprojPath = Path.Combine(projectDir, "TestProject.csproj");
+        await File.WriteAllTextAsync(csprojPath, CreateMinimalCsprojContent());
+
+        // Build project with explicit SolutionName (and let SolutionDir be discovered normally)
+        var explicitSolutionName = "ExplicitSolution";
+        var (success, output) = await BuildProject(csprojPath, solutionName: explicitSolutionName);
+        Assert.True(success, $"Build failed: {output}");
+
+        // Load assembly - should use explicit SolutionName, but discovered SolutionDir
+        var assemblyPath = GetAssemblyPath(projectDir);
+        var (solutionDir, solutionName) = LoadAssemblyAndGetMetadata(assemblyPath);
+
+        // SolutionDir should still be discovered
+        Assert.Equal(tempDir + Path.DirectorySeparatorChar, solutionDir);
+        // But SolutionName should be the explicitly provided value
+        Assert.Equal(explicitSolutionName, solutionName);
+    }
+
     private static string CreateMinimalCsprojContent()
     {
         // Get the path to Verify.csproj and Verify.props relative to test project
@@ -300,12 +333,24 @@ public class SolutionDiscoveryTests
 
         """;
 
-    private static async Task<(bool success, string output)> BuildProject(string csprojPath)
+    private static async Task<(bool success, string output)> BuildProject(string csprojPath, string? solutionDir = null, string? solutionName = null)
     {
+        var args = $"build \"{csprojPath}\" --configuration Release --verbosity normal";
+
+        if (solutionDir != null)
+        {
+            args += $" \"/p:SolutionDir={solutionDir}\"";
+        }
+
+        if (solutionName != null)
+        {
+            args += $" \"/p:SolutionName={solutionName}\"";
+        }
+
         var startInfo = new ProcessStartInfo
         {
             FileName = "dotnet",
-            Arguments = $"build \"{csprojPath}\" --configuration Release --verbosity normal",
+            Arguments = args,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,

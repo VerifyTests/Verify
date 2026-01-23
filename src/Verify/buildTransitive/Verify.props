@@ -57,6 +57,10 @@
       <!-- Normalize the path to resolve any ../ or .\ references -->
       <VerifySolutionPathNormalized>$([System.IO.Path]::GetFullPath($(VerifySolutionPath)))</VerifySolutionPathNormalized>
       <SolutionDir>$([System.IO.Path]::GetDirectoryName($(VerifySolutionPathNormalized)))\</SolutionDir>
+    </PropertyGroup>
+
+    <!-- Set SolutionName from discovered path only if not already defined -->
+    <PropertyGroup Condition="'$(VerifyShouldDiscover)' == 'true' And '$(VerifySolutionPath)' != '' And ('$(SolutionName)' == '' Or '$(SolutionName)' == '*Undefined*')">
       <SolutionName>$([System.IO.Path]::GetFileNameWithoutExtension($(VerifySolutionPathNormalized)))</SolutionName>
     </PropertyGroup>
   </Target>

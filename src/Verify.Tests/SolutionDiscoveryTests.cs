@@ -1,3 +1,4 @@
+#if NET10_0
 public class SolutionDiscoveryTests
 {
     [Fact]
@@ -115,8 +116,11 @@ public class SolutionDiscoveryTests
         var (success, output) = await BuildProject(csprojPath);
         Assert.True(success, $"Build failed: {output}");
 
-        // Should contain warning about multiple solution files
+        // Should contain warning about multiple solution files with helpful guidance
         Assert.Contains("Multiple solution files found", output);
+        Assert.Contains("Verify searches for .slnx and .sln files", output);
+        Assert.Contains("/p:SolutionDir=", output);
+        Assert.Contains("/p:SolutionName=", output);
 
         // Load assembly - should NOT have solution metadata
         var assemblyPath = GetAssemblyPath(projectDir);
@@ -148,8 +152,11 @@ public class SolutionDiscoveryTests
         var (success, output) = await BuildProject(csprojPath);
         Assert.True(success, $"Build failed: {output}");
 
-        // Should contain warning about multiple solution files
+        // Should contain warning about multiple solution files with helpful guidance
         Assert.Contains("Multiple solution files found", output);
+        Assert.Contains("Verify searches for .slnx and .sln files", output);
+        Assert.Contains("/p:SolutionDir=", output);
+        Assert.Contains("/p:SolutionName=", output);
 
         // Load assembly - should NOT have solution metadata
         var assemblyPath = GetAssemblyPath(projectDir);
@@ -240,6 +247,12 @@ public class SolutionDiscoveryTests
         var (success, output) = await BuildProject(csprojPath);
         Assert.True(success, $"Build failed: {output}");
 
+        // Should contain warning about no solution files found
+        Assert.Contains("No solution files found", output);
+        Assert.Contains("Verify searches for .slnx and .sln files", output);
+        Assert.Contains("/p:SolutionDir=", output);
+        Assert.Contains("/p:SolutionName=", output);
+
         // Load assembly - should NOT have solution metadata
         var assemblyPath = GetAssemblyPath(projectDir);
         var (solutionDir, solutionName) = LoadAssemblyAndGetMetadata(assemblyPath);
@@ -249,7 +262,7 @@ public class SolutionDiscoveryTests
     }
 
     [Fact]
-    public async Task ExplicitCommandLineArguments_OverrideDiscovery()
+    public async Task ExplicitSolutionName_OverridesDiscovery()
     {
         using var directory = new TempDirectory();
         var tempDir = directory.Path;
@@ -280,6 +293,7 @@ public class SolutionDiscoveryTests
         // But SolutionName should be the explicitly provided value
         Assert.Equal(explicitSolutionName, solutionName);
     }
+
 
     private static string CreateMinimalCsprojContent()
     {
@@ -451,3 +465,5 @@ public class SolutionDiscoveryTests
         public bool IsSystemType(object type) => type is Type;
     }
 }
+
+#endif

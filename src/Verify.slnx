@@ -47,7 +47,6 @@
   <Project Path="Verify.NUnit.Tests/Verify.NUnit.Tests.csproj" />
   <Project Path="Verify.NUnit/Verify.NUnit.csproj" />
   <Project Path="Verify.SamplePlugin/Verify.SamplePlugin.csproj" />
-  <Project Path="Verify.SolutionDiscovery.Tests/Verify.SolutionDiscovery.Tests.csproj" />
   <Project Path="Verify.Tests/Verify.Tests.csproj">
     <BuildDependency Project="FakeDiffTool/FakeDiffTool.csproj" />
   </Project>

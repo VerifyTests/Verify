@@ -1,8 +1,3 @@
-using System.Diagnostics;
-using System.Reflection;
-using System.Runtime.Loader;
-using Xunit;
-
 public class SolutionDiscoveryTests
 {
     [Fact]
@@ -272,40 +267,46 @@ public class SolutionDiscoveryTests
             Path.GetDirectoryName(typeof(SolutionDiscoveryTests).Assembly.Location)!,
             "..", "..", "..", "..", "Verify", "buildTransitive", "Verify.props"));
 
-        return $@"<Project Sdk=""Microsoft.NET.Sdk"">
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <OutputType>Library</OutputType>
-    <AssemblyName>{projectName}</AssemblyName>
-  </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include=""{verifyProjectPath}"" />
-  </ItemGroup>
-  <Import Project=""{verifyPropsPath}"" />
-</Project>";
+        return $"""
+                <Project Sdk="Microsoft.NET.Sdk">
+                  <PropertyGroup>
+                    <TargetFramework>net10.0</TargetFramework>
+                    <OutputType>Library</OutputType>
+                    <AssemblyName>{projectName}</AssemblyName>
+                  </PropertyGroup>
+                  <ItemGroup>
+                    <ProjectReference Include="{verifyProjectPath}" />
+                  </ItemGroup>
+                  <Import Project="{verifyPropsPath}" />
+                </Project>
+                """;
     }
 
-    private static string CreateMinimalSlnxContent() =>
-        @"{
-  ""solution"": {
-    ""path"": ""TestSolution.slnx"",
-    ""version"": ""1.0""
-  }
-}";
+    static string CreateMinimalSlnxContent() =>
+        """
+        {
+          "solution": {
+            "path": "TestSolution.slnx",
+            "version": "1.0"
+          }
+        }
+        """;
 
-    private static string CreateMinimalSlnContent() =>
-        @"
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31903.59
-MinimumVisualStudioVersion = 10.0.40219.1
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-EndGlobal
-";
+    static string CreateMinimalSlnContent() =>
+        """
+
+        Microsoft Visual Studio Solution File, Format Version 12.00
+        # Visual Studio Version 17
+        VisualStudioVersion = 17.0.31903.59
+        MinimumVisualStudioVersion = 10.0.40219.1
+        Global
+        	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+        		Debug|Any CPU = Debug|Any CPU
+        		Release|Any CPU = Release|Any CPU
+        	EndGlobalSection
+        EndGlobal
+
+        """;
 
     private static async Task<(bool success, string output)> BuildProject(string csprojPath)
     {
@@ -352,34 +353,64 @@ EndGlobal
 
     private static (string? solutionDir, string? solutionName) LoadAssemblyAndGetMetadata(string assemblyPath)
     {
-        // Create isolated AssemblyLoadContext to avoid conflicts
-        var context = new AssemblyLoadContext(name: null, isCollectible: true);
-        try
-        {
-            var assembly = context.LoadFromAssemblyPath(assemblyPath);
-            var solutionDir = GetAssemblyMetadata(assembly, "Verify.SolutionDirectory");
-            var solutionName = GetAssemblyMetadata(assembly, "Verify.SolutionName");
-            return (solutionDir, solutionName);
-        }
-        finally
-        {
-            context.Unload();
+        // Use MetadataReader to read assembly attributes without loading the assembly
+        using var fileStream = File.OpenRead(assemblyPath);
+        using var peReader = new PEReader(fileStream);
+        var metadataReader = peReader.GetMetadataReader();
 
-            // Aggressively wait for file handles to be released
-            for (var i = 0; i < 10; i++)
+        string? solutionDir = null;
+        string? solutionName = null;
+
+        foreach (var attributeHandle in metadataReader.GetAssemblyDefinition().GetCustomAttributes())
+        {
+            var attribute = metadataReader.GetCustomAttribute(attributeHandle);
+
+            // Check if this is AssemblyMetadataAttribute
+            if (attribute.Constructor.Kind == HandleKind.MemberReference)
             {
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-            }
+                var constructor = metadataReader.GetMemberReference((MemberReferenceHandle)attribute.Constructor);
+                var attributeType = constructor.Parent;
 
-            // Additional wait to ensure file handles are released
-            Thread.Sleep(500);
+                if (attributeType.Kind == HandleKind.TypeReference)
+                {
+                    var typeRef = metadataReader.GetTypeReference((TypeReferenceHandle)attributeType);
+                    var typeName = metadataReader.GetString(typeRef.Name);
+                    var typeNamespace = metadataReader.GetString(typeRef.Namespace);
+
+                    if (typeName == "AssemblyMetadataAttribute" && typeNamespace == "System.Reflection")
+                    {
+                        var value = attribute.DecodeValue(new CustomAttributeTypeProvider());
+                        if (value.FixedArguments.Length == 2)
+                        {
+                            var key = value.FixedArguments[0].Value as string;
+                            var val = value.FixedArguments[1].Value as string;
+
+                            if (key == "Verify.SolutionDirectory")
+                            {
+                                solutionDir = val;
+                            }
+                            else if (key == "Verify.SolutionName")
+                            {
+                                solutionName = val;
+                            }
+                        }
+                    }
+                }
+            }
         }
+
+        return (solutionDir, solutionName);
     }
 
-    private static string? GetAssemblyMetadata(Assembly assembly, string key)
+    private class CustomAttributeTypeProvider : ICustomAttributeTypeProvider<object>
     {
-        var attributes = assembly.GetCustomAttributes<AssemblyMetadataAttribute>();
-        return attributes.FirstOrDefault(a => a.Key == key)?.Value;
+        public object GetPrimitiveType(PrimitiveTypeCode typeCode) => typeCode;
+        public object GetSystemType() => typeof(Type);
+        public object GetSZArrayType(object elementType) => elementType;
+        public object GetTypeFromDefinition(MetadataReader reader, TypeDefinitionHandle handle, byte rawTypeKind) => reader.GetTypeDefinition(handle);
+        public object GetTypeFromReference(MetadataReader reader, TypeReferenceHandle handle, byte rawTypeKind) => reader.GetTypeReference(handle);
+        public object GetTypeFromSerializedName(string name) => name;
+        public PrimitiveTypeCode GetUnderlyingEnumType(object type) => PrimitiveTypeCode.Int32;
+        public bool IsSystemType(object type) => type is Type;
     }
 }

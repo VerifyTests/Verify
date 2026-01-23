@@ -3,7 +3,6 @@ public class SolutionDiscoveryTests
     [Fact]
     public async Task SingleSlnxFile()
     {
-        var testName = nameof(SingleSlnxFile);
         using var directory = new TempDirectory();
         var tempDir = directory.Path;
 
@@ -16,15 +15,15 @@ public class SolutionDiscoveryTests
         await File.WriteAllTextAsync(slnxPath, CreateMinimalSlnxContent());
 
         // Create .csproj file
-        var csprojPath = Path.Combine(projectDir, $"{testName}.csproj");
-        await File.WriteAllTextAsync(csprojPath, CreateMinimalCsprojContent(testName));
+        var csprojPath = Path.Combine(projectDir, "TestProject.csproj");
+        await File.WriteAllTextAsync(csprojPath, CreateMinimalCsprojContent());
 
         // Build project
         var (success, output) = await BuildProject(csprojPath);
         Assert.True(success, $"Build failed: {output}");
 
         // Load assembly and verify metadata
-        var assemblyPath = GetAssemblyPath(projectDir, testName);
+        var assemblyPath = GetAssemblyPath(projectDir);
         var (solutionDir, solutionName) = LoadAssemblyAndGetMetadata(assemblyPath);
 
         Assert.Equal(tempDir + Path.DirectorySeparatorChar, solutionDir);
@@ -34,7 +33,6 @@ public class SolutionDiscoveryTests
     [Fact]
     public async Task SingleSlnFile()
     {
-        var testName = nameof(SingleSlnFile);
         using var directory = new TempDirectory();
         var tempDir = directory.Path;
 
@@ -47,15 +45,15 @@ public class SolutionDiscoveryTests
         await File.WriteAllTextAsync(slnPath, CreateMinimalSlnContent());
 
         // Create .csproj file
-        var csprojPath = Path.Combine(projectDir, $"{testName}.csproj");
-        await File.WriteAllTextAsync(csprojPath, CreateMinimalCsprojContent(testName));
+        var csprojPath = Path.Combine(projectDir, "TestProject.csproj");
+        await File.WriteAllTextAsync(csprojPath, CreateMinimalCsprojContent());
 
         // Build project
         var (success, output) = await BuildProject(csprojPath);
         Assert.True(success, $"Build failed: {output}");
 
         // Load assembly and verify metadata
-        var assemblyPath = GetAssemblyPath(projectDir, testName);
+        var assemblyPath = GetAssemblyPath(projectDir);
         var (solutionDir, solutionName) = LoadAssemblyAndGetMetadata(assemblyPath);
 
         Assert.Equal(tempDir + Path.DirectorySeparatorChar, solutionDir);
@@ -65,7 +63,6 @@ public class SolutionDiscoveryTests
     [Fact]
     public async Task BothSlnxAndSln_PreferSlnx()
     {
-        var testName = nameof(BothSlnxAndSln_PreferSlnx);
         using var directory = new TempDirectory();
         var tempDir = directory.Path;
 
@@ -81,15 +78,15 @@ public class SolutionDiscoveryTests
         await File.WriteAllTextAsync(slnPath, CreateMinimalSlnContent());
 
         // Create .csproj file
-        var csprojPath = Path.Combine(projectDir, $"{testName}.csproj");
-        await File.WriteAllTextAsync(csprojPath, CreateMinimalCsprojContent(testName));
+        var csprojPath = Path.Combine(projectDir, "TestProject.csproj");
+        await File.WriteAllTextAsync(csprojPath, CreateMinimalCsprojContent());
 
         // Build project
         var (success, output) = await BuildProject(csprojPath);
         Assert.True(success, $"Build failed: {output}");
 
         // Load assembly and verify metadata - should use .slnx
-        var assemblyPath = GetAssemblyPath(projectDir, testName);
+        var assemblyPath = GetAssemblyPath(projectDir);
         var (_, solutionName) = LoadAssemblyAndGetMetadata(assemblyPath);
 
         // Should prefer .slnx file
@@ -99,7 +96,6 @@ public class SolutionDiscoveryTests
     [Fact]
     public async Task MultipleSlnxFiles_ShowsWarning()
     {
-        var testName = nameof(MultipleSlnxFiles_ShowsWarning);
         using var directory = new TempDirectory();
         var tempDir = directory.Path;
 
@@ -112,8 +108,8 @@ public class SolutionDiscoveryTests
         await File.WriteAllTextAsync(Path.Combine(tempDir, "Solution2.slnx"), CreateMinimalSlnxContent());
 
         // Create .csproj file
-        var csprojPath = Path.Combine(projectDir, $"{testName}.csproj");
-        await File.WriteAllTextAsync(csprojPath, CreateMinimalCsprojContent(testName));
+        var csprojPath = Path.Combine(projectDir, "TestProject.csproj");
+        await File.WriteAllTextAsync(csprojPath, CreateMinimalCsprojContent());
 
         // Build project
         var (success, output) = await BuildProject(csprojPath);
@@ -123,7 +119,7 @@ public class SolutionDiscoveryTests
         Assert.Contains("Multiple solution files found", output);
 
         // Load assembly - should NOT have solution metadata
-        var assemblyPath = GetAssemblyPath(projectDir, testName);
+        var assemblyPath = GetAssemblyPath(projectDir);
         var (solutionDir, solutionName) = LoadAssemblyAndGetMetadata(assemblyPath);
 
         Assert.Null(solutionDir);
@@ -133,7 +129,6 @@ public class SolutionDiscoveryTests
     [Fact]
     public async Task MultipleSlnFiles_ShowsWarning()
     {
-        var testName = nameof(MultipleSlnFiles_ShowsWarning);
         using var directory = new TempDirectory();
         var tempDir = directory.Path;
 
@@ -146,8 +141,8 @@ public class SolutionDiscoveryTests
         await File.WriteAllTextAsync(Path.Combine(tempDir, "Solution2.sln"), CreateMinimalSlnContent());
 
         // Create .csproj file
-        var csprojPath = Path.Combine(projectDir, $"{testName}.csproj");
-        await File.WriteAllTextAsync(csprojPath, CreateMinimalCsprojContent(testName));
+        var csprojPath = Path.Combine(projectDir, "TestProject.csproj");
+        await File.WriteAllTextAsync(csprojPath, CreateMinimalCsprojContent());
 
         // Build project
         var (success, output) = await BuildProject(csprojPath);
@@ -157,7 +152,7 @@ public class SolutionDiscoveryTests
         Assert.Contains("Multiple solution files found", output);
 
         // Load assembly - should NOT have solution metadata
-        var assemblyPath = GetAssemblyPath(projectDir, testName);
+        var assemblyPath = GetAssemblyPath(projectDir);
         var (solutionDir, solutionName) = LoadAssemblyAndGetMetadata(assemblyPath);
 
         Assert.Null(solutionDir);
@@ -167,7 +162,6 @@ public class SolutionDiscoveryTests
     [Fact]
     public async Task SolutionInParentDirectory()
     {
-        var testName = nameof(SolutionInParentDirectory);
         using var directory = new TempDirectory();
         var tempDir = directory.Path;
 
@@ -181,15 +175,15 @@ public class SolutionDiscoveryTests
         await File.WriteAllTextAsync(slnxPath, CreateMinimalSlnxContent());
 
         // Create .csproj file
-        var csprojPath = Path.Combine(projectDir, $"{testName}.csproj");
-        await File.WriteAllTextAsync(csprojPath, CreateMinimalCsprojContent(testName));
+        var csprojPath = Path.Combine(projectDir, "TestProject.csproj");
+        await File.WriteAllTextAsync(csprojPath, CreateMinimalCsprojContent());
 
         // Build project
         var (success, output) = await BuildProject(csprojPath);
         Assert.True(success, $"Build failed: {output}");
 
         // Load assembly and verify metadata
-        var assemblyPath = GetAssemblyPath(projectDir, testName);
+        var assemblyPath = GetAssemblyPath(projectDir);
         var (solutionDir, solutionName) = LoadAssemblyAndGetMetadata(assemblyPath);
 
         Assert.Equal(srcDir + Path.DirectorySeparatorChar, solutionDir);
@@ -199,7 +193,6 @@ public class SolutionDiscoveryTests
     [Fact]
     public async Task SolutionInParentsParentDirectory()
     {
-        var testName = nameof(SolutionInParentsParentDirectory);
         using var directory = new TempDirectory();
         var tempDir = directory.Path;
 
@@ -214,15 +207,15 @@ public class SolutionDiscoveryTests
         await File.WriteAllTextAsync(slnxPath, CreateMinimalSlnxContent());
 
         // Create .csproj file
-        var csprojPath = Path.Combine(projectDir, $"{testName}.csproj");
-        await File.WriteAllTextAsync(csprojPath, CreateMinimalCsprojContent(testName));
+        var csprojPath = Path.Combine(projectDir, "TestProject.csproj");
+        await File.WriteAllTextAsync(csprojPath, CreateMinimalCsprojContent());
 
         // Build project
         var (success, output) = await BuildProject(csprojPath);
         Assert.True(success, $"Build failed: {output}");
 
         // Load assembly and verify metadata
-        var assemblyPath = GetAssemblyPath(projectDir, testName);
+        var assemblyPath = GetAssemblyPath(projectDir);
         var (solutionDir, solutionName) = LoadAssemblyAndGetMetadata(assemblyPath);
 
         Assert.Equal(srcDir + Path.DirectorySeparatorChar, solutionDir);
@@ -232,7 +225,6 @@ public class SolutionDiscoveryTests
     [Fact]
     public async Task NoSolutionFile_NoMetadata()
     {
-        var testName = nameof(NoSolutionFile_NoMetadata);
         using var directory = new TempDirectory();
         var tempDir = directory.Path;
 
@@ -241,22 +233,22 @@ public class SolutionDiscoveryTests
         Directory.CreateDirectory(projectDir);
 
         // Create .csproj file (no solution file)
-        var csprojPath = Path.Combine(projectDir, $"{testName}.csproj");
-        await File.WriteAllTextAsync(csprojPath, CreateMinimalCsprojContent(testName));
+        var csprojPath = Path.Combine(projectDir, "TestProject.csproj");
+        await File.WriteAllTextAsync(csprojPath, CreateMinimalCsprojContent());
 
         // Build project
         var (success, output) = await BuildProject(csprojPath);
         Assert.True(success, $"Build failed: {output}");
 
         // Load assembly - should NOT have solution metadata
-        var assemblyPath = GetAssemblyPath(projectDir, testName);
+        var assemblyPath = GetAssemblyPath(projectDir);
         var (solutionDir, solutionName) = LoadAssemblyAndGetMetadata(assemblyPath);
 
         Assert.Null(solutionDir);
         Assert.Null(solutionName);
     }
 
-    private static string CreateMinimalCsprojContent(string projectName)
+    private static string CreateMinimalCsprojContent()
     {
         // Get the path to Verify.csproj and Verify.props relative to test project
         var verifyProjectPath = Path.GetFullPath(Path.Combine(
@@ -272,7 +264,7 @@ public class SolutionDiscoveryTests
                   <PropertyGroup>
                     <TargetFramework>net10.0</TargetFramework>
                     <OutputType>Library</OutputType>
-                    <AssemblyName>{projectName}</AssemblyName>
+                    <AssemblyName>TestProject</AssemblyName>
                   </PropertyGroup>
                   <ItemGroup>
                     <ProjectReference Include="{verifyProjectPath}" />
@@ -338,10 +330,10 @@ public class SolutionDiscoveryTests
         return (process.ExitCode == 0, fullOutput);
     }
 
-    private static string GetAssemblyPath(string projectDir, string assemblyName)
+    private static string GetAssemblyPath(string projectDir)
     {
         var binPath = Path.Combine(projectDir, "bin", "Release", "net10.0");
-        var dllPath = Path.Combine(binPath, $"{assemblyName}.dll");
+        var dllPath = Path.Combine(binPath, "TestProject.dll");
 
         if (!File.Exists(dllPath))
         {

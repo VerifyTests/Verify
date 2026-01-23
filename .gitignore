@@ -22,4 +22,3 @@ src/Verify.NUnit.Tests/Tests.AutoVerifyHasAttachment.verified.txt
 src/Verify.TUnit.Tests/Tests.AutoVerifyHasAttachment.verified.txt
 /src/Benchmarks/BenchmarkDotNet.Artifacts
 nul
-*claude*

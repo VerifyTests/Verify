@@ -455,18 +455,9 @@ public class SolutionDiscoveryTests
                 // Scrub file paths to make them machine-independent
                 var scrubbed = line;
 
-                // Replace temp directory paths: C:\Users\...\AppData\Local\Temp\...\VerifyTempDirectory\randomname\
-                // Also handles CI paths like: C:\projects\verify\...\Temp\1\VerifyTempDirectory\randomname\
-                scrubbed = Regex.Replace(scrubbed,
-                    @"[A-Z]:[/\\](?:[^/\\]+[/\\])*?(?:AppData[/\\]Local[/\\])?Temp[/\\](?:1[/\\])?VerifyTempDirectory[/\\][^/\\]+[/\\]",
-                    @"C:\Temp\",
-                    RegexOptions.IgnoreCase);
-
-                // Replace source code repository paths (case-insensitive for verify/Verify)
-                scrubbed = Regex.Replace(scrubbed,
-                    @"[A-Z]:[/\\](?:Code|projects)[/\\]verify[/\\]",
-                    @"C:\Code\Verify\",
-                    RegexOptions.IgnoreCase);
+                // Remove absolute paths - look for drive letters or long paths
+                scrubbed = Regex.Replace(scrubbed, @"[A-Z]:\\[^""]*?\\", @"C:\Path\To\");
+                scrubbed = Regex.Replace(scrubbed, @"C:\\Users\\[^\\]+", @"C:\Users\User");
 
                 return scrubbed;
             })

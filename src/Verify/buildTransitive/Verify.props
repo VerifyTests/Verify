@@ -54,8 +54,10 @@
 
     <!-- Set SolutionDir and SolutionName if we found exactly one -->
     <PropertyGroup Condition="'$(VerifyShouldDiscover)' == 'true' And '$(VerifySolutionPath)' != ''">
-      <SolutionDir>$([System.IO.Path]::GetDirectoryName($(VerifySolutionPath)))\</SolutionDir>
-      <SolutionName>$([System.IO.Path]::GetFileNameWithoutExtension($(VerifySolutionPath)))</SolutionName>
+      <!-- Normalize the path to resolve any ../ or .\ references -->
+      <VerifySolutionPathNormalized>$([System.IO.Path]::GetFullPath($(VerifySolutionPath)))</VerifySolutionPathNormalized>
+      <SolutionDir>$([System.IO.Path]::GetDirectoryName($(VerifySolutionPathNormalized)))\</SolutionDir>
+      <SolutionName>$([System.IO.Path]::GetFileNameWithoutExtension($(VerifySolutionPathNormalized)))</SolutionName>
     </PropertyGroup>
   </Target>
 

@@ -1083,6 +1083,7 @@ To opt out of this feature, include the following in the project file:
     * [Guids](/docs/guids.md)
     * [Dates](/docs/dates.md)
     * [Scrubbing](/docs/scrubbers.md)
+    * [Solution Discovery](/docs/solution-discovery.md)
     * [Counter](/docs/counter.md)
     * [Members that throw](/docs/members-throw.md)
     * [Ordering](/docs/ordering.md)

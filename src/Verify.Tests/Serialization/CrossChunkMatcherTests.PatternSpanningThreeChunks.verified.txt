@@ -1,0 +1,5 @@
+﻿{
+  MatchFound: true,
+  OriginalPatternExists: false,
+  Note: Pattern spanning 3 chunks should now be detected
+}

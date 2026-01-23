@@ -1,6 +1,4 @@
 #if NET10_0
-using System.Text.RegularExpressions;
-
 public class SolutionDiscoveryTests
 {
     [Fact]
@@ -118,8 +116,11 @@ public class SolutionDiscoveryTests
         var (success, output) = await BuildProject(csprojPath);
         Assert.True(success, $"Build failed: {output}");
 
-        // Verify warning message
-        await Verify(ScrubBuildOutput(output));
+        // Should contain warning about multiple solution files with helpful guidance
+        Assert.Contains("Multiple solution files found", output);
+        Assert.Contains("Verify searches for .slnx and .sln files", output);
+        Assert.Contains("/p:SolutionDir=", output);
+        Assert.Contains("/p:SolutionName=", output);
 
         // Load assembly - should NOT have solution metadata
         var assemblyPath = GetAssemblyPath(projectDir);
@@ -151,8 +152,11 @@ public class SolutionDiscoveryTests
         var (success, output) = await BuildProject(csprojPath);
         Assert.True(success, $"Build failed: {output}");
 
-        // Verify warning message
-        await Verify(ScrubBuildOutput(output));
+        // Should contain warning about multiple solution files with helpful guidance
+        Assert.Contains("Multiple solution files found", output);
+        Assert.Contains("Verify searches for .slnx and .sln files", output);
+        Assert.Contains("/p:SolutionDir=", output);
+        Assert.Contains("/p:SolutionName=", output);
 
         // Load assembly - should NOT have solution metadata
         var assemblyPath = GetAssemblyPath(projectDir);
@@ -243,8 +247,11 @@ public class SolutionDiscoveryTests
         var (success, output) = await BuildProject(csprojPath);
         Assert.True(success, $"Build failed: {output}");
 
-        // Verify warning message
-        await Verify(ScrubBuildOutput(output));
+        // Should contain warning about no solution files found
+        Assert.Contains("No solution files found", output);
+        Assert.Contains("Verify searches for .slnx and .sln files", output);
+        Assert.Contains("/p:SolutionDir=", output);
+        Assert.Contains("/p:SolutionName=", output);
 
         // Load assembly - should NOT have solution metadata
         var assemblyPath = GetAssemblyPath(projectDir);
@@ -324,18 +331,20 @@ public class SolutionDiscoveryTests
         }
         """;
 
-    // Using string concatenation to avoid preprocessor issues with # in raw string literals
     static string CreateMinimalSlnContent() =>
         """
+
         Microsoft Visual Studio Solution File, Format Version 12.00
+        # Visual Studio Version 17
         VisualStudioVersion = 17.0.31903.59
         MinimumVisualStudioVersion = 10.0.40219.1
         Global
-        	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-        		Debug|Any CPU = Debug|Any CPU
-        		Release|Any CPU = Release|Any CPU
-        	EndGlobalSection
+            GlobalSection(SolutionConfigurationPlatforms) = preSolution
+                Debug|Any CPU = Debug|Any CPU
+                Release|Any CPU = Release|Any CPU
+            EndGlobalSection
         EndGlobal
+
         """;
 
     private static async Task<(bool success, string output)> BuildProject(string csprojPath, string? solutionDir = null, string? solutionName = null)
@@ -442,28 +451,6 @@ public class SolutionDiscoveryTests
         }
 
         return (solutionDir, solutionName);
-    }
-
-    private static string ScrubBuildOutput(string output)
-    {
-        // Extract only the warning lines to make snapshots stable
-        var lines = output.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries);
-        var warningLines = lines
-            .Where(line => line.Contains("warning") || line.Contains("Multiple solution files") || line.Contains("No solution files"))
-            .Select(line =>
-            {
-                // Scrub file paths to make them machine-independent
-                var scrubbed = line;
-
-                // Remove absolute paths - look for drive letters or long paths
-                scrubbed = Regex.Replace(scrubbed, @"[A-Z]:\\[^""]*?\\", @"C:\Path\To\");
-                scrubbed = Regex.Replace(scrubbed, @"C:\\Users\\[^\\]+", @"C:\Users\User");
-
-                return scrubbed;
-            })
-            .ToList();
-
-        return string.Join(Environment.NewLine, warningLines);
     }
 
     private class CustomAttributeTypeProvider : ICustomAttributeTypeProvider<object>

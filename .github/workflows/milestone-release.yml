@@ -1,0 +1,138 @@
+name: milestone-release
+
+on:
+  milestone:
+    types: [created, edited, deleted, closed, opened]
+  issues:
+    types: [opened, edited, closed, reopened, deleted, milestoned, demilestoned]
+  pull_request:
+    types: [opened, edited, closed, reopened, milestoned, demilestoned]
+  workflow_dispatch:
+    inputs:
+      milestone:
+        description: 'Milestone title to rebuild (leave empty to rebuild all)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  sync-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync Release with Milestone
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+
+            async function syncMilestone(milestone) {
+              const milestoneTitle = milestone.title;
+              const milestoneNumber = milestone.number;
+
+              // Find existing release by tag_name (includes drafts)
+              let release = null;
+              for await (const response of github.paginate.iterator(
+                github.rest.repos.listReleases,
+                { owner, repo, per_page: 100 }
+              )) {
+                release = response.data.find(r => r.tag_name === milestoneTitle);
+                if (release) break;
+              }
+
+              // Fetch all issues and PRs in milestone
+              const items = [];
+              for await (const response of github.paginate.iterator(
+                github.rest.issues.listForRepo,
+                { owner, repo, milestone: milestoneNumber, state: 'all', per_page: 100 }
+              )) {
+                items.push(...response.data);
+              }
+
+              // Sort by number and generate body
+              items.sort((a, b) => a.number - b.number);
+              const body = items.map(item => {
+                const checkbox = item.state === 'closed' ? '[x]' : '[ ]';
+                return `- ${checkbox} [#${item.number}](${item.html_url}) ${item.title}`;
+              }).join('\n');
+
+              // Determine if release should be draft or published
+              const isDraft = milestone.state === 'open';
+
+              if (release) {
+                await github.rest.repos.updateRelease({
+                  owner, repo,
+                  release_id: release.id,
+                  name: milestoneTitle,
+                  body: body || 'No issues in this milestone yet.',
+                  draft: isDraft
+                });
+                console.log(`Updated release: ${milestoneTitle}`);
+              } else {
+                await github.rest.repos.createRelease({
+                  owner, repo,
+                  tag_name: milestoneTitle,
+                  name: milestoneTitle,
+                  body: body || 'No issues in this milestone yet.',
+                  draft: isDraft
+                });
+                console.log(`Created release: ${milestoneTitle}`);
+              }
+            }
+
+            // Handle manual trigger - rebuild all or specific milestone
+            if (context.eventName === 'workflow_dispatch') {
+              const inputMilestone = context.payload.inputs?.milestone;
+              const milestones = [];
+              for await (const response of github.paginate.iterator(
+                github.rest.issues.listMilestones,
+                { owner, repo, state: 'all', per_page: 100 }
+              )) {
+                milestones.push(...response.data);
+              }
+
+              for (const ms of milestones) {
+                if (!inputMilestone || ms.title === inputMilestone) {
+                  await syncMilestone(ms);
+                }
+              }
+              return;
+            }
+
+            // Get milestone from event
+            let milestone = context.payload.milestone;
+            if (!milestone && context.payload.issue?.milestone) {
+              milestone = context.payload.issue.milestone;
+            }
+            if (!milestone && context.payload.pull_request?.milestone) {
+              milestone = context.payload.pull_request.milestone;
+            }
+            if (!milestone) {
+              console.log('No milestone associated with this event');
+              return;
+            }
+
+            const eventAction = context.payload.action;
+
+            // Handle milestone deleted
+            if (context.eventName === 'milestone' && eventAction === 'deleted') {
+              const milestoneTitle = milestone.title;
+              let release = null;
+              for await (const response of github.paginate.iterator(
+                github.rest.repos.listReleases,
+                { owner, repo, per_page: 100 }
+              )) {
+                release = response.data.find(r => r.tag_name === milestoneTitle);
+                if (release) break;
+              }
+              if (release) {
+                await github.rest.repos.deleteRelease({
+                  owner, repo, release_id: release.id
+                });
+                console.log(`Deleted release for milestone: ${milestoneTitle}`);
+              }
+              return;
+            }
+
+            await syncMilestone(milestone);

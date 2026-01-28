@@ -37,7 +37,7 @@
             return methodParameterNames;
         }
 
-        var names = GetConstructorParameterNames(method.TypeInfo.Type, parent.Arguments.Length);
+        var names = method.TypeInfo.Type.GetConstructorParameterNames(parent.Arguments.Length);
         if (methodParameterNames == null)
         {
             return names.ToList();

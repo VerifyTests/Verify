@@ -294,8 +294,7 @@ public class SolutionDiscoveryTests
         Assert.Equal(explicitSolutionName, solutionName);
     }
 
-
-    private static string CreateMinimalCsprojContent()
+    static string CreateMinimalCsprojContent()
     {
         // Get the path to Verify.csproj and Verify.props relative to test project
         var verifyProjectPath = Path.GetFullPath(Path.Combine(
@@ -344,7 +343,7 @@ public class SolutionDiscoveryTests
         EndGlobal
         """;
 
-    private static async Task<(bool success, string output)> BuildProject(string csprojPath, string? solutionDir = null, string? solutionName = null)
+    static async Task<(bool success, string output)> BuildProject(string csprojPath, string? solutionDir = null, string? solutionName = null)
     {
         var args = $"build \"{csprojPath}\" --configuration Release --verbosity normal";
 
@@ -368,11 +367,7 @@ public class SolutionDiscoveryTests
             CreateNoWindow = true
         };
 
-        using var process = Process.Start(startInfo);
-        if (process == null)
-        {
-            return (false, "Failed to start process");
-        }
+        using var process = Process.Start(startInfo)!;
 
         var outputTask = process.StandardOutput.ReadToEndAsync();
         var errorTask = process.StandardError.ReadToEndAsync();
@@ -386,20 +381,20 @@ public class SolutionDiscoveryTests
         return (process.ExitCode == 0, fullOutput);
     }
 
-    private static string GetAssemblyPath(string projectDir)
+    static string GetAssemblyPath(string projectDir)
     {
         var binPath = Path.Combine(projectDir, "bin", "Release", "net10.0");
         var dllPath = Path.Combine(binPath, "TestProject.dll");
 
-        if (!File.Exists(dllPath))
+        if (File.Exists(dllPath))
         {
-            throw new FileNotFoundException($"Assembly not found at {dllPath}");
+            return dllPath;
         }
 
-        return dllPath;
+        throw new FileNotFoundException($"Assembly not found at {dllPath}");
     }
 
-    private static (string? solutionDir, string? solutionName) LoadAssemblyAndGetMetadata(string assemblyPath)
+    static (string? solutionDir, string? solutionName) LoadAssemblyAndGetMetadata(string assemblyPath)
     {
         // Use MetadataReader to read assembly attributes without loading the assembly
         using var fileStream = File.OpenRead(assemblyPath);
@@ -414,43 +409,51 @@ public class SolutionDiscoveryTests
             var attribute = metadataReader.GetCustomAttribute(attributeHandle);
 
             // Check if this is AssemblyMetadataAttribute
-            if (attribute.Constructor.Kind == HandleKind.MemberReference)
+            if (attribute.Constructor.Kind != HandleKind.MemberReference)
             {
-                var constructor = metadataReader.GetMemberReference((MemberReferenceHandle)attribute.Constructor);
-                var attributeType = constructor.Parent;
+                continue;
+            }
 
-                if (attributeType.Kind == HandleKind.TypeReference)
-                {
-                    var typeRef = metadataReader.GetTypeReference((TypeReferenceHandle)attributeType);
-                    var typeName = metadataReader.GetString(typeRef.Name);
-                    var typeNamespace = metadataReader.GetString(typeRef.Namespace);
+            var constructor = metadataReader.GetMemberReference((MemberReferenceHandle)attribute.Constructor);
+            var attributeType = constructor.Parent;
 
-                    if (typeName == "AssemblyMetadataAttribute" && typeNamespace == "System.Reflection")
-                    {
-                        var value = attribute.DecodeValue(new CustomAttributeTypeProvider());
-                        if (value.FixedArguments.Length == 2)
-                        {
-                            var key = value.FixedArguments[0].Value as string;
-                            var val = value.FixedArguments[1].Value as string;
+            if (attributeType.Kind != HandleKind.TypeReference)
+            {
+                continue;
+            }
 
-                            if (key == "Verify.SolutionDirectory")
-                            {
-                                solutionDir = val;
-                            }
-                            else if (key == "Verify.SolutionName")
-                            {
-                                solutionName = val;
-                            }
-                        }
-                    }
-                }
+            var typeRef = metadataReader.GetTypeReference((TypeReferenceHandle)attributeType);
+            var typeName = metadataReader.GetString(typeRef.Name);
+            var typeNamespace = metadataReader.GetString(typeRef.Namespace);
+
+            if (typeName != "AssemblyMetadataAttribute" || typeNamespace != "System.Reflection")
+            {
+                continue;
+            }
+
+            var value = attribute.DecodeValue(new CustomAttributeTypeProvider());
+            if (value.FixedArguments.Length != 2)
+            {
+                continue;
+            }
+
+            var key = value.FixedArguments[0].Value as string;
+            var val = value.FixedArguments[1].Value as string;
+
+            if (key == "Verify.SolutionDirectory")
+            {
+                solutionDir = val;
+            }
+            else if (key == "Verify.SolutionName")
+            {
+                solutionName = val;
             }
         }
 
         return (solutionDir, solutionName);
     }
 
-    private class CustomAttributeTypeProvider : ICustomAttributeTypeProvider<object>
+    class CustomAttributeTypeProvider : ICustomAttributeTypeProvider<object>
     {
         public object GetPrimitiveType(PrimitiveTypeCode typeCode) => typeCode;
         public object GetSystemType() => typeof(Type);

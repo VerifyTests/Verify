@@ -70,14 +70,30 @@ jobs:
                 });
                 console.log(`Updated release: ${milestoneTitle}`);
               } else {
-                await github.rest.repos.createRelease({
-                  owner, repo,
-                  tag_name: milestoneTitle,
-                  name: milestoneTitle,
-                  body: body || 'No issues in this milestone yet.',
-                  draft: isDraft
-                });
-                console.log(`Created release: ${milestoneTitle}`);
+                // Check if tag exists before creating release
+                let tagExists = false;
+                try {
+                  await github.rest.git.getRef({
+                    owner, repo,
+                    ref: `tags/${milestoneTitle}`
+                  });
+                  tagExists = true;
+                } catch (error) {
+                  if (error.status !== 404) throw error;
+                }
+
+                if (tagExists) {
+                  await github.rest.repos.createRelease({
+                    owner, repo,
+                    tag_name: milestoneTitle,
+                    name: milestoneTitle,
+                    body: body || 'No issues in this milestone yet.',
+                    draft: isDraft
+                  });
+                  console.log(`Created release: ${milestoneTitle}`);
+                } else {
+                  console.log(`Skipping release creation: tag '${milestoneTitle}' does not exist`);
+                }
               }
             }
 

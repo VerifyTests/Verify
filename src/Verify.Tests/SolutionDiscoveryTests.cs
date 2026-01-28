@@ -297,13 +297,9 @@ public class SolutionDiscoveryTests
     static string CreateMinimalCsprojContent()
     {
         // Get the path to Verify.csproj and Verify.props relative to test project
-        var verifyProjectPath = Path.GetFullPath(Path.Combine(
-            Path.GetDirectoryName(typeof(SolutionDiscoveryTests).Assembly.Location)!,
-            "..", "..", "..", "..", "Verify", "Verify.csproj"));
+        var verifyProjectPath = Path.Combine(ProjectFiles.SolutionDirectory, "Verify", "Verify.csproj");
 
-        var verifyPropsPath = Path.GetFullPath(Path.Combine(
-            Path.GetDirectoryName(typeof(SolutionDiscoveryTests).Assembly.Location)!,
-            "..", "..", "..", "..", "Verify", "buildTransitive", "Verify.props"));
+        var verifyPropsPath = Path.Combine(ProjectFiles.SolutionDirectory, "Verify", "buildTransitive", "Verify.props");
 
         return $"""
                 <Project Sdk="Microsoft.NET.Sdk">
@@ -426,7 +422,8 @@ public class SolutionDiscoveryTests
             var typeName = metadataReader.GetString(typeRef.Name);
             var typeNamespace = metadataReader.GetString(typeRef.Namespace);
 
-            if (typeName != "AssemblyMetadataAttribute" || typeNamespace != "System.Reflection")
+            if (typeName != "AssemblyMetadataAttribute" ||
+                typeNamespace != "System.Reflection")
             {
                 continue;
             }

@@ -333,9 +333,7 @@ public class SolutionDiscoveryTests
 
     static string CreateMinimalSlnContent() =>
         """
-
         Microsoft Visual Studio Solution File, Format Version 12.00
-        # Visual Studio Version 17
         VisualStudioVersion = 17.0.31903.59
         MinimumVisualStudioVersion = 10.0.40219.1
         Global
@@ -344,7 +342,6 @@ public class SolutionDiscoveryTests
                 Release|Any CPU = Release|Any CPU
             EndGlobalSection
         EndGlobal
-
         """;
 
     private static async Task<(bool success, string output)> BuildProject(string csprojPath, string? solutionDir = null, string? solutionName = null)

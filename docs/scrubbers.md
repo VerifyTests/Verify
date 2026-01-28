@@ -930,3 +930,4 @@ A B C
  * [Guid behavior](guids.md)
  * [Date behavior](dates.md)
  * [Numeric Ids](numeric-ids.md)
+ * [Solution Discovery](solution-discovery.md)

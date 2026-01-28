@@ -8,8 +8,91 @@
     <NoWarn>$(NoWarn);CA2255</NoWarn>
     <AfterMicrosoftNetSdkProps>$(AfterMicrosoftNetSdkProps);$(MSBuildThisFileDirectory)Verify.AfterMicrosoftNetSdk.props</AfterMicrosoftNetSdkProps>
   </PropertyGroup>
+  <Target Name="DiscoverSolutionInfo">
+    <!-- Only discover if SolutionDir is not already defined (or is set to the magic *Undefined* value) -->
+    <PropertyGroup>
+      <VerifyShouldDiscover>false</VerifyShouldDiscover>
+      <VerifyShouldDiscover Condition="'$(SolutionDir)' == '' Or '$(SolutionDir)' == '*Undefined*'">true</VerifyShouldDiscover>
+
+      <!-- Also discover SolutionName from SolutionDir if SolutionDir is defined but SolutionName is not -->
+      <VerifyShouldDiscoverName>false</VerifyShouldDiscoverName>
+      <VerifyShouldDiscoverName Condition="'$(SolutionDir)' != '' And '$(SolutionDir)' != '*Undefined*' And ('$(SolutionName)' == '' Or '$(SolutionName)' == '*Undefined*')">true</VerifyShouldDiscoverName>
+    </PropertyGroup>
+
+    <!-- Search for solution files in project directory, parent, and parent's parent -->
+    <ItemGroup Condition="'$(VerifyShouldDiscover)' == 'true'">
+      <VerifyFoundSlnx Include="$(MSBuildProjectDirectory)\*.slnx" />
+      <VerifyFoundSlnx Include="$(MSBuildProjectDirectory)\..\*.slnx" />
+      <VerifyFoundSlnx Include="$(MSBuildProjectDirectory)\..\..\*.slnx" />
+      <VerifyFoundSln Include="$(MSBuildProjectDirectory)\*.sln" />
+      <VerifyFoundSln Include="$(MSBuildProjectDirectory)\..\*.sln" />
+      <VerifyFoundSln Include="$(MSBuildProjectDirectory)\..\..\*.sln" />
+    </ItemGroup>
+
+    <!-- Search for solution files in the explicit SolutionDir -->
+    <ItemGroup Condition="'$(VerifyShouldDiscoverName)' == 'true'">
+      <VerifyFoundSlnx Include="$(SolutionDir)\*.slnx" />
+      <VerifyFoundSln Include="$(SolutionDir)\*.sln" />
+    </ItemGroup>
+
+    <PropertyGroup Condition="'$(VerifyShouldDiscover)' == 'true' Or '$(VerifyShouldDiscoverName)' == 'true'">
+      <VerifySlnxCount>@(VerifyFoundSlnx->Count())</VerifySlnxCount>
+      <VerifySlnCount>@(VerifyFoundSln->Count())</VerifySlnCount>
+      <VerifyTotalSolutionCount>$([MSBuild]::Add($(VerifySlnxCount), $(VerifySlnCount)))</VerifyTotalSolutionCount>
+    </PropertyGroup>
+
+    <!-- If both .slnx and .sln exist, prefer .slnx -->
+    <PropertyGroup Condition="('$(VerifyShouldDiscover)' == 'true' Or '$(VerifyShouldDiscoverName)' == 'true') And '$(VerifySlnxCount)' == '1' And '$(VerifySlnCount)' &gt;= '1'">
+      <VerifySolutionPath>@(VerifyFoundSlnx)</VerifySolutionPath>
+    </PropertyGroup>
+
+    <!-- If only .slnx exists (single) -->
+    <PropertyGroup Condition="('$(VerifyShouldDiscover)' == 'true' Or '$(VerifyShouldDiscoverName)' == 'true') And '$(VerifySlnxCount)' == '1' And '$(VerifySlnCount)' == '0'">
+      <VerifySolutionPath>@(VerifyFoundSlnx)</VerifySolutionPath>
+    </PropertyGroup>
+
+    <!-- If only .sln exists (single) -->
+    <PropertyGroup Condition="('$(VerifyShouldDiscover)' == 'true' Or '$(VerifyShouldDiscoverName)' == 'true') And '$(VerifySlnxCount)' == '0' And '$(VerifySlnCount)' == '1'">
+      <VerifySolutionPath>@(VerifyFoundSln)</VerifySolutionPath>
+    </PropertyGroup>
+
+    <!-- Warn if multiple solution files found (but not if we have one .slnx and multiple .sln) -->
+    <Warning Condition="'$(VerifyShouldDiscover)' == 'true' And '$(VerifySlnxCount)' &gt; '1'"
+             Text="Multiple solution files found. Unable to auto-discover SolutionDir and SolutionName. Found: @(VerifyFoundSlnx);@(VerifyFoundSln). Verify searches for .slnx and .sln files in the project directory, parent directory, and parent's parent directory. To resolve this, either ensure only one solution file exists in these locations, or explicitly set SolutionDir and SolutionName via command line: /p:SolutionDir=&quot;C:\Path\To\Solution\&quot; /p:SolutionName=&quot;MySolution&quot;" />
+    <Warning Condition="'$(VerifyShouldDiscover)' == 'true' And '$(VerifySlnxCount)' == '0' And '$(VerifySlnCount)' &gt; '1'"
+             Text="Multiple solution files found. Unable to auto-discover SolutionDir and SolutionName. Found: @(VerifyFoundSlnx);@(VerifyFoundSln). Verify searches for .slnx and .sln files in the project directory, parent directory, and parent's parent directory. To resolve this, either ensure only one solution file exists in these locations, or explicitly set SolutionDir and SolutionName via command line: /p:SolutionDir=&quot;C:\Path\To\Solution\&quot; /p:SolutionName=&quot;MySolution&quot;" />
+    <Warning Condition="'$(VerifyShouldDiscoverName)' == 'true' And '$(VerifySlnxCount)' &gt; '1'"
+             Text="Multiple solution files found in SolutionDir '$(SolutionDir)'. Unable to auto-discover SolutionName. Found: @(VerifyFoundSlnx);@(VerifyFoundSln). To resolve this, explicitly set SolutionName via command line: /p:SolutionName=&quot;MySolution&quot;" />
+    <Warning Condition="'$(VerifyShouldDiscoverName)' == 'true' And '$(VerifySlnxCount)' == '0' And '$(VerifySlnCount)' &gt; '1'"
+             Text="Multiple solution files found in SolutionDir '$(SolutionDir)'. Unable to auto-discover SolutionName. Found: @(VerifyFoundSlnx);@(VerifyFoundSln). To resolve this, explicitly set SolutionName via command line: /p:SolutionName=&quot;MySolution&quot;" />
+
+    <!-- Warn if no solution files found -->
+    <Warning Condition="'$(VerifyShouldDiscover)' == 'true' And '$(VerifySlnxCount)' == '0' And '$(VerifySlnCount)' == '0'"
+             Text="No solution files found. Unable to auto-discover SolutionDir and SolutionName. Verify searches for .slnx and .sln files in the project directory '$(MSBuildProjectDirectory)', parent directory, and parent's parent directory. To resolve this, either add a solution file to one of these locations, or explicitly set SolutionDir and SolutionName via command line: /p:SolutionDir=&quot;C:\Path\To\Solution\&quot; /p:SolutionName=&quot;MySolution&quot;" />
+    <Warning Condition="'$(VerifyShouldDiscoverName)' == 'true' And '$(VerifySlnxCount)' == '0' And '$(VerifySlnCount)' == '0'"
+             Text="No solution files found in SolutionDir '$(SolutionDir)'. Unable to auto-discover SolutionName. To resolve this, either add a solution file (.slnx or .sln) to the SolutionDir, or explicitly set SolutionName via command line: /p:SolutionName=&quot;MySolution&quot;" />
+
+    <!-- Set SolutionDir if we found exactly one (only when discovering) -->
+    <PropertyGroup Condition="'$(VerifyShouldDiscover)' == 'true' And '$(VerifySolutionPath)' != ''">
+      <!-- Normalize the path to resolve any ../ or .\ references -->
+      <VerifySolutionPathNormalized>$([System.IO.Path]::GetFullPath($(VerifySolutionPath)))</VerifySolutionPathNormalized>
+      <SolutionDir>$([System.IO.Path]::GetDirectoryName($(VerifySolutionPathNormalized)))\</SolutionDir>
+    </PropertyGroup>
+
+    <!-- Normalize the solution path when discovering just the name -->
+    <PropertyGroup Condition="'$(VerifyShouldDiscoverName)' == 'true' And '$(VerifySolutionPath)' != ''">
+      <VerifySolutionPathNormalized>$([System.IO.Path]::GetFullPath($(VerifySolutionPath)))</VerifySolutionPathNormalized>
+    </PropertyGroup>
+
+    <!-- Set SolutionName from discovered path only if not already defined -->
+    <PropertyGroup Condition="('$(VerifyShouldDiscover)' == 'true' Or '$(VerifyShouldDiscoverName)' == 'true') And '$(VerifySolutionPath)' != '' And ('$(SolutionName)' == '' Or '$(SolutionName)' == '*Undefined*')">
+      <SolutionName>$([System.IO.Path]::GetFileNameWithoutExtension($(VerifySolutionPathNormalized)))</SolutionName>
+    </PropertyGroup>
+  </Target>
+
   <Target Name="WriteVerifyAttributes"
           Condition="$(Language) == 'VB' or $(Language) == 'C#' or $(Language) == 'F#' or $(Language) == 'X#'"
+          DependsOnTargets="DiscoverSolutionInfo"
           BeforeTargets="BeforeCompile;CoreCompile"
           Inputs="$(MSBuildAllProjects)"
           Outputs="$(IntermediateOutputPath)$(VerifyAttributesFile)">

@@ -7,4 +7,6 @@ global using DiffEngine;
 global using EmptyFiles;
 global using Polyfills;
 global using System.Collections.ObjectModel;
+global using System.Reflection.Metadata;
+global using System.Reflection.PortableExecutable;
 global using System.Security.Claims;

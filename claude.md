@@ -10,28 +10,17 @@ Verify is a snapshot testing framework for .NET that simplifies assertion of com
 
 ## Build & Test Commands
 
-### Building the Solution
-
-The main solution file is `src\Verify.slnx` (note the .slnx extension, not .sln).
+**Always pass `src/Verify.slnx` explicitly** to `dotnet build` and `dotnet test`. There are multiple .slnx files in `src/` and omitting the solution file causes ambiguity errors.
 
 ```bash
-# Build entire solution
-dotnet build src/Verify.slnx --configuration Release
+# Build
+dotnet build src/Verify.slnx
 
-# Build dangling snapshots solution (separate)
-dotnet build src/VerifyDangling.slnx --configuration Release
-```
+# Test
+dotnet test src/Verify.slnx
 
-### Running Tests
-
-```bash
-# Run all tests for a specific test project
-dotnet test src/Verify.Xunit.Tests --configuration Release
-dotnet test src/Verify.NUnit.Tests --configuration Release
-dotnet test src/Verify.MSTest.Tests --configuration Release
-
-# Run a single test (example)
-dotnet test src/Verify.Tests --filter "FullyQualifiedName~YourTestName"
+# Single test
+dotnet test src/Verify.slnx --filter "FullyQualifiedName~YourTestName"
 
 # Run tests that require direct execution (TUnit)
 dotnet run --project src/Verify.TUnit.Tests/Verify.TUnit.Tests.csproj --configuration Release

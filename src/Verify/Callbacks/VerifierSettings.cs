@@ -7,7 +7,8 @@ public static partial class VerifierSettings
     internal static Task RunAddTestAttachment(string path)
     {
         if (addTestAttachment is null ||
-            !addAttachments)
+            !addAttachments ||
+            !BuildServerDetector.Detected)
         {
             return Task.CompletedTask;
         }

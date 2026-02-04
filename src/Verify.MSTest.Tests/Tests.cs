@@ -31,7 +31,6 @@ public partial class Tests
         Verify(new Target("txt", "Value"));
 
     [ResultFilesCallback]
-    [TestMethod]
     public async Task ChangeHasAttachment()
     {
         ResultFilesCallback.Callback = list =>
@@ -70,7 +69,6 @@ public partial class Tests
 #endif
 
     [ResultFilesCallback]
-    [TestMethod]
     public async Task NewHasAttachment()
     {
         ResultFilesCallback.Callback = list =>
@@ -85,7 +83,6 @@ public partial class Tests
     }
 
     [ResultFilesCallback]
-    [TestMethod]
     public async Task MultipleChangedHasAttachment()
     {
         ResultFilesCallback.Callback = list =>
@@ -102,7 +99,6 @@ public partial class Tests
     }
 
     [ResultFilesCallback]
-    [TestMethod]
     public async Task MultipleNewHasAttachment()
     {
         ResultFilesCallback.Callback = list =>

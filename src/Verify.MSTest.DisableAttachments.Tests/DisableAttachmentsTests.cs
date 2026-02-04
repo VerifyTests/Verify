@@ -2,7 +2,6 @@
 public class DisableAttachmentsTests : VerifyBase
 {
     [ResultFilesCallback]
-    [TestMethod]
     public Task HasNoAttachments()
     {
         ResultFilesCallback.Callback = list => Assert.IsEmpty(list);

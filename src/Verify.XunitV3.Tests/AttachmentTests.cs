@@ -4,6 +4,7 @@
     [Fact]
     public async Task Simple()
     {
+        DiffEngine.BuildServerDetector.Detected = true;
         var path = CurrentFile.Relative("AttachmentTests.Simple.verified.txt");
         var fullPath = Path.GetFullPath(path);
         File.Delete(fullPath);
@@ -18,6 +19,7 @@
     [Fact]
     public async Task NestedWithSameName()
     {
+        DiffEngine.BuildServerDetector.Detected = true;
         var path = CurrentFile.Relative("AttachmentTests");
         var fullPath = Path.GetFullPath(path);
         Delete();

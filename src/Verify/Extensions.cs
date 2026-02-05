@@ -202,35 +202,10 @@ static class Extensions
         return dictionary[key] = factory(key);
     }
 
-    public static void ReplaceTokens(this StringBuilder builder, IReadOnlyCollection<KeyValuePair<string, string>> replaces)
-    {
-        foreach (var replace in replaces)
-        {
-            if (builder.Length >= replace.Key.Length)
-            {
-                builder.Replace(replace.Key, replace.Value);
-            }
-        }
-    }
-
     public static void Overwrite(this StringBuilder builder, string value, int index, int length)
     {
         builder.Remove(index, length);
         builder.Insert(index, value);
-    }
-
-    public static int Count(this StringBuilder builder, char ch)
-    {
-        var count = 0;
-        for (var index = 0; index < builder.Length; index++)
-        {
-            if (builder[index] == ch)
-            {
-                count++;
-            }
-        }
-
-        return count;
     }
 
     public static bool IsException(this Type type) =>

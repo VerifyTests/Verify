@@ -23,7 +23,7 @@
     <PackageVersion Include="MSTest.TestFramework" Version="4.1.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="5.2.0" Pinned="true" />
     <PackageVersion Include="Polyfill" Version="9.8.1" />
-    <PackageVersion Include="ProjectDefaults" Version="1.0.170" />
+    <PackageVersion Include="ProjectDefaults" Version="1.0.171" />
     <PackageVersion Include="ProjectFiles" Version="0.5.0" />
     <PackageVersion Include="PublicApiGenerator" Version="11.5.4" />
     <PackageVersion Include="SimpleInfoName" Version="3.2.0" />

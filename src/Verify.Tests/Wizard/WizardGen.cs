@@ -33,9 +33,12 @@ public class WizardGen
         }
 
         File.Delete(sourceFile);
-        await File.WriteAllTextAsync(sourceFile, builder.ToString());
+        await WriteLf(sourceFile, builder);
         Process.Start("mdsnippets", repoRoot);
     }
+
+    static Task WriteLf(string path, StringBuilder builder) =>
+        File.WriteAllTextAsync(path, builder.ToString().Replace("\r\n", "\n"));
 
     static bool ExistsOnPath(string fileName)
     {
@@ -65,7 +68,7 @@ public class WizardGen
             await ProcessCli(current, ide, builder, fileName, nav);
         }
 
-        await File.WriteAllTextAsync(sourceFile, builder.ToString());
+        await WriteLf(sourceFile, builder);
     }
 
     async Task ProcessCli(Os os, Ide current, StringBuilder parentBuilder, string parentFileName, string nav)
@@ -93,7 +96,7 @@ public class WizardGen
             await ProcessIde(os, current, cli, builder, fileName, nav);
         }
 
-        await File.WriteAllTextAsync(sourceFile, builder.ToString());
+        await WriteLf(sourceFile, builder);
     }
 
     async Task ProcessIde(Os os, Ide ide, CliPreference current, StringBuilder parentBuilder, string parentFileName, string nav)
@@ -120,7 +123,7 @@ public class WizardGen
             await ProcessTestFramework(os, ide, current, framework, builder, fileName, nav);
         }
 
-        await File.WriteAllTextAsync(sourceFile, builder.ToString());
+        await WriteLf(sourceFile, builder);
     }
 
     async Task ProcessTestFramework(Os os, Ide ide, CliPreference cli, TestFramework framework, StringBuilder parentBuilder, string parentFileName, string nav)
@@ -148,7 +151,7 @@ public class WizardGen
             await ProcessBuildServer(os, ide, cli, framework, buildServer, builder, fileName, nav);
         }
 
-        await File.WriteAllTextAsync(sourceFile, builder.ToString());
+        await WriteLf(sourceFile, builder);
     }
 
     Task ProcessBuildServer(Os os, Ide ide, CliPreference cli, TestFramework framework, BuildServer current, StringBuilder parentBuilder, string parentFileName, string nav)
@@ -170,7 +173,7 @@ public class WizardGen
 
         AppendContents(os, ide, cli, framework, current, builder);
 
-        return File.WriteAllTextAsync(sourceFile, builder.ToString());
+        return WriteLf(sourceFile, builder);
     }
 
     static string GetName(BuildServer preference) =>

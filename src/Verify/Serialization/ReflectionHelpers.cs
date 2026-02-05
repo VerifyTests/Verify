@@ -65,7 +65,7 @@ static class ReflectionHelpers
         };
 
     public static bool IsEmptyCollectionOrDictionary(this object target) =>
-        TryGetCollectionOrDictionary(target, out var isEmpty, out _) &&
+        target.TryGetCollectionOrDictionary(out var isEmpty, out _) &&
         isEmpty.Value;
 
     public static bool TryGetCollectionOrDictionary(this object target, [NotNullWhen(true)] out bool? isEmpty, [NotNullWhen(true)] out IEnumerable? enumerable)

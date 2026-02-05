@@ -51,8 +51,7 @@ static class Extensions
     }
 
     public static bool CanSeekAndReadLength(this Stream stream) =>
-        stream.CanSeek &&
-        CanReadLength(stream);
+        stream.CanSeek && stream.CanReadLength();
 
     static bool CanReadLength(this Stream stream)
     {

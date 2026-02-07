@@ -162,6 +162,39 @@ public void RootDirectory() =>
 <!-- endSnippet -->
 
 
+### Ignore Locked Files
+
+When a test creates files that may be locked by external processes (e.g., databases, file watchers), disposing the `TempDirectory` will throw an `IOException`. To handle this, pass `ignoreLockedFiles: true` to the constructor. Locked files will be silently skipped during disposal and cleaned up once they age out (24 hours).
+
+<!-- snippet: TempDirectoryIgnoreLockedFiles -->
+<a id='snippet-TempDirectoryIgnoreLockedFiles'></a>
+```cs
+[Fact]
+public void IgnoreLockedFiles()
+{
+    var temp = new TempDirectory(ignoreLockedFiles: true);
+    string path = temp;
+
+    var filePath = Path.Combine(temp, "locked.txt");
+    File.WriteAllText(filePath, "content");
+    PreventDeletion(filePath, path);
+
+    // Dispose will not throw despite the locked file
+    temp.Dispose();
+
+    // Directory still exists due to the locked file
+    // It will be cleaned up once it ages out (24 hours)
+    Assert.True(Directory.Exists(path));
+
+    // Cleanup for test hygiene
+    AllowDeletion(filePath, path);
+    Directory.Delete(path, true);
+}
+```
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L339-L363' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryIgnoreLockedFiles' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ### Cleanup Behavior
 
 The dispose cleans up the current instance.

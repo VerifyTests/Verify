@@ -29,6 +29,7 @@ public class TempDirectory :
     IDisposable
 {
     List<string> paths;
+    bool ignoreLockedFiles;
 
     /// <summary>
     /// The full path to the directory.
@@ -108,6 +109,10 @@ public class TempDirectory :
     /// Initializes a new instance of the <see cref="TempDirectory"/> class.
     /// Creates a new temporary directory with a random name.
     /// </summary>
+    /// <param name="ignoreLockedFiles">
+    /// When <c>true</c>, locked files will be silently ignored during disposal instead of throwing an exception.
+    /// The directory will be cleaned up once it ages out (24 hours).
+    /// </param>
     /// <remarks>
     /// Each instance creates a unique subdirectory under <see cref="RootDirectory"/>
     /// using <see cref="Path.GetRandomFileName"/> to generate a random name.
@@ -116,8 +121,9 @@ public class TempDirectory :
     /// <exception cref="IOException">
     /// Thrown if the directory cannot be created (e.g., due to permissions or disk space).
     /// </exception>
-    public TempDirectory()
+    public TempDirectory(bool ignoreLockedFiles = false)
     {
+        this.ignoreLockedFiles = ignoreLockedFiles;
         Path = IoPath.Combine(RootDirectory, IoPath.GetRandomFileName());
         Directory.CreateDirectory(Path);
 
@@ -136,7 +142,27 @@ public class TempDirectory :
     {
         if (Directory.Exists(Path))
         {
-            Directory.Delete(Path, true);
+            if (ignoreLockedFiles)
+            {
+                try
+                {
+                    Directory.Delete(Path, true);
+                }
+                catch (IOException)
+                {
+                    // Locked files prevent deletion.
+                    // Directory will be cleaned up once it ages out (24 hours).
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    // Locked files prevent deletion.
+                    // Directory will be cleaned up once it ages out (24 hours).
+                }
+            }
+            else
+            {
+                Directory.Delete(Path, true);
+            }
         }
 
         paths.Remove(Path);

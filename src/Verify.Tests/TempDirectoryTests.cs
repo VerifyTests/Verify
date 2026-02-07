@@ -336,10 +336,95 @@
 
 #endif
 
-    // [Fact]
-    // public void LockedFile()
-    // {
-    //     using var temp = new TempDirectory();
-    //     File.Create(Path.Combine(temp, "test.txt"));
-    // }
+    #region TempDirectoryIgnoreLockedFiles
+
+    [Fact]
+    public void IgnoreLockedFiles()
+    {
+        var temp = new TempDirectory(ignoreLockedFiles: true);
+        string path = temp;
+
+        var filePath = Path.Combine(temp, "locked.txt");
+        File.WriteAllText(filePath, "content");
+        PreventDeletion(filePath, path);
+
+        // Dispose will not throw despite the locked file
+        temp.Dispose();
+
+        // Directory still exists due to the locked file
+        // It will be cleaned up once it ages out (24 hours)
+        Assert.True(Directory.Exists(path));
+
+        // Cleanup for test hygiene
+        AllowDeletion(filePath, path);
+        Directory.Delete(path, true);
+    }
+
+    #endregion
+
+    [Fact]
+    public void IgnoreLockedFiles_NoLockedFiles_DeletesDirectory()
+    {
+        string path;
+
+        using (var temp = new TempDirectory(ignoreLockedFiles: true))
+        {
+            path = temp;
+            File.WriteAllText(Path.Combine(temp, "test.txt"), "content");
+        }
+
+        Assert.False(Directory.Exists(path));
+    }
+
+    [Fact]
+    public void IgnoreLockedFiles_DefaultIsFalse()
+    {
+        var temp = new TempDirectory();
+        string path = temp;
+
+        var filePath = Path.Combine(temp, "locked.txt");
+        File.WriteAllText(filePath, "content");
+        PreventDeletion(filePath, path);
+
+        try
+        {
+            Assert.ThrowsAny<Exception>(() => temp.Dispose());
+        }
+        finally
+        {
+            // Cleanup for test hygiene
+            AllowDeletion(filePath, path);
+            Directory.Delete(path, true);
+        }
+    }
+
+    // On Windows, ReadOnly on a file prevents deletion.
+    // On Unix, file deletion is controlled by the parent directory's write permission.
+    static void PreventDeletion(string filePath, string directoryPath)
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            File.SetAttributes(filePath, FileAttributes.ReadOnly);
+        }
+#if !NETFRAMEWORK
+        else
+        {
+            File.SetUnixFileMode(directoryPath, UnixFileMode.UserRead | UnixFileMode.UserExecute);
+        }
+#endif
+    }
+
+    static void AllowDeletion(string filePath, string directoryPath)
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            File.SetAttributes(filePath, FileAttributes.Normal);
+        }
+#if !NETFRAMEWORK
+        else
+        {
+            File.SetUnixFileMode(directoryPath, UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute);
+        }
+#endif
+    }
 }

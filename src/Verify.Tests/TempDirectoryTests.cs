@@ -346,7 +346,7 @@
 
         var filePath = Path.Combine(temp, "locked.txt");
         File.WriteAllText(filePath, "content");
-        File.SetAttributes(filePath, FileAttributes.ReadOnly);
+        PreventDeletion(filePath, path);
 
         // Dispose will not throw despite the locked file
         temp.Dispose();
@@ -356,7 +356,7 @@
         Assert.True(Directory.Exists(path));
 
         // Cleanup for test hygiene
-        File.SetAttributes(filePath, FileAttributes.Normal);
+        AllowDeletion(filePath, path);
         Directory.Delete(path, true);
     }
 
@@ -384,7 +384,7 @@
 
         var filePath = Path.Combine(temp, "locked.txt");
         File.WriteAllText(filePath, "content");
-        File.SetAttributes(filePath, FileAttributes.ReadOnly);
+        PreventDeletion(filePath, path);
 
         try
         {
@@ -393,8 +393,38 @@
         finally
         {
             // Cleanup for test hygiene
-            File.SetAttributes(filePath, FileAttributes.Normal);
+            AllowDeletion(filePath, path);
             Directory.Delete(path, true);
         }
+    }
+
+    // On Windows, ReadOnly on a file prevents deletion.
+    // On Unix, file deletion is controlled by the parent directory's write permission.
+    static void PreventDeletion(string filePath, string directoryPath)
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            File.SetAttributes(filePath, FileAttributes.ReadOnly);
+        }
+#if !NETFRAMEWORK
+        else
+        {
+            File.SetUnixFileMode(directoryPath, UnixFileMode.UserRead | UnixFileMode.UserExecute);
+        }
+#endif
+    }
+
+    static void AllowDeletion(string filePath, string directoryPath)
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            File.SetAttributes(filePath, FileAttributes.Normal);
+        }
+#if !NETFRAMEWORK
+        else
+        {
+            File.SetUnixFileMode(directoryPath, UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute);
+        }
+#endif
     }
 }

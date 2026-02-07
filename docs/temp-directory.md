@@ -177,7 +177,7 @@ public void IgnoreLockedFiles()
 
     var filePath = Path.Combine(temp, "locked.txt");
     File.WriteAllText(filePath, "content");
-    File.SetAttributes(filePath, FileAttributes.ReadOnly);
+    PreventDeletion(filePath, path);
 
     // Dispose will not throw despite the locked file
     temp.Dispose();
@@ -187,7 +187,7 @@ public void IgnoreLockedFiles()
     Assert.True(Directory.Exists(path));
 
     // Cleanup for test hygiene
-    File.SetAttributes(filePath, FileAttributes.Normal);
+    AllowDeletion(filePath, path);
     Directory.Delete(path, true);
 }
 ```

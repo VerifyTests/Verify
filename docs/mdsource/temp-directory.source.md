@@ -66,6 +66,13 @@ Allows access to the root directory for all TempDirectory instances:
 snippet: TempDirectoryRootDirectory
 
 
+### Ignore Locked Files
+
+When a test creates files that may be locked by external processes (e.g., databases, file watchers), disposing the `TempDirectory` will throw an `IOException`. To handle this, pass `ignoreLockedFiles: true` to the constructor. Locked files will be silently skipped during disposal and cleaned up once they age out (24 hours).
+
+snippet: TempDirectoryIgnoreLockedFiles
+
+
 ### Cleanup Behavior
 
 The dispose cleans up the current instance.

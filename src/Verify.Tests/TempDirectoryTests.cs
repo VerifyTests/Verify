@@ -1,4 +1,5 @@
-﻿public class TempDirectoryTests
+﻿// ReSharper disable UnusedParameter.Local
+public class TempDirectoryTests
 {
     // [Fact]
     // public Task VerifyInstance()

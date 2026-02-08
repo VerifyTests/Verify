@@ -90,6 +90,7 @@ public static class InnerVerifyChecks
 
         if (HasAllExtensions(extensions, lines))
         {
+            CheckEditorConfigIndent(path, lines, extensions);
             return;
         }
 
@@ -111,9 +112,89 @@ public static class InnerVerifyChecks
              """);
     }
 
+    static void CheckEditorConfigIndent(string path, string[] lines, List<string> extensions)
+    {
+        var indentExtensions = extensions.Where(_ => _ is "json" or "xml" or "html" or "htm" or "yaml" or "cs" or "svg").ToList();
+        if (indentExtensions.Count == 0)
+        {
+            return;
+        }
+
+        var sectionHeader = $"[*.{{received,verified}}.{{{string.Join(',', indentExtensions)}}}]";
+        var sectionIndex = Array.FindIndex(lines, _ => _.Trim() == sectionHeader);
+        if (sectionIndex < 0)
+        {
+            throw new VerifyCheckException(
+                $"""
+                 Expected .editorconfig to contain indent settings for Verify indented files.
+                 Path: {GetPath(path)}
+                 Recommended settings:
+
+                 {sectionHeader}
+                 indent_size = 2
+                 indent_style = space
+                 """);
+        }
+
+        var hasIndentSize = false;
+        var hasIndentStyle = false;
+        for (var i = sectionIndex + 1; i < lines.Length; i++)
+        {
+            var line = lines[i].Trim();
+            if (line.StartsWith('['))
+            {
+                break;
+            }
+
+            if (line.StartsWith("indent_size"))
+            {
+                hasIndentSize = true;
+                if (line != "indent_size = 2")
+                {
+                    throw new VerifyCheckException(
+                        $"""
+                         .editorconfig has incorrect indent_size for Verify indented section. Expected `indent_size = 2`.
+                         Path: {GetPath(path)}
+                         """);
+                }
+            }
+
+            if (line.StartsWith("indent_style"))
+            {
+                hasIndentStyle = true;
+                if (line != "indent_style = space")
+                {
+                    throw new VerifyCheckException(
+                        $"""
+                         .editorconfig has incorrect indent_style for Verify indented section. Expected `indent_style = space`.
+                         Path: {GetPath(path)}
+                         """);
+                }
+            }
+        }
+
+        if (!hasIndentSize)
+        {
+            throw new VerifyCheckException(
+                $"""
+                 .editorconfig is missing indent_size for Verify indented section. Expected `indent_size = 2`.
+                 Path: {GetPath(path)}
+                 """);
+        }
+
+        if (!hasIndentStyle)
+        {
+            throw new VerifyCheckException(
+                $"""
+                 .editorconfig is missing indent_style for Verify indented section. Expected `indent_style = space`.
+                 Path: {GetPath(path)}
+                 """);
+        }
+    }
+
     static bool HasAllExtensions(List<string> extensions, string[] lines)
     {
-        var line = lines.SingleOrDefault(_ => _.StartsWith("[*.{received,verified}."));
+        var line = lines.FirstOrDefault(_ => _.StartsWith("[*.{received,verified}."));
         if (line == null)
         {
             return false;

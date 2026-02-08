@@ -267,7 +267,7 @@ public static class InnerVerifyChecks
 
         if (missing.Count == 0)
         {
-            CheckAutoCrlf();
+            //CheckAutoCrlf();
             return;
         }
 
@@ -288,43 +288,43 @@ public static class InnerVerifyChecks
         throw new VerifyCheckException(builder.ToString());
     }
 
-    static void CheckAutoCrlf()
-    {
-        string? value;
-        var startInfo = new ProcessStartInfo("git", "config core.autocrlf")
-        {
-            RedirectStandardOutput = true,
-            UseShellExecute = false,
-            CreateNoWindow = true
-        };
-        try
-        {
-            using var process = Process.Start(startInfo);
-            if (process == null)
-            {
-                return;
-            }
-
-            value = process.StandardOutput.ReadToEnd().Trim();
-            process.WaitForExit();
-        }
-        catch
-        {
-            // git not available
-            return;
-        }
-
-        if (string.Equals(value, "true", StringComparison.OrdinalIgnoreCase))
-        {
-            throw new VerifyCheckException(
-                """
-                git `core.autocrlf` is set to `true`. This causes files to show as modified with no actual content changes when `eol=lf` is configured in .gitattributes.
-                To fix, run:
-
-                git config --global core.autocrlf input
-                """);
-        }
-    }
+//     static void CheckAutoCrlf()
+//     {
+//         string? value;
+//         var startInfo = new ProcessStartInfo("git", "config core.autocrlf")
+//         {
+//             RedirectStandardOutput = true,
+//             UseShellExecute = false,
+//             CreateNoWindow = true
+//         };
+//         try
+//         {
+//             using var process = Process.Start(startInfo);
+//             if (process == null)
+//             {
+//                 return;
+//             }
+//
+//             value = process.StandardOutput.ReadToEnd().Trim();
+//             process.WaitForExit();
+//         }
+//         catch
+//         {
+//             // git not available
+//             return;
+//         }
+//
+//         if (string.Equals(value, "true", StringComparison.OrdinalIgnoreCase))
+//         {
+//             throw new VerifyCheckException(
+//                 """
+//                 git `core.autocrlf` is set to `true`. This causes files to show as modified with no actual content changes when `eol=lf` is configured in .gitattributes.
+//                 To fix, run:
+//
+//                 git config --global core.autocrlf input
+//                 """);
+//         }
+//     }
 
     static string GetPath(string path) =>
         $"file:///{path.Replace('\\', '/')}";

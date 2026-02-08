@@ -93,6 +93,7 @@ public class Tests
     [Test]
     public async Task ChangeHasAttachment()
     {
+        DiffEngine.BuildServerDetector.Detected = true;
         var settings = new VerifySettings();
         settings.DisableDiff();
         await Assert.ThrowsAsync(() => Verify("Bar", settings));
@@ -105,6 +106,7 @@ public class Tests
     [Test]
     public async Task AutoVerifyHasAttachment()
     {
+        DiffEngine.BuildServerDetector.Detected = true;
         var path = CurrentFile.Relative("Tests.AutoVerifyHasAttachment.verified.txt");
         var fullPath = Path.GetFullPath(path);
         File.Delete(fullPath);
@@ -122,6 +124,7 @@ public class Tests
     [Test]
     public async Task NewHasAttachment()
     {
+        DiffEngine.BuildServerDetector.Detected = true;
         var settings = new VerifySettings();
         settings.DisableDiff();
         await Assert.ThrowsAsync(() => Verify("Bar", settings));
@@ -134,6 +137,7 @@ public class Tests
     [Test]
     public async Task MultipleChangedHasAttachment()
     {
+        DiffEngine.BuildServerDetector.Detected = true;
         var settings = new VerifySettings();
         settings.DisableDiff();
         await Assert.ThrowsAsync(() => Verify("Bar", [new("txt", "Value")], settings));
@@ -148,6 +152,7 @@ public class Tests
     [Test]
     public async Task MultipleNewHasAttachment()
     {
+        DiffEngine.BuildServerDetector.Detected = true;
         var settings = new VerifySettings();
         settings.DisableDiff();
         await Assert.ThrowsAsync(() => Verify("Bar", [new("txt", "Value")], settings));

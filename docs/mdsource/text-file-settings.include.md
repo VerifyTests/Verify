@@ -26,6 +26,15 @@ eg add the following to `.gitattributes`
 ```
 
 
+#### Line ending autocrlf
+
+On Windows, if `core.autocrlf` is set to `true`, files may show as modified with no actual content changes. To fix this:
+
+```
+git config --global core.autocrlf input
+```
+
+
 #### EditorConfig settings
 
 If modifying text verified/received files in an editor, it is desirable for the editor to respect the above conventions. For [EditorConfig](https://editorconfig.org/) enabled the following can be used:

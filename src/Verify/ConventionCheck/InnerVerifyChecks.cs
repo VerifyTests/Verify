@@ -112,16 +112,46 @@ public static class InnerVerifyChecks
              """);
     }
 
+    static readonly string[] indentExtensionsList = ["json", "xml", "html", "htm", "yaml", "cs", "svg"];
+    const string indentSectionHeader = "[*.{received,verified}.{json,xml,html,htm,yaml,cs,svg}]";
+
     static void CheckEditorConfigIndent(string path, string[] lines, List<string> extensions)
     {
-        var indentExtensions = extensions.Where(_ => _ is "json" or "xml" or "html" or "htm" or "yaml" or "cs" or "svg").ToList();
-        if (indentExtensions.Count == 0)
+        var hasAny = false;
+        foreach (var extension in extensions)
+        {
+            if (indentExtensionsList.Contains(extension))
+            {
+                hasAny = true;
+                break;
+            }
+        }
+
+        if (!hasAny)
         {
             return;
         }
 
-        var sectionHeader = $"[*.{{received,verified}}.{{{string.Join(',', indentExtensions)}}}]";
-        var sectionIndex = Array.FindIndex(lines, _ => _.Trim() == sectionHeader);
+        var sectionIndex = -1;
+        var skippedFirst = false;
+        for (var i = 0; i < lines.Length; i++)
+        {
+            var span = lines[i].AsSpan().Trim();
+            if (!span.StartsWith("[*.{received,verified}."))
+            {
+                continue;
+            }
+
+            if (!skippedFirst)
+            {
+                skippedFirst = true;
+                continue;
+            }
+
+            sectionIndex = i;
+            break;
+        }
+
         if (sectionIndex < 0)
         {
             throw new VerifyCheckException(
@@ -130,7 +160,7 @@ public static class InnerVerifyChecks
                  Path: {GetPath(path)}
                  Recommended settings:
 
-                 {sectionHeader}
+                 {indentSectionHeader}
                  indent_size = 2
                  indent_style = space
                  """);
@@ -140,16 +170,16 @@ public static class InnerVerifyChecks
         var hasIndentStyle = false;
         for (var i = sectionIndex + 1; i < lines.Length; i++)
         {
-            var line = lines[i].Trim();
-            if (line.StartsWith('['))
+            var span = lines[i].AsSpan().Trim();
+            if (span.StartsWith("["))
             {
                 break;
             }
 
-            if (line.StartsWith("indent_size"))
+            if (span.StartsWith("indent_size"))
             {
                 hasIndentSize = true;
-                if (line != "indent_size = 2")
+                if (!span.SequenceEqual("indent_size = 2"))
                 {
                     throw new VerifyCheckException(
                         $"""
@@ -159,10 +189,10 @@ public static class InnerVerifyChecks
                 }
             }
 
-            if (line.StartsWith("indent_style"))
+            if (span.StartsWith("indent_style"))
             {
                 hasIndentStyle = true;
-                if (line != "indent_style = space")
+                if (!span.SequenceEqual("indent_style = space"))
                 {
                     throw new VerifyCheckException(
                         $"""

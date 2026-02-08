@@ -85,7 +85,6 @@ public static class InnerVerifyChecks
             return;
         }
 
-        path = Path.GetFullPath(path);
         var lines = await File.ReadAllLinesAsync(path);
 
         if (HasAllExtensions(extensions, lines))
@@ -117,17 +116,7 @@ public static class InnerVerifyChecks
 
     static void CheckEditorConfigIndent(string path, string[] lines, List<string> extensions)
     {
-        var hasAny = false;
-        foreach (var extension in extensions)
-        {
-            if (indentExtensionsList.Contains(extension))
-            {
-                hasAny = true;
-                break;
-            }
-        }
-
-        if (!hasAny)
+        if (!HasIndentExtension(extensions))
         {
             return;
         }
@@ -171,7 +160,7 @@ public static class InnerVerifyChecks
         for (var i = sectionIndex + 1; i < lines.Length; i++)
         {
             var span = lines[i].AsSpan().Trim();
-            if (span.StartsWith("["))
+            if (span.StartsWith('['))
             {
                 break;
             }
@@ -179,7 +168,7 @@ public static class InnerVerifyChecks
             if (span.StartsWith("indent_size"))
             {
                 hasIndentSize = true;
-                if (!(span is "indent_size = 2"))
+                if (span is not "indent_size = 2")
                 {
                     throw new VerifyCheckException(
                         $"""
@@ -192,7 +181,7 @@ public static class InnerVerifyChecks
             if (span.StartsWith("indent_style"))
             {
                 hasIndentStyle = true;
-                if (!(span is "indent_style = space"))
+                if (span is not "indent_style = space")
                 {
                     throw new VerifyCheckException(
                         $"""
@@ -221,6 +210,9 @@ public static class InnerVerifyChecks
                  """);
         }
     }
+
+    static bool HasIndentExtension(List<string> extensions) =>
+        extensions.Any(_ => indentExtensionsList.Contains(_));
 
     static bool HasAllExtensions(List<string> extensions, string[] lines)
     {
@@ -350,7 +342,6 @@ public static class InnerVerifyChecks
             return;
         }
 
-        path = Path.GetFullPath(path);
         var text = await File.ReadAllTextAsync(path);
         if (text.Contains("*.received.*") ||
             text.Contains("*.received/") ||

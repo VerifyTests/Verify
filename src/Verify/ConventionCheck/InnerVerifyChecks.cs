@@ -90,6 +90,7 @@ public static class InnerVerifyChecks
 
         if (HasAllExtensions(extensions, lines))
         {
+            CheckEditorConfigIndent(path, lines, extensions);
             return;
         }
 
@@ -111,9 +112,119 @@ public static class InnerVerifyChecks
              """);
     }
 
+    static readonly string[] indentExtensionsList = ["json", "xml", "html", "htm", "yaml", "cs", "svg"];
+    const string indentSectionHeader = "[*.{received,verified}.{json,xml,html,htm,yaml,cs,svg}]";
+
+    static void CheckEditorConfigIndent(string path, string[] lines, List<string> extensions)
+    {
+        var hasAny = false;
+        foreach (var extension in extensions)
+        {
+            if (indentExtensionsList.Contains(extension))
+            {
+                hasAny = true;
+                break;
+            }
+        }
+
+        if (!hasAny)
+        {
+            return;
+        }
+
+        var sectionIndex = -1;
+        var skippedFirst = false;
+        for (var i = 0; i < lines.Length; i++)
+        {
+            var span = lines[i].AsSpan().Trim();
+            if (!span.StartsWith("[*.{received,verified}."))
+            {
+                continue;
+            }
+
+            if (!skippedFirst)
+            {
+                skippedFirst = true;
+                continue;
+            }
+
+            sectionIndex = i;
+            break;
+        }
+
+        if (sectionIndex < 0)
+        {
+            throw new VerifyCheckException(
+                $"""
+                 Expected .editorconfig to contain indent settings for Verify indented files.
+                 Path: {GetPath(path)}
+                 Recommended settings:
+
+                 {indentSectionHeader}
+                 indent_size = 2
+                 indent_style = space
+                 """);
+        }
+
+        var hasIndentSize = false;
+        var hasIndentStyle = false;
+        for (var i = sectionIndex + 1; i < lines.Length; i++)
+        {
+            var span = lines[i].AsSpan().Trim();
+            if (span.StartsWith("["))
+            {
+                break;
+            }
+
+            if (span.StartsWith("indent_size"))
+            {
+                hasIndentSize = true;
+                if (!span.SequenceEqual("indent_size = 2"))
+                {
+                    throw new VerifyCheckException(
+                        $"""
+                         .editorconfig has incorrect indent_size for Verify indented section. Expected `indent_size = 2`.
+                         Path: {GetPath(path)}
+                         """);
+                }
+            }
+
+            if (span.StartsWith("indent_style"))
+            {
+                hasIndentStyle = true;
+                if (!span.SequenceEqual("indent_style = space"))
+                {
+                    throw new VerifyCheckException(
+                        $"""
+                         .editorconfig has incorrect indent_style for Verify indented section. Expected `indent_style = space`.
+                         Path: {GetPath(path)}
+                         """);
+                }
+            }
+        }
+
+        if (!hasIndentSize)
+        {
+            throw new VerifyCheckException(
+                $"""
+                 .editorconfig is missing indent_size for Verify indented section. Expected `indent_size = 2`.
+                 Path: {GetPath(path)}
+                 """);
+        }
+
+        if (!hasIndentStyle)
+        {
+            throw new VerifyCheckException(
+                $"""
+                 .editorconfig is missing indent_style for Verify indented section. Expected `indent_style = space`.
+                 Path: {GetPath(path)}
+                 """);
+        }
+    }
+
     static bool HasAllExtensions(List<string> extensions, string[] lines)
     {
-        var line = lines.SingleOrDefault(_ => _.StartsWith("[*.{received,verified}."));
+        var line = lines.FirstOrDefault(_ => _.StartsWith("[*.{received,verified}."));
         if (line == null)
         {
             return false;

@@ -110,6 +110,10 @@ indent_style = unset
 insert_final_newline = false
 tab_width = unset
 trim_trailing_whitespace = false
+
+[*.{received,verified}.{json,xml,html,htm,yaml,cs,svg}]
+indent_size = 2
+indent_style = space
 ```
 
 **Note that the above are suggested for subset of text extension. Add others as required based on the text file types being verified.**<!-- endInclude -->

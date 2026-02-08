@@ -112,7 +112,7 @@ public static class InnerVerifyChecks
              """);
     }
 
-    static readonly string[] indentExtensionsList = ["json", "xml", "html", "htm", "yaml", "cs", "svg"];
+    static string[] indentExtensionsList = ["json", "xml", "html", "htm", "yaml", "cs", "svg"];
     const string indentSectionHeader = "[*.{received,verified}.{json,xml,html,htm,yaml,cs,svg}]";
 
     static void CheckEditorConfigIndent(string path, string[] lines, List<string> extensions)
@@ -179,7 +179,7 @@ public static class InnerVerifyChecks
             if (span.StartsWith("indent_size"))
             {
                 hasIndentSize = true;
-                if (!span.SequenceEqual("indent_size = 2"))
+                if (!(span is "indent_size = 2"))
                 {
                     throw new VerifyCheckException(
                         $"""
@@ -192,7 +192,7 @@ public static class InnerVerifyChecks
             if (span.StartsWith("indent_style"))
             {
                 hasIndentStyle = true;
-                if (!span.SequenceEqual("indent_style = space"))
+                if (!(span is "indent_style = space"))
                 {
                     throw new VerifyCheckException(
                         $"""
@@ -231,15 +231,7 @@ public static class InnerVerifyChecks
         }
 
         var suffix = line[24..^2].Split(',');
-        foreach (var extension in extensions)
-        {
-            if (!suffix.Contains(extension))
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return extensions.All(_ => suffix.Contains(_));
     }
 
     internal static async Task CheckGitAttributes(string solutionDirectory, List<string> extensions)

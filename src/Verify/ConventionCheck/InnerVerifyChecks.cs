@@ -112,7 +112,12 @@ public static class InnerVerifyChecks
     }
 
     static string[] indentExtensionsList = ["json", "xml", "html", "htm", "yaml", "cs", "svg"];
-    const string indentSectionHeader = "[*.{received,verified}.{json,xml,html,htm,yaml,cs,svg}]";
+
+    internal static string BuildIndentSectionHeader(List<string> extensions)
+    {
+        var indentExtensions = extensions.Where(_ => indentExtensionsList.Contains(_)).ToList();
+        return $"[*.{{received,verified}}.{{{string.Join(',', indentExtensions)}}}]";
+    }
 
     static void CheckEditorConfigIndent(string path, string[] lines, List<string> extensions)
     {
@@ -120,6 +125,8 @@ public static class InnerVerifyChecks
         {
             return;
         }
+
+        var indentSectionHeader = BuildIndentSectionHeader(extensions);
 
         var sectionIndex = -1;
         var skippedFirst = false;

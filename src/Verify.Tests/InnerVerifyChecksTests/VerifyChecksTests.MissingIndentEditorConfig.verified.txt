@@ -1,0 +1,12 @@
+﻿{
+  Type: VerifyCheckException,
+  Message:
+Expected .editorconfig to contain indent settings for Verify indented files.
+Path: file:///{ProjectDirectory}InnerVerifyChecksTests/MissingIndent/.editorconfig
+Recommended settings:
+
+[*.{received,verified}.{html}]
+indent_size = 2
+indent_style = space,
+  StackTrace: 
+}

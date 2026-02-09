@@ -61,6 +61,24 @@ public class VerifyChecksTests
     public Task PartialGitAttributes() =>
         ThrowsTask(() => InnerVerifyChecks.CheckGitAttributes(partialDirectory, extensions));
 
+    [Fact]
+    public Task MissingIndentEditorConfig() =>
+        ThrowsTask(() => InnerVerifyChecks.CheckEditorConfig(
+            GetDirectory("MissingIndent"),
+            ["html", "txt"]));
+
+    [Fact]
+    public Task BuildIndentSectionHeader_SingleExtension() =>
+        Verify(InnerVerifyChecks.BuildIndentSectionHeader(["html", "txt"]));
+
+    [Fact]
+    public Task BuildIndentSectionHeader_MultipleExtensions() =>
+        Verify(InnerVerifyChecks.BuildIndentSectionHeader(["json", "xml", "html", "txt"]));
+
+    [Fact]
+    public Task BuildIndentSectionHeader_NoIndentExtensions() =>
+        Verify(InnerVerifyChecks.BuildIndentSectionHeader(["txt", "md"]));
+
     static string GetDirectory(string suffix, [CallerFilePath] string sourceFile = "") =>
         Path.Combine(Path.GetDirectoryName(sourceFile)!, suffix);
 }

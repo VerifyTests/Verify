@@ -121,7 +121,12 @@ public class TempDirectory :
     /// <exception cref="IOException">
     /// Thrown if the directory cannot be created (e.g., due to permissions or disk space).
     /// </exception>
-    public TempDirectory(bool ignoreLockedFiles = false)
+    public TempDirectory() : this(false)
+    {
+    }
+
+    [OverloadResolutionPriority(1)]
+    public TempDirectory(bool ignoreLockedFiles)
     {
         this.ignoreLockedFiles = ignoreLockedFiles;
         Path = IoPath.Combine(RootDirectory, IoPath.GetRandomFileName());

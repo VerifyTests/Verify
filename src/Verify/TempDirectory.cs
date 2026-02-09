@@ -109,10 +109,6 @@ public class TempDirectory :
     /// Initializes a new instance of the <see cref="TempDirectory"/> class.
     /// Creates a new temporary directory with a random name.
     /// </summary>
-    /// <param name="ignoreLockedFiles">
-    /// When <c>true</c>, locked files will be silently ignored during disposal instead of throwing an exception.
-    /// The directory will be cleaned up once it ages out (24 hours).
-    /// </param>
     /// <remarks>
     /// Each instance creates a unique subdirectory under <see cref="RootDirectory"/>
     /// using <see cref="Path.GetRandomFileName"/> to generate a random name.
@@ -125,6 +121,22 @@ public class TempDirectory :
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TempDirectory"/> class.
+    /// Creates a new temporary directory with a random name.
+    /// </summary>
+    /// <param name="ignoreLockedFiles">
+    /// When <c>true</c>, locked files will be silently ignored during disposal instead of throwing an exception.
+    /// The directory will be cleaned up once it ages out (24 hours).
+    /// </param>
+    /// <remarks>
+    /// Each instance creates a unique subdirectory under <see cref="RootDirectory"/>
+    /// using <see cref="Path.GetRandomFileName"/> to generate a random name.
+    /// The directory is created immediately upon construction.
+    /// </remarks>
+    /// <exception cref="IOException">
+    /// Thrown if the directory cannot be created (e.g., due to permissions or disk space).
+    /// </exception>
     [OverloadResolutionPriority(1)]
     public TempDirectory(bool ignoreLockedFiles)
     {

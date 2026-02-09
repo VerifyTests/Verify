@@ -54,6 +54,42 @@ static class DateScrubber
             counter,
             culture,
             TryConvertDate);
+
+    public static SpanScrubber[] BuildDateSpanScrubbers(
+        [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)] string format,
+        Culture? culture)
+    {
+        try
+        {
+            Date.MaxValue.ToString(format, culture);
+        }
+        catch (FormatException exception)
+        {
+            throw new($"Format '{format}' is not valid for DateOnly.ToString(format, culture).", exception);
+        }
+
+        var resolvedCulture = culture ?? Culture.CurrentCulture;
+        var (max, min) = DateFormatLengthCalculator.GetLength(format, resolvedCulture);
+
+        return
+        [
+            new(min, max, (span, counter) =>
+            {
+                if (!counter.ScrubDateTimes)
+                {
+                    return null;
+                }
+
+                if (Date.TryParseExact(span, format, resolvedCulture, DateTimeStyles.None, out var date))
+                {
+                    return counter.Convert(date);
+                }
+
+                return null;
+            })
+        ];
+    }
+
 #endif
 
     public static Action<StringBuilder, Counter> BuildDateTimeOffsetScrubber(
@@ -70,6 +106,64 @@ static class DateScrubber
         }
 
         return (builder, counter) => ReplaceDateTimeOffsets(builder, format, counter, culture ?? Culture.CurrentCulture);
+    }
+
+    public static SpanScrubber[] BuildDateTimeOffsetSpanScrubbers(
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        Culture? culture)
+    {
+        try
+        {
+            DateTimeOffset.MaxValue.ToString(format, culture);
+        }
+        catch (FormatException exception)
+        {
+            throw new($"Format '{format}' is not valid for DateTimeOffset.ToString(format, culture).", exception);
+        }
+
+        var resolvedCulture = culture ?? Culture.CurrentCulture;
+        var (max, min) = DateFormatLengthCalculator.GetLength(format, resolvedCulture);
+
+        SpanScrubHandler handler = (span, counter) =>
+        {
+            if (!counter.ScrubDateTimes)
+            {
+                return null;
+            }
+
+            if (DateTimeOffset.TryParseExact(span, format, resolvedCulture, DateTimeStyles.None, out var date))
+            {
+                return counter.Convert(date);
+            }
+
+            return null;
+        };
+
+        var primary = new SpanScrubber(min, max, handler);
+
+        if (TryGetFormatWithUpperMillisecondsTrimmed(format, out var trimmedFormat))
+        {
+            var (trimMax, trimMin) = DateFormatLengthCalculator.GetLength(trimmedFormat, resolvedCulture);
+
+            SpanScrubHandler trimHandler = (span, counter) =>
+            {
+                if (!counter.ScrubDateTimes)
+                {
+                    return null;
+                }
+
+                if (DateTimeOffset.TryParseExact(span, trimmedFormat, resolvedCulture, DateTimeStyles.None, out var date))
+                {
+                    return counter.Convert(date);
+                }
+
+                return null;
+            };
+
+            return [primary, new(trimMin, trimMax, trimHandler)];
+        }
+
+        return [primary];
     }
 
     static bool TryConvertDateTimeOffset(
@@ -141,6 +235,62 @@ static class DateScrubber
         }
 
         return (builder, counter) => ReplaceDateTimes(builder, format, counter, culture ?? Culture.CurrentCulture);
+    }
+
+    public static SpanScrubber[] BuildDateTimeSpanScrubbers(string format, Culture? culture)
+    {
+        try
+        {
+            DateTime.MaxValue.ToString(format, culture);
+        }
+        catch (FormatException exception)
+        {
+            throw new($"Format '{format}' is not valid for DateTime.ToString(format, culture).", exception);
+        }
+
+        var resolvedCulture = culture ?? Culture.CurrentCulture;
+        var (max, min) = DateFormatLengthCalculator.GetLength(format, resolvedCulture);
+
+        SpanScrubHandler handler = (span, counter) =>
+        {
+            if (!counter.ScrubDateTimes)
+            {
+                return null;
+            }
+
+            if (DateTime.TryParseExact(span, format, resolvedCulture, DateTimeStyles.None, out var date))
+            {
+                return counter.Convert(date);
+            }
+
+            return null;
+        };
+
+        var primary = new SpanScrubber(min, max, handler);
+
+        if (TryGetFormatWithUpperMillisecondsTrimmed(format, out var trimmedFormat))
+        {
+            var (trimMax, trimMin) = DateFormatLengthCalculator.GetLength(trimmedFormat, resolvedCulture);
+
+            SpanScrubHandler trimHandler = (span, counter) =>
+            {
+                if (!counter.ScrubDateTimes)
+                {
+                    return null;
+                }
+
+                if (DateTime.TryParseExact(span, trimmedFormat, resolvedCulture, DateTimeStyles.None, out var date))
+                {
+                    return counter.Convert(date);
+                }
+
+                return null;
+            };
+
+            return [primary, new(trimMin, trimMax, trimHandler)];
+        }
+
+        return [primary];
     }
 
     public static void ReplaceDateTimes(StringBuilder builder, string format, Counter counter, Culture culture)

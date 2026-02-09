@@ -10,6 +10,8 @@ static class ApplyScrubbers
             return;
         }
 
+        ApplySpanScrubbersForExtension(extension, target, settings, counter);
+
         if (settings.InstanceScrubbers != null)
         {
             foreach (var scrubber in settings.InstanceScrubbers)
@@ -61,6 +63,8 @@ static class ApplyScrubbers
             return;
         }
 
+        ApplySpanScrubbersForPropertyValue(builder, settings, counter);
+
         if (settings.InstanceScrubbers != null)
         {
             foreach (var scrubber in settings.InstanceScrubbers)
@@ -77,6 +81,119 @@ static class ApplyScrubbers
         DirectoryReplacements.Replace(builder);
 
         builder.FixNewlines();
+    }
+
+    static void ApplySpanScrubbersForExtension(string extension, StringBuilder target, VerifySettings settings, Counter counter)
+    {
+        List<SpanScrubber>? scrubbers = null;
+
+        if (settings.InstanceSpanScrubbers is {Count: > 0})
+        {
+            scrubbers = [..settings.InstanceSpanScrubbers];
+        }
+
+        if (settings.ExtensionMappedInstanceSpanScrubbers != null &&
+            settings.ExtensionMappedInstanceSpanScrubbers.TryGetValue(extension, out var extInstanceScrubbers))
+        {
+            scrubbers ??= [];
+            scrubbers.AddRange(extInstanceScrubbers);
+        }
+
+        if (VerifierSettings.ExtensionMappedGlobalSpanScrubbers.TryGetValue(extension, out var extGlobalScrubbers))
+        {
+            scrubbers ??= [];
+            scrubbers.AddRange(extGlobalScrubbers);
+        }
+
+        if (VerifierSettings.GlobalSpanScrubbers.Count > 0)
+        {
+            scrubbers ??= [];
+            scrubbers.AddRange(VerifierSettings.GlobalSpanScrubbers);
+        }
+
+        if (scrubbers is {Count: > 0})
+        {
+            ApplySpanScrubbers(target, scrubbers, counter);
+        }
+    }
+
+    static void ApplySpanScrubbersForPropertyValue(StringBuilder target, VerifySettings settings, Counter counter)
+    {
+        List<SpanScrubber>? scrubbers = null;
+
+        if (settings.InstanceSpanScrubbers is {Count: > 0})
+        {
+            scrubbers = [..settings.InstanceSpanScrubbers];
+        }
+
+        if (VerifierSettings.GlobalSpanScrubbers.Count > 0)
+        {
+            scrubbers ??= [];
+            scrubbers.AddRange(VerifierSettings.GlobalSpanScrubbers);
+        }
+
+        if (scrubbers is {Count: > 0})
+        {
+            ApplySpanScrubbers(target, scrubbers, counter);
+        }
+    }
+
+    static void ApplySpanScrubbers(StringBuilder target, List<SpanScrubber> scrubbers, Counter counter)
+    {
+        foreach (var scrubber in scrubbers)
+        {
+            ApplySingleSpanScrubber(target, scrubber, counter);
+        }
+    }
+
+    static void ApplySingleSpanScrubber(StringBuilder target, SpanScrubber scrubber, Counter counter)
+    {
+        var input = target.ToString();
+        var inputSpan = input.AsSpan();
+        var output = new StringBuilder(input.Length);
+        var pos = 0;
+
+        while (pos < inputSpan.Length)
+        {
+            var remaining = inputSpan.Length - pos;
+            var maxLen = scrubber.MaxLength ?? remaining;
+            var minLen = scrubber.MinLength ?? 1;
+
+            if (maxLen > remaining)
+            {
+                maxLen = remaining;
+            }
+
+            if (minLen > remaining)
+            {
+                output.Append(inputSpan[pos..]);
+                break;
+            }
+
+            var matched = false;
+
+            for (var length = maxLen; length >= minLen; length--)
+            {
+                var slice = inputSpan.Slice(pos, length);
+                var replacement = scrubber.TryConvert(slice, counter);
+                if (replacement != null)
+                {
+                    output.Append(replacement);
+                    pos += length;
+                    matched = true;
+                    break;
+                }
+            }
+
+            if (!matched)
+            {
+                output.Append(inputSpan[pos]);
+                pos++;
+            }
+        }
+
+        target.Clear();
+        target.Append(output);
     }
 
     static string CleanPath(string directory) =>

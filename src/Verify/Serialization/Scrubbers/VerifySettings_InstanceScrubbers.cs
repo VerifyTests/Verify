@@ -99,9 +99,7 @@ public partial class VerifySettings
             throw new("ScrubDateTimes is disabled. Call .ScrubDateTimes() before calling .ScrubInlineDateTimes().");
         }
 
-        AddScrubber(
-            DateScrubber.BuildDateTimeScrubber(format, culture),
-            location);
+        AddSpanScrubbers(DateScrubber.BuildDateTimeSpanScrubbers(format, culture), location);
     }
 
     /// <summary>
@@ -118,9 +116,7 @@ public partial class VerifySettings
             throw new("ScrubDateTimes is disabled. Call .ScrubDateTimes() before calling .ScrubInlineDateTimeOffsets().");
         }
 
-        AddScrubber(
-            DateScrubber.BuildDateTimeOffsetScrubber(format, culture),
-            location);
+        AddSpanScrubbers(DateScrubber.BuildDateTimeOffsetSpanScrubbers(format, culture), location);
     }
 
 #if NET6_0_OR_GREATER
@@ -138,9 +134,7 @@ public partial class VerifySettings
             throw new("ScrubDateTimes is disabled. Call .ScrubDateTimes() before calling .ScrubInlineDates().");
         }
 
-        AddScrubber(
-            DateScrubber.BuildDateScrubber(format, culture),
-            location);
+        AddSpanScrubbers(DateScrubber.BuildDateSpanScrubbers(format, culture), location);
     }
 
 #endif

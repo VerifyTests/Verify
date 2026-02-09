@@ -83,10 +83,11 @@ public static partial class VerifierSettings
     public static void ScrubInlineDateTimes(
         [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
         Culture? culture = null,
-        ScrubberLocation location = ScrubberLocation.First) =>
-        AddScrubber(
-            DateScrubber.BuildDateTimeScrubber(format, culture),
-            location);
+        ScrubberLocation location = ScrubberLocation.First)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        AddSpanScrubbers(DateScrubber.BuildDateTimeSpanScrubbers(format, culture), location);
+    }
 
     /// <summary>
     /// Replace inline <see cref="DateTime" />s with a placeholder.
@@ -94,10 +95,11 @@ public static partial class VerifierSettings
     public static void ScrubInlineDateTimeOffsets(
         [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
         Culture? culture = null,
-        ScrubberLocation location = ScrubberLocation.First) =>
-        AddScrubber(
-            DateScrubber.BuildDateTimeOffsetScrubber(format, culture),
-            location);
+        ScrubberLocation location = ScrubberLocation.First)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        AddSpanScrubbers(DateScrubber.BuildDateTimeOffsetSpanScrubbers(format, culture), location);
+    }
 
 #if NET6_0_OR_GREATER
 
@@ -107,10 +109,11 @@ public static partial class VerifierSettings
     public static void ScrubInlineDates(
         [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)] string format,
         Culture? culture = null,
-        ScrubberLocation location = ScrubberLocation.First) =>
-        AddScrubber(
-            DateScrubber.BuildDateScrubber(format, culture),
-            location);
+        ScrubberLocation location = ScrubberLocation.First)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        AddSpanScrubbers(DateScrubber.BuildDateSpanScrubbers(format, culture), location);
+    }
 
 #endif
 

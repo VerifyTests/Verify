@@ -34,6 +34,16 @@ public partial class VerifySettings
             ExtensionMappedInstanceScrubbers = new(settings.ExtensionMappedInstanceScrubbers);
         }
 
+        if (settings.InstanceSpanScrubbers != null)
+        {
+            InstanceSpanScrubbers = [..settings.InstanceSpanScrubbers];
+        }
+
+        if (settings.ExtensionMappedInstanceSpanScrubbers != null)
+        {
+            ExtensionMappedInstanceSpanScrubbers = new(settings.ExtensionMappedInstanceSpanScrubbers);
+        }
+
         diffEnabled = settings.diffEnabled;
         MethodName = settings.MethodName;
         TypeName = settings.TypeName;

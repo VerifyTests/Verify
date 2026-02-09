@@ -175,10 +175,10 @@ static class ApplyScrubbers
             for (var length = maxLen; length >= minLen; length--)
             {
                 var slice = inputSpan.Slice(pos, length);
-                var replacement = scrubber.TryConvert(slice, counter);
-                if (replacement != null)
+                var result = scrubber.TryConvert(slice, counter);
+                if (result.Matched)
                 {
-                    output.Append(replacement);
+                    output.Append(result.Replacement);
                     pos += length;
                     matched = true;
                     break;

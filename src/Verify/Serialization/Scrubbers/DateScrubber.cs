@@ -77,15 +77,15 @@ static class DateScrubber
             {
                 if (!counter.ScrubDateTimes)
                 {
-                    return null;
+                    return default;
                 }
 
                 if (Date.TryParseExact(span, format, resolvedCulture, DateTimeStyles.None, out var date))
                 {
-                    return counter.Convert(date);
+                    return new(true, counter.Convert(date));
                 }
 
-                return null;
+                return default;
             })
         ];
     }
@@ -128,15 +128,15 @@ static class DateScrubber
         {
             if (!counter.ScrubDateTimes)
             {
-                return null;
+                return default;
             }
 
             if (DateTimeOffset.TryParseExact(span, format, resolvedCulture, DateTimeStyles.None, out var date))
             {
-                return counter.Convert(date);
+                return new(true, counter.Convert(date));
             }
 
-            return null;
+            return default;
         };
 
         var primary = new SpanScrubber(min, max, handler);
@@ -149,15 +149,15 @@ static class DateScrubber
             {
                 if (!counter.ScrubDateTimes)
                 {
-                    return null;
+                    return default;
                 }
 
                 if (DateTimeOffset.TryParseExact(span, trimmedFormat, resolvedCulture, DateTimeStyles.None, out var date))
                 {
-                    return counter.Convert(date);
+                    return new(true, counter.Convert(date));
                 }
 
-                return null;
+                return default;
             };
 
             return [primary, new(trimMin, trimMax, trimHandler)];
@@ -255,15 +255,15 @@ static class DateScrubber
         {
             if (!counter.ScrubDateTimes)
             {
-                return null;
+                return default;
             }
 
             if (DateTime.TryParseExact(span, format, resolvedCulture, DateTimeStyles.None, out var date))
             {
-                return counter.Convert(date);
+                return new(true, counter.Convert(date));
             }
 
-            return null;
+            return default;
         };
 
         var primary = new SpanScrubber(min, max, handler);
@@ -276,15 +276,15 @@ static class DateScrubber
             {
                 if (!counter.ScrubDateTimes)
                 {
-                    return null;
+                    return default;
                 }
 
                 if (DateTime.TryParseExact(span, trimmedFormat, resolvedCulture, DateTimeStyles.None, out var date))
                 {
-                    return counter.Convert(date);
+                    return new(true, counter.Convert(date));
                 }
 
-                return null;
+                return default;
             };
 
             return [primary, new(trimMin, trimMax, trimHandler)];

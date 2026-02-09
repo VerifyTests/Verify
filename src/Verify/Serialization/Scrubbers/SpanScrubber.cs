@@ -1,6 +1,8 @@
 namespace VerifyTests;
 
-public delegate string? SpanScrubHandler(CharSpan span, Counter counter);
+public readonly record struct SpanScrubResult(bool Matched, string? Replacement);
+
+public delegate SpanScrubResult SpanScrubHandler(CharSpan span, Counter counter);
 
 public class SpanScrubber(int? minLength, int? maxLength, SpanScrubHandler tryConvert)
 {

@@ -111,7 +111,7 @@ public static class InnerVerifyChecks
              """);
     }
 
-    static string[] indentExtensionsList = ["json", "xml", "html", "htm", "yaml", "cs", "svg"];
+    static string[] indentExtensionsList = ["json", "xml", "html", "htm", "yaml", "svg"];
 
     internal static string BuildIndentSectionHeader(List<string> extensions)
     {

@@ -666,7 +666,7 @@ insert_final_newline = false
 tab_width = unset
 trim_trailing_whitespace = false
 
-[*.{received,verified}.{json,xml,html,htm,yaml,cs,svg}]
+[*.{received,verified}.{json,xml,html,htm,yaml,svg}]
 indent_size = 2
 indent_style = space
 ```

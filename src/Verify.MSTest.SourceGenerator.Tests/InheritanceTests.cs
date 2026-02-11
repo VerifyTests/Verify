@@ -1,6 +1,7 @@
-public class InheritanceTests(ITestOutputHelper output) : TestBase(output)
+[TestClass]
+public partial class InheritanceTests : TestBase
 {
-    [Fact]
+    [TestMethod]
     public Task HasAttributeOnBaseClass()
     {
         var source = """
@@ -19,7 +20,7 @@ public class InheritanceTests(ITestOutputHelper output) : TestBase(output)
         return VerifyGenerator(TestDriver.Run(source));
     }
 
-    [Fact]
+    [TestMethod]
     public Task HasAttributeOnDerivedClass()
     {
         var source = """
@@ -38,7 +39,7 @@ public class InheritanceTests(ITestOutputHelper output) : TestBase(output)
         return VerifyGenerator(TestDriver.Run(source));
     }
 
-    [Fact]
+    [TestMethod]
     public Task HasAttributeOnBaseAndDerivedClasses()
     {
         var source = """
@@ -58,7 +59,7 @@ public class InheritanceTests(ITestOutputHelper output) : TestBase(output)
         return VerifyGenerator(TestDriver.Run(source));
     }
 
-    [Fact]
+    [TestMethod]
     public Task HasAttributeOnDerivedClassAndPropertyManuallyDefinedInBase()
     {
         var source = """
@@ -79,7 +80,7 @@ public class InheritanceTests(ITestOutputHelper output) : TestBase(output)
         return VerifyGenerator(TestDriver.Run(source), ["CS0506"]);
     }
 
-    [Fact]
+    [TestMethod]
     public Task HasAttributeOnDerivedClassAndVirtualPropertyManuallyDefinedInBase()
     {
         var source = """
@@ -101,7 +102,7 @@ public class InheritanceTests(ITestOutputHelper output) : TestBase(output)
         return VerifyGenerator(TestDriver.Run(source));
     }
 
-    [Fact]
+    [TestMethod]
     public Task HasAttributeOnDerivedClassAndAbstractPropertyManuallyDefinedInBase()
     {
         var source = """
@@ -123,7 +124,7 @@ public class InheritanceTests(ITestOutputHelper output) : TestBase(output)
         return VerifyGenerator(TestDriver.Run(source));
     }
 
-    [Fact]
+    [TestMethod]
     public Task HasAssemblyAttributeAndTestClassInheritance()
     {
         var source = """
@@ -146,7 +147,7 @@ public class InheritanceTests(ITestOutputHelper output) : TestBase(output)
         return VerifyGenerator(TestDriver.Run(source));
     }
 
-    [Fact]
+    [TestMethod]
     public Task HasAssemblyAttributeWithTestClassOnDerivedAndMarkerAttributeOnBase()
     {
         var source = """

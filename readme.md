@@ -160,27 +160,6 @@ public class Sample
 <!-- endSnippet -->
 
 
-### xUnit
-
-Support for [xUnit](https://xunit.net/)
-
-<!-- snippet: SampleTestXunit -->
-<a id='snippet-SampleTestXunit'></a>
-```cs
-public class Sample
-{
-    [Fact]
-    public Task Test()
-    {
-        var person = ClassBeingTested.FindPerson();
-        return Verify(person);
-    }
-}
-```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestXunit' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
 ### xUnitV3
 
 Support for [xUnitV3](https://xunit.net/)
@@ -429,8 +408,8 @@ To verify the result:
 
 This will result in the `Sample.Test.verified.txt` being created:
 
-<!-- snippet: Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt'></a>
+<!-- snippet: Verify.XunitV3.Tests/Snippets/Sample.Test.verified.txt -->
+<a id='snippet-Verify.XunitV3.Tests/Snippets/Sample.Test.verified.txt'></a>
 ```txt
 {
   GivenNames: John,
@@ -447,7 +426,7 @@ This will result in the `Sample.Test.verified.txt` being created:
   Id: Guid_1
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/Sample.Test.verified.txt#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.XunitV3.Tests/Snippets/Sample.Test.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -728,22 +707,6 @@ public class VerifyChecksTests
 <!-- endSnippet -->
 
 
-#### Xunit
-
-<!-- snippet: VerifyChecksXunit -->
-<a id='snippet-VerifyChecksXunit'></a>
-```cs
-public class VerifyChecksTests
-{
-    [Fact]
-    public Task Run() =>
-        VerifyChecks.Run();
-}
-```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyChecksTests.cs#L2-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksXunit' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
 #### XunitV3
 
 <!-- snippet: VerifyChecksXunitV3 -->
@@ -757,23 +720,6 @@ public class VerifyChecksTests
 }
 ```
 <sup><a href='/src/Verify.XunitV3.Tests/VerifyChecksTests.cs#L2-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksXunitV3' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
-#### NUnit
-
-<!-- snippet: VerifyChecksNUnit -->
-<a id='snippet-VerifyChecksNUnit'></a>
-```cs
-[TestFixture]
-public class VerifyChecksTests
-{
-    [Test]
-    public Task Run() =>
-        VerifyChecks.Run();
-}
-```
-<sup><a href='/src/Verify.NUnit.Tests/VerifyChecksTests.cs#L2-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksNUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

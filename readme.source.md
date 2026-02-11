@@ -90,13 +90,6 @@ Support for [NUnit](https://nunit.org/)
 snippet: SampleTestNUnit
 
 
-### xUnit
-
-Support for [xUnit](https://xunit.net/)
-
-snippet: SampleTestXunit
-
-
 ### xUnitV3
 
 Support for [xUnitV3](https://xunit.net/)
@@ -184,7 +177,7 @@ To verify the result:
 
 This will result in the `Sample.Test.verified.txt` being created:
 
-snippet: Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt
+snippet: Verify.XunitV3.Tests/Snippets/Sample.Test.verified.txt
 
 
 ### Subsequent Verification
@@ -283,19 +276,9 @@ snippet: VerifyChecksExpecto
 snippet: VerifyChecksFixie
 
 
-#### Xunit
-
-snippet: VerifyChecksXunit
-
-
 #### XunitV3
 
 snippet: VerifyChecksXunitV3
-
-
-#### NUnit
-
-snippet: VerifyChecksNUnit
 
 
 #### TUnit

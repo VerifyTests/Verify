@@ -8,7 +8,7 @@ class TestDriver(IEnumerable<ISourceGenerator> sourceGenerators)
         var references = AppDomain.CurrentDomain.GetAssemblies()
             .Where(_ => !_.IsDynamic && !string.IsNullOrWhiteSpace(_.Location))
             .Select(_ => MetadataReference.CreateFromFile(_.Location));
-        var assemblyReference = MetadataReference.CreateFromFile(typeof(VerifyMSTest.UsesVerifyAttribute).Assembly.Location);
+        var assemblyReference = MetadataReference.CreateFromFile(typeof(UsesVerifyAttribute).Assembly.Location);
         var testAssemblyReference = MetadataReference.CreateFromFile(typeof(TestClassAttribute).Assembly.Location);
         var testFrameworkReference = MetadataReference.CreateFromFile(typeof(TestContext).Assembly.Location);
 

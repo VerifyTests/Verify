@@ -31,7 +31,6 @@ To change this file edit the source file and then run MarkdownSnippets.
   * [AppendFile](/docs/append-file.md)
   * [Parameterised tests](/docs/parameterised.md)
     * [NUnit](/docs/parameterised-nunit.md)
-    * [Xunit V2](/docs/parameterised-xunitv2.md)
     * [Xunit V3](/docs/parameterised-xunitv3.md)
     * [MSTest](/docs/parameterised-mstest.md)
     * [TUnit](/docs/parameterised-tunit.md)

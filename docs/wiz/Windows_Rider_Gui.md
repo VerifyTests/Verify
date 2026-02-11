@@ -12,7 +12,6 @@ To change this file edit the source file and then run MarkdownSnippets.
 ## Select Test Framework
 
 Options:
- * [Xunit](Windows_Rider_Gui_Xunit.md)
  * [XunitV3](Windows_Rider_Gui_XunitV3.md)
  * [NUnit](Windows_Rider_Gui_NUnit.md)
  * [TUnit](Windows_Rider_Gui_TUnit.md)

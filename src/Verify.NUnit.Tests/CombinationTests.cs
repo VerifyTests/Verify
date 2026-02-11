@@ -82,6 +82,18 @@ public class CombinationTests
     }
 
     [Test]
+    public Task WithHeader()
+    {
+        string[] a = ["A", "b", "C"];
+        int[] b = [1, 2, 3];
+        bool[] c = [true, false];
+        return Combination(header: true)
+            .Verify(
+                (a, b, c) => a.ToLower() + b + c,
+                a, b, c);
+    }
+
+    [Test]
     public Task WithException()
     {
         string[] a = ["A", "b", "C"];

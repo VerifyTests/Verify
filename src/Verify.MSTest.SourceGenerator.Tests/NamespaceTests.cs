@@ -1,6 +1,7 @@
-public class NamespaceTests(ITestOutputHelper output) : TestBase(output)
+[TestClass]
+public partial class NamespaceTests : TestBase
 {
-    [Fact]
+    [TestMethod]
     public Task HasAttributeOnClass()
     {
         var source = """
@@ -17,7 +18,7 @@ public class NamespaceTests(ITestOutputHelper output) : TestBase(output)
         return VerifyGenerator(TestDriver.Run(source));
     }
 
-    [Fact]
+    [TestMethod]
     public Task HasAttributeOnClassWithGenericsInNestedNamespace()
     {
         var source = """

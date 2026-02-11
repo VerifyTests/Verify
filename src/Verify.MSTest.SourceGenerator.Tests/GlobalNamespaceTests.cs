@@ -1,6 +1,7 @@
-public class GlobalNamespaceTests(ITestOutputHelper output) : TestBase(output)
+[TestClass]
+public partial class GlobalNamespaceTests : TestBase
 {
-    [Fact]
+    [TestMethod]
     public Task HasAttributeOnClass()
     {
         var source = """
@@ -15,7 +16,7 @@ public class GlobalNamespaceTests(ITestOutputHelper output) : TestBase(output)
         return VerifyGenerator(TestDriver.Run(source));
     }
 
-    [Fact]
+    [TestMethod]
     public Task HasAssemblyAttribute()
     {
         var source = """
@@ -33,7 +34,7 @@ public class GlobalNamespaceTests(ITestOutputHelper output) : TestBase(output)
         return VerifyGenerator(TestDriver.Run(source));
     }
 
-    [Fact]
+    [TestMethod]
     public Task HasBothAssemblyAndClassAttributes()
     {
         var source = """
@@ -52,7 +53,7 @@ public class GlobalNamespaceTests(ITestOutputHelper output) : TestBase(output)
         return VerifyGenerator(TestDriver.Run(source));
     }
 
-    [Fact]
+    [TestMethod]
     public Task HasAssemblyAttributeAndCustomTestClassAttribute()
     {
         var source = """

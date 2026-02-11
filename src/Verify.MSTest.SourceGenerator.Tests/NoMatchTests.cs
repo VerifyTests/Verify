@@ -1,6 +1,7 @@
-public class NoMatchTests(ITestOutputHelper output) : TestBase(output)
+[TestClass]
+public partial class NoMatchTests : TestBase
 {
-    [Fact]
+    [TestMethod]
     public Task NoAttributes()
     {
         var source = """
@@ -12,7 +13,7 @@ public class NoMatchTests(ITestOutputHelper output) : TestBase(output)
         return VerifyGenerator(TestDriver.Run(source));
     }
 
-    [Fact]
+    [TestMethod]
     public Task ClassAttributeFromWrongNamespace()
     {
         var source = """
@@ -30,7 +31,7 @@ public class NoMatchTests(ITestOutputHelper output) : TestBase(output)
         return VerifyGenerator(TestDriver.Run(source));
     }
 
-    [Fact]
+    [TestMethod]
     public Task AssemblyAttributeFromWrongNamespace()
     {
         var source = """
@@ -51,7 +52,7 @@ public class NoMatchTests(ITestOutputHelper output) : TestBase(output)
         return VerifyGenerator(TestDriver.Run(source));
     }
 
-    [Fact]
+    [TestMethod]
     public Task AssemblyAttributeButNoTestClass()
     {
         var source = """
@@ -67,7 +68,7 @@ public class NoMatchTests(ITestOutputHelper output) : TestBase(output)
         return VerifyGenerator(TestDriver.Run(source));
     }
 
-    [Fact]
+    [TestMethod]
     public Task TestClassButNoAssemblyAttribute()
     {
         var source = """

@@ -622,8 +622,8 @@ public class ExtensionSample
 
 Result in:
 
-<!-- snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.Method.verified.xml -->
-<a id='snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.Method.verified.xml'></a>
+<!-- snippet: Verify.XunitV3.Tests/Snippets/ExtensionSample.Method.verified.xml -->
+<a id='snippet-Verify.XunitV3.Tests/Snippets/ExtensionSample.Method.verified.xml'></a>
 ```xml
 <note>
   <to>Joe</to>
@@ -631,7 +631,7 @@ Result in:
   <heading>Reminder</heading>
 </note>
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.Method.verified.xml#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.Method.verified.xml' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ExtensionSample.Method.verified.xml#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.XunitV3.Tests/Snippets/ExtensionSample.Method.verified.xml' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

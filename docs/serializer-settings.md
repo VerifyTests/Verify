@@ -500,8 +500,8 @@ public Task ScopedSerializerFluent()
 
 Result:
 
-<!-- snippet: Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt'></a>
+<!-- snippet: Verify.XunitV3.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt -->
+<a id='snippet-Verify.XunitV3.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt'></a>
 ```txt
 {
   $type: VerifyObjectSamples.Person,
@@ -509,7 +509,7 @@ Result:
   FamilyName: Smith
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.XunitV3.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

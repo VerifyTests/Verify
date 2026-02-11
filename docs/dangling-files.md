@@ -81,45 +81,6 @@ public static class SetUp
 <!-- endSnippet -->
 
 
-### XUnit
-
-Define an XUnit collection:
-
-<!-- snippet: DanglingSnapshotsXUnitUsage/DanglingSnapshots.cs -->
-<a id='snippet-DanglingSnapshotsXUnitUsage/DanglingSnapshots.cs'></a>
-```cs
-#pragma warning disable VerifyDanglingSnapshots
-
-[CollectionDefinition(nameof(SharedFixtureCollection))]
-public class SharedFixtureCollection :
-    ICollectionFixture<SharedFixture>;
-
-public sealed class SharedFixture :
-    IDisposable
-{
-    public void Dispose() =>
-        DanglingSnapshots.Run();
-}
-```
-<sup><a href='/src/DanglingSnapshotsXunitUsage/DanglingSnapshots.cs#L1-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-DanglingSnapshotsXUnitUsage/DanglingSnapshots.cs' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-Apply that collection to all tests:
-
-<!-- snippet: XunitDanglingCollection -->
-<a id='snippet-XunitDanglingCollection'></a>
-```cs
-[Collection(nameof(SharedFixtureCollection))]
-public class Tests
-{
-    [Fact]
-    public Task Simple() =>
-        Verify("Foo");
-```
-<sup><a href='/src/DanglingSnapshotsXunitUsage/Tests.cs#L1-L8' title='Snippet source file'>snippet source</a> | <a href='#snippet-XunitDanglingCollection' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
 ### XUnitV3
 
 Define an XUnit collection:

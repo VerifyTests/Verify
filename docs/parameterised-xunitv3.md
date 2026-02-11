@@ -297,8 +297,8 @@ public Task IgnoreParametersForVerified(string arg)
 
 ### Fluent
 
-<!-- snippet: IgnoreParametersForVerifiedFluentXunit -->
-<a id='snippet-IgnoreParametersForVerifiedFluentXunit'></a>
+<!-- snippet: IgnoreParametersForVerifiedFluentXunitV3 -->
+<a id='snippet-IgnoreParametersForVerifiedFluentXunitV3'></a>
 ```cs
 [Theory]
 [InlineData("One")]
@@ -307,7 +307,7 @@ public Task IgnoreParametersForVerifiedFluent(string arg) =>
     Verify("value")
         .IgnoreParametersForVerified(arg);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L25-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedFluentXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L50-L59' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedFluentXunitV3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -318,8 +318,8 @@ The parameters passed to IgnoreParametersForVerified can be used pass custom par
 
 ### Instance
 
-<!-- snippet: IgnoreParametersForVerifiedCustomParamsXunit -->
-<a id='snippet-IgnoreParametersForVerifiedCustomParamsXunit'></a>
+<!-- snippet: IgnoreParametersForVerifiedCustomParamsXunitV3 -->
+<a id='snippet-IgnoreParametersForVerifiedCustomParamsXunitV3'></a>
 ```cs
 [Theory]
 [InlineData("One")]
@@ -331,14 +331,14 @@ public Task IgnoreParametersForVerifiedCustomParams(string arg)
     return Verify("value", settings);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L36-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedCustomParamsXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L61-L73' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedCustomParamsXunitV3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### Fluent
 
-<!-- snippet: IgnoreParametersForVerifiedCustomParamsFluentXunit -->
-<a id='snippet-IgnoreParametersForVerifiedCustomParamsFluentXunit'></a>
+<!-- snippet: IgnoreParametersForVerifiedCustomParamsFluentXunitV3 -->
+<a id='snippet-IgnoreParametersForVerifiedCustomParamsFluentXunitV3'></a>
 ```cs
 [Theory]
 [InlineData("One")]
@@ -347,5 +347,5 @@ public Task IgnoreParametersForVerifiedCustomParamsFluent(string arg) =>
     Verify("value")
         .IgnoreParametersForVerified($"Number{arg}");
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L50-L59' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedCustomParamsFluentXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L75-L84' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedCustomParamsFluentXunitV3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

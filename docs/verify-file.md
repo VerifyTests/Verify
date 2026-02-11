@@ -84,7 +84,7 @@ Verify multiple files using file name as the name for the verified file:
 public Task Run() =>
     VerifyFiles(["File1.txt", "File2.txt"]);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyFilesTests.cs#L3-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFiles' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/VerifyFilesTests.cs#L3-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFiles' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -102,7 +102,7 @@ public Task WithInfo() =>
             Key = "Value"
         });
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyFilesTests.cs#L11-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFilesWithInfo' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/VerifyFilesTests.cs#L11-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFilesWithInfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -121,5 +121,5 @@ public Task WithFileScrubber() =>
             builder.Append("New");
         });
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyFilesTests.cs#L24-L36' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFilesWithFileScrubber' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/VerifyFilesTests.cs#L24-L36' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFilesWithFileScrubber' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

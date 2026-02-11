@@ -120,23 +120,5 @@ Produces a snapshot file `SnapshotTest.verified.txt`:
   Id: Guid_1
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.SnapshotTest.verified.txt#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-CompareToAssert.SnapshotTest.verified.txt' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-CompareToAssert.SnapshotTest.verified.txt-1'></a>
-```txt
-{
-  GivenNames: John,
-  FamilyName: Smith,
-  Spouse: Jill,
-  Address: {
-    Street: 4 Puddle Lane,
-    Country: USA
-  },
-  Children: [
-    Sam,
-    Mary
-  ],
-  Id: Guid_1
-}
-```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/CompareToAssert.SnapshotTest.verified.txt#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-CompareToAssert.SnapshotTest.verified.txt-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/CompareToAssert.SnapshotTest.verified.txt#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-CompareToAssert.SnapshotTest.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

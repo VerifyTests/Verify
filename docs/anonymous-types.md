@@ -137,8 +137,8 @@ public Task Anon()
 
 Results in the following:
 
-<!-- snippet: Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt'></a>
+<!-- snippet: Verify.XunitV3.Tests/VerifyObjectSamples.Anon.verified.txt -->
+<a id='snippet-Verify.XunitV3.Tests/VerifyObjectSamples.Anon.verified.txt'></a>
 ```txt
 {
   person1: {
@@ -151,5 +151,5 @@ Results in the following:
   }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/VerifyObjectSamples.Anon.verified.txt#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.XunitV3.Tests/VerifyObjectSamples.Anon.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

@@ -65,7 +65,7 @@ snippet: IgnoreParametersForVerifiedXunitV3
 
 ### Fluent
 
-snippet: IgnoreParametersForVerifiedFluentXunit
+snippet: IgnoreParametersForVerifiedFluentXunitV3
 
 
 ## IgnoreParametersForVerified with override parameters
@@ -75,9 +75,9 @@ The parameters passed to IgnoreParametersForVerified can be used pass custom par
 
 ### Instance
 
-snippet: IgnoreParametersForVerifiedCustomParamsXunit
+snippet: IgnoreParametersForVerifiedCustomParamsXunitV3
 
 
 ### Fluent
 
-snippet: IgnoreParametersForVerifiedCustomParamsFluentXunit
+snippet: IgnoreParametersForVerifiedCustomParamsFluentXunitV3

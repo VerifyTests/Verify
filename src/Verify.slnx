@@ -54,9 +54,6 @@
   <Project Path="Verify.TUnit.DisableAttachments.Tests/Verify.TUnit.DisableAttachments.Tests.csproj" />
   <Project Path="Verify.TUnit.Tests/Verify.TUnit.Tests.csproj" />
   <Project Path="Verify.TUnit/Verify.TUnit.csproj" />
-  <Project Path="Verify.Xunit.DerivePaths.Tests/Verify.Xunit.DerivePaths.Tests.csproj" />
-  <Project Path="Verify.Xunit.Tests/Verify.Xunit.Tests.csproj" />
-  <Project Path="Verify.Xunit/Verify.Xunit.csproj" />
   <Project Path="Verify.XunitV3.DerivePaths.Tests/Verify.XunitV3.DerivePaths.Tests.csproj" />
   <Project Path="Verify.XunitV3.Tests/Verify.XunitV3.Tests.csproj" />
   <Project Path="Verify.XunitV3/Verify.XunitV3.csproj" />

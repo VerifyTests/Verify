@@ -27,4 +27,4 @@ snippet: AnonMSTest
 
 Results in the following:
 
-snippet: Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt
+snippet: Verify.XunitV3.Tests/VerifyObjectSamples.Anon.verified.txt

@@ -144,7 +144,7 @@ snippet: ScrubbersSampleTUnit
 
 ### Results
 
-snippet: Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt
+snippet: Verify.XunitV3.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt
 
 
 ## Scrubber levels
@@ -183,7 +183,7 @@ snippet: ScrubberLevelsSampleTUnit
 
 ### Result
 
-snippet: Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt
+snippet: Verify.XunitV3.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt
 
 
 ## See also

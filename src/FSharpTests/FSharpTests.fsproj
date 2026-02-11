@@ -1,17 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <GenerateProgramFile>false</GenerateProgramFile>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Tests.fs" />
     <PackageReference Include="Argon.FSharp" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.v3" />
     <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
-    <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
+    <ProjectReference Include="..\Verify.XunitV3\Verify.XunitV3.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
   </ItemGroup>
-  <Import Project="$(ProjectDir)..\Verify.Xunit\buildTransitive\Verify.Xunit.props" />
+  <Import Project="$(ProjectDir)..\Verify.XunitV3\buildTransitive\Verify.XunitV3.props" />
 </Project>

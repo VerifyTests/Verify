@@ -90,7 +90,7 @@ public class ExceptionParsingTests
              """;
 
         var result = Parser.Parse(exceptionMessage);
-        return Verify(result);
+        return Verifier.Verify(result);
     }
 
     [Fact]
@@ -124,7 +124,7 @@ public class ExceptionParsingTests
              """;
 
         var result = Parser.Parse(exceptionMessage);
-        return Verify(result);
+        return Verifier.Verify(result);
     }
 
     [Fact]
@@ -213,7 +213,7 @@ public class ExceptionParsingTests
             equal);
 
         var result = Parser.Parse(message);
-        return Verify(
+        return Verifier.Verify(
             new
             {
                 message,

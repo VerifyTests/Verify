@@ -1051,7 +1051,6 @@ To opt out of this feature, include the following in the project file:
   * [AppendFile](/docs/append-file.md)
   * [Parameterised tests](/docs/parameterised.md)
     * [NUnit](/docs/parameterised-nunit.md)
-    * [Xunit V2](/docs/parameterised-xunitv2.md)
     * [Xunit V3](/docs/parameterised-xunitv3.md)
     * [MSTest](/docs/parameterised-mstest.md)
     * [TUnit](/docs/parameterised-tunit.md)

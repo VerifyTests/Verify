@@ -8,7 +8,7 @@ public static partial class Verifier
         string name,
         bool? captureExceptions = null,
         VerifySettings? settings = null,
-        bool header = false,
+        bool? header = null,
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;

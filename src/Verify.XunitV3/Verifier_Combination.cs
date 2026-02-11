@@ -6,7 +6,7 @@ public static partial class Verifier
     public static Combination Combination(
         bool? captureExceptions = null,
         VerifySettings? settings = null,
-        bool header = false,
+        bool? header = null,
         [CallerFilePath] string sourceFile = "") =>
         new(
             captureExceptions,

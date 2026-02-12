@@ -8,6 +8,5 @@
   <Project Path="MSTestNugetUsage/MSTestNugetUsage.csproj" />
   <Project Path="NUnitNugetUsage/NUnitNugetUsage.csproj" />
   <Project Path="TUnitNugetUsage/TUnitNugetUsage.csproj" />
-  <Project Path="XunitNugetUsage/XunitNugetUsage.csproj" />
   <Project Path="XunitV3NugetUsage/XunitV3NugetUsage.csproj" />
 </Solution>

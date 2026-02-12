@@ -10,7 +10,6 @@ To change this file edit the source file and then run MarkdownSnippets.
 [![Discussions](https://img.shields.io/badge/Verify-Discussions-yellow?svg=true&label=)](https://github.com/orgs/VerifyTests/discussions)
 [![Build status](https://img.shields.io/appveyor/build/SimonCropp/verify)](https://ci.appveyor.com/project/SimonCropp/Verify)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.NUnit.svg?label=Verify.NUnit)](https://www.nuget.org/packages/Verify.NUnit/)
-[![NuGet Status](https://img.shields.io/nuget/v/Verify.Xunit.svg?label=Verify.Xunit)](https://www.nuget.org/packages/Verify.Xunit/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.XunitV3.svg?label=Verify.XunitV3)](https://www.nuget.org/packages/Verify.XunitV3/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.Fixie.svg?label=Verify.Fixie)](https://www.nuget.org/packages/Verify.Fixie/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.Expecto.svg?label=Verify.Expecto)](https://www.nuget.org/packages/Verify.Expecto/)
@@ -67,7 +66,6 @@ Get customized instructions for the specific combination of Operating System, ID
 ## NuGet
 
 * https://nuget.org/packages/Verify.NUnit/
-* https://nuget.org/packages/Verify.Xunit/
 * https://nuget.org/packages/Verify.XunitV3/
 * https://nuget.org/packages/Verify.Fixie/
 * https://nuget.org/packages/Verify.Expecto/
@@ -157,27 +155,6 @@ public class Sample
 }
 ```
 <sup><a href='/src/Verify.NUnit.Tests/Snippets/Sample.cs#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestNUnit' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
-### xUnit
-
-Support for [xUnit](https://xunit.net/)
-
-<!-- snippet: SampleTestXunit -->
-<a id='snippet-SampleTestXunit'></a>
-```cs
-public class Sample
-{
-    [Fact]
-    public Task Test()
-    {
-        var person = ClassBeingTested.FindPerson();
-        return Verify(person);
-    }
-}
-```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -429,8 +406,8 @@ To verify the result:
 
 This will result in the `Sample.Test.verified.txt` being created:
 
-<!-- snippet: Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt'></a>
+<!-- snippet: Verify.XunitV3.Tests/Snippets/Sample.Test.verified.txt -->
+<a id='snippet-Verify.XunitV3.Tests/Snippets/Sample.Test.verified.txt'></a>
 ```txt
 {
   GivenNames: John,
@@ -447,7 +424,7 @@ This will result in the `Sample.Test.verified.txt` being created:
   Id: Guid_1
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/Sample.Test.verified.txt#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.XunitV3.Tests/Snippets/Sample.Test.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -728,22 +705,6 @@ public class VerifyChecksTests
 <!-- endSnippet -->
 
 
-#### Xunit
-
-<!-- snippet: VerifyChecksXunit -->
-<a id='snippet-VerifyChecksXunit'></a>
-```cs
-public class VerifyChecksTests
-{
-    [Fact]
-    public Task Run() =>
-        VerifyChecks.Run();
-}
-```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyChecksTests.cs#L2-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksXunit' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
 #### XunitV3
 
 <!-- snippet: VerifyChecksXunitV3 -->
@@ -757,23 +718,6 @@ public class VerifyChecksTests
 }
 ```
 <sup><a href='/src/Verify.XunitV3.Tests/VerifyChecksTests.cs#L2-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksXunitV3' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
-#### NUnit
-
-<!-- snippet: VerifyChecksNUnit -->
-<a id='snippet-VerifyChecksNUnit'></a>
-```cs
-[TestFixture]
-public class VerifyChecksTests
-{
-    [Test]
-    public Task Run() =>
-        VerifyChecks.Run();
-}
-```
-<sup><a href='/src/Verify.NUnit.Tests/VerifyChecksTests.cs#L2-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksNUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -1107,7 +1051,6 @@ To opt out of this feature, include the following in the project file:
   * [AppendFile](/docs/append-file.md)
   * [Parameterised tests](/docs/parameterised.md)
     * [NUnit](/docs/parameterised-nunit.md)
-    * [Xunit V2](/docs/parameterised-xunitv2.md)
     * [Xunit V3](/docs/parameterised-xunitv3.md)
     * [MSTest](/docs/parameterised-mstest.md)
     * [TUnit](/docs/parameterised-tunit.md)

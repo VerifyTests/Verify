@@ -151,7 +151,6 @@ src/
 │   ├── DerivePaths/                 # Build metadata integration
 │   └── buildTransitive/             # MSBuild props/targets
 ├── Verify.NUnit/                    # NUnit adapter
-├── Verify.Xunit/                    # xUnit v2 adapter
 ├── Verify.XunitV3/                  # xUnit v3 adapter
 ├── Verify.MSTest/                   # MSTest adapter
 ├── Verify.MSTest.SourceGenerator/   # Code generation for MSTest

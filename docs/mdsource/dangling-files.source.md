@@ -47,17 +47,6 @@ use the `[OneTimeTearDown]` feature:
 snippet: DanglingSnapshotsNUnitUsage/DanglingSnapshots.cs
 
 
-### XUnit
-
-Define an XUnit collection:
-
-snippet: DanglingSnapshotsXUnitUsage/DanglingSnapshots.cs
-
-Apply that collection to all tests:
-
-snippet: XunitDanglingCollection
-
-
 ### XUnitV3
 
 Define an XUnit collection:

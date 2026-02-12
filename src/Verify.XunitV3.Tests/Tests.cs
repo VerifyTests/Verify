@@ -213,4 +213,35 @@ public class Tests
             include: filePath => filePath.FullName.Contains("Doc"));
 
     #endregion
+
+#if NET9_0_OR_GREATER && DEBUG
+
+    static string simpleZipPath = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerifySimple.zip");
+
+    [Fact]
+    public Task ZipAndPersistArchive() =>
+        VerifyZip(simpleZipPath, persistArchive: true);
+
+    static string nupkgPath = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify.nupkg");
+
+    [Fact]
+    public Task WithZipWithDiffExtension() =>
+        VerifyZip(nupkgPath);
+
+    [Fact]
+    public Task ZipWithDiffExtensionAndPersistArchive() =>
+        VerifyZip(nupkgPath, persistArchive: true);
+
+    #region ArchiveExtension
+
+    [Fact]
+    public Task WithZipWithCustomExtension() =>
+        VerifyZip(
+            File.ReadAllBytes(simpleZipPath),
+            persistArchive: true,
+            archiveExtension: "nupkg");
+
+    #endregion
+
+#endif
 }

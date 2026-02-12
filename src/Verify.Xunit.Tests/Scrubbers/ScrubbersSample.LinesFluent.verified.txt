@@ -1,4 +1,0 @@
-﻿LineA
-LineC
-NoMoreLineE
-LineI

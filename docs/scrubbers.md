@@ -708,15 +708,15 @@ public class ScrubbersSample
 
 ### Results
 
-<!-- snippet: Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt'></a>
+<!-- snippet: Verify.XunitV3.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt -->
+<a id='snippet-Verify.XunitV3.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt'></a>
 ```txt
 LineA
 LineC
 NoMoreLineE
 LineI
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.XunitV3.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -916,12 +916,12 @@ public class ScrubberLevelsSample
 
 ### Result
 
-<!-- snippet: Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt'></a>
+<!-- snippet: Verify.XunitV3.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt -->
+<a id='snippet-Verify.XunitV3.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt'></a>
 ```txt
 A B C
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.XunitV3.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

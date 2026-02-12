@@ -5,7 +5,6 @@
 ## Select Test Framework
 
 Options:
- * [Xunit](MacOS_Other_Cli_Xunit.md)
  * [XunitV3](MacOS_Other_Cli_XunitV3.md)
  * [NUnit](MacOS_Other_Cli_NUnit.md)
  * [TUnit](MacOS_Other_Cli_TUnit.md)

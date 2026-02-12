@@ -3,7 +3,6 @@
 [![Discussions](https://img.shields.io/badge/Verify-Discussions-yellow?svg=true&label=)](https://github.com/orgs/VerifyTests/discussions)
 [![Build status](https://img.shields.io/appveyor/build/SimonCropp/verify)](https://ci.appveyor.com/project/SimonCropp/Verify)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.NUnit.svg?label=Verify.NUnit)](https://www.nuget.org/packages/Verify.NUnit/)
-[![NuGet Status](https://img.shields.io/nuget/v/Verify.Xunit.svg?label=Verify.Xunit)](https://www.nuget.org/packages/Verify.Xunit/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.XunitV3.svg?label=Verify.XunitV3)](https://www.nuget.org/packages/Verify.XunitV3/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.Fixie.svg?label=Verify.Fixie)](https://www.nuget.org/packages/Verify.Fixie/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.Expecto.svg?label=Verify.Expecto)](https://www.nuget.org/packages/Verify.Expecto/)
@@ -45,7 +44,6 @@ Get customized instructions for the specific combination of Operating System, ID
 ## NuGet
 
 * https://nuget.org/packages/Verify.NUnit/
-* https://nuget.org/packages/Verify.Xunit/
 * https://nuget.org/packages/Verify.XunitV3/
 * https://nuget.org/packages/Verify.Fixie/
 * https://nuget.org/packages/Verify.Expecto/
@@ -88,13 +86,6 @@ snippet: ClassBeingTested
 Support for [NUnit](https://nunit.org/)
 
 snippet: SampleTestNUnit
-
-
-### xUnit
-
-Support for [xUnit](https://xunit.net/)
-
-snippet: SampleTestXunit
 
 
 ### xUnitV3
@@ -184,7 +175,7 @@ To verify the result:
 
 This will result in the `Sample.Test.verified.txt` being created:
 
-snippet: Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt
+snippet: Verify.XunitV3.Tests/Snippets/Sample.Test.verified.txt
 
 
 ### Subsequent Verification
@@ -283,19 +274,9 @@ snippet: VerifyChecksExpecto
 snippet: VerifyChecksFixie
 
 
-#### Xunit
-
-snippet: VerifyChecksXunit
-
-
 #### XunitV3
 
 snippet: VerifyChecksXunitV3
-
-
-#### NUnit
-
-snippet: VerifyChecksNUnit
 
 
 #### TUnit

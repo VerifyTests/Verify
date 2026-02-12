@@ -12,7 +12,6 @@ To change this file edit the source file and then run MarkdownSnippets.
 ## Select Test Framework
 
 Options:
- * [Xunit](MacOS_Rider_Cli_Xunit.md)
  * [XunitV3](MacOS_Rider_Cli_XunitV3.md)
  * [NUnit](MacOS_Rider_Cli_NUnit.md)
  * [TUnit](MacOS_Rider_Cli_TUnit.md)

@@ -12,7 +12,6 @@ To change this file edit the source file and then run MarkdownSnippets.
 ## Select Test Framework
 
 Options:
- * [Xunit](Linux_Other_Cli_Xunit.md)
  * [XunitV3](Linux_Other_Cli_XunitV3.md)
  * [NUnit](Linux_Other_Cli_NUnit.md)
  * [TUnit](Linux_Other_Cli_TUnit.md)

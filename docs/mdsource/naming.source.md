@@ -165,7 +165,7 @@ snippet: XunitExtensionSample
 
 Result in:
 
-snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.Method.verified.xml
+snippet: Verify.XunitV3.Tests/Snippets/ExtensionSample.Method.verified.xml
 
 
 ## NamerRuntimeAndVersion

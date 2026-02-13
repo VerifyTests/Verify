@@ -404,7 +404,7 @@
         var builder = new StringBuilder();
         for (var i = 0; i < 10; i++)
         {
-            builder.Append(new string('a', 2000));
+            builder.Append('a', 2000);
             builder.Append('\n');
         }
 

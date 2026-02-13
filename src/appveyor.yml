@@ -17,6 +17,7 @@ before_build:
         sudo chmod u+x dotnet-install.sh
         sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/local/share/dotnet'
         sudo ./dotnet-install.sh --version 9.0.306 --architecture x64 --install-dir '/usr/local/share/dotnet'
+        sudo ./dotnet-install.sh --version 10.0.103 --architecture x64 --install-dir '/usr/local/share/dotnet'
       }
       if ($isLinux) {
         Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"

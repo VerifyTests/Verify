@@ -11,6 +11,7 @@ before_build:
       if ($isWindows) {
         Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile "./dotnet-install.ps1"
         ./dotnet-install.ps1 -JSonFile src/global.json -Architecture x64 -InstallDir 'C:\Program Files\dotnet'
+        ./dotnet-install.ps1 -Version 10.0.103 -Architecture x64 -InstallDir 'C:\Program Files\dotnet'
       }
       if ($isMacOS) {
         Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"

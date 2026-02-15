@@ -5,6 +5,7 @@
       "DisableScrubbersTests\\DisableScrubbersTests.csproj",
       "Benchmarks\\Benchmarks.csproj",
       "RawTempUsage\\RawTempUsage.csproj",
+      "FakeDiffTool\\FakeDiffTool.csproj",
       "TargetLibrary\\TargetLibrary.csproj",
       "Verify.NUnit\\Verify.NUnit.csproj",
       "Verify.SamplePlugin\\Verify.SamplePlugin.csproj",

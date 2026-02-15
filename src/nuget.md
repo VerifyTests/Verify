@@ -27,10 +27,10 @@ updated to the new result.<!-- endInclude -->
 [![Entity Framework Extensions](https://raw.githubusercontent.com/VerifyTests/Verify/refs/heads/main/docs/zzz.png)](https://entityframework-extensions.net/?utm_source=simoncropp&utm_medium=Verify)<!-- endInclude -->
 
 
-### LambdaTest<!-- include: lambdatest. path: /docs/mdsource/lambdatest.include.md -->
+### TestMu AI<!-- include: TestMu. path: /docs/mdsource/TestMu.include.md -->
 
 <p style="font-size:21px; color:black;">Browser testing via<br>
-  <a href="https://www.lambdatest.com/" target="_blank">
-    <img src="https://www.lambdatest.com/blue-logo.png" style="vertical-align: middle;" width="250" height="45" />
+  <a href="https://www.testmuai.com/?utm_medium=sponsor&utm_source=verify" target="_blank">
+    <img src="docs/TestMu.png" style="vertical-align: middle;" width="250" height="45" />
   </a>
 </p><!-- endInclude -->

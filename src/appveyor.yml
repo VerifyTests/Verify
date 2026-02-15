@@ -11,12 +11,14 @@ before_build:
       if ($isWindows) {
         Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile "./dotnet-install.ps1"
         ./dotnet-install.ps1 -JSonFile src/global.json -Architecture x64 -InstallDir 'C:\Program Files\dotnet'
+        ./dotnet-install.ps1 -Version 10.0.103 -Architecture x64 -InstallDir 'C:\Program Files\dotnet'
       }
       if ($isMacOS) {
         Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
         sudo chmod u+x dotnet-install.sh
         sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/local/share/dotnet'
         sudo ./dotnet-install.sh --version 9.0.306 --architecture x64 --install-dir '/usr/local/share/dotnet'
+        sudo ./dotnet-install.sh --version 10.0.103 --architecture x64 --install-dir '/usr/local/share/dotnet'
       }
       if ($isLinux) {
         Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"

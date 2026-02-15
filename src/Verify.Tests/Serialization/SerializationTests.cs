@@ -4338,7 +4338,7 @@ public class SerializationTests
                 },
             })
             .AddScrubber(_ => _.Replace("key", "scrubbed"));
-
+#if NET10
     [Fact]
     Task SecondsFractionUpperLong() =>
         Verify("""
@@ -4366,4 +4366,5 @@ public class SerializationTests
                2025-09-26T11:10:44.1110
                """)
             .ScrubInlineDateTimes("yyyy-MM-ddTHH:mm:ss.F");
+#endif
 }

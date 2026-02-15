@@ -24,7 +24,7 @@ public class FilterLinesBenchmarks
         var builder = new StringBuilder();
         for (var i = 0; i < lineCount; i++)
         {
-            builder.Append(new string('x', charsPerLine));
+            builder.Append('x', charsPerLine);
             builder.Append(i);
             builder.AppendLine();
         }

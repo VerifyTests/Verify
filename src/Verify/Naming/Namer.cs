@@ -221,6 +221,8 @@ public class Namer
         return ("DotNet", new(9, 0));
 #elif NET10_0
         return ("DotNet", new(10, 0));
+#elif NET11_0
+        return ("DotNet", new(11, 0));
 #elif NETFRAMEWORK
         // Mono can only be detected at runtime, and will use .NET Framework targets, so we have to check it first.
         if (RuntimeInformation.FrameworkDescription.StartsWith("Mono", StringComparison.OrdinalIgnoreCase))

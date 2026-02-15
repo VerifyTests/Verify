@@ -20,9 +20,14 @@ Add the following packages to the test project:
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
 <PackageReference Include="NUnit" Version="4.4.0" />
 <PackageReference Include="Verify.NUnit" Version="31.10.0" />
+<PackageReference Include="Argon" />
+<PackageReference Include="DiffEngine" />
+<PackageReference Include="EmptyFiles" />
+<PackageReference Include="SimpleInfoName" />
+<PackageReference Include="Verify" />
 <PackageReference Include="NUnit3TestAdapter" Version="6.1.0" />
 ```
-<sup><a href='/usages/NUnitNugetUsage/NUnitNugetUsage.csproj#L7-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-nunit-nugets' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/usages/NUnitNugetUsage/NUnitNugetUsage.csproj#L7-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-nunit-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

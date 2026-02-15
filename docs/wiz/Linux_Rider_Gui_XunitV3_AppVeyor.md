@@ -19,10 +19,15 @@ Add the following packages to the test project:
 ```csproj
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
 <PackageReference Include="Verify.XunitV3" Version="31.10.0" />
+<PackageReference Include="Argon" />
+<PackageReference Include="DiffEngine" />
+<PackageReference Include="EmptyFiles" />
+<PackageReference Include="SimpleInfoName" />
+<PackageReference Include="Verify" />
 <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5" PrivateAssets="all" />
 <PackageReference Include="xunit.v3" Version="3.2.2" />
 ```
-<sup><a href='/usages/XunitV3NugetUsage/XunitV3NugetUsage.csproj#L8-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitv3-nugets' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/usages/XunitV3NugetUsage/XunitV3NugetUsage.csproj#L8-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitv3-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

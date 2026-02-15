@@ -20,7 +20,7 @@ include: intro
 include: zzz
 
 
-include: lambdatest
+include: TestMu
 
 
 ### JetBrains
@@ -420,7 +420,7 @@ To opt out of this feature, include the following in the project file:
 include: plugin-list
 
 
-include: lambdatest
+include: TestMu
 
 
 ## More Documentation

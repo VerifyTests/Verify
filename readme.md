@@ -979,6 +979,7 @@ To opt out of this feature, include the following in the project file:
 * [YellowDogMan.Verify.Marshaling](https://github.com/Yellow-Dog-Man/Verify.Marshaling): Verification of [Struct Marshaling](https://learn.microsoft.com/en-us/dotnet/standard/native-interop/customize-struct-marshalling).
 * [Verify.MassTransit](https://github.com/VerifyTests/Verify.MassTransit): Support for MassTransit test helpers.
 * [Verify.MicrosoftLogging](https://github.com/VerifyTests/Verify.MicrosoftLogging): Verify MicrosoftLogging.
+* [Verify.Mockly](https://github.com/VerifyTests/Verify.Mockly): Verification of [Mockly](https://mockly.org/) bits.
 * [Verify.MongoDB](https://github.com/flcdrg/Verify.MongoDB): Verification of [MongoDB](https://www.mongodb.com/) bits.
 * [Verify.Moq](https://github.com/VerifyTests/Verify.Moq): Verification of [Moq](https://github.com/moq/moq4) bits.
 * [Verify.NodaTime](https://github.com/VerifyTests/Verify.NodaTime): Support for [NodaTime](https://nodatime.org/).

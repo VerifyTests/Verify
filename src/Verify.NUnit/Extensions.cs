@@ -1,4 +1,5 @@
-﻿static class Extensions
+﻿#pragma warning disable CS0618 // Type or member is obsolete
+static class Extensions
 {
     public static IMethodInfo GetTestMethod(this TestAdapter adapter)
     {

@@ -2,8 +2,8 @@
 
 partial class Counter
 {
-#if NET6_0_OR_GREATER
     internal static List<string> dateFormats = ["d"];
+#if NET6_0_OR_GREATER
     internal static List<string> timeFormats = ["h:mm tt"];
 #endif
     internal static List<string> dateTimeFormats = [];
@@ -112,6 +112,24 @@ partial class Counter
         return NextString(time);
     }
 
+#else
+    public bool TryConvertDate(CharSpan value, [NotNullWhen(true)] out string? result)
+    {
+        if (ScrubDateTimes)
+        {
+            foreach (var format in dateFormats)
+            {
+                if (DateTime.TryParseExact(value, format, null, DateTimeStyles.None, out var date))
+                {
+                    result = ConvertDate(date);
+                    return true;
+                }
+            }
+        }
+
+        result = null;
+        return false;
+    }
 #endif
 
     public bool TryConvert(DateTimeOffset value, [NotNullWhen(true)] out string? result)

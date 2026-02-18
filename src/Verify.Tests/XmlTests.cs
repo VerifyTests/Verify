@@ -206,6 +206,36 @@ public class XmlTests
             .ScrubMember("node");
 
     [Fact]
+    public Task DateOnlyScrubbing()
+    {
+        var date = DateTime.Now.ToString("d");
+        return VerifyXml($"<root><date>{date}</date></root>");
+    }
+
+    [Fact]
+    public Task DateOnlyScrubbingDisableCounting()
+    {
+        var date = DateTime.Now.ToString("d");
+        return VerifyXml($"<root><date>{date}</date></root>")
+            .DisableDateCounting();
+    }
+
+    [Fact]
+    public Task DateOnlyScrubbingAttribute()
+    {
+        var date = DateTime.Now.ToString("d");
+        return VerifyXml($"""<node att="{date}">text</node>""");
+    }
+
+    [Fact]
+    public Task DateOnlyScrubbingMultiple()
+    {
+        var date1 = new DateTime(2024, 1, 15).ToString("d");
+        var date2 = new DateTime(2024, 6, 20).ToString("d");
+        return VerifyXml($"<root><a>{date1}</a><b>{date2}</b><c>{date1}</c></root>");
+    }
+
+    [Fact]
     public Task EmptyTag() =>
         VerifyXml(
             """

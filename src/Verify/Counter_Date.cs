@@ -1,4 +1,4 @@
-﻿#if NET6_0_OR_GREATER
+#if NET6_0_OR_GREATER
 namespace VerifyTests;
 
 public partial class Counter
@@ -44,6 +44,44 @@ public partial class Counter
         }
 
         return (value, "{Scrubbed}");
+    }
+}
+#else
+namespace VerifyTests;
+
+public partial class Counter
+{
+    Dictionary<DateTime, (int intValue, string stringValue)> dateCache = new(dateTimeComparer);
+    int currentDate;
+
+    (int intValue, string stringValue) BuildDateValue()
+    {
+        var value = Interlocked.Increment(ref currentDate);
+
+        if (DateCounting)
+        {
+            return (value, $"Date_{value}");
+        }
+
+        return (value, "{Scrubbed}");
+    }
+
+    internal string ConvertDate(DateTime date)
+    {
+        if (date.Date == DateTime.MaxValue.Date)
+        {
+            return "Date_MaxValue";
+        }
+
+        if (date.Date == DateTime.MinValue.Date)
+        {
+            return "Date_MinValue";
+        }
+
+        return dateCache.GetOrAdd(
+            date,
+            _ => BuildDateValue())
+            .stringValue;
     }
 }
 #endif

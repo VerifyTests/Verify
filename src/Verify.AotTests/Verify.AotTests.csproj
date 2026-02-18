@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+
+        <RootNamespace>VerifyTUnitAotTests</RootNamespace>
+      
+        <PublishAot>true</PublishAot>
+        <IsAotCompatible>true</IsAotCompatible>
+        <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="TUnit" />
+
+        <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
+        <ProjectReference Include="..\Verify.TUnit\Verify.TUnit.csproj" />
+        <ProjectReference Include="..\Verify\Verify.csproj" />
+    </ItemGroup>
+
+    <Import Project="$(ProjectDir)..\Verify.TUnit\buildTransitive\Verify.TUnit.props" />
+
+</Project>

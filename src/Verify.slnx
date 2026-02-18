@@ -25,6 +25,7 @@
   <Project Path="StaticSettingsTests/StaticSettingsTests.csproj" />
   <Project Path="StrictJsonTests/StrictJsonTests.csproj" />
   <Project Path="TargetLibrary/TargetLibrary.csproj" />
+  <Project Path="Verify.AotTests/Verify.AotTests.csproj" />
   <Project Path="Verify.ApprovalTestsTransition/Verify.ApprovalTestsTransition.csproj" />
   <Project Path="Verify.ClipboardAccept.Tests/Verify.ClipboardAccept.Tests.csproj" />
   <Project Path="Verify.ClipboardAccept/Verify.ClipboardAccept.csproj" />

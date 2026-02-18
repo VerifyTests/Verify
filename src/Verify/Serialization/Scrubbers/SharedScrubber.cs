@@ -6,14 +6,14 @@ public partial class Counter
     {
         if (TryConvertGuid(value, out result) ||
             TryConvertDateTimeOffset(value, out result) ||
-            TryConvertDateTime(value, out result))
+            TryConvertDateTime(value, out result) ||
+            TryConvertDate(value, out result))
         {
             return true;
         }
 
 #if NET6_0_OR_GREATER
-        if (TryConvertDate(value, out result) ||
-            TryConvertTime(value, out result))
+        if (TryConvertTime(value, out result))
         {
             return true;
         }

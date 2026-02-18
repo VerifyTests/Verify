@@ -18,7 +18,7 @@
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" Pinned="true" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.3" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
-    <PackageVersion Include="NUnit" Version="4.4.0" />
+    <PackageVersion Include="NUnit" Version="4.5.0" />
     <PackageVersion Include="MSTest" Version="4.1.0" />
     <PackageVersion Include="MSTest.TestFramework" Version="4.1.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="5.2.0" Pinned="true" />
@@ -32,8 +32,8 @@
     <!-- keep at 4.5.0 -->
     <PackageVersion Include="System.ValueTuple" Version="4.5.0" Pinned="true" />
     <PackageVersion Include="TextCopy" Version="6.2.1" />
-    <PackageVersion Include="TUnit" Version="1.15.11" />
-    <PackageVersion Include="TUnit.Core" Version="1.15.11" />
+    <PackageVersion Include="TUnit" Version="1.16.0" />
+    <PackageVersion Include="TUnit.Core" Version="1.16.0" />
     <PackageVersion Include="xunit.v3" Version="3.2.2" />
     <PackageVersion Include="xunit.v3.extensibility.core" Version="3.2.2" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />

@@ -18,8 +18,8 @@ Add the following packages to the test project:
 <a id='snippet-nunit-nugets'></a>
 ```csproj
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
-<PackageReference Include="NUnit" Version="4.4.0" />
-<PackageReference Include="Verify.NUnit" Version="31.13.0" />
+<PackageReference Include="NUnit" Version="4.5.0" />
+<PackageReference Include="Verify.NUnit" Version="31.13.1" />
 <PackageReference Include="NUnit3TestAdapter" Version="6.1.0" />
 ```
 <sup><a href='/usages/NUnitNugetUsage/NUnitNugetUsage.csproj#L7-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-nunit-nugets' title='Start of snippet'>anchor</a></sup>

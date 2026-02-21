@@ -35,7 +35,6 @@ updated to the new result.<!-- endInclude -->
 
 [![Entity Framework Extensions](https://raw.githubusercontent.com/VerifyTests/Verify/refs/heads/main/docs/zzz.png)](https://entityframework-extensions.net/?utm_source=simoncropp&utm_medium=Verify)<!-- endInclude -->
 
-
 ### TestMu AI<!-- include: TestMu. path: /docs/mdsource/TestMu.include.md -->
 
 <p style="font-size:21px; color:black;">Browser testing via<br>

@@ -1,7 +1,8 @@
 # Solution Discovery
 
-
 Verify automatically discovers solution information at build time and embeds it into the test assembly as metadata. This metadata is used to determine where to store snapshot files.
+
+This is used for [Directory Scrubbing](/scrubbers.md#directory-scrubbers)
 
 
 ## How It Works

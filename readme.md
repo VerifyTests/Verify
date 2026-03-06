@@ -33,20 +33,19 @@ updated to the new result.<!-- endInclude -->
 
 [Entity Framework Extensions](https://entityframework-extensions.net/?utm_source=simoncropp&utm_medium=Verify) is a major sponsor and is proud to contribute to the development this project.
 
-[![Entity Framework Extensions](https://raw.githubusercontent.com/VerifyTests/Verify/refs/heads/main/docs/zzz.png)](https://entityframework-extensions.net/?utm_source=simoncropp&utm_medium=Verify)<!-- endInclude -->
+[![Entity Framework Extensions](https://raw.githubusercontent.com/VerifyTests/Verify/refs/heads/main/docs/zzz.png)](https://entityframework-extensions.net/?utm_source=simoncropp&utm_medium=Verify)
 
-### TestMu AI<!-- include: TestMu. path: /docs/mdsource/TestMu.include.md -->
+### Developed using JetBrains IDEs
+
+[![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)](https://jb.gg/OpenSourceSupport)
+
+### TestMu AI
 
 <p style="font-size:21px; color:black;">Browser testing via<br>
   <a href="https://www.testmuai.com/?utm_medium=sponsor&utm_source=verify" target="_blank">
     <img src="docs/TestMu.png" style="vertical-align: middle;" width="500" />
   </a>
 </p><!-- endInclude -->
-
-
-### JetBrains
-
-[![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)](https://jb.gg/OpenSourceSupport)
 
 
 ## Requirements
@@ -1019,13 +1018,13 @@ To opt out of this feature, include the following in the project file:
 <!-- endInclude -->
 
 
-### TestMu AI<!-- include: TestMu. path: /docs/mdsource/TestMu.include.md -->
+## TestMu AI
 
 <p style="font-size:21px; color:black;">Browser testing via<br>
   <a href="https://www.testmuai.com/?utm_medium=sponsor&utm_source=verify" target="_blank">
     <img src="docs/TestMu.png" style="vertical-align: middle;" width="500" />
   </a>
-</p><!-- endInclude -->
+</p>
 
 
 ## More Documentation

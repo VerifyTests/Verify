@@ -8,7 +8,4 @@ include: intro
 ## Sponsors
 
 
-include: zzz
-
-
-include: TestMu
+include: sponsors

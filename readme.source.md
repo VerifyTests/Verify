@@ -17,14 +17,7 @@ include: intro
 
 ## Sponsors
 
-include: zzz
-
-include: TestMu
-
-
-### JetBrains
-
-[![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)](https://jb.gg/OpenSourceSupport)
+include: sponsors
 
 
 ## Requirements
@@ -419,7 +412,13 @@ To opt out of this feature, include the following in the project file:
 include: plugin-list
 
 
-include: TestMu
+## TestMu AI
+
+<p style="font-size:21px; color:black;">Browser testing via<br>
+  <a href="https://www.testmuai.com/?utm_medium=sponsor&utm_source=verify" target="_blank">
+    <img src="docs/TestMu.png" style="vertical-align: middle;" width="500" />
+  </a>
+</p>
 
 
 ## More Documentation

@@ -144,5 +144,5 @@ public Task WithTargets() =>
 ```txt
 Raw target value
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Tests.WithTargets#targetName.verified.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.MSTest.Tests/Tests.WithTargets#targetName.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Tests.WithTargets%23targetName.verified.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.MSTest.Tests/Tests.WithTargets#targetName.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

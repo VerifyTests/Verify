@@ -1,0 +1,4 @@
+﻿Directory: {ProjectDirectory}
+New:
+  - Received: VerifyExceptionMessageBuilderTests.Fake.received.bin
+    Verified: VerifyExceptionMessageBuilderTests.Fake.verified.bin

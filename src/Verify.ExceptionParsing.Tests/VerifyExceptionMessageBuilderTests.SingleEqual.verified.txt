@@ -1,0 +1,4 @@
+﻿Directory: {ProjectDirectory}
+Equal:
+  - Received: VerifyExceptionMessageBuilderTests.Fake.received.txt
+    Verified: VerifyExceptionMessageBuilderTests.Fake.verified.txt

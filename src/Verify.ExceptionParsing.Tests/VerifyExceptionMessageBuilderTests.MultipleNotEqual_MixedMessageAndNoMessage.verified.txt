@@ -1,0 +1,21 @@
+﻿Directory: {ProjectDirectory}
+NotEqual:
+  - Received: VerifyExceptionMessageBuilderTests.Fake.received.txt
+    Verified: VerifyExceptionMessageBuilderTests.Fake.verified.txt
+  - Received: VerifyExceptionMessageBuilderTests.Fake.received.txt
+    Verified: VerifyExceptionMessageBuilderTests.Fake.verified.txt
+
+FileContent:
+
+NotEqual:
+
+Received: VerifyExceptionMessageBuilderTests.Fake.received.txt
+received text
+Verified: VerifyExceptionMessageBuilderTests.Fake.verified.txt
+verified text
+
+Received: VerifyExceptionMessageBuilderTests.Fake.received.txt
+Verified: VerifyExceptionMessageBuilderTests.Fake.verified.txt
+Compare Result:
+Custom comparison message
+

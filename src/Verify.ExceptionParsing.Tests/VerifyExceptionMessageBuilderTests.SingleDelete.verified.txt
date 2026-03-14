@@ -1,0 +1,3 @@
+﻿Directory: {ProjectDirectory}
+Delete:
+  - VerifyExceptionMessageBuilderTests.Fake.received.txt

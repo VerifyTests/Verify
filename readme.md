@@ -1076,6 +1076,7 @@ To opt out of this feature, include the following in the project file:
   * [TempFile](/docs/temp-file.md)
   * [FSharp Usage](/docs/fsharp.md)
   * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)
+  * [AI Usage](/docs/ai-usage.md)
   * [Plugins](/docs/plugins.md)<!-- endInclude -->
 
 

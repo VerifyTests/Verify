@@ -185,17 +185,23 @@ Reference existing adapters like `Verify.Xunit/Verifier.cs` or `Verify.NUnit/Ver
 - Parameter conversion in `src/Verify/Naming/ParameterToName.cs`
 - Sanitization in `src/Verify/FileNameCleaner.cs`
 
+### Accepting New Snapshots
+
+When tests fail, `.received.*` files are created showing actual output. To accept a new snapshot, copy the `.received.*` file to the corresponding `.verified.*` filename.
+
+**Multi-target naming**: When a test project targets multiple frameworks, `.received.` files include a runtime suffix (e.g., `.DotNet11_0.received.txt`) but `.verified.` files do **not** (e.g., `.verified.txt`). When accepting snapshots, strip the runtime suffix from the filename.
+
 ### Debugging Tests
 
-When tests fail, `.received.*` files are created showing actual output. Compare with `.verified.*` files to understand differences. On CI (AppVeyor), failed test artifacts are uploaded for inspection.
+On CI (AppVeyor), failed test artifacts are uploaded for inspection.
 
 ## Multi-Targeting
 
 The solution supports:
-- **.NET Framework**: net462, net472, net48, net481 (Windows only)
-- **.NET**: net6.0, net7.0, net8.0, net9.0, net10.0
+- **.NET Framework**: net462, net472, net48 (Windows only)
+- **.NET**: net6.0, net7.0, net8.0, net9.0, net10.0, net11.0
 
-SDK version: 10.0.102 (see `src/global.json`)
+SDK version: 11.0 preview (see `src/global.json`)
 
 Platform-specific code uses conditional compilation:
 ```csharp
@@ -231,6 +237,24 @@ The MSTest adapter includes a source generator at `src/Verify.MSTest.SourceGener
 README and docs are generated from source files using [MarkdownSnippets](https://github.com/SimonCropp/MarkdownSnippets):
 - Source: `readme.source.md`
 - Generated: `readme.md` (DO NOT EDIT)
-- Includes from: `docs/mdsource/*.include.md`
+- Doc sources: `docs/mdsource/*.source.md` → `docs/*.md` (generated)
+- Includes: `docs/mdsource/*.include.md` (reusable fragments)
+- Run `mdsnippets` to regenerate (globally installed dotnet tool)
 
-Code snippets are embedded from actual test files using special markers.
+### Snippet Conventions
+
+- Code snippets use `#region SnippetName` / `#endregion` markers in source files
+- Referenced in docs as `snippet: SnippetName`
+- Verified files can be included directly: `snippet: TestClass.Method.verified.txt`
+- `src/ModuleInitDocs/` contains purpose-built snippet classes for documentation (each file wraps a single `#region`)
+- `src/Verify.ExceptionParsing.Tests/ExceptionMessageFormatSamples.cs` contains tests whose sole purpose is producing verified snapshots for the exception format docs
+
+### Content Validation
+
+`src/mdsnippets.json` has `ValidateContent: true`. This forbids certain words (e.g., "you", "your") in `.source.md` files outside of fenced code blocks. Use third-person phrasing instead.
+
+## Exception Message Format
+
+When a Verify test fails, `VerifyExceptionMessageBuilder` (`src/Verify/Verifier/VerifyExceptionMessageBuilder.cs`) produces a structured, machine-parsable exception message with sections: `Directory:`, `New:`, `NotEqual:`, `Delete:`, `Equal:`, and `FileContent:`. See `docs/exception-message-format.md` for the full format.
+
+`Verify.ExceptionParsing` (`src/Verify.ExceptionParsing/`) is a separate library (published as a NuGet package) that parses these exception messages back into structured data.

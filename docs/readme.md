@@ -54,4 +54,5 @@ To change this file edit the source file and then run MarkdownSnippets.
   * [TempFile](/docs/temp-file.md)
   * [FSharp Usage](/docs/fsharp.md)
   * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)
+  * [AI Usage](/docs/ai-usage.md)
   * [Plugins](/docs/plugins.md)<!-- endInclude -->

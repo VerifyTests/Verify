@@ -199,6 +199,28 @@ public class ExceptionParsingTests
         return ParseVerify([], [], delete, []);
     }
 
+    #region ExceptionParsing
+
+    static Result ParseExceptionMessage(string exceptionMessage)
+    {
+        var result = Parser.Parse(exceptionMessage);
+
+        // result.New: files with no corresponding .verified. file
+        // result.NotEqual: files where .received. differs from .verified.
+        // result.Delete: .verified. files no longer produced by any test
+        // result.Equal: files where .received. matches .verified.
+
+        foreach (var file in result.NotEqual)
+        {
+            Debug.WriteLine($"Received: {file.Received}");
+            Debug.WriteLine($"Verified: {file.Verified}");
+        }
+
+        return result;
+    }
+
+    #endregion
+
     static Task ParseVerify(
         IReadOnlyCollection<NewResult> @new,
         IReadOnlyCollection<NotEqualResult> notEquals,

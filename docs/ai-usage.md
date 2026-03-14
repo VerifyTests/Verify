@@ -10,9 +10,17 @@ To change this file edit the source file and then run MarkdownSnippets.
 AI coding assistants (Claude Code, GitHub Copilot, Cursor, etc.) work well with Verify snapshot tests, but benefit from some project-level guidance. This page covers how to configure a project so AI assistants understand Verify's workflow.
 
 
-## CLAUDE.md / AI context file
+## AI context file
 
-Add the following to the project `CLAUDE.md` (or equivalent AI context file). Adapt the test command and framework references to match the project.
+Add the following to the AI context file for the relevant tool. Adapt the test command and framework references to match the project.
+
+ * **Claude Code**: `CLAUDE.md`
+ * **GitHub Copilot**: `.github/copilot-instructions.md`
+ * **Cursor**: `.cursor/rules/*.mdc`
+ * **Windsurf**: `.windsurfrules`
+ * **Cline**: `.clinerules`
+
+The guidance is the same regardless of tool:
 
 ~~~markdown
 ## Snapshot Testing (Verify)

@@ -31,49 +31,14 @@ After the file listing, a `FileContent:` section includes the text content of ne
 
 ## Example: All Categories
 
-```
-Directory: /path/to/test/project
-New:
-  - Received: MyTests.Test1.received.txt
-    Verified: MyTests.Test1.verified.txt
-NotEqual:
-  - Received: MyTests.Test2.received.txt
-    Verified: MyTests.Test2.verified.txt
-Delete:
-  - MyTests.Test3.received.txt
-Equal:
-  - Received: MyTests.Test4.received.txt
-    Verified: MyTests.Test4.verified.txt
-
-FileContent:
-
-New:
-
-Received: MyTests.Test1.received.txt
-the new content
-
-NotEqual:
-
-Received: MyTests.Test2.received.txt
-received text
-Verified: MyTests.Test2.verified.txt
-verified text
-
-```
+snippet: ExceptionMessageFormatSamples.AllCategories.verified.txt
 
 
 ### NotEqual with Comparer Message
 
 When a custom comparer provides a message, the content section uses `Compare Result:` instead of inline file content:
 
-```
-NotEqual:
-
-Received: MyTests.Test1.received.txt
-Verified: MyTests.Test1.verified.txt
-Compare Result:
-The comparer reported a difference
-```
+snippet: ExceptionMessageFormatSamples.NotEqualWithMessage.verified.txt
 
 
 ### Content Omission

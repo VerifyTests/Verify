@@ -1,0 +1,14 @@
+﻿Directory: {ProjectDirectory}
+NotEqual:
+  - Received: MyTests.Test1.received.txt
+    Verified: MyTests.Test1.verified.txt
+
+FileContent:
+
+NotEqual:
+
+Received: MyTests.Test1.received.txt
+Verified: MyTests.Test1.verified.txt
+Compare Result:
+The comparer reported a difference
+

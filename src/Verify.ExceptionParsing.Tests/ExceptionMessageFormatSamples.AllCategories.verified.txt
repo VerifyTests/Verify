@@ -1,0 +1,27 @@
+﻿Directory: {ProjectDirectory}
+New:
+  - Received: MyTests.Test1.received.txt
+    Verified: MyTests.Test1.verified.txt
+NotEqual:
+  - Received: MyTests.Test2.received.txt
+    Verified: MyTests.Test2.verified.txt
+Delete:
+  - MyTests.OldTest.verified.txt
+Equal:
+  - Received: MyTests.Test3.received.txt
+    Verified: MyTests.Test3.verified.txt
+
+FileContent:
+
+New:
+
+Received: MyTests.Test1.received.txt
+the new content
+
+NotEqual:
+
+Received: MyTests.Test2.received.txt
+received text
+Verified: MyTests.Test2.verified.txt
+verified text
+

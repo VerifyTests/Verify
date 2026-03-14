@@ -38,8 +38,10 @@ After the file listing, a `FileContent:` section includes the text content of ne
 
 ## Example: All Categories
 
-```
-Directory: /path/to/test/project
+<!-- snippet: ExceptionMessageFormatSamples.AllCategories.verified.txt -->
+<a id='snippet-ExceptionMessageFormatSamples.AllCategories.verified.txt'></a>
+```txt
+Directory: {ProjectDirectory}
 New:
   - Received: MyTests.Test1.received.txt
     Verified: MyTests.Test1.verified.txt
@@ -47,10 +49,10 @@ NotEqual:
   - Received: MyTests.Test2.received.txt
     Verified: MyTests.Test2.verified.txt
 Delete:
-  - MyTests.Test3.received.txt
+  - MyTests.OldTest.verified.txt
 Equal:
-  - Received: MyTests.Test4.received.txt
-    Verified: MyTests.Test4.verified.txt
+  - Received: MyTests.Test3.received.txt
+    Verified: MyTests.Test3.verified.txt
 
 FileContent:
 
@@ -65,15 +67,25 @@ Received: MyTests.Test2.received.txt
 received text
 Verified: MyTests.Test2.verified.txt
 verified text
-
 ```
+<sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionMessageFormatSamples.AllCategories.verified.txt#L1-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionMessageFormatSamples.AllCategories.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 
 ### NotEqual with Comparer Message
 
 When a custom comparer provides a message, the content section uses `Compare Result:` instead of inline file content:
 
-```
+<!-- snippet: ExceptionMessageFormatSamples.NotEqualWithMessage.verified.txt -->
+<a id='snippet-ExceptionMessageFormatSamples.NotEqualWithMessage.verified.txt'></a>
+```txt
+Directory: {ProjectDirectory}
+NotEqual:
+  - Received: MyTests.Test1.received.txt
+    Verified: MyTests.Test1.verified.txt
+
+FileContent:
+
 NotEqual:
 
 Received: MyTests.Test1.received.txt
@@ -81,6 +93,8 @@ Verified: MyTests.Test1.verified.txt
 Compare Result:
 The comparer reported a difference
 ```
+<sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionMessageFormatSamples.NotEqualWithMessage.verified.txt#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionMessageFormatSamples.NotEqualWithMessage.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 
 ### Content Omission

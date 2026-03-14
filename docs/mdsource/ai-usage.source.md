@@ -103,7 +103,33 @@ await ThrowsTask(() => MethodThatThrows())
 ~~~
 
 
-## Tips for effective AI-assisted snapshot testing
+## GitHub Copilot / Copilot Chat context file
+
+Add the following to the project COPILOT.md (or equivalent file Copilot can read). Adapt the test command and framework references to match the project.
+
+~~~markdown
+## Snapshot Testing (Verify) - Copilot guidance
+
+This project uses [Verify](https://github.com/VerifyTests/Verify) for snapshot testing. Copilot and Copilot Chat use repository context files and README-like docs to guide code edits and chat actions.
+
+### Recommended contents for COPILOT.md
+
+- Suggested test command: `dotnet test src/Verify.slnx`
+- Explain `.verified.*` files (approved snapshots) and `.received.*` files (generated when tests fail)
+- Preferred workflow when tests fail:
+  1. Run the tests and open any `*.received.*` files.
+  2. Compare each `*.received.*` file to the matching `*.verified.*` file.
+  3. If changes are intentional, accept by replacing the `.verified.*` file or run AutoVerify for bulk acceptance and review the git diff.
+  4. If not intentional, fix the code rather than editing snapshots.
+- Note: Copilot Chat may be able to run terminal commands in some IDEs; include explicit commands and file paths in prompts to allow manual execution when needed.
+
+Suggested prompt template for Copilot Chat or the IDE assistant:
+
+"Run `dotnet test src/Verify.slnx`, open any `*.received.*` files and show diffs vs the matching `*.verified.*` files. If differences are intentional, update the `*.verified.*` files (or run AutoVerify for bulk changes); otherwise fix the code."
+
+~~~
+
+### Tips for effective AI-assisted snapshot testing
 
 
 ### Let the test show what changed
@@ -126,6 +152,21 @@ When asking an AI assistant to work with Verify tests:
  * **"The test is failing, fix it"** - The assistant should read both the `.received.*` and `.verified.*` files, understand the difference, then fix the code rather than the snapshot.
  * **"Add a new test for X"** - The assistant should write the test, run it (it will fail on first run since there is no `.verified.*` file yet), then accept the generated `.received.*` file as the new snapshot.
 
+
+### GitHub Copilot
+
+GitHub Copilot (including Copilot Chat) can follow the same workflow as other AI assistants. When asking Copilot to modify code or tests, have it:
+
+- Run the project tests: `dotnet test src/Verify.slnx` (or your project's test command).
+- If tests fail, open any generated `*.received.*` files and compare them to the matching `*.verified.*` files.
+- Only accept/update `.verified.*` files when changes are intentional; otherwise fix the code.
+- For large refactors, use AutoVerify and review the diff in source control.
+
+Suggested prompt (for Copilot Chat or IDE assistant):
+
+"Run `dotnet test src/Verify.slnx`, open any `*.received.*` files and show diffs vs the matching `*.verified.*` files. If differences are intentional, update the `*.verified.*` files (or run AutoVerify for bulk changes); otherwise fix the code."
+
+Note Copilot may not have terminal access in some setups — include explicit commands and file paths in prompts so manual execution is possible.
 
 ### File location
 

@@ -331,7 +331,7 @@ VerifierSettings.TreatAsString<ClassWithToString>(
 
 Since this approach bypasses json serialization, any json serialization settings are redundant. For example `DontScrubDateTimes`, `UseStrictJson`, and `DontScrubGuids`.
 
-Note that any json serialization settings will still apply to anything amended to the target via [Recording](docs/recording.md) or [JsonAppenders](jsonappender.md)
+Note that any json serialization settings will still apply to anything amended to the target via [Recording](/docs/recording.md) or [JsonAppenders](jsonappender.md)
 
 
 ## See also

@@ -58,7 +58,7 @@ public class AotCompatibilityTests
         Assert.True(publishSuccess, $"Publish failed: {publishOutput}");
 
         var exePath = GetPublishedExePath(tempDir, "AotTestApp");
-        var (exitCode, stdout, stderr) = await RunExecutable(exePath);
+        var (exitCode, stdout, _) = await RunExecutable(exePath);
 
         Assert.Equal(0, exitCode);
         Assert.Contains("OK", stdout);

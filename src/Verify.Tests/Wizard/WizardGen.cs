@@ -16,9 +16,9 @@ public class WizardGen
         repoRoot = Directory.GetParent(solutionDirectory)!.Parent!.FullName;
         wizardDir = Path.Combine(repoRoot, "docs", "mdsource", "wiz");
         Directory.CreateDirectory(wizardDir);
-        //PurgeDirectory(wizardDir);
-        //var wizardRealDir = Path.Combine(repoRoot, "docs", "wiz");
-        //PurgeDirectory(wizardRealDir);
+        PurgeDirectory(wizardDir);
+        var wizardRealDir = Path.Combine(repoRoot, "docs", "wiz");
+        PurgeDirectory(wizardRealDir);
         var sourceFile = Path.Combine(wizardDir, "readme.source.md");
         var builder = new StringBuilder(
             """
@@ -34,7 +34,8 @@ public class WizardGen
 
         File.Delete(sourceFile);
         await WriteLf(sourceFile, builder);
-        Process.Start("mdsnippets", repoRoot);
+        var process = Process.Start("mdsnippets", repoRoot);
+        await process!.WaitForExitAsync();
     }
 
     static Task WriteLf(string path, StringBuilder builder) =>

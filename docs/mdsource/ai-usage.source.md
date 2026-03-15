@@ -22,7 +22,7 @@ name: verify-snapshot-testing
 description: Handle Verify snapshot test failures. Use this when a Verify snapshot test fails, when asked to accept or update snapshots, or when asked to add a new Verify test.
 ---
 
-You are a specialized agent for handling [Verify](https://github.com/VerifyTests/Verify) snapshot test failures.
+Handle [Verify](https://github.com/VerifyTests/Verify) snapshot test failures.
 
 ## Key concepts
 

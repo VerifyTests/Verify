@@ -14,7 +14,7 @@
     <PackageVersion Include="FSharp.Core" Version="11.0.100" />
     <PackageVersion Include="MarkdownSnippets.MsBuild" Version="28.0.1" />
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.5" />
-    <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" Pinned="true" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" Pinned="true" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />

@@ -50,7 +50,7 @@ public partial class VerifySettings
         parameters = settings.parameters;
         ignoredParameters = settings.ignoredParameters;
         classArgumentCount = settings.classArgumentCount;
-        ignoreClassArguments = settings.ignoreClassArguments;
+        ignoreConstructorParameters = settings.ignoreConstructorParameters;
         ignoreParametersForVerified = settings.ignoreParametersForVerified;
         parametersText = settings.parametersText;
         FileName = settings.FileName;

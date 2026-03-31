@@ -250,24 +250,24 @@ public Task IgnoreParametersForVerifiedFluent(string arg) =>
 <!-- endSnippet -->
 
 
-## Ignore class arguments for verified filename
+## Ignore constructor parameters for verified filename
 
-### Ignore class arguments<!-- include: ignore-class-arguments. path: /docs/mdsource/ignore-class-arguments.include.md -->
+### Ignore constructor parameters<!-- include: ignore-constructor-parameters. path: /docs/mdsource/ignore-constructor-parameters.include.md -->
 
-`VerifierSettings.IgnoreClassArguments()` can be used to globally ignore class constructor arguments from the verified filename. This is useful when infrastructure fixtures (e.g. TUnit's `ClassConstructor` or NUnit's `TestFixtureSource`) are injected via the constructor and should not affect snapshot file names. It must be called before any test runs, typically in a `[ModuleInitializer]`.
+`VerifierSettings.IgnoreConstructorParameters()` can be used to globally ignore class constructor arguments from the verified filename. This is useful when infrastructure fixtures (e.g. TUnit's `ClassConstructor` or NUnit's `TestFixtureSource`) are injected via the constructor and should not affect snapshot file names. It must be called before any test runs, typically in a `[ModuleInitializer]`.
 
 The received files still contain all class argument values.
 
 ```cs
 [ModuleInitializer]
 public static void Init() =>
-    VerifierSettings.IgnoreClassArguments();
+    VerifierSettings.IgnoreConstructorParameters();
 ```
 
-`IgnoreClassArguments` can also be used at the test level:
+`IgnoreConstructorParameters` can also be used at the test level:
 
 ```cs
-await Verify(result).IgnoreClassArguments();
+await Verify(result).IgnoreConstructorParameters();
 ```
 <!-- endInclude -->
 

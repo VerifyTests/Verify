@@ -2,12 +2,12 @@ public class IgnoreClassArgumentsTests :
     BaseTest
 {
     public IgnoreClassArgumentsTests() =>
-        VerifierSettings.IgnoreClassArguments();
+        VerifierSettings.IgnoreConstructorParameters();
 
     [Theory]
     [InlineData("One")]
     [InlineData("Two")]
-    public Task IgnoreClassArguments(string classArg)
+    public Task IgnoreConstructorParameters(string classArg)
     {
         var settings = new VerifySettings();
         settings.UseParameters(classArg);

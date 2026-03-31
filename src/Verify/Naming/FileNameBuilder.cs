@@ -67,7 +67,7 @@ static class FileNameBuilder
             }
         }
 
-        if (settings.ignoreClassArguments || VerifierSettings.GlobalIgnoreClassArguments)
+        if (settings.ignoreConstructorParameters || VerifierSettings.GlobalIgnoreConstructorParameters)
         {
             var classArgCount = settings.classArgumentCount;
             if (classArgCount > 0)

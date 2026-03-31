@@ -361,4 +361,16 @@ public static partial class VerifierSettings
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         GlobalIgnoredParameters = parameterNames.ToHashSet();
     }
+
+    internal static bool GlobalIgnoreClassArguments;
+
+    /// <summary>
+    /// Ignore class arguments in 'verified' filename resulting in the same verified file regardless of class constructor arguments.
+    /// Note that the 'received' files still contain the class arguments.
+    /// </summary>
+    public static void IgnoreClassArguments()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        GlobalIgnoreClassArguments = true;
+    }
 }

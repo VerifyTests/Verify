@@ -68,6 +68,11 @@ snippet: IgnoreParametersForVerifiedNunit
 snippet: IgnoreParametersForVerifiedFluentNunit
 
 
+## Ignore class arguments for verified filename
+
+include: ignore-class-arguments
+
+
 ## IgnoreParametersForVerified with override parameters
 
 The parameters passed to IgnoreParametersForVerified can be used pass custom parameters to [UseParameters](#UseParameters).

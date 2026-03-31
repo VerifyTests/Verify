@@ -67,6 +67,23 @@ static class FileNameBuilder
             }
         }
 
+        if (settings.ignoreClassArguments || VerifierSettings.GlobalIgnoreClassArguments)
+        {
+            var classArgCount = settings.classArgumentCount;
+            if (classArgCount > 0)
+            {
+                var classParamNames = methodParameters.Take(classArgCount);
+                if (ignored is not null)
+                {
+                    ignored = [..ignored, ..classParamNames];
+                }
+                else
+                {
+                    ignored = classParamNames.ToHashSet();
+                }
+            }
+        }
+
         var verifiedValues = GetVerifiedValues(ignored, allValues);
 
         if (settings.ParametersAppender == null)

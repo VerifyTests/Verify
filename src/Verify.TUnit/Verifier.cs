@@ -37,6 +37,7 @@ public static partial class Verifier
              methodArguments.Length > 0))
         {
             settings.SetParameters([.. classArguments, .. methodArguments]);
+            settings.SetClassArgumentCount(classArguments.Length);
         }
 
         VerifierSettings.AssignTargetAssembly(type.Assembly);

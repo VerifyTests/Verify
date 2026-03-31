@@ -10,6 +10,14 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IgnoreClassArguments()"/>
+    [Pure]
+    public SettingsTask IgnoreClassArguments()
+    {
+        CurrentSettings.IgnoreClassArguments();
+        return this;
+    }
+
     /// <inheritdoc cref="VerifySettings.IgnoreParametersForVerified(object?[])"/>
     [Pure]
     public SettingsTask IgnoreParametersForVerified(params object?[] parameters)

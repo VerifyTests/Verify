@@ -96,6 +96,8 @@ While IDEs are supported, due to their MDI nature, using a different Diff Tool i
 
 Tools supported by Windows:
 
+ * [MsWordDiff](https://github.com/SimonCropp/MsOfficeDiff)
+ * [MsExcelDiff](https://github.com/SimonCropp/MsOfficeDiff)
  * [BeyondCompare](https://www.scootersoftware.com)
  * [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
  * [DeltaWalker](https://www.deltawalker.com/)
@@ -111,7 +113,6 @@ Tools supported by Windows:
  * [Rider](https://www.jetbrains.com/rider/)
  * [Vim](https://www.vim.org/)
  * [Neovim](https://neovim.io/)
- * [MsWordDiff](https://github.com/SimonCropp/MsWordDiff)
 
 ## Getting .received in output on AppVeyor
 

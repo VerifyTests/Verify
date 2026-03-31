@@ -47,10 +47,24 @@ static class FileNameBuilder
             .Zip(settingsParameters, (name, value) => new KeyValuePair<string, object?>(name, value))
             .ToArray();
 
-        var ignored = settings.ignoredParameters;
-        if (ignored?.All(methodParameters.Contains) == false)
+        var instanceIgnored = settings.ignoredParameters;
+        if (instanceIgnored?.All(methodParameters.Contains) == false)
         {
-            throw new($"Some of the ignored parameter names ({string.Join(", ", ignored)}) do not exist in the test method parameters ({string.Join(", ", methodParameters)}).");
+            throw new($"Some of the ignored parameter names ({string.Join(", ", instanceIgnored)}) do not exist in the test method parameters ({string.Join(", ", methodParameters)}).");
+        }
+
+        var ignored = instanceIgnored;
+        var globalIgnored = VerifierSettings.GlobalIgnoredParameters;
+        if (globalIgnored is not null)
+        {
+            if (ignored is not null)
+            {
+                ignored = [..ignored, ..globalIgnored];
+            }
+            else
+            {
+                ignored = globalIgnored;
+            }
         }
 
         var verifiedValues = GetVerifiedValues(ignored, allValues);

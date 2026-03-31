@@ -348,4 +348,17 @@ public static partial class VerifierSettings
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         UniquePrefixDisabled = true;
     }
+
+    internal static HashSet<string>? GlobalIgnoredParameters;
+
+    /// <summary>
+    /// Ignore parameters in 'verified' filename resulting in the same verified file for multiple testcases.
+    /// Note that the 'received' files still contain the parameters.
+    /// </summary>
+    /// <param name="parameterNames">The names of the parameters to be ignored. When passing an empty list all parameters will be ignored.</param>
+    public static void IgnoreParameters(params string[] parameterNames)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        GlobalIgnoredParameters = parameterNames.ToHashSet();
+    }
 }

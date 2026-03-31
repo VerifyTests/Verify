@@ -26,6 +26,18 @@ public partial class VerifySettings
         serialization.ScrubDateTimes = true;
     }
 
+    public void ScrubNumericIds()
+    {
+        CloneSettings();
+        serialization.ScrubNumericIds = true;
+    }
+
+    public void DontScrubNumericIds()
+    {
+        CloneSettings();
+        serialization.ScrubNumericIds = false;
+    }
+
     public void DontSortDictionaries()
     {
         CloneSettings();

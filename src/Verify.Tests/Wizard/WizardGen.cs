@@ -35,7 +35,7 @@ public class WizardGen
         File.Delete(sourceFile);
         await WriteLf(sourceFile, builder);
         var process = Process.Start("mdsnippets", repoRoot);
-        await process!.WaitForExitAsync();
+        await process.WaitForExitAsync();
     }
 
     static Task WriteLf(string path, StringBuilder builder) =>

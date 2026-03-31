@@ -7,7 +7,81 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Numeric Ids
 
-Numbers are not scrubbed. Sometimes it is helpful to scrub numeric Ids. This can be done using `ScrubMembers` and checking the DeclaringType and the name of the member.
+
+## ScrubNumericIds
+
+Opt in scrubbing of numeric properties ending in `Id` or `ID`. Each unique numeric value gets a stable counter based replacement (`Id_1`, `Id_2`, etc), similar to [Guid](guids.md) and [Date](dates.md) scrubbing.
+
+
+### Fluent
+
+<!-- snippet: ScrubNumericIdsFluent -->
+<a id='snippet-ScrubNumericIdsFluent'></a>
+```cs
+var target = new
+{
+    Id = 123,
+    UserId = 456,
+    userID = 789,
+    Name = "Test",
+    Count = 10
+};
+return Verify(target)
+    .ScrubNumericIds();
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L738-L751' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubNumericIdsFluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Results in the following:
+
+<!-- snippet: SerializationTests.ScrubNumericIdsFluent.verified.txt -->
+<a id='snippet-SerializationTests.ScrubNumericIdsFluent.verified.txt'></a>
+```txt
+{
+  Id: Id_1,
+  UserId: Id_2,
+  userID: Id_3,
+  Name: Test,
+  Count: 10
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ScrubNumericIdsFluent.verified.txt#L1-L7' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.ScrubNumericIdsFluent.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Instance
+
+<!-- snippet: ScrubNumericIdsInstance -->
+<a id='snippet-ScrubNumericIdsInstance'></a>
+```cs
+var target = new
+{
+    Id = 123,
+    UserId = 456,
+    Name = "Test"
+};
+var settings = new VerifySettings();
+settings.ScrubNumericIds();
+return Verify(target, settings);
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L757-L769' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubNumericIdsInstance' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Globally
+
+<!-- snippet: ScrubNumericIdsGlobal -->
+<a id='snippet-ScrubNumericIdsGlobal'></a>
+```cs
+VerifierSettings.ScrubNumericIds();
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L775-L779' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubNumericIdsGlobal' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## ScrubMembers approach
+
+For more targeted control, `ScrubMembers` can be used to check the DeclaringType and the name of the member.
 
 <!-- snippet: NumericIdSample -->
 <a id='snippet-NumericIdSample'></a>
@@ -31,7 +105,7 @@ public class NumericIdSample
     {
         var target = new Target
         {
-            Id = new Random().Next(),
+            Id = Random.Shared.Next(),
             Name = "The Name"
         };
         return Verify(target);

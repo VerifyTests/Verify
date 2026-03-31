@@ -13,6 +13,7 @@ public partial class Counter :
     public bool DateCounting { get; }
     public bool ScrubDateTimes { get; }
     public bool ScrubGuids { get; }
+    public bool ScrubNumericIds { get; }
     static AsyncLocal<Counter?> local = new();
 
     internal bool TryGetNamed(object value, [NotNullWhen(true)] out string? result)
@@ -103,6 +104,7 @@ public partial class Counter :
         bool dateCounting,
         bool scrubDateTimes,
         bool scrubGuids,
+        bool scrubNumericIds,
 #if NET6_0_OR_GREATER
         Dictionary<Date, string> namedDates,
         Dictionary<Time, string> namedTimes,
@@ -121,12 +123,14 @@ public partial class Counter :
         DateCounting = dateCounting;
         ScrubDateTimes = scrubDateTimes;
         ScrubGuids = scrubGuids;
+        ScrubNumericIds = scrubNumericIds;
     }
 
     internal static Counter Start(
         bool dateCounting = true,
         bool scrubDateTimes = true,
         bool scrubGuids = true,
+        bool scrubNumericIds = false,
 #if NET6_0_OR_GREATER
         Dictionary<Date, string>? namedDates = null,
         Dictionary<Time, string>? namedTimes = null,
@@ -139,6 +143,7 @@ public partial class Counter :
             dateCounting,
             scrubDateTimes,
             scrubGuids,
+            scrubNumericIds,
 #if NET6_0_OR_GREATER
             namedDates ?? [],
             namedTimes ?? [],

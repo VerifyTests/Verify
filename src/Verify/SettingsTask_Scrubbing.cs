@@ -42,6 +42,14 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubNumericIds()"/>
+    [Pure]
+    public SettingsTask ScrubNumericIds()
+    {
+        CurrentSettings.ScrubNumericIds();
+        return this;
+    }
+
     /// <inheritdoc cref="VerifySettings.ScrubInlineGuids(string,ScrubberLocation)"/>
     [Pure]
     public SettingsTask ScrubInlineGuids(string extension, ScrubberLocation location = ScrubberLocation.First)

@@ -94,6 +94,17 @@
             property.DefaultValueHandling = DefaultValueHandling.Include;
         }
 
+        if (settings.ScrubNumericIds == true &&
+            memberType.IsNumeric() &&
+            (member.Name.EndsWith("Id", StringComparison.Ordinal) ||
+             member.Name.EndsWith("ID", StringComparison.Ordinal)))
+        {
+            property.PropertyType = typeof(string);
+            property.ValueProvider = new NumericIdScrubProvider(valueProvider);
+            property.DefaultValueHandling = DefaultValueHandling.Include;
+            return property;
+        }
+
         property.ValueProvider = new CustomValueProvider(
             valueProvider,
             memberType,

@@ -46,6 +46,12 @@ public static partial class VerifierSettings
         serialization.ScrubDateTimes = false;
     }
 
+    public static void ScrubNumericIds()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        serialization.ScrubNumericIds = true;
+    }
+
     public static void DontSortDictionaries()
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();

@@ -173,6 +173,7 @@ public partial class InnerVerifier :
             settings is {DateCountingEnable: true, ScrubbersEnabled: true},
             settings.serialization.ScrubDateTimes.GetValueOrDefault(true) && settings.ScrubbersEnabled,
             settings.serialization.ScrubGuids.GetValueOrDefault(true) && settings.ScrubbersEnabled,
+            settings.serialization.ScrubNumericIds.GetValueOrDefault(false) && settings.ScrubbersEnabled,
 #if NET6_0_OR_GREATER
             settings.namedDates,
             settings.namedTimes,

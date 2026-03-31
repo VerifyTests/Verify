@@ -26,6 +26,14 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.DontScrubNumericIds()"/>
+    [Pure]
+    public SettingsTask DontScrubNumericIds()
+    {
+        CurrentSettings.DontScrubNumericIds();
+        return this;
+    }
+
     /// <inheritdoc cref="VerifySettings.DontSortDictionaries()"/>
     [Pure]
     public SettingsTask DontSortDictionaries()

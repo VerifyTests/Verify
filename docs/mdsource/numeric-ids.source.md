@@ -1,6 +1,33 @@
 # Numeric Ids
 
-Numbers are not scrubbed. Sometimes it is helpful to scrub numeric Ids. This can be done using `ScrubMembers` and checking the DeclaringType and the name of the member.
+
+## ScrubNumericIds
+
+Opt in scrubbing of numeric properties ending in `Id` or `ID`. Each unique numeric value gets a stable counter based replacement (`Id_1`, `Id_2`, etc), similar to [Guid](guids.md) and [Date](dates.md) scrubbing.
+
+
+### Fluent
+
+snippet: ScrubNumericIdsFluent
+
+Results in the following:
+
+snippet: SerializationTests.ScrubNumericIdsFluent.verified.txt
+
+
+### Instance
+
+snippet: ScrubNumericIdsInstance
+
+
+### Globally
+
+snippet: ScrubNumericIdsGlobal
+
+
+## ScrubMembers approach
+
+For more targeted control, `ScrubMembers` can be used to check the DeclaringType and the name of the member.
 
 snippet: NumericIdSample
 

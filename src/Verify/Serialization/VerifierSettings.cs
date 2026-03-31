@@ -166,6 +166,7 @@ public static partial class VerifierSettings
         encoding = new UTF8Encoding(true, true);
         addAttachments = true;
         GlobalScrubbers.Clear();
+        GlobalIgnoredParameters = null;
     }
 
     public static void UseStrictJson()

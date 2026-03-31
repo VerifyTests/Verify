@@ -36,8 +36,9 @@ public static partial class Verifier
         }
         else
         {
-            (parameterNames, var parameters) = GetParametersAndNames(method, adapter);
+            (parameterNames, var parameters, var classArgumentCount) = GetParametersAndNames(method, adapter);
             settings.SetParameters(parameters);
+            settings.SetClassArgumentCount(classArgumentCount);
         }
 
         VerifierSettings.AssignTargetAssembly(type.Assembly);
@@ -58,29 +59,30 @@ public static partial class Verifier
         return adapter.GetParameterNames(methodParameterNames);
     }
 
-    static (IReadOnlyList<string>? names, object?[] parameters) GetParametersAndNames(MethodInfo method, TestAdapter adapter)
+    static (IReadOnlyList<string>? names, object?[] parameters, int classArgumentCount) GetParametersAndNames(MethodInfo method, TestAdapter adapter)
     {
         var methodParameterNames = method.ParameterNames();
         var parameterNames = adapter.GetParameterNames(methodParameterNames);
         if (!adapter.TryGetParent(out var parent))
         {
-            return (parameterNames, adapter.Arguments);
+            return (parameterNames, adapter.Arguments, 0);
         }
 
         var argumentsLength = parent.Arguments.Length;
         if (argumentsLength == 0)
         {
-            return (parameterNames, adapter.Arguments);
+            return (parameterNames, adapter.Arguments, 0);
         }
 
         if (methodParameterNames == null)
         {
-            return (parameterNames, parent.Arguments);
+            return (parameterNames, parent.Arguments, argumentsLength);
         }
 
         return (
             parameterNames,
-            [.. parent.Arguments, .. adapter.Arguments]);
+            [.. parent.Arguments, .. adapter.Arguments],
+            argumentsLength);
     }
 
     static SettingsTask Verify(

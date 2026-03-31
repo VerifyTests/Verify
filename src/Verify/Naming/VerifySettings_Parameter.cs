@@ -82,6 +82,20 @@ public partial class VerifySettings
     public void IgnoreParameters(params string[] parameterNames) =>
         ignoredParameters = parameterNames.ToHashSet();
 
+    internal int classArgumentCount;
+
+    internal void SetClassArgumentCount(int count) =>
+        classArgumentCount = count;
+
+    internal bool ignoreClassArguments;
+
+    /// <summary>
+    /// Ignore class arguments in 'verified' filename resulting in the same verified file regardless of class constructor arguments.
+    /// Note that the 'received' files still contain the class arguments.
+    /// </summary>
+    public void IgnoreClassArguments() =>
+        ignoreClassArguments = true;
+
     internal bool ignoreParametersForVerified;
 
     /// <summary>

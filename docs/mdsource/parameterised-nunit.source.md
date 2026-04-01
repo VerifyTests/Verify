@@ -68,9 +68,9 @@ snippet: IgnoreParametersForVerifiedNunit
 snippet: IgnoreParametersForVerifiedFluentNunit
 
 
-## Ignore class arguments for verified filename
+## Ignore constructor parameters for verified filename
 
-include: ignore-class-arguments
+include: ignore-constructor-parameters
 
 
 ## IgnoreParametersForVerified with override parameters

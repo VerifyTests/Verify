@@ -16,5 +16,6 @@ public abstract class BaseTest
         DiffEngine.BuildServerDetector.Detected = buildServerDetected;
         VerifierSettings.Reset();
         CombinationSettings.Reset();
+        DerivePathInfo(PathInfo.DeriveDefault);
     }
 }

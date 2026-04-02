@@ -2,16 +2,6 @@
 {
     static char[] invalidFileChars = Path.GetInvalidFileNameChars();
 
-    public static void BadFileNameNullable(string? name, [CallerArgumentExpression("name")] string argumentName = "")
-    {
-        if (name is null)
-        {
-            return;
-        }
-
-        BadFileName(name, argumentName);
-    }
-
     public static void BadFileName(string name, [CallerArgumentExpression("name")] string argumentName = "")
     {
         Ensure.NotNullOrEmpty(name, argumentName);

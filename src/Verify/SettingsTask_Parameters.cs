@@ -10,11 +10,20 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.IgnoreConstructorParameters()"/>
+    [Pure]
+    public SettingsTask IgnoreConstructorParameters()
+    {
+        CurrentSettings.IgnoreConstructorParameters();
+        return this;
+    }
+
     /// <inheritdoc cref="VerifySettings.IgnoreClassArguments()"/>
+    [Obsolete("Use IgnoreConstructorParameters")]
     [Pure]
     public SettingsTask IgnoreClassArguments()
     {
-        CurrentSettings.IgnoreClassArguments();
+        CurrentSettings.IgnoreConstructorParameters();
         return this;
     }
 

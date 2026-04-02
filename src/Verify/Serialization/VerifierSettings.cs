@@ -167,7 +167,7 @@ public static partial class VerifierSettings
         addAttachments = true;
         GlobalScrubbers.Clear();
         GlobalIgnoredParameters = null;
-        GlobalIgnoreClassArguments = false;
+        GlobalIgnoreConstructorParameters = false;
     }
 
     public static void UseStrictJson()

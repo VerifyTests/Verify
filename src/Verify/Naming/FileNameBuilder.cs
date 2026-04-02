@@ -19,6 +19,12 @@ static class FileNameBuilder
     {
         type = settings.TypeName ?? pathInfo.TypeName ?? type;
         method = settings.MethodName ?? pathInfo.MethodName ?? method;
+
+        if (type.Length == 0)
+        {
+            return method;
+        }
+
         return $"{type}.{method}";
     }
 
@@ -67,7 +73,7 @@ static class FileNameBuilder
             }
         }
 
-        if (settings.ignoreClassArguments || VerifierSettings.GlobalIgnoreClassArguments)
+        if (settings.ignoreConstructorParameters || VerifierSettings.GlobalIgnoreConstructorParameters)
         {
             var classArgCount = settings.classArgumentCount;
             if (classArgCount > 0)

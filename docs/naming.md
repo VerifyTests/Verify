@@ -662,6 +662,30 @@ Any value provided in [UseDirectory](#directory) will take precedence over the v
 
 Return null to any of the values to use the standard behavior. The returned path can be relative to the directory sourceFile exists in.
 
+
+### Omit TestClassName
+
+To omit the `TestClassName` from the file name, pass `string.Empty` for the `typeName`:
+
+<!-- snippet: DerivePathInfoOmitTypeName -->
+<a id='snippet-DerivePathInfoOmitTypeName'></a>
+```cs
+Verifier.DerivePathInfo(
+    (sourceFile, projectDirectory, type, method) =>
+    {
+        var directory = Path.GetDirectoryName(sourceFile)!;
+        return new(
+            directory: Path.Combine(directory, type.NameWithParent()),
+            typeName: string.Empty,
+            methodName: method.Name);
+    });
+```
+<sup><a href='/src/StaticSettingsTests/DerivePathInfoTests.cs#L9-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoOmitTypeName' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Will result in `{TypeName}/MethodName.verified.txt` instead of `TypeName.MethodName.verified.txt`.
+
+
 `DerivePathInfo` can also be useful when deriving the storage directory on a [build server](build-server.md#custom-directory-and-file-name)
 
 For example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` the following could be used:
@@ -747,7 +771,7 @@ public static PathInfo DeriveDefault(
         typeName: type.NameWithParent(),
         methodName: method.Name);
 ```
-<sup><a href='/src/Verify/DerivePaths/PathInfo.cs#L23-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultDerivePathInfo' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/DerivePaths/PathInfo.cs#L32-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultDerivePathInfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Where `NameWithParent` is

@@ -19,6 +19,12 @@ static class FileNameBuilder
     {
         type = settings.TypeName ?? pathInfo.TypeName ?? type;
         method = settings.MethodName ?? pathInfo.MethodName ?? method;
+
+        if (type.Length == 0)
+        {
+            return method;
+        }
+
         return $"{type}.{method}";
     }
 

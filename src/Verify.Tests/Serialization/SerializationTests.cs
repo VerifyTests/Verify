@@ -804,6 +804,36 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task ScrubNumericIdsNamedType()
+    {
+        var target = new IdNamedCustomer
+        {
+            Id = 10,
+            Name = "Test",
+            Addresses =
+            [
+                new() { Id = 100, CustomerId = 10 },
+                new() { Id = 200, CustomerId = 10 }
+            ]
+        };
+        return Verify(target)
+            .ScrubNumericIds();
+    }
+
+    public class IdNamedCustomer
+    {
+        public int Id { get; set; }
+        public string? Name { get; set; }
+        public List<IdNamedAddress> Addresses { get; set; } = [];
+    }
+
+    public class IdNamedAddress
+    {
+        public int Id { get; set; }
+        public int CustomerId { get; set; }
+    }
+
+    [Fact]
     public Task ScrubberWithBadNewLine() =>
         Verify("a")
             .AddScrubber(_ =>

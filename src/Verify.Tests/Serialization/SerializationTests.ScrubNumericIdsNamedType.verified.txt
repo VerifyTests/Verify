@@ -1,0 +1,14 @@
+{
+  Id: IdNamedCustomer_1,
+  Name: Test,
+  Addresses: [
+    {
+      Id: IdNamedAddress_1,
+      CustomerId: CustomerId_1
+    },
+    {
+      Id: IdNamedAddress_2,
+      CustomerId: CustomerId_1
+    }
+  ]
+}

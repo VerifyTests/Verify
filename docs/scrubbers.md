@@ -59,7 +59,7 @@ For example remove lines containing `text`:
 ```cs
 verifySettings.ScrubLines(line => line.Contains("text"));
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1942-L1946' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLines' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1972-L1976' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLines' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -74,7 +74,7 @@ For example remove lines containing `text1` or `text2`
 ```cs
 verifySettings.ScrubLinesContaining("text1", "text2");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1948-L1952' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesContaining' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1978-L1982' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesContaining' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Case insensitive by default (`StringComparison.OrdinalIgnoreCase`).
@@ -86,7 +86,7 @@ Case insensitive by default (`StringComparison.OrdinalIgnoreCase`).
 ```cs
 verifySettings.ScrubLinesContaining(StringComparison.Ordinal, "text1", "text2");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1954-L1958' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesContainingOrdinal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1984-L1988' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesContainingOrdinal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -101,7 +101,7 @@ For example converts lines to upper case:
 ```cs
 verifySettings.ScrubLinesWithReplace(line => line.ToUpper());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1960-L1964' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesWithReplace' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1990-L1994' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesWithReplace' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -114,7 +114,7 @@ Replaces `Environment.MachineName` with `TheMachineName`.
 ```cs
 verifySettings.ScrubMachineName();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1966-L1970' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMachineName' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1996-L2000' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMachineName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -127,7 +127,7 @@ Replaces `Environment.UserName` with `TheUserName`.
 ```cs
 verifySettings.ScrubUserName();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1972-L1976' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubUserName' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2002-L2006' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubUserName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

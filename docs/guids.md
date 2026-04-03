@@ -23,7 +23,7 @@ var target = new GuidTarget
 
 await Verify(target);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2113-L2126' title='Snippet source file'>snippet source</a> | <a href='#snippet-guid' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2273-L2286' title='Snippet source file'>snippet source</a> | <a href='#snippet-guid' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in the following:
@@ -79,7 +79,7 @@ await Verify(target)
 ```cs
 VerifierSettings.DontScrubGuids();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1641-L1645' title='Snippet source file'>snippet source</a> | <a href='#snippet-DontScrubGuidsGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1801-L1805' title='Snippet source file'>snippet source</a> | <a href='#snippet-DontScrubGuidsGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -103,7 +103,7 @@ public Task ScrubInlineGuidsInstance()
         settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1697-L1709' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubInlineGuidsInstance' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1857-L1869' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubInlineGuidsInstance' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -117,7 +117,7 @@ public Task ScrubInlineGuidsFluent() =>
     Verify("content 651ad409-fc30-4b12-a47e-616d3f953e4c content")
         .ScrubInlineGuids();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1688-L1695' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubInlineGuidsFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1848-L1855' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubInlineGuidsFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -133,7 +133,7 @@ public static class ModuleInitializer
         VerifierSettings.ScrubInlineGuids();
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1676-L1685' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubInlineGuidsGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1836-L1845' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubInlineGuidsGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

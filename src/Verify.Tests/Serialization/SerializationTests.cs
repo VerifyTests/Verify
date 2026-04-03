@@ -733,6 +733,166 @@ public class SerializationTests
             .DontScrubGuids();
 
     [Fact]
+    public Task ScrubNumericIdsFluent()
+    {
+        #region ScrubNumericIdsFluent
+
+        var target = new
+        {
+            Id = 123,
+            UserId = 456,
+            userID = 789,
+            Name = "Test",
+            Count = 10
+        };
+        return Verify(target)
+            .ScrubNumericIds();
+
+        #endregion
+    }
+
+    [Fact]
+    public Task ScrubNumericIdsInstance()
+    {
+        #region ScrubNumericIdsInstance
+
+        var target = new
+        {
+            Id = 123,
+            UserId = 456,
+            Name = "Test"
+        };
+        var settings = new VerifySettings();
+        settings.ScrubNumericIds();
+        return Verify(target, settings);
+
+        #endregion
+    }
+
+    // ReSharper disable once UnusedMember.Local
+    static void ScrubNumericIdsGlobal() =>
+
+        #region ScrubNumericIdsGlobal
+
+        VerifierSettings.ScrubNumericIds();
+
+    #endregion
+
+    [Fact]
+    public Task ScrubNumericIdsSameValues()
+    {
+        var target = new
+        {
+            OrderId = 42,
+            ParentId = 42,
+            OtherId = 99
+        };
+        return Verify(target)
+            .ScrubNumericIds();
+    }
+
+    [Fact]
+    public Task ScrubNumericIdsLong()
+    {
+        var target = new
+        {
+            Id = 999999999999L,
+            Name = "Test"
+        };
+        return Verify(target)
+            .ScrubNumericIds();
+    }
+
+    #region ScrubNumericIdsRelationships
+
+    public class Customer
+    {
+        public int Id;
+        public string? Name;
+        public List<Order> Orders = [];
+    }
+
+    public class Order
+    {
+        public int Id;
+        public int CustomerId;
+        public List<OrderItem> Items = [];
+    }
+
+    public class OrderItem
+    {
+        public long Id;
+        public int OrderId;
+        public int ProductId;
+        public int Quantity;
+    }
+
+    [Fact]
+    public Task ScrubNumericIdsNamedType()
+    {
+        var target = new List<Customer>
+        {
+            new()
+            {
+                Id = 1023,
+                Name = "Alice",
+                Orders =
+                [
+                    new()
+                    {
+                        Id = 5001,
+                        CustomerId = 1023,
+                        Items =
+                        [
+                            new()
+                            {
+                                Id = 90_001,
+                                OrderId = 5001,
+                                ProductId = 7,
+                                Quantity = 2
+                            },
+                            new()
+                            {
+                                Id = 90_002,
+                                OrderId = 5001,
+                                ProductId = 12,
+                                Quantity = 1
+                            }
+                        ]
+                    }
+                ]
+            },
+            new()
+            {
+                Id = 1099,
+                Name = "Bob",
+                Orders =
+                [
+                    new()
+                    {
+                        Id = 5002,
+                        CustomerId = 1099,
+                        Items =
+                        [
+                            new()
+                            {
+                                Id = 90_003,
+                                OrderId = 5002,
+                                ProductId = 7,
+                                Quantity = 5
+                            }
+                        ]
+                    }
+                ]
+            }
+        };
+        return Verify(target)
+            .ScrubNumericIds();
+    }
+
+    #endregion
+
+    [Fact]
     public Task ScrubberWithBadNewLine() =>
         Verify("a")
             .AddScrubber(_ =>

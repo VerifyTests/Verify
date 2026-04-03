@@ -69,6 +69,7 @@ partial class SerializationSettings
         }
 
         ScrubGuids = settings.ScrubGuids;
+        ScrubNumericIds = settings.ScrubNumericIds;
         includeObsoletes = settings.includeObsoletes;
         ignoredMemberPredicatesByString = settings.ignoredMemberPredicatesByString?.Clone();
         ignoredMemberPredicatesByMember = settings.ignoredMemberPredicatesByMember?.Clone();
@@ -87,6 +88,8 @@ partial class SerializationSettings
     [Obsolete("Use ScrubDateTimes = false")]
     public void DontScrubDateTimes() =>
         ScrubDateTimes = false;
+
+    public bool? ScrubNumericIds { get; set; }
 
     JsonSerializerSettings BuildSettings()
     {

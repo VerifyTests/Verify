@@ -1,0 +1,44 @@
+[
+  {
+    "Id": "Customer_1",
+    "Name": "Alice",
+    "Orders": [
+      {
+        "Id": "Order_1",
+        "CustomerId": "CustomerId_1",
+        "Items": [
+          {
+            "Id": "OrderItem_1",
+            "OrderId": "OrderId_1",
+            "ProductId": "ProductId_1",
+            "Quantity": 2
+          },
+          {
+            "Id": "OrderItem_2",
+            "OrderId": "OrderId_1",
+            "ProductId": "ProductId_2",
+            "Quantity": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Id": "Customer_2",
+    "Name": "Bob",
+    "Orders": [
+      {
+        "Id": "Order_2",
+        "CustomerId": "CustomerId_2",
+        "Items": [
+          {
+            "Id": "OrderItem_3",
+            "OrderId": "OrderId_2",
+            "ProductId": "ProductId_1",
+            "Quantity": 5
+          }
+        ]
+      }
+    ]
+  }
+]

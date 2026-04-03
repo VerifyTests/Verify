@@ -19,7 +19,7 @@ public class NumericIdSample
     {
         var target = new Target
         {
-            Id = new Random().Next(),
+            Id = Random.Shared.Next(),
             Name = "The Name"
         };
         return Verify(target);

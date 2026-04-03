@@ -13,6 +13,22 @@
 
     static FieldInfo exceptionMessageField = typeof(Exception).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
 
+    static string DeriveEntityName(MemberInfo member)
+    {
+        if (member.Name.Equals("Id", StringComparison.OrdinalIgnoreCase))
+        {
+            var declaringType = member.DeclaringType!;
+            if (declaringType.Name.Contains("AnonymousType"))
+            {
+                return member.Name;
+            }
+
+            return declaringType.Name;
+        }
+
+        return member.Name;
+    }
+
     protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
     {
         var properties = base.CreateProperties(type, memberSerialization);
@@ -99,8 +115,10 @@
             (member.Name.EndsWith("Id", StringComparison.Ordinal) ||
              member.Name.EndsWith("ID", StringComparison.Ordinal)))
         {
+            var entityName = DeriveEntityName(member);
+
             property.PropertyType = typeof(string);
-            property.ValueProvider = new NumericIdScrubProvider(valueProvider);
+            property.ValueProvider = new NumericIdScrubProvider(valueProvider, entityName);
             property.DefaultValueHandling = DefaultValueHandling.Include;
             return property;
         }

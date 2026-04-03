@@ -1,4 +1,4 @@
-class NumericIdScrubProvider(IValueProvider inner) :
+class NumericIdScrubProvider(IValueProvider inner, string entityName) :
     IValueProvider
 {
     public void SetValue(object target, object? value) =>
@@ -9,10 +9,10 @@ class NumericIdScrubProvider(IValueProvider inner) :
         var value = inner.GetValue(target);
         if (value is null)
         {
-            return "Id_null";
+            return $"{entityName}_null";
         }
 
         var longValue = Convert.ToInt64(value);
-        return Counter.Current.NextNumericIdString(longValue);
+        return Counter.Current.NextNumericIdString(entityName, longValue);
     }
 }

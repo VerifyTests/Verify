@@ -119,7 +119,6 @@
 
             property.PropertyType = typeof(string);
             property.ValueProvider = new NumericIdScrubProvider(valueProvider, entityName);
-            property.DefaultValueHandling = DefaultValueHandling.Include;
             return property;
         }
 

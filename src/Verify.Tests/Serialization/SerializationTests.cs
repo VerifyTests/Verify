@@ -807,24 +807,24 @@ public class SerializationTests
 
     public class Customer
     {
-        public int Id { get; set; }
-        public string? Name { get; set; }
-        public List<Order> Orders { get; set; } = [];
+        public int Id;
+        public string? Name;
+        public List<Order> Orders = [];
     }
 
     public class Order
     {
-        public int Id { get; set; }
-        public int CustomerId { get; set; }
-        public List<OrderItem> Items { get; set; } = [];
+        public int Id;
+        public int CustomerId;
+        public List<OrderItem> Items = [];
     }
 
     public class OrderItem
     {
-        public long Id { get; set; }
-        public int OrderId { get; set; }
-        public int ProductId { get; set; }
-        public int Quantity { get; set; }
+        public long Id;
+        public int OrderId;
+        public int ProductId;
+        public int Quantity;
     }
 
     [Fact]

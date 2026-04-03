@@ -803,35 +803,94 @@ public class SerializationTests
             .ScrubNumericIds();
     }
 
+    #region ScrubNumericIdsRelationships
+
+    public class Customer
+    {
+        public int Id { get; set; }
+        public string? Name { get; set; }
+        public List<Order> Orders { get; set; } = [];
+    }
+
+    public class Order
+    {
+        public int Id { get; set; }
+        public int CustomerId { get; set; }
+        public List<OrderItem> Items { get; set; } = [];
+    }
+
+    public class OrderItem
+    {
+        public long Id { get; set; }
+        public int OrderId { get; set; }
+        public int ProductId { get; set; }
+        public int Quantity { get; set; }
+    }
+
     [Fact]
     public Task ScrubNumericIdsNamedType()
     {
-        var target = new IdNamedCustomer
+        var target = new List<Customer>
         {
-            Id = 10,
-            Name = "Test",
-            Addresses =
-            [
-                new() { Id = 100, CustomerId = 10 },
-                new() { Id = 200, CustomerId = 10 }
-            ]
+            new()
+            {
+                Id = 1023,
+                Name = "Alice",
+                Orders =
+                [
+                    new()
+                    {
+                        Id = 5001,
+                        CustomerId = 1023,
+                        Items =
+                        [
+                            new()
+                            {
+                                Id = 90_001,
+                                OrderId = 5001,
+                                ProductId = 7,
+                                Quantity = 2
+                            },
+                            new()
+                            {
+                                Id = 90_002,
+                                OrderId = 5001,
+                                ProductId = 12,
+                                Quantity = 1
+                            }
+                        ]
+                    }
+                ]
+            },
+            new()
+            {
+                Id = 1099,
+                Name = "Bob",
+                Orders =
+                [
+                    new()
+                    {
+                        Id = 5002,
+                        CustomerId = 1099,
+                        Items =
+                        [
+                            new()
+                            {
+                                Id = 90_003,
+                                OrderId = 5002,
+                                ProductId = 7,
+                                Quantity = 5
+                            }
+                        ]
+                    }
+                ]
+            }
         };
         return Verify(target)
             .ScrubNumericIds();
     }
 
-    public class IdNamedCustomer
-    {
-        public int Id { get; set; }
-        public string? Name { get; set; }
-        public List<IdNamedAddress> Addresses { get; set; } = [];
-    }
-
-    public class IdNamedAddress
-    {
-        public int Id { get; set; }
-        public int CustomerId { get; set; }
-    }
+    #endregion
 
     [Fact]
     public Task ScrubberWithBadNewLine() =>

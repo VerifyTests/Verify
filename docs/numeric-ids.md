@@ -10,7 +10,9 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 ## ScrubNumericIds
 
-Opt in scrubbing of numeric properties ending in `Id` or `ID`. Each unique numeric value gets a stable counter based replacement (`Id_1`, `Id_2`, etc), similar to [Guid](guids.md) and [Date](dates.md) scrubbing.
+Opt in scrubbing of numeric properties ending in `Id` or `ID`. Each unique numeric value gets a stable counter based replacement, similar to [Guid](guids.md) and [Date](dates.md) scrubbing.
+
+The counter is scoped per property name. For properties named `Id`, the declaring type name is used as the scope (e.g. `Customer_1`). For properties like `CustomerId` or `OrderId`, the full property name is the scope (e.g. `CustomerId_1`, `OrderId_1`). This ensures stable output regardless of the actual numeric values, which is particularly useful when working with auto-incrementing database ids.
 
 
 ### Fluent
@@ -77,6 +79,163 @@ VerifierSettings.ScrubNumericIds();
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L775-L779' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubNumericIdsGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+### Parent-child relationships
+
+When verifying object graphs with parent-child relationships, each id property gets its own counter scope. Properties named `Id` use the declaring type as the scope, while foreign key properties like `CustomerId` and `OrderId` use the property name.
+
+<!-- snippet: ScrubNumericIdsRelationships -->
+<a id='snippet-ScrubNumericIdsRelationships'></a>
+```cs
+public class Customer
+{
+    public int Id { get; set; }
+    public string? Name { get; set; }
+    public List<Order> Orders { get; set; } = [];
+}
+
+public class Order
+{
+    public int Id { get; set; }
+    public int CustomerId { get; set; }
+    public List<OrderItem> Items { get; set; } = [];
+}
+
+public class OrderItem
+{
+    public long Id { get; set; }
+    public int OrderId { get; set; }
+    public int ProductId { get; set; }
+    public int Quantity { get; set; }
+}
+
+[Fact]
+public Task ScrubNumericIdsNamedType()
+{
+    var target = new List<Customer>
+    {
+        new()
+        {
+            Id = 1023,
+            Name = "Alice",
+            Orders =
+            [
+                new()
+                {
+                    Id = 5001,
+                    CustomerId = 1023,
+                    Items =
+                    [
+                        new()
+                        {
+                            Id = 90_001,
+                            OrderId = 5001,
+                            ProductId = 7,
+                            Quantity = 2
+                        },
+                        new()
+                        {
+                            Id = 90_002,
+                            OrderId = 5001,
+                            ProductId = 12,
+                            Quantity = 1
+                        }
+                    ]
+                }
+            ]
+        },
+        new()
+        {
+            Id = 1099,
+            Name = "Bob",
+            Orders =
+            [
+                new()
+                {
+                    Id = 5002,
+                    CustomerId = 1099,
+                    Items =
+                    [
+                        new()
+                        {
+                            Id = 90_003,
+                            OrderId = 5002,
+                            ProductId = 7,
+                            Quantity = 5
+                        }
+                    ]
+                }
+            ]
+        }
+    };
+    return Verify(target)
+        .ScrubNumericIds();
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L806-L893' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubNumericIdsRelationships' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Results in the following:
+
+<!-- snippet: SerializationTests.ScrubNumericIdsNamedType.verified.txt -->
+<a id='snippet-SerializationTests.ScrubNumericIdsNamedType.verified.txt'></a>
+```txt
+[
+  {
+    Id: Customer_1,
+    Name: Alice,
+    Orders: [
+      {
+        Id: Order_1,
+        CustomerId: CustomerId_1,
+        Items: [
+          {
+            Id: OrderItem_1,
+            OrderId: OrderId_1,
+            ProductId: ProductId_1,
+            Quantity: 2
+          },
+          {
+            Id: OrderItem_2,
+            OrderId: OrderId_1,
+            ProductId: ProductId_2,
+            Quantity: 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    Id: Customer_2,
+    Name: Bob,
+    Orders: [
+      {
+        Id: Order_2,
+        CustomerId: CustomerId_2,
+        Items: [
+          {
+            Id: OrderItem_3,
+            OrderId: OrderId_2,
+            ProductId: ProductId_1,
+            Quantity: 5
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ScrubNumericIdsNamedType.verified.txt#L1-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.ScrubNumericIdsNamedType.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Note:
+
+ * `Id` on `Customer` produces `Customer_1`, `Customer_2`
+ * `Id` on `Order` produces `Order_1`, `Order_2`
+ * `Id` on `OrderItem` produces `OrderItem_1`, `OrderItem_2`, `OrderItem_3`
+ * `ProductId` is scoped independently, so the same product (id 7) is `ProductId_1` in both orders
+ * `Quantity` is not scrubbed since it does not end in `Id`
 
 
 ## ScrubMembers approach

@@ -1,6 +1,6 @@
 ﻿static class DateFormatLengthCalculator
 {
-    static ConcurrentDictionary<string, (int max, int min)> cache = new();
+    static ConcurrentDictionary<(string, string), (int max, int min)> cache = new();
     const int maxSecondsFractionDigits = 7;
 
     static void ValidateSecondsFractionLength(int tokenLen)
@@ -11,17 +11,15 @@
         }
     }
 
-    public static (int max, int min) GetLength(string format, Culture culture)
-    {
-        var key = $"{culture.Name}_{format}";
-        return cache.GetOrAdd(
-            key,
-            _ =>
+    public static (int max, int min) GetLength(string format, Culture culture) =>
+        cache.GetOrAdd(
+            (culture.Name, format),
+            static (key, culture) =>
             {
-                format = culture.DateTimeFormat.ExpandFormat(format);
+                var format = culture.DateTimeFormat.ExpandFormat(key.Item2);
                 return InnerGetLength(format.AsSpan(), culture);
-            });
-    }
+            },
+            culture);
 
     public static (int max, int min) InnerGetLength(scoped CharSpan format, Culture culture)
     {

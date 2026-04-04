@@ -1,10 +1,10 @@
 ﻿static class PrefixUnique
 {
-    static ConcurrentBag<string> prefixList = [];
+    static ConcurrentDictionary<string, byte> prefixSet = [];
 
     public static void CheckPrefixIsUnique(string prefix)
     {
-        if (prefixList.Contains(prefix))
+        if (!prefixSet.TryAdd(prefix, 0))
         {
             throw new(
                 $"""
@@ -19,12 +19,10 @@
                  If that's not the case, and having multiple identical prefixes is acceptable, then call `VerifierSettings.DisableRequireUniquePrefix()` to disable this uniqueness validation.
                  """);
         }
-
-        prefixList.Add(prefix);
     }
 
     public static void Clear() =>
-        prefixList = [];
+        prefixSet.Clear();
 
     public static UniquenessList SharedUniqueness(Namer namer)
     {

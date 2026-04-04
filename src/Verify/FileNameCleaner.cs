@@ -151,6 +151,11 @@
             return name;
         }
 
+        if (IndexOfInvalidPathChar(name.AsSpan()) == -1)
+        {
+            return name;
+        }
+
         var sanitized = new char[name.Length];
         for (var index = 0; index < name.Length; index++)
         {

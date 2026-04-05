@@ -1,6 +1,6 @@
 ﻿static class DateFormatLengthCalculator
 {
-    static ConcurrentDictionary<(string, string), (int max, int min)> cache = new();
+    static ConcurrentDictionary<(string cultureName, string format), (int max, int min)> cache = new();
     const int maxSecondsFractionDigits = 7;
 
     static void ValidateSecondsFractionLength(int tokenLen)
@@ -16,7 +16,7 @@
             (culture.Name, format),
             static (key, culture) =>
             {
-                var format = culture.DateTimeFormat.ExpandFormat(key.Item2);
+                var format = culture.DateTimeFormat.ExpandFormat(key.format);
                 return InnerGetLength(format.AsSpan(), culture);
             },
             culture);

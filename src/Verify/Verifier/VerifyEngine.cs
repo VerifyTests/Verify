@@ -18,7 +18,7 @@ class VerifyEngine(
     List<NotEqualResult> notEquals = [];
     List<FilePair> equal = [];
     List<FilePair> autoVerified = [];
-    HashSet<string> delete = new(verifiedFiles, StringComparer.InvariantCultureIgnoreCase);
+    HashSet<string> delete = new(verifiedFiles, StringComparer.OrdinalIgnoreCase);
 
     public IReadOnlyList<FilePair> Equal => equal;
     public IReadOnlyList<FilePair> AutoVerified => autoVerified;

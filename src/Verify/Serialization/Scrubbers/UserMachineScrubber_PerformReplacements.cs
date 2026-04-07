@@ -12,11 +12,11 @@
 
         var matches = FindMatches(builder, find);
 
-        // Sort by position descending
-        var orderByDescending = matches.OrderByDescending(_ => _);
+        // Sort by position descending. In-place to avoid LINQ allocation
+        matches.Sort((a, b) => b.CompareTo(a));
 
         // Apply matches
-        foreach (var match in orderByDescending)
+        foreach (var match in matches)
         {
             builder.Overwrite(replace, match, find.Length);
         }

@@ -74,7 +74,7 @@ class VerifyEngine(
             HandleCompareResult(result, file);
         }
 
-        foreach (var group in targetList.GroupBy(_ => $"{_.Name}:{_.Extension}"))
+        foreach (var group in targetList.GroupBy(_ => _, TargetNameExtensionComparer.Instance))
         {
             var targets = group.ToList();
             if (targets.Count == 1)
@@ -289,5 +289,16 @@ class VerifyEngine(
     {
         File.Delete(file.VerifiedPath);
         File.Move(file.ReceivedPath, file.VerifiedPath);
+    }
+
+    private sealed class TargetNameExtensionComparer : IEqualityComparer<Target>
+    {
+        public static readonly TargetNameExtensionComparer Instance = new();
+
+        public bool Equals(Target x, Target y) =>
+            (x.Name ?? "") == (y.Name ?? "") && x.Extension == y.Extension;
+
+        public int GetHashCode(Target obj) =>
+            (obj.Name ?? "", obj.Extension).GetHashCode();
     }
 }

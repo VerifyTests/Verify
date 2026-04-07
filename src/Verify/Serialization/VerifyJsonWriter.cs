@@ -54,7 +54,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        base.WriteRawValue(value.ToString());
+        base.WriteRawValue(value);
     }
 
     public void WriteRawValueWithScrubbers(string value) =>

@@ -39,11 +39,11 @@
 
         var matches = FindMatches(builder, paths);
 
-        // Sort by position descending
-        var orderByDescending = matches.OrderByDescending(_ => _.Index);
+        // Sort by position descending. In-place to avoid LINQ allocation
+        matches.Sort((a, b) => b.Index.CompareTo(a.Index));
 
         // Apply matches
-        foreach (var match in orderByDescending)
+        foreach (var match in matches)
         {
             builder.Overwrite(match.Value, match.Index, match.Length);
         }

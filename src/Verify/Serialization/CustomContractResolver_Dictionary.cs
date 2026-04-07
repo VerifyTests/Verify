@@ -100,7 +100,7 @@
                 return true;
             }
 
-            result = ApplyScrubbers.ApplyForPropertyValue(stringValue.AsSpan(), writer.settings, counter).ToString();
+            result = ApplyScrubbers.ApplyForPropertyValue(stringValue.AsSpan(), writer.settings, counter);
 
             return true;
         }

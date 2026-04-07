@@ -45,12 +45,12 @@ static class ApplyScrubbers
         target.FixNewlines();
     }
 
-    public static CharSpan ApplyForPropertyValue(CharSpan value, VerifySettings settings, Counter counter)
+    public static string ApplyForPropertyValue(CharSpan value, VerifySettings settings, Counter counter)
     {
         var builder = new StringBuilder(value.Length);
         builder.Append(value);
         ApplyForPropertyValue(settings, counter, builder);
-        return builder.AsSpan();
+        return builder.ToString();
     }
 
     public static void ApplyForPropertyValue(VerifySettings settings, Counter counter, StringBuilder builder)

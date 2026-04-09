@@ -17,7 +17,7 @@
         if (!previousTextFailed &&
             settings.TryFindStreamComparer(file.Extension, out var compare))
         {
-            return await InnerCompare(file, receivedStream, (s1, s2) => compare(s1, s2, settings.Context));
+            return await InnerCompare(file, receivedStream, compare, settings.Context);
         }
 
         if (receivedStream.CanSeekAndReadLength() &&
@@ -27,10 +27,10 @@
             return new(Equality.NotEqual, null, null, null);
         }
 
-        return await InnerCompare(file, receivedStream, StreamComparer.AreEqual);
+        return await InnerCompare(file, receivedStream, static (s1, s2, _) => StreamComparer.AreEqual(s1, s2), null!);
     }
 
-    static async Task<EqualityResult> InnerCompare(FilePair file, Stream receivedStream, Func<Stream, Stream, Task<CompareResult>> func)
+    static async Task<EqualityResult> InnerCompare(FilePair file, Stream receivedStream, StreamCompare compare, IReadOnlyDictionary<string, object> context)
     {
 #if NETFRAMEWORK
         using var verifiedStream = IoHelpers.OpenRead(file.VerifiedPath);
@@ -41,7 +41,7 @@
         if (receivedStream is FileStream fileStream)
         {
             fileStream.ThrowIfEmpty();
-            var compareResult = await func(fileStream, verifiedStream);
+            var compareResult = await compare(fileStream, verifiedStream, context);
             if (compareResult.IsEqual)
             {
                 return new(Equality.Equal, compareResult.Message, null, null);
@@ -53,7 +53,7 @@
 
         async Task<EqualityResult> EqualityResult(Stream receivedStream, Stream verifiedStream)
         {
-            var compareResult = await func(receivedStream, verifiedStream);
+            var compareResult = await compare(receivedStream, verifiedStream, context);
 
             if (compareResult.IsEqual)
             {

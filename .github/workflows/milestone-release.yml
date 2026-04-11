@@ -7,6 +7,9 @@ on:
     types: [opened, edited, closed, reopened, deleted, milestoned, demilestoned]
   pull_request:
     types: [opened, edited, closed, reopened, milestoned, demilestoned]
+  push:
+    tags:
+      - '*'
   workflow_dispatch:
     inputs:
       milestone:
@@ -95,6 +98,25 @@ jobs:
                   console.log(`Skipping release creation: tag '${milestoneTitle}' does not exist`);
                 }
               }
+            }
+
+            // Handle tag push - find matching milestone and sync
+            if (context.eventName === 'push' && context.ref.startsWith('refs/tags/')) {
+              const tagName = context.ref.replace('refs/tags/', '');
+              const milestones = [];
+              for await (const response of github.paginate.iterator(
+                github.rest.issues.listMilestones,
+                { owner, repo, state: 'all', per_page: 100 }
+              )) {
+                milestones.push(...response.data);
+              }
+              const milestone = milestones.find(ms => ms.title === tagName);
+              if (milestone) {
+                await syncMilestone(milestone);
+              } else {
+                console.log(`No milestone found matching tag '${tagName}'`);
+              }
+              return;
             }
 
             // Handle manual trigger - rebuild all or specific milestone

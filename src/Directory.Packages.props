@@ -12,7 +12,7 @@
     <PackageVersion Include="Fixie" Version="4.2.0" />
     <PackageVersion Include="Fixie.TestAdapter" Version="4.2.0" />
     <PackageVersion Include="FSharp.Core" Version="11.0.100" />
-    <PackageVersion Include="MarkdownSnippets.MsBuild" Version="28.0.2" />
+    <PackageVersion Include="MarkdownSnippets.MsBuild" Version="28.1.0" />
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.5" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" Pinned="true" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" Pinned="true" />
@@ -37,7 +37,7 @@
     <PackageVersion Include="xunit.v3" Version="3.2.2" />
     <PackageVersion Include="xunit.v3.extensibility.core" Version="3.2.2" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
-    <PackageVersion Include="YoloDev.Expecto.TestSdk" Version="0.15.5" />
+    <PackageVersion Include="YoloDev.Expecto.TestSdk" Version="0.15.6" />
     <PackageVersion Include="Microsoft.Sbom.Targets" Version="4.1.5" />
   </ItemGroup>
 </Project>

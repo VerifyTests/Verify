@@ -1,5 +1,3 @@
-namespace VerifyTests;
-
 static class Ssim
 {
     const int windowSize = 8;

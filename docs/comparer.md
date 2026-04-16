@@ -192,7 +192,7 @@ The bundled decoder targets the common subset of PNGs produced by test scenarios
  * Color types: grayscale, RGB, RGBA, grayscale+alpha, and paletted (with optional `tRNS` transparency)
  * Non-interlaced images
 
-Unsupported variants (16-bit, Adam7 interlacing) produce a decode-failure message rather than a comparison score. For scenarios that require full PNG support, use [Verify.ImageMagick](https://github.com/VerifyTests/Verify.ImageMagick) or [Verify.ImageHash](https://github.com/VerifyTests/Verify.ImageHash).
+Unsupported variants (16-bit, Adam7 interlacing) cause the decoder to throw. For scenarios that require full PNG support, use [Verify.ImageMagick](https://github.com/VerifyTests/Verify.ImageMagick) or [Verify.ImageHash](https://github.com/VerifyTests/Verify.ImageHash).
 
 
 ## Pre-packaged comparers

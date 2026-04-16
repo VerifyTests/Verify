@@ -1,5 +1,3 @@
-using VerifyTests;
-
 public class PngDecoderTests
 {
     [Fact]

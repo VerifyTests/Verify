@@ -1,22 +1,11 @@
-namespace VerifyTests;
-
 static class PngSsimComparer
 {
     public static double Threshold { get; set; } = 0.98;
 
     internal static Task<CompareResult> Compare(Stream received, Stream verified, IReadOnlyDictionary<string, object> context)
     {
-        PngImage receivedImage;
-        PngImage verifiedImage;
-        try
-        {
-            receivedImage = PngDecoder.Decode(received);
-            verifiedImage = PngDecoder.Decode(verified);
-        }
-        catch (Exception exception)
-        {
-            return Task.FromResult(CompareResult.NotEqual($"Failed to decode PNG: {exception.Message}"));
-        }
+        var receivedImage = PngDecoder.Decode(received);
+        var verifiedImage = PngDecoder.Decode(verified);
 
         if (receivedImage.Width != verifiedImage.Width || receivedImage.Height != verifiedImage.Height)
         {

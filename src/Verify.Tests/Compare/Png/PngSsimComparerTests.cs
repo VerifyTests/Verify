@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using VerifyTests;
-
 public class PngSsimComparerTests
 {
     static readonly Dictionary<string, object> emptyContext = new();

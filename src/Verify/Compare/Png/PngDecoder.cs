@@ -1,5 +1,3 @@
-namespace VerifyTests;
-
 static class PngDecoder
 {
     static ReadOnlySpan<byte> Signature => [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A];
@@ -282,9 +280,9 @@ static class PngDecoder
             case 4: // Paeth
                 for (var i = 0; i < curr.Length; i++)
                 {
-                    var left = i >= bpp ? (int)curr[i - bpp] : 0;
+                    var left = i >= bpp ? curr[i - bpp] : 0;
                     int up = prev[i];
-                    var upLeft = i >= bpp ? (int)prev[i - bpp] : 0;
+                    var upLeft = i >= bpp ? prev[i - bpp] : 0;
                     curr[i] = (byte)(curr[i] + Paeth(left, up, upLeft));
                 }
 
@@ -360,11 +358,4 @@ static class PngDecoder
         ((uint)data[1] << 16) |
         ((uint)data[2] << 8) |
         data[3];
-}
-
-readonly struct PngImage(int width, int height, byte[] rgba)
-{
-    public int Width { get; } = width;
-    public int Height { get; } = height;
-    public byte[] Rgba { get; } = rgba;
 }

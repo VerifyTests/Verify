@@ -106,7 +106,7 @@ partial class InnerVerifier
             return result;
         }
 
-        return ApplyScrubbers.ApplyForPropertyValue(span, settings, counter).ToString();
+        return ApplyScrubbers.ApplyForPropertyValue(span, settings, counter);
     }
 
     void ScrubAttributes(XElement node, SerializationSettings serialization)
@@ -136,7 +136,7 @@ partial class InnerVerifier
             }
             else
             {
-                attribute.Value = ApplyScrubbers.ApplyForPropertyValue(span, settings, counter).ToString();
+                attribute.Value = ApplyScrubbers.ApplyForPropertyValue(span, settings, counter);
             }
         }
     }

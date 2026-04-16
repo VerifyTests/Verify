@@ -32,6 +32,13 @@ public static partial class VerifierSettings
         streamComparers[extension] = compare;
     }
 
+    public static void UseSsimForPng(double threshold = 0.98)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        PngSsimComparer.Threshold = threshold;
+        streamComparers["png"] = PngSsimComparer.Compare;
+    }
+
     public static void RegisterStringComparer(string extension, StringCompare compare)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();

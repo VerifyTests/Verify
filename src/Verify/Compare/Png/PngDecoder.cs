@@ -110,6 +110,11 @@ static class PngDecoder
                         throw new("PNG missing IHDR.");
                     }
 
+                    if (idat.Length == 0)
+                    {
+                        throw new("PNG missing IDAT.");
+                    }
+
                     ReadExact(stream, crc);
                     idat.Position = 0;
                     return Reconstruct(idat, width, height, colorType, palette, transparency);
@@ -126,6 +131,11 @@ static class PngDecoder
         if (!seenIhdr)
         {
             throw new("PNG missing IHDR.");
+        }
+
+        if (idat.Length == 0)
+        {
+            throw new("PNG missing IDAT.");
         }
 
         idat.Position = 0;

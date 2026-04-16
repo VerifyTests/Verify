@@ -86,6 +86,14 @@ public class PngSsimComparerTests
     }
 
     [Fact]
+    public async Task Single_Pixel_Grayscale_Identical()
+    {
+        var png = PngTestHelper.EncodeGray(1, 1, [0]);
+        var result = await PngSsimComparer.Compare(new MemoryStream(png), new MemoryStream(png), emptyContext);
+        Assert.True(result.IsEqual);
+    }
+
+    [Fact]
     public async Task Corrupt_Png_Throws()
     {
         var valid = PngTestHelper.EncodeRgba(4, 4, new byte[4 * 4 * 4]);

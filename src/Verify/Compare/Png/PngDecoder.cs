@@ -2,7 +2,7 @@ namespace VerifyTests;
 
 static class PngDecoder
 {
-    static readonly byte[] signature = [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A];
+    static ReadOnlySpan<byte> Signature => [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A];
 
     const uint ihdr = ('I' << 24) | ('H' << 16) | ('D' << 8) | 'R';
     const uint plte = ('P' << 24) | ('L' << 16) | ('T' << 8) | 'E';
@@ -10,19 +10,13 @@ static class PngDecoder
     const uint iend = ('I' << 24) | ('E' << 16) | ('N' << 8) | 'D';
     const uint trns = ('t' << 24) | ('R' << 16) | ('N' << 8) | 'S';
 
-    static uint ChunkType(byte a, byte b, byte c, byte d) =>
-        ((uint)a << 24) | ((uint)b << 16) | ((uint)c << 8) | d;
-
     public static PngImage Decode(Stream stream)
     {
-        var sig = new byte[8];
-        ReadExact(stream, sig, 0, 8);
-        for (var i = 0; i < 8; i++)
+        Span<byte> sig = stackalloc byte[8];
+        ReadExact(stream, sig);
+        if (!sig.SequenceEqual(Signature))
         {
-            if (sig[i] != signature[i])
-            {
-                throw new("Not a PNG (bad signature).");
-            }
+            throw new("Not a PNG (bad signature).");
         }
 
         var width = 0;
@@ -33,42 +27,39 @@ static class PngDecoder
         using var idat = new MemoryStream();
         var seenIhdr = false;
 
+        Span<byte> header = stackalloc byte[8];
+        Span<byte> crc = stackalloc byte[4];
+        Span<byte> ihdrData = stackalloc byte[13];
+
         while (true)
         {
-            var header = new byte[8];
-            ReadExact(stream, header, 0, 8);
-            var length = ReadUInt32BigEndian(header, 0);
-            var type = ChunkType(header[4], header[5], header[6], header[7]);
+            ReadExact(stream, header);
+            var length = ReadUInt32BigEndian(header);
+            var type = ((uint)header[4] << 24) | ((uint)header[5] << 16) | ((uint)header[6] << 8) | header[7];
 
             if (length > int.MaxValue)
             {
                 throw new("PNG chunk too large.");
             }
 
-            var data = new byte[length];
-            if (length > 0)
-            {
-                ReadExact(stream, data, 0, (int)length);
-            }
-
-            // skip CRC
-            ReadExact(stream, new byte[4], 0, 4);
+            var intLength = (int)length;
 
             switch (type)
             {
                 case ihdr:
-                    if (length != 13)
+                    if (intLength != 13)
                     {
                         throw new("Invalid IHDR length.");
                     }
 
-                    width = (int)ReadUInt32BigEndian(data, 0);
-                    height = (int)ReadUInt32BigEndian(data, 4);
-                    var bitDepth = data[8];
-                    colorType = data[9];
-                    var compression = data[10];
-                    var filter = data[11];
-                    var interlace = data[12];
+                    ReadExact(stream, ihdrData);
+                    width = (int)ReadUInt32BigEndian(ihdrData);
+                    height = (int)ReadUInt32BigEndian(ihdrData[4..]);
+                    var bitDepth = ihdrData[8];
+                    colorType = ihdrData[9];
+                    var compression = ihdrData[10];
+                    var filter = ihdrData[11];
+                    var interlace = ihdrData[12];
                     if (compression != 0 || filter != 0)
                     {
                         throw new("Unsupported PNG compression/filter method.");
@@ -91,107 +82,134 @@ static class PngDecoder
 
                     seenIhdr = true;
                     break;
+
                 case plte:
-                    if (length % 3 != 0)
+                    if (intLength % 3 != 0)
                     {
                         throw new("Invalid PLTE length.");
                     }
 
-                    palette = data;
+                    palette = new byte[intLength];
+                    ReadExact(stream, palette);
                     break;
+
                 case trns:
-                    transparency = data;
+                    transparency = new byte[intLength];
+                    ReadExact(stream, transparency);
                     break;
+
                 case idatType:
-                    idat.Write(data, 0, data.Length);
+                    CopyExact(stream, idat, intLength);
                     break;
+
                 case iend:
                     if (!seenIhdr)
                     {
                         throw new("PNG missing IHDR.");
                     }
 
+                    ReadExact(stream, crc);
                     idat.Position = 0;
-                    var raw = Inflate(idat);
-                    var pixels = Reconstruct(raw, width, height, colorType, palette, transparency);
-                    return new(width, height, pixels);
+                    return Reconstruct(idat, width, height, colorType, palette, transparency);
+
+                default:
+                    // unknown chunk — skip
+                    Skip(stream, intLength);
+                    break;
             }
+
+            ReadExact(stream, crc);
         }
     }
 
-    static byte[] Inflate(MemoryStream zlibData)
+    static PngImage Reconstruct(Stream idat, int width, int height, byte colorType, byte[]? palette, byte[]? trns)
     {
-#if NET6_0_OR_GREATER
-        using var inflate = new System.IO.Compression.ZLibStream(zlibData, System.IO.Compression.CompressionMode.Decompress, leaveOpen: true);
-        using var output = new MemoryStream();
-        inflate.CopyTo(output);
-        return output.ToArray();
-#else
-        // Skip 2-byte zlib header, trailing Adler-32 ignored by DeflateStream EOF.
-        zlibData.ReadByte();
-        zlibData.ReadByte();
-        using var inflate = new System.IO.Compression.DeflateStream(zlibData, System.IO.Compression.CompressionMode.Decompress, leaveOpen: true);
-        using var output = new MemoryStream();
-        inflate.CopyTo(output);
-        return output.ToArray();
-#endif
-    }
-
-    static byte[] Reconstruct(byte[] raw, int width, int height, byte colorType, byte[]? palette, byte[]? trns)
-    {
-        // channels in the raw stream (pre-expansion for palette)
         var rawChannels = colorType switch
         {
-            0 => 1, // gray
-            2 => 3, // rgb
-            3 => 1, // palette index
-            4 => 2, // gray + alpha
-            6 => 4, // rgba
+            0 => 1,
+            2 => 3,
+            3 => 1,
+            4 => 2,
+            6 => 4,
             _ => throw new("Unreachable.")
         };
         var stride = width * rawChannels;
-        var expected = (stride + 1) * height;
-        if (raw.Length < expected)
+
+        using var inflate = OpenInflate(idat);
+
+        var rgba = new byte[width * height * 4];
+
+        if (colorType == 6)
         {
-            throw new($"PNG data too short: expected {expected}, got {raw.Length}.");
+            // Unfilter directly in the output buffer.
+            var filterByte = new byte[1];
+            var prevRow = new byte[stride];
+            for (var y = 0; y < height; y++)
+            {
+                ReadExact(inflate, filterByte.AsSpan());
+                var rowSpan = rgba.AsSpan(y * stride, stride);
+                ReadExact(inflate, rowSpan);
+                Unfilter(filterByte[0], rowSpan, prevRow, rawChannels);
+                rowSpan.CopyTo(prevRow);
+            }
+
+            return new(width, height, rgba);
         }
 
-        var unfiltered = new byte[stride * height];
-        var prevRow = new byte[stride];
-        var currRow = new byte[stride];
-        var rawPos = 0;
+        // Non-RGBA: one row scratch buffer, expand into rgba row-by-row.
+        var curr = new byte[stride];
+        var prev = new byte[stride];
+        var filter = new byte[1];
+
         for (var y = 0; y < height; y++)
         {
-            var filter = raw[rawPos++];
-            Buffer.BlockCopy(raw, rawPos, currRow, 0, stride);
-            rawPos += stride;
-            Unfilter(filter, currRow, prevRow, rawChannels);
-            Buffer.BlockCopy(currRow, 0, unfiltered, y * stride, stride);
-            (prevRow, currRow) = (currRow, prevRow);
+            ReadExact(inflate, filter.AsSpan());
+            ReadExact(inflate, curr.AsSpan());
+            Unfilter(filter[0], curr, prev, rawChannels);
+            ExpandRow(curr, rgba, y, width, colorType, palette, trns);
+            (prev, curr) = (curr, prev);
         }
 
-        // Expand to RGBA8
-        var rgba = new byte[width * height * 4];
+        return new(width, height, rgba);
+    }
+
+    static Stream OpenInflate(Stream zlibData)
+    {
+#if NET6_0_OR_GREATER
+        var inflate = new ZLibStream(zlibData, CompressionMode.Decompress, leaveOpen: true);
+#else
+        zlibData.ReadByte();
+        zlibData.ReadByte();
+        var inflate = new DeflateStream(zlibData, CompressionMode.Decompress, leaveOpen: true);
+#endif
+        return new BufferedStream(inflate, 8192);
+    }
+
+    static void ExpandRow(byte[] src, byte[] rgba, int y, int width, byte colorType, byte[]? palette, byte[]? trns)
+    {
+        var dstRow = y * width * 4;
         switch (colorType)
         {
             case 0: // gray
-                for (var i = 0; i < width * height; i++)
+                for (var x = 0; x < width; x++)
                 {
-                    var g = unfiltered[i];
-                    rgba[i * 4] = g;
-                    rgba[i * 4 + 1] = g;
-                    rgba[i * 4 + 2] = g;
-                    rgba[i * 4 + 3] = 255;
+                    var g = src[x];
+                    var o = dstRow + x * 4;
+                    rgba[o] = g;
+                    rgba[o + 1] = g;
+                    rgba[o + 2] = g;
+                    rgba[o + 3] = 255;
                 }
 
                 break;
             case 2: // rgb
-                for (var i = 0; i < width * height; i++)
+                for (var x = 0; x < width; x++)
                 {
-                    rgba[i * 4] = unfiltered[i * 3];
-                    rgba[i * 4 + 1] = unfiltered[i * 3 + 1];
-                    rgba[i * 4 + 2] = unfiltered[i * 3 + 2];
-                    rgba[i * 4 + 3] = 255;
+                    var o = dstRow + x * 4;
+                    rgba[o] = src[x * 3];
+                    rgba[o + 1] = src[x * 3 + 1];
+                    rgba[o + 2] = src[x * 3 + 2];
+                    rgba[o + 3] = 255;
                 }
 
                 break;
@@ -202,41 +220,38 @@ static class PngDecoder
                 }
 
                 var paletteEntries = palette.Length / 3;
-                for (var i = 0; i < width * height; i++)
+                for (var x = 0; x < width; x++)
                 {
-                    var index = unfiltered[i];
+                    var index = src[x];
                     if (index >= paletteEntries)
                     {
                         throw new("PNG palette index out of range.");
                     }
 
-                    rgba[i * 4] = palette[index * 3];
-                    rgba[i * 4 + 1] = palette[index * 3 + 1];
-                    rgba[i * 4 + 2] = palette[index * 3 + 2];
-                    rgba[i * 4 + 3] = trns is not null && index < trns.Length ? trns[index] : (byte)255;
+                    var o = dstRow + x * 4;
+                    rgba[o] = palette[index * 3];
+                    rgba[o + 1] = palette[index * 3 + 1];
+                    rgba[o + 2] = palette[index * 3 + 2];
+                    rgba[o + 3] = trns is not null && index < trns.Length ? trns[index] : (byte)255;
                 }
 
                 break;
             case 4: // gray + alpha
-                for (var i = 0; i < width * height; i++)
+                for (var x = 0; x < width; x++)
                 {
-                    var g = unfiltered[i * 2];
-                    rgba[i * 4] = g;
-                    rgba[i * 4 + 1] = g;
-                    rgba[i * 4 + 2] = g;
-                    rgba[i * 4 + 3] = unfiltered[i * 2 + 1];
+                    var g = src[x * 2];
+                    var o = dstRow + x * 4;
+                    rgba[o] = g;
+                    rgba[o + 1] = g;
+                    rgba[o + 2] = g;
+                    rgba[o + 3] = src[x * 2 + 1];
                 }
 
                 break;
-            case 6: // rgba
-                Buffer.BlockCopy(unfiltered, 0, rgba, 0, unfiltered.Length);
-                break;
         }
-
-        return rgba;
     }
 
-    static void Unfilter(byte filter, byte[] curr, byte[] prev, int bpp)
+    static void Unfilter(byte filter, Span<byte> curr, ReadOnlySpan<byte> prev, int bpp)
     {
         switch (filter)
         {
@@ -293,26 +308,58 @@ static class PngDecoder
         return pb <= pc ? b : c;
     }
 
-    static void ReadExact(Stream stream, byte[] buffer, int offset, int count)
+    static void ReadExact(Stream stream, Span<byte> buffer)
     {
-        while (count > 0)
+        while (buffer.Length > 0)
         {
-            var read = stream.Read(buffer, offset, count);
+            var read = stream.Read(buffer);
             if (read == 0)
             {
                 throw new("Unexpected end of PNG stream.");
             }
 
-            offset += read;
+            buffer = buffer[read..];
+        }
+    }
+
+    static void CopyExact(Stream source, Stream destination, int count)
+    {
+        Span<byte> buffer = stackalloc byte[4096];
+        while (count > 0)
+        {
+            var toRead = Math.Min(buffer.Length, count);
+            var read = source.Read(buffer[..toRead]);
+            if (read == 0)
+            {
+                throw new("Unexpected end of PNG stream.");
+            }
+
+            destination.Write(buffer[..read]);
             count -= read;
         }
     }
 
-    static uint ReadUInt32BigEndian(byte[] data, int offset) =>
-        ((uint)data[offset] << 24) |
-        ((uint)data[offset + 1] << 16) |
-        ((uint)data[offset + 2] << 8) |
-        data[offset + 3];
+    static void Skip(Stream stream, int count)
+    {
+        Span<byte> buffer = stackalloc byte[1024];
+        while (count > 0)
+        {
+            var toRead = Math.Min(buffer.Length, count);
+            var read = stream.Read(buffer[..toRead]);
+            if (read == 0)
+            {
+                throw new("Unexpected end of PNG stream.");
+            }
+
+            count -= read;
+        }
+    }
+
+    static uint ReadUInt32BigEndian(ReadOnlySpan<byte> data) =>
+        ((uint)data[0] << 24) |
+        ((uint)data[1] << 16) |
+        ((uint)data[2] << 8) |
+        data[3];
 }
 
 readonly struct PngImage(int width, int height, byte[] rgba)

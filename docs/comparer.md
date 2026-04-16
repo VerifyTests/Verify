@@ -147,6 +147,54 @@ static async Task<int> ReadBufferAsync(Stream stream, byte[] buffer)
 <!-- endSnippet -->
 
 
+## PNG SSIM comparer
+
+Verify includes a built-in [Structural Similarity Index](https://en.wikipedia.org/wiki/Structural_similarity_index_measure) (SSIM) comparer for PNG files. It is opt-in and, when enabled, replaces the default byte-for-byte comparison for the `.png` extension.
+
+This is useful when rendered images differ slightly between runs (e.g. anti-aliasing, font hinting, platform-specific rasterization) but are perceptually identical.
+
+<!-- snippet: UseSsimForPng -->
+<a id='snippet-UseSsimForPng'></a>
+```cs
+public static class ModuleInitializer
+{
+    [ModuleInitializer]
+    public static void Init() =>
+        VerifierSettings.UseSsimForPng();
+}
+```
+<sup><a href='/src/ModuleInitDocs/UseSsimForPng.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseSsimForPng' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+The default threshold is `0.98`. SSIM scores range from `0` (completely different) to `1` (identical). A custom threshold can be supplied:
+
+<!-- snippet: UseSsimForPngThreshold -->
+<a id='snippet-UseSsimForPngThreshold'></a>
+```cs
+public static class ModuleInitializer
+{
+    [ModuleInitializer]
+    public static void Init() =>
+        VerifierSettings.UseSsimForPng(threshold: 0.995);
+}
+```
+<sup><a href='/src/ModuleInitDocs/UseSsimForPngThreshold.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseSsimForPngThreshold' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Dimension mismatches between the received and verified images are always reported as not equal, regardless of threshold.
+
+
+### Supported PNG variants
+
+The bundled decoder targets the common subset of PNGs produced by test scenarios:
+
+ * 8-bit bit depth
+ * Color types: grayscale, RGB, RGBA, grayscale+alpha, and paletted (with optional `tRNS` transparency)
+ * Non-interlaced images
+
+Unsupported variants (16-bit, Adam7 interlacing) produce a decode-failure message rather than a comparison score. For scenarios that require full PNG support, use [Verify.ImageMagick](https://github.com/VerifyTests/Verify.ImageMagick) or [Verify.ImageHash](https://github.com/VerifyTests/Verify.ImageHash).
+
+
 ## Pre-packaged comparers
 
  * [Verify.AngleSharp.Diffing](https://github.com/VerifyTests/Verify.AngleSharp.Diffing): Comparison of html files via [AngleSharp.Diffing](https://github.com/AngleSharp/AngleSharp.Diffing).

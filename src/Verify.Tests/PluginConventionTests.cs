@@ -23,6 +23,10 @@ public class PluginConventionTests
         Assert.Equal(expectedTypeName, VerifierSettings.GetTypeName(assemblyName));
 
     [Fact]
+    public void TryGetTypeNullAssembly() =>
+        Assert.Throws<Exception>(() => VerifierSettings.TryGetType("Verify.BadAssemblyName.dll", out _));
+
+    [Fact]
     public void InvokeInitialize()
     {
         VerifierSettings.InvokeInitialize(typeof(InitializeTarget));

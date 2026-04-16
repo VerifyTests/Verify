@@ -51,8 +51,13 @@ public static partial class VerifierSettings
             return false;
         }
 #pragma warning disable CS0618
-        var assembly = Assembly.LoadWithPartialName(assemblyName)!;
+        var assembly = Assembly.LoadWithPartialName(assemblyName);
 #pragma warning restore CS0618
+        if (assembly == null)
+        {
+            throw new($"Could not load assembly '{assemblyName}'.");
+        }
+
         var typeName = GetTypeName(assemblyName);
         type = assembly.GetType(typeName);
         return type != null;

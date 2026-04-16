@@ -31,13 +31,17 @@ static class PngDecoder
 
         while (true)
         {
-            ReadExact(stream, header);
+            if (stream.ReadAtLeast(header, header.Length, throwOnEndOfStream: false) < header.Length)
+            {
+                break;
+            }
+
             var length = ReadUInt32BigEndian(header);
             var type = ((uint)header[4] << 24) | ((uint)header[5] << 16) | ((uint)header[6] << 8) | header[7];
 
             if (length > int.MaxValue)
             {
-                throw new("PNG chunk too large.");
+                break;
             }
 
             var intLength = (int)length;
@@ -106,6 +110,11 @@ static class PngDecoder
                         throw new("PNG missing IHDR.");
                     }
 
+                    if (idat.Length == 0)
+                    {
+                        throw new("PNG missing IDAT.");
+                    }
+
                     ReadExact(stream, crc);
                     idat.Position = 0;
                     return Reconstruct(idat, width, height, colorType, palette, transparency);
@@ -118,6 +127,19 @@ static class PngDecoder
 
             ReadExact(stream, crc);
         }
+
+        if (!seenIhdr)
+        {
+            throw new("PNG missing IHDR.");
+        }
+
+        if (idat.Length == 0)
+        {
+            throw new("PNG missing IDAT.");
+        }
+
+        idat.Position = 0;
+        return Reconstruct(idat, width, height, colorType, palette, transparency);
     }
 
     static PngImage Reconstruct(Stream idat, int width, int height, byte colorType, byte[]? palette, byte[]? trns)

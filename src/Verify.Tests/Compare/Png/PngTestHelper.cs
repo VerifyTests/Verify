@@ -29,6 +29,13 @@ static class PngTestHelper
         return BuildPng(ihdr, null, null, raw);
     }
 
+    public static byte[] EncodeGrayAlpha(int width, int height, byte[] grayAlpha)
+    {
+        var raw = AddFilterBytes(grayAlpha, width * 2, height);
+        var ihdr = BuildIhdr(width, height, colorType: 4);
+        return BuildPng(ihdr, null, null, raw);
+    }
+
     public static byte[] EncodePaletted(int width, int height, byte[] indices, byte[] palette, byte[]? trns = null)
     {
         var raw = AddFilterBytes(indices, width, height);
@@ -59,6 +66,34 @@ static class PngTestHelper
         data[11] = 0; // filter method
         data[12] = 0; // interlace
         return data;
+    }
+
+    public static byte[] EncodeWithoutIdat(int width, int height)
+    {
+        var ihdr = BuildIhdr(width, height, colorType: 6);
+        using var stream = new MemoryStream();
+        stream.Write(signature, 0, signature.Length);
+        WriteChunk(stream, "IHDR", ihdr);
+        WriteChunk(stream, "IEND", []);
+        return stream.ToArray();
+    }
+
+    public static byte[] EncodeRgbaMultipleIdat(int width, int height, byte[] rgba, int chunkSize)
+    {
+        var raw = AddFilterBytes(rgba, width * 4, height);
+        var compressed = ZlibCompress(raw);
+        var ihdr = BuildIhdr(width, height, colorType: 6);
+        using var stream = new MemoryStream();
+        stream.Write(signature, 0, signature.Length);
+        WriteChunk(stream, "IHDR", ihdr);
+        for (var offset = 0; offset < compressed.Length; offset += chunkSize)
+        {
+            var length = Math.Min(chunkSize, compressed.Length - offset);
+            WriteChunk(stream, "IDAT", compressed.AsSpan(offset, length).ToArray());
+        }
+
+        WriteChunk(stream, "IEND", []);
+        return stream.ToArray();
     }
 
     static byte[] BuildPng(byte[] ihdr, byte[]? plte, byte[]? trns, byte[] raw)

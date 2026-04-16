@@ -145,6 +145,52 @@ public class PngDecoderTests
     }
 
     [Fact]
+    public void Small_GrayAlpha()
+    {
+        const int width = 4;
+        const int height = 4;
+        var ga = new byte[width * height * 2];
+        for (var i = 0; i < width * height; i++)
+        {
+            ga[i * 2] = (byte)(i * 16);
+            ga[i * 2 + 1] = (byte)(255 - i * 8);
+        }
+
+        var png = PngTestHelper.EncodeGrayAlpha(width, height, ga);
+        var image = PngDecoder.Decode(new MemoryStream(png));
+        Assert.Equal(width, image.Width);
+        Assert.Equal(height, image.Height);
+        for (var i = 0; i < width * height; i++)
+        {
+            var g = ga[i * 2];
+            Assert.Equal(g, image.Rgba[i * 4]);
+            Assert.Equal(g, image.Rgba[i * 4 + 1]);
+            Assert.Equal(g, image.Rgba[i * 4 + 2]);
+            Assert.Equal(ga[i * 2 + 1], image.Rgba[i * 4 + 3]);
+        }
+    }
+
+    [Fact]
+    public void Multiple_Idat_Chunks()
+    {
+        const int width = 32;
+        const int height = 32;
+        var rgba = new byte[width * height * 4];
+        new Random(7).NextBytes(rgba);
+        var png = PngTestHelper.EncodeRgbaMultipleIdat(width, height, rgba, chunkSize: 64);
+        var image = PngDecoder.Decode(new MemoryStream(png));
+        Assert.Equal(rgba, image.Rgba);
+    }
+
+    [Fact]
+    public void Rejects_Missing_Idat()
+    {
+        var png = PngTestHelper.EncodeWithoutIdat(1, 1);
+        var exception = Assert.Throws<Exception>(() => PngDecoder.Decode(new MemoryStream(png)));
+        Assert.Contains("IDAT", exception.Message);
+    }
+
+    [Fact]
     public void Rejects_Bad_Signature()
     {
         var bad = new byte[16];

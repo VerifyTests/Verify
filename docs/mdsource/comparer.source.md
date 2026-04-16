@@ -54,7 +54,7 @@ The bundled decoder targets the common subset of PNGs produced by test scenarios
  * Color types: grayscale, RGB, RGBA, grayscale+alpha, and paletted (with optional `tRNS` transparency)
  * Non-interlaced images
 
-Unsupported variants (16-bit, Adam7 interlacing) cause the decoder to throw. For scenarios that require full PNG support, use [Verify.ImageMagick](https://github.com/VerifyTests/Verify.ImageMagick) or [Verify.ImageHash](https://github.com/VerifyTests/Verify.ImageHash).
+Unsupported variants (16-bit, Adam7 interlacing) cause the decoder to throw. For scenarios that require full PNG support, use one of the below comparers.
 
 
 ## Pre-packaged comparers
@@ -64,5 +64,7 @@ Unsupported variants (16-bit, Adam7 interlacing) cause the decoder to throw. For
  * [Verify.ICSharpCode.Decompiler](https://github.com/VerifyTests/Verify.ICSharpCode.Decompiler): Comparison of assemblies and types via [ICSharpCode.Decompiler](https://github.com/icsharpcode/ILSpy/wiki/Getting-Started-With-ICSharpCode.Decompiler).
  * [Verify.ImageHash](https://github.com/VerifyTests/Verify.ImageHash): Comparison of images via [ImageHash](https://github.com/coenm/ImageHash).
  * [Verify.ImageMagick](https://github.com/VerifyTests/Verify.ImageMagick): Verification and comparison of images via [Magick.NET](https://github.com/dlemstra/Magick.NET).
+ * [Verify.ImageSharp.Compare](https://github.com/VerifyTests/Verify.ImageSharp.Compare): Verification and comparison of images via [Codeuctivity.ImageSharp.Compare](https://github.com/Codeuctivity/ImageSharp.Compare).
  * [Verify.Phash](https://github.com/VerifyTests/Verify.Phash): Comparison of images via [Phash](https://github.com/pgrho/phash).
  * [Verify.Quibble](https://github.com/VerifyTests/Verify.Quibble): Comparison of objects via [Quibble](https://github.com/nrkno/Quibble).
+ * [YellowDogMan.Verify.ssimulacra2](https://github.com/Yellow-Dog-Man/Verify.ssimulacra2): Verification and comparison of images via [ssimulacra2](https://github.com/cloudinary/ssimulacra2).

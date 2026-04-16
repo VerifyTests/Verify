@@ -86,13 +86,12 @@ public class PngSsimComparerTests
     }
 
     [Fact]
-    public async Task Corrupt_Png_Is_NotEqual_With_Decode_Failure()
+    public async Task Corrupt_Png_Throws()
     {
         var valid = PngTestHelper.EncodeRgba(4, 4, new byte[4 * 4 * 4]);
-        var corrupt = new byte[8]; // just signature length garbage
-        var result = await PngSsimComparer.Compare(new MemoryStream(corrupt), new MemoryStream(valid), emptyContext);
-        Assert.False(result.IsEqual);
-        Assert.Contains("Failed to decode PNG", result.Message);
+        var corrupt = new byte[8];
+        await Assert.ThrowsAnyAsync<Exception>(() =>
+            PngSsimComparer.Compare(new MemoryStream(corrupt), new MemoryStream(valid), emptyContext));
     }
 
     static byte[] RandomRgba(int width, int height, int seed)

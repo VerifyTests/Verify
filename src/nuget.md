@@ -30,6 +30,12 @@ updated to the new result.<!-- endInclude -->
 
 [![JetBrains logo.](https://raw.githubusercontent.com/VerifyTests/Verify/main/docs/jetbrains.png)](https://jb.gg/OpenSourceSupport)
 
+### Duende Software
+
+Authentication and authorization via
+
+[![Duende Software](https://raw.githubusercontent.com/VerifyTests/Verify/main/docs/duende.png)](https://duendesoftware.com/?utm_medium=sponsor&utm_source=verify)
+
 ### TestMu AI
 
 Browser testing via

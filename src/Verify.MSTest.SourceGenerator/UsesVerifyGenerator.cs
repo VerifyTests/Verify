@@ -52,9 +52,15 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
         cancel.ThrowIfCancellationRequested();
 
+        var markerType = context.SemanticModel.Compilation.GetTypeByMetadataName(MarkerAttributeName);
+        if (markerType is null)
+        {
+            return null;
+        }
+
         // Only run generator for classes when the parent won't _also_ have generation.
         // Otherwise the generator will hide the base member.
-        if (HasParentWithMarkerAttribute(symbol))
+        if (HasParentWithMarkerAttribute(symbol, markerType))
         {
             return null;
         }
@@ -70,7 +76,14 @@ public class UsesVerifyGenerator : IIncrementalGenerator
         }
 
         var model = context.SemanticModel;
-        if (!IsAssemblyEligibleForGeneration(model.Compilation.Assembly))
+        var compilation = model.Compilation;
+        var markerType = compilation.GetTypeByMetadataName(MarkerAttributeName);
+        if (markerType is null)
+        {
+            return null;
+        }
+
+        if (!IsAssemblyEligibleForGeneration(compilation.Assembly, markerType))
         {
             return null;
         }
@@ -80,15 +93,21 @@ public class UsesVerifyGenerator : IIncrementalGenerator
             return null;
         }
 
-        if (HasTestClassAttribute(symbol))
+        var testClassType = compilation.GetTypeByMetadataName(TestClassAttributeName);
+        if (testClassType is null)
+        {
+            return null;
+        }
+
+        if (HasTestClassAttribute(symbol, testClassType))
         {
             return null;
         }
 
         // Only run generator for classes when the parent won't _also_ have generation.
         // Otherwise the generator will hide the base member.
-        if (HasParentWithTestClassAttribute(symbol) ||
-            HasParentWithMarkerAttribute(symbol))
+        if (HasParentWithTestClassAttribute(symbol, testClassType) ||
+            HasParentWithMarkerAttribute(symbol, markerType))
         {
             return null;
         }
@@ -96,23 +115,24 @@ public class UsesVerifyGenerator : IIncrementalGenerator
         return Parser.Parse(symbol, syntax, cancel);
     }
 
-    static bool HasTestClassAttribute(INamedTypeSymbol symbol) => !symbol.HasAttributeOfType(TestClassAttributeName, includeDerived: true);
+    static bool HasTestClassAttribute(INamedTypeSymbol symbol, INamedTypeSymbol testClassType) =>
+        !symbol.HasAttributeOfType(testClassType, includeDerived: true);
 
     static bool IsSyntaxEligibleForGeneration(SyntaxNode node, Cancel _) =>
         node is ClassDeclarationSyntax;
 
-    static bool IsAssemblyEligibleForGeneration(IAssemblySymbol assembly) =>
-        assembly.HasAttributeOfType(MarkerAttributeName, includeDerived: false);
+    static bool IsAssemblyEligibleForGeneration(IAssemblySymbol assembly, INamedTypeSymbol markerType) =>
+        assembly.HasAttributeOfType(markerType, includeDerived: false);
 
-    static bool HasParentWithMarkerAttribute(INamedTypeSymbol symbol) =>
+    static bool HasParentWithMarkerAttribute(INamedTypeSymbol symbol, INamedTypeSymbol markerType) =>
         symbol
         .GetBaseTypes()
-        .Any(_ => _.HasAttributeOfType(MarkerAttributeName, includeDerived: false));
+        .Any(_ => _.HasAttributeOfType(markerType, includeDerived: false));
 
-    static bool HasParentWithTestClassAttribute(INamedTypeSymbol symbol) =>
+    static bool HasParentWithTestClassAttribute(INamedTypeSymbol symbol, INamedTypeSymbol testClassType) =>
         symbol
         .GetBaseTypes()
-        .Any(_ => _.HasAttributeOfType(TestClassAttributeName, includeDerived: true));
+        .Any(_ => _.HasAttributeOfType(testClassType, includeDerived: true));
 
     static void Execute(SourceProductionContext context, ImmutableArray<ClassToGenerate> toGenerate)
     {

@@ -19,14 +19,14 @@ static class Extensions
             .Where(_ => _.HasValue)
             .Select((item, _) => item!.Value);
 
-    public static bool HasAttributeOfType(this ISymbol symbol, string fullyQualifiedAttributeName, bool includeDerived)
+    public static bool HasAttributeOfType(this ISymbol symbol, INamedTypeSymbol attributeType, bool includeDerived)
     {
         foreach (var attribute in symbol.GetAttributes())
         {
             var type = attribute.AttributeClass;
             while (type is not null)
             {
-                if (type.ToDisplayString() == fullyQualifiedAttributeName)
+                if (SymbolEqualityComparer.Default.Equals(type, attributeType))
                 {
                     return true;
                 }

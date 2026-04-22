@@ -5,8 +5,38 @@ public static partial class Verifier
 {
     static async Task AddFile(string path) =>
         TestContext.Current.AddAttachment(
-            $"Verify snapshot mismatch: {path}",
+            AttachmentName(path),
             await File.ReadAllBytesAsync(path));
+
+    // xunit v3 uses the attachment name as the on-disk filename (via MediaTypeUtility.GetSanitizedFileNameWithExtension),
+    // sanitizing only chars from Path.GetInvalidFileNameChars — which is OS-dependent. On Linux ':' is valid there,
+    // but GitHub Actions upload-artifact rejects it, breaking CI snapshot upload. The full path is preserved (with
+    // separators and the drive colon replaced) so nested snapshots that share a filename still produce unique keys,
+    // since xunit throws on duplicate attachment names. See https://github.com/VerifyTests/Verify/issues/1721
+    static string AttachmentName(string path)
+    {
+        var relative = path;
+        var solutionDir = VerifierSettings.SolutionDir;
+        if (solutionDir != null && path.StartsWith(solutionDir, StringComparison.OrdinalIgnoreCase))
+        {
+            relative = path[solutionDir.Length..].TrimStart('/', '\\');
+        }
+
+        var builder = new StringBuilder(relative.Length);
+        foreach (var c in relative)
+        {
+            if (c is '/' or '\\' or ':')
+            {
+                builder.Append('_');
+            }
+            else
+            {
+                builder.Append(c);
+            }
+        }
+
+        return builder.ToString();
+    }
 
     [ModuleInitializer]
     [EditorBrowsable(EditorBrowsableState.Never)]

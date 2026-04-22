@@ -12,8 +12,9 @@
         File.Delete(fullPath);
         var attachments = TestContext.Current.Attachments!;
         Assert.Contains(attachments.Keys,
-            _ => _.Contains("Verify snapshot mismatch") &&
-                 _.Contains("AttachmentTests.Simple."));
+            _ => _.Contains("AttachmentTests.Simple.") &&
+                 _.Contains(".received.") &&
+                 !_.Contains(':'));
     }
 
     [Fact]
@@ -39,8 +40,9 @@
 
         var attachments = TestContext.Current.Attachments!;
         Assert.Contains(attachments.Keys,
-            _ => _.Contains("Verify snapshot mismatch") &&
-                 _.Contains("AttachmentTests.Simple."));
+            _ => _.Contains("AttachmentTests.Simple.") &&
+                 _.Contains(".received.") &&
+                 !_.Contains(':'));
     }
 #endif
 }

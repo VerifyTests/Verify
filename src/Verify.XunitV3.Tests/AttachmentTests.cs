@@ -1,6 +1,6 @@
 ﻿public class AttachmentTests
 {
-#if NET10_0
+#if NET11_0
     [Fact]
     public async Task Simple()
     {
@@ -10,10 +10,10 @@
         File.Delete(fullPath);
         await Verify("Foo").AutoVerify();
         File.Delete(fullPath);
-        var attachments = TestContext.Current.Attachments!;
-        Assert.Contains(attachments.Keys,
-            _ => _.Contains("Verify snapshot mismatch") &&
-                 _.Contains("AttachmentTests.Simple."));
+        var key = Assert.Single(TestContext.Current.Attachments!).Key;
+        Assert.StartsWith("Verify.XunitV3.Tests/AttachmentTests.Simple.", key);
+        Assert.EndsWith(".received.txt", key);
+        Assert.DoesNotContain(':', key);
     }
 
     [Fact]
@@ -37,10 +37,10 @@
             }
         }
 
-        var attachments = TestContext.Current.Attachments!;
-        Assert.Contains(attachments.Keys,
-            _ => _.Contains("Verify snapshot mismatch") &&
-                 _.Contains("AttachmentTests.Simple."));
+        var key = Assert.Single(TestContext.Current.Attachments!).Key;
+        Assert.StartsWith("Verify.XunitV3.Tests/AttachmentTests/AttachmentTests.Simple.", key);
+        Assert.EndsWith(".received.txt", key);
+        Assert.DoesNotContain(':', key);
     }
 #endif
 }

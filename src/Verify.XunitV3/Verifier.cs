@@ -5,8 +5,24 @@ public static partial class Verifier
 {
     static async Task AddFile(string path) =>
         TestContext.Current.AddAttachment(
-            $"Verify snapshot mismatch: {path}",
+            GetAttachmentName(path),
             await File.ReadAllBytesAsync(path));
+
+    internal static string GetAttachmentName(string path)
+    {
+        var fullPath = Path.GetFullPath(path).Replace('\\', '/');
+        var solutionDir = VerifierSettings.SolutionDir;
+        if (solutionDir is not null)
+        {
+            var fullSolutionDir = Path.GetFullPath(solutionDir).Replace('\\', '/').TrimEnd('/') + '/';
+            if (fullPath.StartsWith(fullSolutionDir, StringComparison.OrdinalIgnoreCase))
+            {
+                return fullPath[fullSolutionDir.Length..];
+            }
+        }
+
+        return fullPath;
+    }
 
     [ModuleInitializer]
     [EditorBrowsable(EditorBrowsableState.Never)]

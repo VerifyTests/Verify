@@ -4,6 +4,12 @@ namespace VerifyTests;
 
 static class ScrubberPipeline
 {
+    [ThreadStatic]
+    static List<ScrubberChunk>? threadChunks;
+
+    [ThreadStatic]
+    static StringBuilder? threadSwap;
+
     public static void ApplyForExtension(string extension, StringBuilder target, VerifySettings settings, Counter counter)
     {
         if (!settings.ScrubbersEnabled)
@@ -16,8 +22,11 @@ static class ScrubberPipeline
         var patterns = CollectPatterns(settings, extension);
         var lines = CollectLines(settings, extension);
 
-        Apply(target, content, patterns, lines, counter, settings.Context);
-        target.FixNewlines();
+        var modified = Apply(target, content, patterns, lines, counter, settings.Context);
+        if (modified || NeedsNewlineNormalization(target))
+        {
+            target.FixNewlines();
+        }
     }
 
     public static string ApplyForPropertyValue(CharSpan value, VerifySettings settings, Counter counter)
@@ -36,12 +45,16 @@ static class ScrubberPipeline
         var patterns = CollectPatternsNoExtension(settings);
         var lines = CollectLinesNoExtension(settings);
 
-        Apply(output, content, patterns, lines, counter, settings.Context);
-        output.FixNewlines();
+        var modified = Apply(output, content, patterns, lines, counter, settings.Context);
+        if (modified || NeedsNewlineNormalization(output))
+        {
+            output.FixNewlines();
+        }
+
         return output.ToString();
     }
 
-    static void Apply(
+    static bool Apply(
         StringBuilder target,
         List<ContentScrubber>? contentScrubbers,
         List<PatternScrubber>? patternScrubbers,
@@ -49,20 +62,26 @@ static class ScrubberPipeline
         Counter counter,
         IReadOnlyDictionary<string, object> context)
     {
+        var modified = false;
+
         if (contentScrubbers is { Count: > 0 })
         {
             ApplyContentScrubbers(target, contentScrubbers, counter, context);
+            modified = true;
         }
 
         if (patternScrubbers is { Count: > 0 })
         {
-            ApplyPatternScrubbers(target, patternScrubbers, counter, context);
+            modified |= ApplyPatternScrubbers(target, patternScrubbers, counter, context);
         }
 
         if (lineScrubbers is { Count: > 0 })
         {
             ApplyLineScrubbers(target, lineScrubbers, counter, context);
+            modified = true;
         }
+
+        return modified;
     }
 
     static void ApplyContentScrubbers(
@@ -71,31 +90,81 @@ static class ScrubberPipeline
         Counter counter,
         IReadOnlyDictionary<string, object> context)
     {
-        var swap = new StringBuilder(target.Length);
-        foreach (var scrubber in contentScrubbers)
+        var swap = RentSwap();
+        var sourcePool = ArrayPool<char>.Shared;
+        try
         {
-            swap.Clear();
-            var input = target.ToString();
-            scrubber.Process(input.AsSpan(), swap, counter, context);
-            target.Clear();
-            target.Append(swap);
+            foreach (var scrubber in contentScrubbers)
+            {
+                swap.Clear();
+                var length = target.Length;
+                var sourceBuffer = sourcePool.Rent(length);
+                target.CopyTo(0, sourceBuffer, 0, length);
+                scrubber.Process(sourceBuffer.AsSpan(0, length), swap, counter, context);
+                sourcePool.Return(sourceBuffer);
+
+                target.Clear();
+                target.Append(swap);
+            }
+        }
+        finally
+        {
+            ReturnSwap(swap);
         }
     }
 
-    static void ApplyPatternScrubbers(
+    static bool ApplyPatternScrubbers(
         StringBuilder target,
         List<PatternScrubber> patternScrubbers,
         Counter counter,
         IReadOnlyDictionary<string, object> context)
     {
-        patternScrubbers.Sort(ComparePatterns);
+        if (patternScrubbers.Count > 1)
+        {
+            patternScrubbers.Sort(ComparePatterns);
+        }
 
-        var source = target.ToString();
-        var chunks = new List<ScrubberChunk>();
-        PatternWalker.Walk(source.AsSpan(), patternScrubbers, counter, context, chunks);
+        var length = target.Length;
+        if (length == 0)
+        {
+            return false;
+        }
 
-        target.Clear();
-        PatternWalker.Stitch(source.AsSpan(), chunks, target);
+        var sourcePool = ArrayPool<char>.Shared;
+        var sourceBuffer = sourcePool.Rent(length);
+        target.CopyTo(0, sourceBuffer, 0, length);
+        var sourceSpan = sourceBuffer.AsSpan(0, length);
+
+        var chunks = RentChunks();
+        try
+        {
+            PatternWalker.Walk(sourceSpan, patternScrubbers, counter, context, chunks);
+
+            var hasReplacement = false;
+            foreach (var chunk in chunks)
+            {
+                if (chunk.Replacement is not null)
+                {
+                    hasReplacement = true;
+                    break;
+                }
+            }
+
+            if (!hasReplacement)
+            {
+                // No matches; the StringBuilder content is unchanged.
+                return false;
+            }
+
+            target.Clear();
+            PatternWalker.Stitch(sourceSpan, chunks, target);
+            return true;
+        }
+        finally
+        {
+            ReturnChunks(chunks);
+            sourcePool.Return(sourceBuffer);
+        }
     }
 
     static int ComparePatterns(PatternScrubber a, PatternScrubber b)
@@ -115,62 +184,152 @@ static class ScrubberPipeline
         Counter counter,
         IReadOnlyDictionary<string, object> context)
     {
-        var input = target.ToString();
-        target.Clear();
-
-        var lineStart = 0;
-        var hasContent = false;
-        var i = 0;
-        while (i <= input.Length)
+        var length = target.Length;
+        var sourcePool = ArrayPool<char>.Shared;
+        var sourceBuffer = sourcePool.Rent(length);
+        try
         {
-            int lineEnd;
-            int nextStart;
-            if (i == input.Length)
-            {
-                lineEnd = i;
-                nextStart = i + 1;
-            }
-            else if (input[i] == '\r')
-            {
-                lineEnd = i;
-                nextStart = (i + 1 < input.Length && input[i + 1] == '\n') ? i + 2 : i + 1;
-            }
-            else if (input[i] == '\n')
-            {
-                lineEnd = i;
-                nextStart = i + 1;
-            }
-            else
-            {
-                i++;
-                continue;
-            }
+            target.CopyTo(0, sourceBuffer, 0, length);
+            var input = sourceBuffer.AsSpan(0, length);
+            target.Clear();
 
-            var line = input.AsSpan(lineStart, lineEnd - lineStart);
-            var processed = (string?) line.ToString();
-            foreach (var scrubber in lineScrubbers)
+            var lineStart = 0;
+            var hasContent = false;
+            var i = 0;
+            while (i <= length)
             {
-                processed = scrubber.Process(processed.AsSpan(), counter, context);
-                if (processed is null)
+                int lineEnd;
+                int nextStart;
+                if (i == length)
                 {
-                    break;
+                    lineEnd = i;
+                    nextStart = i + 1;
                 }
-            }
-
-            if (processed is not null)
-            {
-                if (hasContent)
+                else if (input[i] == '\r')
                 {
-                    target.Append('\n');
+                    lineEnd = i;
+                    nextStart = (i + 1 < length && input[i + 1] == '\n') ? i + 2 : i + 1;
+                }
+                else if (input[i] == '\n')
+                {
+                    lineEnd = i;
+                    nextStart = i + 1;
+                }
+                else
+                {
+                    i++;
+                    continue;
                 }
 
-                target.Append(processed);
-                hasContent = true;
-            }
+                var line = input.Slice(lineStart, lineEnd - lineStart);
+                string? processed = null;
+                var first = true;
+                foreach (var scrubber in lineScrubbers)
+                {
+                    if (first)
+                    {
+                        processed = scrubber.Process(line, counter, context);
+                        first = false;
+                    }
+                    else if (processed is not null)
+                    {
+                        processed = scrubber.Process(processed.AsSpan(), counter, context);
+                    }
 
-            lineStart = nextStart;
-            i = nextStart;
+                    if (processed is null)
+                    {
+                        break;
+                    }
+                }
+
+                if (first)
+                {
+                    // No scrubbers ran; defensive — shouldn't happen given outer Count > 0 check.
+                    processed = line.ToString();
+                }
+
+                if (processed is not null)
+                {
+                    if (hasContent)
+                    {
+                        target.Append('\n');
+                    }
+
+                    target.Append(processed);
+                    hasContent = true;
+                }
+
+                lineStart = nextStart;
+                i = nextStart;
+            }
         }
+        finally
+        {
+            sourcePool.Return(sourceBuffer);
+        }
+    }
+
+    static List<ScrubberChunk> RentChunks()
+    {
+        var list = threadChunks;
+        if (list is null)
+        {
+            return new(8);
+        }
+
+        threadChunks = null;
+        list.Clear();
+        return list;
+    }
+
+    static void ReturnChunks(List<ScrubberChunk> list)
+    {
+        // Drop the reference to any large per-call growth before recycling.
+        if (list.Capacity > 256)
+        {
+            return;
+        }
+
+        threadChunks = list;
+    }
+
+    static StringBuilder RentSwap()
+    {
+        var sb = threadSwap;
+        if (sb is null)
+        {
+            return new(256);
+        }
+
+        threadSwap = null;
+        sb.Clear();
+        return sb;
+    }
+
+    static void ReturnSwap(StringBuilder sb)
+    {
+        if (sb.Capacity > 64 * 1024)
+        {
+            return;
+        }
+
+        threadSwap = sb;
+    }
+
+    static bool NeedsNewlineNormalization(StringBuilder builder)
+    {
+        // If the buffer already only contains '\n' line endings, FixNewlines is a no-op work pass.
+        // Scan once and skip the pass when nothing needs converting.
+        foreach (var chunk in builder.GetChunks())
+        {
+            var span = chunk.Span;
+            if (span.IndexOf('\r') >= 0)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     static List<ContentScrubber>? CollectContent(VerifySettings settings, string extension)

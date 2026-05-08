@@ -64,52 +64,33 @@ static class PatternWalker
         int globalMin)
     {
         var lineStart = 0;
-        for (var i = 0; i < source.Length; i++)
+        while (lineStart < source.Length)
         {
-            var ch = source[i];
-            if (ch != '\n' && ch != '\r')
+            var remaining = source.Slice(lineStart);
+            var nextTerminator = remaining.IndexOfAny('\n', '\r');
+            if (nextTerminator < 0)
             {
-                continue;
+                WalkLine(source, lineStart, source.Length, patterns, counter, context, chunks, globalMin);
+                return;
             }
 
-            EmitLineAndTerminator(source, lineStart, i, patterns, counter, context, chunks, globalMin, ref i);
-            lineStart = i + 1;
-        }
+            var terminatorStart = lineStart + nextTerminator;
+            if (terminatorStart > lineStart)
+            {
+                WalkLine(source, lineStart, terminatorStart, patterns, counter, context, chunks, globalMin);
+            }
 
-        if (lineStart < source.Length)
-        {
-            WalkLine(source, lineStart, source.Length, patterns, counter, context, chunks, globalMin);
-        }
-    }
+            var terminatorLength = 1;
+            if (source[terminatorStart] == '\r' &&
+                terminatorStart + 1 < source.Length &&
+                source[terminatorStart + 1] == '\n')
+            {
+                terminatorLength = 2;
+            }
 
-    static void EmitLineAndTerminator(
-        CharSpan source,
-        int lineStart,
-        int terminatorStart,
-        IReadOnlyList<PatternScrubber> patterns,
-        Counter counter,
-        IReadOnlyDictionary<string, object> context,
-        List<ScrubberChunk> chunks,
-        int globalMin,
-        ref int i)
-    {
-        if (terminatorStart > lineStart)
-        {
-            WalkLine(source, lineStart, terminatorStart, patterns, counter, context, chunks, globalMin);
+            chunks.Add(ScrubberChunk.Passthrough(terminatorStart, terminatorLength));
+            lineStart = terminatorStart + terminatorLength;
         }
-
-        // Treat the line terminator (\n, \r, \r\n) as a single passthrough chunk so
-        // it can't be fragmented and gets normalised by FixNewlines later.
-        var terminatorLength = 1;
-        if (source[i] == '\r' &&
-            i + 1 < source.Length &&
-            source[i + 1] == '\n')
-        {
-            terminatorLength = 2;
-            i++;
-        }
-
-        chunks.Add(ScrubberChunk.Passthrough(terminatorStart, terminatorLength));
     }
 
     static void WalkLine(

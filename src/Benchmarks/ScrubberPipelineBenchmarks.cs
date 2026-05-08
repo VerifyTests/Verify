@@ -8,9 +8,12 @@ public class ScrubberPipelineBenchmarks
     string mediumInput = null!;
     string largeInput = null!;
     string noMatchInput = null!;
+    string shortLinesInput = null!;
 
-    VerifySettings settings = null!;
+    VerifySettings settingsGuid = null!;
+    VerifySettings settingsMixed = null!;
     Counter counter = null!;
+    DateTimeOffsetPatternScrubber dateTimeOffset = null!;
 
     [GlobalSetup]
     public void Setup()
@@ -25,61 +28,80 @@ public class ScrubberPipelineBenchmarks
         largeInput = string.Join('\n', Enumerable.Repeat(mediumInput, 100));
 
         // NoMatch: ~200 KB of plain text containing nothing the active scrubbers care about.
-        // Worst case for length-window filtering / pure throughput.
         noMatchInput = string.Concat(Enumerable.Repeat("the quick brown fox jumps over the lazy dog\n", 5000));
 
-        settings = new VerifySettings();
+        // ShortLines: ~200 KB where every line is shorter than the Guid scrubber MinLength (36 chars).
+        // Exercises the per-line skip-by-length-window optimization: the new pipeline can decide
+        // each line is too short to match without invoking TryMatch.
+        shortLinesInput = string.Concat(Enumerable.Repeat("hello world\n", 18000));
+
+        dateTimeOffset = new("yyyy-MM-ddTHH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture);
+
+        // Pre-built settings reused across iterations so the benchmark measures
+        // the engine, not the registration cost.
+        settingsGuid = new VerifySettings();
+        settingsGuid.AddScrubber(GuidPatternScrubber.Instance);
+
+        settingsMixed = new VerifySettings();
+        settingsMixed.AddScrubber(GuidPatternScrubber.Instance);
+        settingsMixed.AddScrubber(dateTimeOffset);
+
         counter = Counter.Start();
     }
 
     static string BuildLogLine(int i) =>
         $"[2025-01-{i:D2}T10:11:12.{i:D3}Z] request {Guid.NewGuid():D} from /usr/local/var/lib/thing-{i}.log finished";
 
-    StringBuilder BuildBuilder(string input) => new(input);
-
     // ---- New pipeline ----
 
     [Benchmark]
     public void New_Tiny_Guid()
     {
-        var builder = BuildBuilder(tinyInput);
-        ScrubberPipeline_PublicRunner.RunWithGuid(builder, counter);
+        var builder = new StringBuilder(tinyInput);
+        ApplyScrubbers.ApplyForExtension("txt", builder, settingsGuid, counter);
     }
 
     [Benchmark]
     public void New_Medium_Mixed()
     {
-        var builder = BuildBuilder(mediumInput);
-        ScrubberPipeline_PublicRunner.RunWithMixed(builder, counter);
+        var builder = new StringBuilder(mediumInput);
+        ApplyScrubbers.ApplyForExtension("txt", builder, settingsMixed, counter);
     }
 
     [Benchmark]
     public void New_Large_Mixed()
     {
-        var builder = BuildBuilder(largeInput);
-        ScrubberPipeline_PublicRunner.RunWithMixed(builder, counter);
+        var builder = new StringBuilder(largeInput);
+        ApplyScrubbers.ApplyForExtension("txt", builder, settingsMixed, counter);
     }
 
     [Benchmark]
     public void New_NoMatch()
     {
-        var builder = BuildBuilder(noMatchInput);
-        ScrubberPipeline_PublicRunner.RunWithMixed(builder, counter);
+        var builder = new StringBuilder(noMatchInput);
+        ApplyScrubbers.ApplyForExtension("txt", builder, settingsMixed, counter);
     }
 
-    // ---- Old pipeline (legacy delegate-based scrubber via PatternScrubberRunner) ----
+    [Benchmark]
+    public void New_ShortLines()
+    {
+        var builder = new StringBuilder(shortLinesInput);
+        ApplyScrubbers.ApplyForExtension("txt", builder, settingsMixed, counter);
+    }
+
+    // ---- Old pipeline (legacy delegate-based scrubber) ----
 
     [Benchmark(Baseline = true)]
     public void Old_Tiny_Guid()
     {
-        var builder = BuildBuilder(tinyInput);
+        var builder = new StringBuilder(tinyInput);
         GuidScrubber.ReplaceGuids(builder, counter);
     }
 
     [Benchmark]
     public void Old_Medium_Mixed()
     {
-        var builder = BuildBuilder(mediumInput);
+        var builder = new StringBuilder(mediumInput);
         GuidScrubber.ReplaceGuids(builder, counter);
         DateScrubber.ReplaceDateTimeOffsets(builder, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", counter, CultureInfo.InvariantCulture);
     }
@@ -87,7 +109,7 @@ public class ScrubberPipelineBenchmarks
     [Benchmark]
     public void Old_Large_Mixed()
     {
-        var builder = BuildBuilder(largeInput);
+        var builder = new StringBuilder(largeInput);
         GuidScrubber.ReplaceGuids(builder, counter);
         DateScrubber.ReplaceDateTimeOffsets(builder, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", counter, CultureInfo.InvariantCulture);
     }
@@ -95,30 +117,16 @@ public class ScrubberPipelineBenchmarks
     [Benchmark]
     public void Old_NoMatch()
     {
-        var builder = BuildBuilder(noMatchInput);
+        var builder = new StringBuilder(noMatchInput);
         GuidScrubber.ReplaceGuids(builder, counter);
         DateScrubber.ReplaceDateTimeOffsets(builder, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", counter, CultureInfo.InvariantCulture);
     }
-}
 
-// Helper that drives the new public pipeline through the same set of registered scrubbers each iteration.
-static class ScrubberPipeline_PublicRunner
-{
-    static readonly DateTimeOffsetPatternScrubber dateTimeOffset =
-        new("yyyy-MM-ddTHH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture);
-
-    public static void RunWithGuid(StringBuilder builder, Counter counter)
+    [Benchmark]
+    public void Old_ShortLines()
     {
-        var settings = new VerifySettings();
-        settings.AddScrubber(GuidPatternScrubber.Instance);
-        ApplyScrubbers.ApplyForExtension("txt", builder, settings, counter);
-    }
-
-    public static void RunWithMixed(StringBuilder builder, Counter counter)
-    {
-        var settings = new VerifySettings();
-        settings.AddScrubber(GuidPatternScrubber.Instance);
-        settings.AddScrubber(dateTimeOffset);
-        ApplyScrubbers.ApplyForExtension("txt", builder, settings, counter);
+        var builder = new StringBuilder(shortLinesInput);
+        GuidScrubber.ReplaceGuids(builder, counter);
+        DateScrubber.ReplaceDateTimeOffsets(builder, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", counter, CultureInfo.InvariantCulture);
     }
 }

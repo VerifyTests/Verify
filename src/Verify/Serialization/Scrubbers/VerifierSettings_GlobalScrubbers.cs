@@ -1,34 +1,83 @@
-﻿namespace VerifyTests;
+// ReSharper disable RedundantSuppressNullableWarningExpression
+
+namespace VerifyTests;
 
 public static partial class VerifierSettings
 {
-    internal static List<Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>>> GlobalScrubbers = [];
+    internal static List<PatternScrubber> GlobalPatternScrubbers = [];
+    internal static List<LineScrubber> GlobalLineScrubbers = [];
+    internal static List<ContentScrubber> GlobalContentScrubbers = [];
+
+    internal static void ClearAllGlobalScrubbers()
+    {
+        GlobalPatternScrubbers.Clear();
+        GlobalLineScrubbers.Clear();
+        GlobalContentScrubbers.Clear();
+        ExtensionMappedGlobalPatternScrubbers.Clear();
+        ExtensionMappedGlobalLineScrubbers.Clear();
+        ExtensionMappedGlobalContentScrubbers.Clear();
+    }
+
+    /// <summary>
+    /// Register a <see cref="PatternScrubber" /> that runs over every verification.
+    /// Pattern scrubbers are sorted by <see cref="PatternScrubber.MaxLength" /> descending
+    /// so longer/more-specific matches win overlapping ranges.
+    /// </summary>
+    public static void AddScrubber(PatternScrubber scrubber)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        GlobalPatternScrubbers.Add(scrubber);
+    }
+
+    /// <summary>
+    /// Register a <see cref="LineScrubber" /> that runs per-line over every verification.
+    /// Line scrubbers run after pattern scrubbers, in registration order.
+    /// </summary>
+    public static void AddScrubber(LineScrubber scrubber)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        GlobalLineScrubbers.Add(scrubber);
+    }
+
+    /// <summary>
+    /// Register a <see cref="ContentScrubber" /> that runs over the full content of every verification.
+    /// Content scrubbers run before pattern and line scrubbers, in registration order.
+    /// </summary>
+    public static void AddScrubber(ContentScrubber scrubber)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        GlobalContentScrubbers.Add(scrubber);
+    }
 
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
+    [Obsolete("Subclass ContentScrubber and call AddScrubber(ContentScrubber). See the scrubber migration guide.")]
     public static void AddScrubber(Action<StringBuilder> scrubber, ScrubberLocation location = ScrubberLocation.First) =>
         AddScrubber((builder, _, _) => scrubber(builder), location);
 
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
+    [Obsolete("Subclass ContentScrubber and call AddScrubber(ContentScrubber). See the scrubber migration guide.")]
     public static void AddScrubber(Action<StringBuilder, Counter> scrubber, ScrubberLocation location = ScrubberLocation.First) =>
         AddScrubber((builder, counter, _) => scrubber(builder, counter), location);
 
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
+    [Obsolete("Subclass ContentScrubber and call AddScrubber(ContentScrubber). See the scrubber migration guide.")]
     public static void AddScrubber(Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>> scrubber, ScrubberLocation location = ScrubberLocation.First)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
+        var adapter = new ActionAdapterContentScrubber(scrubber);
         switch (location)
         {
             case ScrubberLocation.First:
-                GlobalScrubbers.Insert(0, scrubber);
+                GlobalContentScrubbers.Insert(0, adapter);
                 break;
             case ScrubberLocation.Last:
-                GlobalScrubbers.Add(scrubber);
+                GlobalContentScrubbers.Add(adapter);
                 break;
         }
     }
@@ -39,35 +88,48 @@ public static partial class VerifierSettings
     public static void ScrubLinesContaining(StringComparison comparison, params string[] stringToMatch)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        ScrubLinesContaining(comparison, ScrubberLocation.First, stringToMatch);
+        Ensure.NotNullOrEmpty(stringToMatch);
+        AddScrubber(new RemoveLinesContainingScrubber(comparison, stringToMatch));
     }
 
     /// <summary>
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>
-    public static void ScrubLinesContaining(StringComparison comparison, ScrubberLocation location, params string[] stringToMatch)
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesContaining(StringComparison, params string[]).")]
+    public static void ScrubLinesContaining(StringComparison comparison, ScrubberLocation location, params string[] stringToMatch) =>
+        ScrubLinesContaining(comparison, stringToMatch);
+
+    /// <summary>
+    /// Remove any lines matching <paramref name="removeLine" /> from the test results.
+    /// </summary>
+    public static void ScrubLines(Func<string, bool> removeLine)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(_ => _.RemoveLinesContaining(comparison, stringToMatch), location);
+        AddScrubber(new FilterLinesScrubber(removeLine));
     }
 
     /// <summary>
     /// Remove any lines matching <paramref name="removeLine" /> from the test results.
     /// </summary>
-    public static void ScrubLines(Func<string, bool> removeLine, ScrubberLocation location = ScrubberLocation.First)
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubLines(Func<string, bool>).")]
+    public static void ScrubLines(Func<string, bool> removeLine, ScrubberLocation location) =>
+        ScrubLines(removeLine);
+
+    /// <summary>
+    /// Remove any lines containing only whitespace from the test results.
+    /// </summary>
+    public static void ScrubEmptyLines()
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(_ => _.FilterLines(removeLine), location);
+        AddScrubber(RemoveEmptyLinesScrubber.Instance);
     }
 
     /// <summary>
     /// Remove any lines containing only whitespace from the test results.
     /// </summary>
-    public static void ScrubEmptyLines(ScrubberLocation location = ScrubberLocation.First)
-    {
-        InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(_ => _.RemoveEmptyLines(), location);
-    }
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubEmptyLines().")]
+    public static void ScrubEmptyLines(ScrubberLocation location) =>
+        ScrubEmptyLines();
 
     internal static bool DateCountingEnabled { get; private set; } = true;
 
@@ -82,22 +144,36 @@ public static partial class VerifierSettings
     /// </summary>
     public static void ScrubInlineDateTimes(
         [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
-        Culture? culture = null,
-        ScrubberLocation location = ScrubberLocation.First) =>
-        AddScrubber(
-            DateScrubber.BuildDateTimeScrubber(format, culture),
-            location);
+        Culture? culture = null) =>
+        AddScrubber(new DateTimePatternScrubber(format, culture));
 
     /// <summary>
     /// Replace inline <see cref="DateTime" />s with a placeholder.
     /// </summary>
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubInlineDateTimes(string, Culture?).")]
+    public static void ScrubInlineDateTimes(
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        Culture? culture,
+        ScrubberLocation location) =>
+        ScrubInlineDateTimes(format, culture);
+
+    /// <summary>
+    /// Replace inline <see cref="DateTimeOffset" />s with a placeholder.
+    /// </summary>
     public static void ScrubInlineDateTimeOffsets(
         [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
-        Culture? culture = null,
-        ScrubberLocation location = ScrubberLocation.First) =>
-        AddScrubber(
-            DateScrubber.BuildDateTimeOffsetScrubber(format, culture),
-            location);
+        Culture? culture = null) =>
+        AddScrubber(new DateTimeOffsetPatternScrubber(format, culture));
+
+    /// <summary>
+    /// Replace inline <see cref="DateTimeOffset" />s with a placeholder.
+    /// </summary>
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubInlineDateTimeOffsets(string, Culture?).")]
+    public static void ScrubInlineDateTimeOffsets(
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        Culture? culture,
+        ScrubberLocation location) =>
+        ScrubInlineDateTimeOffsets(format, culture);
 
 #if NET6_0_OR_GREATER
 
@@ -106,66 +182,96 @@ public static partial class VerifierSettings
     /// </summary>
     public static void ScrubInlineDates(
         [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)] string format,
-        Culture? culture = null,
-        ScrubberLocation location = ScrubberLocation.First) =>
-        AddScrubber(
-            DateScrubber.BuildDateScrubber(format, culture),
-            location);
+        Culture? culture = null) =>
+        AddScrubber(new DatePatternScrubber(format, culture));
+
+    /// <summary>
+    /// Replace inline <see cref="Date" />s with a placeholder.
+    /// </summary>
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubInlineDates(string, Culture?).")]
+    public static void ScrubInlineDates(
+        [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)] string format,
+        Culture? culture,
+        ScrubberLocation location) =>
+        ScrubInlineDates(format, culture);
 
 #endif
 
     /// <summary>
     /// Replace inline <see cref="Guid" />s with a placeholder.
     /// </summary>
-    public static void ScrubInlineGuids(ScrubberLocation location = ScrubberLocation.First)
+    public static void ScrubInlineGuids()
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(GuidScrubber.ReplaceGuids, location);
+        AddScrubber(GuidPatternScrubber.Instance);
     }
+
+    /// <summary>
+    /// Replace inline <see cref="Guid" />s with a placeholder.
+    /// </summary>
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubInlineGuids().")]
+    public static void ScrubInlineGuids(ScrubberLocation location) =>
+        ScrubInlineGuids();
 
     /// <summary>
     /// Scrub lines with an optional replace.
     /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a different string to replace it.
     /// </summary>
-    public static void ScrubLinesWithReplace(Func<string, string?> replaceLine, ScrubberLocation location = ScrubberLocation.First)
+    public static void ScrubLinesWithReplace(Func<string, string?> replaceLine)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(_ => _.ReplaceLines(replaceLine), location);
+        AddScrubber(new ReplaceLinesScrubber(replaceLine));
     }
+
+    /// <summary>
+    /// Scrub lines with an optional replace.
+    /// </summary>
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesWithReplace(Func<string, string?>).")]
+    public static void ScrubLinesWithReplace(Func<string, string?> replaceLine, ScrubberLocation location) =>
+        ScrubLinesWithReplace(replaceLine);
 
     /// <summary>
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>
-    public static void ScrubLinesContaining(params string[] stringToMatch)
-    {
-        InnerVerifier.ThrowIfVerifyHasBeenRun();
-        ScrubLinesContaining(ScrubberLocation.First, stringToMatch);
-    }
+    public static void ScrubLinesContaining(params string[] stringToMatch) =>
+        ScrubLinesContaining(StringComparison.OrdinalIgnoreCase, stringToMatch);
 
     /// <summary>
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>
-    public static void ScrubLinesContaining(ScrubberLocation location = ScrubberLocation.First, params string[] stringToMatch)
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesContaining(params string[]).")]
+    public static void ScrubLinesContaining(ScrubberLocation location, params string[] stringToMatch) =>
+        ScrubLinesContaining(StringComparison.OrdinalIgnoreCase, stringToMatch);
+
+    /// <summary>
+    /// Remove the <see cref="Environment.MachineName" /> from the test results.
+    /// </summary>
+    public static void ScrubMachineName()
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        ScrubLinesContaining(StringComparison.OrdinalIgnoreCase, location, stringToMatch);
+        AddScrubber(UserMachineScrubber.MachinePatternScrubber());
     }
 
     /// <summary>
     /// Remove the <see cref="Environment.MachineName" /> from the test results.
     /// </summary>
-    public static void ScrubMachineName(ScrubberLocation location = ScrubberLocation.First)
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubMachineName().")]
+    public static void ScrubMachineName(ScrubberLocation location) =>
+        ScrubMachineName();
+
+    /// <summary>
+    /// Remove the <see cref="Environment.UserName" /> from the test results.
+    /// </summary>
+    public static void ScrubUserName()
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(UserMachineScrubber.Machine, location);
+        AddScrubber(UserMachineScrubber.UserPatternScrubber());
     }
 
     /// <summary>
     /// Remove the <see cref="Environment.UserName" /> from the test results.
     /// </summary>
-    public static void ScrubUserName(ScrubberLocation location = ScrubberLocation.First)
-    {
-        InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(UserMachineScrubber.User, location);
-    }
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubUserName().")]
+    public static void ScrubUserName(ScrubberLocation location) =>
+        ScrubUserName();
 }

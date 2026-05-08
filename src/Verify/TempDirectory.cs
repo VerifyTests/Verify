@@ -63,24 +63,14 @@ public class TempDirectory :
             },
             after: () => asyncPaths.Value = null);
 
-        VerifierSettings.GlobalScrubbers.Add((scrubber, _, _) =>
-        {
-            var pathsValue = asyncPaths.Value;
-            if (pathsValue == null)
-            {
-                return;
-            }
-
-            foreach (var path in pathsValue)
-            {
-                scrubber.Replace(path, "{TempDirectory}");
-            }
-        });
+        VerifierSettings.AddScrubber(new TempDirectoryContentScrubber());
 
         Cleanup();
     }
 
     static AsyncLocal<List<string>?> asyncPaths = new();
+
+    internal static List<string>? AsyncPaths => asyncPaths.Value;
 
     internal static void Cleanup()
     {

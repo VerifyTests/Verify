@@ -1,43 +1,92 @@
-﻿namespace VerifyTests;
+// ReSharper disable RedundantSuppressNullableWarningExpression
+
+namespace VerifyTests;
 
 public static partial class VerifierSettings
 {
-    internal static Dictionary<string, List<Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>>>> ExtensionMappedGlobalScrubbers = [];
+    internal static Dictionary<string, List<PatternScrubber>> ExtensionMappedGlobalPatternScrubbers = [];
+    internal static Dictionary<string, List<LineScrubber>> ExtensionMappedGlobalLineScrubbers = [];
+    internal static Dictionary<string, List<ContentScrubber>> ExtensionMappedGlobalContentScrubbers = [];
 
     /// <summary>
-    /// Modify the resulting test content using custom code.
+    /// Register a <see cref="PatternScrubber" /> for files with the given extension.
     /// </summary>
-    public static void AddScrubber(string extension, Action<StringBuilder> scrubber, ScrubberLocation location = ScrubberLocation.First)
+    public static void AddScrubber(string extension, PatternScrubber scrubber)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(extension, (builder, _) => scrubber(builder), location);
+        if (!ExtensionMappedGlobalPatternScrubbers.TryGetValue(extension, out var values))
+        {
+            ExtensionMappedGlobalPatternScrubbers[extension] = values = [];
+        }
+
+        values.Add(scrubber);
+    }
+
+    /// <summary>
+    /// Register a <see cref="LineScrubber" /> for files with the given extension.
+    /// </summary>
+    public static void AddScrubber(string extension, LineScrubber scrubber)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        if (!ExtensionMappedGlobalLineScrubbers.TryGetValue(extension, out var values))
+        {
+            ExtensionMappedGlobalLineScrubbers[extension] = values = [];
+        }
+
+        values.Add(scrubber);
+    }
+
+    /// <summary>
+    /// Register a <see cref="ContentScrubber" /> for files with the given extension.
+    /// </summary>
+    public static void AddScrubber(string extension, ContentScrubber scrubber)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        if (!ExtensionMappedGlobalContentScrubbers.TryGetValue(extension, out var values))
+        {
+            ExtensionMappedGlobalContentScrubbers[extension] = values = [];
+        }
+
+        values.Add(scrubber);
     }
 
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
-    public static void AddScrubber(string extension, Action<StringBuilder, Counter> scrubber, ScrubberLocation location = ScrubberLocation.First) =>
-        AddScrubber(extension, (builder, counter, _) =>
-            scrubber(builder, counter), location);
+    [Obsolete("Subclass ContentScrubber and call AddScrubber(string, ContentScrubber). See the scrubber migration guide.")]
+    public static void AddScrubber(string extension, Action<StringBuilder> scrubber, ScrubberLocation location = ScrubberLocation.First)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        AddScrubber(extension, (builder, _, _) => scrubber(builder), location);
+    }
 
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
+    [Obsolete("Subclass ContentScrubber and call AddScrubber(string, ContentScrubber). See the scrubber migration guide.")]
+    public static void AddScrubber(string extension, Action<StringBuilder, Counter> scrubber, ScrubberLocation location = ScrubberLocation.First) =>
+        AddScrubber(extension, (builder, counter, _) => scrubber(builder, counter), location);
+
+    /// <summary>
+    /// Modify the resulting test content using custom code.
+    /// </summary>
+    [Obsolete("Subclass ContentScrubber and call AddScrubber(string, ContentScrubber). See the scrubber migration guide.")]
     public static void AddScrubber(string extension, Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>> scrubber, ScrubberLocation location = ScrubberLocation.First)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        if (!ExtensionMappedGlobalScrubbers.TryGetValue(extension, out var values))
+        if (!ExtensionMappedGlobalContentScrubbers.TryGetValue(extension, out var values))
         {
-            ExtensionMappedGlobalScrubbers[extension] = values = [];
+            ExtensionMappedGlobalContentScrubbers[extension] = values = [];
         }
 
+        var adapter = new ActionAdapterContentScrubber(scrubber);
         switch (location)
         {
             case ScrubberLocation.First:
-                values.Insert(0, scrubber);
+                values.Insert(0, adapter);
                 break;
             case ScrubberLocation.Last:
-                values.Add(scrubber);
+                values.Add(adapter);
                 break;
         }
     }
@@ -48,79 +97,117 @@ public static partial class VerifierSettings
     public static void ScrubLinesContaining(string extension, StringComparison comparison, params string[] stringToMatch)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        ScrubLinesContaining(extension, comparison, ScrubberLocation.First, stringToMatch);
+        Ensure.NotNullOrEmpty(stringToMatch);
+        AddScrubber(extension, new RemoveLinesContainingScrubber(comparison, stringToMatch));
     }
 
     /// <summary>
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>
-    public static void ScrubLinesContaining(string extension, StringComparison comparison, ScrubberLocation location, params string[] stringToMatch)
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesContaining(string, StringComparison, params string[]).")]
+    public static void ScrubLinesContaining(string extension, StringComparison comparison, ScrubberLocation location, params string[] stringToMatch) =>
+        ScrubLinesContaining(extension, comparison, stringToMatch);
+
+    /// <summary>
+    /// Remove any lines matching <paramref name="removeLine" /> from the test results.
+    /// </summary>
+    public static void ScrubLines(string extension, Func<string, bool> removeLine)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(extension, _ => _.RemoveLinesContaining(comparison, stringToMatch), location);
+        AddScrubber(extension, new FilterLinesScrubber(removeLine));
     }
 
     /// <summary>
     /// Remove any lines matching <paramref name="removeLine" /> from the test results.
     /// </summary>
-    public static void ScrubLines(string extension, Func<string, bool> removeLine, ScrubberLocation location = ScrubberLocation.First)
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubLines(string, Func<string, bool>).")]
+    public static void ScrubLines(string extension, Func<string, bool> removeLine, ScrubberLocation location) =>
+        ScrubLines(extension, removeLine);
+
+    /// <summary>
+    /// Remove any lines containing only whitespace from the test results.
+    /// </summary>
+    public static void ScrubEmptyLines(string extension)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(extension, _ => _.FilterLines(removeLine), location);
+        AddScrubber(extension, RemoveEmptyLinesScrubber.Instance);
     }
 
     /// <summary>
     /// Remove any lines containing only whitespace from the test results.
     /// </summary>
-    public static void ScrubEmptyLines(string extension, ScrubberLocation location = ScrubberLocation.First)
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubEmptyLines(string).")]
+    public static void ScrubEmptyLines(string extension, ScrubberLocation location) =>
+        ScrubEmptyLines(extension);
+
+    /// <summary>
+    /// Replace inline <see cref="Guid" />s with a placeholder.
+    /// </summary>
+    public static void ScrubInlineGuids(string extension)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(extension, _ => _.RemoveEmptyLines(), location);
+        AddScrubber(extension, GuidPatternScrubber.Instance);
     }
 
     /// <summary>
     /// Replace inline <see cref="Guid" />s with a placeholder.
     /// </summary>
-    public static void ScrubInlineGuids(string extension, ScrubberLocation location = ScrubberLocation.First)
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubInlineGuids(string).")]
+    public static void ScrubInlineGuids(string extension, ScrubberLocation location) =>
+        ScrubInlineGuids(extension);
+
+    /// <summary>
+    /// Scrub lines with an optional replace.
+    /// </summary>
+    public static void ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(extension, GuidScrubber.ReplaceGuids, location);
+        AddScrubber(extension, new ReplaceLinesScrubber(replaceLine));
     }
 
     /// <summary>
     /// Scrub lines with an optional replace.
-    /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a different string to replace it.
     /// </summary>
-    public static void ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine, ScrubberLocation location = ScrubberLocation.First)
-    {
-        InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(extension, _ => _.ReplaceLines(replaceLine), location);
-    }
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesWithReplace(string, Func<string, string?>).")]
+    public static void ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine, ScrubberLocation location) =>
+        ScrubLinesWithReplace(extension, replaceLine);
 
     /// <summary>
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>
-    public static void ScrubLinesContaining(string extension, ScrubberLocation location = ScrubberLocation.First, params string[] stringToMatch)
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesContaining(string, StringComparison, params string[]).")]
+    public static void ScrubLinesContaining(string extension, ScrubberLocation location, params string[] stringToMatch) =>
+        ScrubLinesContaining(extension, StringComparison.OrdinalIgnoreCase, stringToMatch);
+
+    /// <summary>
+    /// Remove the <see cref="Environment.MachineName" /> from the test results.
+    /// </summary>
+    public static void ScrubMachineName(string extension)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        ScrubLinesContaining(extension, StringComparison.OrdinalIgnoreCase, location, stringToMatch);
+        AddScrubber(extension, UserMachineScrubber.MachinePatternScrubber());
     }
 
     /// <summary>
     /// Remove the <see cref="Environment.MachineName" /> from the test results.
     /// </summary>
-    public static void ScrubMachineName(string extension, ScrubberLocation location = ScrubberLocation.First)
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubMachineName(string).")]
+    public static void ScrubMachineName(string extension, ScrubberLocation location) =>
+        ScrubMachineName(extension);
+
+    /// <summary>
+    /// Remove the <see cref="Environment.UserName" /> from the test results.
+    /// </summary>
+    public static void ScrubUserName(string extension)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(extension, UserMachineScrubber.Machine, location);
+        AddScrubber(extension, UserMachineScrubber.UserPatternScrubber());
     }
 
     /// <summary>
     /// Remove the <see cref="Environment.UserName" /> from the test results.
     /// </summary>
-    public static void ScrubUserName(string extension, ScrubberLocation location = ScrubberLocation.First)
-    {
-        InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(extension, UserMachineScrubber.User, location);
-    }
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubUserName(string).")]
+    public static void ScrubUserName(string extension, ScrubberLocation location) =>
+        ScrubUserName(extension);
 }

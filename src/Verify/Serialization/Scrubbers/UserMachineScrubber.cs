@@ -13,9 +13,9 @@
         UserMachineScrubber.userName = userName;
     }
 
-    public static void Machine(StringBuilder builder) =>
-        PerformReplacements(builder, machineName, "TheMachineName");
+    public static LiteralReplacePatternScrubber MachinePatternScrubber() =>
+        new(machineName, "TheMachineName");
 
-    public static void User(StringBuilder builder) =>
-        PerformReplacements(builder, userName, "TheUserName");
+    public static LiteralReplacePatternScrubber UserPatternScrubber() =>
+        new(userName, "TheUserName");
 }

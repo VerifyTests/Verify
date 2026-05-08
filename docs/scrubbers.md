@@ -11,7 +11,7 @@ Scrubbers run on the final string before doing the verification action.
 
 Multiple scrubbers [can be defined at multiple levels](#Scrubber-levels).
 
-By default scrubber are executed in reverse order. So the most recent added method scrubber through to earliest added global scrubber. All scrubber APIs support a `ScrubberLocation location`. To execute a scrubber last use `ScrubberLocation.Last`.
+The scrubber engine sorts pattern scrubbers by their `MaxLength` descending, runs line scrubbers in registration order after the pattern pass, and runs content scrubbers first. See the [scrubber migration guide](scrubber-migration.md) for details on the new API and how to migrate from the legacy `Action<StringBuilder>` form.
 
 Scrubbers can be added multiple times to have them execute multiple times. This can be helpful when compounding multiple scrubbers together.
 

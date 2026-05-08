@@ -24,14 +24,34 @@ public partial class VerifySettings
 
         ScrubbersEnabled = settings.ScrubbersEnabled;
         dateCountingEnable = settings.dateCountingEnable;
-        if (settings.InstanceScrubbers != null)
+        if (settings.InstancePatternScrubbers != null)
         {
-            InstanceScrubbers = [..settings.InstanceScrubbers];
+            InstancePatternScrubbers = [..settings.InstancePatternScrubbers];
         }
 
-        if (settings.ExtensionMappedInstanceScrubbers != null)
+        if (settings.InstanceLineScrubbers != null)
         {
-            ExtensionMappedInstanceScrubbers = new(settings.ExtensionMappedInstanceScrubbers);
+            InstanceLineScrubbers = [..settings.InstanceLineScrubbers];
+        }
+
+        if (settings.InstanceContentScrubbers != null)
+        {
+            InstanceContentScrubbers = [..settings.InstanceContentScrubbers];
+        }
+
+        if (settings.ExtensionMappedInstancePatternScrubbers != null)
+        {
+            ExtensionMappedInstancePatternScrubbers = new(settings.ExtensionMappedInstancePatternScrubbers);
+        }
+
+        if (settings.ExtensionMappedInstanceLineScrubbers != null)
+        {
+            ExtensionMappedInstanceLineScrubbers = new(settings.ExtensionMappedInstanceLineScrubbers);
+        }
+
+        if (settings.ExtensionMappedInstanceContentScrubbers != null)
+        {
+            ExtensionMappedInstanceContentScrubbers = new(settings.ExtensionMappedInstanceContentScrubbers);
         }
 
         diffEnabled = settings.diffEnabled;

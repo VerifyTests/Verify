@@ -3,9 +3,44 @@
 static partial class DirectoryReplacements
 {
     static List<Pair> items = [];
+    static int minLength;
+    static int maxLength;
+
+    internal static List<Pair> Items => items;
+    internal static int MinLength => minLength;
+    internal static int MaxLength => maxLength;
 
     public static void Replace(StringBuilder builder) =>
         Replace(builder, items);
+
+    static void RecalculateLengths()
+    {
+        if (items.Count == 0)
+        {
+            minLength = 0;
+            maxLength = 0;
+            return;
+        }
+
+        var min = int.MaxValue;
+        var max = 0;
+        foreach (var item in items)
+        {
+            if (item.Find.Length < min)
+            {
+                min = item.Find.Length;
+            }
+
+            if (item.Find.Length > max)
+            {
+                max = item.Find.Length;
+            }
+        }
+
+        minLength = min;
+        // +1 for the greedy trailing separator
+        maxLength = max + 1;
+    }
 
     public static void UseAssembly(string? solutionDir, string projectDir)
     {
@@ -46,6 +81,7 @@ static partial class DirectoryReplacements
         items = values
             .OrderByDescending(_ => _.Find.Length)
             .ToList();
+        RecalculateLengths();
     }
 
     static void AddProjectAndSolutionReplacements(string? solutionDir, string projectDir, List<Pair> replacements)

@@ -13,6 +13,8 @@
     <NuGetAuditMode>all</NuGetAuditMode>
     <NuGetAuditLevel>low</NuGetAuditLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <!-- CS0618 (obsolete) is reported as a warning so existing call sites of obsolete scrubber APIs keep compiling during the migration. -->
+    <WarningsNotAsErrors>CS0618</WarningsNotAsErrors>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <PolyEnsure>true</PolyEnsure>
     <PolyStringInterpolation>true</PolyStringInterpolation>

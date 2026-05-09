@@ -100,7 +100,7 @@
                 return true;
             }
 
-            result = ApplyScrubbers.ApplyForPropertyValue(stringValue.AsSpan(), writer.settings, counter);
+            result = ScrubberPipeline.ApplyForPropertyValue(stringValue.AsSpan(), writer.settings, counter);
 
             return true;
         }

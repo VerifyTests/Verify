@@ -1,5 +1,3 @@
-using VerifyTests;
-
 [MemoryDiagnoser]
 [SimpleJob(iterationCount: 10, warmupCount: 3)]
 public class ScrubberPipelineBenchmarks
@@ -58,35 +56,35 @@ public class ScrubberPipelineBenchmarks
     public void New_Tiny_Guid()
     {
         var builder = new StringBuilder(tinyInput);
-        ApplyScrubbers.ApplyForExtension("txt", builder, settingsGuid, counter);
+        ScrubberPipeline.ApplyForExtension("txt", builder, settingsGuid, counter);
     }
 
     [Benchmark]
     public void New_Medium_Mixed()
     {
         var builder = new StringBuilder(mediumInput);
-        ApplyScrubbers.ApplyForExtension("txt", builder, settingsMixed, counter);
+        ScrubberPipeline.ApplyForExtension("txt", builder, settingsMixed, counter);
     }
 
     [Benchmark]
     public void New_Large_Mixed()
     {
         var builder = new StringBuilder(largeInput);
-        ApplyScrubbers.ApplyForExtension("txt", builder, settingsMixed, counter);
+        ScrubberPipeline.ApplyForExtension("txt", builder, settingsMixed, counter);
     }
 
     [Benchmark]
     public void New_NoMatch()
     {
         var builder = new StringBuilder(noMatchInput);
-        ApplyScrubbers.ApplyForExtension("txt", builder, settingsMixed, counter);
+        ScrubberPipeline.ApplyForExtension("txt", builder, settingsMixed, counter);
     }
 
     [Benchmark]
     public void New_ShortLines()
     {
         var builder = new StringBuilder(shortLinesInput);
-        ApplyScrubbers.ApplyForExtension("txt", builder, settingsMixed, counter);
+        ScrubberPipeline.ApplyForExtension("txt", builder, settingsMixed, counter);
     }
 
     // ---- Old pipeline (legacy delegate-based scrubber) ----

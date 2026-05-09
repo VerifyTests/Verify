@@ -1,5 +1,6 @@
 public class PngSsimComparerTests
 {
+    // ReSharper disable once CollectionNeverUpdated.Local
     static readonly Dictionary<string, object> emptyContext = new();
 
     [Fact]

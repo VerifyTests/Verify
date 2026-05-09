@@ -44,7 +44,7 @@ public class GuidScrubberTests
     {
         using var counter = Counter.Start();
         var builder = new StringBuilder(guid);
-        GuidScrubber.ReplaceGuids(builder, counter);
+        PatternScrubberRunner.Run(builder, GuidPatternScrubber.Instance, counter);
         await Verify(builder)
             .DontScrubGuids()
             .UseTextForParameters(name);
@@ -97,7 +97,7 @@ public class GuidScrubberTests
         builder.Append("[2e6bddf7-fcf7-4b09-bb6f-a7948e1eecf3]");
         builder.Append("[c2eeaf99-d5c4-4341-8543-4597c3fd40d9]");
         using var counter = Counter.Start();
-        GuidScrubber.ReplaceGuids(builder, counter);
+        PatternScrubberRunner.Run(builder, GuidPatternScrubber.Instance, counter);
         Assert.Equal("[Guid_1][Guid_2]", builder.ToString());
     }
 

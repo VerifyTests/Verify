@@ -23,5 +23,5 @@ readonly struct ScrubberChunk
     public static ScrubberChunk Replace(string replacement) =>
         new(-1, replacement.Length, replacement);
 
-    public int Length => Replacement is null ? SourceLength : Replacement.Length;
+    public int Length => Replacement?.Length ?? SourceLength;
 }

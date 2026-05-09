@@ -9,6 +9,77 @@ The scrubber engine sorts pattern scrubbers by their `MaxLength` descending, run
 Scrubbers can be added multiple times to have them execute multiple times. This can be helpful when compounding multiple scrubbers together.
 
 
+## Pipeline
+
+A scrub runs three phases in fixed order. Within a phase the per-scrubber rules differ — content scrubbers chain in registration order, pattern scrubbers compete by length and claim ranges, line scrubbers chain per-line.
+
+```mermaid
+flowchart TD
+    A[Input StringBuilder] --> B{Any ContentScrubbers?}
+    B -- yes --> C[Run each in registration order<br/>Each takes the whole buffer<br/>Output of N is input to N+1]
+    B -- no --> D
+    C --> D{Any PatternScrubbers?}
+    D -- yes --> E[Sort by MaxLength desc<br/>then MinLength desc]
+    E --> F[Single-pass walker over source<br/>At each position try each pattern<br/>First match wins, advance past it]
+    F --> G[Stitch chunks into output]
+    D -- no --> H
+    G --> H{Any LineScrubbers?}
+    H -- yes --> I[For each line, feed through<br/>each scrubber in registration order<br/>null result drops the line]
+    H -- no --> J
+    I --> J{Source had \r?}
+    J -- yes --> K[FixNewlines: \r\n and bare \r → \n]
+    J -- no --> L[Skip newline normalization]
+    K --> M[Output]
+    L --> M
+```
+
+### Chunk walker
+
+Pattern scrubbers do not rewrite the buffer in place. The walker reads the source span once and emits a sequence of chunks — passthrough ranges into the source, or replacement strings — which get stitched into a fresh buffer at the end.
+
+```
+Source:  Id: 173535ae-995b-4cc6-a74e-8cd4be57039c done
+         ^^^^                                    ^^^^^
+         pass                                    pass
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+             36-char Guid → replacement "Guid_1"
+
+Walker emits chunks:
+  [Passthrough  start=0   len=4 ]   "Id: "
+  [Replacement  "Guid_1"        ]   pattern matched at i=4, len=36, advance i to 40
+  [Passthrough  start=40  len=5 ]   " done"
+
+Stitch (single sequential append into output):
+  "Id: " + "Guid_1" + " done"  →  "Id: Guid_1 done"
+```
+
+A pattern scrubber declares `MinLength` / `MaxLength` of the substring it can match. Inputs (or lines, when `SingleLine` is true) shorter than the smallest `MinLength` skip the walker entirely. Each `TryMatch` call gets a slice no longer than that scrubber's `MaxLength`.
+
+### Pattern overlap
+
+When two patterns can both match at the same position, the longer one wins. The pre-walk sort by `MaxLength` descending makes that automatic, and the claim-once rule means the second pattern is never even consulted at a position the first claimed.
+
+```
+Two patterns registered:
+  A: matches literal "ab"   replacement "{SHORT}"  MaxLength=2
+  B: matches literal "abcd" replacement "{LONG}"   MaxLength=4
+
+Input:    a b c d
+Position: 0 1 2 3
+
+Sort by MaxLength desc → walker tries patterns in order [B, A]
+
+At i=0:
+  B.TryMatch("abcd") → match, emit "{LONG}", advance i to 4   ← claimed
+  A is NOT consulted at i=0 (claim-once)
+At i=4: end of input
+
+Output: "{LONG}"
+```
+
+If the order were reversed, A would claim "ab" and the longer match would be lost. The `MaxLength`-desc ordering makes overlapping patterns deterministic regardless of registration order.
+
+
 ## Available Scrubbers
 
 Scrubbers can be added to an instance of `VerifySettings` or globally on `VerifierSettings`.

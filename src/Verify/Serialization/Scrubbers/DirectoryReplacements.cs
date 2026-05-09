@@ -10,9 +10,6 @@ static partial class DirectoryReplacements
     internal static int MinLength => minLength;
     internal static int MaxLength => maxLength;
 
-    public static void Replace(StringBuilder builder) =>
-        Replace(builder, items);
-
     static void RecalculateLengths()
     {
         if (items.Count == 0)

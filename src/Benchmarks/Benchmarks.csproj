@@ -13,5 +13,6 @@
     <ProjectReference Include="..\Verify\Verify.csproj" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
+    <Compile Include="..\Verify.Tests\PatternScrubberRunner.cs" />
   </ItemGroup>
 </Project>

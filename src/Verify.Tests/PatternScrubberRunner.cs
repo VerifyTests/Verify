@@ -1,5 +1,9 @@
+using System.Buffers;
+
 namespace VerifyTests;
 
+// Test-only helper: invokes the pattern walker against a single scrubber
+// without going through the full ScrubberPipeline.
 static class PatternScrubberRunner
 {
     static readonly Dictionary<string, object> emptyContext = new();

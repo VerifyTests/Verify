@@ -14,74 +14,101 @@ static class ScrubberPipeline
     {
         if (!settings.ScrubbersEnabled)
         {
-            target.FixNewlines();
+            FixNewlinesIfNeeded(target);
             return;
         }
 
         var content = CollectContent(settings, extension);
         var patterns = CollectPatterns(settings, extension);
         var lines = CollectLines(settings, extension);
+        var context = settings.Context;
 
-        var modified = Apply(target, content, patterns, lines, counter, settings.Context);
-        if (modified || NeedsNewlineNormalization(target))
+        // Fast path: only pattern scrubbers (the common JSON property / log line case).
+        if (content is null && lines is null)
         {
-            target.FixNewlines();
+            if (patterns is null)
+            {
+                FixNewlinesIfNeeded(target);
+                return;
+            }
+
+            ApplyPatternScrubbers(target, patterns, counter, context);
+            FixNewlinesIfNeeded(target);
+            return;
         }
+
+        if (content is not null)
+        {
+            ApplyContentScrubbers(target, content, counter, context);
+        }
+
+        if (patterns is not null)
+        {
+            ApplyPatternScrubbers(target, patterns, counter, context);
+        }
+
+        if (lines is not null)
+        {
+            ApplyLineScrubbers(target, lines, counter, context);
+        }
+
+        FixNewlinesIfNeeded(target);
     }
 
     public static string ApplyForPropertyValue(CharSpan value, VerifySettings settings, Counter counter)
     {
-        var output = new StringBuilder(value.Length);
-        output.Append(value);
-
         if (!settings.ScrubbersEnabled)
         {
-            output.FixNewlines();
-            return output.ToString();
+            return value.IndexOf('\r') >= 0 ? Normalize(value) : value.ToString();
         }
 
-        // Property-value path uses only instance + global (no extension mapping).
         var content = CollectContentNoExtension(settings);
         var patterns = CollectPatternsNoExtension(settings);
         var lines = CollectLinesNoExtension(settings);
 
-        var modified = Apply(output, content, patterns, lines, counter, settings.Context);
-        if (modified || NeedsNewlineNormalization(output))
+        if (content is null && patterns is null && lines is null)
         {
-            output.FixNewlines();
+            return value.IndexOf('\r') >= 0 ? Normalize(value) : value.ToString();
         }
 
+        var output = new StringBuilder(value.Length);
+        output.Append(value);
+        var context = settings.Context;
+
+        if (content is not null)
+        {
+            ApplyContentScrubbers(output, content, counter, context);
+        }
+
+        if (patterns is not null)
+        {
+            ApplyPatternScrubbers(output, patterns, counter, context);
+        }
+
+        if (lines is not null)
+        {
+            ApplyLineScrubbers(output, lines, counter, context);
+        }
+
+        FixNewlinesIfNeeded(output);
         return output.ToString();
     }
 
-    static bool Apply(
-        StringBuilder target,
-        List<ContentScrubber>? contentScrubbers,
-        List<PatternScrubber>? patternScrubbers,
-        List<LineScrubber>? lineScrubbers,
-        Counter counter,
-        IReadOnlyDictionary<string, object> context)
+    static string Normalize(CharSpan value)
     {
-        var modified = false;
+        var builder = new StringBuilder(value.Length);
+        builder.Append(value);
+        builder.FixNewlines();
+        return builder.ToString();
+    }
 
-        if (contentScrubbers is { Count: > 0 })
+    static void FixNewlinesIfNeeded(StringBuilder target)
+    {
+        // Single scan: only normalize when \r is actually present.
+        if (HasCarriageReturn(target))
         {
-            ApplyContentScrubbers(target, contentScrubbers, counter, context);
-            modified = true;
+            target.FixNewlines();
         }
-
-        if (patternScrubbers is { Count: > 0 })
-        {
-            modified |= ApplyPatternScrubbers(target, patternScrubbers, counter, context);
-        }
-
-        if (lineScrubbers is { Count: > 0 })
-        {
-            ApplyLineScrubbers(target, lineScrubbers, counter, context);
-            modified = true;
-        }
-
-        return modified;
     }
 
     static void ApplyContentScrubbers(
@@ -113,7 +140,7 @@ static class ScrubberPipeline
         }
     }
 
-    static bool ApplyPatternScrubbers(
+    static void ApplyPatternScrubbers(
         StringBuilder target,
         List<PatternScrubber> patternScrubbers,
         Counter counter,
@@ -127,7 +154,7 @@ static class ScrubberPipeline
         var length = target.Length;
         if (length == 0)
         {
-            return false;
+            return;
         }
 
         var sourcePool = ArrayPool<char>.Shared;
@@ -152,13 +179,11 @@ static class ScrubberPipeline
 
             if (!hasReplacement)
             {
-                // No matches; the StringBuilder content is unchanged.
-                return false;
+                return;
             }
 
             target.Clear();
             PatternWalker.Stitch(sourceSpan, chunks, target);
-            return true;
         }
         finally
         {
@@ -316,14 +341,11 @@ static class ScrubberPipeline
         threadSwap = sb;
     }
 
-    static bool NeedsNewlineNormalization(StringBuilder builder)
+    static bool HasCarriageReturn(StringBuilder builder)
     {
-        // If the buffer already only contains '\n' line endings, FixNewlines is a no-op work pass.
-        // Scan once and skip the pass when nothing needs converting.
         foreach (var chunk in builder.GetChunks())
         {
-            var span = chunk.Span;
-            if (span.IndexOf('\r') >= 0)
+            if (chunk.Span.IndexOf('\r') >= 0)
             {
                 return true;
             }
@@ -334,115 +356,126 @@ static class ScrubberPipeline
 
     static List<ContentScrubber>? CollectContent(VerifySettings settings, string extension)
     {
-        List<ContentScrubber>? result = null;
+        var instance = NonEmpty(settings.InstanceContentScrubbers);
+        var extInstance = NonEmpty(LookupExt(settings.ExtensionMappedInstanceContentScrubbers, extension));
+        var extGlobal = NonEmpty(LookupExt(VerifierSettings.ExtensionMappedGlobalContentScrubbers, extension));
+        var global = NonEmpty(VerifierSettings.GlobalContentScrubbers);
 
-        AppendNonEmpty(ref result, settings.InstanceContentScrubbers);
-
-        if (settings.ExtensionMappedInstanceContentScrubbers != null &&
-            settings.ExtensionMappedInstanceContentScrubbers.TryGetValue(extension, out var instanceForExt))
-        {
-            AppendNonEmpty(ref result, instanceForExt);
-        }
-
-        if (VerifierSettings.ExtensionMappedGlobalContentScrubbers.TryGetValue(extension, out var globalForExt))
-        {
-            AppendNonEmpty(ref result, globalForExt);
-        }
-
-        AppendNonEmpty(ref result, VerifierSettings.GlobalContentScrubbers);
-        return result;
+        return CombineSources(instance, extInstance, extGlobal, global);
     }
 
     static List<PatternScrubber>? CollectPatterns(VerifySettings settings, string extension)
     {
-        List<PatternScrubber>? result = null;
+        var instance = NonEmpty(settings.InstancePatternScrubbers);
+        var extInstance = NonEmpty(LookupExt(settings.ExtensionMappedInstancePatternScrubbers, extension));
+        var extGlobal = NonEmpty(LookupExt(VerifierSettings.ExtensionMappedGlobalPatternScrubbers, extension));
+        var global = NonEmpty(VerifierSettings.GlobalPatternScrubbers);
+        var hasDirReplacement = DirectoryReplacements.Items.Count > 0;
 
-        AppendNonEmpty(ref result, settings.InstancePatternScrubbers);
-
-        if (settings.ExtensionMappedInstancePatternScrubbers != null &&
-            settings.ExtensionMappedInstancePatternScrubbers.TryGetValue(extension, out var instanceForExt))
+        var combined = CombineSources(instance, extInstance, extGlobal, global);
+        if (!hasDirReplacement)
         {
-            AppendNonEmpty(ref result, instanceForExt);
+            return combined;
         }
 
-        if (VerifierSettings.ExtensionMappedGlobalPatternScrubbers.TryGetValue(extension, out var globalForExt))
+        // Directory replacements participate as a synthetic pattern; sort handles ordering.
+        if (combined is null)
         {
-            AppendNonEmpty(ref result, globalForExt);
+            return [DirectoryReplacementsPatternScrubber.Instance];
         }
 
-        AppendNonEmpty(ref result, VerifierSettings.GlobalPatternScrubbers);
-
-        // Always include the directory replacements scrubber as the last pattern;
-        // the engine sorts by MaxLength desc so it competes naturally with other patterns.
-        if (DirectoryReplacements.Items.Count > 0)
+        // Combined may be one of the source lists (zero-alloc fast path); copy before mutating.
+        if (combined == instance || combined == extInstance || combined == extGlobal || combined == global)
         {
-            result ??= [];
-            result.Add(DirectoryReplacementsPatternScrubber.Instance);
+            var copy = new List<PatternScrubber>(combined.Count + 1);
+            copy.AddRange(combined);
+            copy.Add(DirectoryReplacementsPatternScrubber.Instance);
+            return copy;
         }
 
-        return result;
+        combined.Add(DirectoryReplacementsPatternScrubber.Instance);
+        return combined;
     }
 
     static List<LineScrubber>? CollectLines(VerifySettings settings, string extension)
     {
-        List<LineScrubber>? result = null;
+        var instance = NonEmpty(settings.InstanceLineScrubbers);
+        var extInstance = NonEmpty(LookupExt(settings.ExtensionMappedInstanceLineScrubbers, extension));
+        var extGlobal = NonEmpty(LookupExt(VerifierSettings.ExtensionMappedGlobalLineScrubbers, extension));
+        var global = NonEmpty(VerifierSettings.GlobalLineScrubbers);
 
-        AppendNonEmpty(ref result, settings.InstanceLineScrubbers);
-
-        if (settings.ExtensionMappedInstanceLineScrubbers != null &&
-            settings.ExtensionMappedInstanceLineScrubbers.TryGetValue(extension, out var instanceForExt))
-        {
-            AppendNonEmpty(ref result, instanceForExt);
-        }
-
-        if (VerifierSettings.ExtensionMappedGlobalLineScrubbers.TryGetValue(extension, out var globalForExt))
-        {
-            AppendNonEmpty(ref result, globalForExt);
-        }
-
-        AppendNonEmpty(ref result, VerifierSettings.GlobalLineScrubbers);
-        return result;
+        return CombineSources(instance, extInstance, extGlobal, global);
     }
 
-    static List<ContentScrubber>? CollectContentNoExtension(VerifySettings settings)
-    {
-        List<ContentScrubber>? result = null;
-        AppendNonEmpty(ref result, settings.InstanceContentScrubbers);
-        AppendNonEmpty(ref result, VerifierSettings.GlobalContentScrubbers);
-        return result;
-    }
+    static List<ContentScrubber>? CollectContentNoExtension(VerifySettings settings) =>
+        CombineSources(NonEmpty(settings.InstanceContentScrubbers), null, null, NonEmpty(VerifierSettings.GlobalContentScrubbers));
 
     static List<PatternScrubber>? CollectPatternsNoExtension(VerifySettings settings)
     {
-        List<PatternScrubber>? result = null;
-        AppendNonEmpty(ref result, settings.InstancePatternScrubbers);
-        AppendNonEmpty(ref result, VerifierSettings.GlobalPatternScrubbers);
+        var instance = NonEmpty(settings.InstancePatternScrubbers);
+        var global = NonEmpty(VerifierSettings.GlobalPatternScrubbers);
+        var hasDirReplacement = DirectoryReplacements.Items.Count > 0;
 
-        if (DirectoryReplacements.Items.Count > 0)
+        var combined = CombineSources(instance, null, null, global);
+        if (!hasDirReplacement)
         {
-            result ??= [];
-            result.Add(DirectoryReplacementsPatternScrubber.Instance);
+            return combined;
         }
 
-        return result;
-    }
-
-    static List<LineScrubber>? CollectLinesNoExtension(VerifySettings settings)
-    {
-        List<LineScrubber>? result = null;
-        AppendNonEmpty(ref result, settings.InstanceLineScrubbers);
-        AppendNonEmpty(ref result, VerifierSettings.GlobalLineScrubbers);
-        return result;
-    }
-
-    static void AppendNonEmpty<T>(ref List<T>? target, IReadOnlyCollection<T>? source)
-    {
-        if (source is null || source.Count == 0)
+        if (combined is null)
         {
-            return;
+            return [DirectoryReplacementsPatternScrubber.Instance];
         }
 
-        target ??= new(source.Count);
-        target.AddRange(source);
+        if (combined == instance || combined == global)
+        {
+            var copy = new List<PatternScrubber>(combined.Count + 1);
+            copy.AddRange(combined);
+            copy.Add(DirectoryReplacementsPatternScrubber.Instance);
+            return copy;
+        }
+
+        combined.Add(DirectoryReplacementsPatternScrubber.Instance);
+        return combined;
+    }
+
+    static List<LineScrubber>? CollectLinesNoExtension(VerifySettings settings) =>
+        CombineSources(NonEmpty(settings.InstanceLineScrubbers), null, null, NonEmpty(VerifierSettings.GlobalLineScrubbers));
+
+    static List<T>? NonEmpty<T>(List<T>? source) =>
+        source is { Count: > 0 } ? source : null;
+
+    static List<T>? LookupExt<T>(Dictionary<string, List<T>>? map, string extension) =>
+        map != null && map.TryGetValue(extension, out var list) ? list : null;
+
+    static List<T>? CombineSources<T>(List<T>? a, List<T>? b, List<T>? c, List<T>? d)
+    {
+        // Count populated sources; if only one, return it directly to avoid allocating a copy.
+        // The pipeline may sort the returned list in place, but sorts are deterministic and
+        // idempotent on the user-owned source.
+        var count = 0;
+        List<T>? single = null;
+        if (a != null) { count++; single = a; }
+        if (b != null) { count++; single = b; }
+        if (c != null) { count++; single = c; }
+        if (d != null) { count++; single = d; }
+
+        if (count == 0)
+        {
+            return null;
+        }
+
+        if (count == 1)
+        {
+            return single;
+        }
+
+        var total = (a?.Count ?? 0) + (b?.Count ?? 0) + (c?.Count ?? 0) + (d?.Count ?? 0);
+        var result = new List<T>(total);
+        if (a != null) result.AddRange(a);
+        if (b != null) result.AddRange(b);
+        if (c != null) result.AddRange(c);
+        if (d != null) result.AddRange(d);
+        return result;
     }
 }

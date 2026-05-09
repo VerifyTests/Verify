@@ -4,13 +4,58 @@ sealed class DirectoryReplacementsPatternScrubber : PatternScrubber
 {
     public static readonly DirectoryReplacementsPatternScrubber Instance = new();
 
+    readonly List<DirectoryReplacements.Pair>? overrideItems;
+    readonly int overrideMin;
+    readonly int overrideMax;
+
     DirectoryReplacementsPatternScrubber()
     {
     }
 
-    // Reads from DirectoryReplacements which is rebuilt by UseAssembly.
-    public override int MinLength => DirectoryReplacements.MinLength == 0 ? int.MaxValue : DirectoryReplacements.MinLength;
-    public override int MaxLength => DirectoryReplacements.MaxLength;
+    // Test seam: lets callers run the matcher against an explicit pair list
+    // without going through the static DirectoryReplacements registration.
+    internal DirectoryReplacementsPatternScrubber(List<DirectoryReplacements.Pair> items)
+    {
+        overrideItems = items;
+        if (items.Count == 0)
+        {
+            return;
+        }
+
+        var min = int.MaxValue;
+        var max = 0;
+        foreach (var item in items)
+        {
+            if (item.Find.Length < min)
+            {
+                min = item.Find.Length;
+            }
+
+            if (item.Find.Length > max)
+            {
+                max = item.Find.Length;
+            }
+        }
+
+        overrideMin = min;
+        overrideMax = max + 1;
+    }
+
+    // Reads from DirectoryReplacements (rebuilt by UseAssembly) unless overridden via the test ctor.
+    public override int MinLength
+    {
+        get
+        {
+            if (overrideItems != null)
+            {
+                return overrideItems.Count == 0 ? int.MaxValue : overrideMin;
+            }
+
+            return DirectoryReplacements.MinLength == 0 ? int.MaxValue : DirectoryReplacements.MinLength;
+        }
+    }
+
+    public override int MaxLength => overrideItems != null ? overrideMax : DirectoryReplacements.MaxLength;
     public override bool SingleLine => true;
 
     public override bool TryMatch(
@@ -24,7 +69,7 @@ sealed class DirectoryReplacementsPatternScrubber : PatternScrubber
         matchLength = 0;
         replacement = null;
 
-        var pairs = DirectoryReplacements.Items;
+        var pairs = overrideItems ?? DirectoryReplacements.Items;
         if (pairs.Count == 0)
         {
             return false;

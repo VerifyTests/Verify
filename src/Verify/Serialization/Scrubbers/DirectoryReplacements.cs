@@ -1,7 +1,25 @@
 // ReSharper disable RedundantSuppressNullableWarningExpression
 
-static partial class DirectoryReplacements
+static class DirectoryReplacements
 {
+    public readonly struct Pair
+    {
+        public Pair(string find, string replace)
+        {
+#if DEBUG
+            if (find.Contains('\\'))
+            {
+                throw new("Slashes should be sanitized");
+            }
+#endif
+            Find = find;
+            Replace = replace;
+        }
+
+        public string Find { get; }
+        public string Replace { get; }
+    }
+
     static List<Pair> items = [];
     static int minLength;
     static int maxLength;

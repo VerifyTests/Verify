@@ -1,5 +1,11 @@
 ﻿public class DirectoryReplacementTests
 {
+    static void Replace(StringBuilder builder, List<DirectoryReplacements.Pair> pairs)
+    {
+        using var counter = Counter.Start();
+        PatternScrubberRunner.Run(builder, new DirectoryReplacementsPatternScrubber(pairs), counter);
+    }
+
     [Theory]
     [InlineData("C:/path", "C:/path", "{replace}")]
     [InlineData("/C:/path", "C:/path", "/{replace}")]
@@ -25,7 +31,7 @@
     {
         List<DirectoryReplacements.Pair> pairs = [new(find, "{replace}")];
         var builder = new StringBuilder(input);
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal(expected, builder.ToString());
     }
 
@@ -40,8 +46,7 @@
         var builder = new StringBuilder(capacity: 8, maxCapacity: int.MaxValue);
         builder.Append("C:/Parent/Child ");
         builder.Append("C:/Parent ");
-        using var counter = Counter.Start();
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal("{Child} {Parent} ", builder.ToString());
     }
 
@@ -54,7 +59,7 @@
             new("C:/Parent", "{Parent}"),
         ];
         var builder = new StringBuilder(@"C:\Parent\Child\Dir");
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal("{Child}Dir", builder.ToString());
     }
 
@@ -67,7 +72,7 @@
             new("C:/Parent", "{Parent}"),
         ];
         var builder = new StringBuilder(@"C:\Parent\Child\Dir");
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal("{Child}Dir", builder.ToString());
     }
 
@@ -80,7 +85,7 @@
             new("D:/Path2", "{Path2}"),
         ];
         var builder = new StringBuilder(@"C:\Path1\file.txt and D:\Path2\other.txt");
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal("{Path1}file.txt and {Path2}other.txt", builder.ToString());
     }
 
@@ -92,7 +97,7 @@
             new("C:/NotFound", "{replace}"),
         ];
         var builder = new StringBuilder(@"C:\Different\Path");
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal(@"C:\Different\Path", builder.ToString());
     }
 
@@ -104,7 +109,7 @@
             new("C:/Path", "{replace}"),
         ];
         var builder = new StringBuilder();
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal("", builder.ToString());
     }
 
@@ -113,7 +118,7 @@
     {
         List<DirectoryReplacements.Pair> pairs = [];
         var builder = new StringBuilder(@"C:\Path\file.txt");
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal(@"C:\Path\file.txt", builder.ToString());
     }
 
@@ -126,7 +131,7 @@
     {
         List<DirectoryReplacements.Pair> pairs = [new(find, "{replace}")];
         var builder = new StringBuilder(input);
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal(expected, builder.ToString());
     }
 
@@ -138,7 +143,7 @@
             new("C:/path", "{replace}"),
         ];
         var builder = new StringBuilder(@"C:\path\file.txt");
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal("{replace}file.txt", builder.ToString());
     }
 
@@ -156,7 +161,7 @@
         ];
 
         var builder = new StringBuilder(padding + largePath + @"\file.txt");
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal(padding + "{replaced}file.txt", builder.ToString());
     }
 
@@ -168,7 +173,7 @@
             new("C:/Path", "{Path}"),
         ];
         var builder = new StringBuilder(@"C:\Path\a.txt and C:\Path\b.txt");
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal("{Path}a.txt and {Path}b.txt", builder.ToString());
     }
 
@@ -182,7 +187,7 @@
             new("C:/A", "{A}"),
         ];
         var builder = new StringBuilder(@"C:\A\B\C\file.txt");
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal("{C}file.txt", builder.ToString());
     }
 
@@ -195,7 +200,7 @@
             new("D:/B", "{B}"),
         ];
         var builder = new StringBuilder(@"C:\A\file.txt in D:\B\other.txt");
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal("{A}file.txt in {B}other.txt", builder.ToString());
     }
 
@@ -207,7 +212,7 @@
             new("C:/Path", "{replace}"),
         ];
         var builder = new StringBuilder(@"C:\Path\file.txt");
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal("{replace}file.txt", builder.ToString());
     }
 
@@ -219,7 +224,7 @@
             new("C:/Path", "{replace}"),
         ];
         var builder = new StringBuilder(@"Prefix C:\Path");
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal("Prefix {replace}", builder.ToString());
     }
 
@@ -231,7 +236,7 @@
             new("C:/Path", "{replace}"),
         ];
         var builder = new StringBuilder(@"Prefix C:\Path\");
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal("Prefix {replace}", builder.ToString());
     }
 
@@ -243,7 +248,7 @@
             new("C:/Path", "{replace}"),
         ];
         var builder = new StringBuilder(@"C:\Path\\file.txt");
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal(@"{replace}\file.txt", builder.ToString());
     }
 
@@ -255,7 +260,7 @@
             new("/usr/local/bin", "{bin}"),
         ];
         var builder = new StringBuilder("/usr/local/bin/app");
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal("{bin}app", builder.ToString());
     }
 
@@ -267,7 +272,7 @@
             new("/usr/local/bin", "{bin}"),
         ];
         var builder = new StringBuilder(@"\usr\local\bin\app");
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal("{bin}app", builder.ToString());
     }
 
@@ -282,7 +287,7 @@
             """
             "C:\Path\file.txt"
             """);
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal(
             """
             "{replace}file.txt"
@@ -299,7 +304,7 @@
             new(longPath, "{long}"),
         ];
         var builder = new StringBuilder(longPath + @"\file.txt");
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal("{long}file.txt", builder.ToString());
     }
 
@@ -311,7 +316,7 @@
             new("C:/Program Files", "{pf}"),
         ];
         var builder = new StringBuilder(@"C:\Program Files\App\file.txt");
-        DirectoryReplacements.Replace(builder, pairs);
+        Replace(builder, pairs);
         Assert.Equal(@"{pf}App\file.txt", builder.ToString());
     }
 }

@@ -95,14 +95,14 @@ public class ScrubberPipelineBenchmarks
     public void Old_Tiny_Guid()
     {
         var builder = new StringBuilder(tinyInput);
-        GuidScrubber.ReplaceGuids(builder, counter);
+        PatternScrubberRunner.Run(builder, GuidPatternScrubber.Instance, counter);
     }
 
     [Benchmark]
     public void Old_Medium_Mixed()
     {
         var builder = new StringBuilder(mediumInput);
-        GuidScrubber.ReplaceGuids(builder, counter);
+        PatternScrubberRunner.Run(builder, GuidPatternScrubber.Instance, counter);
         PatternScrubberRunner.Run(builder, dateTimeOffset, counter);
     }
 
@@ -110,7 +110,7 @@ public class ScrubberPipelineBenchmarks
     public void Old_Large_Mixed()
     {
         var builder = new StringBuilder(largeInput);
-        GuidScrubber.ReplaceGuids(builder, counter);
+        PatternScrubberRunner.Run(builder, GuidPatternScrubber.Instance, counter);
         PatternScrubberRunner.Run(builder, dateTimeOffset, counter);
     }
 
@@ -118,7 +118,7 @@ public class ScrubberPipelineBenchmarks
     public void Old_NoMatch()
     {
         var builder = new StringBuilder(noMatchInput);
-        GuidScrubber.ReplaceGuids(builder, counter);
+        PatternScrubberRunner.Run(builder, GuidPatternScrubber.Instance, counter);
         PatternScrubberRunner.Run(builder, dateTimeOffset, counter);
     }
 
@@ -126,7 +126,7 @@ public class ScrubberPipelineBenchmarks
     public void Old_ShortLines()
     {
         var builder = new StringBuilder(shortLinesInput);
-        GuidScrubber.ReplaceGuids(builder, counter);
+        PatternScrubberRunner.Run(builder, GuidPatternScrubber.Instance, counter);
         PatternScrubberRunner.Run(builder, dateTimeOffset, counter);
     }
 }

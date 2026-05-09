@@ -56,7 +56,7 @@ public class XmlTests
             <?xml version="1.0" encoding="utf-8" standalone="yes"?>
             <person><!-- value -->value</person>
             """)
-            .AddScrubber(_ => _.Replace("value", "replaced"));
+            .AddScrubber(new LiteralReplacePatternScrubber("value", "replaced", boundaryCheck: false));
 
     [Fact]
     public Task CData() =>
@@ -73,7 +73,7 @@ public class XmlTests
                 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
                 <person><![CDATA[value]]></person>
                 """)
-            .AddScrubber(_ => _.Replace("value", "replaced"));
+            .AddScrubber(new LiteralReplacePatternScrubber("value", "replaced", boundaryCheck: false));
 
     [Fact]
     public Task CDataMix() =>
@@ -90,7 +90,7 @@ public class XmlTests
                 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
                 <person><![CDATA[value]]>value</person>
                 """)
-            .AddScrubber(_ => _.Replace("value", "replaced"));
+            .AddScrubber(new LiteralReplacePatternScrubber("value", "replaced", boundaryCheck: false));
 
     #region XmlIgnoreMember
 

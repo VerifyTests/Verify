@@ -8,25 +8,25 @@ public partial class ScrubberLevelsSample
     public ScrubberLevelsSample()
     {
         classLevelSettings = new();
-        classLevelSettings.AddScrubber(_ => _.Replace("Three", "C"));
+        classLevelSettings.AddScrubber(new LiteralReplacePatternScrubber("Three", "C", boundaryCheck: false));
     }
 
     [TestMethod]
     public Task Simple()
     {
         var settings = new VerifySettings(classLevelSettings);
-        settings.AddScrubber(_ => _.Replace("Two", "B"));
+        settings.AddScrubber(new LiteralReplacePatternScrubber("Two", "B", boundaryCheck: false));
         return Verify("One Two Three", settings);
     }
 
     [TestMethod]
     public Task SimpleFluent() =>
         Verify("One Two Three", classLevelSettings)
-            .AddScrubber(_ => _.Replace("Two", "B"));
+            .AddScrubber(new LiteralReplacePatternScrubber("Two", "B", boundaryCheck: false));
 
     [AssemblyInitialize]
     public static void Setup(TestContext testContext) =>
-        VerifierSettings.AddScrubber(_ => _.Replace("One", "A"));
+        VerifierSettings.AddScrubber(new LiteralReplacePatternScrubber("One", "A", boundaryCheck: false));
 }
 
 #endregion

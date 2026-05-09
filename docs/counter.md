@@ -29,7 +29,7 @@ One example usage is inside a custom scrubber:
 public Task CounterTryConvert()
 {
     var settings = new VerifySettings();
-    settings.AddScrubber((builder, counter) =>
+    settings.AddScrubber(new LambdaContentScrubber((builder, counter) =>
     {
         var values = builder.ToString().Split();
         builder.Clear();
@@ -46,7 +46,7 @@ public Task CounterTryConvert()
 
             builder.Append(' ');
         }
-    });
+    }));
 
     return Verify("The user with id c9cb98bf-3def-415e-a009-7d58055f5ffc was created on 2022-10-12", settings);
 }

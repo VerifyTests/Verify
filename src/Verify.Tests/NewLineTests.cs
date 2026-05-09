@@ -15,7 +15,7 @@ public class NewLineTests
     public async Task WithRootNewlineAddedByScrubber()
     {
         var result = await Verify("value")
-            .AddScrubber(_ => _.Append("\rline2\r\nline3\nline4"));
+            .AddScrubber(new LambdaContentScrubber(_ => _.Append("\rline2\r\nline3\nline4")));
         var file = result.Files.Single();
         Assert.DoesNotContain(
             "\r",
@@ -29,7 +29,7 @@ public class NewLineTests
             {
                 Property = "value"
             })
-            .AddScrubber(_ => _.Append("\rline2\r\nline3\nline4"));
+            .AddScrubber(new LambdaContentScrubber(_ => _.Append("\rline2\r\nline3\nline4")));
         var file = result.Files.Single();
         Assert.DoesNotContain("\r", await File.ReadAllTextAsync(file));
     }

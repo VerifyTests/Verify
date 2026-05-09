@@ -17,7 +17,8 @@
                 return new("txt", "data");
             });
         VerifierSettings.AddScrubber(
-            "txt", _ =>
+            "txt",
+            new LambdaContentScrubber(_ =>
             {
                 if (!isInThisTest.Value)
                 {
@@ -25,7 +26,7 @@
                 }
 
                 _.Append("Appended");
-            });
+            }));
     }
 
     public StaticFileAppenderWithScrubberTests() =>

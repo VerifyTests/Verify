@@ -70,7 +70,7 @@ public static partial class VerifierSettings
     public static void AddScrubber(Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>> scrubber, ScrubberLocation location = ScrubberLocation.First)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        var adapter = new ActionAdapterContentScrubber(scrubber);
+        var adapter = new LambdaContentScrubber(scrubber);
         switch (location)
         {
             case ScrubberLocation.First:

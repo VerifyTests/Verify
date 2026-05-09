@@ -761,7 +761,7 @@ public static class StaticSettingsUsage
 {
     [ModuleInitializer]
     public static void Initialize() =>
-        VerifierSettings.AddScrubber(_ => _.Replace("String to verify", "new value"));
+        VerifierSettings.AddScrubber(new LiteralReplacePatternScrubber("String to verify", "new value", boundaryCheck: false));
 }
 ```
 <sup><a href='/src/Verify.Tests/StaticSettings.cs#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticSettings.cs' title='Start of snippet'>anchor</a></sup>

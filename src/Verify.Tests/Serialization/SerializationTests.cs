@@ -895,17 +895,17 @@ public class SerializationTests
     [Fact]
     public Task ScrubberWithBadNewLine() =>
         Verify("a")
-            .AddScrubber(_ =>
+            .AddScrubber(new LambdaContentScrubber(_ =>
             {
                 _.AppendLine("b");
                 _.AppendLine("c");
-            });
+            }));
 
     [Fact]
     public Task ExtensionAwareScrubbers()
     {
         var settings = new VerifySettings();
-        settings.AddScrubber("html", _ => _.Replace("a", "b"));
+        settings.AddScrubber("html", new LiteralReplacePatternScrubber("a", "b", boundaryCheck: false));
         return Verify("a", "html", settings);
     }
 
@@ -1053,21 +1053,21 @@ public class SerializationTests
         settings.DontScrubDateTimes();
         settings.DontScrubGuids();
         settings.DontIgnoreEmptyCollections();
-        settings.AddScrubber(_ => _.Replace("Lane", "Street"));
+        settings.AddScrubber(new LiteralReplacePatternScrubber("Lane", "Street", boundaryCheck: false));
         return Verify(person, settings);
     }
 
     [Fact]
     public Task ScrubberDefaultOrder() =>
         Verify("line")
-            .AddScrubber(_ => _.Append(" one"))
-            .AddScrubber(_ => _.Append(" two"));
+            .AddScrubber(new LambdaContentScrubber(_ => _.Append(" one")))
+            .AddScrubber(new LambdaContentScrubber(_ => _.Append(" two")));
 
     [Fact]
     public Task ScrubberInvertOrder() =>
         Verify("line")
-            .AddScrubber(_ => _.Append(" one"), ScrubberLocation.Last)
-            .AddScrubber(_ => _.Append(" two"), ScrubberLocation.Last);
+            .AddScrubber(new LambdaContentScrubber(_ => _.Append(" one")))
+            .AddScrubber(new LambdaContentScrubber(_ => _.Append(" two")));
 
     public static IEnumerable<object?[]> GetBoolData()
     {
@@ -2066,7 +2066,7 @@ public class SerializationTests
 
         #region AddScrubber
 
-        verifySettings.AddScrubber(_ => _.Remove(0, 100));
+        verifySettings.AddScrubber(new LambdaContentScrubber(_ => _.Remove(0, 100)));
 
         #endregion
     }
@@ -2121,7 +2121,7 @@ public class SerializationTests
             {
                 currentDirectory
             })
-            .AddScrubber(_ => _.Replace(currentDirectory, "Bar"));
+            .AddScrubber(new LiteralReplacePatternScrubber(currentDirectory, "Bar", boundaryCheck: false));
     }
 
     [Fact]
@@ -4463,7 +4463,7 @@ public class SerializationTests
                     "key", "value"
                 },
             })
-            .AddScrubber(_ => _.Replace("key", "scrubbed"));
+            .AddScrubber(new LiteralReplacePatternScrubber("key", "scrubbed", boundaryCheck: false));
 
     [Fact]
     public Task StringDictionary_ScrubDictionaryKeys() =>
@@ -4476,7 +4476,7 @@ public class SerializationTests
                     "key", "value"
                 },
             })
-            .AddScrubber(_ => _.Replace("key", "scrubbed"));
+            .AddScrubber(new LiteralReplacePatternScrubber("key", "scrubbed", boundaryCheck: false));
 
     [Fact]
     public Task StringCastToObject() =>
@@ -4497,7 +4497,7 @@ public class SerializationTests
                     "key", "value"
                 },
             })
-            .AddScrubber(_ => _.Replace("key", "scrubbed"));
+            .AddScrubber(new LiteralReplacePatternScrubber("key", "scrubbed", boundaryCheck: false));
 #if NET10
     [Fact]
     Task SecondsFractionUpperLong() =>

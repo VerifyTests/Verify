@@ -79,7 +79,7 @@ public static partial class VerifierSettings
             ExtensionMappedGlobalContentScrubbers[extension] = values = [];
         }
 
-        var adapter = new ActionAdapterContentScrubber(scrubber);
+        var adapter = new LambdaContentScrubber(scrubber);
         switch (location)
         {
             case ScrubberLocation.First:

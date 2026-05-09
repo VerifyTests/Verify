@@ -9,5 +9,5 @@ public static class StaticSettingsUsage
 {
     [ModuleInitializer]
     public static void Initialize() =>
-        VerifierSettings.AddScrubber(_ => _.Replace("String to verify", "new value"));
+        VerifierSettings.AddScrubber(new LiteralReplacePatternScrubber("String to verify", "new value", boundaryCheck: false));
 }

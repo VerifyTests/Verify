@@ -6,7 +6,9 @@
         VerifierSettings.DontScrubSolutionDirectory();
         VerifierSettings.DontScrubProjectDirectory();
         var solutionDirectory = AttributeReader.GetSolutionDirectory();
-        VerifierSettings.AddScrubber(_ => _.Replace(solutionDirectory, "CustomReplace\\"));
+        // ContentScrubber runs before pattern scrubbers, so this replacement is
+        // applied to the buffer before DirectoryReplacementsPatternScrubber sees it.
+        VerifierSettings.AddScrubber(new LambdaContentScrubber(_ => _.Replace(solutionDirectory, "CustomReplace\\")));
     }
 
     [Fact]

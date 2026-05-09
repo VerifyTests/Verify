@@ -61,7 +61,7 @@ public partial class VerifySettings
     public void AddScrubber(Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>> scrubber, ScrubberLocation location = ScrubberLocation.First)
     {
         InstanceContentScrubbers ??= [];
-        var adapter = new ActionAdapterContentScrubber(scrubber);
+        var adapter = new LambdaContentScrubber(scrubber);
         switch (location)
         {
             case ScrubberLocation.First:

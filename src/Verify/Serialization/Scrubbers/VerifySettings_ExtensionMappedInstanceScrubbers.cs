@@ -74,7 +74,7 @@ public partial class VerifySettings
             ExtensionMappedInstanceContentScrubbers[extension] = values = [];
         }
 
-        var adapter = new ActionAdapterContentScrubber(scrubber);
+        var adapter = new LambdaContentScrubber(scrubber);
         switch (location)
         {
             case ScrubberLocation.First:

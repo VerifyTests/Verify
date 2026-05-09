@@ -1,6 +1,13 @@
 namespace VerifyTests;
 
-sealed class LiteralReplacePatternScrubber : PatternScrubber
+/// <summary>
+/// A <see cref="PatternScrubber" /> that finds a literal substring and replaces
+/// it with another. Boundary-aware by default — match only when neither the
+/// preceding nor the trailing character is a letter or digit. Set
+/// <c>boundaryCheck</c> to <c>false</c> for an unbounded literal find/replace
+/// (equivalent to <c>StringBuilder.Replace</c>).
+/// </summary>
+public sealed class LiteralReplacePatternScrubber : PatternScrubber
 {
     readonly string find;
     readonly string replacementValue;

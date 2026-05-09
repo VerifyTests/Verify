@@ -47,7 +47,7 @@ public class NamerTests
 
         await Verify("ValueDoesntThrowOnConflict")
             .UseMethodName("DoesntThrowOnConflict")
-            .AddScrubber(_ => _.Replace(@"\", "/"));
+            .AddScrubber(new LiteralReplacePatternScrubber(@"\", "/", boundaryCheck: false));
     }
 #endif
 

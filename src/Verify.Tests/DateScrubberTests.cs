@@ -32,7 +32,7 @@ public class DateScrubberTests
     {
         using var counter = Counter.Start();
         var builder = new StringBuilder(value);
-        DateScrubber.ReplaceDateTimeOffsets(builder, "yyyy-MM-dd", counter, CultureInfo.InvariantCulture);
+        PatternScrubberRunner.Run(builder, new DateTimeOffsetPatternScrubber("yyyy-MM-dd", CultureInfo.InvariantCulture), counter);
         await Verify(builder)
             .UseTextForParameters(name);
     }
@@ -50,7 +50,7 @@ public class DateScrubberTests
     {
         using var counter = Counter.Start();
         var builder = new StringBuilder(value);
-        DateScrubber.ReplaceDateTimeOffsets(builder, "yyyy MMMM dd dddd", counter, CultureInfo.InvariantCulture);
+        PatternScrubberRunner.Run(builder, new DateTimeOffsetPatternScrubber("yyyy MMMM dd dddd", CultureInfo.InvariantCulture), counter);
         await Verify(builder)
             .UseTextForParameters(name);
     }
@@ -80,7 +80,7 @@ public class DateScrubberTests
     {
         using var counter = Counter.Start();
         var builder = new StringBuilder(value);
-        DateScrubber.ReplaceDateTimes(builder, "yyyy-MM-dd", counter, CultureInfo.InvariantCulture);
+        PatternScrubberRunner.Run(builder, new DateTimePatternScrubber("yyyy-MM-dd", CultureInfo.InvariantCulture), counter);
         await Verify(builder)
             .UseTextForParameters(name);
     }
@@ -103,7 +103,7 @@ public class DateScrubberTests
 
             var value = dateTime.ToString(format, culture);
             var builder = new StringBuilder(value);
-            DateScrubber.ReplaceDateTimes(builder, format, counter, culture);
+            PatternScrubberRunner.Run(builder, new DateTimePatternScrubber(format, culture), counter);
             var result = builder.ToString();
             if (result == "DateTime_1")
             {
@@ -132,7 +132,7 @@ public class DateScrubberTests
     {
         using var counter = Counter.Start();
         var builder = new StringBuilder(value);
-        DateScrubber.ReplaceDateTimes(builder, "yyyy MMMM dd dddd", counter, CultureInfo.InvariantCulture);
+        PatternScrubberRunner.Run(builder, new DateTimePatternScrubber("yyyy MMMM dd dddd", CultureInfo.InvariantCulture), counter);
         await Verify(builder)
             .UseTextForParameters(name);
     }
@@ -163,7 +163,7 @@ public class DateScrubberTests
     {
         using var counter = Counter.Start();
         var builder = new StringBuilder(value);
-        DateScrubber.ReplaceDates(builder, "yyyy-MM-dd", counter, CultureInfo.InvariantCulture);
+        PatternScrubberRunner.Run(builder, new DatePatternScrubber("yyyy-MM-dd", CultureInfo.InvariantCulture), counter);
         await Verify(builder)
             .UseTextForParameters(name);
     }
@@ -181,7 +181,7 @@ public class DateScrubberTests
     {
         using var counter = Counter.Start();
         var builder = new StringBuilder(value);
-        DateScrubber.ReplaceDates(builder, "yyyy MMMM dd dddd", counter, CultureInfo.InvariantCulture);
+        PatternScrubberRunner.Run(builder, new DatePatternScrubber("yyyy MMMM dd dddd", CultureInfo.InvariantCulture), counter);
         await Verify(builder)
             .UseTextForParameters(name);
     }

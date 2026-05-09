@@ -103,7 +103,7 @@ public class ScrubberPipelineBenchmarks
     {
         var builder = new StringBuilder(mediumInput);
         GuidScrubber.ReplaceGuids(builder, counter);
-        DateScrubber.ReplaceDateTimeOffsets(builder, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", counter, CultureInfo.InvariantCulture);
+        PatternScrubberRunner.Run(builder, dateTimeOffset, counter);
     }
 
     [Benchmark]
@@ -111,7 +111,7 @@ public class ScrubberPipelineBenchmarks
     {
         var builder = new StringBuilder(largeInput);
         GuidScrubber.ReplaceGuids(builder, counter);
-        DateScrubber.ReplaceDateTimeOffsets(builder, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", counter, CultureInfo.InvariantCulture);
+        PatternScrubberRunner.Run(builder, dateTimeOffset, counter);
     }
 
     [Benchmark]
@@ -119,7 +119,7 @@ public class ScrubberPipelineBenchmarks
     {
         var builder = new StringBuilder(noMatchInput);
         GuidScrubber.ReplaceGuids(builder, counter);
-        DateScrubber.ReplaceDateTimeOffsets(builder, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", counter, CultureInfo.InvariantCulture);
+        PatternScrubberRunner.Run(builder, dateTimeOffset, counter);
     }
 
     [Benchmark]
@@ -127,6 +127,6 @@ public class ScrubberPipelineBenchmarks
     {
         var builder = new StringBuilder(shortLinesInput);
         GuidScrubber.ReplaceGuids(builder, counter);
-        DateScrubber.ReplaceDateTimeOffsets(builder, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", counter, CultureInfo.InvariantCulture);
+        PatternScrubberRunner.Run(builder, dateTimeOffset, counter);
     }
 }

@@ -7,16 +7,16 @@ public class ScrubbersSample
     {
         var settings = new VerifySettings();
         settings.ScrubLinesWithReplace(
-            replaceLine: line =>
+            replaceLine: (ReadOnlySpan<char> line) =>
             {
-                if (line.Contains("LineE"))
+                if (line.Contains("LineE", StringComparison.Ordinal))
                 {
                     return "NoMoreLineE";
                 }
 
-                return line;
+                return line.ToString();
             });
-        settings.ScrubLines(removeLine: _ => _.Contains('J'));
+        settings.ScrubLines(removeLine: (ReadOnlySpan<char> line) => line.IndexOf('J') != -1);
         settings.ScrubLinesContaining("b", "D");
         settings.ScrubLinesContaining(StringComparison.Ordinal, "H");
         return Verify(
@@ -38,7 +38,7 @@ public class ScrubbersSample
     {
         var settings = new VerifySettings();
         settings.ScrubLinesWithReplace(
-            replaceLine: _ => "");
+            replaceLine: (ReadOnlySpan<char> _) => "");
         return Verify(
             settings: settings,
             target: "");
@@ -57,16 +57,16 @@ public class ScrubbersSample
                LineJ
                """)
             .ScrubLinesWithReplace(
-                replaceLine: _ =>
+                replaceLine: (ReadOnlySpan<char> line) =>
                 {
-                    if (_.Contains("LineE"))
+                    if (line.Contains("LineE", StringComparison.Ordinal))
                     {
                         return "NoMoreLineE";
                     }
 
-                    return _;
+                    return line.ToString();
                 })
-            .ScrubLines(removeLine: _ => _.Contains('J'))
+            .ScrubLines(removeLine: (ReadOnlySpan<char> line) => line.IndexOf('J') != -1)
             .ScrubLinesContaining("b", "D")
             .ScrubLinesContaining(StringComparison.Ordinal, "H");
 
@@ -78,14 +78,14 @@ public class ScrubbersSample
                LineC
                """)
             .ScrubLinesWithReplace(
-                replaceLine: line =>
+                replaceLine: (ReadOnlySpan<char> line) =>
                 {
-                    if (line.Contains("LineB"))
+                    if (line.Contains("LineB", StringComparison.Ordinal))
                     {
                         return null;
                     }
 
-                    return line.ToLower();
+                    return line.ToString().ToLower();
                 });
 
     [Fact]

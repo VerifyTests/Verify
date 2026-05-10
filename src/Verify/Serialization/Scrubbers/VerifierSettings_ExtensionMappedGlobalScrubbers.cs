@@ -63,10 +63,21 @@ public static partial class VerifierSettings
     /// <summary>
     /// Remove any lines matching <paramref name="removeLine" /> from the test results.
     /// </summary>
-    public static void ScrubLines(string extension, Func<string, bool> removeLine)
+    [OverloadResolutionPriority(1)]
+    public static void ScrubLines(string extension, LineFilter removeLine)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         AddScrubber(extension, new FilterLinesScrubber(removeLine));
+    }
+
+    /// <summary>
+    /// Remove any lines matching <paramref name="removeLine" /> from the test results.
+    /// </summary>
+    [Obsolete("Use ScrubLines(string, LineFilter)")]
+    public static void ScrubLines(string extension, Func<string, bool> removeLine)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        AddScrubber(extension, new FilterLinesScrubber(line => removeLine(line.ToString())));
     }
 
     /// <summary>
@@ -90,10 +101,21 @@ public static partial class VerifierSettings
     /// <summary>
     /// Scrub lines with an optional replace.
     /// </summary>
-    public static void ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine)
+    [OverloadResolutionPriority(1)]
+    public static void ScrubLinesWithReplace(string extension, LineReplace replaceLine)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         AddScrubber(extension, new ReplaceLinesScrubber(replaceLine));
+    }
+
+    /// <summary>
+    /// Scrub lines with an optional replace.
+    /// </summary>
+    [Obsolete("Use ScrubLinesWithReplace(string, LineReplace)")]
+    public static void ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        AddScrubber(extension, new ReplaceLinesScrubber(line => replaceLine(line.ToString())));
     }
 
     /// <summary>

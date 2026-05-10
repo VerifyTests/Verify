@@ -114,34 +114,34 @@ public partial class SettingsTask
     }
 
     [Pure]
-    [Obsolete("ScrubberLocation is obsolete. Use ScrubLines(Func<string, bool>).")]
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubLines(LineFilter).")]
     public SettingsTask ScrubLines(Func<string, bool> removeLine, ScrubberLocation location)
     {
-        CurrentSettings.ScrubLines(removeLine);
+        CurrentSettings.ScrubLines(line => removeLine(line.ToString()));
         return this;
     }
 
     [Pure]
-    [Obsolete("ScrubberLocation is obsolete. Use ScrubLines(string, Func<string, bool>).")]
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubLines(string, LineFilter).")]
     public SettingsTask ScrubLines(string extension, Func<string, bool> removeLine, ScrubberLocation location)
     {
-        CurrentSettings.ScrubLines(extension, removeLine);
+        CurrentSettings.ScrubLines(extension, line => removeLine(line.ToString()));
         return this;
     }
 
     [Pure]
-    [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesWithReplace(Func<string, string?>).")]
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesWithReplace(LineReplace).")]
     public SettingsTask ScrubLinesWithReplace(Func<string, string?> replaceLine, ScrubberLocation location)
     {
-        CurrentSettings.ScrubLinesWithReplace(replaceLine);
+        CurrentSettings.ScrubLinesWithReplace(line => replaceLine(line.ToString()));
         return this;
     }
 
     [Pure]
-    [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesWithReplace(string, Func<string, string?>).")]
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesWithReplace(string, LineReplace).")]
     public SettingsTask ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine, ScrubberLocation location)
     {
-        CurrentSettings.ScrubLinesWithReplace(extension, replaceLine);
+        CurrentSettings.ScrubLinesWithReplace(extension, line => replaceLine(line.ToString()));
         return this;
     }
 

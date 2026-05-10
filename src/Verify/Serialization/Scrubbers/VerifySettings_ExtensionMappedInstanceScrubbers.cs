@@ -78,14 +78,30 @@ public partial class VerifySettings
     /// <summary>
     /// Remove any lines matching <paramref name="removeLine" /> from the test results.
     /// </summary>
-    public void ScrubLines(string extension, Func<string, bool> removeLine) =>
+    [OverloadResolutionPriority(1)]
+    public void ScrubLines(string extension, LineFilter removeLine) =>
         AddScrubber(extension, new FilterLinesScrubber(removeLine));
+
+    /// <summary>
+    /// Remove any lines matching <paramref name="removeLine" /> from the test results.
+    /// </summary>
+    [Obsolete("Use ScrubLines(string, LineFilter)")]
+    public void ScrubLines(string extension, Func<string, bool> removeLine) =>
+        AddScrubber(extension, new FilterLinesScrubber(line => removeLine(line.ToString())));
 
     /// <summary>
     /// Scrub lines with an optional replace.
     /// </summary>
-    public void ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine) =>
+    [OverloadResolutionPriority(1)]
+    public void ScrubLinesWithReplace(string extension, LineReplace replaceLine) =>
         AddScrubber(extension, new ReplaceLinesScrubber(replaceLine));
+
+    /// <summary>
+    /// Scrub lines with an optional replace.
+    /// </summary>
+    [Obsolete("Use ScrubLinesWithReplace(string, LineReplace)")]
+    public void ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine) =>
+        AddScrubber(extension, new ReplaceLinesScrubber(line => replaceLine(line.ToString())));
 
     /// <summary>
     /// Remove any lines containing only whitespace from the test results.

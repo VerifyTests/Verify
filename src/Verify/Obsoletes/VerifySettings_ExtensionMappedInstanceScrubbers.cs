@@ -71,16 +71,16 @@ public partial class VerifySettings
     /// <summary>
     /// Remove any lines matching <paramref name="removeLine" /> from the test results.
     /// </summary>
-    [Obsolete("ScrubberLocation is obsolete. Use ScrubLines(string, Func<string, bool>).")]
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubLines(string, LineFilter).")]
     public void ScrubLines(string extension, Func<string, bool> removeLine, ScrubberLocation location) =>
-        ScrubLines(extension, removeLine);
+        ScrubLines(extension, line => removeLine(line.ToString()));
 
     /// <summary>
     /// Scrub lines with an optional replace.
     /// </summary>
-    [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesWithReplace(string, Func<string, string?>).")]
+    [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesWithReplace(string, LineReplace).")]
     public void ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine, ScrubberLocation location) =>
-        ScrubLinesWithReplace(extension, replaceLine);
+        ScrubLinesWithReplace(extension, line => replaceLine(line.ToString()));
 
     /// <summary>
     /// Remove any lines containing only whitespace from the test results.

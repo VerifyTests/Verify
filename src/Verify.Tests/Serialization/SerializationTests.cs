@@ -2030,7 +2030,7 @@ public class SerializationTests
 
         #region ScrubLines
 
-        verifySettings.ScrubLines(line => line.Contains("text"));
+        verifySettings.ScrubLines(static (ReadOnlySpan<char> line) => line.Contains("text", StringComparison.Ordinal));
 
         #endregion
 
@@ -2048,7 +2048,7 @@ public class SerializationTests
 
         #region ScrubLinesWithReplace
 
-        verifySettings.ScrubLinesWithReplace(line => line.ToUpper());
+        verifySettings.ScrubLinesWithReplace(static (ReadOnlySpan<char> line) => line.ToString().ToUpper());
 
         #endregion
 

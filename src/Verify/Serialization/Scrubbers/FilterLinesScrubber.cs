@@ -1,4 +1,4 @@
-sealed class FilterLinesScrubber(Func<string, bool> removeLine) :
+sealed class FilterLinesScrubber(LineFilter removeLine) :
     LineScrubber
 {
     public override string? Process(
@@ -6,12 +6,11 @@ sealed class FilterLinesScrubber(Func<string, bool> removeLine) :
         Counter counter,
         IReadOnlyDictionary<string, object> context)
     {
-        var lineString = line.ToString();
-        if (removeLine(lineString))
+        if (removeLine(line))
         {
             return null;
         }
 
-        return lineString;
+        return line.ToString();
     }
 }

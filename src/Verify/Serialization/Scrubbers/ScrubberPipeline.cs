@@ -102,11 +102,16 @@ static class ScrubberPipeline
 
     static void FixNewlinesIfNeeded(StringBuilder target)
     {
-        // Single scan: only normalize when \r is actually present.
-        if (HasCarriageReturn(target))
+        // Single scan: only normalize when \r is actually present, and start replacements
+        // at the first \r so any clean prefix is skipped.
+        var first = IndexOfCarriageReturn(target);
+        if (first < 0)
         {
-            target.FixNewlines();
+            return;
         }
+
+        target.Replace("\r\n", "\n", first, target.Length - first);
+        target.Replace('\r', '\n', first, target.Length - first);
     }
 
     static void ApplyContentScrubbers(
@@ -339,17 +344,21 @@ static class ScrubberPipeline
         threadSwap = sb;
     }
 
-    static bool HasCarriageReturn(StringBuilder builder)
+    static int IndexOfCarriageReturn(StringBuilder builder)
     {
+        var offset = 0;
         foreach (var chunk in builder.GetChunks())
         {
-            if (chunk.Span.IndexOf('\r') >= 0)
+            var index = chunk.Span.IndexOf('\r');
+            if (index >= 0)
             {
-                return true;
+                return offset + index;
             }
+
+            offset += chunk.Length;
         }
 
-        return false;
+        return -1;
     }
 
     static List<ContentScrubber>? CollectContent(VerifySettings settings, string extension)

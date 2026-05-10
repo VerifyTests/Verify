@@ -74,16 +74,6 @@ public partial class InnerVerifier :
     /// Initialize a new instance of the <see cref="InnerVerifier" /> class for verifying the entire file (not just a specific type)
     /// </summary>
     /// <remarks>This constructor is used by 3rd party clients</remarks>
-    [Obsolete("Use InnerVerifier(string directory, string name, VerifySettings settings)", true)]
-    // ReSharper disable UnusedParameter.Local
-    public InnerVerifier(string sourceFile, VerifySettings settings) =>
-        throw new NotImplementedException();
-    // ReSharper restore UnusedParameter.Local
-
-    /// <summary>
-    /// Initialize a new instance of the <see cref="InnerVerifier" /> class for verifying the entire file (not just a specific type)
-    /// </summary>
-    /// <remarks>This constructor is used by 3rd party clients</remarks>
     public InnerVerifier(string directory, string name, VerifySettings? settings = null)
     {
         Ensure.NotEmpty(directory);

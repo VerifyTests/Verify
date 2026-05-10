@@ -121,9 +121,27 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubLines(Func{string,bool})"/>
+    [Pure]
+    [Obsolete("Use ScrubLines(LineFilter)")]
+    public SettingsTask ScrubLines(Func<string, bool> removeLine)
+    {
+        CurrentSettings.ScrubLines(line => removeLine(line.ToString()));
+        return this;
+    }
+
     [Pure]
     [Obsolete("ScrubberLocation is obsolete. Use ScrubLines(string, LineFilter).")]
     public SettingsTask ScrubLines(string extension, Func<string, bool> removeLine, ScrubberLocation location)
+    {
+        CurrentSettings.ScrubLines(extension, line => removeLine(line.ToString()));
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.ScrubLines(string,Func{string,bool})"/>
+    [Pure]
+    [Obsolete("Use ScrubLines(string, LineFilter)")]
+    public SettingsTask ScrubLines(string extension, Func<string, bool> removeLine)
     {
         CurrentSettings.ScrubLines(extension, line => removeLine(line.ToString()));
         return this;
@@ -137,9 +155,27 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubLinesWithReplace(Func{string,string?})"/>
+    [Pure]
+    [Obsolete("Use ScrubLinesWithReplace(LineReplace)")]
+    public SettingsTask ScrubLinesWithReplace(Func<string, string?> replaceLine)
+    {
+        CurrentSettings.ScrubLinesWithReplace(line => replaceLine(line.ToString()));
+        return this;
+    }
+
     [Pure]
     [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesWithReplace(string, LineReplace).")]
     public SettingsTask ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine, ScrubberLocation location)
+    {
+        CurrentSettings.ScrubLinesWithReplace(extension, line => replaceLine(line.ToString()));
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.ScrubLinesWithReplace(string,Func{string,string?})"/>
+    [Pure]
+    [Obsolete("Use ScrubLinesWithReplace(string, LineReplace)")]
+    public SettingsTask ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine)
     {
         CurrentSettings.ScrubLinesWithReplace(extension, line => replaceLine(line.ToString()));
         return this;

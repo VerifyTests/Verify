@@ -187,34 +187,12 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubLines(Func{string,bool})"/>
-    [Pure]
-    [Obsolete("Use ScrubLines(LineFilter)")]
-    public SettingsTask ScrubLines(Func<string, bool> removeLine)
-    {
-#pragma warning disable CS0618
-        CurrentSettings.ScrubLines(removeLine);
-#pragma warning restore CS0618
-        return this;
-    }
-
     /// <inheritdoc cref="VerifySettings.ScrubLines(string,LineFilter)"/>
     [Pure]
     [OverloadResolutionPriority(1)]
     public SettingsTask ScrubLines(string extension, LineFilter removeLine)
     {
         CurrentSettings.ScrubLines(extension, removeLine);
-        return this;
-    }
-
-    /// <inheritdoc cref="VerifySettings.ScrubLines(string,Func{string,bool})"/>
-    [Pure]
-    [Obsolete("Use ScrubLines(string, LineFilter)")]
-    public SettingsTask ScrubLines(string extension, Func<string, bool> removeLine)
-    {
-#pragma warning disable CS0618
-        CurrentSettings.ScrubLines(extension, removeLine);
-#pragma warning restore CS0618
         return this;
     }
 
@@ -227,34 +205,12 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubLinesWithReplace(Func{string,string?})"/>
-    [Pure]
-    [Obsolete("Use ScrubLinesWithReplace(LineReplace)")]
-    public SettingsTask ScrubLinesWithReplace(Func<string, string?> replaceLine)
-    {
-#pragma warning disable CS0618
-        CurrentSettings.ScrubLinesWithReplace(replaceLine);
-#pragma warning restore CS0618
-        return this;
-    }
-
     /// <inheritdoc cref="VerifySettings.ScrubLinesWithReplace(string,LineReplace)"/>
     [Pure]
     [OverloadResolutionPriority(1)]
     public SettingsTask ScrubLinesWithReplace(string extension, LineReplace replaceLine)
     {
         CurrentSettings.ScrubLinesWithReplace(extension, replaceLine);
-        return this;
-    }
-
-    /// <inheritdoc cref="VerifySettings.ScrubLinesWithReplace(string,Func{string,string?})"/>
-    [Pure]
-    [Obsolete("Use ScrubLinesWithReplace(string, LineReplace)")]
-    public SettingsTask ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine)
-    {
-#pragma warning disable CS0618
-        CurrentSettings.ScrubLinesWithReplace(extension, replaceLine);
-#pragma warning restore CS0618
         return this;
     }
 

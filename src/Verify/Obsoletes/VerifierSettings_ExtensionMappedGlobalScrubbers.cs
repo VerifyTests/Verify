@@ -60,6 +60,13 @@ public static partial class VerifierSettings
         ScrubLines(extension, line => removeLine(line.ToString()));
 
     /// <summary>
+    /// Remove any lines matching <paramref name="removeLine" /> from the test results.
+    /// </summary>
+    [Obsolete("Use ScrubLines(string, LineFilter)")]
+    public static void ScrubLines(string extension, Func<string, bool> removeLine) =>
+        ScrubLines(extension, line => removeLine(line.ToString()));
+
+    /// <summary>
     /// Remove any lines containing only whitespace from the test results.
     /// </summary>
     [Obsolete("ScrubberLocation is obsolete. Use ScrubEmptyLines(string).")]
@@ -78,6 +85,13 @@ public static partial class VerifierSettings
     /// </summary>
     [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesWithReplace(string, LineReplace).")]
     public static void ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine, ScrubberLocation location) =>
+        ScrubLinesWithReplace(extension, line => replaceLine(line.ToString()));
+
+    /// <summary>
+    /// Scrub lines with an optional replace.
+    /// </summary>
+    [Obsolete("Use ScrubLinesWithReplace(string, LineReplace)")]
+    public static void ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine) =>
         ScrubLinesWithReplace(extension, line => replaceLine(line.ToString()));
 
     /// <summary>

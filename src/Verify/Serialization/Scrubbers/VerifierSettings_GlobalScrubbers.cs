@@ -70,16 +70,6 @@ public static partial class VerifierSettings
     }
 
     /// <summary>
-    /// Remove any lines matching <paramref name="removeLine" /> from the test results.
-    /// </summary>
-    [Obsolete("Use ScrubLines(LineFilter)")]
-    public static void ScrubLines(Func<string, bool> removeLine)
-    {
-        InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(new FilterLinesScrubber(line => removeLine(line.ToString())));
-    }
-
-    /// <summary>
     /// Remove any lines containing only whitespace from the test results.
     /// </summary>
     public static void ScrubEmptyLines()
@@ -142,17 +132,6 @@ public static partial class VerifierSettings
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         AddScrubber(new ReplaceLinesScrubber(replaceLine));
-    }
-
-    /// <summary>
-    /// Scrub lines with an optional replace.
-    /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a different string to replace it.
-    /// </summary>
-    [Obsolete("Use ScrubLinesWithReplace(LineReplace)")]
-    public static void ScrubLinesWithReplace(Func<string, string?> replaceLine)
-    {
-        InnerVerifier.ThrowIfVerifyHasBeenRun();
-        AddScrubber(new ReplaceLinesScrubber(line => replaceLine(line.ToString())));
     }
 
     /// <summary>

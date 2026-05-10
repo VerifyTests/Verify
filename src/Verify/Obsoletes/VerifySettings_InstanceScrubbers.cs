@@ -109,10 +109,25 @@ public partial class VerifySettings
         ScrubLines(line => removeLine(line.ToString()));
 
     /// <summary>
+    /// Remove any lines matching <paramref name="removeLine" /> from the test results.
+    /// </summary>
+    [Obsolete("Use ScrubLines(LineFilter)")]
+    public void ScrubLines(Func<string, bool> removeLine) =>
+        ScrubLines(line => removeLine(line.ToString()));
+
+    /// <summary>
     /// Scrub lines with an optional replace.
     /// </summary>
     [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesWithReplace(LineReplace).")]
     public void ScrubLinesWithReplace(Func<string, string?> replaceLine, ScrubberLocation location) =>
+        ScrubLinesWithReplace(line => replaceLine(line.ToString()));
+
+    /// <summary>
+    /// Scrub lines with an optional replace.
+    /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a different string to replace it.
+    /// </summary>
+    [Obsolete("Use ScrubLinesWithReplace(LineReplace)")]
+    public void ScrubLinesWithReplace(Func<string, string?> replaceLine) =>
         ScrubLinesWithReplace(line => replaceLine(line.ToString()));
 
     /// <summary>

@@ -10,22 +10,6 @@ public static partial class VerifierSettings
     internal static bool HasStreamConverter(string extension) =>
         extensionConverters.ContainsKey(extension);
 
-    [Obsolete("Use RegisterStreamConverter instead")]
-    public static void RegisterFileConverter(
-        string fromExtension,
-        Conversion<Stream> conversion) =>
-        RegisterFileConverter(
-            fromExtension,
-            (stream, context) => Task.FromResult(conversion(stream, context)));
-
-    [Obsolete("Use RegisterStreamConverter instead")]
-    public static void RegisterFileConverter(
-        string fromExtension,
-        AsyncConversion<Stream> conversion) =>
-        RegisterStreamConverter(
-            fromExtension,
-            (_, stream, context) => conversion(stream, context));
-
     public static void RegisterStreamConverter(
         string extension,
         StreamConversion conversion) =>

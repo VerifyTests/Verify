@@ -18,7 +18,7 @@ static class PatternWalker
         {
             if (source.Length > 0)
             {
-                chunks.Add(ScrubberChunk.Passthrough(0, source.Length));
+                AddPassthrough(chunks, 0, source.Length);
             }
 
             return;
@@ -41,7 +41,7 @@ static class PatternWalker
 
         if (source.Length < globalMin)
         {
-            chunks.Add(ScrubberChunk.Passthrough(0, source.Length));
+            AddPassthrough(chunks, 0, source.Length);
             return;
         }
 
@@ -88,7 +88,7 @@ static class PatternWalker
                 terminatorLength = 2;
             }
 
-            chunks.Add(ScrubberChunk.Passthrough(terminatorStart, terminatorLength));
+            AddPassthrough(chunks, terminatorStart, terminatorLength);
             lineStart = terminatorStart + terminatorLength;
         }
     }
@@ -105,7 +105,7 @@ static class PatternWalker
     {
         if (end - start < globalMin)
         {
-            chunks.Add(ScrubberChunk.Passthrough(start, end - start));
+            AddPassthrough(chunks, start, end - start);
             return;
         }
 
@@ -137,7 +137,7 @@ static class PatternWalker
             {
                 if (i > pendingStart)
                 {
-                    chunks.Add(ScrubberChunk.Passthrough(pendingStart, i - pendingStart));
+                    AddPassthrough(chunks, pendingStart, i - pendingStart);
                 }
 
                 chunks.Add(ScrubberChunk.Replace(replacement!));
@@ -152,7 +152,7 @@ static class PatternWalker
 
         if (end > pendingStart)
         {
-            chunks.Add(ScrubberChunk.Passthrough(pendingStart, end - pendingStart));
+            AddPassthrough(chunks, pendingStart, end - pendingStart);
         }
     }
 
@@ -184,6 +184,26 @@ static class PatternWalker
         matchLength = 0;
         replacement = null;
         return false;
+    }
+
+    static void AddPassthrough(List<ScrubberChunk> chunks, int start, int length)
+    {
+        if (length == 0)
+        {
+            return;
+        }
+
+        if (chunks.Count > 0)
+        {
+            var last = chunks[^1];
+            if (last.Replacement is null && last.SourceStart + last.SourceLength == start)
+            {
+                chunks[^1] = ScrubberChunk.Passthrough(last.SourceStart, last.SourceLength + length);
+                return;
+            }
+        }
+
+        chunks.Add(ScrubberChunk.Passthrough(start, length));
     }
 
     public static void Stitch(CharSpan source, List<ScrubberChunk> chunks, StringBuilder output)

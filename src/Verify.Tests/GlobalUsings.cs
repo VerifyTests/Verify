@@ -2,6 +2,7 @@
 global using System.Drawing;
 global using System.Drawing.Imaging;
 global using System.Runtime.InteropServices;
+global using System.Buffers;
 global using Argon;
 global using DiffEngine;
 global using EmptyFiles;

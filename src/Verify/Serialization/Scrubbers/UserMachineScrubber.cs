@@ -1,4 +1,4 @@
-﻿static partial class UserMachineScrubber
+﻿static class UserMachineScrubber
 {
     static string machineName;
     static string userName;

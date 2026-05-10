@@ -1,11 +1,8 @@
-using System.Buffers;
-
-namespace VerifyTests;
-
 // Test-only helper: invokes the pattern walker against a single scrubber
 // without going through the full ScrubberPipeline.
 static class PatternScrubberRunner
 {
+    // ReSharper disable once CollectionNeverUpdated.Local
     static readonly Dictionary<string, object> emptyContext = new();
 
     public static void Run(StringBuilder builder, PatternScrubber scrubber, Counter counter)

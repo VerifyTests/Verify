@@ -13,10 +13,9 @@ namespace VerifyTests;
 /// filter. Those tiers let the engine skip work that this delegate-style scrubber
 /// always pays for.
 /// </remarks>
-public sealed class LambdaContentScrubber : ContentScrubber
+public sealed class LambdaContentScrubber(Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>> action)
+    : ContentScrubber
 {
-    readonly Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>> action;
-
     public LambdaContentScrubber(Action<StringBuilder> action) :
         this((builder, _, _) => action(builder))
     {
@@ -26,9 +25,6 @@ public sealed class LambdaContentScrubber : ContentScrubber
         this((builder, counter, _) => action(builder, counter))
     {
     }
-
-    public LambdaContentScrubber(Action<StringBuilder, Counter, IReadOnlyDictionary<string, object>> action) =>
-        this.action = action;
 
     public override void Process(
         CharSpan input,

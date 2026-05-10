@@ -1,5 +1,3 @@
-namespace VerifyTests;
-
 /// <summary>
 /// A single emit produced by the pattern walker. Either a passthrough range
 /// referencing the source buffer, or a replacement string emitted by a scrubber.

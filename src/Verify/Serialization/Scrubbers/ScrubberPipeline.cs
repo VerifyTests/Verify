@@ -1,7 +1,5 @@
 // ReSharper disable RedundantSuppressNullableWarningExpression
 
-namespace VerifyTests;
-
 static class ScrubberPipeline
 {
     [ThreadStatic]

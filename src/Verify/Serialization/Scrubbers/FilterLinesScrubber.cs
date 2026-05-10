@@ -1,5 +1,3 @@
-namespace VerifyTests;
-
 sealed class FilterLinesScrubber(Func<string, bool> removeLine) :
     LineScrubber
 {

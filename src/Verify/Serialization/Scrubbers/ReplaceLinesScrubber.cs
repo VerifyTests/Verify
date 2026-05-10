@@ -1,5 +1,3 @@
-namespace VerifyTests;
-
 sealed class ReplaceLinesScrubber(Func<string, string?> replaceLine) :
     LineScrubber
 {

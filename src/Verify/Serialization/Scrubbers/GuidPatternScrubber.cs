@@ -1,5 +1,3 @@
-namespace VerifyTests;
-
 sealed class GuidPatternScrubber : PatternScrubber
 {
     public static readonly GuidPatternScrubber Instance = new();

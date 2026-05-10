@@ -1,12 +1,8 @@
-namespace VerifyTests;
-
 sealed class DirectoryReplacementsPatternScrubber : PatternScrubber
 {
     public static readonly DirectoryReplacementsPatternScrubber Instance = new();
 
-    readonly List<DirectoryReplacements.Pair>? overrideItems;
-    readonly int overrideMin;
-    readonly int overrideMax;
+    List<DirectoryReplacements.Pair>? overrideItems;
 
     DirectoryReplacementsPatternScrubber()
     {
@@ -37,8 +33,8 @@ sealed class DirectoryReplacementsPatternScrubber : PatternScrubber
             }
         }
 
-        overrideMin = min;
-        overrideMax = max + 1;
+        MinLength = min;
+        MaxLength = max + 1;
     }
 
     // Reads from DirectoryReplacements (rebuilt by UseAssembly) unless overridden via the test ctor.
@@ -48,14 +44,14 @@ sealed class DirectoryReplacementsPatternScrubber : PatternScrubber
         {
             if (overrideItems != null)
             {
-                return overrideItems.Count == 0 ? int.MaxValue : overrideMin;
+                return overrideItems.Count == 0 ? int.MaxValue : field;
             }
 
             return DirectoryReplacements.MinLength == 0 ? int.MaxValue : DirectoryReplacements.MinLength;
         }
     }
 
-    public override int MaxLength => overrideItems != null ? overrideMax : DirectoryReplacements.MaxLength;
+    public override int MaxLength => overrideItems != null ? field : DirectoryReplacements.MaxLength;
     public override bool SingleLine => true;
 
     public override bool TryMatch(
@@ -75,7 +71,8 @@ sealed class DirectoryReplacementsPatternScrubber : PatternScrubber
             return false;
         }
 
-        if (position > 0 && char.IsLetterOrDigit(source[position - 1]))
+        if (position > 0 &&
+            char.IsLetterOrDigit(source[position - 1]))
         {
             return false;
         }

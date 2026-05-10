@@ -7,50 +7,6 @@ public partial class VerifySettings
     Dictionary<string, StreamCompare>? extensionStreamComparers;
     Dictionary<string, StringCompare>? extensionStringComparers;
 
-    [Obsolete("Use VerifySettings.UseStreamComparer(StreamCompare compare, params ReadOnlySpan<string> extensions)")]
-    public void UseStreamComparer(StreamCompare compare) =>
-        streamComparer = compare;
-
-    [Obsolete("Use VerifySettings.UseStringComparer(StringCompare compare, params ReadOnlySpan<string> extensions)")]
-    public void UseStringComparer(StringCompare compare) =>
-        stringComparer = compare;
-
-    [OverloadResolutionPriority(1)]
-    public void UseStreamComparer(StreamCompare compare, params ReadOnlySpan<string> extensions)
-    {
-        if (extensions.Length == 0)
-        {
-            streamComparer = compare;
-        }
-        else
-        {
-            extensionStreamComparers ??= [];
-            foreach (var extension in extensions)
-            {
-                Guards.AgainstBadExtension(extension);
-                extensionStreamComparers[extension] = compare;
-            }
-        }
-    }
-
-    [OverloadResolutionPriority(1)]
-    public void UseStringComparer(StringCompare compare, params ReadOnlySpan<string> extensions)
-    {
-        if (extensions.Length == 0)
-        {
-            stringComparer = compare;
-        }
-        else
-        {
-            extensionStringComparers ??= [];
-            foreach (var extension in extensions)
-            {
-                Guards.AgainstBadExtension(extension);
-                extensionStringComparers[extension] = compare;
-            }
-        }
-    }
-
     // Dont use this.extension since a converter may have
     // changed the extension for the current compare operation
     internal bool TryFindStreamComparer(string extension, [NotNullWhen(true)] out StreamCompare? compare)

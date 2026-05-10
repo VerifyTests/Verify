@@ -213,12 +213,6 @@ static class Extensions
         }
     }
 
-    public static void Overwrite(this StringBuilder builder, string value, int index, int length)
-    {
-        builder.Remove(index, length);
-        builder.Insert(index, value);
-    }
-
     public static int Count(this StringBuilder builder, char ch)
     {
         var count = 0;

@@ -15,14 +15,18 @@ public abstract class LineScrubber
     /// <param name="line">The line content (no trailing newline).</param>
     /// <param name="counter">Per-verification counter.</param>
     /// <param name="context">Per-verification context dictionary.</param>
+    /// <param name="replacement">
+    /// When the return value is <c>true</c>, optional replacement content. Set to
+    /// <c>null</c> to keep <paramref name="line" /> unchanged (zero allocation).
+    /// </param>
     /// <returns>
-    /// <c>null</c> to drop the line entirely, or the (possibly modified) line
-    /// content to keep. Return the input span as a string to keep unchanged.
+    /// <c>false</c> to drop the line entirely; <c>true</c> to keep it.
     /// </returns>
-    public abstract string? Process(
+    public abstract bool Process(
         CharSpan line,
         Counter counter,
-        IReadOnlyDictionary<string, object> context);
+        IReadOnlyDictionary<string, object> context,
+        out string? replacement);
 }
 
 #endregion

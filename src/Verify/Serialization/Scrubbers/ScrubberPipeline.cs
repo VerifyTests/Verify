@@ -250,40 +250,39 @@ static class ScrubberPipeline
                 }
 
                 var line = input.Slice(lineStart, lineEnd - lineStart);
-                string? processed = null;
-                var first = true;
+                string? currentString = null;
+                var drop = false;
                 foreach (var scrubber in lineScrubbers)
                 {
-                    if (first)
+                    var span = currentString is null ? line : currentString.AsSpan();
+                    if (!scrubber.Process(span, counter, context, out var replacement))
                     {
-                        processed = scrubber.Process(line, counter, context);
-                        first = false;
-                    }
-                    else if (processed is not null)
-                    {
-                        processed = scrubber.Process(processed.AsSpan(), counter, context);
-                    }
-
-                    if (processed is null)
-                    {
+                        drop = true;
                         break;
                     }
+
+                    if (replacement is not null)
+                    {
+                        currentString = replacement;
+                    }
                 }
 
-                if (first)
-                {
-                    // No scrubbers ran; defensive — shouldn't happen given outer Count > 0 check.
-                    processed = line.ToString();
-                }
-
-                if (processed is not null)
+                if (!drop)
                 {
                     if (hasContent)
                     {
                         target.Append('\n');
                     }
 
-                    target.Append(processed);
+                    if (currentString is not null)
+                    {
+                        target.Append(currentString);
+                    }
+                    else
+                    {
+                        target.Append(line);
+                    }
+
                     hasContent = true;
                 }
 

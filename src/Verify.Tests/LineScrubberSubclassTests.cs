@@ -2,31 +2,36 @@ public class LineScrubberSubclassTests
 {
     sealed class DropLines(params string[] dropContaining) : LineScrubber
     {
-        public override string? Process(
+        public override bool Process(
             ReadOnlySpan<char> line,
             Counter counter,
-            IReadOnlyDictionary<string, object> context)
+            IReadOnlyDictionary<string, object> context,
+            out string? replacement)
         {
-            var lineString = line.ToString();
+            replacement = null;
             foreach (var token in dropContaining)
             {
-                if (lineString.Contains(token, StringComparison.Ordinal))
+                if (line.Contains(token.AsSpan(), StringComparison.Ordinal))
                 {
-                    return null;
+                    return false;
                 }
             }
 
-            return lineString;
+            return true;
         }
     }
 
     sealed class UppercaseLines : LineScrubber
     {
-        public override string? Process(
+        public override bool Process(
             ReadOnlySpan<char> line,
             Counter counter,
-            IReadOnlyDictionary<string, object> context) =>
-            line.ToString().ToUpperInvariant();
+            IReadOnlyDictionary<string, object> context,
+            out string? replacement)
+        {
+            replacement = line.ToString().ToUpperInvariant();
+            return true;
+        }
     }
 
     [Fact]

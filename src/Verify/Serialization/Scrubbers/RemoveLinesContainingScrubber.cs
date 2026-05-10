@@ -3,20 +3,21 @@ namespace VerifyTests;
 sealed class RemoveLinesContainingScrubber(StringComparison comparison, string[] stringToMatch) :
     LineScrubber
 {
-    public override string? Process(
+    public override bool Process(
         CharSpan line,
         Counter counter,
-        IReadOnlyDictionary<string, object> context)
+        IReadOnlyDictionary<string, object> context,
+        out string? replacement)
     {
-        var lineString = line.ToString();
+        replacement = null;
         foreach (var toMatch in stringToMatch)
         {
-            if (lineString.Contains(toMatch, comparison))
+            if (line.Contains(toMatch.AsSpan(), comparison))
             {
-                return null;
+                return false;
             }
         }
 
-        return lineString;
+        return true;
     }
 }

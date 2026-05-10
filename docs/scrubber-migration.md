@@ -103,17 +103,21 @@ public abstract class LineScrubber
     /// <param name="line">The line content (no trailing newline).</param>
     /// <param name="counter">Per-verification counter.</param>
     /// <param name="context">Per-verification context dictionary.</param>
+    /// <param name="replacement">
+    /// When the return value is <c>true</c>, optional replacement content. Set to
+    /// <c>null</c> to keep <paramref name="line" /> unchanged (zero allocation).
+    /// </param>
     /// <returns>
-    /// <c>null</c> to drop the line entirely, or the (possibly modified) line
-    /// content to keep. Return the input span as a string to keep unchanged.
+    /// <c>false</c> to drop the line entirely; <c>true</c> to keep it.
     /// </returns>
-    public abstract string? Process(
+    public abstract bool Process(
         CharSpan line,
         Counter counter,
-        IReadOnlyDictionary<string, object> context);
+        IReadOnlyDictionary<string, object> context,
+        out string? replacement);
 }
 ```
-<sup><a href='/src/Verify/Serialization/Scrubbers/LineScrubber.cs#L3-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-LineScrubber' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/Scrubbers/LineScrubber.cs#L3-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-LineScrubber' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: ContentScrubber -->
@@ -221,22 +225,19 @@ Old:
 verifySettings.AddScrubber(builder => builder.FilterLines(line => line.StartsWith("INTERNAL:")));
 ```
 
-New: subclass `LineScrubber`. Return `null` to drop, or a string to keep / replace:
+New: subclass `LineScrubber`. Return `false` to drop the line. Return `true` with `replacement = null` to keep the input span unchanged (zero allocation), or `true` with a replacement string to substitute new content:
 
 ```csharp
 sealed class DropInternalLines : LineScrubber
 {
-    public override string? Process(
+    public override bool Process(
         ReadOnlySpan<char> line,
         Counter counter,
-        IReadOnlyDictionary<string, object> context)
+        IReadOnlyDictionary<string, object> context,
+        out string? replacement)
     {
-        if (line.StartsWith("INTERNAL:"))
-        {
-            return null;
-        }
-
-        return line.ToString();
+        replacement = null;
+        return !line.StartsWith("INTERNAL:");
     }
 }
 

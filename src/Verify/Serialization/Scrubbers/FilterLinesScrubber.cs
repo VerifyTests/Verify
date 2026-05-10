@@ -1,16 +1,13 @@
 sealed class FilterLinesScrubber(LineFilter removeLine) :
     LineScrubber
 {
-    public override string? Process(
+    public override bool Process(
         CharSpan line,
         Counter counter,
-        IReadOnlyDictionary<string, object> context)
+        IReadOnlyDictionary<string, object> context,
+        out string? replacement)
     {
-        if (removeLine(line))
-        {
-            return null;
-        }
-
-        return line.ToString();
+        replacement = null;
+        return !removeLine(line);
     }
 }

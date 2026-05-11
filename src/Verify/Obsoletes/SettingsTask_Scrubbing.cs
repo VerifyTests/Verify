@@ -37,7 +37,8 @@ public partial class SettingsTask
     /// <inheritdoc cref="VerifySettings.ScrubInlineDateTimes(string,Culture?)"/>
     [Pure]
     public SettingsTask ScrubInlineDateTimes(
-        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)]
+        string format,
         Culture? culture = null)
     {
         CurrentSettings.ScrubInlineDateTimes(format, culture);
@@ -47,7 +48,8 @@ public partial class SettingsTask
     [Pure]
     [Obsolete("ScrubberLocation is obsolete. Use ScrubInlineDateTimes(string, Culture?).")]
     public SettingsTask ScrubInlineDateTimes(
-        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)]
+        string format,
         Culture? culture,
         ScrubberLocation location)
     {
@@ -58,7 +60,8 @@ public partial class SettingsTask
     [Pure]
     [Obsolete("ScrubberLocation is obsolete. Use ScrubInlineDateTimeOffsets(string, Culture?).")]
     public SettingsTask ScrubInlineDateTimeOffsets(
-        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)]
+        string format,
         Culture? culture,
         ScrubberLocation location)
     {
@@ -151,13 +154,19 @@ public partial class SettingsTask
     [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesWithReplace(LineReplace).")]
     public SettingsTask ScrubLinesWithReplace(Func<string, string?> replaceLine, ScrubberLocation location)
     {
-        CurrentSettings.ScrubLinesWithReplace((ReadOnlySpan<char> line, out ReadOnlySpan<char> r) =>
+        CurrentSettings.ScrubLinesWithReplace((line, out r) =>
         {
             var result = replaceLine(line.ToString());
-            if (result is null) { r = default; return false; }
+            if (result is null)
+            {
+                r = default;
+                return false;
+            }
+
             r = result.AsSpan();
             return true;
         });
+
         return this;
     }
 
@@ -166,13 +175,19 @@ public partial class SettingsTask
     [Obsolete("Use ScrubLinesWithReplace(LineReplace)")]
     public SettingsTask ScrubLinesWithReplace(Func<string, string?> replaceLine)
     {
-        CurrentSettings.ScrubLinesWithReplace((ReadOnlySpan<char> line, out ReadOnlySpan<char> r) =>
+        CurrentSettings.ScrubLinesWithReplace((line, out r) =>
         {
             var result = replaceLine(line.ToString());
-            if (result is null) { r = default; return false; }
+            if (result is null)
+            {
+                r = default;
+                return false;
+            }
+
             r = result.AsSpan();
             return true;
         });
+
         return this;
     }
 
@@ -180,13 +195,19 @@ public partial class SettingsTask
     [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesWithReplace(string, LineReplace).")]
     public SettingsTask ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine, ScrubberLocation location)
     {
-        CurrentSettings.ScrubLinesWithReplace(extension, (ReadOnlySpan<char> line, out ReadOnlySpan<char> r) =>
+        CurrentSettings.ScrubLinesWithReplace(extension, (line, out r) =>
         {
             var result = replaceLine(line.ToString());
-            if (result is null) { r = default; return false; }
+            if (result is null)
+            {
+                r = default;
+                return false;
+            }
+
             r = result.AsSpan();
             return true;
         });
+
         return this;
     }
 
@@ -195,13 +216,19 @@ public partial class SettingsTask
     [Obsolete("Use ScrubLinesWithReplace(string, LineReplace)")]
     public SettingsTask ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine)
     {
-        CurrentSettings.ScrubLinesWithReplace(extension, (ReadOnlySpan<char> line, out ReadOnlySpan<char> r) =>
+        CurrentSettings.ScrubLinesWithReplace(extension, (CharSpan line, out CharSpan r) =>
         {
             var result = replaceLine(line.ToString());
-            if (result is null) { r = default; return false; }
+            if (result is null)
+            {
+                r = default;
+                return false;
+            }
+
             r = result.AsSpan();
             return true;
         });
+
         return this;
     }
 

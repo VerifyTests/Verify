@@ -249,7 +249,7 @@ static class ScrubberPipeline
                     continue;
                 }
 
-                ReadOnlySpan<char> current = input.Slice(lineStart, lineEnd - lineStart);
+                CharSpan current = input.Slice(lineStart, lineEnd - lineStart);
                 var drop = false;
                 foreach (var scrubber in lineScrubbers)
                 {

@@ -87,10 +87,15 @@ public partial class VerifySettings
     /// </summary>
     [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesWithReplace(string, LineReplace).")]
     public void ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine, ScrubberLocation location) =>
-        ScrubLinesWithReplace(extension, (ReadOnlySpan<char> line, out ReadOnlySpan<char> r) =>
+        ScrubLinesWithReplace(extension, (line, out r) =>
         {
             var result = replaceLine(line.ToString());
-            if (result is null) { r = default; return false; }
+            if (result is null)
+            {
+                r = default;
+                return false;
+            }
+
             r = result.AsSpan();
             return true;
         });
@@ -100,10 +105,15 @@ public partial class VerifySettings
     /// </summary>
     [Obsolete("Use ScrubLinesWithReplace(string, LineReplace)")]
     public void ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine) =>
-        ScrubLinesWithReplace(extension, (ReadOnlySpan<char> line, out ReadOnlySpan<char> r) =>
+        ScrubLinesWithReplace(extension, (line, out r) =>
         {
             var result = replaceLine(line.ToString());
-            if (result is null) { r = default; return false; }
+            if (result is null)
+            {
+                r = default;
+                return false;
+            }
+
             r = result.AsSpan();
             return true;
         });

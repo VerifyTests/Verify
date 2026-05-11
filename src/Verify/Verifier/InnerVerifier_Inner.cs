@@ -88,7 +88,7 @@ partial class InnerVerifier
         return (list, cleanup);
     }
 
-    bool TryGetRootTarget(object? root,bool ignoreNullRoot, [NotNullWhen(true)] out Target? target)
+    bool TryGetRootTarget(object? root, bool ignoreNullRoot, [NotNullWhen(true)] out Target? target)
     {
         var appends = VerifierSettings.GetJsonAppenders(settings);
 

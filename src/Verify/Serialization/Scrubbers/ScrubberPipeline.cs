@@ -223,30 +223,33 @@ static class ScrubberPipeline
 
             var lineStart = 0;
             var hasContent = false;
-            var i = 0;
-            while (i <= length)
+            while (lineStart <= length)
             {
                 int lineEnd;
                 int nextStart;
-                if (i == length)
+                if (lineStart == length)
                 {
-                    lineEnd = i;
-                    nextStart = i + 1;
-                }
-                else if (input[i] == '\r')
-                {
-                    lineEnd = i;
-                    nextStart = (i + 1 < length && input[i + 1] == '\n') ? i + 2 : i + 1;
-                }
-                else if (input[i] == '\n')
-                {
-                    lineEnd = i;
-                    nextStart = i + 1;
+                    lineEnd = length;
+                    nextStart = length + 1;
                 }
                 else
                 {
-                    i++;
-                    continue;
+                    var newlineOffset = input.Slice(lineStart).IndexOfAny('\r', '\n');
+                    if (newlineOffset < 0)
+                    {
+                        lineEnd = length;
+                        nextStart = length + 1;
+                    }
+                    else
+                    {
+                        var newlineIdx = lineStart + newlineOffset;
+                        lineEnd = newlineIdx;
+                        nextStart = input[newlineIdx] == '\r' &&
+                                    newlineIdx + 1 < length &&
+                                    input[newlineIdx + 1] == '\n'
+                            ? newlineIdx + 2
+                            : newlineIdx + 1;
+                    }
                 }
 
                 CharSpan current = input.Slice(lineStart, lineEnd - lineStart);
@@ -274,7 +277,6 @@ static class ScrubberPipeline
                 }
 
                 lineStart = nextStart;
-                i = nextStart;
             }
         }
         finally

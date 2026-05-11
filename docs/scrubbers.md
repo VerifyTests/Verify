@@ -130,7 +130,7 @@ For example remove lines containing `text`:
 ```cs
 verifySettings.ScrubLines(static (ReadOnlySpan<char> line) => line.Contains("text", StringComparison.Ordinal));
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2031-L2035' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLines' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2043-L2047' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLines' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -145,7 +145,7 @@ For example remove lines containing `text1` or `text2`
 ```cs
 verifySettings.ScrubLinesContaining("text1", "text2");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2037-L2041' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesContaining' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2049-L2053' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesContaining' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Case insensitive by default (`StringComparison.OrdinalIgnoreCase`).
@@ -157,7 +157,7 @@ Case insensitive by default (`StringComparison.OrdinalIgnoreCase`).
 ```cs
 verifySettings.ScrubLinesContaining(StringComparison.Ordinal, "text1", "text2");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2043-L2047' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesContainingOrdinal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2055-L2059' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesContainingOrdinal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -170,9 +170,13 @@ For example converts lines to upper case:
 <!-- snippet: ScrubLinesWithReplace -->
 <a id='snippet-ScrubLinesWithReplace'></a>
 ```cs
-verifySettings.ScrubLinesWithReplace(static (ReadOnlySpan<char> line) => line.ToString().ToUpper());
+verifySettings.ScrubLinesWithReplace(static (ReadOnlySpan<char> line, out ReadOnlySpan<char> replacement) =>
+{
+    replacement = line.ToString().ToUpper().AsSpan();
+    return true;
+});
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2049-L2053' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesWithReplace' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2061-L2069' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesWithReplace' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -185,7 +189,7 @@ Replaces `Environment.MachineName` with `TheMachineName`.
 ```cs
 verifySettings.ScrubMachineName();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2055-L2059' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMachineName' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2071-L2075' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMachineName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -198,7 +202,7 @@ Replaces `Environment.UserName` with `TheUserName`.
 ```cs
 verifySettings.ScrubUserName();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2061-L2065' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubUserName' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2077-L2081' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubUserName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -291,14 +295,16 @@ public class ScrubbersSample
     {
         var settings = new VerifySettings();
         settings.ScrubLinesWithReplace(
-            replaceLine: (ReadOnlySpan<char> line) =>
+            replaceLine: (ReadOnlySpan<char> line, out ReadOnlySpan<char> replacement) =>
             {
                 if (line.Contains("LineE", StringComparison.Ordinal))
                 {
-                    return "NoMoreLineE";
+                    replacement = "NoMoreLineE".AsSpan();
+                    return true;
                 }
 
-                return line.ToString();
+                replacement = line;
+                return true;
             });
         settings.ScrubLines(removeLine: (ReadOnlySpan<char> line) => line.IndexOf('J') != -1);
         settings.ScrubLinesContaining("b", "D");
@@ -330,14 +336,16 @@ public class ScrubbersSample
                LineJ
                """)
             .ScrubLinesWithReplace(
-                replaceLine: (ReadOnlySpan<char> line) =>
+                replaceLine: (ReadOnlySpan<char> line, out ReadOnlySpan<char> replacement) =>
                 {
                     if (line.Contains("LineE", StringComparison.Ordinal))
                     {
-                        return "NoMoreLineE";
+                        replacement = "NoMoreLineE".AsSpan();
+                        return true;
                     }
 
-                    return line.ToString();
+                    replacement = line;
+                    return true;
                 })
             .ScrubLines(removeLine: (ReadOnlySpan<char> line) => line.IndexOf('J') != -1)
             .ScrubLinesContaining("b", "D")
@@ -351,14 +359,16 @@ public class ScrubbersSample
                LineC
                """)
             .ScrubLinesWithReplace(
-                replaceLine: (ReadOnlySpan<char> line) =>
+                replaceLine: (ReadOnlySpan<char> line, out ReadOnlySpan<char> replacement) =>
                 {
                     if (line.Contains("LineB", StringComparison.Ordinal))
                     {
-                        return null;
+                        replacement = default;
+                        return false;
                     }
 
-                    return line.ToString().ToLower();
+                    replacement = line.ToString().ToLower().AsSpan();
+                    return true;
                 });
 
     [Test]
@@ -373,7 +383,7 @@ public class ScrubbersSample
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L1-L93' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleNUnit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L1-L99' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleNUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -389,14 +399,16 @@ public class ScrubbersSample
     {
         var settings = new VerifySettings();
         settings.ScrubLinesWithReplace(
-            replaceLine: (ReadOnlySpan<char> line) =>
+            replaceLine: (ReadOnlySpan<char> line, out ReadOnlySpan<char> replacement) =>
             {
                 if (line.Contains("LineE", StringComparison.Ordinal))
                 {
-                    return "NoMoreLineE";
+                    replacement = "NoMoreLineE".AsSpan();
+                    return true;
                 }
 
-                return line.ToString();
+                replacement = line;
+                return true;
             });
         settings.ScrubLines(removeLine: (ReadOnlySpan<char> line) => line.IndexOf('J') != -1);
         settings.ScrubLinesContaining("b", "D");
@@ -420,7 +432,11 @@ public class ScrubbersSample
     {
         var settings = new VerifySettings();
         settings.ScrubLinesWithReplace(
-            replaceLine: (ReadOnlySpan<char> _) => "");
+            replaceLine: (ReadOnlySpan<char> _, out ReadOnlySpan<char> replacement) =>
+            {
+                replacement = default;
+                return true;
+            });
         return Verify(
             settings: settings,
             target: "");
@@ -439,14 +455,16 @@ public class ScrubbersSample
                LineJ
                """)
             .ScrubLinesWithReplace(
-                replaceLine: (ReadOnlySpan<char> line) =>
+                replaceLine: (ReadOnlySpan<char> line, out ReadOnlySpan<char> replacement) =>
                 {
                     if (line.Contains("LineE", StringComparison.Ordinal))
                     {
-                        return "NoMoreLineE";
+                        replacement = "NoMoreLineE".AsSpan();
+                        return true;
                     }
 
-                    return line.ToString();
+                    replacement = line;
+                    return true;
                 })
             .ScrubLines(removeLine: (ReadOnlySpan<char> line) => line.IndexOf('J') != -1)
             .ScrubLinesContaining("b", "D")
@@ -460,14 +478,16 @@ public class ScrubbersSample
                LineC
                """)
             .ScrubLinesWithReplace(
-                replaceLine: (ReadOnlySpan<char> line) =>
+                replaceLine: (ReadOnlySpan<char> line, out ReadOnlySpan<char> replacement) =>
                 {
                     if (line.Contains("LineB", StringComparison.Ordinal))
                     {
-                        return null;
+                        replacement = default;
+                        return false;
                     }
 
-                    return line.ToString().ToLower();
+                    replacement = line.ToString().ToLower().AsSpan();
+                    return true;
                 });
 
     [Fact]
@@ -482,7 +502,7 @@ public class ScrubbersSample
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Scrubbers/ScrubbersSample.cs#L1-L103' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Scrubbers/ScrubbersSample.cs#L1-L113' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -497,14 +517,16 @@ public class ScrubbersSample
     {
         var settings = new VerifySettings();
         settings.ScrubLinesWithReplace(
-            replaceLine: (ReadOnlySpan<char> line) =>
+            replaceLine: (ReadOnlySpan<char> line, out ReadOnlySpan<char> replacement) =>
             {
                 if (line.Contains("LineE", StringComparison.Ordinal))
                 {
-                    return "NoMoreLineE";
+                    replacement = "NoMoreLineE".AsSpan();
+                    return true;
                 }
 
-                return line.ToString();
+                replacement = line;
+                return true;
             });
         settings.ScrubLines(removeLine: (ReadOnlySpan<char> line) => line.IndexOf('J') != -1);
         settings.ScrubLinesContaining("b", "D");
@@ -535,14 +557,16 @@ public class ScrubbersSample
                LineJ
                """)
             .ScrubLinesWithReplace(
-                replaceLine: (ReadOnlySpan<char> line) =>
+                replaceLine: (ReadOnlySpan<char> line, out ReadOnlySpan<char> replacement) =>
                 {
                     if (line.Contains("LineE", StringComparison.Ordinal))
                     {
-                        return "NoMoreLineE";
+                        replacement = "NoMoreLineE".AsSpan();
+                        return true;
                     }
 
-                    return line.ToString();
+                    replacement = line;
+                    return true;
                 })
             .ScrubLines(removeLine: (ReadOnlySpan<char> line) => line.IndexOf('J') != -1)
             .ScrubLinesContaining("b", "D")
@@ -555,14 +579,16 @@ public class ScrubbersSample
                LineC
                """)
             .ScrubLinesWithReplace(
-                replaceLine: (ReadOnlySpan<char> line) =>
+                replaceLine: (ReadOnlySpan<char> line, out ReadOnlySpan<char> replacement) =>
                 {
                     if (line.Contains("LineB", StringComparison.Ordinal))
                     {
-                        return null;
+                        replacement = default;
+                        return false;
                     }
 
-                    return line.ToString().ToLower();
+                    replacement = line.ToString().ToLower().AsSpan();
+                    return true;
                 });
 
     public Task EmptyLines() =>
@@ -576,7 +602,7 @@ public class ScrubbersSample
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.Fixie.Tests/Scrubbers/ScrubbersSample.cs#L1-L88' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleFixie' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Scrubbers/ScrubbersSample.cs#L1-L94' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleFixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -593,14 +619,16 @@ public partial class ScrubbersSample
     {
         var settings = new VerifySettings();
         settings.ScrubLinesWithReplace(
-            replaceLine: (ReadOnlySpan<char> line) =>
+            replaceLine: (ReadOnlySpan<char> line, out ReadOnlySpan<char> replacement) =>
             {
                 if (line.Contains("LineE", StringComparison.Ordinal))
                 {
-                    return "NoMoreLineE";
+                    replacement = "NoMoreLineE".AsSpan();
+                    return true;
                 }
 
-                return line.ToString();
+                replacement = line;
+                return true;
             });
         settings.ScrubLines(removeLine: (ReadOnlySpan<char> line) => line.IndexOf('J') != -1);
         settings.ScrubLinesContaining("b", "D");
@@ -632,14 +660,16 @@ public partial class ScrubbersSample
                LineJ
                """)
             .ScrubLinesWithReplace(
-                replaceLine: (ReadOnlySpan<char> line) =>
+                replaceLine: (ReadOnlySpan<char> line, out ReadOnlySpan<char> replacement) =>
                 {
                     if (line.Contains("LineE", StringComparison.Ordinal))
                     {
-                        return "NoMoreLineE";
+                        replacement = "NoMoreLineE".AsSpan();
+                        return true;
                     }
 
-                    return line.ToString();
+                    replacement = line;
+                    return true;
                 })
             .ScrubLines(removeLine: (ReadOnlySpan<char> line) => line.IndexOf('J') != -1)
             .ScrubLinesContaining("b", "D")
@@ -653,14 +683,16 @@ public partial class ScrubbersSample
                LineC
                """)
             .ScrubLinesWithReplace(
-                replaceLine: (ReadOnlySpan<char> line) =>
+                replaceLine: (ReadOnlySpan<char> line, out ReadOnlySpan<char> replacement) =>
                 {
                     if (line.Contains("LineB", StringComparison.Ordinal))
                     {
-                        return null;
+                        replacement = default;
+                        return false;
                     }
 
-                    return line.ToString().ToLower();
+                    replacement = line.ToString().ToLower().AsSpan();
+                    return true;
                 });
 
     [TestMethod]
@@ -675,7 +707,7 @@ public partial class ScrubbersSample
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L1-L93' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleMSTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L1-L99' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -691,14 +723,16 @@ public class ScrubbersSample
     {
         var settings = new VerifySettings();
         settings.ScrubLinesWithReplace(
-            replaceLine: (ReadOnlySpan<char> line) =>
+            replaceLine: (ReadOnlySpan<char> line, out ReadOnlySpan<char> replacement) =>
             {
                 if (line.Contains("LineE", StringComparison.Ordinal))
                 {
-                    return "NoMoreLineE";
+                    replacement = "NoMoreLineE".AsSpan();
+                    return true;
                 }
 
-                return line.ToString();
+                replacement = line;
+                return true;
             });
         settings.ScrubLines(removeLine: (ReadOnlySpan<char> line) => line.IndexOf('J') != -1);
         settings.ScrubLinesContaining("b", "D");
@@ -730,14 +764,16 @@ public class ScrubbersSample
                LineJ
                """)
             .ScrubLinesWithReplace(
-                replaceLine: (ReadOnlySpan<char> line) =>
+                replaceLine: (ReadOnlySpan<char> line, out ReadOnlySpan<char> replacement) =>
                 {
                     if (line.Contains("LineE", StringComparison.Ordinal))
                     {
-                        return "NoMoreLineE";
+                        replacement = "NoMoreLineE".AsSpan();
+                        return true;
                     }
 
-                    return line.ToString();
+                    replacement = line;
+                    return true;
                 })
             .ScrubLines(removeLine: (ReadOnlySpan<char> line) => line.IndexOf('J') != -1)
             .ScrubLinesContaining("b", "D")
@@ -751,14 +787,16 @@ public class ScrubbersSample
                LineC
                """)
             .ScrubLinesWithReplace(
-                replaceLine: (ReadOnlySpan<char> line) =>
+                replaceLine: (ReadOnlySpan<char> line, out ReadOnlySpan<char> replacement) =>
                 {
                     if (line.Contains("LineB", StringComparison.Ordinal))
                     {
-                        return null;
+                        replacement = default;
+                        return false;
                     }
 
-                    return line.ToString().ToLower();
+                    replacement = line.ToString().ToLower().AsSpan();
+                    return true;
                 });
 
     [Test]
@@ -773,7 +811,7 @@ public class ScrubbersSample
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.TUnit.Tests/Scrubbers/ScrubbersSample.cs#L1-L92' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleTUnit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.TUnit.Tests/Scrubbers/ScrubbersSample.cs#L1-L98' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleTUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

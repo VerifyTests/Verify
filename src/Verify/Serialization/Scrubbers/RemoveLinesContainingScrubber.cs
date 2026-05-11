@@ -7,9 +7,9 @@ sealed class RemoveLinesContainingScrubber(StringComparison comparison, string[]
         CharSpan line,
         Counter counter,
         IReadOnlyDictionary<string, object> context,
-        out string? replacement)
+        out CharSpan replacement)
     {
-        replacement = null;
+        replacement = line;
         foreach (var toMatch in stringToMatch)
         {
             if (line.Contains(toMatch.AsSpan(), comparison))

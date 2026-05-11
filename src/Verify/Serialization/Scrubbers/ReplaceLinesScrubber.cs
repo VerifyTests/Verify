@@ -5,9 +5,6 @@ sealed class ReplaceLinesScrubber(LineReplace replaceLine) :
         CharSpan line,
         Counter counter,
         IReadOnlyDictionary<string, object> context,
-        out string? replacement)
-    {
-        replacement = replaceLine(line);
-        return replacement is not null;
-    }
+        out CharSpan replacement) =>
+        replaceLine(line, out replacement);
 }

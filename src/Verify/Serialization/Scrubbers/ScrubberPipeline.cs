@@ -249,22 +249,17 @@ static class ScrubberPipeline
                     continue;
                 }
 
-                var line = input.Slice(lineStart, lineEnd - lineStart);
-                string? currentString = null;
+                ReadOnlySpan<char> current = input.Slice(lineStart, lineEnd - lineStart);
                 var drop = false;
                 foreach (var scrubber in lineScrubbers)
                 {
-                    var span = currentString is null ? line : currentString.AsSpan();
-                    if (!scrubber.Process(span, counter, context, out var replacement))
+                    if (!scrubber.Process(current, counter, context, out var replacement))
                     {
                         drop = true;
                         break;
                     }
 
-                    if (replacement is not null)
-                    {
-                        currentString = replacement;
-                    }
+                    current = replacement;
                 }
 
                 if (!drop)
@@ -274,15 +269,7 @@ static class ScrubberPipeline
                         target.Append('\n');
                     }
 
-                    if (currentString is not null)
-                    {
-                        target.Append(currentString);
-                    }
-                    else
-                    {
-                        target.Append(line);
-                    }
-
+                    target.Append(current);
                     hasContent = true;
                 }
 

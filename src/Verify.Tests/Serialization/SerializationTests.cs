@@ -481,7 +481,11 @@ public class SerializationTests
                     dateTimeOffsetWithTime = new DateTimeOffset(new DateTime(2000, 1, 1), TimeSpan.FromHours(1))
                 })
             .DontScrubDateTimes()
-            .ScrubLinesWithReplace(_ => "replaced");
+            .ScrubLinesWithReplace(static (ReadOnlySpan<char> _, out ReadOnlySpan<char> r) =>
+            {
+                r = "replaced".AsSpan();
+                return true;
+            });
 
 #if NET6_0_OR_GREATER
     [Fact]
@@ -493,7 +497,11 @@ public class SerializationTests
                     value = new Date(2000, 1, 1)
                 })
             .DontScrubDateTimes()
-            .ScrubLinesWithReplace(_ => "replaced");
+            .ScrubLinesWithReplace(static (ReadOnlySpan<char> _, out ReadOnlySpan<char> r) =>
+            {
+                r = "replaced".AsSpan();
+                return true;
+            });
 
 #endif
 
@@ -721,7 +729,11 @@ public class SerializationTests
                     value = new Guid("b6993f86-c1b9-44db-bfc5-33ed9e5c048e")
                 })
             .DontScrubGuids()
-            .ScrubLinesWithReplace(_ => "replaced");
+            .ScrubLinesWithReplace(static (ReadOnlySpan<char> _, out ReadOnlySpan<char> r) =>
+            {
+                r = "replaced".AsSpan();
+                return true;
+            });
 
     [Fact]
     public Task GuidScrubbingDisabledNested() =>
@@ -2048,7 +2060,11 @@ public class SerializationTests
 
         #region ScrubLinesWithReplace
 
-        verifySettings.ScrubLinesWithReplace(static (ReadOnlySpan<char> line) => line.ToString().ToUpper());
+        verifySettings.ScrubLinesWithReplace(static (ReadOnlySpan<char> line, out ReadOnlySpan<char> replacement) =>
+        {
+            replacement = line.ToString().ToUpper().AsSpan();
+            return true;
+        });
 
         #endregion
 

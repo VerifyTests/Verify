@@ -87,14 +87,26 @@ public partial class VerifySettings
     /// </summary>
     [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesWithReplace(string, LineReplace).")]
     public void ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine, ScrubberLocation location) =>
-        ScrubLinesWithReplace(extension, line => replaceLine(line.ToString()));
+        ScrubLinesWithReplace(extension, (ReadOnlySpan<char> line, out ReadOnlySpan<char> r) =>
+        {
+            var result = replaceLine(line.ToString());
+            if (result is null) { r = default; return false; }
+            r = result.AsSpan();
+            return true;
+        });
 
     /// <summary>
     /// Scrub lines with an optional replace.
     /// </summary>
     [Obsolete("Use ScrubLinesWithReplace(string, LineReplace)")]
     public void ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine) =>
-        ScrubLinesWithReplace(extension, line => replaceLine(line.ToString()));
+        ScrubLinesWithReplace(extension, (ReadOnlySpan<char> line, out ReadOnlySpan<char> r) =>
+        {
+            var result = replaceLine(line.ToString());
+            if (result is null) { r = default; return false; }
+            r = result.AsSpan();
+            return true;
+        });
 
     /// <summary>
     /// Remove any lines containing only whitespace from the test results.

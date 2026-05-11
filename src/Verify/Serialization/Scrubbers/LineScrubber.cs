@@ -16,8 +16,10 @@ public abstract class LineScrubber
     /// <param name="counter">Per-verification counter.</param>
     /// <param name="context">Per-verification context dictionary.</param>
     /// <param name="replacement">
-    /// When the return value is <c>true</c>, optional replacement content. Set to
-    /// <c>null</c> to keep <paramref name="line" /> unchanged (zero allocation).
+    /// When the return value is <c>true</c>, the content to emit. Assign
+    /// <paramref name="line" /> itself to keep the line unchanged with zero allocation.
+    /// The span must remain valid until the call returns; backing a span with a
+    /// per-call string (or string literal) is the normal pattern for replacements.
     /// </param>
     /// <returns>
     /// <c>false</c> to drop the line entirely; <c>true</c> to keep it.
@@ -26,7 +28,7 @@ public abstract class LineScrubber
         CharSpan line,
         Counter counter,
         IReadOnlyDictionary<string, object> context,
-        out string? replacement);
+        out CharSpan replacement);
 }
 
 #endregion

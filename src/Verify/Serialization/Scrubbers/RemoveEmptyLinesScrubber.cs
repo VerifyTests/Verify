@@ -12,9 +12,9 @@ sealed class RemoveEmptyLinesScrubber : LineScrubber
         CharSpan line,
         Counter counter,
         IReadOnlyDictionary<string, object> context,
-        out string? replacement)
+        out CharSpan replacement)
     {
-        replacement = null;
+        replacement = line;
         return !line.IsWhiteSpace();
     }
 }

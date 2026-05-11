@@ -104,8 +104,10 @@ public abstract class LineScrubber
     /// <param name="counter">Per-verification counter.</param>
     /// <param name="context">Per-verification context dictionary.</param>
     /// <param name="replacement">
-    /// When the return value is <c>true</c>, optional replacement content. Set to
-    /// <c>null</c> to keep <paramref name="line" /> unchanged (zero allocation).
+    /// When the return value is <c>true</c>, the content to emit. Assign
+    /// <paramref name="line" /> itself to keep the line unchanged with zero allocation.
+    /// The span must remain valid until the call returns; backing a span with a
+    /// per-call string (or string literal) is the normal pattern for replacements.
     /// </param>
     /// <returns>
     /// <c>false</c> to drop the line entirely; <c>true</c> to keep it.
@@ -114,10 +116,10 @@ public abstract class LineScrubber
         CharSpan line,
         Counter counter,
         IReadOnlyDictionary<string, object> context,
-        out string? replacement);
+        out CharSpan replacement);
 }
 ```
-<sup><a href='/src/Verify/Serialization/Scrubbers/LineScrubber.cs#L3-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-LineScrubber' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/Scrubbers/LineScrubber.cs#L3-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-LineScrubber' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: ContentScrubber -->
@@ -225,7 +227,7 @@ Old:
 verifySettings.AddScrubber(builder => builder.FilterLines(line => line.StartsWith("INTERNAL:")));
 ```
 
-New: subclass `LineScrubber`. Return `false` to drop the line. Return `true` with `replacement = null` to keep the input span unchanged (zero allocation), or `true` with a replacement string to substitute new content:
+New: subclass `LineScrubber`. Return `false` to drop the line. Return `true` and set `replacement` to whatever should be emitted — assigning the input `line` itself keeps it unchanged with zero allocation:
 
 ```csharp
 sealed class DropInternalLines : LineScrubber
@@ -234,9 +236,9 @@ sealed class DropInternalLines : LineScrubber
         ReadOnlySpan<char> line,
         Counter counter,
         IReadOnlyDictionary<string, object> context,
-        out string? replacement)
+        out ReadOnlySpan<char> replacement)
     {
-        replacement = null;
+        replacement = line;
         return !line.StartsWith("INTERNAL:");
     }
 }

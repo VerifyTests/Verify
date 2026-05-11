@@ -31,7 +31,7 @@ var target = new
 return Verify(target)
     .ScrubNumericIds();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L738-L751' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubNumericIdsFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L750-L763' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubNumericIdsFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in the following:
@@ -66,7 +66,7 @@ var settings = new VerifySettings();
 settings.ScrubNumericIds();
 return Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L757-L769' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubNumericIdsInstance' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L769-L781' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubNumericIdsInstance' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -77,7 +77,7 @@ return Verify(target, settings);
 ```cs
 VerifierSettings.ScrubNumericIds();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L775-L779' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubNumericIdsGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L787-L791' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubNumericIdsGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -173,7 +173,7 @@ public Task ScrubNumericIdsNamedType()
         .ScrubNumericIds();
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L806-L893' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubNumericIdsRelationships' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L818-L905' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubNumericIdsRelationships' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in the following:

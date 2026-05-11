@@ -113,6 +113,7 @@ partial class Counter
     }
 
 #else
+
     public bool TryConvertDate(CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (ScrubDateTimes)

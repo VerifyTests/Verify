@@ -151,7 +151,13 @@ public partial class SettingsTask
     [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesWithReplace(LineReplace).")]
     public SettingsTask ScrubLinesWithReplace(Func<string, string?> replaceLine, ScrubberLocation location)
     {
-        CurrentSettings.ScrubLinesWithReplace(line => replaceLine(line.ToString()));
+        CurrentSettings.ScrubLinesWithReplace((ReadOnlySpan<char> line, out ReadOnlySpan<char> r) =>
+        {
+            var result = replaceLine(line.ToString());
+            if (result is null) { r = default; return false; }
+            r = result.AsSpan();
+            return true;
+        });
         return this;
     }
 
@@ -160,7 +166,13 @@ public partial class SettingsTask
     [Obsolete("Use ScrubLinesWithReplace(LineReplace)")]
     public SettingsTask ScrubLinesWithReplace(Func<string, string?> replaceLine)
     {
-        CurrentSettings.ScrubLinesWithReplace(line => replaceLine(line.ToString()));
+        CurrentSettings.ScrubLinesWithReplace((ReadOnlySpan<char> line, out ReadOnlySpan<char> r) =>
+        {
+            var result = replaceLine(line.ToString());
+            if (result is null) { r = default; return false; }
+            r = result.AsSpan();
+            return true;
+        });
         return this;
     }
 
@@ -168,7 +180,13 @@ public partial class SettingsTask
     [Obsolete("ScrubberLocation is obsolete. Use ScrubLinesWithReplace(string, LineReplace).")]
     public SettingsTask ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine, ScrubberLocation location)
     {
-        CurrentSettings.ScrubLinesWithReplace(extension, line => replaceLine(line.ToString()));
+        CurrentSettings.ScrubLinesWithReplace(extension, (ReadOnlySpan<char> line, out ReadOnlySpan<char> r) =>
+        {
+            var result = replaceLine(line.ToString());
+            if (result is null) { r = default; return false; }
+            r = result.AsSpan();
+            return true;
+        });
         return this;
     }
 
@@ -177,7 +195,13 @@ public partial class SettingsTask
     [Obsolete("Use ScrubLinesWithReplace(string, LineReplace)")]
     public SettingsTask ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine)
     {
-        CurrentSettings.ScrubLinesWithReplace(extension, line => replaceLine(line.ToString()));
+        CurrentSettings.ScrubLinesWithReplace(extension, (ReadOnlySpan<char> line, out ReadOnlySpan<char> r) =>
+        {
+            var result = replaceLine(line.ToString());
+            if (result is null) { r = default; return false; }
+            r = result.AsSpan();
+            return true;
+        });
         return this;
     }
 

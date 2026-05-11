@@ -7,14 +7,16 @@ public class ScrubbersSample
     {
         var settings = new VerifySettings();
         settings.ScrubLinesWithReplace(
-            replaceLine: (ReadOnlySpan<char> line) =>
+            replaceLine: (ReadOnlySpan<char> line, out ReadOnlySpan<char> replacement) =>
             {
                 if (line.Contains("LineE", StringComparison.Ordinal))
                 {
-                    return "NoMoreLineE";
+                    replacement = "NoMoreLineE".AsSpan();
+                    return true;
                 }
 
-                return line.ToString();
+                replacement = line;
+                return true;
             });
         settings.ScrubLines(removeLine: (ReadOnlySpan<char> line) => line.IndexOf('J') != -1);
         settings.ScrubLinesContaining("b", "D");
@@ -38,7 +40,11 @@ public class ScrubbersSample
     {
         var settings = new VerifySettings();
         settings.ScrubLinesWithReplace(
-            replaceLine: (ReadOnlySpan<char> _) => "");
+            replaceLine: (ReadOnlySpan<char> _, out ReadOnlySpan<char> replacement) =>
+            {
+                replacement = default;
+                return true;
+            });
         return Verify(
             settings: settings,
             target: "");
@@ -57,14 +63,16 @@ public class ScrubbersSample
                LineJ
                """)
             .ScrubLinesWithReplace(
-                replaceLine: (ReadOnlySpan<char> line) =>
+                replaceLine: (ReadOnlySpan<char> line, out ReadOnlySpan<char> replacement) =>
                 {
                     if (line.Contains("LineE", StringComparison.Ordinal))
                     {
-                        return "NoMoreLineE";
+                        replacement = "NoMoreLineE".AsSpan();
+                        return true;
                     }
 
-                    return line.ToString();
+                    replacement = line;
+                    return true;
                 })
             .ScrubLines(removeLine: (ReadOnlySpan<char> line) => line.IndexOf('J') != -1)
             .ScrubLinesContaining("b", "D")
@@ -78,14 +86,16 @@ public class ScrubbersSample
                LineC
                """)
             .ScrubLinesWithReplace(
-                replaceLine: (ReadOnlySpan<char> line) =>
+                replaceLine: (ReadOnlySpan<char> line, out ReadOnlySpan<char> replacement) =>
                 {
                     if (line.Contains("LineB", StringComparison.Ordinal))
                     {
-                        return null;
+                        replacement = default;
+                        return false;
                     }
 
-                    return line.ToString().ToLower();
+                    replacement = line.ToString().ToLower().AsSpan();
+                    return true;
                 });
 
     [Fact]

@@ -103,7 +103,7 @@ Old:
 verifySettings.AddScrubber(builder => builder.FilterLines(line => line.StartsWith("INTERNAL:")));
 ```
 
-New: subclass `LineScrubber`. Return `false` to drop the line. Return `true` with `replacement = null` to keep the input span unchanged (zero allocation), or `true` with a replacement string to substitute new content:
+New: subclass `LineScrubber`. Return `false` to drop the line. Return `true` and set `replacement` to whatever should be emitted — assigning the input `line` itself keeps it unchanged with zero allocation:
 
 ```csharp
 sealed class DropInternalLines : LineScrubber
@@ -112,9 +112,9 @@ sealed class DropInternalLines : LineScrubber
         ReadOnlySpan<char> line,
         Counter counter,
         IReadOnlyDictionary<string, object> context,
-        out string? replacement)
+        out ReadOnlySpan<char> replacement)
     {
-        replacement = null;
+        replacement = line;
         return !line.StartsWith("INTERNAL:");
     }
 }

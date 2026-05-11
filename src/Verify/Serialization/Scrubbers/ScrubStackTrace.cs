@@ -1,6 +1,6 @@
 ﻿static class ScrubStackTrace
 {
-    public static string Scrub(string stackTrace, bool removeParams = false)
+    public static string Scrub(CharSpan stackTrace, bool removeParams = false)
     {
         var builder = new StringBuilder(stackTrace.Length);
         var angleBrackets = "<>".AsSpan();
@@ -8,7 +8,7 @@
         var taskAwaiter = "System.Runtime.CompilerServices.TaskAwaiter".AsSpan();
         var end = "End of stack trace from previous location where exception was thrown".AsSpan();
 
-        foreach (var line in stackTrace.AsSpan().EnumerateLines())
+        foreach (var line in stackTrace.EnumerateLines())
         {
             var span = line.TrimStart();
             if (

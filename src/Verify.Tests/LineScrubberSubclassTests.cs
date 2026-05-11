@@ -6,9 +6,9 @@ public class LineScrubberSubclassTests
             ReadOnlySpan<char> line,
             Counter counter,
             IReadOnlyDictionary<string, object> context,
-            out string? replacement)
+            out ReadOnlySpan<char> replacement)
         {
-            replacement = null;
+            replacement = line;
             foreach (var token in dropContaining)
             {
                 if (line.Contains(token.AsSpan(), StringComparison.Ordinal))
@@ -27,9 +27,9 @@ public class LineScrubberSubclassTests
             ReadOnlySpan<char> line,
             Counter counter,
             IReadOnlyDictionary<string, object> context,
-            out string? replacement)
+            out ReadOnlySpan<char> replacement)
         {
-            replacement = line.ToString().ToUpperInvariant();
+            replacement = line.ToString().ToUpperInvariant().AsSpan();
             return true;
         }
     }

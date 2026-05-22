@@ -152,17 +152,12 @@ public static partial class Recording
 
         foreach (var value in values)
         {
-            List<object> objects;
-            if (dictionary.TryGetValue(value.Name, out var item))
+            if (!dictionary.TryGetValue(value.Name, out var item))
             {
-                objects = (List<object>) item;
-            }
-            else
-            {
-                dictionary[value.Name] = objects = [];
+                dictionary[value.Name] = item = new List<object>();
             }
 
-            objects.Add(value.Data);
+            ((List<object>) item).Add(value.Data);
         }
 
         return dictionary;

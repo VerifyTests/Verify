@@ -150,7 +150,7 @@ public class Namer
         RuntimeAndVersion = $"{runtime}{version.Major}_{version.Minor}";
         Architecture = RuntimeInformation
             .ProcessArchitecture.ToString()
-            .ToLower();
+            .ToLowerInvariant();
         OperatingSystemPlatform = GetOsPlatform();
     }
 

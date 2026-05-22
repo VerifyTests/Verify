@@ -285,11 +285,8 @@ class VerifyEngine(
         return verified;
     }
 
-    static void AcceptChanges(in FilePair file)
-    {
-        File.Delete(file.VerifiedPath);
-        File.Move(file.ReceivedPath, file.VerifiedPath);
-    }
+    static void AcceptChanges(in FilePair file) =>
+        File.Move(file.ReceivedPath, file.VerifiedPath, true);
 
     private sealed class TargetNameExtensionComparer : IEqualityComparer<Target>
     {

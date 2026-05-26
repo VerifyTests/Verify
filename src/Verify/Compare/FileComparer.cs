@@ -1,6 +1,6 @@
 ﻿static class FileComparer
 {
-    public static async Task<EqualityResult> DoCompare(VerifySettings settings, FilePair file, bool previousTextFailed, Stream receivedStream)
+    public static async Task<EqualityResult> DoCompare(VerifySettings settings, FilePair file, bool bypassComparer, Stream receivedStream)
     {
         if (!File.Exists(file.VerifiedPath))
         {
@@ -14,7 +14,7 @@
             return new(Equality.NotEqual, null, null, null);
         }
 
-        if (!previousTextFailed &&
+        if (!bypassComparer &&
             settings.TryFindStreamComparer(file.Extension, out var compare))
         {
             return await InnerCompare(file, receivedStream, compare, settings.Context);

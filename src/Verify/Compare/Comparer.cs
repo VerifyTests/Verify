@@ -1,6 +1,6 @@
 static class Comparer
 {
-    public static async Task<EqualityResult> Text(FilePair filePair, StringBuilder received, VerifySettings settings)
+    public static async Task<EqualityResult> Text(FilePair filePair, StringBuilder received, VerifySettings settings, bool bypassComparer = false)
     {
         IoHelpers.DeleteFileIfEmpty(filePair.VerifiedPath);
         if (!File.Exists(filePair.VerifiedPath))
@@ -10,7 +10,7 @@ static class Comparer
         }
 
         var verified = await IoHelpers.ReadStringBuilderWithFixedLines(filePair.VerifiedPath);
-        var result = await CompareStrings(filePair.Extension, received, verified, settings);
+        var result = await CompareStrings(filePair.Extension, received, verified, settings, bypassComparer);
         if (result.IsEqual)
         {
             return new(Equality.Equal, null, received, verified);
@@ -20,7 +20,7 @@ static class Comparer
         return new(Equality.NotEqual, result.Message, received, verified);
     }
 
-    static Task<CompareResult> CompareStrings(string extension, StringBuilder received, StringBuilder verified, VerifySettings settings)
+    static Task<CompareResult> CompareStrings(string extension, StringBuilder received, StringBuilder verified, VerifySettings settings, bool bypassComparer)
     {
         if (verified.Length > 0 &&
             verified.Length - 1 == received.Length &&
@@ -33,6 +33,7 @@ static class Comparer
 #if NET6_0_OR_GREATER
         var isEqual = verified.Equals(received);
         if (!isEqual &&
+            !bypassComparer &&
             settings.TryFindStringComparer(extension, out var compare))
         {
             return compare(received.ToString(), verified.ToString(), settings.Context);
@@ -42,6 +43,7 @@ static class Comparer
         var verifiedString = verified.ToString();
         var isEqual = receivedString.Equals(verifiedString);
         if (!isEqual &&
+            !bypassComparer &&
             settings.TryFindStringComparer(extension, out var compare))
         {
             return compare(receivedString, verifiedString, settings.Context);

@@ -42,6 +42,35 @@ The returned `CompareResult.NotEqual` takes an optional message that will be ren
 **If an input is split into multiple files, and a text file fails, then all subsequent binary comparisons will revert to the default comparison.**
 
 
+### Bypass comparers for derived targets
+
+When a converter splits an input into multiple targets, for example a source document plus derived outputs such as rendered images or extracted text, a lenient comparer on a derived target can mask a real change in the source. Setting `BypassComparersForSubsequentOnDifference` on the source target ensures that, when the source differs from its verified file, all subsequent targets skip their registered comparers and fall back to exact comparison:
+
+<!-- snippet: BypassComparersForSubsequentOnDifference -->
+<a id='snippet-BypassComparersForSubsequentOnDifference'></a>
+```cs
+// A converter that emits a canonical source document alongside derived targets (eg rendered pages).
+// The source is flagged so that, when it differs, the derived targets skip their (potentially lenient)
+// comparers and fall back to exact comparison, ensuring a real change in the source is never masked.
+public static ConversionResult ConvertDocument(Stream document, IReadOnlyDictionary<string, object> context)
+{
+    Target[] targets =
+    [
+        new("docx", document)
+        {
+            BypassComparersForSubsequentOnDifference = true
+        },
+        new("png", RenderPage(document))
+    ];
+    return new(info: null, targets);
+}
+```
+<sup><a href='/src/Verify.Tests/Snippets/BypassComparerSnippets.cs#L5-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-BypassComparersForSubsequentOnDifference' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+The flag must be set on the source target, and that target must precede the derived targets in the conversion result.
+
+
 ### Instance comparer
 
 <!-- snippet: InstanceComparer -->

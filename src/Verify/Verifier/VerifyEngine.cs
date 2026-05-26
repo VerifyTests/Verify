@@ -23,18 +23,18 @@ class VerifyEngine(
     public IReadOnlyList<FilePair> Equal => equal;
     public IReadOnlyList<FilePair> AutoVerified => autoVerified;
 
-    static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, Target target, bool previousTextFailed)
+    static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, Target target, bool textHasFailed, bool bypassComparers)
     {
         try
         {
             if (target.TryGetStringBuilder(out var value))
             {
-                return await Comparer.Text(file, value, settings);
+                return await Comparer.Text(file, value, settings, bypassComparers);
             }
 
             using var stream = target.StreamData;
             stream.MoveToStart();
-            return await FileComparer.DoCompare(settings, file, previousTextFailed, stream);
+            return await FileComparer.DoCompare(settings, file, textHasFailed || bypassComparers, stream);
         }
         catch (Exception exception)
         {
@@ -54,21 +54,29 @@ class VerifyEngine(
         {
             var target = targetList[0];
             var file = getFileNames(target);
-            var result = await GetResult(settings, file, target, false);
+            var result = await GetResult(settings, file, target, false, false);
             HandleCompareResult(result, file);
             return;
         }
 
         var textHasFailed = false;
+        var bypassComparers = false;
 
         async Task Inner(FilePair file, Target target)
         {
-            var result = await GetResult(settings, file, target, textHasFailed);
+            var result = await GetResult(settings, file, target, textHasFailed, bypassComparers);
 
-            if (file.IsText &&
-                result.Equality != Equality.Equal)
+            if (result.Equality != Equality.Equal)
             {
-                textHasFailed = true;
+                if (file.IsText)
+                {
+                    textHasFailed = true;
+                }
+
+                if (target.BypassComparersForSubsequentOnDifference)
+                {
+                    bypassComparers = true;
+                }
             }
 
             HandleCompareResult(result, file);

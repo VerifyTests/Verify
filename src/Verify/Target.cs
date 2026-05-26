@@ -7,6 +7,16 @@ public readonly struct Target
     public string Extension { get; }
     public string? Name { get; } = null;
     public bool PerformConversion { get; } = true;
+
+    /// <summary>
+    /// When <c>true</c> and this target differs from its verified file, all subsequent targets in the
+    /// same verification skip their registered comparers and fall back to exact (binary or string) comparison.
+    /// Intended for converters that emit a canonical source target (eg a document) alongside derived targets
+    /// (eg rendered images or extracted text) whose comparers may otherwise mask a real difference in the source.
+    /// Set this on the source target, and ensure it precedes the derived targets in the conversion result.
+    /// </summary>
+    public bool BypassComparersForSubsequentOnDifference { get; init; }
+
     public string NameOrTarget => Name ?? "target";
 
     public Stream StreamData

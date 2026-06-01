@@ -1,6 +1,26 @@
 ﻿public class ExtensionConverterTests
 {
     [ModuleInitializer]
+    public static void TextSplitterInit()
+    {
+        FileExtensions.AddTextExtension("texttoconvert");
+        VerifierSettings.RegisterStreamConverter(
+            "texttoconvert",
+            async (_, stream, _) =>
+                new(
+                    null,
+                    [
+                        new("texttoconvert", await stream.ReadStringBuilderWithFixedLines()),
+                        new("txt", "derived from text")
+                    ]));
+    }
+
+    // a conversion splitter registered against a text extension
+    [Fact]
+    public Task TextSplitter() =>
+        Verify("the source text", "texttoconvert");
+
+    [ModuleInitializer]
     public static void RecursiveInit() =>
         VerifierSettings.RegisterStreamConverter(
             "recursive",

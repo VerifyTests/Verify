@@ -93,6 +93,14 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.UseSsimForPng(double)"/>
+    [Pure]
+    public SettingsTask UseSsimForPng(double threshold = 0.98)
+    {
+        CurrentSettings.UseSsimForPng(threshold);
+        return this;
+    }
+
     /// <inheritdoc cref="VerifySettings.DisableDiff()"/>
     [Pure]
     public SettingsTask DisableDiff()

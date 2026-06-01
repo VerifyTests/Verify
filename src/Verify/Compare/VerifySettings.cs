@@ -33,6 +33,9 @@ public partial class VerifySettings
         }
     }
 
+    public void UseSsimForPng(double threshold = 0.98) =>
+        UseStreamComparer(PngSsimComparer.BuildCompare(threshold), "png");
+
     [OverloadResolutionPriority(1)]
     public void UseStringComparer(StringCompare compare, params ReadOnlySpan<string> extensions)
     {

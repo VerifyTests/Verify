@@ -19,6 +19,23 @@ public class ComparerSnippets
 
     #endregion
 
+    #region InstanceSsimForPng
+
+    [Fact]
+    public Task InstanceSsimForPng()
+    {
+        var settings = new VerifySettings();
+        settings.UseSsimForPng();
+        return VerifyFile("sample.png", settings);
+    }
+
+    [Fact]
+    public Task InstanceSsimForPngFluent() =>
+        VerifyFile("sample.png")
+            .UseSsimForPng(threshold: 0.995);
+
+    #endregion
+
     public async Task StaticComparer()
     {
         #region StaticComparer

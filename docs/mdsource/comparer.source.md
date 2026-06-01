@@ -52,6 +52,10 @@ The default threshold is `0.98`. SSIM scores range from `0` (completely differen
 
 snippet: UseSsimForPngThreshold
 
+SSIM can also be enabled per-verification, via an instance of `VerifySettings` or fluently on a `SettingsTask`:
+
+snippet: InstanceSsimForPng
+
 Dimension mismatches between the received and verified images are always reported as not equal, regardless of threshold.
 
 

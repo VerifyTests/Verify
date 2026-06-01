@@ -34,7 +34,7 @@ static Task<CompareResult> CompareImages(
     return Task.FromResult(result);
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L34-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-ImageComparer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L51-L68' title='Snippet source file'>snippet source</a> | <a href='#snippet-ImageComparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The returned `CompareResult.NotEqual` takes an optional message that will be rendered in the resulting text displayed to the user on test failure.
@@ -103,7 +103,7 @@ VerifierSettings.RegisterStreamComparer(
     compare: CompareImages);
 await VerifyFile("TheImage.png");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L24-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticComparer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L41-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticComparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -208,6 +208,27 @@ public static class ModuleInitializer
 }
 ```
 <sup><a href='/src/ModuleInitDocs/UseSsimForPngThreshold.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseSsimForPngThreshold' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+SSIM can also be enabled per-verification, via an instance of `VerifySettings` or fluently on a `SettingsTask`:
+
+<!-- snippet: InstanceSsimForPng -->
+<a id='snippet-InstanceSsimForPng'></a>
+```cs
+[Fact]
+public Task InstanceSsimForPng()
+{
+    var settings = new VerifySettings();
+    settings.UseSsimForPng();
+    return VerifyFile("sample.png", settings);
+}
+
+[Fact]
+public Task InstanceSsimForPngFluent() =>
+    VerifyFile("sample.png")
+        .UseSsimForPng(threshold: 0.995);
+```
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L22-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-InstanceSsimForPng' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Dimension mismatches between the received and verified images are always reported as not equal, regardless of threshold.

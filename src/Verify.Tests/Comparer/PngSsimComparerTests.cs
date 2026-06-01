@@ -87,6 +87,27 @@ public class PngSsimComparerTests
     }
 
     [Fact]
+    public async Task BuildCompare_Captures_Threshold_Per_Instance()
+    {
+        var a = PngTestHelper.EncodeRgba(32, 32, RandomRgba(32, 32, seed: 3));
+        var modified = RandomRgba(32, 32, seed: 3);
+        for (var i = 0; i < modified.Length; i += 4)
+        {
+            modified[i] = (byte)Math.Clamp(modified[i] + 20, 0, 255);
+        }
+
+        var b = PngTestHelper.EncodeRgba(32, 32, modified);
+
+        var lenient = PngSsimComparer.BuildCompare(0.5);
+        var lenientResult = await lenient(new MemoryStream(a), new MemoryStream(b), emptyContext);
+        Assert.True(lenientResult.IsEqual);
+
+        var strict = PngSsimComparer.BuildCompare(0.9999);
+        var strictResult = await strict(new MemoryStream(a), new MemoryStream(b), emptyContext);
+        Assert.False(strictResult.IsEqual);
+    }
+
+    [Fact]
     public async Task Single_Pixel_Grayscale_Identical()
     {
         var png = PngTestHelper.EncodeGray(1, 1, [0]);

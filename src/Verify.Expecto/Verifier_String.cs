@@ -7,6 +7,7 @@ public static partial class Verifier
     [Pure]
     public static SettingsTask Verify(
         string name,
+        [StringSyntax("*")]
         string? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")
@@ -18,6 +19,7 @@ public static partial class Verifier
     [Pure]
     public static SettingsTask Verify(
         string name,
+        [StringSyntax("*")]
         Task<string> target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")
@@ -29,6 +31,7 @@ public static partial class Verifier
     [Pure]
     public static SettingsTask Verify(
         string name,
+        [StringSyntax("*")]
         string? target,
         string extension,
         VerifySettings? settings = null,
@@ -41,6 +44,7 @@ public static partial class Verifier
     [Pure]
     public static SettingsTask Verify(
         string name,
+        [StringSyntax("*")]
         Task<string> target,
         string extension,
         VerifySettings? settings = null,

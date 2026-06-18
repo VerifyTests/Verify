@@ -264,6 +264,34 @@ public class TempDirectoryTests
         Assert.Equal(temp.Path, temp.ToString());
     }
 
+    [Fact]
+    public void AddOperator()
+    {
+        using var directory = new TempDirectory();
+
+        var separator = Path.DirectorySeparatorChar;
+
+        Assert.Equal($"{directory.Path}{separator}test.txt", directory + "test.txt");
+        Assert.Equal($"{directory.Path}/test.txt", directory + "/test.txt");
+        Assert.Equal($"{directory.Path}\\test.txt", directory + "\\test.txt");
+        Assert.Equal(directory.Path, directory + "");
+    }
+
+    #region TempDirectoryAddOperator
+
+    [Fact]
+    public void AddOperatorUsage()
+    {
+        using var temp = new TempDirectory();
+
+        // combine with a file name, joined by a single separator
+        var filePath = temp + "test.txt";
+
+        File.WriteAllText(filePath, "content");
+    }
+
+    #endregion
+
     #region TempDirectoryOpenExplorerAndDebug
 
     [Fact(Explicit = true)]

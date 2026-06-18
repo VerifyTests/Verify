@@ -146,6 +146,28 @@ public void InfoProperty()
 <!-- endSnippet -->
 
 
+### Combining paths
+
+A `TempDirectory` can be combined with a relative `string` suffix using the `+` operator. The directory path and suffix are joined with a single separator (an existing leading separator on the suffix is respected). The result is a `string`.
+
+<!-- snippet: TempDirectoryAddOperator -->
+<a id='snippet-TempDirectoryAddOperator'></a>
+```cs
+[Fact]
+public void AddOperatorUsage()
+{
+    using var temp = new TempDirectory();
+
+    // combine with a file name, joined by a single separator
+    var filePath = temp + "test.txt";
+
+    File.WriteAllText(filePath, "content");
+}
+```
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L280-L293' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryAddOperator' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ### TempDirectory RootDirectory Property
 
 Allows access to the root directory for all TempDirectory instances:
@@ -191,7 +213,7 @@ public void IgnoreLockedFiles()
     Directory.Delete(path, true);
 }
 ```
-<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L340-L364' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryIgnoreLockedFiles' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L368-L392' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryIgnoreLockedFiles' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -255,7 +277,7 @@ public async Task BuildPath()
     });
 }
 ```
-<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L299-L319' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryBuildPath' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L327-L347' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryBuildPath' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -277,7 +299,7 @@ public async Task Scrubbing()
     });
 }
 ```
-<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L321-L336' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryScrubbing' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L349-L364' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryScrubbing' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -322,7 +344,7 @@ public void NoUsing()
     Debug.WriteLine(temp);
 }
 ```
-<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L282-L295' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryNoUsing' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L310-L323' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryNoUsing' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The directory can then be manually inspected.
@@ -346,7 +368,7 @@ public void OpenExplorerAndDebug()
     temp.OpenExplorerAndDebug();
 }
 ```
-<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L267-L280' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryOpenExplorerAndDebug' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempDirectoryTests.cs#L295-L308' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempDirectoryOpenExplorerAndDebug' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This method is designed to help debug tests by enabling the inspection of the contents of the temporary directory while the test is paused. It performs two actions:

@@ -267,6 +267,24 @@ public class TempDirectory :
         new(temp.Path);
 
     /// <summary>
+    /// Combines the directory path with the relative <paramref name="suffix"/>, joined by a single separator.
+    /// </summary>
+    public static string operator +(TempDirectory directory, string suffix)
+    {
+        if (suffix.Length == 0)
+        {
+            return directory.Path;
+        }
+
+        if (suffix[0] is '/' or '\\')
+        {
+            return directory.Path + suffix;
+        }
+
+        return directory.Path + IoPath.DirectorySeparatorChar + suffix;
+    }
+
+    /// <summary>
     /// A <see cref="DirectoryInfo"/> represeting this instance.
     /// </summary>
     /// <example>

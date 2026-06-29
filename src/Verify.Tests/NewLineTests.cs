@@ -78,14 +78,14 @@ public class NewLineTests
         var exception = await Assert.ThrowsAnyAsync<Exception>(() => Verify("a\n", settings));
         Assert.Contains("carriage return", exception.ToString());
 
-        // Trailing \n tolerance still applies for \n-only verified files
+        // Trailing newlines are now compared exactly, with no tolerance
         await File.WriteAllTextAsync(file, "a\n");
         await Verify("a\n", settings);
-        await Verify("a", settings);
+        await Assert.ThrowsAsync<VerifyException>(() => Verify("a", settings));
 
         await File.WriteAllTextAsync(file, "a\n\n");
         await Verify("a\n\n", settings);
-        await Verify("a\n", settings);
+        await Assert.ThrowsAsync<VerifyException>(() => Verify("a\n", settings));
         File.Delete(file);
     }
 

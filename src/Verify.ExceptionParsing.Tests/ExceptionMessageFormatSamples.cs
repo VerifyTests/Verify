@@ -14,7 +14,7 @@ public class ExceptionMessageFormatSamples
         };
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", Dir("MyTests.Test2.received.txt"), Dir("MyTests.Test2.verified.txt")), null, new("received text"), new("verified text"))
+            new(new("txt", Dir("MyTests.Test2.received.txt"), Dir("MyTests.Test2.verified.txt")), null, new("received text"), "verified text")
         };
         var delete = new List<string>
         {
@@ -33,7 +33,7 @@ public class ExceptionMessageFormatSamples
     {
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", Dir("MyTests.Test1.received.txt"), Dir("MyTests.Test1.verified.txt")), "The comparer reported a difference", new("received text"), new("verified text"))
+            new(new("txt", Dir("MyTests.Test1.received.txt"), Dir("MyTests.Test1.verified.txt")), "The comparer reported a difference", new("received text"), "verified text")
         };
 
         return BuildVerify([], notEquals, [], []);

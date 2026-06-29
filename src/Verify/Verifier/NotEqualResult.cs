@@ -2,10 +2,10 @@
     FilePair file,
     string? message,
     StringBuilder? receivedText,
-    StringBuilder? verifiedText)
+    string? verifiedText)
 {
     public FilePair File { get; } = file;
     public string? Message { get; } = message;
     public StringBuilder? ReceivedText { get; } = receivedText;
-    public StringBuilder? VerifiedText { get; } = verifiedText;
+    public string? VerifiedText { get; } = verifiedText;
 }

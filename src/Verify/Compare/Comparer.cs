@@ -27,7 +27,6 @@ static class Comparer
 
     static Task<CompareResult> CompareStrings(string extension, StringBuilder received, string verified, VerifySettings settings, bool bypassComparer)
     {
-        // StringBuilder.Equals(ReadOnlySpan<char>) is native on net6+ and provided by Polyfill on net framework
         var isEqual = received.Equals(verified.AsSpan());
         if (!isEqual &&
             !bypassComparer &&

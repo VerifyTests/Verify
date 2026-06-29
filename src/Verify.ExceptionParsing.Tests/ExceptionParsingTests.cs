@@ -31,7 +31,7 @@ public class ExceptionParsingTests
     {
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", receivedTxt, verifiedTxt), "TheMessage", new("receivedText"), new("verifiedText")),
+            new(new("txt", receivedTxt, verifiedTxt), "TheMessage", new("receivedText"), "verifiedText"),
             new(new("bin", receivedBin, verifiedBin), "TheMessage", null, null)
         };
 
@@ -132,7 +132,7 @@ public class ExceptionParsingTests
     {
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", receivedTxt, verifiedTxt), null, new("receivedText"), new("verifiedText"))
+            new(new("txt", receivedTxt, verifiedTxt), null, new("receivedText"), "verifiedText")
         };
 
         return ParseVerify([], notEquals, [], []);
@@ -153,7 +153,7 @@ public class ExceptionParsingTests
         };
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", receivedTxt, verifiedTxt), null, new("receivedText"), new("verifiedText")),
+            new(new("txt", receivedTxt, verifiedTxt), null, new("receivedText"), "verifiedText"),
             new(new("bin", receivedBin, verifiedBin), null, null, null)
         };
         var delete = new List<string>
@@ -178,7 +178,7 @@ public class ExceptionParsingTests
         };
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", receivedTxt, verifiedTxt), null, new("receivedText"), new("verifiedText"))
+            new(new("txt", receivedTxt, verifiedTxt), null, new("receivedText"), "verifiedText")
         };
         var delete = new List<string>
         {

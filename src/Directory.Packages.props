@@ -22,7 +22,7 @@
     <PackageVersion Include="MSTest" Version="4.2.3" />
     <PackageVersion Include="MSTest.TestFramework" Version="4.2.3" />
     <PackageVersion Include="NUnit3TestAdapter" Version="6.2.0" />
-    <PackageVersion Include="Polyfill" Version="10.11.0" />
+    <PackageVersion Include="Polyfill" Version="10.11.1" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.174" />
     <PackageVersion Include="ProjectFiles" Version="1.4.0" />
     <PackageVersion Include="PublicApiGenerator" Version="11.5.4" />
@@ -32,8 +32,8 @@
     <!-- keep at 4.5.0 -->
     <PackageVersion Include="System.ValueTuple" Version="4.5.0" Pinned="true" />
     <PackageVersion Include="TextCopy" Version="6.2.1" />
-    <PackageVersion Include="TUnit" Version="1.56.35" />
-    <PackageVersion Include="TUnit.Core" Version="1.56.35" />
+    <PackageVersion Include="TUnit" Version="1.57.0" />
+    <PackageVersion Include="TUnit.Core" Version="1.57.0" />
     <PackageVersion Include="xunit.v3" Version="3.2.2" />
     <PackageVersion Include="xunit.v3.extensibility.core" Version="3.2.2" />
     <PackageVersion Include="YoloDev.Expecto.TestSdk" Version="0.15.6" />

@@ -13,7 +13,7 @@
 include: intro
 
 > [!IMPORTANT]
-> **Upcoming: Open Source Maintenance Fee.** From September 2026, commercial organizations and government agencies using Verify's official binary releases will be asked to pay a small subscription fee (from $10/month). The source code remains open and free, and individuals, non-revenue organizations, CI, forks, and local development are unaffected. See the [proposal and discussion](https://github.com/orgs/VerifyTests/discussions/1731) for details and to provide feedback.
+> **Upcoming: Open Source Maintenance Fee.** From August 2026, commercial organizations and government agencies using Verify's official binary releases will be asked to pay a small subscription fee (from $10/month). The source code remains open and free, and individuals, non-revenue organizations, CI, forks, and local development are unaffected. See the [proposal and discussion](https://github.com/orgs/VerifyTests/discussions/1731) for details and to provide feedback.
 
 **See [Milestones](../../milestones?state=closed) for release notes.**
 

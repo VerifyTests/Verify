@@ -208,12 +208,6 @@
         throw new($"Unable to resolve directory. sourceFile: {sourceFile}");
     }
 
-    public static async Task<StringBuilder> ReadStringBuilderWithFixedLines(string path)
-    {
-        using var stream = OpenRead(path);
-        return await stream.ReadStringBuilderWithFixedLines();
-    }
-
     public static async Task WriteStream(string path, Stream stream)
     {
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);

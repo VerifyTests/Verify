@@ -44,34 +44,26 @@ public class NewLineTests
     {
         var fullPath = CurrentFile.Relative("NewLineTests.StringWithDifferingNewline.verified.txt");
         File.Delete(fullPath);
+        var settings = new VerifySettings();
+        settings.DisableRequireUniquePrefix();
+
+        // A verified file containing \r is rejected rather than silently normalized
         await File.WriteAllTextAsync(fullPath, "a\r\nb");
-        await Verify("a\r\nb");
-        PrefixUnique.Clear();
-        await Verify("a\rb");
-        PrefixUnique.Clear();
-        await Verify("a\nb");
-        PrefixUnique.Clear();
+        var crlf = await Assert.ThrowsAnyAsync<Exception>(() => Verify("a\nb", settings));
+        Assert.Contains("carriage return", crlf.ToString());
 
-        File.Delete(fullPath);
-        await File.WriteAllTextAsync(fullPath, "a\nb");
-        await Verify("a\r\nb");
-        PrefixUnique.Clear();
-        await Verify("a\rb");
-        PrefixUnique.Clear();
-        await Verify("a\nb");
-        PrefixUnique.Clear();
-
-        File.Delete(fullPath);
         await File.WriteAllTextAsync(fullPath, "a\rb");
-        await Verify("a\r\nb");
-        PrefixUnique.Clear();
-        await Verify("a\rb");
-        PrefixUnique.Clear();
-        await Verify("a\nb");
+        var cr = await Assert.ThrowsAnyAsync<Exception>(() => Verify("a\nb", settings));
+        Assert.Contains("carriage return", cr.ToString());
+
+        // A verified file using \n still matches received content normalized to \n
+        await File.WriteAllTextAsync(fullPath, "a\nb");
+        await Verify("a\r\nb", settings);
+        await Verify("a\rb", settings);
+        await Verify("a\nb", settings);
+
         File.Delete(fullPath);
     }
-
-#if NET9_0
 
     [Fact]
     public async Task TrailingNewlinesRaw()
@@ -81,16 +73,12 @@ public class NewLineTests
         var settings = new VerifySettings();
         settings.DisableRequireUniquePrefix();
 
+        // A verified file containing \r is rejected
         await File.WriteAllTextAsync(file, "a\r\n");
-        await Verify("a\r\n", settings);
-        await Verify("a\n", settings);
-        await Verify("a", settings);
+        var exception = await Assert.ThrowsAnyAsync<Exception>(() => Verify("a\n", settings));
+        Assert.Contains("carriage return", exception.ToString());
 
-        await File.WriteAllTextAsync(file, "a\r\n\r\n");
-        await Verify("a\r\n\r\n", settings);
-        await Verify("a\n\n", settings);
-        await Verify("a\n", settings);
-
+        // Trailing \n tolerance still applies for \n-only verified files
         await File.WriteAllTextAsync(file, "a\n");
         await Verify("a\n", settings);
         await Verify("a", settings);
@@ -100,7 +88,6 @@ public class NewLineTests
         await Verify("a\n", settings);
         File.Delete(file);
     }
-#endif
 
     //TODO: add test for trailing newlines
     // [Fact]

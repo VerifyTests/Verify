@@ -9,7 +9,13 @@ static class Comparer
             return new(Equality.New, null, received, null);
         }
 
-        var verified = await IoHelpers.ReadStringBuilderWithFixedLines(filePair.VerifiedPath);
+        var verifiedText = await File.ReadAllTextAsync(filePair.VerifiedPath);
+        if (verifiedText.Contains('\r'))
+        {
+            throw new($@"Verified file must use \n line endings, but it contains a \r (carriage return). Path: {filePair.VerifiedPath}. See https://github.com/verifytests/verify#text-file-settings");
+        }
+
+        var verified = new StringBuilder(verifiedText);
         var result = await CompareStrings(filePair.Extension, received, verified, settings, bypassComparer);
         if (result.IsEqual)
         {

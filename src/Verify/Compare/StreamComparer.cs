@@ -14,18 +14,23 @@
 
         while (true)
         {
-            var count = await ReadBufferAsync(stream1, buffer1);
+            var count1 = await ReadBufferAsync(stream1, buffer1);
+            var count2 = await ReadBufferAsync(stream2, buffer2);
 
-            //no need to compare size here since only enter on files being same size
+            // Callers do not always guarantee the streams are the same length
+            // (e.g. a non-seekable received stream), so a length difference must
+            // be treated as not-equal instead of a short-circuit to equal.
+            if (count1 != count2)
+            {
+                return CompareResult.NotEqual();
+            }
 
-            if (count == 0)
+            if (count1 == 0)
             {
                 return CompareResult.Equal;
             }
 
-            await ReadBufferAsync(stream2, buffer2);
-
-            for (var i = 0; i < count; i += sizeof(long))
+            for (var i = 0; i < count1; i += sizeof(long))
             {
                 if (BitConverter.ToInt64(buffer1, i) != BitConverter.ToInt64(buffer2, i))
                 {

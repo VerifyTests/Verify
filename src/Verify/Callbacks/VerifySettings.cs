@@ -10,7 +10,11 @@ public partial class VerifySettings
     {
         if (handleOnFirstVerify is not null)
         {
-            await handleOnFirstVerify(item.File, item.ReceivedText?.ToString(), autoVerify);
+            var receivedText = item.ReceivedText?.ToString();
+            foreach (var handler in handleOnFirstVerify.GetInvocationList())
+            {
+                await ((FirstVerify) handler)(item.File, receivedText, autoVerify);
+            }
         }
 
         await VerifierSettings.RunOnFirstVerify(item, autoVerify);
@@ -26,7 +30,10 @@ public partial class VerifySettings
     {
         if (handleOnVerifyDelete is not null)
         {
-            await handleOnVerifyDelete(file, autoVerify);
+            foreach (var handler in handleOnVerifyDelete.GetInvocationList())
+            {
+                await ((VerifyDelete) handler)(file, autoVerify);
+            }
         }
 
         await VerifierSettings.RunOnVerifyDelete(file, autoVerify);
@@ -38,7 +45,10 @@ public partial class VerifySettings
     {
         if (handleOnVerifyMismatch is not null)
         {
-            await handleOnVerifyMismatch(item, message, autoVerify);
+            foreach (var handler in handleOnVerifyMismatch.GetInvocationList())
+            {
+                await ((VerifyMismatch) handler)(item, message, autoVerify);
+            }
         }
 
         await VerifierSettings.RunOnVerifyMismatch(item, message, autoVerify);

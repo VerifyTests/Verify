@@ -2228,6 +2228,50 @@ public class SerializationTests
         VerifyTuple(() => MethodWithNamedTupleWithNull());
 
     [Fact]
+    public void NineNamedTupleElements()
+    {
+        // 8+ element tuples nest a Rest ValueTuple, which used to throw the
+        // "all parts are named" error even when every part is named.
+        var dictionary = TupleConverter.ExpressionToDictionary(() => MethodWithNineNamedTuple());
+        Assert.Equal(9, dictionary.Count);
+        Assert.Equal(1, (int) dictionary["a"]!);
+        Assert.Equal(8, (int) dictionary["h"]!);
+        Assert.Equal(9, (int) dictionary["i"]!);
+    }
+
+    static (int a, int b, int c, int d, int e, int f, int g, int h, int i) MethodWithNineNamedTuple() =>
+        (1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+    [Fact]
+    public void NestedNamedTupleThrows()
+    {
+        var exception = Assert.Throws<Exception>(
+            () => TupleConverter.ExpressionToDictionary(() => MethodWithNestedTuple()));
+        Assert.Contains("Nested", exception.Message);
+    }
+
+    static (int a, (int c, int d) b) MethodWithNestedTuple() =>
+        (1, (2, 3));
+
+    [Fact]
+    public Task MultilineStringInArray() =>
+        // The array delimiter must be preserved for a multiline string element.
+        Verify(new[] { "single", "multi\nline" });
+
+    [Fact]
+    public Task ScrubNumericIdsUlong()
+    {
+        // ulong.MaxValue is outside Int64 range; the previous Convert.ToInt64
+        // threw an OverflowException mid-serialization.
+        var target = new
+        {
+            Id = ulong.MaxValue
+        };
+        return Verify(target)
+            .ScrubNumericIds();
+    }
+
+    [Fact]
     public Task Claim() =>
         Verify(new Claim("TheType", "TheValue"));
 

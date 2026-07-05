@@ -109,7 +109,7 @@ public static partial class VerifierSettings
         where T : notnull
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        serialization.IgnoreMembers<T>(names);
+        serialization.ScrubMembers<T>(names);
     }
 
     public static void IgnoreMember<T>(string name)
@@ -123,7 +123,7 @@ public static partial class VerifierSettings
         where T : notnull
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        serialization.IgnoreMember<T>(name);
+        serialization.ScrubMember<T>(name);
     }
 
     public static void IgnoreMembers(Type declaringType, params string[] names)
@@ -135,7 +135,7 @@ public static partial class VerifierSettings
     public static void ScrubMembers(Type declaringType, params string[] names)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        serialization.IgnoreMembers(declaringType, names);
+        serialization.ScrubMembers(declaringType, names);
     }
 
     public static void IgnoreMember(Type declaringType, string name)

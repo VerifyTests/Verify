@@ -70,6 +70,7 @@ partial class SerializationSettings
 
         ScrubGuids = settings.ScrubGuids;
         ScrubNumericIds = settings.ScrubNumericIds;
+        OrderDictionaries = settings.OrderDictionaries;
         includeObsoletes = settings.includeObsoletes;
         ignoredMemberPredicatesByString = settings.ignoredMemberPredicatesByString?.Clone();
         ignoredMemberPredicatesByMember = settings.ignoredMemberPredicatesByMember?.Clone();

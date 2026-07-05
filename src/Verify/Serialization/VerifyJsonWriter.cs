@@ -130,6 +130,15 @@ public class VerifyJsonWriter :
 
         if (value.Contains('\n'))
         {
+            if (WriteState != Argon.WriteState.Property)
+            {
+                // In array (or any non-property) position the value already sits
+                // on its own indented line; removing the auto-completed char here
+                // would eat the ',' delimiter between items.
+                WriteRawValue(value);
+                return;
+            }
+
             base.Flush();
             var builderLength = builder.Length;
             if (value[0] != '\n')

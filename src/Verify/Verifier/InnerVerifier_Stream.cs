@@ -151,7 +151,7 @@ partial class InnerVerifier
             var result = await conversion(target.Name, targetStream, settings.Context);
             if (result.Cleanup != null)
             {
-                cleanup += result.Cleanup;
+                cleanup = cleanup.Then(result.Cleanup);
             }
 
             if (result.Info != null)

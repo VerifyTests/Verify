@@ -39,8 +39,13 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
-        [CallerFilePath] string sourceFile = "") =>
-        VerifyDirectory(name, path.FullName, include, pattern, options, settings, info, fileScrubber, sourceFile);
+        [CallerFilePath] string sourceFile = "")
+    {
+        // Capture the caller here rather than delegating to the string overload,
+        // otherwise GetCallingAssembly would resolve to Verify.Expecto.
+        var assembly = Assembly.GetCallingAssembly()!;
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyDirectory(path.FullName, include, pattern, options, info, fileScrubber), true);
+    }
 
 #else
     /// <summary>
@@ -77,8 +82,13 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
-        [CallerFilePath] string sourceFile = "") =>
-        VerifyDirectory(name, path.FullName, include, pattern, option, settings, info, fileScrubber, sourceFile);
+        [CallerFilePath] string sourceFile = "")
+    {
+        // Capture the caller here rather than delegating to the string overload,
+        // otherwise GetCallingAssembly would resolve to Verify.Expecto.
+        var assembly = Assembly.GetCallingAssembly()!;
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyDirectory(path.FullName, include, pattern, option, info, fileScrubber), true);
+    }
 
 #endif
 }

@@ -27,13 +27,32 @@ public class CombinationResultsConverter :
 
         var keyValues = new string[items.Count, keysLength];
 
+        // Keys repeat across rows (a column only has as many distinct values as
+        // its input list), so cache the computed name per distinct key value.
+        var nameCache = new Dictionary<object, string>();
+        string? nullName = null;
+
         for (var itemIndex = 0; itemIndex < items.Count; itemIndex++)
         {
             var item = items[itemIndex];
             for (var keyIndex = 0; keyIndex < keysLength; keyIndex++)
             {
                 var key = item.Keys[keyIndex];
-                var name = VerifierSettings.GetNameForParameter(key, writer.Counter, pathFriendly: false);
+                string name;
+                if (key == null)
+                {
+                    name = nullName ??= VerifierSettings.GetNameForParameter(null, writer.Counter, pathFriendly: false);
+                }
+                else if (nameCache.TryGetValue(key, out var cached))
+                {
+                    name = cached;
+                }
+                else
+                {
+                    name = VerifierSettings.GetNameForParameter(key, writer.Counter, pathFriendly: false);
+                    nameCache[key] = name;
+                }
+
                 keyValues[itemIndex, keyIndex] = name;
                 var currentKeyLength = maxKeyLengths[keyIndex];
                 if (name.Length > currentKeyLength)

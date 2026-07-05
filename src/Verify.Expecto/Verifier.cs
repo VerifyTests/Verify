@@ -1,4 +1,6 @@
-﻿namespace VerifyExpecto;
+﻿using System.Runtime.ExceptionServices;
+
+namespace VerifyExpecto;
 
 public static partial class Verifier
 {
@@ -55,7 +57,10 @@ public static partial class Verifier
                 catch (TargetInvocationException exception)
                     when (exception.InnerException != null)
                 {
-                    throw exception.InnerException!;
+                    // Preserve the original stack trace instead of resetting it
+                    // with a bare `throw exception.InnerException`.
+                    ExceptionDispatchInfo.Capture(exception.InnerException).Throw();
+                    throw;
                 }
             });
     }

@@ -2254,9 +2254,12 @@ public class SerializationTests
         (1, (2, 3));
 
     [Fact]
-    public Task MultilineStringInArray() =>
+    public Task MultilineStringInArray()
+    {
         // The array delimiter must be preserved for a multiline string element.
-        Verify(new[] { "single", "multi\nline" });
+        string[] target = ["single", "multi\nline"];
+        return Verify(target);
+    }
 
     [Fact]
     public Task ScrubNumericIdsUlong()

@@ -31,22 +31,28 @@ public partial class VerifySettings
 
         if (settings.ExtensionMappedInstanceScrubbers != null)
         {
-            ExtensionMappedInstanceScrubbers = new(settings.ExtensionMappedInstanceScrubbers);
+            // Deep copy: the inner lists are mutated in place by AddScrubber.
+            ExtensionMappedInstanceScrubbers = settings.ExtensionMappedInstanceScrubbers
+                .ToDictionary(_ => _.Key, _ => _.Value.ToList());
         }
 
         diffEnabled = settings.diffEnabled;
         MethodName = settings.MethodName;
         TypeName = settings.TypeName;
         strictJson = settings.strictJson;
-        appendedFiles = settings.appendedFiles;
+        // Clone the mutable collections below, otherwise per-test fluent config
+        // (AppendFile/UseStreamComparer/etc.) would mutate a shared base settings
+        // instance and leak across tests.
+        appendedFiles = settings.appendedFiles?.ToList();
         UniqueDirectory = settings.UniqueDirectory;
         Directory = settings.Directory;
         autoVerify = settings.autoVerify;
+        throwException = settings.throwException;
         serialization = settings.serialization;
         stringComparer = settings.stringComparer;
         streamComparer = settings.streamComparer;
-        extensionStringComparers = settings.extensionStringComparers;
-        extensionStreamComparers = settings.extensionStreamComparers;
+        extensionStringComparers = settings.extensionStringComparers == null ? null : new(settings.extensionStringComparers);
+        extensionStreamComparers = settings.extensionStreamComparers == null ? null : new(settings.extensionStreamComparers);
         parameters = settings.parameters;
         ignoredParameters = settings.ignoredParameters;
         classArgumentCount = settings.classArgumentCount;

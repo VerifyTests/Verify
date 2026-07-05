@@ -427,6 +427,28 @@ public class TempDirectoryTests
         }
     }
 
+    [Fact]
+    public void CleanupDoesNotThrowForUndeletableDirectory()
+    {
+        var directoryPath = Path.Combine(TempDirectory.RootDirectory, Path.GetRandomFileName());
+        Directory.CreateDirectory(directoryPath);
+        var filePath = Path.Combine(directoryPath, "locked.txt");
+        File.WriteAllText(filePath, "content");
+        PreventDeletion(filePath, directoryPath);
+        Directory.SetLastWriteTime(directoryPath, DateTime.Now.AddDays(-2));
+        try
+        {
+            // An aged-out orphan that cannot be deleted must not fail the whole
+            // module-initializer cleanup.
+            TempDirectory.Cleanup();
+        }
+        finally
+        {
+            AllowDeletion(filePath, directoryPath);
+            Directory.Delete(directoryPath, true);
+        }
+    }
+
     // On Windows, ReadOnly on a file prevents deletion.
     // On Unix, file deletion is controlled by the parent directory's write permission.
     static void PreventDeletion(string filePath, string directoryPath)

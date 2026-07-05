@@ -20,8 +20,17 @@ static class Extensions
     public static bool IsNumeric(this Type type) =>
         numericTypes.Contains(Nullable.GetUnderlyingType(type) ?? type);
 
-    public static string Extension(this FileStream file) =>
-        Path.GetExtension(file.Name)[1..];
+    public static string Extension(this FileStream file)
+    {
+        var extension = Path.GetExtension(file.Name);
+        if (extension.Length == 0)
+        {
+            // Matches the convention used for extension-less directory entries.
+            return "noextension";
+        }
+
+        return extension[1..];
+    }
 
     public static Version MajorMinor(this Version version) =>
         new(version.Major, version.Minor);

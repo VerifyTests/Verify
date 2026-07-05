@@ -13,6 +13,21 @@
         Verify(VerifierSettings.GetNameForParameter("a/a", counter: CounterBuilder.Empty()));
 
     [Fact]
+    public void CollectionItemPathFriendlyFalseNotCleaned()
+    {
+        // pathFriendly must flow to collection items, so path chars are kept
+        // raw when the caller does not want file-name cleaning applied.
+        var name = VerifierSettings.GetNameForParameter(
+            new List<string>
+            {
+                "a/b"
+            },
+            counter: CounterBuilder.Empty(),
+            pathFriendly: false);
+        Assert.Contains("a/b", name);
+    }
+
+    [Fact]
     public Task Int() =>
         Verify(VerifierSettings.GetNameForParameter(10, counter: CounterBuilder.Empty()));
 

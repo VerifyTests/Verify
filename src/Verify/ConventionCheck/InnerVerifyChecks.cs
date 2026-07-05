@@ -338,10 +338,10 @@ public static class InnerVerifyChecks
 
     internal static async Task CheckGitIgnore(string solutionDirectory)
     {
-        var path = Path.Combine(solutionDirectory, ".gitIgnore");
+        var path = Path.Combine(solutionDirectory, ".gitignore");
         if (!File.Exists(path))
         {
-            path = Path.Combine(solutionDirectory, "../.gitIgnore");
+            path = Path.Combine(solutionDirectory, "../.gitignore");
         }
 
         if (!File.Exists(path))
@@ -359,7 +359,7 @@ public static class InnerVerifyChecks
 
         throw new VerifyCheckException(
             $"""
-             Expected .gitIgnore to contain settings for Verify.
+             Expected .gitignore to contain settings for Verify.
              Path: {GetPath(path)}
              Recommended settings:
 

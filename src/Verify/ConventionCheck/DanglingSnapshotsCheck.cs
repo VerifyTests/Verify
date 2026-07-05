@@ -41,11 +41,17 @@ public static class DanglingSnapshotsCheck
             }
         }
 
+        // Materialize the tracked files into sets once. Enumerating a ConcurrentBag
+        // (via LINQ Contains) per file on disk snapshots the whole bag each time,
+        // making the check O(files * tracked).
+        var tracked = new HashSet<string>(trackedFiles);
+        var trackedIgnoreCase = new HashSet<string>(trackedFiles, StringComparer.OrdinalIgnoreCase);
+
         List<string> untracked = [];
         List<string> incorrectCase = [];
         foreach (var file in filesOnDisk)
         {
-            if (trackedFiles.Contains(file))
+            if (tracked.Contains(file))
             {
                 continue;
             }
@@ -57,7 +63,7 @@ public static class DanglingSnapshotsCheck
                 continue;
             }
 
-            if (trackedFiles.Contains(file, StringComparer.OrdinalIgnoreCase))
+            if (trackedIgnoreCase.Contains(file))
             {
                 incorrectCase.Add(suffix);
             }

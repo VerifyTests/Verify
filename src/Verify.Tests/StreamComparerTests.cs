@@ -36,6 +36,34 @@
     }
 
     [Fact]
+    public async Task PrefixIsNotEqual()
+    {
+        // received is an 8-byte-aligned prefix of verified; must not be Equal.
+        using var received = new MemoryStream(new byte[16]);
+        using var verified = new MemoryStream(new byte[32]);
+        var result = await StreamComparer.AreEqual(received, verified);
+        Assert.False(result.IsEqual);
+    }
+
+    [Fact]
+    public async Task EmptyReceivedIsNotEqual()
+    {
+        using var received = new MemoryStream();
+        using var verified = new MemoryStream(new byte[16]);
+        var result = await StreamComparer.AreEqual(received, verified);
+        Assert.False(result.IsEqual);
+    }
+
+    [Fact]
+    public async Task LongerReceivedIsNotEqual()
+    {
+        using var received = new MemoryStream(new byte[32]);
+        using var verified = new MemoryStream(new byte[16]);
+        var result = await StreamComparer.AreEqual(received, verified);
+        Assert.False(result.IsEqual);
+    }
+
+    [Fact]
     public async Task ShouldNotLock()
     {
         using var stream1 = File.OpenRead("sample.bmp");

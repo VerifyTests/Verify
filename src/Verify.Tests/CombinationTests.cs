@@ -31,6 +31,15 @@ public class CombinationTests
                 params1,
                 params2);
 
+    [Fact]
+    public async Task EmptyListThrowsDescriptive()
+    {
+        var exception = await Assert.ThrowsAnyAsync<Exception>(
+            async () => await Combination()
+                .Verify((int _) => "x", System.Array.Empty<int>()));
+        Assert.Contains("empty", exception.Message);
+    }
+
     public static async Task<string> TaskMethod(int param1, string param2)
     {
         await Task.Delay(1);

@@ -19,6 +19,14 @@
         }
         this.captureExceptions = captureExceptions ?? CombinationSettings.CaptureExceptionsEnabled;
         this.lists = lists.Select(_ => _.ToArray()).ToArray();
+        for (var index = 0; index < this.lists.Length; index++)
+        {
+            if (this.lists[index].Length == 0)
+            {
+                throw new($"Combinations requires every list to contain at least one item. The list at index {index} is empty.");
+            }
+        }
+
         indices = new int[lists.Count];
     }
 
@@ -26,6 +34,9 @@
         InnerRun(async keys =>
         {
             object? value = await method(keys);
+            // Preserve the raw method result for the after-callbacks; only the
+            // serialized CombinationResult should be wrapped in InfoBuilder.
+            var raw = value;
             var paused = Recording.IsPaused();
             if (Recording.IsRecording() || paused)
             {
@@ -38,7 +49,7 @@
                 }
             }
 
-            return (CombinationResult.ForValue(keys, value), value);
+            return (CombinationResult.ForValue(keys, value), raw);
         });
 
 

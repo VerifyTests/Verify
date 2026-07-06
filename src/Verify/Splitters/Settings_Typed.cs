@@ -26,6 +26,7 @@ public static partial class VerifierSettings
         CanConvert<T>? canConvert = null)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
+        ThrowIfObjectConverter<T>();
         RegisterFileConverter(
             (target, context) => Task.FromResult(conversion(target, context)),
             canConvert);
@@ -36,8 +37,17 @@ public static partial class VerifierSettings
         CanConvert<T>? canConvert = null)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
+        ThrowIfObjectConverter<T>();
         var converter = new TypeConverter((target, context) => conversion((T) target, context), DefaultCanConvert(canConvert));
         typedConverters.Add(converter);
+    }
+
+    static void ThrowIfObjectConverter<T>()
+    {
+        if (typeof(T) == typeof(object))
+        {
+            throw new("RegisterFileConverter<object> is too greedy since object matches all verified values. Instead use a more specific type, or use the non-generic RegisterFileConverter overload that takes an explicit `canConvert`.");
+        }
     }
 
     public static void RegisterFileConverter(

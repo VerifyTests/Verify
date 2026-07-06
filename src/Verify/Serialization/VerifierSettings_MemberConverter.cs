@@ -14,9 +14,9 @@ public static partial class VerifierSettings
     {
         foreach (var pair in membersConverters)
         {
-            if (pair.Key.IsAssignableFrom(declaringType))
+            if (pair.Key.IsAssignableFrom(declaringType) &&
+                pair.Value.TryGetValue(name, out var membersConverter))
             {
-                pair.Value.TryGetValue(name, out var membersConverter);
                 return membersConverter;
             }
         }

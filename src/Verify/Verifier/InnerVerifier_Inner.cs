@@ -16,7 +16,7 @@ partial class InnerVerifier
         cleanup ??= () => Task.CompletedTask;
 
         var (extraTargets, extraCleanup) = await GetTargets(targets, doExtensionConversion);
-        cleanup += extraCleanup;
+        cleanup = cleanup.Then(extraCleanup);
         resultTargets.AddRange(extraTargets);
         var engine = new VerifyEngine(
             directory,
@@ -27,9 +27,15 @@ partial class InnerVerifier
             settings.TypeName ?? typeName,
             settings.MethodName ?? methodName);
 
-        await engine.HandleResults(resultTargets);
-
-        await cleanup();
+        try
+        {
+            await engine.HandleResults(resultTargets);
+        }
+        finally
+        {
+            // Always run cleanup (stream/converter disposal), even if comparison throws.
+            await cleanup();
+        }
 
         await engine.ThrowIfRequired();
 
@@ -59,7 +65,7 @@ partial class InnerVerifier
                 }
 
                 var (info, converted, itemCleanup) = await DoExtensionConversion(target.Extension, target.StreamData, null, target.Name);
-                cleanup += itemCleanup;
+                cleanup = cleanup.Then(itemCleanup);
                 if (info != null)
                 {
                     result.Add(

@@ -71,9 +71,12 @@ public class TempDirectory :
                 return;
             }
 
-            foreach (var path in pathsValue)
+            lock (pathsLock)
             {
-                scrubber.Replace(path, "{TempDirectory}");
+                foreach (var path in pathsValue)
+                {
+                    scrubber.Replace(path, "{TempDirectory}");
+                }
             }
         });
 
@@ -81,6 +84,7 @@ public class TempDirectory :
     }
 
     static AsyncLocal<List<string>?> asyncPaths = new();
+    static readonly object pathsLock = new();
 
     internal static void Cleanup()
     {
@@ -98,9 +102,12 @@ public class TempDirectory :
             {
                 Directory.Delete(dir, recursive: true);
             }
-            catch (DirectoryNotFoundException)
+            catch (Exception exception)
+                when (exception is IOException or UnauthorizedAccessException)
             {
-                //Ignore directory cleanup race condition
+                // Ignore orphans that can't be deleted (locked, read-only, or a
+                // cleanup race); they are retried on a later run once released.
+                // DirectoryNotFoundException derives from IOException.
             }
         }
     }
@@ -144,14 +151,17 @@ public class TempDirectory :
         Path = IoPath.Combine(RootDirectory, IoPath.GetRandomFileName());
         Directory.CreateDirectory(Path);
 
-        paths = asyncPaths.Value!;
-        if (paths == null)
+        lock (pathsLock)
         {
-            paths = asyncPaths.Value = [Path];
-        }
-        else
-        {
-            paths.Add(Path);
+            paths = asyncPaths.Value!;
+            if (paths == null)
+            {
+                paths = asyncPaths.Value = [Path];
+            }
+            else
+            {
+                paths.Add(Path);
+            }
         }
     }
 
@@ -182,7 +192,10 @@ public class TempDirectory :
             }
         }
 
-        paths.Remove(Path);
+        lock (pathsLock)
+        {
+            paths.Remove(Path);
+        }
     }
 
     /// <summary>

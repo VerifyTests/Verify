@@ -9,7 +9,9 @@ static class Comparer
             return new(Equality.New, null, received, null);
         }
 
-        var verified = await File.ReadAllTextAsync(filePair.VerifiedPath);
+        // Read with the configured encoding so a BOM-less non-UTF8 UseEncoding
+        // round-trips (writes go through the same encoding).
+        var verified = await File.ReadAllTextAsync(filePair.VerifiedPath, VerifierSettings.Encoding);
         if (verified.Contains('\r'))
         {
             throw new($@"Verified file must use \n line endings, but it contains a \r (carriage return). Path: {filePair.VerifiedPath}. See https://github.com/verifytests/verify#text-file-settings");

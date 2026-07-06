@@ -168,12 +168,11 @@ class VerifyEngine(
 
     internal bool IsAutoVerify(string verifiedFile)
     {
-        if (typeName == null)
-        {
-            return false;
-        }
-
-        if (VerifierSettings.autoVerify != null)
+        // The global delegate needs the type/method name; the per-settings
+        // delegate does not, so it must not be gated on typeName (which is null
+        // for the file-level InnerVerifier(directory, name) API).
+        if (typeName != null &&
+            VerifierSettings.autoVerify != null)
         {
             return VerifierSettings.autoVerify(typeName, methodName!, verifiedFile);
         }

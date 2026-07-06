@@ -21,6 +21,14 @@
     <!-- Work around https://github.com/dotnet/sdk/issues/51265#issuecomment-3407578810 -->
     <RestoreEnablePackagePruning>false</RestoreEnablePackagePruning>
   </PropertyGroup>
+  <!-- This directory contains two solutions (Verify.slnx and VerifyDangling.slnx), so Verify cannot
+       auto-discover the solution when a project is built outside of a solution context. Default to the
+       primary solution so standalone project builds resolve SolutionDirectory/SolutionName correctly.
+       Solution builds pass these as global properties, which take precedence over these defaults. -->
+  <PropertyGroup Condition="'$(SolutionDir)' == '' Or '$(SolutionDir)' == '*Undefined*'">
+    <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
+    <SolutionName>Verify</SolutionName>
+  </PropertyGroup>
   <ItemGroup>
     <Using Include="System.Diagnostics.CodeAnalysis" />
     <Using Include="System.Globalization" />

@@ -101,6 +101,23 @@ public class GuidScrubberTests
         Assert.Equal("[Guid_1][Guid_2]", builder.ToString());
     }
 
+    [Fact]
+    public void GuidSpanningThreeChunks()
+    {
+        // Capacity 4 forces small chunks [4][4][rest]; the 36-char guid spans all
+        // three, and the 4-char middle chunk is shorter than the 35-char carryover.
+        // The carryover must accumulate across chunks or the prefix is dropped and
+        // the guid is never found (silent leak).
+        var guid = "173535ae-995b-4cc6-a74e-8cd4be57039c";
+        var builder = new StringBuilder(capacity: 4);
+        builder.Append(guid[..4]);  // chunk0
+        builder.Append(guid[4..8]); // chunk1 (short middle chunk)
+        builder.Append(guid[8..]);  // chunk2
+        using var counter = Counter.Start();
+        GuidScrubber.ReplaceGuids(builder, counter);
+        Assert.Equal("Guid_1", builder.ToString());
+    }
+
     #region NamedGuidFluent
 
     [Fact]

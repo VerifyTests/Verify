@@ -72,10 +72,13 @@
                         continue;
                     }
 
-                    // Check trailing character
+                    // Check trailing character. Use the builder indexer rather
+                    // than chunkSpan[neededFromCurrent], which is out of range when
+                    // the match ends exactly at this chunk's boundary, so the check
+                    // still works when there is a following chunk.
                     var endPosition = startPosition + find.Length;
                     var validEnd = endPosition >= builder.Length ||
-                                   IsValidWrapper(chunkSpan[neededFromCurrent]);
+                                   IsValidWrapper(builder[endPosition]);
 
                     if (!validEnd)
                     {
@@ -115,9 +118,22 @@
                 }
             }
 
-            // Save last N chars for next iteration
-            carryoverLength = Math.Min(carryoverSize, chunk.Length);
-            chunkSpan.Slice(chunk.Length - carryoverLength, carryoverLength).CopyTo(carryoverBuffer);
+            // Roll the carryover forward: keep the last carryoverSize chars of
+            // everything seen so far. Rebuilding it from the current chunk alone
+            // drops the prefix when a chunk is shorter than the search string, so
+            // a token spanning three or more chunks would never be found.
+            if (chunk.Length >= carryoverSize)
+            {
+                chunkSpan.Slice(chunk.Length - carryoverSize, carryoverSize).CopyTo(carryoverBuffer);
+                carryoverLength = carryoverSize;
+            }
+            else
+            {
+                var keep = Math.Min(carryoverLength, carryoverSize - chunk.Length);
+                carryoverBuffer.Slice(carryoverLength - keep, keep).CopyTo(carryoverBuffer);
+                chunkSpan.CopyTo(carryoverBuffer[keep..]);
+                carryoverLength = keep + chunk.Length;
+            }
 
             previousChunkAbsoluteEnd = absolutePosition + chunk.Length;
             absolutePosition += chunk.Length;

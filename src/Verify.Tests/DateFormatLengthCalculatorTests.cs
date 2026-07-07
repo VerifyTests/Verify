@@ -43,8 +43,11 @@
     [InlineData("zz", 3, 3)]
     [InlineData("zzz", 6, 6)]
     [InlineData("zzzz", 6, 6)]
-    [InlineData("K", 6, 6)]
-    [InlineData("KK", 12, 12)]
+    // K renders as "" (Unspecified), "Z" (Utc, 1 char) or "+11:00" (offset, 6 chars),
+    // so its minimum contribution is 0 (not 6) — otherwise round-trip/"o" formats
+    // scrub only the offset form and leak the Z / offset-less forms.
+    [InlineData("K", 6, 0)]
+    [InlineData("KK", 12, 0)]
     [InlineData(":", 1, 1)]
     [InlineData("':'", 1, 1)]
     [InlineData("/", 1, 1)]

@@ -117,9 +117,22 @@
                 }
             }
 
-            // Save last 35 chars for next iteration
-            carryoverLength = Math.Min(35, chunk.Length);
-            chunkSpan.Slice(chunk.Length - carryoverLength, carryoverLength).CopyTo(carryoverBuffer);
+            // Roll the carryover forward: keep the last 35 chars of everything seen
+            // so far. Rebuilding it from the current chunk alone drops the prefix
+            // when a chunk is shorter than 35, so a guid spanning three or more
+            // chunks would never be found.
+            if (chunk.Length >= 35)
+            {
+                chunkSpan.Slice(chunk.Length - 35, 35).CopyTo(carryoverBuffer);
+                carryoverLength = 35;
+            }
+            else
+            {
+                var keep = Math.Min(carryoverLength, 35 - chunk.Length);
+                carryoverBuffer.Slice(carryoverLength - keep, keep).CopyTo(carryoverBuffer);
+                chunkSpan.CopyTo(carryoverBuffer[keep..]);
+                carryoverLength = keep + chunk.Length;
+            }
 
             previousChunkAbsoluteEnd = absolutePosition + chunk.Length;
             absolutePosition += chunk.Length;

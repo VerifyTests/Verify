@@ -40,7 +40,7 @@ public partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null)
         where T : Stream =>
-        Verifier.Verify(target, extension, settings, info, sourceFile);
+        Verifier.Verify(target, extension, settings ?? this.settings, info, sourceFile);
 
     [Pure]
     public SettingsTask Verify<T>(
@@ -49,7 +49,7 @@ public partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null)
         where T : Stream =>
-        Verifier.Verify(target, extension, settings, info, sourceFile);
+        Verifier.Verify(target, extension, settings ?? this.settings, info, sourceFile);
 
     [Pure]
     public SettingsTask Verify(

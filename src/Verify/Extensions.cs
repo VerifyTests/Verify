@@ -20,11 +20,29 @@ static class Extensions
     public static bool IsNumeric(this Type type) =>
         numericTypes.Contains(Nullable.GetUnderlyingType(type) ?? type);
 
-    public static string Extension(this FileStream file) =>
-        Path.GetExtension(file.Name)[1..];
+    public static string Extension(this FileStream file)
+    {
+        var extension = Path.GetExtension(file.Name);
+        if (extension.Length == 0)
+        {
+            // Matches the convention used for extension-less directory entries.
+            return "noextension";
+        }
+
+        return extension[1..];
+    }
 
     public static Version MajorMinor(this Version version) =>
         new(version.Major, version.Minor);
+
+    // Compose two async actions so both are awaited in order. Using `+=` on a
+    // Func<Task> builds a multicast delegate that only awaits the last target.
+    public static Func<Task> Then(this Func<Task> first, Func<Task> second) =>
+        async () =>
+        {
+            await first();
+            await second();
+        };
 
     public static async Task<List<T>> ToList<T>(this IAsyncEnumerable<T> target)
     {

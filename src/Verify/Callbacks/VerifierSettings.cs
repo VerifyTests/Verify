@@ -35,14 +35,20 @@ public static partial class VerifierSettings
         handleOnFirstVerify += firstVerify;
     }
 
-    internal static Task RunOnFirstVerify(NewResult item, bool autoVerify)
+    internal static async Task RunOnFirstVerify(NewResult item, bool autoVerify)
     {
         if (handleOnFirstVerify is null)
         {
-            return Task.CompletedTask;
+            return;
         }
 
-        return handleOnFirstVerify(item.File, item.ReceivedText?.ToString(), autoVerify);
+        var receivedText = item.ReceivedText?.ToString();
+        // Await every registered handler; invoking the multicast delegate
+        // directly would only await the last handler's Task.
+        foreach (var handler in handleOnFirstVerify.GetInvocationList())
+        {
+            await ((FirstVerify) handler)(item.File, receivedText, autoVerify);
+        }
     }
 
     static VerifyDelete? handleOnVerifyDelete;
@@ -55,24 +61,30 @@ public static partial class VerifierSettings
 
     static VerifyMismatch? handleOnVerifyMismatch;
 
-    internal static Task RunOnVerifyDelete(string file, bool autoVerify)
+    internal static async Task RunOnVerifyDelete(string file, bool autoVerify)
     {
         if (handleOnVerifyDelete is null)
         {
-            return Task.CompletedTask;
+            return;
         }
 
-        return handleOnVerifyDelete(file, autoVerify);
+        foreach (var handler in handleOnVerifyDelete.GetInvocationList())
+        {
+            await ((VerifyDelete) handler)(file, autoVerify);
+        }
     }
 
-    internal static Task RunOnVerifyMismatch(FilePair item, string? message, bool autoVerify)
+    internal static async Task RunOnVerifyMismatch(FilePair item, string? message, bool autoVerify)
     {
         if (handleOnVerifyMismatch is null)
         {
-            return Task.CompletedTask;
+            return;
         }
 
-        return handleOnVerifyMismatch(item, message, autoVerify);
+        foreach (var handler in handleOnVerifyMismatch.GetInvocationList())
+        {
+            await ((VerifyMismatch) handler)(item, message, autoVerify);
+        }
     }
 
     public static void OnVerifyMismatch(VerifyMismatch verifyMismatch)

@@ -12,7 +12,6 @@ class NumericIdScrubProvider(IValueProvider inner, string entityName) :
             return $"{entityName}_null";
         }
 
-        var longValue = Convert.ToInt64(value);
-        return Counter.Current.NextNumericIdString(entityName, longValue);
+        return Counter.Current.NextNumericIdString(entityName, value);
     }
 }

@@ -56,6 +56,13 @@
             return [];
         }
 
+        // pairs are ordered by length desc, so the last is the shortest. If the
+        // builder is shorter than that, no pair can match.
+        if (builder.Length < pairs[^1].Find.Length)
+        {
+            return [];
+        }
+
         var matches = new List<Match>();
         // Track matched positions
         var matchedRanges = new List<(int Start, int End)>();

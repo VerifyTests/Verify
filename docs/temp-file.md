@@ -34,7 +34,7 @@ public void Usage()
     // file automatically deleted here
 }
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L38-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L87-L99' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -62,7 +62,7 @@ public void PathProperty()
     Assert.True(Path.IsPathRooted(path));
 }
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L52-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFilePathProperty' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L101-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFilePathProperty' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -91,7 +91,7 @@ public void StringConversion()
     Trace.WriteLine(content);
 }
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L344-L359' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileStringConversion' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L393-L408' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileStringConversion' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -114,7 +114,7 @@ public void FileInfoConversion()
     Trace.WriteLine(directoryName);
 }
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L361-L375' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileFileInfoConversion' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L410-L424' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileFileInfoConversion' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -135,7 +135,7 @@ public void InfoProperty()
     Trace.WriteLine(directoryName);
 }
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L377-L389' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileInfoProperty' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L426-L438' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileInfoProperty' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -151,7 +151,7 @@ public void RootDirectory() =>
     // Accessing the root directory for all TempDirectory instances
     Trace.WriteLine(TempFile.RootDirectory);
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L114-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileRootDirectory' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L163-L170' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileRootDirectory' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -186,7 +186,7 @@ public async Task VerifyFileInstance()
     await VerifyFile(file);
 }
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L26-L36' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyTempFile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L75-L85' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyTempFile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -207,7 +207,7 @@ public async Task Scrubbing()
     });
 }
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L96-L110' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileScrubbing' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L145-L159' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileScrubbing' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -237,7 +237,7 @@ File.WriteAllText(temp, "content");
 
 // file automatically deleted here
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L620-L628' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreate' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L669-L677' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreate' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -252,7 +252,7 @@ using var temp = TempFile.Create(".txt");
 
 File.WriteAllText(temp, "content");
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L635-L641' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateWithExtension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L684-L690' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateWithExtension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -267,7 +267,7 @@ using var temp = TempFile.Create(".txt", Encoding.UTF8);
 
 File.Exists(temp.Path);
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L649-L655' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateWithEncoding' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L698-L704' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateWithEncoding' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -283,7 +283,7 @@ using var temp = await TempFile.CreateText("Hello, World!");
 var content = await File.ReadAllTextAsync(temp);
 Assert.Equal("Hello, World!", content);
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L661-L668' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateText' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L710-L717' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateText' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -304,7 +304,7 @@ using var temp = await TempFile.CreateText(json, ".json");
 var content = await File.ReadAllTextAsync(temp);
 Assert.Equal(json, content);
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L674-L688' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateTextWithExtension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L723-L737' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateTextWithExtension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -323,7 +323,7 @@ using var temp = await TempFile.CreateText(
 var content = await File.ReadAllTextAsync(temp, Encoding.UTF8);
 Assert.Equal("Content with special chars: äöü", content);
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L694-L704' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateTextWithEncoding' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L743-L753' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateTextWithEncoding' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -341,7 +341,7 @@ using var temp = await TempFile.CreateBinary(data);
 var readData = await File.ReadAllBytesAsync(temp);
 Assert.Equal(data, readData);
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L712-L721' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateBinary' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L761-L770' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateBinary' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -353,7 +353,7 @@ Assert.Equal(data, readData);
 byte[] data = [0x01, 0x02, 0x03, 0x04];
 using var temp = await TempFile.CreateBinary(data, ".bin");
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L727-L732' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateBinaryWithExtension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L776-L781' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileCreateBinaryWithExtension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -384,7 +384,7 @@ public void NoUsing()
     Debug.WriteLine(temp);
 }
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L79-L92' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileNoUsing' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L128-L141' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileNoUsing' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The file can then be manually inspected.
@@ -408,7 +408,7 @@ public void OpenExplorerAndDebug()
     temp.OpenExplorerAndDebug();
 }
 ```
-<sup><a href='/src/Verify.Tests/TempFileTests.cs#L64-L77' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileOpenExplorerAndDebug' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/TempFileTests.cs#L113-L126' title='Snippet source file'>snippet source</a> | <a href='#snippet-TempFileOpenExplorerAndDebug' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This method is designed to help debug tests by enabling the inspection of the contents of the temporary file while the test is paused. It performs two actions:

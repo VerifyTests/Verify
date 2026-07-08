@@ -18,7 +18,7 @@ class VerifyEngine(
     List<NotEqualResult> notEquals = [];
     List<FilePair> equal = [];
     List<FilePair> autoVerified = [];
-    HashSet<string> delete = new(verifiedFiles, StringComparer.InvariantCultureIgnoreCase);
+    HashSet<string> delete = [with(verifiedFiles, StringComparer.InvariantCultureIgnoreCase)];
 
     public IReadOnlyList<FilePair> Equal => equal;
     public IReadOnlyList<FilePair> AutoVerified => autoVerified;
@@ -82,7 +82,7 @@ class VerifyEngine(
             HandleCompareResult(result, file);
         }
 
-        foreach (var group in targetList.GroupBy(_ => _, TargetNameExtensionComparer.Instance))
+        foreach (var group in targetList.GroupBy(_ => _, targetNameExtensionComparer))
         {
             var targets = group.ToList();
             if (targets.Count == 1)
@@ -168,12 +168,11 @@ class VerifyEngine(
 
     internal bool IsAutoVerify(string verifiedFile)
     {
-        if (typeName == null)
-        {
-            return false;
-        }
-
-        if (VerifierSettings.autoVerify != null)
+        // The global delegate needs the type/method name; the per-settings
+        // delegate does not, so it must not be gated on typeName (which is null
+        // for the file-level InnerVerifier(directory, name) API).
+        if (typeName != null &&
+            VerifierSettings.autoVerify != null)
         {
             return VerifierSettings.autoVerify(typeName, methodName!, verifiedFile);
         }
@@ -296,14 +295,6 @@ class VerifyEngine(
     static void AcceptChanges(in FilePair file) =>
         File.Move(file.ReceivedPath, file.VerifiedPath, true);
 
-    private sealed class TargetNameExtensionComparer : IEqualityComparer<Target>
-    {
-        public static readonly TargetNameExtensionComparer Instance = new();
-
-        public bool Equals(Target x, Target y) =>
-            (x.Name ?? "") == (y.Name ?? "") && x.Extension == y.Extension;
-
-        public int GetHashCode(Target obj) =>
-            (obj.Name ?? "", obj.Extension).GetHashCode();
-    }
+    static readonly IEqualityComparer<Target> targetNameExtensionComparer =
+        EqualityComparer<Target>.Create(_ => (_.Name ?? "", _.Extension));
 }

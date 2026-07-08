@@ -3,6 +3,11 @@
 static partial class DirectoryReplacements
 {
     static List<Pair> items = [];
+    static int shortestFindLength = int.MaxValue;
+
+    // Length of the shortest Find, so callers can cheaply skip values that are
+    // too short to contain any replacement. int.MaxValue when there are none.
+    public static int ShortestFindLength => shortestFindLength;
 
     public static void Replace(StringBuilder builder) =>
         Replace(builder, items);
@@ -46,6 +51,7 @@ static partial class DirectoryReplacements
         items = values
             .OrderByDescending(_ => _.Find.Length)
             .ToList();
+        shortestFindLength = items.Count == 0 ? int.MaxValue : items[^1].Find.Length;
     }
 
     static void AddProjectAndSolutionReplacements(string? solutionDir, string projectDir, List<Pair> replacements)

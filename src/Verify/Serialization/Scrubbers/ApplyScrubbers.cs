@@ -47,6 +47,24 @@ static class ApplyScrubbers
 
     public static string ApplyForPropertyValue(CharSpan value, VerifySettings settings, Counter counter)
     {
+        // Fast path: when nothing can change the value, skip the StringBuilder
+        // round-trip and the directory-replacement scan (this is the hottest loop
+        // in the library — one call per serialized string value).
+        if (!value.Contains('\r'))
+        {
+            if (!settings.ScrubbersEnabled)
+            {
+                return value.ToString();
+            }
+
+            if (settings.InstanceScrubbers == null &&
+                VerifierSettings.GlobalScrubbers.Count == 0 &&
+                value.Length < DirectoryReplacements.ShortestFindLength)
+            {
+                return value.ToString();
+            }
+        }
+
         var builder = new StringBuilder(value.Length);
         builder.Append(value);
         ApplyForPropertyValue(settings, counter, builder);

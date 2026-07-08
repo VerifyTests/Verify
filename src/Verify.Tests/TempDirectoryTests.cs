@@ -264,6 +264,34 @@ public class TempDirectoryTests
         Assert.Equal(temp.Path, temp.ToString());
     }
 
+    [Fact]
+    public void AddOperator()
+    {
+        using var directory = new TempDirectory();
+
+        var separator = Path.DirectorySeparatorChar;
+
+        Assert.Equal($"{directory.Path}{separator}test.txt", directory + "test.txt");
+        Assert.Equal($"{directory.Path}/test.txt", directory + "/test.txt");
+        Assert.Equal($"{directory.Path}\\test.txt", directory + "\\test.txt");
+        Assert.Equal(directory.Path, directory + "");
+    }
+
+    #region TempDirectoryAddOperator
+
+    [Fact]
+    public void AddOperatorUsage()
+    {
+        using var temp = new TempDirectory();
+
+        // combine with a file name, joined by a single separator
+        var filePath = temp + "test.txt";
+
+        File.WriteAllText(filePath, "content");
+    }
+
+    #endregion
+
     #region TempDirectoryOpenExplorerAndDebug
 
     [Fact(Explicit = true)]
@@ -396,6 +424,28 @@ public class TempDirectoryTests
             // Cleanup for test hygiene
             AllowDeletion(filePath, path);
             Directory.Delete(path, true);
+        }
+    }
+
+    [Fact]
+    public void CleanupDoesNotThrowForUndeletableDirectory()
+    {
+        var directoryPath = Path.Combine(TempDirectory.RootDirectory, Path.GetRandomFileName());
+        Directory.CreateDirectory(directoryPath);
+        var filePath = Path.Combine(directoryPath, "locked.txt");
+        File.WriteAllText(filePath, "content");
+        PreventDeletion(filePath, directoryPath);
+        Directory.SetLastWriteTime(directoryPath, DateTime.Now.AddDays(-2));
+        try
+        {
+            // An aged-out orphan that cannot be deleted must not fail the whole
+            // module-initializer cleanup.
+            TempDirectory.Cleanup();
+        }
+        finally
+        {
+            AllowDeletion(filePath, directoryPath);
+            Directory.Delete(directoryPath, true);
         }
     }
 

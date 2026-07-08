@@ -24,7 +24,7 @@ class KeyValuePairConverter :
     {
         var pair = (KeyValuePair<string, TValue>) value;
         writer.WriteStartObject();
-        writer.WriteMember(value, (object?) pair.Value, pair.Key);
+        writer.WriteMember(value, pair.Value, pair.Key);
         writer.WriteEndObject();
     }
 }

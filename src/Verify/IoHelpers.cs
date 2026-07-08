@@ -208,12 +208,6 @@
         throw new($"Unable to resolve directory. sourceFile: {sourceFile}");
     }
 
-    public static async Task<StringBuilder> ReadStringBuilderWithFixedLines(string path)
-    {
-        using var stream = OpenRead(path);
-        return await stream.ReadStringBuilderWithFixedLines();
-    }
-
     public static async Task WriteStream(string path, Stream stream)
     {
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
@@ -224,8 +218,18 @@
                 throw new($"Empty data is not allowed. Path: {fileStream.Name}");
             }
 
-            File.Copy(fileStream.Name, path, true);
-            return;
+            if (TryFileCopy(fileStream, path))
+            {
+                return;
+            }
+
+            // The fast path could not re-open the source by path; fall back to
+            // copying through the existing handle. Reset first so the whole file
+            // is written, matching File.Copy semantics.
+            if (fileStream.CanSeek)
+            {
+                fileStream.MoveToStart();
+            }
         }
 
         // keep using scope to stream is flushed
@@ -237,6 +241,31 @@
         if (new FileInfo(path).Length == 0)
         {
             throw new($"Empty data is not allowed. Path: {path}");
+        }
+    }
+
+    // Copies a FileStream by path (avoiding a read through the managed stream)
+    // when safe. Returns false — so the caller falls back to a handle copy — for
+    // handle-based streams (Name is not a rooted path) or when the source cannot
+    // be re-opened because it is held with a conflicting mode (writable /
+    // FileShare.None on Windows).
+    static bool TryFileCopy(FileStream fileStream, string path)
+    {
+        var name = fileStream.Name;
+        if (!Path.IsPathRooted(name))
+        {
+            return false;
+        }
+
+        try
+        {
+            File.Copy(name, path, true);
+            return true;
+        }
+        catch (Exception exception)
+            when (exception is IOException or UnauthorizedAccessException)
+        {
+            return false;
         }
     }
 }

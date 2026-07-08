@@ -42,7 +42,7 @@ public class VerifyExceptionMessageBuilderTests
             @new: [],
             notEquals:
             [
-                new(new("txt", receivedTxt, verifiedTxt), null, new("received content"), new("verified content"))
+                new(new("txt", receivedTxt, verifiedTxt), null, new("received content"), "verified content")
             ],
             delete: [],
             equal: []);
@@ -53,7 +53,7 @@ public class VerifyExceptionMessageBuilderTests
             @new: [],
             notEquals:
             [
-                new(new("txt", receivedTxt, verifiedTxt), "Comparer reported difference", new("received content"), new("verified content"))
+                new(new("txt", receivedTxt, verifiedTxt), "Comparer reported difference", new("received content"), "verified content")
             ],
             delete: [],
             equal: []);
@@ -108,7 +108,7 @@ public class VerifyExceptionMessageBuilderTests
         };
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", receivedTxt, verifiedTxt), null, new("received"), new("verified"))
+            new(new("txt", receivedTxt, verifiedTxt), null, new("received"), "verified")
         };
         var delete = new List<string>
         {
@@ -139,8 +139,8 @@ public class VerifyExceptionMessageBuilderTests
     {
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", receivedTxt, verifiedTxt), null, new("received text"), new("verified text")),
-            new(new("txt", receivedTxt, verifiedTxt), "Custom comparison message", new("received2"), new("verified2"))
+            new(new("txt", receivedTxt, verifiedTxt), null, new("received text"), "verified text"),
+            new(new("txt", receivedTxt, verifiedTxt), "Custom comparison message", new("received2"), "verified2")
         };
 
         return BuildVerify([], notEquals, [], []);

@@ -12,17 +12,30 @@ static class ClipboardEnabled
 
     public static bool ParseEnvironmentVariable(string? disabledText)
     {
-        if (disabledText is null)
+        if (string.IsNullOrWhiteSpace(disabledText))
         {
             return false;
         }
 
-        if (bool.TryParse(disabledText, out var disabled))
+        // Parse leniently and never throw: this runs from a static constructor,
+        // so throwing would poison the type and surface as a TypeInitializationException
+        // that masks the actual snapshot diff on every failing test.
+        switch (disabledText!.Trim().ToLowerInvariant())
         {
-            return disabled;
+            case "true":
+            case "1":
+            case "yes":
+            case "on":
+                return true;
+            case "false":
+            case "0":
+            case "no":
+            case "off":
+                return false;
+            default:
+                Trace.WriteLine($"Could not convert `Verify_DisableClipboard` environment variable to a bool. Value: {disabledText}. Treating as not disabled.");
+                return false;
         }
-
-        throw new($"Could not convert `Verify_DisableClipboard` environment variable to a bool. Value: {disabledText}");
     }
 
     public static bool IsEnabled() =>

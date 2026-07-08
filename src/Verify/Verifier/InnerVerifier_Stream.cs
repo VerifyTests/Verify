@@ -129,7 +129,7 @@ partial class InnerVerifier
         // the source stream of a stream target is owned here, so dispose it once consumed
         if (initial.IsStream)
         {
-            cleanup += initial.StreamData.DisposeAsyncEx;
+            cleanup = cleanup.Then(initial.StreamData.DisposeAsyncEx);
         }
 
         var infos = new List<object>();
@@ -168,14 +168,14 @@ partial class InnerVerifier
                 // a text target is fed to the converter as a utf8 stream
                 target.TryGetStringBuilder(out var builder);
                 var memory = new MemoryStream(Encoding.UTF8.GetBytes(builder!.ToString()));
-                cleanup += memory.DisposeAsyncEx;
+                cleanup = cleanup.Then(memory.DisposeAsyncEx);
                 targetStream = memory;
             }
 
             var result = await conversion(target.Name, targetStream, settings.Context);
             if (result.Cleanup != null)
             {
-                cleanup += result.Cleanup;
+                cleanup = cleanup.Then(result.Cleanup);
             }
 
             if (result.Info != null)

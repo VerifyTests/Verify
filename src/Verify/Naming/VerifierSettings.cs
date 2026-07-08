@@ -139,7 +139,7 @@ public static partial class VerifierSettings
 
                 foreach (var item in enumerable)
                 {
-                    AppendParameter(item, builder, false, counter);
+                    AppendParameter(item, builder, false, counter, pathFriendly);
                     builder.Append(',');
                 }
 

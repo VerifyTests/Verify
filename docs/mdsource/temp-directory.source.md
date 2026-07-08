@@ -59,6 +59,13 @@ snippet: TempDirectoryDirectoryInfoConversion
 snippet: TempDirectoryInfoProperty
 
 
+### Combining paths
+
+A `TempDirectory` can be combined with a relative `string` suffix using the `+` operator. The directory path and suffix are joined with a single separator (an existing leading separator on the suffix is respected). The result is a `string`.
+
+snippet: TempDirectoryAddOperator
+
+
 ### TempDirectory RootDirectory Property
 
 Allows access to the root directory for all TempDirectory instances:

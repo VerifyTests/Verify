@@ -21,7 +21,17 @@
 
     static List<string> Find(string directory, string searchPattern, string nonIndexedPattern, string indexedPattern)
     {
-        var startIndex = directory.Length + 1;
+        // Directory.EnumerateFiles inserts a separator only when the directory
+        // does not already end with one, so the file-name offset depends on
+        // whether the directory has a trailing separator (e.g. UseDirectory("snapshots/")).
+        var startIndex = directory.Length;
+        if (directory.Length > 0 &&
+            directory[^1] != Path.DirectorySeparatorChar &&
+            directory[^1] != Path.AltDirectorySeparatorChar)
+        {
+            startIndex++;
+        }
+
         var list = new List<string>();
         var nonIndexedPatternSpan = nonIndexedPattern.AsSpan();
         var indexedPatternSpan = indexedPattern.AsSpan();

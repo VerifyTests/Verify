@@ -11,6 +11,37 @@
     }
 
     [Fact]
+    public async Task StoppedInChildContextIsNotRecording()
+    {
+        Recording.Start();
+        Recording.Add("name", "value");
+        // Consuming inside a child execution context (as the verify engine does)
+        // must not leave the recording active in this context.
+        await Task.Run(() => Recording.TryStop(out _));
+        Assert.False(Recording.IsRecording());
+    }
+
+    [Fact]
+    public void DisposeAfterStopDoesNotThrow()
+    {
+        using (Recording.Start())
+        {
+            Recording.Add("name", "value");
+            Recording.Stop();
+        }
+    }
+
+    [Fact]
+    public void DisposeNamedAfterStopDoesNotThrow()
+    {
+        using (Recording.Start("DisposeNamedAfterStop"))
+        {
+            Recording.Add("DisposeNamedAfterStop", "name", "value");
+            Recording.Stop("DisposeNamedAfterStop");
+        }
+    }
+
+    [Fact]
     public Task Dates()
     {
         Recording.Start();

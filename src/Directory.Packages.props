@@ -19,8 +19,8 @@
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.9" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.7.0" />
     <PackageVersion Include="NUnit" Version="4.6.1" />
-    <PackageVersion Include="MSTest" Version="4.3.0" />
-    <PackageVersion Include="MSTest.TestFramework" Version="4.3.0" />
+    <PackageVersion Include="MSTest" Version="4.2.3" />
+    <PackageVersion Include="MSTest.TestFramework" Version="4.2.3" />
     <PackageVersion Include="NUnit3TestAdapter" Version="6.2.0" />
     <PackageVersion Include="Polyfill" Version="10.11.2" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.174" />

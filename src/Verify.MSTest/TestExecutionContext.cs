@@ -3,7 +3,12 @@ namespace VerifyMSTest;
 public record TestExecutionContext(TestContext TestContext, Type TestClass)
 {
     public Assembly Assembly { get; } = TestClass.Assembly;
-    public MethodInfo Method { get; } = FindMethod(TestClass, TestContext);
+
+    MethodInfo? method;
+
+    // Resolved lazily: the method scan is only needed when a Verify call actually
+    // builds a verifier, not for every test that constructs a context.
+    public MethodInfo Method => method ??= FindMethod(TestClass, TestContext);
 
     static MethodInfo FindMethod(Type type, TestContext context)
     {

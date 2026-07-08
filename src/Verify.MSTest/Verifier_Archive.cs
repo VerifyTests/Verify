@@ -47,7 +47,7 @@ partial class Verifier
         bool persistArchive = false,
         string? archiveExtension = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyZip(stream, include, info, fileScrubber, includeStructure, persistArchive), true);
+        Verify(settings, sourceFile, _ => _.VerifyZip(stream, include, info, fileScrubber, includeStructure, persistArchive, archiveExtension), true);
 
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive" />

@@ -79,6 +79,29 @@
     }
 
     [Fact]
+    public void ReplaceLines_AllRemovedNoTrailingNewline()
+    {
+        // Single line, no trailing newline, and every line replaced with null.
+        // The trailing-newline trim must guard on the rebuilt builder length, not
+        // the original string length, otherwise Length -= 1 underflows.
+        var builder = new StringBuilder("single line");
+
+        builder.ReplaceLines(_ => null);
+
+        Assert.Equal(string.Empty, builder.ToString());
+    }
+
+    [Fact]
+    public void ReplaceLines_ReplacesLines()
+    {
+        var builder = new StringBuilder("a\nb\nc");
+
+        builder.ReplaceLines(line => line == "b" ? "B" : line);
+
+        Assert.Equal("a\nB\nc", builder.ToString());
+    }
+
+    [Fact]
     public void FilterLines_RemovesSingleLine()
     {
         var builder = new StringBuilder("line1\nline2\nline3");

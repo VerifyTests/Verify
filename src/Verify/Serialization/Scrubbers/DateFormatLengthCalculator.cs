@@ -179,8 +179,10 @@
 
                     break;
                 case 'K':
+                    // K renders as "" (Unspecified), "Z" (Utc, 1 char) or
+                    // "+11:00" (offset, 6 chars), so it can contribute as few as
+                    // 0 chars. Only the maximum is 6; the minimum stays 0.
                     tokenLen = 1;
-                    minLength += 6;
                     maxLength += 6;
                     break;
                 case ':':

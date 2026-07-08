@@ -50,6 +50,19 @@ snippet: RegisterStreamConverterExtension
 snippet: FileConverterExtensionVerify
 
 
+### Text extensions
+
+A stream converter can also be registered against a text extension. This is useful when a text document needs derived targets, for example rendering html to an image for visual verification.
+
+The text target is scrubbed before being passed to the converter, so any derived targets (for example a rendered image) reflect the scrubbed content.
+
+For a custom text extension, register it as text via `FileExtensions.AddTextExtension`. Built-in text extensions (for example `html` or `csv`) do not require this.
+
+snippet: RegisterStreamConverterTextExtension
+
+snippet: TextExtensionConverterVerify
+
+
 ### Cleanup
 
 If cleanup needs to occur after verification a callback can be passes to `ConversionResult`:

@@ -13,7 +13,8 @@ static class PngSsimComparer
         var receivedImage = PngDecoder.Decode(received);
         var verifiedImage = PngDecoder.Decode(verified);
 
-        if (receivedImage.Width != verifiedImage.Width || receivedImage.Height != verifiedImage.Height)
+        if (receivedImage.Width != verifiedImage.Width ||
+            receivedImage.Height != verifiedImage.Height)
         {
             return Task.FromResult(CompareResult.NotEqual(
                 $"PNG dimensions differ. Received: {receivedImage.Width}x{receivedImage.Height}, Verified: {verifiedImage.Width}x{verifiedImage.Height}"));

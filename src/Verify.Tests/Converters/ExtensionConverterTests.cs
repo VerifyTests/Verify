@@ -1,6 +1,37 @@
 ﻿public class ExtensionConverterTests
 {
     [ModuleInitializer]
+    public static void TextSplitterInit()
+    {
+        #region RegisterStreamConverterTextExtension
+
+        // "texttoconvert" is a custom text extension, so register it as text first.
+        // For built-in text extensions (eg html or csv) this step is not required.
+        FileExtensions.AddTextExtension("texttoconvert");
+
+        // The input text is scrubbed before being passed to the converter, so any
+        // derived targets (eg a rendered image) reflect the scrubbed content.
+        VerifierSettings.RegisterStreamConverter(
+            "texttoconvert",
+            async (_, stream, _) =>
+                new(
+                    null,
+                    [
+                        new("texttoconvert", await stream.ReadStringBuilderWithFixedLines()),
+                        new("txt", "derived from text")
+                    ]));
+
+        #endregion
+    }
+
+    // a conversion splitter registered against a text extension
+    [Fact]
+    public Task TextSplitter() =>
+        #region TextExtensionConverterVerify
+        Verify("the source text", "texttoconvert");
+        #endregion
+
+    [ModuleInitializer]
     public static void RecursiveInit() =>
         VerifierSettings.RegisterStreamConverter(
             "recursive",

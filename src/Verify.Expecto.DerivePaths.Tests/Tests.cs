@@ -5,6 +5,7 @@
         nameof(Test),
         () =>
         {
+            VerifierSettings.Reset();
             DerivePathInfo(
                 (sourceFile, projectDirectory, methodName, typeName) =>
                 {
@@ -26,6 +27,7 @@
         nameof(ReturnNulls),
         () =>
         {
+            VerifierSettings.Reset();
             DerivePathInfo((_, _, _, _) => new(null));
             return Verify(
                 name: nameof(ReturnNulls),
@@ -37,6 +39,7 @@
         nameof(ProjectRelativeDirectory),
         () =>
         {
+            VerifierSettings.Reset();
             UseProjectRelativeDirectory("Relative");
             return Verify(
                 name: nameof(ProjectRelativeDirectory),
@@ -48,6 +51,7 @@
         nameof(SourceFileRelativeDirectory),
         () =>
         {
+            VerifierSettings.Reset();
             UseSourceFileRelativeDirectory("Relative");
             return Verify(
                 name: nameof(SourceFileRelativeDirectory),

@@ -4,6 +4,8 @@
     <TargetFramework>net11.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <EnableMSTestRunner>true</EnableMSTestRunner>
+    <RootNamespace>Fake</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

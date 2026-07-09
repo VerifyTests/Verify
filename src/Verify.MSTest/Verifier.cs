@@ -33,7 +33,12 @@ public static partial class Verifier
         if (!settings.HasParameters)
         {
             var data = context.TestContext.TestData;
-            if (data != null)
+            // Only apply when the data length matches the method parameter count.
+            // A params-array DataRow exposes raw pre-binding data whose length does
+            // not match the parameter count, which would break parameterized
+            // snapshot file naming. XunitV3 applies the same guard.
+            if (data != null &&
+                data.Length == method.ParameterNames()?.Count)
             {
                 settings.SetParameters(data);
             }

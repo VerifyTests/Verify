@@ -56,6 +56,13 @@
             return [];
         }
 
+        // pairs are ordered by length desc, so the last is the shortest. If the
+        // builder is shorter than that, no pair can match.
+        if (builder.Length < pairs[^1].Find.Length)
+        {
+            return [];
+        }
+
         var matches = new List<Match>();
         // Track matched positions
         var matchedRanges = new List<(int Start, int End)>();
@@ -162,9 +169,22 @@
                 }
             }
 
-            // Save last N chars for next iteration
-            carryoverLength = Math.Min(carryoverSize, chunk.Length);
-            chunkSpan.Slice(chunk.Length - carryoverLength, carryoverLength).CopyTo(carryoverBuffer);
+            // Roll the carryover forward: keep the last carryoverSize chars of
+            // everything seen so far. Rebuilding it from the current chunk alone
+            // drops the prefix when a chunk is shorter than carryoverSize, so a
+            // path spanning three or more chunks would never be found.
+            if (chunk.Length >= carryoverSize)
+            {
+                chunkSpan.Slice(chunk.Length - carryoverSize, carryoverSize).CopyTo(carryoverBuffer);
+                carryoverLength = carryoverSize;
+            }
+            else
+            {
+                var keep = Math.Min(carryoverLength, carryoverSize - chunk.Length);
+                carryoverBuffer.Slice(carryoverLength - keep, keep).CopyTo(carryoverBuffer);
+                chunkSpan.CopyTo(carryoverBuffer[keep..]);
+                carryoverLength = keep + chunk.Length;
+            }
 
             previousChunkAbsoluteEnd = absolutePosition + chunk.Length;
             absolutePosition += chunk.Length;

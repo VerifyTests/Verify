@@ -23,11 +23,6 @@ public static partial class VerifierSettings
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         Guards.AgainstBadExtension(extension);
-        if (FileExtensions.IsTextExtension(extension))
-        {
-            throw new("RegisterStreamConverter is only supported for non-text extensions");
-        }
-
         extensionConverters[extension] = conversion;
     }
 }

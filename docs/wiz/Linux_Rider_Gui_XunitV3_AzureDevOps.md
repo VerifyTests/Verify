@@ -17,12 +17,11 @@ Add the following packages to the test project:
 <!-- snippet: xunitv3-nugets -->
 <a id='snippet-xunitv3-nugets'></a>
 ```csproj
-<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.4.0" />
-<PackageReference Include="Verify.XunitV3" Version="31.16.2" />
-<PackageReference Include="xunit.runner.visualstudio" Version="3.1.5" PrivateAssets="all" />
+<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.7.0" />
+<PackageReference Include="Verify.XunitV3" Version="31.21.0" />
 <PackageReference Include="xunit.v3" Version="3.2.2" />
 ```
-<sup><a href='/usages/XunitV3NugetUsage/XunitV3NugetUsage.csproj#L8-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitv3-nugets' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/usages/XunitV3NugetUsage/XunitV3NugetUsage.csproj#L8-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitv3-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -18,23 +18,23 @@ class VerifyEngine(
     List<NotEqualResult> notEquals = [];
     List<FilePair> equal = [];
     List<FilePair> autoVerified = [];
-    HashSet<string> delete = new(verifiedFiles, StringComparer.InvariantCultureIgnoreCase);
+    HashSet<string> delete = [with(verifiedFiles, StringComparer.InvariantCultureIgnoreCase)];
 
     public IReadOnlyList<FilePair> Equal => equal;
     public IReadOnlyList<FilePair> AutoVerified => autoVerified;
 
-    static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, Target target, bool previousTextFailed)
+    static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, Target target, bool textHasFailed, bool bypassComparers)
     {
         try
         {
             if (target.TryGetStringBuilder(out var value))
             {
-                return await Comparer.Text(file, value, settings);
+                return await Comparer.Text(file, value, settings, bypassComparers);
             }
 
             using var stream = target.StreamData;
             stream.MoveToStart();
-            return await FileComparer.DoCompare(settings, file, previousTextFailed, stream);
+            return await FileComparer.DoCompare(settings, file, textHasFailed || bypassComparers, stream);
         }
         catch (Exception exception)
         {
@@ -54,27 +54,35 @@ class VerifyEngine(
         {
             var target = targetList[0];
             var file = getFileNames(target);
-            var result = await GetResult(settings, file, target, false);
+            var result = await GetResult(settings, file, target, false, false);
             HandleCompareResult(result, file);
             return;
         }
 
         var textHasFailed = false;
+        var bypassComparers = false;
 
         async Task Inner(FilePair file, Target target)
         {
-            var result = await GetResult(settings, file, target, textHasFailed);
+            var result = await GetResult(settings, file, target, textHasFailed, bypassComparers);
 
-            if (file.IsText &&
-                result.Equality != Equality.Equal)
+            if (result.Equality != Equality.Equal)
             {
-                textHasFailed = true;
+                if (file.IsText)
+                {
+                    textHasFailed = true;
+                }
+
+                if (target.BypassComparersForSubsequentOnDifference)
+                {
+                    bypassComparers = true;
+                }
             }
 
             HandleCompareResult(result, file);
         }
 
-        foreach (var group in targetList.GroupBy(_ => _, TargetNameExtensionComparer.Instance))
+        foreach (var group in targetList.GroupBy(_ => _, targetNameExtensionComparer))
         {
             var targets = group.ToList();
             if (targets.Count == 1)
@@ -160,12 +168,11 @@ class VerifyEngine(
 
     internal bool IsAutoVerify(string verifiedFile)
     {
-        if (typeName == null)
-        {
-            return false;
-        }
-
-        if (VerifierSettings.autoVerify != null)
+        // The global delegate needs the type/method name; the per-settings
+        // delegate does not, so it must not be gated on typeName (which is null
+        // for the file-level InnerVerifier(directory, name) API).
+        if (typeName != null &&
+            VerifierSettings.autoVerify != null)
         {
             return VerifierSettings.autoVerify(typeName, methodName!, verifiedFile);
         }
@@ -285,20 +292,9 @@ class VerifyEngine(
         return verified;
     }
 
-    static void AcceptChanges(in FilePair file)
-    {
-        File.Delete(file.VerifiedPath);
-        File.Move(file.ReceivedPath, file.VerifiedPath);
-    }
+    static void AcceptChanges(in FilePair file) =>
+        File.Move(file.ReceivedPath, file.VerifiedPath, true);
 
-    private sealed class TargetNameExtensionComparer : IEqualityComparer<Target>
-    {
-        public static readonly TargetNameExtensionComparer Instance = new();
-
-        public bool Equals(Target x, Target y) =>
-            (x.Name ?? "") == (y.Name ?? "") && x.Extension == y.Extension;
-
-        public int GetHashCode(Target obj) =>
-            (obj.Name ?? "", obj.Extension).GetHashCode();
-    }
+    static readonly IEqualityComparer<Target> targetNameExtensionComparer =
+        EqualityComparer<Target>.Create(_ => (_.Name ?? "", _.Extension));
 }

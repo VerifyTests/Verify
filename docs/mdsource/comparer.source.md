@@ -16,6 +16,15 @@ The returned `CompareResult.NotEqual` takes an optional message that will be ren
 **If an input is split into multiple files, and a text file fails, then all subsequent binary comparisons will revert to the default comparison.**
 
 
+### Bypass comparers for derived targets
+
+When a converter splits an input into multiple targets, for example a source document plus derived outputs such as rendered images or extracted text, a lenient comparer on a derived target can mask a real change in the source. Setting `BypassComparersForSubsequentOnDifference` on the source target ensures that, when the source differs from its verified file, all subsequent targets skip their registered comparers and fall back to exact comparison:
+
+snippet: BypassComparersForSubsequentOnDifference
+
+The flag must be set on the source target, and that target must precede the derived targets in the conversion result.
+
+
 ### Instance comparer
 
 snippet: InstanceComparer
@@ -42,6 +51,10 @@ snippet: UseSsimForPng
 The default threshold is `0.98`. SSIM scores range from `0` (completely different) to `1` (identical). A custom threshold can be supplied:
 
 snippet: UseSsimForPngThreshold
+
+SSIM can also be enabled per-verification, via an instance of `VerifySettings` or fluently on a `SettingsTask`:
+
+snippet: InstanceSsimForPng
 
 Dimension mismatches between the received and verified images are always reported as not equal, regardless of threshold.
 

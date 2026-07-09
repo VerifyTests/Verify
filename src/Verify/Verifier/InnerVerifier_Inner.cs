@@ -16,7 +16,7 @@ partial class InnerVerifier
         cleanup ??= () => Task.CompletedTask;
 
         var (extraTargets, extraCleanup) = await GetTargets(targets, doExtensionConversion);
-        cleanup += extraCleanup;
+        cleanup = cleanup.Then(extraCleanup);
         resultTargets.AddRange(extraTargets);
         var engine = new VerifyEngine(
             directory,
@@ -27,9 +27,15 @@ partial class InnerVerifier
             settings.TypeName ?? typeName,
             settings.MethodName ?? methodName);
 
-        await engine.HandleResults(resultTargets);
-
-        await cleanup();
+        try
+        {
+            await engine.HandleResults(resultTargets);
+        }
+        finally
+        {
+            // Always run cleanup (stream/converter disposal), even if comparison throws.
+            await cleanup();
+        }
 
         await engine.ThrowIfRequired();
 
@@ -46,46 +52,54 @@ partial class InnerVerifier
     {
         List<Target> list = [..targets, ..VerifierSettings.GetFileAppenders(settings)];
         var cleanup = () => Task.CompletedTask;
-        if (doExtensionConversion)
+
+        // When doExtensionConversion is false the targets have already been run through
+        // conversion and scrubbing (the only caller is the post-conversion stream path),
+        // so pass them through untouched to avoid double scrubbing.
+        if (!doExtensionConversion)
         {
-            var result = new List<Target>();
-            foreach (var target in list)
-            {
-                if (!target.PerformConversion ||
-                    !VerifierSettings.HasStreamConverter(target.Extension))
-                {
-                    result.Add(target);
-                    continue;
-                }
-
-                var (info, converted, itemCleanup) = await DoExtensionConversion(target.Extension, target.StreamData, null, target.Name);
-                cleanup += itemCleanup;
-                if (info != null)
-                {
-                    result.Add(
-                        new(
-                            settings.TxtOrJson,
-                            JsonFormatter.AsJson(
-                                settings,
-                                counter,
-                                info)));
-                }
-
-                result.AddRange(converted);
-            }
-
-            list = result;
+            return (list, cleanup);
         }
 
+        var result = new List<Target>();
         foreach (var target in list)
         {
-            if (target.TryGetStringBuilder(out var builder))
+            if (!target.PerformConversion ||
+                !VerifierSettings.HasStreamConverter(target.Extension))
             {
-                ApplyScrubbers.ApplyForExtension(target.Extension, builder, settings, counter);
+                Scrub(target);
+                result.Add(target);
+                continue;
             }
+
+            var (info, converted, itemCleanup) = await DoExtensionConversion(target, null);
+            cleanup = cleanup.Then(itemCleanup);
+            if (info != null)
+            {
+                Target infoTarget = new(
+                    settings.TxtOrJson,
+                    JsonFormatter.AsJson(
+                        settings,
+                        counter,
+                        info));
+                Scrub(infoTarget);
+                result.Add(infoTarget);
+            }
+
+            // converted targets are scrubbed within DoExtensionConversion
+            result.AddRange(converted);
         }
 
-        return (list, cleanup);
+        return (result, cleanup);
+    }
+
+    // Scrubs a text target in place. Stream (binary) targets are left untouched.
+    void Scrub(in Target target)
+    {
+        if (target.TryGetStringBuilder(out var builder))
+        {
+            ApplyScrubbers.ApplyForExtension(target.Extension, builder, settings, counter);
+        }
     }
 
     bool TryGetRootTarget(object? root,bool ignoreNullRoot, [NotNullWhen(true)] out Target? target)

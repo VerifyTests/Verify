@@ -34,8 +34,11 @@ partial class InnerVerifier
             return await VerifyInner(target, null, emptyTargets, true, false);
         }
 
-        var document = await XDocument.LoadAsync(target, LoadOptions.None, default);
-        return await VerifyXml(document);
+        using (target)
+        {
+            var document = await XDocument.LoadAsync(target, LoadOptions.None, default);
+            return await VerifyXml(document);
+        }
     }
 
     async Task<VerifyResult> VerifyXml(XmlNode? target)

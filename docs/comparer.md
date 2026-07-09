@@ -34,12 +34,41 @@ static Task<CompareResult> CompareImages(
     return Task.FromResult(result);
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L34-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-ImageComparer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L51-L68' title='Snippet source file'>snippet source</a> | <a href='#snippet-ImageComparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The returned `CompareResult.NotEqual` takes an optional message that will be rendered in the resulting text displayed to the user on test failure.
 
 **If an input is split into multiple files, and a text file fails, then all subsequent binary comparisons will revert to the default comparison.**
+
+
+### Bypass comparers for derived targets
+
+When a converter splits an input into multiple targets, for example a source document plus derived outputs such as rendered images or extracted text, a lenient comparer on a derived target can mask a real change in the source. Setting `BypassComparersForSubsequentOnDifference` on the source target ensures that, when the source differs from its verified file, all subsequent targets skip their registered comparers and fall back to exact comparison:
+
+<!-- snippet: BypassComparersForSubsequentOnDifference -->
+<a id='snippet-BypassComparersForSubsequentOnDifference'></a>
+```cs
+// A converter that emits a canonical source document alongside derived targets (eg rendered pages).
+// The source is flagged so that, when it differs, the derived targets skip their (potentially lenient)
+// comparers and fall back to exact comparison, ensuring a real change in the source is never masked.
+public static ConversionResult ConvertDocument(Stream document, IReadOnlyDictionary<string, object> context)
+{
+    Target[] targets =
+    [
+        new("docx", document)
+        {
+            BypassComparersForSubsequentOnDifference = true
+        },
+        new("png", RenderPage(document))
+    ];
+    return new(info: null, targets);
+}
+```
+<sup><a href='/src/Verify.Tests/Snippets/BypassComparerSnippets.cs#L5-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-BypassComparersForSubsequentOnDifference' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+The flag must be set on the source target, and that target must precede the derived targets in the conversion result.
 
 
 ### Instance comparer
@@ -74,7 +103,7 @@ VerifierSettings.RegisterStreamComparer(
     compare: CompareImages);
 await VerifyFile("TheImage.png");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L24-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticComparer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L41-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticComparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -90,29 +119,40 @@ public static async Task<CompareResult> AreEqual(Stream stream1, Stream stream2)
     EnsureAtStart(stream1);
     EnsureAtStart(stream2);
 
-    var buffer1 = new byte[bufferSize];
-    var buffer2 = new byte[bufferSize];
-
-    while (true)
+    var buffer1 = ArrayPool<byte>.Shared.Rent(bufferSize);
+    var buffer2 = ArrayPool<byte>.Shared.Rent(bufferSize);
+    try
     {
-        var count = await ReadBufferAsync(stream1, buffer1);
-
-        //no need to compare size here since only enter on files being same size
-
-        if (count == 0)
+        while (true)
         {
-            return CompareResult.Equal;
-        }
+            var count1 = await ReadBufferAsync(stream1, buffer1);
+            var count2 = await ReadBufferAsync(stream2, buffer2);
 
-        await ReadBufferAsync(stream2, buffer2);
+            // Callers do not always guarantee the streams are the same length
+            // (e.g. a non-seekable received stream), so a length difference must
+            // be treated as not-equal instead of a short-circuit to equal.
+            if (count1 != count2)
+            {
+                return CompareResult.NotEqual();
+            }
 
-        for (var i = 0; i < count; i += sizeof(long))
-        {
-            if (BitConverter.ToInt64(buffer1, i) != BitConverter.ToInt64(buffer2, i))
+            if (count1 == 0)
+            {
+                return CompareResult.Equal;
+            }
+
+            // Compare exactly the bytes read (a rented buffer's trailing bytes
+            // are arbitrary, so they must not be included).
+            if (!buffer1.AsSpan(0, count1).SequenceEqual(buffer2.AsSpan(0, count1)))
             {
                 return CompareResult.NotEqual();
             }
         }
+    }
+    finally
+    {
+        ArrayPool<byte>.Shared.Return(buffer1);
+        ArrayPool<byte>.Shared.Return(buffer2);
     }
 }
 
@@ -127,10 +167,13 @@ static void EnsureAtStart(Stream stream)
 
 static async Task<int> ReadBufferAsync(Stream stream, byte[] buffer)
 {
+    // Read up to bufferSize (not buffer.Length): a rented buffer may be
+    // larger, and both streams must be read in equal-sized chunks so the
+    // length comparison above stays aligned.
     var bytesRead = 0;
-    while (bytesRead < buffer.Length)
+    while (bytesRead < bufferSize)
     {
-        var read = await stream.ReadAsync(buffer, bytesRead, buffer.Length - bytesRead);
+        var read = await stream.ReadAsync(buffer, bytesRead, bufferSize - bytesRead);
         if (read == 0)
         {
             // Reached end of stream.
@@ -143,7 +186,7 @@ static async Task<int> ReadBufferAsync(Stream stream, byte[] buffer)
     return bytesRead;
 }
 ```
-<sup><a href='/src/Verify/Compare/StreamComparer.cs#L3-L65' title='Snippet source file'>snippet source</a> | <a href='#snippet-DefualtCompare' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Compare/StreamComparer.cs#L3-L79' title='Snippet source file'>snippet source</a> | <a href='#snippet-DefualtCompare' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -179,6 +222,27 @@ public static class ModuleInitializer
 }
 ```
 <sup><a href='/src/ModuleInitDocs/UseSsimForPngThreshold.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseSsimForPngThreshold' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+SSIM can also be enabled per-verification, via an instance of `VerifySettings` or fluently on a `SettingsTask`:
+
+<!-- snippet: InstanceSsimForPng -->
+<a id='snippet-InstanceSsimForPng'></a>
+```cs
+[Fact]
+public Task InstanceSsimForPng()
+{
+    var settings = new VerifySettings();
+    settings.UseSsimForPng();
+    return VerifyFile("sample.png", settings);
+}
+
+[Fact]
+public Task InstanceSsimForPngFluent() =>
+    VerifyFile("sample.png")
+        .UseSsimForPng(threshold: 0.995);
+```
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L22-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-InstanceSsimForPng' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Dimension mismatches between the received and verified images are always reported as not equal, regardless of threshold.

@@ -8,6 +8,8 @@ global using EmptyFiles;
 global using Polyfills;
 global using System.Collections.ObjectModel;
 global using System.IO.Compression;
+#if NET
 global using System.Reflection.Metadata;
 global using System.Reflection.PortableExecutable;
+#endif
 global using System.Security.Claims;

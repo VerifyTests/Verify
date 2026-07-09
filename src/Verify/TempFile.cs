@@ -73,9 +73,12 @@ public class TempFile :
                 return;
             }
 
-            foreach (var path in pathsValue)
+            lock (pathsLock)
             {
-                scrubber.Replace(path, "{TempFile}");
+                foreach (var path in pathsValue)
+                {
+                    scrubber.Replace(path, "{TempFile}");
+                }
             }
         });
 
@@ -83,6 +86,7 @@ public class TempFile :
     }
 
     static AsyncLocal<List<string>?> asyncPaths = new();
+    static readonly object pathsLock = new();
 
     internal static void Cleanup()
     {
@@ -101,9 +105,12 @@ public class TempFile :
             {
                 File.Delete(file);
             }
-            catch (FileNotFoundException)
+            catch (Exception exception)
+                when (exception is IOException or UnauthorizedAccessException)
             {
-                // Ignore file cleanup race condition
+                // Ignore orphans that can't be deleted (locked, read-only, or a
+                // cleanup race). File.Delete is a no-op for a missing file, so
+                // FileNotFoundException is not the case that needs handling here.
             }
         }
     }
@@ -135,14 +142,17 @@ public class TempFile :
 
         Path = IoPath.Combine(RootDirectory, fileName);
 
-        paths = asyncPaths.Value!;
-        if (paths == null)
+        lock (pathsLock)
         {
-            paths = asyncPaths.Value = [Path];
-        }
-        else
-        {
-            paths.Add(Path);
+            paths = asyncPaths.Value!;
+            if (paths == null)
+            {
+                paths = asyncPaths.Value = [Path];
+            }
+            else
+            {
+                paths.Add(Path);
+            }
         }
     }
 
@@ -324,7 +334,10 @@ public class TempFile :
             File.Delete(Path);
         }
 
-        paths.Remove(Path);
+        lock (pathsLock)
+        {
+            paths.Remove(Path);
+        }
     }
 
     /// <summary>

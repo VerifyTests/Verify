@@ -46,6 +46,22 @@
     }
 
     [Fact]
+    public void PathSpanningThreeChunks()
+    {
+        // Capacity 4 forces small chunks [4][4][rest]; the 16-char path spans all
+        // three, and the 4-char middle chunk is shorter than the carryover. The
+        // carryover must accumulate across chunks or the prefix is dropped and the
+        // path leaks unscrubbed.
+        List<DirectoryReplacements.Pair> pairs = [new("C:/Parent/ChildX", "{replace}")];
+        var builder = new StringBuilder(capacity: 4);
+        builder.Append("C:/P"); // chunk0
+        builder.Append("aren"); // chunk1 (short middle chunk)
+        builder.Append("t/ChildX.");
+        DirectoryReplacements.Replace(builder, pairs);
+        Assert.Equal("{replace}.", builder.ToString());
+    }
+
+    [Fact]
     public void ProcessLongerDirectoryFirst()
     {
         List<DirectoryReplacements.Pair> pairs =

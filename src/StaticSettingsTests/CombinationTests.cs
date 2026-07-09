@@ -80,6 +80,35 @@
     }
 
     [Fact]
+    public async Task AfterCallbackRawValueWhenRecording()
+    {
+        object? afterResult = null;
+        CombinationSettings.UseCallbacks(
+            _ => Task.CompletedTask,
+            (_, result) =>
+            {
+                afterResult = result;
+                return Task.CompletedTask;
+            },
+            (_, _) => Task.CompletedTask);
+
+        int[] list = [1];
+        Recording.Start();
+        await Combination()
+            .Verify(
+                (int param1) =>
+                {
+                    Recording.Add("recorded", "value");
+                    return $"result{param1}";
+                },
+                list);
+
+        // With recording active the callback must still receive the raw method
+        // result, not the internal InfoBuilder wrapper.
+        Assert.Equal("result1", afterResult);
+    }
+
+    [Fact]
     public async Task ExceptionCallbacksTest()
     {
         var beforeCalled = false;

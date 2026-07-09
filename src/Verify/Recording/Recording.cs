@@ -2,13 +2,28 @@
 
 public static partial class Recording
 {
-    static List<string> ignored = [];
+    static HashSet<string> ignored = [];
+    static readonly object ignoredLock = new();
 
-    public static void IgnoreNames(params string[] names) =>
-        ignored.AddRange(names);
+    public static void IgnoreNames(params string[] names)
+    {
+        // Copy-on-write: IsIgnored reads this on every Recording.Add, potentially
+        // from other threads, so publish a new set rather than mutating in place.
+        lock (ignoredLock)
+        {
+            var copy = new HashSet<string>(ignored);
+            foreach (var name in names)
+            {
+                copy.Add(name);
+            }
+
+            ignored = copy;
+        }
+    }
 
     public static bool IsIgnored(string name) =>
-        ignored.Contains(name);
+        Volatile.Read(ref ignored)
+            .Contains(name);
 
     static AsyncLocal<State?> asyncLocal = new();
 
@@ -57,7 +72,15 @@ public static partial class Recording
             return false;
         }
 
-        recorded = value.Items;
+        // Nulling asyncLocal only affects the current execution context. When the
+        // verify engine consumes a recording mid-verify, that null does not flow
+        // back to the calling test, which would otherwise keep seeing an active,
+        // unconsumed recording (re-appending the same items on the next verify).
+        // Snapshot the items, then stop the shared State so the stop is observable
+        // through the caller's reference.
+        recorded = value.Items.ToList();
+        value.Clear();
+        value.Pause();
         asyncLocal.Value = null;
         return true;
     }
@@ -114,8 +137,10 @@ public static partial class Recording
     class Disposable :
         IDisposable
     {
+        // TryPause (not Pause) so disposing after an explicit Stop is a no-op
+        // rather than throwing from CurrentState.
         public void Dispose() =>
-            Pause();
+            TryPause();
     }
 
     public static void Pause() =>
@@ -152,17 +177,12 @@ public static partial class Recording
 
         foreach (var value in values)
         {
-            List<object> objects;
-            if (dictionary.TryGetValue(value.Name, out var item))
+            if (!dictionary.TryGetValue(value.Name, out var item))
             {
-                objects = (List<object>) item;
-            }
-            else
-            {
-                dictionary[value.Name] = objects = [];
+                dictionary[value.Name] = item = new List<object>();
             }
 
-            objects.Add(value.Data);
+            ((List<object>) item).Add(value.Data);
         }
 
         return dictionary;

@@ -17,10 +17,10 @@ Add the following packages to the test project:
 <!-- snippet: expecto-nugets -->
 <a id='snippet-expecto-nugets'></a>
 ```fsproj
-<PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.15.6" />
-<PackageReference Include="Expecto" Version="10.2.3" />
-<PackageReference Update="FSharp.Core" Version="10.1.203" />
-<PackageReference Include="Verify.Expecto" Version="31.16.2" />
+<PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.16.0" />
+<PackageReference Include="Expecto" Version="11.1.0" />
+<PackageReference Update="FSharp.Core" Version="10.1.301" />
+<PackageReference Include="Verify.Expecto" Version="31.21.0" />
 ```
 <sup><a href='/usages/ExpectoNugetUsage/ExpectoNugetUsage.fsproj#L8-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-expecto-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -137,7 +137,7 @@ public class VerifyChecksTests
         () => VerifyChecks.Run(typeof(VerifyChecksTests).Assembly));
 }
 ```
-<sup><a href='/src/Verify.Expecto.Tests/VerifyChecksTests.cs#L1-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksExpecto' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Expecto.Tests/VerifyChecksTests.cs#L2-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksExpecto' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 ## DiffPlex

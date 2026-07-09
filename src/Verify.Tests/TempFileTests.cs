@@ -23,6 +23,55 @@
         Assert.EndsWith(".txt", temp.Path);
     }
 
+    [Fact]
+    public void CleanupDoesNotThrowForUndeletableFile()
+    {
+        var filePath = Path.Combine(TempFile.RootDirectory, $"undeletable{Guid.NewGuid():N}.txt");
+        File.WriteAllText(filePath, "content");
+        // Age the file out before marking it read-only: on .NET Framework the
+        // timestamp cannot be set on a read-only file.
+        File.SetLastWriteTime(filePath, DateTime.Now.AddDays(-2));
+        // On Windows a read-only file cannot be deleted; on Unix deletion is
+        // governed by the directory, so the file is deletable there and this
+        // test is a no-op guard.
+        var readOnly = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+        if (readOnly)
+        {
+            File.SetAttributes(filePath, FileAttributes.ReadOnly);
+        }
+
+        try
+        {
+            TempFile.Cleanup();
+        }
+        finally
+        {
+            if (readOnly)
+            {
+                File.SetAttributes(filePath, FileAttributes.Normal);
+            }
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+        }
+    }
+
+    [Fact]
+    public async Task ConcurrentInstancesDoNotCorruptState()
+    {
+        // Establish the shared async-local path list, then hammer it from many
+        // child contexts that flow the same list in.
+        using var parent = new TempFile();
+        var tasks = Enumerable.Range(0, 200)
+            .Select(_ => Task.Run(() =>
+            {
+                using var temp = new TempFile();
+            }));
+        await Task.WhenAll(tasks);
+    }
+
     #region VerifyTempFile
 
     [Fact]

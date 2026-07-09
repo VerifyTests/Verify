@@ -107,7 +107,7 @@ static class ReflectionHelpers
         }
 
         if (type.FullName != null &&
-            type.FullName.StartsWith("System.Linq.ILookup"))
+            type.FullName.StartsWith("System.Linq.ILookup", StringComparison.Ordinal))
         {
             enumerable = enumerableTarget;
             isEmpty = IsEmpty(enumerable);
@@ -117,7 +117,7 @@ static class ReflectionHelpers
         var interfaces = type.GetInterfaces();
 
         if (interfaces.Any(_ => _.FullName != null &&
-                                _.FullName.StartsWith("System.Linq.ILookup")))
+                                _.FullName.StartsWith("System.Linq.ILookup", StringComparison.Ordinal)))
         {
             enumerable = enumerableTarget;
             isEmpty = IsEmpty(enumerable);
@@ -145,7 +145,7 @@ static class ReflectionHelpers
     }
 
     static bool IsEnumerableEmpty(this Type type) =>
-        type.FullName?.StartsWith("System.Linq.EmptyPartition") == true;
+        type.FullName?.StartsWith("System.Linq.EmptyPartition", StringComparison.Ordinal) == true;
 
     public static bool IsGeneric(this Type type, params Type[] generics)
     {
@@ -175,12 +175,20 @@ static class ReflectionHelpers
             typeof(ICollection<>),
             typeof(IReadOnlyCollection<>));
 
+    static ConcurrentDictionary<Type, MethodInfo?> isDefaultOrEmptyGetters = new();
+
     static bool IsDefaultOrEmptyImmutableArray(object target)
     {
-        var targetType = target.GetType();
+        var getter = isDefaultOrEmptyGetters.GetOrAdd(target.GetType(), BuildIsDefaultOrEmptyGetter);
+        return getter != null &&
+               (bool)getter.Invoke(target, null)!;
+    }
+
+    static MethodInfo? BuildIsDefaultOrEmptyGetter(Type targetType)
+    {
         if (!targetType.IsGeneric(typeof(ImmutableArray<>)))
         {
-            return false;
+            return null;
         }
 
         var isDefaultOrEmptyProperty = targetType.GetProperty(
@@ -188,7 +196,6 @@ static class ReflectionHelpers
                                            bindingAttr: BindingFlags.Public | BindingFlags.Instance)
                                        ?? throw new NotSupportedException("There is no IsDefaultOrEmpty property on ImmutableArray.");
 
-        return (bool)isDefaultOrEmptyProperty.GetMethod!.Invoke(target, null)!;
+        return isDefaultOrEmptyProperty.GetMethod!;
     }
-
 }

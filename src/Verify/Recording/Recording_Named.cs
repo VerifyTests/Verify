@@ -75,8 +75,10 @@ public static partial class Recording
     class NamedDisposable(string identifier) :
         IDisposable
     {
+        // TryPause (not Pause) so disposing after an explicit Stop is a no-op
+        // rather than throwing from CurrentStateNamed.
         public void Dispose() =>
-            Pause(identifier);
+            TryPause(identifier);
     }
 
     public static void Pause(string identifier) =>

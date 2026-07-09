@@ -11,6 +11,7 @@ public static class ClipboardAccept
 
     static string moveCommand;
     static string deleteCommand;
+    static readonly bool isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
     public static void Enable()
     {
@@ -26,7 +27,29 @@ public static class ClipboardAccept
             return Task.CompletedTask;
         }
 
-        return Append(string.Format(moveCommand, file.ReceivedPath, file.VerifiedPath));
+        return Append(string.Format(moveCommand, EscapePath(file.ReceivedPath), EscapePath(file.VerifiedPath)));
+    }
+
+    static string EscapePath(string path) =>
+        EscapePath(path, isWindows);
+
+    internal static string EscapePath(string path, bool windows)
+    {
+        if (windows)
+        {
+            // Windows filenames cannot contain '"', so the surrounding double
+            // quotes in the command are sufficient. '%' expansion is left as-is
+            // since it cannot be reliably suppressed at an interactive prompt.
+            return path;
+        }
+
+        // The path is substituted inside double quotes; escape the characters the
+        // shell still interprets there so a path containing $ or ` is not expanded.
+        return path
+            .Replace("\\", "\\\\")
+            .Replace("\"", "\\\"")
+            .Replace("$", "\\$")
+            .Replace("`", "\\`");
     }
 
     static ClipboardAccept()
@@ -67,7 +90,7 @@ public static class ClipboardAccept
         {
             return Task.CompletedTask;
         }
-        return Append(string.Format(deleteCommand, verified));
+        return Append(string.Format(deleteCommand, EscapePath(verified)));
     }
 
     static async Task Append(string command)

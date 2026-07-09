@@ -15,9 +15,8 @@
         var currentDirectory = testDirectory;
         do
         {
-            if (Directory
-                    .GetFiles(currentDirectory, "*.sln")
-                    .Length != 0)
+            if (Directory.GetFiles(currentDirectory, "*.sln").Length != 0 ||
+                Directory.GetFiles(currentDirectory, "*.slnx").Length != 0)
             {
                 path = currentDirectory;
                 return true;

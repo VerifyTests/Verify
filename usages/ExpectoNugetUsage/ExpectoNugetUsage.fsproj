@@ -6,10 +6,10 @@
   </PropertyGroup>
   <ItemGroup>
 <!-- begin-snippet: expecto-nugets -->
-    <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.15.6" />
-    <PackageReference Include="Expecto" Version="10.2.3" />
-    <PackageReference Update="FSharp.Core" Version="10.1.203" />
-    <PackageReference Include="Verify.Expecto" Version="31.16.2" />
+    <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.16.0" />
+    <PackageReference Include="Expecto" Version="11.1.0" />
+    <PackageReference Update="FSharp.Core" Version="10.1.301" />
+    <PackageReference Include="Verify.Expecto" Version="31.21.0" />
 <!-- end-snippet -->
   </ItemGroup>
 </Project>

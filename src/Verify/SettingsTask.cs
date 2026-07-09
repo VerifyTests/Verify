@@ -93,6 +93,14 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.UseSsimForPng(double)"/>
+    [Pure]
+    public SettingsTask UseSsimForPng(double threshold = 0.98)
+    {
+        CurrentSettings.UseSsimForPng(threshold);
+        return this;
+    }
+
     /// <inheritdoc cref="VerifySettings.DisableDiff()"/>
     [Pure]
     public SettingsTask DisableDiff()
@@ -304,8 +312,24 @@ public partial class SettingsTask
     }
 
     [Pure]
-    public Task<VerifyResult> ToTask() =>
-        task ??= buildTask(CurrentSettings);
+    public Task<VerifyResult> ToTask()
+    {
+        if (task is not null)
+        {
+            return task;
+        }
+
+        // Verify's pipeline performs async IO without ConfigureAwait(false), so it must not run under
+        // a caller-supplied SynchronizationContext. UI frameworks (WinForms/WPF/Avalonia) install one
+        // on the current thread when a control is created; during a test it has no running message
+        // pump, so capturing it would deadlock the pipeline (and the awaiting test) on the received
+        // file write of a new or mismatched snapshot. Clearing it here - synchronously, before the
+        // task is built and before the caller's await captures a context - keeps the pipeline and the
+        // caller's continuation free of any context the caller already had. UI converters additionally
+        // restore the context around rendering, since Show() re-installs one mid-pipeline.
+        SynchronizationContext.SetSynchronizationContext(null);
+        return task = buildTask(CurrentSettings);
+    }
 
     [Pure]
     public ConfiguredTaskAwaitable<VerifyResult> ConfigureAwait(bool continueOnCapturedContext) =>

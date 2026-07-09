@@ -1,0 +1,7 @@
+﻿{
+  list: Result,
+     1: {
+    target: result1,
+    recorded: value
+  }
+}

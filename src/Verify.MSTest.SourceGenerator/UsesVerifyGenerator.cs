@@ -118,8 +118,12 @@ public class UsesVerifyGenerator : IIncrementalGenerator
     static bool HasTestClassAttribute(INamedTypeSymbol symbol, INamedTypeSymbol testClassType) =>
         !symbol.HasAttributeOfType(testClassType, includeDerived: true);
 
+    // Require at least one attribute list: both paths only care about classes
+    // carrying [UsesVerify] or [TestClass]. Without this filter the uncached
+    // CreateSyntaxProvider transform runs semantic work for every class in the
+    // consuming project on every keystroke.
     static bool IsSyntaxEligibleForGeneration(SyntaxNode node, Cancel _) =>
-        node is ClassDeclarationSyntax;
+        node is ClassDeclarationSyntax { AttributeLists.Count: > 0 };
 
     static bool IsAssemblyEligibleForGeneration(IAssemblySymbol assembly, INamedTypeSymbol markerType) =>
         assembly.HasAttributeOfType(markerType, includeDerived: false);

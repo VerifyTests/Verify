@@ -31,7 +31,7 @@
             }
         }
 
-        if (theString.Length > 0 &&
+        if (input.Length > 0 &&
             !theString.EndsWith('\n'))
         {
             input.Length -= 1;

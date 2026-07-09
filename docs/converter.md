@@ -146,6 +146,45 @@ await VerifyFile("sample.tif");
 <!-- endSnippet -->
 
 
+### Text extensions
+
+A stream converter can also be registered against a text extension. This is useful when a text document needs derived targets, for example rendering html to an image for visual verification.
+
+The text target is scrubbed before being passed to the converter, so any derived targets (for example a rendered image) reflect the scrubbed content.
+
+For a custom text extension, register it as text via `FileExtensions.AddTextExtension`. Built-in text extensions (for example `html` or `csv`) do not require this.
+
+<!-- snippet: RegisterStreamConverterTextExtension -->
+<a id='snippet-RegisterStreamConverterTextExtension'></a>
+```cs
+// "texttoconvert" is a custom text extension, so register it as text first.
+// For built-in text extensions (eg html or csv) this step is not required.
+FileExtensions.AddTextExtension("texttoconvert");
+
+// The input text is scrubbed before being passed to the converter, so any
+// derived targets (eg a rendered image) reflect the scrubbed content.
+VerifierSettings.RegisterStreamConverter(
+    "texttoconvert",
+    async (_, stream, _) =>
+        new(
+            null,
+            [
+                new("texttoconvert", await stream.ReadStringBuilderWithFixedLines()),
+                new("txt", "derived from text")
+            ]));
+```
+<sup><a href='/src/Verify.Tests/Converters/ExtensionConverterTests.cs#L6-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-RegisterStreamConverterTextExtension' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+<!-- snippet: TextExtensionConverterVerify -->
+<a id='snippet-TextExtensionConverterVerify'></a>
+```cs
+Verify("the source text", "texttoconvert");
+```
+<sup><a href='/src/Verify.Tests/Converters/ExtensionConverterTests.cs#L30-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-TextExtensionConverterVerify' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ### Cleanup
 
 If cleanup needs to occur after verification a callback can be passes to `ConversionResult`:

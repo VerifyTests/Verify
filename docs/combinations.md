@@ -175,7 +175,7 @@ public Task BuildAddressExceptionsDisabledTest()
             city);
 }
 ```
-<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L185-L201' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptionsFalse' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L214-L230' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptionsFalse' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -215,13 +215,32 @@ public class CombinationResultsConverter :
 
         var keyValues = new string[items.Count, keysLength];
 
+        // Keys repeat across rows (a column only has as many distinct values as
+        // its input list), so cache the computed name per distinct key value.
+        var nameCache = new Dictionary<object, string>();
+        string? nullName = null;
+
         for (var itemIndex = 0; itemIndex < items.Count; itemIndex++)
         {
             var item = items[itemIndex];
             for (var keyIndex = 0; keyIndex < keysLength; keyIndex++)
             {
                 var key = item.Keys[keyIndex];
-                var name = VerifierSettings.GetNameForParameter(key, writer.Counter, pathFriendly: false);
+                string name;
+                if (key == null)
+                {
+                    name = nullName ??= VerifierSettings.GetNameForParameter(null, writer.Counter, pathFriendly: false);
+                }
+                else if (nameCache.TryGetValue(key, out var cached))
+                {
+                    name = cached;
+                }
+                else
+                {
+                    name = VerifierSettings.GetNameForParameter(key, writer.Counter, pathFriendly: false);
+                    nameCache[key] = name;
+                }
+
                 keyValues[itemIndex, keyIndex] = name;
                 var currentKeyLength = maxKeyLengths[keyIndex];
                 if (name.Length > currentKeyLength)
@@ -353,7 +372,7 @@ public class CombinationResultsConverter :
     }
 }
 ```
-<sup><a href='/src/Verify/Combinations/CombinationResultsConverter.cs#L1-L166' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationResultsConverter.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Combinations/CombinationResultsConverter.cs#L1-L185' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationResultsConverter.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -378,7 +397,7 @@ class CustomCombinationConverter :
         string.Join(", ", keys.Select(_ => _.Value));
 }
 ```
-<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L231-L240' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationConverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L260-L269' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationConverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Full control of serialization can be achieved by inheriting from `WriteOnlyJsonConverter<CombinationResults>`.
@@ -397,7 +416,7 @@ static CustomCombinationConverter customConverter = new();
 public static void Init() =>
     VerifierSettings.AddExtraSettings(_ => _.Converters.Insert(0, customConverter));
 ```
-<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L203-L211' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationModuleInitializer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L232-L240' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationModuleInitializer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -528,5 +547,5 @@ Headers can be enabled globally:
 public static void EnableIncludeHeaders() =>
     CombinationSettings.IncludeHeaders();
 ```
-<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L243-L249' title='Snippet source file'>snippet source</a> | <a href='#snippet-GlobalCombinationHeader' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L272-L278' title='Snippet source file'>snippet source</a> | <a href='#snippet-GlobalCombinationHeader' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

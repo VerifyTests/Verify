@@ -10,20 +10,20 @@ before_build:
   - pwsh: |
       if ($isWindows) {
         Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile "./dotnet-install.ps1"
-        ./dotnet-install.ps1 -JSonFile src/global.json -Architecture x64 -InstallDir 'C:\Program Files\dotnet'
-        ./dotnet-install.ps1 -Version 10.0.103 -Architecture x64 -InstallDir 'C:\Program Files\dotnet'
+        ./dotnet-install.ps1 -JSonFile global.json -Architecture x64 -InstallDir 'C:\Program Files\dotnet'
+        ./dotnet-install.ps1 -Version 10.0.300 -Architecture x64 -InstallDir 'C:\Program Files\dotnet'
       }
       if ($isMacOS) {
         Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
         sudo chmod u+x dotnet-install.sh
-        sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/local/share/dotnet'
-        sudo ./dotnet-install.sh --version 9.0.306 --architecture x64 --install-dir '/usr/local/share/dotnet'
-        sudo ./dotnet-install.sh --version 10.0.103 --architecture x64 --install-dir '/usr/local/share/dotnet'
+        sudo ./dotnet-install.sh --jsonfile global.json --architecture x64 --install-dir '/usr/local/share/dotnet'
+        sudo ./dotnet-install.sh --version 9.0.314 --architecture x64 --install-dir '/usr/local/share/dotnet'
+        sudo ./dotnet-install.sh --version 10.0.300 --architecture x64 --install-dir '/usr/local/share/dotnet'
       }
       if ($isLinux) {
         Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
         sudo chmod u+x dotnet-install.sh
-        sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/share/dotnet'
+        sudo ./dotnet-install.sh --jsonfile global.json --architecture x64 --install-dir '/usr/share/dotnet'
       }
   - dotnet tool restore --tool-manifest src/.config/dotnet-tools.json
 build_script:
@@ -34,9 +34,9 @@ build_script:
 - dotnet test src/StrictJsonTests --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet test src/Verify.ClipboardAccept.Tests --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet test src/Verify.ExceptionParsing.Tests --configuration Release --no-build --no-restore --verbosity minimal
-- dotnet test src/Verify.Expecto.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity minimal
-- dotnet test src/Verify.Expecto.FSharpTests --configuration Release --no-build --no-restore --verbosity minimal
-- dotnet test src/Verify.Expecto.Tests --configuration Release --no-build --no-restore --verbosity minimal
+- dotnet run --project src/Verify.Expecto.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity minimal
+- dotnet run --project src/Verify.Expecto.FSharpTests --configuration Release --no-build --no-restore --verbosity minimal
+- dotnet run --project src/Verify.Expecto.Tests --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet test src/Verify.MSTest.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet test src/Verify.MSTest.Tests --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet test src/Verify.MSTest.SourceGenerator.Tests --configuration Release --no-build --no-restore --verbosity minimal
@@ -50,6 +50,10 @@ build_script:
 - dotnet run --project src/Verify.TUnit.DerivePaths.Tests/Verify.TUnit.DerivePaths.Tests.csproj --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet run --project src/Verify.TUnit.Tests/Verify.TUnit.Tests.csproj --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet run --project src/Verify.TUnit.DisableAttachments.Tests/Verify.TUnit.DisableAttachments.Tests.csproj --configuration Release --no-build --no-restore --verbosity minimal
+# Fixie has no Microsoft.Testing.Platform runner, so it cannot run via `dotnet test` in MTP mode.
+# Run it via the fixie.console tool (restored from src/.config/dotnet-tools.json, which is only discoverable from src).
+# Use pushd/popd so the `cd` into src does not persist into subsequent AppVeyor script lines.
+- cmd: pushd src && dotnet fixie Verify.Fixie.Tests --configuration Release --no-build && popd
 - dotnet build src/VerifyDangling.slnx --configuration Release --verbosity minimal
 #- dotnet test src/DanglingSnapshotsMSTestUsage --configuration Release --no-build --no-restore
 #- dotnet test src/DanglingSnapshotsNUnitUsage --configuration Release --no-build --no-restore

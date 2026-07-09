@@ -37,8 +37,10 @@ static class Parser
                 .GetMembers()
                 .OfType<IPropertySymbol>()
                 .Where(_ =>
-                    _.Name == "TestContext" &&
-                    _.DeclaredAccessibility == Accessibility.Public);
+                    _ is {
+                        Name: "TestContext",
+                        DeclaredAccessibility: Accessibility.Public
+                    });
 
     static IEnumerable<INamedTypeSymbol> BaseClassesOf(INamedTypeSymbol typeSymbol)
     {

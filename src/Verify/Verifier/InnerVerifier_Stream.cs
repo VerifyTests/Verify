@@ -90,7 +90,8 @@ partial class InnerVerifier
         {
             if (VerifierSettings.HasStreamConverter(extension))
             {
-                var (newInfo, converted, cleanup) = await DoExtensionConversion(extension, stream, info, null);
+                var initial = await GetTarget(stream, extension);
+                var (newInfo, converted, cleanup) = await DoExtensionConversion(initial, info);
 
                 return await VerifyInner(newInfo, cleanup, converted, false, true);
             }
@@ -122,10 +123,15 @@ partial class InnerVerifier
         return new(extension, stream);
     }
 
-    //TODO: possibly pass in the target here
-    async Task<(object? info, List<Target> targets, Func<Task> cleanup)> DoExtensionConversion(string extension, Stream stream, object? info, string? name)
+    async Task<(object? info, List<Target> targets, Func<Task> cleanup)> DoExtensionConversion(Target initial, object? info)
     {
-        var cleanup = stream.DisposeAsyncEx;
+        var cleanup = () => Task.CompletedTask;
+        // the source stream of a stream target is owned here, so dispose it once consumed
+        if (initial.IsStream)
+        {
+            cleanup = cleanup.Then(initial.StreamData.DisposeAsyncEx);
+        }
+
         var infos = new List<object>();
         if (info != null)
         {
@@ -135,7 +141,7 @@ partial class InnerVerifier
         var targets = new List<Target>();
 
         var queue = new Queue<Target>();
-        queue.Enqueue(new(extension, stream, name));
+        queue.Enqueue(initial);
 
         while (queue.Count > 0)
         {
@@ -143,11 +149,29 @@ partial class InnerVerifier
 
             if (!VerifierSettings.TryGetStreamConverter(target.Extension, out var conversion))
             {
+                // terminal target: scrub text before it is finalized
+                Scrub(target);
                 targets.Add(target);
                 continue;
             }
 
-            var targetStream = target.StreamData;
+            // scrub text before conversion so derived targets (eg rendered images) reflect the scrubbed content
+            Scrub(target);
+
+            Stream targetStream;
+            if (target.IsStream)
+            {
+                targetStream = target.StreamData;
+            }
+            else
+            {
+                // a text target is fed to the converter as a utf8 stream
+                target.TryGetStringBuilder(out var builder);
+                var memory = new MemoryStream(Encoding.UTF8.GetBytes(builder!.ToString()));
+                cleanup = cleanup.Then(memory.DisposeAsyncEx);
+                targetStream = memory;
+            }
+
             var result = await conversion(target.Name, targetStream, settings.Context);
             if (result.Cleanup != null)
             {
@@ -163,7 +187,8 @@ partial class InnerVerifier
 
             foreach (var resultTarget in resultTargets)
             {
-                // if the same extension is returned. no need to re process
+                // if the same extension is returned. no need to re process.
+                // its content derives from the already scrubbed input, so it is not scrubbed again
                 if (resultTarget.Extension == target.Extension)
                 {
                     targets.Add(resultTarget);

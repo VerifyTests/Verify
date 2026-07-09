@@ -20,6 +20,7 @@ static class ClipboardEnabled
         // Parse leniently and never throw: this runs from a static constructor,
         // so throwing would poison the type and surface as a TypeInitializationException
         // that masks the actual snapshot diff on every failing test.
+        // ReSharper disable once RedundantSuppressNullableWarningExpression
         switch (disabledText!.Trim().ToLowerInvariant())
         {
             case "true":

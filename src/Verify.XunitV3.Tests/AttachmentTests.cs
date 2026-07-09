@@ -42,5 +42,27 @@
         Assert.EndsWith(".received.txt", key);
         Assert.DoesNotContain(':', key);
     }
+
+    [Fact]
+    public async Task DuplicateAttachmentName()
+    {
+        DiffEngine.BuildServerDetector.Detected = true;
+        var verified = Path.GetFullPath(CurrentFile.Relative("AttachmentTests.DuplicateAttachmentName.verified.txt"));
+        File.Delete(verified);
+        await File.WriteAllTextAsync(verified, "expected");
+        var settings = new VerifySettings();
+        settings.DisableRequireUniquePrefix();
+
+        // Both failing verifies share one received file name, so it is added as an attachment
+        // twice. Without the dedup guard in AddFile the second add throws ArgumentException
+        // instead of the expected VerifyException.
+        await Assert.ThrowsAsync<VerifyException>(() => Verify("one", settings));
+        await Assert.ThrowsAsync<VerifyException>(() => Verify("two", settings));
+
+        File.Delete(verified);
+
+        var key = Assert.Single(TestContext.Current.Attachments!).Key;
+        Assert.EndsWith(".received.txt", key);
+    }
 #endif
 }

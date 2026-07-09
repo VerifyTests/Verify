@@ -693,7 +693,7 @@ public class VerifyChecksTests
         () => VerifyChecks.Run(typeof(VerifyChecksTests).Assembly));
 }
 ```
-<sup><a href='/src/Verify.Expecto.Tests/VerifyChecksTests.cs#L1-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksExpecto' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Expecto.Tests/VerifyChecksTests.cs#L2-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksExpecto' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -1075,6 +1075,7 @@ Browser testing via
   * [Verifying binary data](/docs/binary.md)
   * [Exception Message Format](/docs/exception-message-format.md)
   * [Build server](/docs/build-server.md)
+  * [Kill process locking file](/docs/kill-process-locking-file.md)
   * [Comparers](/docs/comparer.md)
   * [Converters](/docs/converter.md)
   * [Recording](/docs/recording.md)

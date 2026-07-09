@@ -117,8 +117,31 @@
     }
 #endif
 
-    static FileStream OpenWrite(string path) =>
-        new(path, FileMode.Create, FileAccess.Write, FileShare.Read, bufferSize: 4096, useAsync: true);
+    static FileStream OpenWrite(string path)
+    {
+        try
+        {
+            return new(path, FileMode.Create, FileAccess.Write, FileShare.Read, bufferSize: 4096, useAsync: true);
+        }
+        catch (IOException) when (FileLockKiller.Enabled)
+        {
+            FileLockKiller.KillProcessesLockingFile(path);
+            return new(path, FileMode.Create, FileAccess.Write, FileShare.Read, bufferSize: 4096, useAsync: true);
+        }
+    }
+
+    public static void CopyFile(string source, string destination)
+    {
+        try
+        {
+            File.Copy(source, destination, true);
+        }
+        catch (IOException) when (FileLockKiller.Enabled)
+        {
+            FileLockKiller.KillProcessesLockingFile(destination);
+            File.Copy(source, destination, true);
+        }
+    }
 
     public static FileStream OpenRead(string path) =>
         new(path, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize: 4096, useAsync: true);

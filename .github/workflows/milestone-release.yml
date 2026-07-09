@@ -1,15 +1,15 @@
 name: milestone-release
 
 on:
+  push:
+    tags:
+      - '*'
   milestone:
-    types: [created, edited, deleted, closed, opened]
+    types: [created, edited, closed, opened]
   issues:
     types: [opened, edited, closed, reopened, deleted, milestoned, demilestoned]
   pull_request:
     types: [opened, edited, closed, reopened, milestoned, demilestoned]
-  push:
-    tags:
-      - '*'
   workflow_dispatch:
     inputs:
       milestone:
@@ -30,21 +30,32 @@ jobs:
           script: |
             const { owner, repo } = context.repo;
 
-            async function syncMilestone(milestone) {
-              const milestoneTitle = milestone.title;
-              const milestoneNumber = milestone.number;
-
-              // Find existing release by tag_name (includes drafts)
-              let release = null;
+            // Helper: Find release by tag name
+            async function findRelease(tagName) {
               for await (const response of github.paginate.iterator(
                 github.rest.repos.listReleases,
                 { owner, repo, per_page: 100 }
               )) {
-                release = response.data.find(r => r.tag_name === milestoneTitle);
-                if (release) break;
+                const release = response.data.find(r => r.tag_name === tagName);
+                if (release) return release;
               }
+              return null;
+            }
 
-              // Fetch all issues and PRs in milestone
+            // Helper: Find milestone by title
+            async function findMilestone(title) {
+              for await (const response of github.paginate.iterator(
+                github.rest.issues.listMilestones,
+                { owner, repo, state: 'all', per_page: 100 }
+              )) {
+                const milestone = response.data.find(m => m.title === title);
+                if (milestone) return milestone;
+              }
+              return null;
+            }
+
+            // Helper: Generate release body from milestone
+            async function generateBody(milestoneNumber) {
               const items = [];
               for await (const response of github.paginate.iterator(
                 github.rest.issues.listForRepo,
@@ -52,74 +63,63 @@ jobs:
               )) {
                 items.push(...response.data);
               }
-
-              // Sort by number and generate body
               items.sort((a, b) => a.number - b.number);
-              const body = items.map(item => {
+              return items.map(item => {
                 const checkbox = item.state === 'closed' ? '[x]' : '[ ]';
                 return `- ${checkbox} [#${item.number}](${item.html_url}) ${item.title}`;
-              }).join('\n');
-
-              // Determine if release should be draft or published
-              const isDraft = milestone.state === 'open';
-
-              if (release) {
-                await github.rest.repos.updateRelease({
-                  owner, repo,
-                  release_id: release.id,
-                  name: milestoneTitle,
-                  body: body || 'No issues in this milestone yet.',
-                  draft: isDraft
-                });
-                console.log(`Updated release: ${milestoneTitle}`);
-              } else {
-                // Check if tag exists before creating release
-                let tagExists = false;
-                try {
-                  await github.rest.git.getRef({
-                    owner, repo,
-                    ref: `tags/${milestoneTitle}`
-                  });
-                  tagExists = true;
-                } catch (error) {
-                  if (error.status !== 404) throw error;
-                }
-
-                if (tagExists) {
-                  await github.rest.repos.createRelease({
-                    owner, repo,
-                    tag_name: milestoneTitle,
-                    name: milestoneTitle,
-                    body: body || 'No issues in this milestone yet.',
-                    draft: isDraft
-                  });
-                  console.log(`Created release: ${milestoneTitle}`);
-                } else {
-                  console.log(`Skipping release creation: tag '${milestoneTitle}' does not exist`);
-                }
-              }
+              }).join('\n') || 'No issues in this milestone yet.';
             }
 
-            // Handle tag push - find matching milestone and sync
+            // Helper: Update existing release only
+            async function updateReleaseIfExists(milestone) {
+              const release = await findRelease(milestone.title);
+              if (!release) {
+                console.log(`No release found for ${milestone.title}, skipping`);
+                return;
+              }
+              const body = await generateBody(milestone.number);
+              await github.rest.repos.updateRelease({
+                owner, repo,
+                release_id: release.id,
+                body: body
+              });
+              console.log(`Updated release: ${milestone.title}`);
+            }
+
+            // Handle tag push events
             if (context.eventName === 'push' && context.ref.startsWith('refs/tags/')) {
               const tagName = context.ref.replace('refs/tags/', '');
-              const milestones = [];
-              for await (const response of github.paginate.iterator(
-                github.rest.issues.listMilestones,
-                { owner, repo, state: 'all', per_page: 100 }
-              )) {
-                milestones.push(...response.data);
+
+              // Tag deleted
+              if (context.payload.deleted) {
+                const release = await findRelease(tagName);
+                if (release) {
+                  await github.rest.repos.deleteRelease({
+                    owner, repo, release_id: release.id
+                  });
+                  console.log(`Deleted release for tag: ${tagName}`);
+                }
+                return;
               }
-              const milestone = milestones.find(ms => ms.title === tagName);
-              if (milestone) {
-                await syncMilestone(milestone);
-              } else {
-                console.log(`No milestone found matching tag '${tagName}'`);
-              }
+
+              // Tag created - create release
+              const milestone = await findMilestone(tagName);
+              const body = milestone
+                ? await generateBody(milestone.number)
+                : '';
+
+              await github.rest.repos.createRelease({
+                owner, repo,
+                tag_name: tagName,
+                name: tagName,
+                body: body,
+                draft: false
+              });
+              console.log(`Created release for tag: ${tagName}`);
               return;
             }
 
-            // Handle manual trigger - rebuild all or specific milestone
+            // Handle workflow_dispatch - update only
             if (context.eventName === 'workflow_dispatch') {
               const inputMilestone = context.payload.inputs?.milestone;
               const milestones = [];
@@ -129,16 +129,15 @@ jobs:
               )) {
                 milestones.push(...response.data);
               }
-
               for (const ms of milestones) {
                 if (!inputMilestone || ms.title === inputMilestone) {
-                  await syncMilestone(ms);
+                  await updateReleaseIfExists(ms);
                 }
               }
               return;
             }
 
-            // Get milestone from event
+            // Handle milestone/issue/PR events - update only
             let milestone = context.payload.milestone;
             if (!milestone && context.payload.issue?.milestone) {
               milestone = context.payload.issue.milestone;
@@ -151,26 +150,4 @@ jobs:
               return;
             }
 
-            const eventAction = context.payload.action;
-
-            // Handle milestone deleted
-            if (context.eventName === 'milestone' && eventAction === 'deleted') {
-              const milestoneTitle = milestone.title;
-              let release = null;
-              for await (const response of github.paginate.iterator(
-                github.rest.repos.listReleases,
-                { owner, repo, per_page: 100 }
-              )) {
-                release = response.data.find(r => r.tag_name === milestoneTitle);
-                if (release) break;
-              }
-              if (release) {
-                await github.rest.repos.deleteRelease({
-                  owner, repo, release_id: release.id
-                });
-                console.log(`Deleted release for milestone: ${milestoneTitle}`);
-              }
-              return;
-            }
-
-            await syncMilestone(milestone);
+            await updateReleaseIfExists(milestone);

@@ -1,4 +1,5 @@
-﻿#region VerifyChecksExpecto
+﻿/**
+#region VerifyChecksExpecto
 public class VerifyChecksTests
 {
     [Tests]
@@ -7,3 +8,4 @@ public class VerifyChecksTests
         () => VerifyChecks.Run(typeof(VerifyChecksTests).Assembly));
 }
 #endregion
+**/

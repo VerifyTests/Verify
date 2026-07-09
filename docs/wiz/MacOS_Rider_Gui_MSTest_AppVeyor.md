@@ -17,11 +17,12 @@ Add the following packages to the test project:
 <!-- snippet: mstest-nugets -->
 <a id='snippet-mstest-nugets'></a>
 ```csproj
-<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.6.0" />
-<PackageReference Include="MSTest" Version="4.2.3" />
-<PackageReference Include="Verify.MSTest" Version="31.20.0" />
+<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.7.0" />
+<PackageReference Include="MSTest.TestAdapter" Version="4.3.0" />
+<PackageReference Include="MSTest.TestFramework" Version="4.3.0" />
+<PackageReference Include="Verify.MSTest" Version="31.21.0" />
 ```
-<sup><a href='/usages/MSTestNugetUsage/MSTestNugetUsage.csproj#L7-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-mstest-nugets' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/usages/MSTestNugetUsage/MSTestNugetUsage.csproj#L7-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-mstest-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

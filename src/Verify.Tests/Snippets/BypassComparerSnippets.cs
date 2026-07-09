@@ -22,6 +22,7 @@ public class BypassComparerSnippets
 
     #endregion
 
+    // ReSharper disable once UnusedParameter.Local
     static Stream RenderPage(Stream document) =>
         new MemoryStream();
 }

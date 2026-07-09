@@ -6,11 +6,11 @@ public partial class Counter
     Dictionary<string, int> numericIdCounters = [];
 
     public int NextNumericId(string entityName, long input) =>
-        NextNumericIdValue(entityName, input.ToString(CultureInfo.InvariantCulture))
+        NextNumericIdValue(entityName, input.ToString(Culture.InvariantCulture))
             .intValue;
 
     public string NextNumericIdString(string entityName, long input) =>
-        NextNumericIdValue(entityName, input.ToString(CultureInfo.InvariantCulture))
+        NextNumericIdValue(entityName, input.ToString(Culture.InvariantCulture))
             .stringValue;
 
     // Keys on the invariant string form of the value rather than converting to
@@ -24,9 +24,10 @@ public partial class Counter
     {
         if (value is IFormattable formattable)
         {
-            return formattable.ToString(null, CultureInfo.InvariantCulture);
+            return formattable.ToString(null, Culture.InvariantCulture);
         }
 
+        // ReSharper disable once RedundantSuppressNullableWarningExpression
         return value.ToString()!;
     }
 

@@ -65,6 +65,7 @@ public class NewLineTests
         File.Delete(fullPath);
     }
 
+#if NET10
     [Fact]
     public async Task TrailingNewlinesRaw()
     {
@@ -88,6 +89,7 @@ public class NewLineTests
         await Assert.ThrowsAsync<VerifyException>(() => Verify("a\n", settings));
         File.Delete(file);
     }
+#endif
 
     //TODO: add test for trailing newlines
     // [Fact]

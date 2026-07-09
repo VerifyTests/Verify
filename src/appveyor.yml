@@ -34,9 +34,9 @@ build_script:
 - dotnet test src/StrictJsonTests --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet test src/Verify.ClipboardAccept.Tests --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet test src/Verify.ExceptionParsing.Tests --configuration Release --no-build --no-restore --verbosity minimal
-- dotnet test src/Verify.Expecto.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity minimal
-- dotnet test src/Verify.Expecto.FSharpTests --configuration Release --no-build --no-restore --verbosity minimal
-- dotnet test src/Verify.Expecto.Tests --configuration Release --no-build --no-restore --verbosity minimal
+- dotnet run --project src/Verify.Expecto.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity minimal
+- dotnet run --project src/Verify.Expecto.FSharpTests --configuration Release --no-build --no-restore --verbosity minimal
+- dotnet run --project src/Verify.Expecto.Tests --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet test src/Verify.MSTest.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet test src/Verify.MSTest.Tests --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet test src/Verify.MSTest.SourceGenerator.Tests --configuration Release --no-build --no-restore --verbosity minimal
@@ -50,6 +50,10 @@ build_script:
 - dotnet run --project src/Verify.TUnit.DerivePaths.Tests/Verify.TUnit.DerivePaths.Tests.csproj --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet run --project src/Verify.TUnit.Tests/Verify.TUnit.Tests.csproj --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet run --project src/Verify.TUnit.DisableAttachments.Tests/Verify.TUnit.DisableAttachments.Tests.csproj --configuration Release --no-build --no-restore --verbosity minimal
+# Fixie has no Microsoft.Testing.Platform runner, so it cannot run via `dotnet test` in MTP mode.
+# Run it via the fixie.console tool (restored from src/.config/dotnet-tools.json, which is only discoverable from src).
+# Use pushd/popd so the `cd` into src does not persist into subsequent AppVeyor script lines.
+- cmd: pushd src && dotnet fixie Verify.Fixie.Tests --configuration Release --no-build && popd
 - dotnet build src/VerifyDangling.slnx --configuration Release --verbosity minimal
 #- dotnet test src/DanglingSnapshotsMSTestUsage --configuration Release --no-build --no-restore
 #- dotnet test src/DanglingSnapshotsNUnitUsage --configuration Release --no-build --no-restore

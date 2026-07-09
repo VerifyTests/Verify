@@ -3,10 +3,20 @@ namespace VerifyXunit;
 
 public static partial class Verifier
 {
-    static async Task AddFile(string path) =>
-        TestContext.Current.AddAttachment(
-            GetAttachmentName(path),
-            await File.ReadAllBytesAsync(path));
+    static async Task AddFile(string path)
+    {
+        var name = GetAttachmentName(path);
+        var context = TestContext.Current;
+        // A single test can produce the same received file name from multiple failing
+        // Verify calls (e.g. when DisableRequireUniquePrefix is used). xunit throws on a
+        // duplicate attachment name, so skip if it has already been added.
+        if (context.Attachments?.ContainsKey(name) == true)
+        {
+            return;
+        }
+
+        context.AddAttachment(name, await File.ReadAllBytesAsync(path));
+    }
 
     internal static string GetAttachmentName(string path)
     {

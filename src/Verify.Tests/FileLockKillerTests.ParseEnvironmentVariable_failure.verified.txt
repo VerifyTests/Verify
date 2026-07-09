@@ -1,0 +1,7 @@
+﻿{
+  Type: Exception,
+  Message: Could not convert `Verify_KillProcessLockingFile` environment variable to a bool. Value: foo,
+  StackTrace:
+at FileLockKiller.ParseEnvironmentVariable(String text)
+at FileLockKillerTests.<>c.<ParseEnvironmentVariable_failure>b__1_0()
+}

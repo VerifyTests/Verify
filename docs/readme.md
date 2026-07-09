@@ -46,6 +46,7 @@ To change this file edit the source file and then run MarkdownSnippets.
   * [Verifying binary data](/docs/binary.md)
   * [Exception Message Format](/docs/exception-message-format.md)
   * [Build server](/docs/build-server.md)
+  * [Kill process locking file](/docs/kill-process-locking-file.md)
   * [Comparers](/docs/comparer.md)
   * [Converters](/docs/converter.md)
   * [Recording](/docs/recording.md)

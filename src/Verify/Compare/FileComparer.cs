@@ -47,7 +47,7 @@
                 return new(Equality.Equal, compareResult.Message, null, null);
             }
 
-            File.Copy(fileStream.Name, file.ReceivedPath, true);
+            IoHelpers.CopyFile(fileStream.Name, file.ReceivedPath);
             return new(Equality.NotEqual, compareResult.Message, null, null);
         }
 

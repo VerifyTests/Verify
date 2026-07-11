@@ -18,6 +18,14 @@ partial class InnerVerifier
         var (extraTargets, extraCleanup) = await GetTargets(targets, doExtensionConversion);
         cleanup = cleanup.Then(extraCleanup);
         resultTargets.AddRange(extraTargets);
+        cleanup = RemoveExcludedTargets(resultTargets, cleanup, out var removedTargets);
+        if (removedTargets &&
+            resultTargets.Count == 0)
+        {
+            await cleanup();
+            throw new("All targets have been excluded by ExcludeTargets. A verification requires at least one target.");
+        }
+
         var engine = new VerifyEngine(
             directory,
             settings,
@@ -46,6 +54,35 @@ partial class InnerVerifier
         }
 
         return new(filePairs, root);
+    }
+
+    Func<Task> RemoveExcludedTargets(List<Target> targets, Func<Task> cleanup, out bool removed)
+    {
+        removed = false;
+        if (!VerifierSettings.AnyExcludedTargets(settings))
+        {
+            return cleanup;
+        }
+
+        for (var index = targets.Count - 1; index >= 0; index--)
+        {
+            var target = targets[index];
+            if (!VerifierSettings.IsTargetExcluded(settings, target.Extension))
+            {
+                continue;
+            }
+
+            if (target.IsStream)
+            {
+                // VerifyEngine disposes the streams it consumes, so an excluded stream never reaches it
+                cleanup = cleanup.Then(target.StreamData.DisposeAsyncEx);
+            }
+
+            targets.RemoveAt(index);
+            removed = true;
+        }
+
+        return cleanup;
     }
 
     async Task<(List<Target> extra, Func<Task> cleanup)> GetTargets(IEnumerable<Target> targets, bool doExtensionConversion)

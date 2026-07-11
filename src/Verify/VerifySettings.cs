@@ -44,6 +44,11 @@ public partial class VerifySettings
         // (AppendFile/UseStreamComparer/etc.) would mutate a shared base settings
         // instance and leak across tests.
         appendedFiles = settings.appendedFiles?.ToList();
+        if (settings.excludedTargets != null)
+        {
+            excludedTargets = new(settings.excludedTargets, StringComparer.OrdinalIgnoreCase);
+        }
+
         UniqueDirectory = settings.UniqueDirectory;
         Directory = settings.Directory;
         autoVerify = settings.autoVerify;

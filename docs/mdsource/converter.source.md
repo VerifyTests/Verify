@@ -87,6 +87,15 @@ snippet: StaticExcludeTargets
 Excluding every target of a verification is an error, since a verification requires at least one target.
 
 
+### Avoiding work in a converter
+
+Building the source document (for example rendering a pdf or a docx) can be expensive. When a target is excluded, it is dropped after the converter has produced it, so the work is wasted. A converter can instead check `IsTargetExcluded` on its `context` and skip producing the target entirely:
+
+snippet: ConverterExcludeCheck
+
+`IsTargetExcluded` reflects both the global and the per-verification `ExcludeTargets`, so shipping this check lets a caller opt out of the document build itself, rather than only its snapshot.
+
+
 ## Shipping
 
 Converters can be shipped as NuGet packages:

@@ -11,6 +11,26 @@ public class ExcludeTargetsTests :
         Assert.Single(result.Files);
     }
 
+    // A converter can see a global exclusion through its context, so it can skip the work.
+    [Fact]
+    public async Task ConverterObservesGlobalExclusion()
+    {
+        var sawExclusion = false;
+        VerifierSettings.RegisterStreamConverter(
+            "globalexcludecheck",
+            (_, _, context) =>
+            {
+                sawExclusion = context.IsTargetExcluded("globalexcludecheck");
+                return new(null, [new("txt", "pages")]);
+            });
+        VerifierSettings.ExcludeTargets("globalexcludecheck");
+
+        await Verify(new MemoryStream("input"u8.ToArray()), "globalexcludecheck")
+            .DisableDiff();
+
+        Assert.True(sawExclusion);
+    }
+
     [Fact]
     public void AfterVerifyHasBeenRunThrows()
     {

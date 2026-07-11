@@ -220,7 +220,7 @@ public Task ExcludeConverterSourceTarget() =>
     Verify(new MemoryStream("source-document"u8.ToArray()), "excludesource")
         .ExcludeTargets("excludesource");
 ```
-<sup><a href='/src/Verify.Tests/Converters/ExcludeTargetsTests.cs#L56-L63' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExcludeTargets' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/ExcludeTargetsTests.cs#L67-L74' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExcludeTargets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Any existing verified file for an excluded extension is then reported as pending deletion.

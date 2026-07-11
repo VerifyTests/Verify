@@ -126,7 +126,9 @@ static class DateMatchers
     static Scrubber Single(string format, Culture culture, ParseWindow parse)
     {
         var (max, min) = DateFormatLengthCalculator.GetLength(format, culture);
-        var digitPrefilter = HasDigitPrefilter(format);
+        // Single char standard formats expand to the culture's pattern, so the
+        // prefilter analysis runs on what will actually render
+        var digitPrefilter = HasDigitPrefilter(culture.DateTimeFormat.ExpandFormat(format));
         return Scrubber.Window(
             Math.Max(1, min),
             max,
@@ -147,9 +149,9 @@ static class DateMatchers
             });
     }
 
-    // True when the format is guaranteed to render a digit first, allowing the
-    // parse to be skipped cheaply. Single char (standard) formats expand per
-    // culture, so they are not prefiltered.
+    // True when the (expanded) format is guaranteed to render a digit first,
+    // allowing the parse to be skipped cheaply. Formats starting with a name,
+    // era, or literal token are not prefiltered.
     static bool HasDigitPrefilter(string format)
     {
         if (format.Length < 2)

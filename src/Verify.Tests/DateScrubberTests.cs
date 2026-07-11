@@ -91,6 +91,31 @@ public class DateScrubberTests
     }
 
     [Fact]
+    public void StandardFormat_AllCultures()
+    {
+        // Single char standard formats expand per culture; the digit prefilter
+        // analysis runs on the expanded pattern and must never suppress a real match
+        foreach (var culture in CultureInfo.GetCultures(CultureTypes.AllCultures))
+        {
+            using var counter = Counter.Start();
+            var dateTime = DateTime.Now;
+            var value = dateTime.ToString("d", culture);
+            var result = Scrub($"a {value} b", DateMatchers.DateTimes("d", culture), counter);
+            if (result == "a DateTime_1 b")
+            {
+                continue;
+            }
+
+            throw new(
+                $"""
+                 {culture.DisplayName} {culture.Name}
+                 {result}
+                 {value}
+                 """);
+        }
+    }
+
+    [Fact]
     public void ReplaceDateTimes_AllCultures()
     {
         foreach (var culture in CultureInfo.GetCultures(CultureTypes.AllCultures))

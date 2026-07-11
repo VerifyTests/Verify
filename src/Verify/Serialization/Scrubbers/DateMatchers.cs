@@ -129,24 +129,35 @@ static class DateMatchers
         // Single char standard formats expand to the culture's pattern, so the
         // prefilter analysis runs on what will actually render
         var digitPrefilter = HasDigitPrefilter(culture.DateTimeFormat.ExpandFormat(format));
+
+        string? Match(CharSpan window, Counter counter, IReadOnlyDictionary<string, object> context)
+        {
+            if (!counter.ScrubDateTimes)
+            {
+                return null;
+            }
+
+            return parse(window, counter);
+        }
+
+        if (digitPrefilter)
+        {
+            // The engine anchor jumps between digits, so no-match text is scanned
+            // vectorized instead of per position
+            return Scrubber.AnchoredWindow(
+                Math.Max(1, min),
+                max,
+                Match,
+                requireWordBoundary: false,
+                anchor: WindowAnchor.Digit,
+                anchorChar: default,
+                anchorOffset: 0);
+        }
+
         return Scrubber.Window(
             Math.Max(1, min),
             max,
-            (window, counter, _) =>
-            {
-                if (!counter.ScrubDateTimes)
-                {
-                    return null;
-                }
-
-                if (digitPrefilter &&
-                    !char.IsDigit(window[0]))
-                {
-                    return null;
-                }
-
-                return parse(window, counter);
-            });
+            Match);
     }
 
     // True when the (expanded) format is guaranteed to render a digit first,

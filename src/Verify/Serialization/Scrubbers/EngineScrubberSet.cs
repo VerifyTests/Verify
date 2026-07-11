@@ -102,7 +102,8 @@ sealed class EngineScrubberSet
     }
 
     // Property-value pass: instance and global only. Extension-mapped scrubbers
-    // are excluded, matching the legacy pipeline.
+    // are excluded, matching the legacy pipeline. The merged set is cached on the
+    // settings instance since this runs once per serialized string value.
     public static EngineScrubberSet ForPropertyValue(VerifySettings settings)
     {
         var instance = settings.InstanceSpanScrubbers;
@@ -111,7 +112,7 @@ sealed class EngineScrubberSet
             return globalOnlyCache ??= Build(null, null, null, VerifierSettings.GlobalSpanScrubbers);
         }
 
-        return Build(instance, null, null, VerifierSettings.GlobalSpanScrubbers);
+        return settings.PropertyValueSetCache ??= Build(instance, null, null, VerifierSettings.GlobalSpanScrubbers);
     }
 
     static bool IsNullOrEmpty(List<Scrubber>? list) =>

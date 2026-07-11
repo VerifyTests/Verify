@@ -6,6 +6,10 @@ public partial class VerifySettings
 
     internal List<Scrubber>? InstanceSpanScrubbers;
 
+    // Cached merged set for the property value path, which runs once per
+    // serialized string value. Invalidated on registration.
+    internal EngineScrubberSet? PropertyValueSetCache;
+
     const string locationObsolete = "ScrubberLocation is ignored; span scrubber ordering is engine determined. Use the overload without ScrubberLocation.";
 
     /// <summary>
@@ -16,6 +20,7 @@ public partial class VerifySettings
         Ensure.NotNull(scrubber);
         InstanceSpanScrubbers ??= [];
         InstanceSpanScrubbers.Add(scrubber);
+        PropertyValueSetCache = null;
     }
 
     internal bool ScrubbersEnabled { get; private set; } = true;

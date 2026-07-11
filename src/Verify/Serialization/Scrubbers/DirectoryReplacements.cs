@@ -22,6 +22,7 @@ static partial class DirectoryReplacements
 
     static List<Pair> items = [];
     static int shortestFindLength = int.MaxValue;
+    static string itemAnchors = "";
 
     // Length of the shortest Find, so callers can cheaply skip values that are
     // too short to contain any replacement. int.MaxValue when there are none.
@@ -29,12 +30,41 @@ static partial class DirectoryReplacements
 
     internal static List<Pair> Items => items;
 
+    // The distinct first chars of the Finds, so scans can skip to candidate
+    // positions with a vectorized IndexOfAny instead of probing every position
+    internal static string ItemAnchors => itemAnchors;
+
+    internal static string BuildAnchors(List<Pair> pairs)
+    {
+        var anchors = new List<char>();
+        foreach (var pair in pairs)
+        {
+            var first = pair.Find[0];
+            if (!anchors.Contains(first))
+            {
+                anchors.Add(first);
+            }
+
+            // '/' and '\' are equivalent during matching
+            if (first == '/' &&
+                !anchors.Contains('\\'))
+            {
+                anchors.Add('\\');
+            }
+        }
+
+        return new([.. anchors]);
+    }
+
     public static void Replace(StringBuilder builder) =>
-        Replace(builder, items);
+        Replace(builder, items, itemAnchors);
+
+    public static void Replace(StringBuilder builder, List<Pair> pairs) =>
+        Replace(builder, pairs, BuildAnchors(pairs));
 
     // Legacy pass entry point: materialize once, scan with the span matcher, apply
     // matches position-descending so earlier indexes stay valid.
-    public static void Replace(StringBuilder builder, List<Pair> pairs)
+    static void Replace(StringBuilder builder, List<Pair> pairs, string anchors)
     {
 #if DEBUG
         var finds = pairs.Select(_ => _.Find).ToList();
@@ -66,6 +96,18 @@ static partial class DirectoryReplacements
         List<(int Index, int Length, string Value)>? matches = null;
         for (var position = 0; position + shortest <= span.Length; position++)
         {
+            var skip = span[position..].IndexOfAny(anchors.AsSpan());
+            if (skip < 0)
+            {
+                break;
+            }
+
+            position += skip;
+            if (position + shortest > span.Length)
+            {
+                break;
+            }
+
             if (!TryMatchAt(span, position, null, null, pairs, out var matchLength, out var replacement))
             {
                 continue;
@@ -128,6 +170,7 @@ static partial class DirectoryReplacements
             .OrderByDescending(_ => _.Find.Length)
             .ToList();
         shortestFindLength = items.Count == 0 ? int.MaxValue : items[^1].Find.Length;
+        itemAnchors = BuildAnchors(items);
     }
 
     static void AddProjectAndSolutionReplacements(string? solutionDir, string projectDir, List<Pair> replacements)

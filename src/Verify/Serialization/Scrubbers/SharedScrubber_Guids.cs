@@ -28,7 +28,11 @@ partial class Counter
     {
         if (ScrubGuids)
         {
-            if (Guid.TryParse(value, out var guid))
+            // The shortest parseable guid (the "N" format) is 32 chars. Whitespace
+            // padding, which Guid.TryParse trims, only adds length, so anything
+            // shorter can never parse and the attempt can be skipped.
+            if (value.Length >= 32 &&
+                Guid.TryParse(value, out var guid))
             {
                 result = Convert(guid);
                 return true;

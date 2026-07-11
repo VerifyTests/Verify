@@ -26,6 +26,9 @@ public sealed class Scrubber
     internal int? MaxLength { get; }
     internal StringComparison Comparison { get; }
     internal bool RequireWordBoundary { get; }
+    internal WindowAnchor Anchor { get; }
+    internal char AnchorChar { get; }
+    internal int AnchorOffset { get; }
     internal (string Find, string Replacement)[]? Pairs { get; }
     internal string[]? Needles { get; }
     internal WindowMatch? WindowMatcher { get; }
@@ -48,7 +51,10 @@ public sealed class Scrubber
         LineMatch? lineMatcher = null,
         Func<string, bool>? lineStringMatcher = null,
         LineReplace? lineReplacer = null,
-        Func<string, string?>? lineStringReplacer = null)
+        Func<string, string?>? lineStringReplacer = null,
+        WindowAnchor anchor = WindowAnchor.None,
+        char anchorChar = default,
+        int anchorOffset = 0)
     {
         Kind = kind;
         MinLength = minLength;
@@ -63,6 +69,9 @@ public sealed class Scrubber
         LineStringMatcher = lineStringMatcher;
         LineReplacer = lineReplacer;
         LineStringReplacer = lineStringReplacer;
+        Anchor = anchor;
+        AnchorChar = anchorChar;
+        AnchorOffset = anchorOffset;
     }
 
     internal bool IsLineDrop =>
@@ -158,6 +167,27 @@ public sealed class Scrubber
             requireWordBoundary: requireWordBoundary,
             windowMatcher: matcher);
     }
+
+    // A Window scrubber whose matches can only start where the anchor appears at
+    // anchorOffset from the window start. Used by the built-in guid and date
+    // scrubbers so no-match scans skip between candidate positions.
+    internal static Scrubber AnchoredWindow(
+        int minLength,
+        int maxLength,
+        WindowMatch matcher,
+        bool requireWordBoundary,
+        WindowAnchor anchor,
+        char anchorChar,
+        int anchorOffset) =>
+        new(
+            ScrubberKind.Window,
+            minLength: minLength,
+            maxLength: maxLength,
+            requireWordBoundary: requireWordBoundary,
+            windowMatcher: matcher,
+            anchor: anchor,
+            anchorChar: anchorChar,
+            anchorOffset: anchorOffset);
 
     /// <summary>
     /// Find matches using custom search logic.

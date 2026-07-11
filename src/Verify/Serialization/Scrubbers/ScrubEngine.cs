@@ -36,6 +36,7 @@ static partial class ScrubEngine
         return AssembleString(chunks);
     }
 
+    // target must already contain source, so an unchanged result leaves it untouched
     public static void RunToBuilder(
         string source,
         EngineScrubberSet set,
@@ -46,12 +47,19 @@ static partial class ScrubEngine
     {
         var working = Scrubber.NormalizeNewlines(source);
         var chunks = ScrubCore(working, set, counter, context, applyDirectoryReplacements);
-        target.Clear();
         if (chunks == null)
         {
+            if (ReferenceEquals(working, source))
+            {
+                return;
+            }
+
+            target.Clear();
             target.Append(working);
             return;
         }
+
+        target.Clear();
 
         var total = 0;
         foreach (var chunk in chunks)
@@ -155,10 +163,24 @@ static partial class ScrubEngine
         out string replacement)
     {
         var span = chunks[chunkIndex].Span;
+        var anchors = DirectoryReplacements.ItemAnchors.AsSpan();
         var beforeSegment = chunkIndex > 0 ? chunks[chunkIndex - 1].Last : (char?) null;
         var afterSegment = chunkIndex + 1 < chunks.Count ? chunks[chunkIndex + 1].First : (char?) null;
         for (var position = 0; position + shortest <= span.Length; position++)
         {
+            // Skip to the next candidate first char
+            var skip = span[position..].IndexOfAny(anchors);
+            if (skip < 0)
+            {
+                break;
+            }
+
+            position += skip;
+            if (position + shortest > span.Length)
+            {
+                break;
+            }
+
             if (DirectoryReplacements.TryMatchAt(span, position, beforeSegment, afterSegment, pairs, out matchLength, out replacement))
             {
                 matchStart = position;
@@ -375,6 +397,17 @@ static partial class ScrubEngine
 
             for (var position = regionStart; position <= regionEnd - min; position++)
             {
+                if (scrubber.Anchor != WindowAnchor.None)
+                {
+                    // A match can only start where the anchor appears at the fixed
+                    // offset, so jump to the next candidate
+                    position = NextAnchoredPosition(span, position, regionEnd, scrubber);
+                    if (position > regionEnd - min)
+                    {
+                        break;
+                    }
+                }
+
                 if (scrubber.RequireWordBoundary &&
                     PreviousChar(chunks, chunkIndex, position) is { } before &&
                     char.IsLetterOrDigit(before))
@@ -417,6 +450,48 @@ static partial class ScrubEngine
         matchLength = 0;
         replacement = string.Empty;
         return false;
+    }
+
+    // The next position at or after the given one where the scrubber's anchor
+    // appears at its offset from the window start. Returns past regionEnd when no
+    // candidate remains.
+    static int NextAnchoredPosition(CharSpan span, int position, int regionEnd, Scrubber scrubber)
+    {
+        var searchFrom = position + scrubber.AnchorOffset;
+        if (searchFrom >= regionEnd)
+        {
+            return regionEnd;
+        }
+
+        var region = span[searchFrom..regionEnd];
+        int found;
+        if (scrubber.Anchor == WindowAnchor.Char)
+        {
+            found = region.IndexOf(scrubber.AnchorChar);
+        }
+        else
+        {
+#if NET8_0_OR_GREATER
+            found = region.IndexOfAnyInRange('0', '9');
+#else
+            found = -1;
+            for (var index = 0; index < region.Length; index++)
+            {
+                if (char.IsDigit(region[index]))
+                {
+                    found = index;
+                    break;
+                }
+            }
+#endif
+        }
+
+        if (found < 0)
+        {
+            return regionEnd;
+        }
+
+        return searchFrom + found - scrubber.AnchorOffset;
     }
 
     static bool TryFindCustomMatch(

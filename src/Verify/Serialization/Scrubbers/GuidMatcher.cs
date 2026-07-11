@@ -1,8 +1,16 @@
-// The inline guid scrubber: a fixed 36 char window over the canonical "D" format,
-// with a dash prefilter so the parse is only attempted at plausible positions.
+// The inline guid scrubber: a fixed 36 char window over the canonical "D" format.
+// The engine anchor jumps between '-' chars at offset 8 (the first dash of the "D"
+// format), so no-match text is scanned vectorized instead of per position.
 static class GuidMatcher
 {
-    public static readonly Scrubber Instance = Scrubber.Window(36, 36, Match, requireWordBoundary: true);
+    public static readonly Scrubber Instance = Scrubber.AnchoredWindow(
+        36,
+        36,
+        Match,
+        requireWordBoundary: true,
+        anchor: WindowAnchor.Char,
+        anchorChar: '-',
+        anchorOffset: 8);
 
     static string? Match(CharSpan window, Counter counter, IReadOnlyDictionary<string, object> context)
     {

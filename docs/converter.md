@@ -220,7 +220,7 @@ public Task ExcludeConverterSourceTarget() =>
     Verify(new MemoryStream("source-document"u8.ToArray()), "excludesource")
         .ExcludeTargets("excludesource");
 ```
-<sup><a href='/src/Verify.Tests/Converters/ExcludeTargetsTests.cs#L67-L74' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExcludeTargets' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/ExcludeTargetsTests.cs#L88-L95' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExcludeTargets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Any existing verified file for an excluded extension is then reported as pending deletion.
@@ -241,6 +241,32 @@ public static class ModuleInitializer
 <!-- endSnippet -->
 
 Excluding every target of a verification is an error, since a verification requires at least one target.
+
+
+### Avoiding work in a converter
+
+Building the source document (for example rendering a pdf or a docx) can be expensive. When a target is excluded, it is dropped after the converter has produced it, so the work is wasted. A converter can instead check `IsTargetExcluded` on its `context` and skip producing the target entirely:
+
+<!-- snippet: ConverterExcludeCheck -->
+<a id='snippet-ConverterExcludeCheck'></a>
+```cs
+// A converter that builds an expensive source document only when its target is kept.
+static ConversionResult ConvertExcludeCheck(string? name, Stream stream, IReadOnlyDictionary<string, object> context)
+{
+    List<Target> targets = [new("txt", "the rendered pages")];
+    if (!context.IsTargetExcluded("excludecheck"))
+    {
+        // A real converter would build the document (eg render a pdf) here.
+        targets.Add(new("excludecheck", new MemoryStream("the source document"u8.ToArray())));
+    }
+
+    return new(null, targets);
+}
+```
+<sup><a href='/src/Verify.Tests/Converters/ExcludeTargetsTests.cs#L21-L36' title='Snippet source file'>snippet source</a> | <a href='#snippet-ConverterExcludeCheck' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+`IsTargetExcluded` reflects both the global and the per-verification `ExcludeTargets`, so shipping this check lets a caller opt out of the document build itself, rather than only its snapshot.
 
 
 ## Shipping

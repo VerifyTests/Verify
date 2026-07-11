@@ -59,7 +59,7 @@ partial class InnerVerifier
     Func<Task> RemoveExcludedTargets(List<Target> targets, Func<Task> cleanup, out bool removed)
     {
         removed = false;
-        if (!VerifierSettings.AnyExcludedTargets(settings))
+        if (!VerifierSettings.AnyExcludedTargets(settings.Context))
         {
             return cleanup;
         }
@@ -67,7 +67,7 @@ partial class InnerVerifier
         for (var index = targets.Count - 1; index >= 0; index--)
         {
             var target = targets[index];
-            if (!VerifierSettings.IsTargetExcluded(settings, target.Extension))
+            if (!VerifierSettings.IsExcluded(settings.Context, target.Extension))
             {
                 continue;
             }

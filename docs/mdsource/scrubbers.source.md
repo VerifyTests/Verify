@@ -19,6 +19,8 @@ A `Scrubber` is created via static factory methods and registered via `AddScrubb
  * `Scrubber.Match(matcher, minLength, maxLength)`: custom search logic. The matcher locates the next match within a segment.
  * `Scrubber.RemoveLinesContaining(...)`, `Scrubber.RemoveLines(...)`, `Scrubber.ReplaceLines(...)`, `Scrubber.RemoveEmptyLines()`: line scoped scrubbers.
 
+`ScrubLines` and `ScrubLinesWithReplace` (and the corresponding `Scrubber` factories) also accept span based delegates (`LineMatch` / `LineReplace`) that avoid allocating a string per line. Use an explicitly typed lambda parameter to select them, e.g. `ScrubLines((CharSpan line) => ...)`; untyped lambdas bind the string overloads.
+
 Engine semantics:
 
  * **Quarantine**: text produced by a replacement is never re-examined by other engine scrubbers. Legacy scrubbers run afterwards and can still modify it.

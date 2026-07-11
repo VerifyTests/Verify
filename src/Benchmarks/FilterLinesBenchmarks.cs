@@ -11,6 +11,8 @@ public class FilterLinesBenchmarks
 
     EngineScrubberSet removeEvenSet = null!;
     EngineScrubberSet neverMatchesSet = null!;
+    EngineScrubberSet spanRemoveEvenSet = null!;
+    EngineScrubberSet spanNeverMatchesSet = null!;
     static Dictionary<string, object> emptyContext = [];
 
     [GlobalSetup]
@@ -27,6 +29,8 @@ public class FilterLinesBenchmarks
 
         removeEvenSet = EngineScrubberSet.ForScrubbers([Scrubber.RemoveLines(RemoveEvenLines)]);
         neverMatchesSet = EngineScrubberSet.ForScrubbers([Scrubber.RemoveLines(NeverMatches)]);
+        spanRemoveEvenSet = EngineScrubberSet.ForScrubbers([Scrubber.RemoveLines((LineMatch) RemoveEvenLinesSpan)]);
+        spanNeverMatchesSet = EngineScrubberSet.ForScrubbers([Scrubber.RemoveLines((LineMatch) NeverMatchesSpan)]);
     }
 
     static string CreateTestData(int lineCount, int charsPerLine)
@@ -48,6 +52,12 @@ public class FilterLinesBenchmarks
 
     // Never matches - no lines removed
     static bool NeverMatches(string line) => false;
+
+    // Span variants: no per-line string is materialized for these
+    static bool RemoveEvenLinesSpan(ReadOnlySpan<char> line) =>
+        line.Length > 0 && char.IsDigit(line[^1]) && (line[^1] - '0') % 2 == 0;
+
+    static bool NeverMatchesSpan(ReadOnlySpan<char> line) => false;
 
     string Engine(EngineScrubberSet set, string content)
     {
@@ -114,4 +124,22 @@ public class FilterLinesBenchmarks
 
     [Benchmark]
     public string Engine_Large_NoMatches() => Engine(neverMatchesSet, largeInput);
+
+    [Benchmark]
+    public string EngineSpan_Small() => Engine(spanRemoveEvenSet, smallInput);
+
+    [Benchmark]
+    public string EngineSpan_Medium() => Engine(spanRemoveEvenSet, mediumInput);
+
+    [Benchmark]
+    public string EngineSpan_Large() => Engine(spanRemoveEvenSet, largeInput);
+
+    [Benchmark]
+    public string EngineSpan_Small_NoMatches() => Engine(spanNeverMatchesSet, smallInput);
+
+    [Benchmark]
+    public string EngineSpan_Medium_NoMatches() => Engine(spanNeverMatchesSet, mediumInput);
+
+    [Benchmark]
+    public string EngineSpan_Large_NoMatches() => Engine(spanNeverMatchesSet, largeInput);
 }

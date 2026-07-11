@@ -112,6 +112,42 @@ public class LinePhaseTests
     }
 
     [Fact]
+    public void UntypedLambda_BindsStringOverload()
+    {
+        // _.Contains('D') is valid for both string and span, so overload
+        // resolution priority must pick the string overload instead of
+        // reporting an ambiguity
+        var result = EngineRunner.Run(
+            "a\nD\nb",
+            Scrubber.RemoveLines(_ => _.Contains('D')));
+        Assert.Equal("a\nb", result);
+    }
+
+    [Fact]
+    public void SpanSugarOverloads()
+    {
+        var settings = new VerifySettings();
+        // Explicitly typed span lambdas select the LineMatch/LineReplace overloads
+        settings.ScrubLines((CharSpan line) => line.StartsWith("remove".AsSpan()));
+        settings.ScrubLinesWithReplace((CharSpan line) =>
+        {
+            if (line.StartsWith("replace".AsSpan()))
+            {
+                return LineResult.Replace("replaced");
+            }
+
+            return LineResult.Keep;
+        });
+        // Untyped lambda still binds the string overload without ambiguity
+        settings.ScrubLines(_ => _.Contains("drop"));
+
+        using var counter = Counter.Start();
+        var builder = new StringBuilder("keep\nremove\nreplace me\ndrop me");
+        ApplyScrubbers.ApplyForExtension("txt", builder, settings, counter);
+        Assert.Equal("keep\nreplaced", builder.ToString());
+    }
+
+    [Fact]
     public void DropFirstMiddleLast()
     {
         Assert.Equal("b\nc", EngineRunner.Run("x\nb\nc", Scrubber.RemoveLinesContaining(StringComparison.Ordinal, "x")));

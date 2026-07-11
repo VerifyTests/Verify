@@ -2,6 +2,7 @@
   "solution": {
     "path": "Verify.slnx",
     "projects": [
+      "ApplyScrubbersTests\\ApplyScrubbersTests.csproj",
       "DisableScrubbersTests\\DisableScrubbersTests.csproj",
       "Benchmarks\\Benchmarks.csproj",
       "RawTempUsage\\RawTempUsage.csproj",

@@ -257,6 +257,15 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubLines(LineMatch)"/>
+    [OverloadResolutionPriority(-1)]
+    [Pure]
+    public SettingsTask ScrubLines(LineMatch removeLine)
+    {
+        CurrentSettings.ScrubLines(removeLine);
+        return this;
+    }
+
     /// <inheritdoc cref="VerifySettings.ScrubLines(Func{string,bool})"/>
     [Obsolete(locationObsolete)]
     [Pure]
@@ -266,6 +275,15 @@ public partial class SettingsTask
     /// <inheritdoc cref="VerifySettings.ScrubLines(string,Func{string,bool})"/>
     [Pure]
     public SettingsTask ScrubLines(string extension, Func<string, bool> removeLine)
+    {
+        CurrentSettings.ScrubLines(extension, removeLine);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.ScrubLines(string,LineMatch)"/>
+    [OverloadResolutionPriority(-1)]
+    [Pure]
+    public SettingsTask ScrubLines(string extension, LineMatch removeLine)
     {
         CurrentSettings.ScrubLines(extension, removeLine);
         return this;
@@ -285,6 +303,15 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubLinesWithReplace(LineReplace)"/>
+    [OverloadResolutionPriority(-1)]
+    [Pure]
+    public SettingsTask ScrubLinesWithReplace(LineReplace replaceLine)
+    {
+        CurrentSettings.ScrubLinesWithReplace(replaceLine);
+        return this;
+    }
+
     /// <inheritdoc cref="VerifySettings.ScrubLinesWithReplace(Func{string,string?})"/>
     [Obsolete(locationObsolete)]
     [Pure]
@@ -294,6 +321,15 @@ public partial class SettingsTask
     /// <inheritdoc cref="VerifySettings.ScrubLinesWithReplace(string,Func{string,string?})"/>
     [Pure]
     public SettingsTask ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine)
+    {
+        CurrentSettings.ScrubLinesWithReplace(extension, replaceLine);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.ScrubLinesWithReplace(string,LineReplace)"/>
+    [OverloadResolutionPriority(-1)]
+    [Pure]
+    public SettingsTask ScrubLinesWithReplace(string extension, LineReplace replaceLine)
     {
         CurrentSettings.ScrubLinesWithReplace(extension, replaceLine);
         return this;

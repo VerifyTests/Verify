@@ -118,6 +118,16 @@ public partial class VerifySettings
 
     /// <summary>
     /// Remove any lines matching <paramref name="removeLine" /> from the test results.
+    /// No per line string is allocated for span predicates.
+    /// Use an explicitly typed lambda parameter to select this overload,
+    /// e.g. <c>ScrubLines(extension, (CharSpan line) => ...)</c>.
+    /// </summary>
+    [OverloadResolutionPriority(-1)]
+    public void ScrubLines(string extension, LineMatch removeLine) =>
+        AddScrubber(extension, Scrubber.RemoveLines(removeLine));
+
+    /// <summary>
+    /// Remove any lines matching <paramref name="removeLine" /> from the test results.
     /// </summary>
     [Obsolete(locationObsolete)]
     public void ScrubLines(string extension, Func<string, bool> removeLine, ScrubberLocation location) =>
@@ -128,6 +138,16 @@ public partial class VerifySettings
     /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a different string to replace it.
     /// </summary>
     public void ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine) =>
+        AddScrubber(extension, Scrubber.ReplaceLines(replaceLine));
+
+    /// <summary>
+    /// Scrub lines with an optional replace.
+    /// No per line string is allocated for span based replacers.
+    /// Use an explicitly typed lambda parameter to select this overload,
+    /// e.g. <c>ScrubLinesWithReplace(extension, (CharSpan line) => ...)</c>.
+    /// </summary>
+    [OverloadResolutionPriority(-1)]
+    public void ScrubLinesWithReplace(string extension, LineReplace replaceLine) =>
         AddScrubber(extension, Scrubber.ReplaceLines(replaceLine));
 
     /// <summary>

@@ -1,19 +1,13 @@
-using System.Globalization;
-
 // Calibrated from a scan of 33,707 *.verified.* text files across D:\Code (2026-07).
 // DateTime placeholders are the single most common scrubber target (14.6% of files,
 // density p50 6.5 per 1000 chars); DateTimeOffset 2.3%, DateOnly 1.6%. File sizes:
 // p50=260 chars, p90=2.9KB, p99=31KB.
 //
-// DateScrubber ToString()s the whole builder (via AsSpan) and then tests every window
-// of the format's length, so the scan cost dominates and is paid whether or not a date
-// is present. A fixed-length format (ISO "yyyy-MM-ddTHH:mm:ss", min==max) takes the
-// ReplaceFixedLength path; a variable-length format (short-date "d", min<max) takes the
-// ReplaceVariableLength path, which probes several window lengths per position and is
-// materially more expensive. The *_None rows feed identical no-match input to the fixed
-// and variable scrubbers so the two scan strategies can be compared directly.
-// Tokens are formatted with the same format+culture the scrubber parses with, so they
-// round-trip regardless of the host culture. A fresh Counter is created per invocation.
+// Legacy_* rows run the pre-engine implementation (full builder.ToString() per pass, then a
+// TryParseExact per window at every position). Engine_* rows run the span engine window
+// scrubbers built by DateMatchers, which add a digit prefilter before each parse attempt.
+// The ISO format is fixed length (single window size per position); the short-date "d"
+// format is variable length (several window sizes per position, materially more expensive).
 [MemoryDiagnoser]
 [SimpleJob(iterationCount: 10, warmupCount: 3)]
 public class InlineDateScrubberBenchmarks
@@ -22,12 +16,17 @@ public class InlineDateScrubberBenchmarks
     const string dateFormat = "d";
     const string dateTimeOffsetFormat = "yyyy-MM-ddTHH:mm:sszzz";
 
-    static readonly CultureInfo culture = CultureInfo.CurrentCulture;
+    static readonly Culture culture = Culture.CurrentCulture;
     static readonly DateTime baseDateTime = new(2026, 1, 1, 0, 0, 0, DateTimeKind.Unspecified);
+    static Dictionary<string, object> emptyContext = [];
 
-    Action<StringBuilder, Counter> dateTimeScrubber = null!;
-    Action<StringBuilder, Counter> dateScrubber = null!;
-    Action<StringBuilder, Counter> dateTimeOffsetScrubber = null!;
+    Action<StringBuilder, Counter> legacyDateTimeScrubber = null!;
+    Action<StringBuilder, Counter> legacyDateScrubber = null!;
+    Action<StringBuilder, Counter> legacyDateTimeOffsetScrubber = null!;
+
+    EngineScrubberSet dateTimeSet = null!;
+    EngineScrubberSet dateSet = null!;
+    EngineScrubberSet dateTimeOffsetSet = null!;
 
     // Plain no-match content shared across the fixed (DateTime) and variable (Date) paths
     string smallNone = null!;
@@ -42,9 +41,13 @@ public class InlineDateScrubberBenchmarks
     [GlobalSetup]
     public void Setup()
     {
-        dateTimeScrubber = DateScrubber.BuildDateTimeScrubber(dateTimeFormat, null);
-        dateScrubber = DateScrubber.BuildDateScrubber(dateFormat, null);
-        dateTimeOffsetScrubber = DateScrubber.BuildDateTimeOffsetScrubber(dateTimeOffsetFormat, null);
+        legacyDateTimeScrubber = LegacyDateScrubber.BuildDateTimeScrubber(dateTimeFormat, null);
+        legacyDateScrubber = LegacyDateScrubber.BuildDateScrubber(dateFormat, null);
+        legacyDateTimeOffsetScrubber = LegacyDateScrubber.BuildDateTimeOffsetScrubber(dateTimeOffsetFormat, null);
+
+        dateTimeSet = EngineScrubberSet.ForScrubbers([.. DateMatchers.DateTimes(dateTimeFormat, null)]);
+        dateSet = EngineScrubberSet.ForScrubbers([.. DateMatchers.Dates(dateFormat, null)]);
+        dateTimeOffsetSet = EngineScrubberSet.ForScrubbers([.. DateMatchers.DateTimeOffsets(dateTimeOffsetFormat, null)]);
 
         smallNone = Build(260, 0, DateTimeToken);      // p50
         mediumNone = Build(2_900, 0, DateTimeToken);   // p90
@@ -98,33 +101,69 @@ public class InlineDateScrubberBenchmarks
         return builder.ToString();
     }
 
+    void Legacy(Action<StringBuilder, Counter> scrubber, string content)
+    {
+        using var counter = Counter.Start();
+        scrubber(new(content), counter);
+    }
+
+    string Engine(EngineScrubberSet set, string content)
+    {
+        using var counter = Counter.Start();
+        return ScrubEngine.Run(content, set, counter, emptyContext, applyDirectoryReplacements: false);
+    }
+
     // DateTime, fixed-length (ISO) path
 
     [Benchmark(Baseline = true)]
-    public void DateTime_Small_None() => dateTimeScrubber(new(smallNone), Counter.Start());
+    public void Legacy_DateTime_Small_None() => Legacy(legacyDateTimeScrubber, smallNone);
 
     [Benchmark]
-    public void DateTime_Medium_None() => dateTimeScrubber(new(mediumNone), Counter.Start());
+    public void Legacy_DateTime_Medium_None() => Legacy(legacyDateTimeScrubber, mediumNone);
 
     [Benchmark]
-    public void DateTime_Large_None() => dateTimeScrubber(new(largeNone), Counter.Start());
+    public void Legacy_DateTime_Large_None() => Legacy(legacyDateTimeScrubber, largeNone);
 
     [Benchmark]
-    public void DateTime_Medium_Typical() => dateTimeScrubber(new(dateTimeMediumTypical), Counter.Start());
+    public void Legacy_DateTime_Medium_Typical() => Legacy(legacyDateTimeScrubber, dateTimeMediumTypical);
 
     [Benchmark]
-    public void DateTime_Large_Typical() => dateTimeScrubber(new(dateTimeLargeTypical), Counter.Start());
+    public void Legacy_DateTime_Large_Typical() => Legacy(legacyDateTimeScrubber, dateTimeLargeTypical);
+
+    [Benchmark]
+    public string Engine_DateTime_Small_None() => Engine(dateTimeSet, smallNone);
+
+    [Benchmark]
+    public string Engine_DateTime_Medium_None() => Engine(dateTimeSet, mediumNone);
+
+    [Benchmark]
+    public string Engine_DateTime_Large_None() => Engine(dateTimeSet, largeNone);
+
+    [Benchmark]
+    public string Engine_DateTime_Medium_Typical() => Engine(dateTimeSet, dateTimeMediumTypical);
+
+    [Benchmark]
+    public string Engine_DateTime_Large_Typical() => Engine(dateTimeSet, dateTimeLargeTypical);
 
     // DateOnly, variable-length (short-date) path - same no-match input as DateTime_Medium_None
 
     [Benchmark]
-    public void Date_Medium_None() => dateScrubber(new(mediumNone), Counter.Start());
+    public void Legacy_Date_Medium_None() => Legacy(legacyDateScrubber, mediumNone);
 
     [Benchmark]
-    public void Date_Medium_Typical() => dateScrubber(new(dateMediumTypical), Counter.Start());
+    public void Legacy_Date_Medium_Typical() => Legacy(legacyDateScrubber, dateMediumTypical);
+
+    [Benchmark]
+    public string Engine_Date_Medium_None() => Engine(dateSet, mediumNone);
+
+    [Benchmark]
+    public string Engine_Date_Medium_Typical() => Engine(dateSet, dateMediumTypical);
 
     // DateTimeOffset
 
     [Benchmark]
-    public void DateTimeOffset_Medium_Typical() => dateTimeOffsetScrubber(new(dateTimeOffsetMediumTypical), Counter.Start());
+    public void Legacy_DateTimeOffset_Medium_Typical() => Legacy(legacyDateTimeOffsetScrubber, dateTimeOffsetMediumTypical);
+
+    [Benchmark]
+    public string Engine_DateTimeOffset_Medium_Typical() => Engine(dateTimeOffsetSet, dateTimeOffsetMediumTypical);
 }

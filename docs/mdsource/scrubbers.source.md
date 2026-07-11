@@ -4,9 +4,30 @@ Scrubbers run on the final string before doing the verification action.
 
 Multiple scrubbers [can be defined at multiple levels](#Scrubber-levels).
 
-By default scrubber are executed in reverse order. So the most recent added method scrubber through to earliest added global scrubber. All scrubber APIs support a `ScrubberLocation location`. To execute a scrubber last use `ScrubberLocation.Last`.
+Scrubbing is performed by two mechanisms:
 
-Scrubbers can be added multiple times to have them execute multiple times. This can be helpful when compounding multiple scrubbers together.
+ * **The scrub engine**: a span based engine that executes `Scrubber` definitions. All built-in scrubbing (`ScrubLinesContaining`, `ScrubInlineGuids`, `ScrubMachineName`, etc) runs on the engine.
+ * **Legacy scrubbers**: `AddScrubber(Action<StringBuilder>)` overloads. These run after the engine, and only when at least one is registered.
+
+
+## The scrub engine
+
+A `Scrubber` is created via static factory methods and registered via `AddScrubber` at any [level](#Scrubber-levels):
+
+ * `Scrubber.Replace(find, replacement)`: replace every occurrence of a string. Supports a `StringComparison` and an optional word boundary requirement. A multi-pair overload replaces the longest matching find at any position.
+ * `Scrubber.Window(minLength, maxLength, matcher)`: slide a window over the text; the matcher returns a replacement or null. Used by the inline guid and date scrubbers.
+ * `Scrubber.Match(matcher, minLength, maxLength)`: custom search logic. The matcher locates the next match within a segment.
+ * `Scrubber.RemoveLinesContaining(...)`, `Scrubber.RemoveLines(...)`, `Scrubber.ReplaceLines(...)`, `Scrubber.RemoveEmptyLines()`: line scoped scrubbers.
+
+Engine semantics:
+
+ * **Quarantine**: text produced by a replacement is never re-examined by other engine scrubbers. Legacy scrubbers run afterwards and can still modify it.
+ * **Ordering** is engine determined, not registration determined: line removals run first, then line transforms (registration order), then inline scrubbers (unknown max length first, then longest max length first, ties broken by level then registration order). Directory replacements always run last, so scrubbers always see raw paths.
+ * **Length skip**: text shorter than a scrubber's minimum match length is never scanned by that scrubber.
+ * **Single line rule**: a match may never contain a line break.
+ * Text is newline normalized (`\r\n` and `\r` become `\n`) before scrubbers run.
+
+`ScrubberLocation` on the built-in scrub methods is obsolete and ignored; it still applies to legacy `AddScrubber` overloads (default `First` executes in reverse registration order, `Last` in registration order).
 
 
 ## Available Scrubbers

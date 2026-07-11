@@ -103,13 +103,12 @@ partial class InnerVerifier
 
     string ConvertValue(string value)
     {
-        var span = value.AsSpan();
-        if (counter.TryConvert(span, out var result))
+        if (counter.TryConvert(value.AsSpan(), out var result))
         {
             return result;
         }
 
-        return ApplyScrubbers.ApplyForPropertyValue(span, settings, counter);
+        return ApplyScrubbers.ApplyForPropertyValue(value, settings, counter);
     }
 
     void ScrubAttributes(XElement node, SerializationSettings serialization)
@@ -132,14 +131,14 @@ partial class InnerVerifier
                 continue;
             }
 
-            var span = attribute.Value.AsSpan();
-            if (counter.TryConvert(span, out var result))
+            var value = attribute.Value;
+            if (counter.TryConvert(value.AsSpan(), out var result))
             {
                 attribute.Value = result;
             }
             else
             {
-                attribute.Value = ApplyScrubbers.ApplyForPropertyValue(span, settings, counter);
+                attribute.Value = ApplyScrubbers.ApplyForPropertyValue(value, settings, counter);
             }
         }
     }

@@ -13,6 +13,7 @@
     <File Path="testenvironments.json" />
     <File Path="Directory.Build.targets" />
   </Folder>
+  <Project Path="ApplyScrubbersTests/ApplyScrubbersTests.csproj" />
   <Project Path="Benchmarks/Benchmarks.csproj" />
   <Project Path="DeterministicTests/DeterministicTests.csproj" />
   <Project Path="DisableScrubbersTests/DisableScrubbersTests.csproj" />

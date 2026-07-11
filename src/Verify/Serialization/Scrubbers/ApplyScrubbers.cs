@@ -1,5 +1,3 @@
-// ReSharper disable RedundantSuppressNullableWarningExpression
-
 static class ApplyScrubbers
 {
     public static void ApplyForExtension(string extension, StringBuilder target, VerifySettings settings, Counter counter)
@@ -8,6 +6,25 @@ static class ApplyScrubbers
         {
             target.FixNewlines();
             return;
+        }
+
+        var set = EngineScrubberSet.ForExtension(settings, extension);
+        var source = target.ToString();
+
+        if (!HasLegacyForExtension(settings, extension))
+        {
+            ScrubEngine.RunToBuilder(source, set, counter, settings.Context, applyDirectoryReplacements: true, target);
+            return;
+        }
+
+        // Span scrubbers run first, then the legacy pass over the intermediate result.
+        // Path replacements and newline normalization stay after the legacy pass so
+        // legacy scrubbers keep seeing raw paths and may inject '\r'.
+        var intermediate = ScrubEngine.Run(source, set, counter, settings.Context, applyDirectoryReplacements: false);
+        if (!ReferenceEquals(intermediate, source))
+        {
+            target.Clear();
+            target.Append(intermediate);
         }
 
         if (settings.InstanceScrubbers != null)
@@ -45,40 +62,67 @@ static class ApplyScrubbers
         target.FixNewlines();
     }
 
-    public static string ApplyForPropertyValue(CharSpan value, VerifySettings settings, Counter counter)
-    {
-        // Fast path: when nothing can change the value, skip the StringBuilder
-        // round-trip and the directory-replacement scan (this is the hottest loop
-        // in the library — one call per serialized string value).
-        if (!value.Contains('\r'))
-        {
-            if (!settings.ScrubbersEnabled)
-            {
-                return value.ToString();
-            }
-
-            if (settings.InstanceScrubbers == null &&
-                VerifierSettings.GlobalScrubbers.Count == 0 &&
-                value.Length < DirectoryReplacements.ShortestFindLength)
-            {
-                return value.ToString();
-            }
-        }
-
-        var builder = new StringBuilder(value.Length);
-        builder.Append(value);
-        ApplyForPropertyValue(settings, counter, builder);
-        return builder.ToString();
-    }
-
-    public static void ApplyForPropertyValue(VerifySettings settings, Counter counter, StringBuilder builder)
+    // Fast path: when nothing can change the value, skip all scrubbing work
+    // (this is the hottest loop in the library — one call per serialized string
+    // value). Returns the input span unchanged (zero alloc) when possible.
+    public static CharSpan ApplyForPropertyValue(CharSpan value, VerifySettings settings, Counter counter)
     {
         if (!settings.ScrubbersEnabled)
         {
-            builder.FixNewlines();
-            return;
+            if (!value.Contains('\r'))
+            {
+                return value;
+            }
+
+            return Scrubber.NormalizeNewlines(value.ToString()).AsSpan();
         }
 
+        if (!HasLegacyForPropertyValue(settings))
+        {
+            var set = EngineScrubberSet.ForPropertyValue(settings);
+            var minTrigger = Math.Min(set.MinTrigger, DirectoryReplacements.ShortestFindLength);
+            if (value.Length < minTrigger &&
+                !value.Contains('\r'))
+            {
+                return value;
+            }
+
+            return ScrubEngine.Run(value.ToString(), set, counter, settings.Context, applyDirectoryReplacements: true).AsSpan();
+        }
+
+        return ApplyWithLegacy(value.ToString(), settings, counter).AsSpan();
+    }
+
+    // String variant: returns the same string instance when nothing changed
+    public static string ApplyForPropertyValue(string value, VerifySettings settings, Counter counter)
+    {
+        if (!settings.ScrubbersEnabled)
+        {
+            return Scrubber.NormalizeNewlines(value);
+        }
+
+        if (!HasLegacyForPropertyValue(settings))
+        {
+            var set = EngineScrubberSet.ForPropertyValue(settings);
+            var minTrigger = Math.Min(set.MinTrigger, DirectoryReplacements.ShortestFindLength);
+            if (value.Length < minTrigger &&
+                !value.Contains('\r'))
+            {
+                return value;
+            }
+
+            return ScrubEngine.Run(value, set, counter, settings.Context, applyDirectoryReplacements: true);
+        }
+
+        return ApplyWithLegacy(value, settings, counter);
+    }
+
+    static string ApplyWithLegacy(string value, VerifySettings settings, Counter counter)
+    {
+        var set = EngineScrubberSet.ForPropertyValue(settings);
+        var intermediate = ScrubEngine.Run(value, set, counter, settings.Context, applyDirectoryReplacements: false);
+
+        var builder = new StringBuilder(intermediate);
         if (settings.InstanceScrubbers != null)
         {
             foreach (var scrubber in settings.InstanceScrubbers)
@@ -95,8 +139,19 @@ static class ApplyScrubbers
         DirectoryReplacements.Replace(builder);
 
         builder.FixNewlines();
+        return builder.ToString();
     }
 
-    static string CleanPath(string directory) =>
-        directory.TrimEnd('/', '\\');
+    static bool HasLegacyForExtension(VerifySettings settings, string extension) =>
+        settings.InstanceScrubbers is { Count: > 0 } ||
+        (settings.ExtensionMappedInstanceScrubbers != null &&
+         settings.ExtensionMappedInstanceScrubbers.TryGetValue(extension, out var extensionInstance) &&
+         extensionInstance.Count > 0) ||
+        (VerifierSettings.ExtensionMappedGlobalScrubbers.TryGetValue(extension, out var extensionGlobal) &&
+         extensionGlobal.Count > 0) ||
+        VerifierSettings.GlobalScrubbers.Count > 0;
+
+    static bool HasLegacyForPropertyValue(VerifySettings settings) =>
+        settings.InstanceScrubbers is { Count: > 0 } ||
+        VerifierSettings.GlobalScrubbers.Count > 0;
 }

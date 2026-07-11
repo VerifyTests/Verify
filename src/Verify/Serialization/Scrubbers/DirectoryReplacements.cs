@@ -2,6 +2,24 @@
 
 static partial class DirectoryReplacements
 {
+    public readonly struct Pair
+    {
+        public Pair(string find, string replace)
+        {
+#if DEBUG
+            if (find.Contains('\\'))
+            {
+                throw new("Slashes should be sanitized");
+            }
+#endif
+            Find = find;
+            Replace = replace;
+        }
+
+        public string Find { get; }
+        public string Replace { get; }
+    }
+
     static List<Pair> items = [];
     static int shortestFindLength = int.MaxValue;
 
@@ -9,8 +27,66 @@ static partial class DirectoryReplacements
     // too short to contain any replacement. int.MaxValue when there are none.
     public static int ShortestFindLength => shortestFindLength;
 
+    internal static List<Pair> Items => items;
+
     public static void Replace(StringBuilder builder) =>
         Replace(builder, items);
+
+    // Legacy pass entry point: materialize once, scan with the span matcher, apply
+    // matches position-descending so earlier indexes stay valid.
+    public static void Replace(StringBuilder builder, List<Pair> pairs)
+    {
+#if DEBUG
+        var finds = pairs.Select(_ => _.Find).ToList();
+        if (!finds.OrderByDescending(_ => _.Length).SequenceEqual(finds))
+        {
+            throw new("Pairs should be ordered");
+        }
+
+        if (finds.Count != finds.Distinct().Count())
+        {
+            throw new("Find should be distinct");
+        }
+#endif
+        if (pairs.Count == 0 ||
+            builder.Length == 0)
+        {
+            return;
+        }
+
+        // pairs are ordered by length desc, so the last is the shortest. If the
+        // builder is shorter than that, no pair can match.
+        var shortest = pairs[^1].Find.Length;
+        if (builder.Length < shortest)
+        {
+            return;
+        }
+
+        var span = builder.ToString().AsSpan();
+        List<(int Index, int Length, string Value)>? matches = null;
+        for (var position = 0; position + shortest <= span.Length; position++)
+        {
+            if (!TryMatchAt(span, position, null, null, pairs, out var matchLength, out var replacement))
+            {
+                continue;
+            }
+
+            matches ??= [];
+            matches.Add((position, matchLength, replacement));
+            position += matchLength - 1;
+        }
+
+        if (matches == null)
+        {
+            return;
+        }
+
+        for (var index = matches.Count - 1; index >= 0; index--)
+        {
+            var match = matches[index];
+            builder.Overwrite(match.Value, match.Index, match.Length);
+        }
+    }
 
     public static void UseAssembly(string? solutionDir, string projectDir)
     {

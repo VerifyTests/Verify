@@ -167,6 +167,10 @@ public static partial class VerifierSettings
         addAttachments = true;
         excludedTargets = null;
         GlobalScrubbers.Clear();
+        ExtensionMappedGlobalScrubbers.Clear();
+        GlobalSpanScrubbers.Clear();
+        ExtensionMappedGlobalSpanScrubbers.Clear();
+        EngineScrubberSet.InvalidateGlobalCache();
         GlobalIgnoredParameters = null;
         GlobalIgnoreConstructorParameters = false;
     }

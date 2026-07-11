@@ -1,10 +1,17 @@
-﻿[MemoryDiagnoser]
+// Predicate based line removal (ScrubLines). Legacy_* rows run the pre-engine
+// StringReader implementation; Engine_* rows run the span engine line phase with a
+// string predicate (the engine materializes each line lazily for the predicate).
+[MemoryDiagnoser]
 [SimpleJob(iterationCount: 10, warmupCount: 3)]
 public class FilterLinesBenchmarks
 {
-    StringBuilder smallInput = null!;
-    StringBuilder mediumInput = null!;
-    StringBuilder largeInput = null!;
+    string smallInput = null!;
+    string mediumInput = null!;
+    string largeInput = null!;
+
+    EngineScrubberSet removeEvenSet = null!;
+    EngineScrubberSet neverMatchesSet = null!;
+    static Dictionary<string, object> emptyContext = [];
 
     [GlobalSetup]
     public void Setup()
@@ -17,9 +24,12 @@ public class FilterLinesBenchmarks
 
         // Large: ~500KB, 10000 lines
         largeInput = CreateTestData(10000, 50);
+
+        removeEvenSet = EngineScrubberSet.ForScrubbers([Scrubber.RemoveLines(RemoveEvenLines)]);
+        neverMatchesSet = EngineScrubberSet.ForScrubbers([Scrubber.RemoveLines(NeverMatches)]);
     }
 
-    static StringBuilder CreateTestData(int lineCount, int charsPerLine)
+    static string CreateTestData(int lineCount, int charsPerLine)
     {
         var builder = new StringBuilder();
         for (var i = 0; i < lineCount; i++)
@@ -28,7 +38,8 @@ public class FilterLinesBenchmarks
             builder.Append(i);
             builder.AppendLine();
         }
-        return builder;
+
+        return builder.ToString();
     }
 
     // Remove every other line
@@ -38,45 +49,69 @@ public class FilterLinesBenchmarks
     // Never matches - no lines removed
     static bool NeverMatches(string line) => false;
 
+    string Engine(EngineScrubberSet set, string content)
+    {
+        using var counter = Counter.Start();
+        return ScrubEngine.Run(content, set, counter, emptyContext, applyDirectoryReplacements: false);
+    }
+
     [Benchmark(Baseline = true)]
-    public void Small()
+    public void Legacy_Small()
     {
-        var builder = new StringBuilder(smallInput.ToString());
+        var builder = new StringBuilder(smallInput);
         builder.FilterLines(RemoveEvenLines);
     }
 
     [Benchmark]
-    public void Medium()
+    public void Legacy_Medium()
     {
-        var builder = new StringBuilder(mediumInput.ToString());
+        var builder = new StringBuilder(mediumInput);
         builder.FilterLines(RemoveEvenLines);
     }
 
     [Benchmark]
-    public void Large()
+    public void Legacy_Large()
     {
-        var builder = new StringBuilder(largeInput.ToString());
+        var builder = new StringBuilder(largeInput);
         builder.FilterLines(RemoveEvenLines);
     }
 
     [Benchmark]
-    public void Small_NoMatches()
+    public void Legacy_Small_NoMatches()
     {
-        var builder = new StringBuilder(smallInput.ToString());
+        var builder = new StringBuilder(smallInput);
         builder.FilterLines(NeverMatches);
     }
 
     [Benchmark]
-    public void Medium_NoMatches()
+    public void Legacy_Medium_NoMatches()
     {
-        var builder = new StringBuilder(mediumInput.ToString());
+        var builder = new StringBuilder(mediumInput);
         builder.FilterLines(NeverMatches);
     }
 
     [Benchmark]
-    public void Large_NoMatches()
+    public void Legacy_Large_NoMatches()
     {
-        var builder = new StringBuilder(largeInput.ToString());
+        var builder = new StringBuilder(largeInput);
         builder.FilterLines(NeverMatches);
     }
+
+    [Benchmark]
+    public string Engine_Small() => Engine(removeEvenSet, smallInput);
+
+    [Benchmark]
+    public string Engine_Medium() => Engine(removeEvenSet, mediumInput);
+
+    [Benchmark]
+    public string Engine_Large() => Engine(removeEvenSet, largeInput);
+
+    [Benchmark]
+    public string Engine_Small_NoMatches() => Engine(neverMatchesSet, smallInput);
+
+    [Benchmark]
+    public string Engine_Medium_NoMatches() => Engine(neverMatchesSet, mediumInput);
+
+    [Benchmark]
+    public string Engine_Large_NoMatches() => Engine(neverMatchesSet, largeInput);
 }

@@ -165,6 +165,7 @@ public static partial class VerifierSettings
         omitContentFromException = false;
         encoding = new UTF8Encoding(true, true);
         addAttachments = true;
+        excludedTargets = null;
         GlobalScrubbers.Clear();
         GlobalIgnoredParameters = null;
         GlobalIgnoreConstructorParameters = false;

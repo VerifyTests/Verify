@@ -206,6 +206,43 @@ return new(
 <!-- endSnippet -->
 
 
+## Excluding targets
+
+Some converters emit the source document (for example a `pdf`, `docx`, or `xlsx`) alongside the info file and the derived targets. That source document is then committed as a `.verified.{extension}` file. Where the document is large, or where its bytes cannot be made deterministic, it can be excluded from the snapshot. The info file and the derived targets continue to verify.
+
+`ExcludeTargets` takes one or more extensions, and drops every matching target:
+
+<!-- snippet: ExcludeTargets -->
+<a id='snippet-ExcludeTargets'></a>
+```cs
+[Fact]
+public Task ExcludeConverterSourceTarget() =>
+    Verify(new MemoryStream("source-document"u8.ToArray()), "excludesource")
+        .ExcludeTargets("excludesource");
+```
+<sup><a href='/src/Verify.Tests/Converters/ExcludeTargetsTests.cs#L67-L74' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExcludeTargets' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Any existing verified file for an excluded extension is then reported as pending deletion.
+
+To exclude an extension for every test, call `ExcludeTargets` on `VerifierSettings` at initialization:
+
+<!-- snippet: StaticExcludeTargets -->
+<a id='snippet-StaticExcludeTargets'></a>
+```cs
+public static class ModuleInitializer
+{
+    [ModuleInitializer]
+    public static void Init() =>
+        VerifierSettings.ExcludeTargets("pdf");
+}
+```
+<sup><a href='/src/ModuleInitDocs/ExcludeTargets.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticExcludeTargets' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Excluding every target of a verification is an error, since a verification requires at least one target.
+
+
 ## Shipping
 
 Converters can be shipped as NuGet packages:

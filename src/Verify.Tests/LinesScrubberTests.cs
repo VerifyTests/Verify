@@ -62,6 +62,23 @@
     }
 
     [Fact]
+    public Task ScrubAllLinesToEmpty()
+    {
+        // Scrubbing away every line leaves empty content. It is normalized to the
+        // "emptyString" sentinel (the same one used for Verify(string.Empty)) so that
+        // empty content is never written as a snapshot nor passed to a string comparer.
+        var settings = new VerifySettings();
+        settings.ScrubLines(removeLine: _ => true);
+        return Verify(
+            settings: settings,
+            target: """
+                    a
+                    b
+                    c
+                    """);
+    }
+
+    [Fact]
     public Task ScrubLinesContaining_case_sensitive()
     {
         var settings = new VerifySettings();

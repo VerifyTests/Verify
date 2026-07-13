@@ -59,6 +59,41 @@ public class PluginConventionTests
     }
 
     [Fact]
+    public void ReadDepsFileThrowsForMalformed()
+    {
+        using var directory = new TempDirectory();
+        var depsFile = directory.BuildPath("malformed.deps.json");
+        File.WriteAllText(depsFile, "{ this is not valid json");
+
+        var exception = Assert.Throws<Exception>(() => VerifierSettings.ReadDepsFile(depsFile));
+        // The failure names the deps file and preserves the underlying parse error.
+        Assert.Contains(depsFile, exception.Message);
+        Assert.NotNull(exception.InnerException);
+    }
+
+    [Fact]
+    public void ReadDepsFileThrowsForEmpty()
+    {
+        using var directory = new TempDirectory();
+        var depsFile = directory.BuildPath("empty.deps.json");
+        // Valid json, but with no runtime assemblies.
+        File.WriteAllText(
+            depsFile,
+            """
+            {
+              "targets": {
+                ".NETCoreApp,Version=v8.0": {
+                  "NoRuntimeLibrary/1.0.0": {}
+                }
+              }
+            }
+            """);
+
+        var exception = Assert.Throws<Exception>(() => VerifierSettings.ReadDepsFile(depsFile));
+        Assert.Contains(depsFile, exception.Message);
+    }
+
+    [Fact]
     public void ReferencedAssemblyFilesIncludesReferencedPlugin()
     {
         var referenced = VerifierSettings.GetReferencedAssemblyFiles(typeof(PluginConventionTests).Assembly);

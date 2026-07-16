@@ -1,5 +1,3 @@
-using System.Globalization;
-
 // Calibrated from a scan of 33,707 *.verified.* text files across D:\Code (2026-07).
 // DateTime placeholders are the single most common scrubber target (14.6% of files,
 // density p50 6.5 per 1000 chars); DateTimeOffset 2.3%, DateOnly 1.6%. File sizes:

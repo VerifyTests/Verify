@@ -19,8 +19,12 @@ public partial class VerifyBase
     /// <summary>
     /// Use a directory relative to the project directory for storing for `.verified.` files.
     /// </summary>
-    public static void UseProjectRelativeDirectory(string directory) =>
-        Verifier.UseProjectRelativeDirectory(directory);
+    /// <param name="directory">The project relative directory to store `.verified.` files in.</param>
+    /// <param name="mirrorSourceStructure">
+    /// If true, nests `.verified.` files in sub-directories that mirror the directory structure of the test source files relative to the project directory.
+    /// </param>
+    public static void UseProjectRelativeDirectory(string directory, bool mirrorSourceStructure = false) =>
+        Verifier.UseProjectRelativeDirectory(directory, mirrorSourceStructure);
 
     /// <summary>
     /// Use a directory relative to the source file directory for storing for `.verified.` files.

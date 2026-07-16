@@ -36,6 +36,12 @@ class VerifyEngine(
             stream.MoveToStart();
             return await FileComparer.DoCompare(settings, file, textHasFailed || bypassComparers, stream);
         }
+        catch (VerifiedLineEndingException)
+        {
+            // Already names the file and the fix. Wrapping it hides that behind a generic
+            // "failed to compare" message.
+            throw;
+        }
         catch (Exception exception)
         {
             throw new(

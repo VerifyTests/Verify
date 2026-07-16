@@ -4545,7 +4545,8 @@ public class SerializationTests
                 },
             })
             .AddScrubber(_ => _.Replace("key", "scrubbed"));
-#if NET10
+
+#if NET10_0
     [Fact]
     Task SecondsFractionUpperLong() =>
         Verify("""

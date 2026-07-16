@@ -70,10 +70,23 @@ public class NewLineTests
         await File.WriteAllTextAsync(fullPath, "a\r\nb");
         var rejection = await Assert.ThrowsAnyAsync<Exception>(() => Verify("a\nb", settings));
         Assert.DoesNotContain("Failed to compare files", rejection.Message);
-        Assert.Contains(".gitattributes", rejection.Message);
+        Assert.Contains("*.verified.txt text eol=lf", rejection.Message);
         var received = Directory.EnumerateFiles(directory, receivedPattern).Single();
         Assert.Equal("a\nb", await File.ReadAllTextAsync(received));
         File.Delete(received);
+
+        // The suggested .gitattributes line uses the extension of the failing file,
+        // which is not always txt
+        var jsonPath = CurrentFile.Relative("NewLineTests.StringWithDifferingNewline.verified.json");
+        await File.WriteAllTextAsync(jsonPath, "{\r\n}");
+        var json = await Assert.ThrowsAnyAsync<Exception>(
+            () => Verify("{\n}", extension: "json", settings: settings));
+        Assert.Contains("*.verified.json text eol=lf", json.Message);
+        File.Delete(jsonPath);
+        foreach (var stale in Directory.EnumerateFiles(directory, "NewLineTests.StringWithDifferingNewline*.received.json"))
+        {
+            File.Delete(stale);
+        }
 
         // A verified file using \n still matches received content normalized to \n
         await File.WriteAllTextAsync(fullPath, "a\nb");

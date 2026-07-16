@@ -18,7 +18,7 @@ static class Comparer
             // which reads as "verify silently did nothing" rather than a line ending problem.
             // Accepting the received file also rewrites verified with \n endings.
             IoHelpers.WriteText(filePair.ReceivedPath, received);
-            throw new VerifiedLineEndingException(filePair.VerifiedPath);
+            throw new VerifiedLineEndingException(filePair.VerifiedPath, filePair.Extension);
         }
 
         var result = await CompareStrings(filePair.Extension, received, verified, settings, bypassComparer);

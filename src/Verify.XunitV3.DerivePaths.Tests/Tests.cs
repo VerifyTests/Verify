@@ -1,4 +1,4 @@
-﻿public class Tests
+﻿public partial class Tests
 {
     [Fact]
     public Task Test()

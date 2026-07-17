@@ -1,7 +1,5 @@
 ﻿// ReSharper disable UnusedParameter.Local
 
-using System.Runtime.CompilerServices;
-
 #pragma warning disable VerifyTestsProjectDir
 namespace VerifyTUnit;
 

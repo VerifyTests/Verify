@@ -1,5 +1,16 @@
 ﻿static class VerifyExceptionMessageBuilder
 {
+    static FrozenSet<string> previewableImageExtensions = new[]
+    {
+        "png",
+        "jpg",
+        "jpeg",
+        "gif",
+        "bmp",
+        "webp",
+        "svg"
+    }.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
+
     public static string Build(
         string directory,
         IReadOnlyCollection<NewResult> @new,
@@ -143,6 +154,23 @@
                  Compare Result:
                  {message}
                  """);
+
+            if (previewableImageExtensions.Contains(item.Extension))
+            {
+                builder.AppendLineN(
+                    $"""
+                     Visual:
+                     <div class="verify-image-preview">
+                       <p><strong>Received</strong></p>
+                       <img alt="Received snapshot" src="{ToHtmlPath(receivedPath)}" />
+                       <p><strong>Verified</strong></p>
+                       <img alt="Verified snapshot" src="{ToHtmlPath(verifiedPath)}" />
+                     </div>
+                     """);
+            }
         }
     }
+
+    static string ToHtmlPath(string path) =>
+        System.Net.WebUtility.HtmlEncode(path.Replace('\\', '/'));
 }

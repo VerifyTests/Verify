@@ -6,6 +6,8 @@ public class VerifyExceptionMessageBuilderTests
     static string fakeFilePrefix = CurrentFile.Relative("VerifyExceptionMessageBuilderTests.Fake");
     static string receivedBin = $"{fakeFilePrefix}.received.bin";
     static string verifiedBin = $"{fakeFilePrefix}.verified.bin";
+    static string receivedPng = $"{fakeFilePrefix}.received.png";
+    static string verifiedPng = $"{fakeFilePrefix}.verified.png";
     static string receivedTxt = $"{fakeFilePrefix}.received.txt";
     static string verifiedTxt = $"{fakeFilePrefix}.verified.txt";
     static string fakeReceivedTextFile = CurrentFile.Relative("VerifyExceptionMessageBuilderTests.Fake.received.txt");
@@ -76,6 +78,17 @@ public class VerifyExceptionMessageBuilderTests
             notEquals:
             [
                 new(new("bin", receivedBin, verifiedBin), "Binary files differ", null, null)
+            ],
+            delete: [],
+            equal: []);
+
+    [Fact]
+    public Task SingleNotEqual_ImageWithMessage() =>
+        BuildVerify(
+            @new: [],
+            notEquals:
+            [
+                new(new("png", receivedPng, verifiedPng), "PNG SSIM 0.9012 below threshold 0.9800.", null, null)
             ],
             delete: [],
             equal: []);

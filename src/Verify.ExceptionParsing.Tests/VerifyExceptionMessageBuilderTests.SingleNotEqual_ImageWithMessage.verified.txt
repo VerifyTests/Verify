@@ -1,0 +1,21 @@
+﻿Directory: {ProjectDirectory}
+NotEqual:
+  - Received: VerifyExceptionMessageBuilderTests.Fake.received.png
+    Verified: VerifyExceptionMessageBuilderTests.Fake.verified.png
+
+FileContent:
+
+NotEqual:
+
+Received: VerifyExceptionMessageBuilderTests.Fake.received.png
+Verified: VerifyExceptionMessageBuilderTests.Fake.verified.png
+Compare Result:
+PNG SSIM 0.9012 below threshold 0.9800.
+Visual:
+<div class="verify-image-preview">
+  <p><strong>Received</strong></p>
+  <img alt="Received snapshot" src="VerifyExceptionMessageBuilderTests.Fake.received.png" />
+  <p><strong>Verified</strong></p>
+  <img alt="Verified snapshot" src="VerifyExceptionMessageBuilderTests.Fake.verified.png" />
+</div>
+

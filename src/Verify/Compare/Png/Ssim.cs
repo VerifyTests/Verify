@@ -1,4 +1,6 @@
-static class Ssim
+namespace VerifyTests;
+
+public static class Ssim
 {
     const int windowSize = 8;
     const float k1 = 0.01f;
@@ -7,8 +9,20 @@ static class Ssim
     const float c1 = k1 * l * k1 * l;
     const float c2 = k2 * l * k2 * l;
 
+    public static double Compare(Stream a, Stream b) =>
+        Compare(PngDecoder.Decode(a), PngDecoder.Decode(b));
+
+    public static double Compare(byte[] a, byte[] b) =>
+        Compare(new MemoryStream(a), new MemoryStream(b));
+
     public static double Compare(PngImage a, PngImage b)
     {
+        if (a.Width != b.Width ||
+            a.Height != b.Height)
+        {
+            throw new ArgumentException($"Image dimensions must match. a: {a.Width}x{a.Height}, b: {b.Width}x{b.Height}.");
+        }
+
         var width = a.Width;
         var height = a.Height;
         var rgbaA = a.Rgba;

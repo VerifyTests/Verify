@@ -1,5 +1,7 @@
 // ReSharper disable UnusedParameter.Local
 
+using System.Runtime.CompilerServices;
+
 #pragma warning disable VerifyTestsProjectDir
 namespace VerifyMSTest;
 
@@ -19,10 +21,18 @@ public partial class VerifyBase
     /// <summary>
     /// Use a directory relative to the project directory for storing for `.verified.` files.
     /// </summary>
+    [Obsolete("Use the overload that accepts mirrorSourceStructure.")]
+    public static void UseProjectRelativeDirectory(string directory) =>
+        Verifier.UseProjectRelativeDirectory(directory, false);
+
+    /// <summary>
+    /// Use a directory relative to the project directory for storing for `.verified.` files.
+    /// </summary>
     /// <param name="directory">The project relative directory to store `.verified.` files in.</param>
     /// <param name="mirrorSourceStructure">
     /// If true, nests `.verified.` files in sub-directories that mirror the directory structure of the test source files relative to the project directory.
     /// </param>
+    [OverloadResolutionPriority(1)]
     public static void UseProjectRelativeDirectory(string directory, bool mirrorSourceStructure = false) =>
         Verifier.UseProjectRelativeDirectory(directory, mirrorSourceStructure);
 

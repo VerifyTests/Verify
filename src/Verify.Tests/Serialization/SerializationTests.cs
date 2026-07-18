@@ -2069,6 +2069,32 @@ public class SerializationTests
         verifySettings.AddScrubber(_ => _.Remove(0, 100));
 
         #endregion
+
+        #region AddScrubberEngine
+
+        verifySettings.AddScrubber(Scrubber.Replace("abc", "xyz"));
+
+        verifySettings.AddScrubber(
+            Scrubber.Window(
+                minLength: 3,
+                maxLength: 10,
+                matcher: (window, _, _) =>
+                {
+                    if (window.StartsWith("id-"))
+                    {
+                        return "{Id}";
+                    }
+
+                    return null;
+                }));
+
+        #endregion
+
+        #region AddScrubberEngineExtension
+
+        verifySettings.AddScrubber("json", Scrubber.Replace("abc", "xyz"));
+
+        #endregion
     }
 
     [Fact]

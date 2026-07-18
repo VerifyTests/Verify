@@ -26,6 +26,28 @@ A `Scrubber` is created via static factory methods and registered via `AddScrubb
  * `Scrubber.Match(matcher, minLength, maxLength)`: custom search logic. The matcher locates the next match within a segment.
  * `Scrubber.RemoveLinesContaining(...)`, `Scrubber.RemoveLines(...)`, `Scrubber.ReplaceLines(...)`, `Scrubber.RemoveEmptyLines()`: line scoped scrubbers.
 
+<!-- snippet: AddScrubberEngine -->
+<a id='snippet-AddScrubberEngine'></a>
+```cs
+verifySettings.AddScrubber(Scrubber.Replace("abc", "xyz"));
+
+verifySettings.AddScrubber(
+    Scrubber.Window(
+        minLength: 3,
+        maxLength: 10,
+        matcher: (window, _, _) =>
+        {
+            if (window.StartsWith("id-"))
+            {
+                return "{Id}";
+            }
+
+            return null;
+        }));
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2073-L2091' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddScrubberEngine' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
 `ScrubLines` and `ScrubLinesWithReplace` (and the corresponding `Scrubber` factories) also accept span based delegates (`LineMatch` / `LineReplace`) that avoid allocating a string per line. Use an explicitly typed lambda parameter to select them, e.g. `ScrubLines((CharSpan line) => ...)`; untyped lambdas bind the string overloads.
 
 Engine semantics:
@@ -741,6 +763,21 @@ LineI
 ```
 <sup><a href='/src/Verify.XunitV3.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.XunitV3.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+## Extension specific scrubbers
+
+Scrubbers can be scoped to verified files with a matching extension by passing the extension as the first argument. The extension is specified without a leading dot:
+
+<!-- snippet: AddScrubberEngineExtension -->
+<a id='snippet-AddScrubberEngineExtension'></a>
+```cs
+verifySettings.AddScrubber("json", Scrubber.Replace("abc", "xyz"));
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2093-L2097' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddScrubberEngineExtension' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+A scrubber registered this way runs only for verified files with that extension, while a scrubber registered without an extension runs for all of them. Extension scoping is available at every [level](#Scrubber-levels), and for the legacy `AddScrubber(Action<StringBuilder>)` overloads.
 
 
 ## Scrubber levels

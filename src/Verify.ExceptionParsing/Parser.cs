@@ -42,7 +42,7 @@ public static class Parser
 
             var firstLine = enumerator.Current!;
             //MsTest exception start with "Test method..." so lets swallow them
-            if (firstLine.StartsWith("Test method"))
+            if (firstLine.StartsWith("Test method", StringComparison.Ordinal))
             {
                 if (!enumerator.MoveNext())
                 {
@@ -62,30 +62,30 @@ public static class Parser
                     continue;
                 }
 
-                if (line.StartsWith("FileContent:"))
+                if (line.StartsWith("FileContent:", StringComparison.Ordinal))
                 {
                     break;
                 }
 
-                if (line.StartsWith("New:"))
+                if (line.StartsWith("New:", StringComparison.Ordinal))
                 {
                     lineHandler = (next, scopedEnum) => AddFilePair(directory, next, scopedEnum, @new);
                     continue;
                 }
 
-                if (line.StartsWith("NotEqual:"))
+                if (line.StartsWith("NotEqual:", StringComparison.Ordinal))
                 {
                     lineHandler = (next, scopedEnum) => AddFilePair(directory, next, scopedEnum, notEqual);
                     continue;
                 }
 
-                if (line.StartsWith("Equal:"))
+                if (line.StartsWith("Equal:", StringComparison.Ordinal))
                 {
                     lineHandler = (next, scopedEnum) => AddFilePair(directory, next, scopedEnum, equal);
                     continue;
                 }
 
-                if (line.StartsWith("Delete:"))
+                if (line.StartsWith("Delete:", StringComparison.Ordinal))
                 {
                     lineHandler = (next, _) =>
                     {
@@ -112,7 +112,7 @@ public static class Parser
             }
         }
 
-        if (firstLine.StartsWith("VerifyException : Directory: "))
+        if (firstLine.StartsWith("VerifyException : Directory: ", StringComparison.Ordinal))
         {
             var directory = firstLine[29..];
 
@@ -122,7 +122,7 @@ public static class Parser
         }
 
         // MsTest
-        if (firstLine.StartsWith("VerifyException: Directory: "))
+        if (firstLine.StartsWith("VerifyException: Directory: ", StringComparison.Ordinal))
         {
             var directory = firstLine[28..];
 
@@ -131,7 +131,7 @@ public static class Parser
             return directory;
         }
 
-        if (firstLine.StartsWith("Directory: "))
+        if (firstLine.StartsWith("Directory: ", StringComparison.Ordinal))
         {
             var directory = firstLine[11..];
 
@@ -145,7 +145,7 @@ public static class Parser
 
     static string TrimStart(string next, string prefix)
     {
-        if (!next.StartsWith(prefix))
+        if (!next.StartsWith(prefix, StringComparison.Ordinal))
         {
             throw new ParseException($"Expected line to start with `{prefix}`. Line: {next}");
         }

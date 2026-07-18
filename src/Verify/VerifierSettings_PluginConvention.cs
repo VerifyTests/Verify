@@ -186,7 +186,7 @@ public static partial class VerifierSettings
     internal static bool TryGetType(string file, [NotNullWhen(true)] out Type? type)
     {
         var assemblyName = Path.GetFileNameWithoutExtension(file);
-        if (!assemblyName.StartsWith("Verify."))
+        if (!assemblyName.StartsWith("Verify.", StringComparison.Ordinal))
         {
             type = null;
             return false;

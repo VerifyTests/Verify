@@ -100,36 +100,38 @@ static partial class ScrubEngine
             return null;
         }
 
-        var chunks = new List<Chunk>(items.Count * 2);
+        var chunks = new List<Chunk>(items.Count + 1);
         for (var index = 0; index < items.Count; index++)
         {
-            if (index > 0)
-            {
-                chunks.Add(new(newlineText, 0, 1, scannable: true));
-            }
-
             var item = items[index];
-            if (item.Length == 0)
-            {
-                continue;
-            }
+            var needsSeparator = index < items.Count - 1 ||
+                                 (endsWithNewline && !set.TrimOuterEmptyLines);
 
             if (item.Fresh is { } fresh)
             {
                 // Transformed line text is fresh source, scannable by inline scrubbers
-                chunks.Add(new(fresh, 0, fresh.Length, scannable: true));
-            }
-            else
-            {
-                chunks.Add(new(source, item.Start, item.End - item.Start, scannable: true));
-            }
-        }
+                if (fresh.Length > 0)
+                {
+                    chunks.Add(new(fresh, 0, fresh.Length, scannable: true));
+                }
 
-        if (endsWithNewline &&
-            items.Count > 0 &&
-            !set.TrimOuterEmptyLines)
-        {
-            chunks.Add(new(newlineText, 0, 1, scannable: true));
+                if (needsSeparator)
+                {
+                    chunks.Add(new(newlineText, 0, 1, scannable: true));
+                }
+
+                continue;
+            }
+
+            // A separator is only needed when another item follows (the run ended at
+            // a dropped or transformed line, so its last line was terminated) or when
+            // the document ends with a newline. Either way the char after the run in
+            // the source is '\n', so the separator folds into the slice.
+            var length = item.End - item.Start + (needsSeparator ? 1 : 0);
+            if (length > 0)
+            {
+                chunks.Add(new(source, item.Start, length, scannable: true));
+            }
         }
 
         return chunks;

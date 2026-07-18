@@ -49,6 +49,63 @@ public class SsimTests
     }
 
     [Fact]
+    public void Dimension_Mismatch_Throws()
+    {
+        var a = Solid(8, 8, 100);
+        var b = Solid(9, 8, 100);
+        var exception = Assert.Throws<ArgumentException>(() => Ssim.Compare(a, b));
+        Assert.Contains("8x8", exception.Message);
+        Assert.Contains("9x8", exception.Message);
+    }
+
+    [Fact]
+    public void Stream_Overload()
+    {
+        var png = PngTestHelper.EncodeRgba(16, 16, Random(16, 16, seed: 5).Rgba);
+        var score = Ssim.Compare(new MemoryStream(png), new MemoryStream(png));
+        Assert.Equal(1.0, score, precision: 6);
+    }
+
+    [Fact]
+    public void Stream_Overload_Dimension_Mismatch_Throws()
+    {
+        var a = PngTestHelper.EncodeRgba(10, 10, new byte[10 * 10 * 4]);
+        var b = PngTestHelper.EncodeRgba(11, 10, new byte[11 * 10 * 4]);
+        Assert.Throws<ArgumentException>(() => Ssim.Compare(new MemoryStream(a), new MemoryStream(b)));
+    }
+
+    [Fact]
+    public void Bytes_Overload()
+    {
+        var png = PngTestHelper.EncodeRgba(16, 16, Random(16, 16, seed: 6).Rgba);
+        var score = Ssim.Compare(png, png);
+        Assert.Equal(1.0, score, precision: 6);
+    }
+
+    [Fact]
+    public void Streaming_Matches_InMemory_BitForBit()
+    {
+        // The streaming Stream/byte overloads decode a band at a time; they must produce exactly the
+        // same score as decoding both images fully and comparing. Includes ragged sizes (not a
+        // multiple of the 8px window) and the sub-window tiny path.
+        (int w, int h)[] sizes = [(8, 8), (16, 16), (33, 17), (257, 101), (128, 128), (5, 40), (40, 5)];
+        foreach (var (w, h) in sizes)
+        {
+            var aRgba = Random(w, h, seed: w * 7 + h).Rgba;
+            var bRgba = Random(w, h, seed: w * 7 + h + 1).Rgba;
+
+            var inMemory = Ssim.Compare(new PngImage(w, h, aRgba), new PngImage(w, h, bRgba));
+            var streamed = Ssim.Compare(
+                new MemoryStream(PngTestHelper.EncodeRgba(w, h, aRgba)),
+                new MemoryStream(PngTestHelper.EncodeRgba(w, h, bRgba)));
+
+            Assert.Equal(
+                BitConverter.DoubleToInt64Bits(inMemory),
+                BitConverter.DoubleToInt64Bits(streamed));
+        }
+    }
+
+    [Fact]
     public void Noise_Reduces_Score()
     {
         var a = Gradient(64, 64);

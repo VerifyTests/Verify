@@ -34,7 +34,7 @@ static Task<CompareResult> CompareImages(
     return Task.FromResult(result);
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L51-L68' title='Snippet source file'>snippet source</a> | <a href='#snippet-ImageComparer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L75-L92' title='Snippet source file'>snippet source</a> | <a href='#snippet-ImageComparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The returned `CompareResult.NotEqual` takes an optional message that will be rendered in the resulting text displayed to the user on test failure.
@@ -103,7 +103,7 @@ VerifierSettings.RegisterStreamComparer(
     compare: CompareImages);
 await VerifyFile("TheImage.png");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L41-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticComparer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L65-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticComparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -246,6 +246,45 @@ public Task InstanceSsimForPngFluent() =>
 <!-- endSnippet -->
 
 Dimension mismatches between the received and verified images are always reported as not equal, regardless of threshold.
+
+
+### Standalone SSIM scoring
+
+The SSIM score can also be computed directly, outside of a verification. This is useful, for example, to report a similarity metric per rendered page in a custom report:
+
+<!-- snippet: SsimCompare -->
+<a id='snippet-SsimCompare'></a>
+```cs
+public static double Score(Stream received, Stream verified) =>
+    Ssim.Compare(received, verified);
+```
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L39-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-SsimCompare' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+`Ssim.Compare` accepts two PNG streams, two PNG byte arrays, or two `PngImage` instances decoded via `PngDecoder.Decode`. Scores range from `0` (completely different) to `1` (identical). Comparing images of different dimensions throws an `ArgumentException`.
+
+To treat a dimension mismatch as a distinct state instead of an exception, decode with `PngDecoder.Decode` and check dimensions before comparing:
+
+<!-- snippet: SsimCompareDimensions -->
+<a id='snippet-SsimCompareDimensions'></a>
+```cs
+public static double? ScoreIfSameSize(Stream received, Stream verified)
+{
+    var receivedImage = PngDecoder.Decode(received);
+    var verifiedImage = PngDecoder.Decode(verified);
+    if (receivedImage.Width != verifiedImage.Width ||
+        receivedImage.Height != verifiedImage.Height)
+    {
+        return null;
+    }
+
+    return Ssim.Compare(receivedImage, verifiedImage);
+}
+```
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L46-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-SsimCompareDimensions' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+`PngDecoder` supports the same PNG subset as the comparer (see below).
 
 
 ### Supported PNG variants

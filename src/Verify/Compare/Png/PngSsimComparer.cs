@@ -10,17 +10,14 @@ static class PngSsimComparer
 
     internal static Task<CompareResult> Compare(Stream received, Stream verified, double threshold)
     {
-        var receivedImage = PngDecoder.Decode(received);
-        var verifiedImage = PngDecoder.Decode(verified);
-
-        if (receivedImage.Width != verifiedImage.Width ||
-            receivedImage.Height != verifiedImage.Height)
+        // Streams both images a band at a time; dimensions come from the headers, so a size
+        // mismatch is reported without decoding pixels and without materializing full images.
+        if (!Ssim.TryCompare(received, verified, out var score, out var receivedWidth, out var receivedHeight, out var verifiedWidth, out var verifiedHeight))
         {
             return Task.FromResult(CompareResult.NotEqual(
-                $"PNG dimensions differ. Received: {receivedImage.Width}x{receivedImage.Height}, Verified: {verifiedImage.Width}x{verifiedImage.Height}"));
+                $"PNG dimensions differ. Received: {receivedWidth}x{receivedHeight}, Verified: {verifiedWidth}x{verifiedHeight}"));
         }
 
-        var score = Ssim.Compare(receivedImage, verifiedImage);
         if (score >= threshold)
         {
             return Task.FromResult(CompareResult.Equal);

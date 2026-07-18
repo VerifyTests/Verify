@@ -36,6 +36,30 @@ public class ComparerSnippets
 
     #endregion
 
+    #region SsimCompare
+
+    public static double Score(Stream received, Stream verified) =>
+        Ssim.Compare(received, verified);
+
+    #endregion
+
+    #region SsimCompareDimensions
+
+    public static double? ScoreIfSameSize(Stream received, Stream verified)
+    {
+        var receivedImage = PngDecoder.Decode(received);
+        var verifiedImage = PngDecoder.Decode(verified);
+        if (receivedImage.Width != verifiedImage.Width ||
+            receivedImage.Height != verifiedImage.Height)
+        {
+            return null;
+        }
+
+        return Ssim.Compare(receivedImage, verifiedImage);
+    }
+
+    #endregion
+
     public async Task StaticComparer()
     {
         #region StaticComparer

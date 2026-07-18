@@ -59,7 +59,7 @@ public class FilterLinesBenchmarks
 
     static bool NeverMatchesSpan(ReadOnlySpan<char> line) => false;
 
-    string Engine(EngineScrubberSet set, string content)
+    static string Engine(EngineScrubberSet set, string content)
     {
         using var counter = Counter.Start();
         return ScrubEngine.Run(content, set, counter, emptyContext, applyDirectoryReplacements: false);

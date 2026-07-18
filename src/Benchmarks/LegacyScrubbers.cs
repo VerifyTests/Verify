@@ -2,9 +2,6 @@
 // benchmarks can report before/after rows over identical corpora. Sourced from
 // src/Verify/Serialization/Scrubbers (deleted when the span engine replaced them).
 
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-
 static class LegacyGuidScrubber
 {
     public static void ReplaceGuids(StringBuilder builder, Counter counter)
@@ -172,14 +169,14 @@ static class LegacyDateScrubber
         ReadOnlySpan<char> span,
         string format,
         Counter counter,
-        CultureInfo culture,
+        Culture culture,
         [NotNullWhen(true)] out string? result);
 
     static bool TryConvertDate(
         ReadOnlySpan<char> span,
         string format,
         Counter counter,
-        CultureInfo culture,
+        Culture culture,
         [NotNullWhen(true)] out string? result)
     {
         if (DateOnly.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
@@ -192,10 +189,10 @@ static class LegacyDateScrubber
         return false;
     }
 
-    public static Action<StringBuilder, Counter> BuildDateScrubber(string format, CultureInfo? culture) =>
-        (builder, counter) => ReplaceDates(builder, format, counter, culture ?? CultureInfo.CurrentCulture);
+    public static Action<StringBuilder, Counter> BuildDateScrubber(string format, Culture? culture) =>
+        (builder, counter) => ReplaceDates(builder, format, counter, culture ?? Culture.CurrentCulture);
 
-    public static void ReplaceDates(StringBuilder builder, string format, Counter counter, CultureInfo culture) =>
+    public static void ReplaceDates(StringBuilder builder, string format, Counter counter, Culture culture) =>
         ReplaceInner(
             builder,
             format,
@@ -203,14 +200,14 @@ static class LegacyDateScrubber
             culture,
             TryConvertDate);
 
-    public static Action<StringBuilder, Counter> BuildDateTimeOffsetScrubber(string format, CultureInfo? culture) =>
-        (builder, counter) => ReplaceDateTimeOffsets(builder, format, counter, culture ?? CultureInfo.CurrentCulture);
+    public static Action<StringBuilder, Counter> BuildDateTimeOffsetScrubber(string format, Culture? culture) =>
+        (builder, counter) => ReplaceDateTimeOffsets(builder, format, counter, culture ?? Culture.CurrentCulture);
 
     static bool TryConvertDateTimeOffset(
         ReadOnlySpan<char> span,
         string format,
         Counter counter,
-        CultureInfo culture,
+        Culture culture,
         [NotNullWhen(true)] out string? result)
     {
         if (DateTimeOffset.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
@@ -223,7 +220,7 @@ static class LegacyDateScrubber
         return false;
     }
 
-    public static void ReplaceDateTimeOffsets(StringBuilder builder, string format, Counter counter, CultureInfo culture)
+    public static void ReplaceDateTimeOffsets(StringBuilder builder, string format, Counter counter, Culture culture)
     {
         ReplaceInner(
             builder,
@@ -246,7 +243,7 @@ static class LegacyDateScrubber
         ReadOnlySpan<char> span,
         string format,
         Counter counter,
-        CultureInfo culture,
+        Culture culture,
         [NotNullWhen(true)] out string? result)
     {
         if (DateTime.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
@@ -259,10 +256,10 @@ static class LegacyDateScrubber
         return false;
     }
 
-    public static Action<StringBuilder, Counter> BuildDateTimeScrubber(string format, CultureInfo? culture) =>
-        (builder, counter) => ReplaceDateTimes(builder, format, counter, culture ?? CultureInfo.CurrentCulture);
+    public static Action<StringBuilder, Counter> BuildDateTimeScrubber(string format, Culture? culture) =>
+        (builder, counter) => ReplaceDateTimes(builder, format, counter, culture ?? Culture.CurrentCulture);
 
-    public static void ReplaceDateTimes(StringBuilder builder, string format, Counter counter, CultureInfo culture)
+    public static void ReplaceDateTimes(StringBuilder builder, string format, Counter counter, Culture culture)
     {
         ReplaceInner(
             builder,
@@ -311,7 +308,7 @@ static class LegacyDateScrubber
         return false;
     }
 
-    static void ReplaceInner(StringBuilder builder, string format, Counter counter, CultureInfo culture, TryConvert tryConvertDate)
+    static void ReplaceInner(StringBuilder builder, string format, Counter counter, Culture culture, TryConvert tryConvertDate)
     {
         if (!counter.ScrubDateTimes)
         {
@@ -335,7 +332,7 @@ static class LegacyDateScrubber
         ReplaceVariableLength(builder, format, counter, culture, tryConvertDate, max, min);
     }
 
-    static void ReplaceVariableLength(StringBuilder builder, string format, Counter counter, CultureInfo culture, TryConvert tryConvertDate, int longest, int shortest)
+    static void ReplaceVariableLength(StringBuilder builder, string format, Counter counter, Culture culture, TryConvert tryConvertDate, int longest, int shortest)
     {
         var value = builder.AsSpan();
         var builderIndex = 0;
@@ -370,7 +367,7 @@ static class LegacyDateScrubber
         }
     }
 
-    static void ReplaceFixedLength(StringBuilder builder, string format, Counter counter, CultureInfo culture, TryConvert tryConvertDate, int length)
+    static void ReplaceFixedLength(StringBuilder builder, string format, Counter counter, Culture culture, TryConvert tryConvertDate, int length)
     {
         var value = builder.AsSpan();
         var builderIndex = 0;

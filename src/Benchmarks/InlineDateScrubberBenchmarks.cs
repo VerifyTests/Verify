@@ -101,13 +101,13 @@ public class InlineDateScrubberBenchmarks
         return builder.ToString();
     }
 
-    void Legacy(Action<StringBuilder, Counter> scrubber, string content)
+    static void Legacy(Action<StringBuilder, Counter> scrubber, string content)
     {
         using var counter = Counter.Start();
         scrubber(new(content), counter);
     }
 
-    string Engine(EngineScrubberSet set, string content)
+    static string Engine(EngineScrubberSet set, string content)
     {
         using var counter = Counter.Start();
         return ScrubEngine.Run(content, set, counter, emptyContext, applyDirectoryReplacements: false);

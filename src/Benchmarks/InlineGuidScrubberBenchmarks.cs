@@ -111,7 +111,7 @@ public class InlineGuidScrubberBenchmarks
         return builder.ToString();
     }
 
-    void LegacyScrub(string content)
+    static void LegacyScrub(string content)
     {
         using var counter = Counter.Start();
         var builder = new StringBuilder(content);

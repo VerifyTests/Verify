@@ -61,6 +61,21 @@ Engine semantics:
 `ScrubberLocation` on the built-in scrub methods is obsolete and ignored; it still applies to legacy `AddScrubber` overloads (default `First` executes in reverse registration order, `Last` in registration order).
 
 
+## Legacy scrubbers
+
+Instead of being executed by the engine, `AddScrubber(Action<StringBuilder>)` mutates the full text directly. Overloads also accept a `Counter`, and the context dictionary:
+
+<!-- snippet: AddScrubber -->
+<a id='snippet-AddScrubber'></a>
+```cs
+verifySettings.AddScrubber(_ => _.Remove(0, 100));
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2067-L2071' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddScrubber' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Since these run after every engine scrubber, they can also modify text that the engine has already replaced.
+
+
 ## Available Scrubbers
 
 Scrubbers can be added to an instance of `VerifySettings` or globally on `VerifierSettings`.

@@ -1,4 +1,4 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 public partial class Counter
 {

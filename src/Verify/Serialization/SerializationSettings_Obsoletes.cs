@@ -1,4 +1,4 @@
-﻿partial class SerializationSettings
+partial class SerializationSettings
 {
     [Obsolete("Use ScrubGuids = false")]
     public void DontScrubGuids() =>

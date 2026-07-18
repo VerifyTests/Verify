@@ -57,8 +57,18 @@ public class VerifyJsonWriter :
         base.WriteRawValue(value);
     }
 
-    public void WriteRawValueWithScrubbers(string value) =>
-        WriteRawValueWithScrubbers(value.AsSpan());
+    public void WriteRawValueWithScrubbers(string value)
+    {
+        if (value.Length == 0)
+        {
+            WriteRawValueIfNoStrict(value);
+            return;
+        }
+
+        // The string overload returns the same instance when nothing changed, so
+        // the value the caller already holds is not duplicated
+        WriteRawValueIfNoStrict(ApplyScrubbers.ApplyForPropertyValue(value, settings, Counter));
+    }
 
     public void WriteRawValueWithScrubbers(CharSpan value)
     {
@@ -100,7 +110,21 @@ public class VerifyJsonWriter :
             return;
         }
 
-        WriteValue(value.AsSpan());
+        if (value.Length == 0)
+        {
+            WriteRawValueIfNoStrict(value);
+            return;
+        }
+
+        if (Counter.TryConvert(value.AsSpan(), out var result))
+        {
+            WriteRawValueIfNoStrict(result);
+            return;
+        }
+
+        // The string overload returns the same instance when nothing changed, so
+        // the value the caller already holds is not duplicated
+        WriteScrubbed(ApplyScrubbers.ApplyForPropertyValue(value, settings, Counter));
     }
 
     public override void WriteValue(StringBuilder? value) =>
@@ -121,7 +145,11 @@ public class VerifyJsonWriter :
             return;
         }
 
-        value = ApplyScrubbers.ApplyForPropertyValue(value, settings, Counter);
+        WriteScrubbed(ApplyScrubbers.ApplyForPropertyValue(value, settings, Counter));
+    }
+
+    void WriteScrubbed(CharSpan value)
+    {
         if (settings.StrictJson)
         {
             base.WriteValue(value);

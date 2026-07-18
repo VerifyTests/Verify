@@ -187,25 +187,25 @@ static class DateMatchers
 
     static bool TryGetFormatWithUpperMillisecondsTrimmed(string format, [NotNullWhen(true)] out string? trimmedFormat)
     {
-        if (format.EndsWith(".FFFF"))
+        if (format.EndsWith(".FFFF", StringComparison.Ordinal))
         {
             trimmedFormat = format[..^5];
             return true;
         }
 
-        if (format.EndsWith(".FFF"))
+        if (format.EndsWith(".FFF", StringComparison.Ordinal))
         {
             trimmedFormat = format[..^4];
             return true;
         }
 
-        if (format.EndsWith(".FF"))
+        if (format.EndsWith(".FF", StringComparison.Ordinal))
         {
             trimmedFormat = format[..^3];
             return true;
         }
 
-        if (format.EndsWith(".F"))
+        if (format.EndsWith(".F", StringComparison.Ordinal))
         {
             trimmedFormat = format[..^2];
             return true;

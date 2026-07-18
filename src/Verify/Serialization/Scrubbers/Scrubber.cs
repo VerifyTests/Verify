@@ -38,6 +38,10 @@ public sealed class Scrubber
     internal LineReplace? LineReplacer { get; }
     internal Func<string, string?>? LineStringReplacer { get; }
 
+    // When set and it returns false, the engine skips this scrubber for the whole
+    // scrub rather than invoking it per candidate
+    internal Func<Counter, bool>? Gate { get; }
+
     Scrubber(
         ScrubberKind kind,
         int minLength = 0,
@@ -54,7 +58,8 @@ public sealed class Scrubber
         Func<string, string?>? lineStringReplacer = null,
         WindowAnchor anchor = WindowAnchor.None,
         char anchorChar = default,
-        int anchorOffset = 0)
+        int anchorOffset = 0,
+        Func<Counter, bool>? gate = null)
     {
         Kind = kind;
         MinLength = minLength;
@@ -72,6 +77,7 @@ public sealed class Scrubber
         Anchor = anchor;
         AnchorChar = anchorChar;
         AnchorOffset = anchorOffset;
+        Gate = gate;
     }
 
     internal bool IsLineDrop =>
@@ -150,15 +156,7 @@ public sealed class Scrubber
         bool requireWordBoundary = false)
     {
         Ensure.NotNull(matcher);
-        if (minLength < 1)
-        {
-            throw new ArgumentOutOfRangeException(nameof(minLength), minLength, "minLength must be at least 1.");
-        }
-
-        if (maxLength < minLength)
-        {
-            throw new ArgumentOutOfRangeException(nameof(maxLength), maxLength, "maxLength must be greater than or equal to minLength.");
-        }
+        ValidateWindowLengths(minLength, maxLength);
 
         return new(
             ScrubberKind.Window,
@@ -168,18 +166,38 @@ public sealed class Scrubber
             windowMatcher: matcher);
     }
 
-    // A Window scrubber whose matches can only start where the anchor appears at
-    // anchorOffset from the window start. Used by the built-in guid and date
-    // scrubbers so no-match scans skip between candidate positions.
-    internal static Scrubber AnchoredWindow(
+    static void ValidateWindowLengths(int minLength, int maxLength)
+    {
+        if (minLength < 1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(minLength), minLength, "minLength must be at least 1.");
+        }
+
+        if (maxLength < minLength)
+        {
+            throw new ArgumentOutOfRangeException(nameof(maxLength), maxLength, "maxLength must be greater than or equal to minLength.");
+        }
+    }
+
+    // A Window scrubber used by the built-in guid and date scrubbers.
+    // The gate is evaluated once per scrub, so a disabled built-in costs a single
+    // check instead of a full scan.
+    // When an anchor is supplied, matches can only start where it appears at
+    // anchorOffset from the window start, so no-match scans skip between candidate
+    // positions.
+    internal static Scrubber GatedWindow(
         int minLength,
         int maxLength,
         WindowMatch matcher,
-        bool requireWordBoundary,
-        WindowAnchor anchor,
-        char anchorChar,
-        int anchorOffset) =>
-        new(
+        Func<Counter, bool> gate,
+        bool requireWordBoundary = false,
+        WindowAnchor anchor = WindowAnchor.None,
+        char anchorChar = default,
+        int anchorOffset = 0)
+    {
+        ValidateWindowLengths(minLength, maxLength);
+
+        return new(
             ScrubberKind.Window,
             minLength: minLength,
             maxLength: maxLength,
@@ -187,7 +205,9 @@ public sealed class Scrubber
             windowMatcher: matcher,
             anchor: anchor,
             anchorChar: anchorChar,
-            anchorOffset: anchorOffset);
+            anchorOffset: anchorOffset,
+            gate: gate);
+    }
 
     /// <summary>
     /// Find matches using custom search logic.

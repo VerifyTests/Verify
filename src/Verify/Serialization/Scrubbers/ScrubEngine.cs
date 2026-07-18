@@ -96,13 +96,19 @@ static partial class ScrubEngine
             changed = chunks != null;
         }
 
-        if (set.Inline.Length > 0)
+        foreach (var scrubber in set.Inline)
         {
-            chunks ??= [new(source, 0, source.Length, scannable: true)];
-            foreach (var scrubber in set.Inline)
+            // A gated off built-in (inline dates or guids when the corresponding
+            // scrubbing is disabled) is skipped for the whole scrub rather than
+            // being probed at every candidate window
+            if (scrubber.Gate is { } gate &&
+                !gate(counter))
             {
-                changed |= ApplyInline(chunks, scrubber, counter, context);
+                continue;
             }
+
+            chunks ??= [new(source, 0, source.Length, scannable: true)];
+            changed |= ApplyInline(chunks, scrubber, counter, context);
         }
 
         // Path replacements are pinned last so user scrubbers always see raw paths

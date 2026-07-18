@@ -3,10 +3,11 @@
 // format), so no-match text is scanned vectorized instead of per position.
 static class GuidMatcher
 {
-    public static readonly Scrubber Instance = Scrubber.AnchoredWindow(
+    public static readonly Scrubber Instance = Scrubber.GatedWindow(
         36,
         36,
         Match,
+        static counter => counter.ScrubGuids,
         requireWordBoundary: true,
         anchor: WindowAnchor.Char,
         anchorChar: '-',
@@ -14,11 +15,6 @@ static class GuidMatcher
 
     static string? Match(CharSpan window, Counter counter, IReadOnlyDictionary<string, object> context)
     {
-        if (!counter.ScrubGuids)
-        {
-            return null;
-        }
-
         // Cheap prefilter: the "D" format has dashes at fixed offsets
         if (window[8] != '-' ||
             window[13] != '-' ||

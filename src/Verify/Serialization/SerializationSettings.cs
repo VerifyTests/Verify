@@ -80,15 +80,7 @@ partial class SerializationSettings
 
     public bool? ScrubGuids { get; set; }
 
-    [Obsolete("Use ScrubGuids = false")]
-    public void DontScrubGuids() =>
-        ScrubGuids = false;
-
     public bool? ScrubDateTimes { get; set; }
-
-    [Obsolete("Use ScrubDateTimes = false")]
-    public void DontScrubDateTimes() =>
-        ScrubDateTimes = false;
 
     public bool? ScrubNumericIds { get; set; }
 

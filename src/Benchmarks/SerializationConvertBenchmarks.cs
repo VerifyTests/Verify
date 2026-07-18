@@ -1,5 +1,3 @@
-using System.Globalization;
-
 // The always-on serialization scrub path: as each value is written, VerifyJsonWriter asks the
 // Counter to convert it to a stable placeholder. Two shapes:
 //  * Typed values (Guid/DateTime/DateTimeOffset/DateOnly/TimeOnly properties) go straight to

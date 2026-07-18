@@ -14,7 +14,11 @@ static class Comparer
         var verified = await File.ReadAllTextAsync(filePair.VerifiedPath, VerifierSettings.Encoding);
         if (verified.Contains('\r'))
         {
-            throw new($@"Verified file must use \n line endings, but it contains a \r (carriage return). Path: {filePair.VerifiedPath}. See https://github.com/verifytests/verify#text-file-settings");
+            // Write received before throwing. Otherwise the run produces no output at all,
+            // which reads as "verify silently did nothing" rather than a line ending problem.
+            // Accepting the received file also rewrites verified with \n endings.
+            IoHelpers.WriteText(filePair.ReceivedPath, received);
+            throw new VerifiedLineEndingException(filePair.VerifiedPath, filePair.Extension);
         }
 
         var result = await CompareStrings(filePair.Extension, received, verified, settings, bypassComparer);

@@ -48,6 +48,7 @@ There is a convenience API for initializing all plugins: `VerifierSettings.Initi
 This API performs the following
 
  * Scans the current assembly's directory for plugin assemblies matching `Verify.*.dll`
+ * Filters those assemblies to only the ones the test assembly references, based on the test assembly's `.deps.json`. When a plugin reference is removed, .NET does not necessarily remove the plugin assembly from the output directory. This filtering prevents those stale assemblies from being loaded (and potentially failing to load). When no `.deps.json` is present (for example on .NET Framework) all matching assemblies are loaded.
  * Loads each assembly
  * Try to find the type `VerifyTests.[AssemblyNameWithPeriodsRemove]`
  * If no type exists move to the next assembly.

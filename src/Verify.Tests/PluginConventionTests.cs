@@ -27,6 +27,107 @@ public class PluginConventionTests
         Assert.Throws<Exception>(() => VerifierSettings.TryGetType("Verify.BadAssemblyName.dll", out _));
 
     [Fact]
+    public void ReadReferencedFileNames()
+    {
+        var deps =
+            """
+            {
+              "targets": {
+                ".NETCoreApp,Version=v8.0": {
+                  "MyApp/1.0.0": {
+                    "runtime": {
+                      "MyApp.dll": {}
+                    }
+                  },
+                  "Verify.Foo/1.0.0": {
+                    "runtime": {
+                      "lib/net8.0/Verify.Foo.dll": {}
+                    }
+                  },
+                  "NoRuntimeLibrary/1.0.0": {}
+                }
+              }
+            }
+            """;
+        var files = VerifierSettings.ReadReferencedFileNames(deps);
+        // project reference style key
+        Assert.Contains("MyApp.dll", files);
+        // package reference style key, with the lib/tfm path stripped
+        Assert.Contains("Verify.Foo.dll", files);
+        // libraries without a runtime section are ignored
+        Assert.Equal(2, files.Count);
+    }
+
+    [Fact]
+    public void ReadDepsFileThrowsForMalformed()
+    {
+        using var directory = new TempDirectory();
+        var depsFile = directory.BuildPath("malformed.deps.json");
+        File.WriteAllText(depsFile, "{ this is not valid json");
+
+        var exception = Assert.Throws<Exception>(() => VerifierSettings.ReadDepsFile(depsFile));
+        // The failure names the deps file and preserves the underlying parse error.
+        Assert.Contains(depsFile, exception.Message);
+        Assert.NotNull(exception.InnerException);
+    }
+
+    [Fact]
+    public void ReadDepsFileThrowsForEmpty()
+    {
+        using var directory = new TempDirectory();
+        var depsFile = directory.BuildPath("empty.deps.json");
+        // Valid json, but with no runtime assemblies.
+        File.WriteAllText(
+            depsFile,
+            """
+            {
+              "targets": {
+                ".NETCoreApp,Version=v8.0": {
+                  "NoRuntimeLibrary/1.0.0": {}
+                }
+              }
+            }
+            """);
+
+        var exception = Assert.Throws<Exception>(() => VerifierSettings.ReadDepsFile(depsFile));
+        Assert.Contains(depsFile, exception.Message);
+    }
+
+    [Fact]
+    public void ReferencedAssemblyFilesIncludesReferencedPlugin()
+    {
+        var referenced = VerifierSettings.GetReferencedAssemblyFiles(typeof(PluginConventionTests).Assembly);
+        // No deps.json (for example on .NET Framework), so filtering is not applied.
+        if (referenced is null)
+        {
+            return;
+        }
+
+        // Verify.SamplePlugin is an actual reference of this test project.
+        Assert.Contains("Verify.SamplePlugin.dll", referenced);
+        Assert.DoesNotContain("Verify.StaleUnreferencedTestPlugin.dll", referenced);
+    }
+
+    [Fact]
+    public void StaleUnreferencedPluginIsSkipped()
+    {
+        var assembly = typeof(PluginConventionTests).Assembly;
+        // Filtering relies on a deps.json (not present on for example .NET Framework).
+        if (VerifierSettings.GetReferencedAssemblyFiles(assembly) is null)
+        {
+            return;
+        }
+
+        using var directory = new TempDirectory();
+        // A stale plugin assembly left in the output directory but not referenced by the test assembly.
+        // The content is intentionally not a real assembly: if it were loaded it would fail.
+        File.WriteAllText(directory.BuildPath("Verify.StaleUnreferencedTestPlugin.dll"), "not a real assembly");
+
+        // Should not throw: the stale assembly is not referenced by the test assembly, so it is skipped.
+        VerifierSettings.InitializePlugins(directory.Path, assembly);
+    }
+
+    [Fact]
     public void InvokeInitialize()
     {
         VerifierSettings.InvokeInitialize(typeof(InitializeTarget));

@@ -76,7 +76,7 @@ public static partial class VerifierSettings
     /// Remove any lines matching <paramref name="removeLine" /> from the test results.
     /// No per line string is allocated for span predicates.
     /// Use an explicitly typed lambda parameter to select this overload,
-    /// e.g. <c>ScrubLines(extension, (CharSpan line) => ...)</c>.
+    /// e.g. <c>ScrubLines(extension, (ReadOnlySpan&lt;char&gt; line) => ...)</c>.
     /// </summary>
     [OverloadResolutionPriority(-1)]
     public static void ScrubLines(string extension, LineMatch removeLine) =>
@@ -105,7 +105,7 @@ public static partial class VerifierSettings
     /// Scrub lines with an optional replace.
     /// No per line string is allocated for span based replacers.
     /// Use an explicitly typed lambda parameter to select this overload,
-    /// e.g. <c>ScrubLinesWithReplace(extension, (CharSpan line) => ...)</c>.
+    /// e.g. <c>ScrubLinesWithReplace(extension, (ReadOnlySpan&lt;char&gt; line) => ...)</c>.
     /// </summary>
     [OverloadResolutionPriority(-1)]
     public static void ScrubLinesWithReplace(string extension, LineReplace replaceLine) =>

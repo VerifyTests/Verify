@@ -48,7 +48,7 @@ verifySettings.AddScrubber(
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2073-L2091' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddScrubberEngine' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-`ScrubLines` and `ScrubLinesWithReplace` (and the corresponding `Scrubber` factories) also accept span based delegates (`LineMatch` / `LineReplace`) that avoid allocating a string per line. Use an explicitly typed lambda parameter to select them, e.g. `ScrubLines((CharSpan line) => ...)`; untyped lambdas bind the string overloads.
+`ScrubLines` and `ScrubLinesWithReplace` (and the corresponding `Scrubber` factories) also accept span based delegates (`LineMatch` / `LineReplace`) that avoid allocating a string per line. Use an explicitly typed lambda parameter to select them, e.g. `ScrubLines((ReadOnlySpan<char> line) => ...)`; untyped lambdas bind the string overloads.
 
 Engine semantics:
 

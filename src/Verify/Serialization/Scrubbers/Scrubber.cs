@@ -250,7 +250,7 @@ public sealed class Scrubber
     /// Remove any lines matching <paramref name="shouldRemove" />.
     /// No per line string is allocated for span predicates.
     /// Use an explicitly typed lambda parameter to select this overload,
-    /// e.g. <c>RemoveLines((CharSpan line) => ...)</c>.
+    /// e.g. <c>RemoveLines((ReadOnlySpan&lt;char&gt; line) => ...)</c>.
     /// </summary>
     [OverloadResolutionPriority(-1)]
     public static Scrubber RemoveLines(LineMatch shouldRemove)
@@ -272,7 +272,7 @@ public sealed class Scrubber
     /// Process each line via <paramref name="replace" />.
     /// No per line string is allocated for span based replacers.
     /// Use an explicitly typed lambda parameter to select this overload,
-    /// e.g. <c>ReplaceLines((CharSpan line) => ...)</c>.
+    /// e.g. <c>ReplaceLines((ReadOnlySpan&lt;char&gt; line) => ...)</c>.
     /// </summary>
     [OverloadResolutionPriority(-1)]
     public static Scrubber ReplaceLines(LineReplace replace)

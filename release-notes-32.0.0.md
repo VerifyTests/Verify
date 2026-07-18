@@ -94,7 +94,7 @@ multi-line regex) should stay on the `AddScrubber(Action<StringBuilder>)` overlo
    configurations listed under "Behavior" above; a suite that does not rely on scrubber ordering or
    sugar-vs-legacy interaction should see no changes.
 4. Optional: for hot custom line predicates, switch to the new span overloads to avoid a per-line string
-   allocation, for example `ScrubLines((CharSpan line) => ...)`.
+   allocation, for example `ScrubLines((ReadOnlySpan<char> line) => ...)`.
 
 ## New public API
 
@@ -114,12 +114,12 @@ settings.AddScrubber(Scrubber.Match((segment, counter, context, out index, out l
 // Line scoped
 settings.AddScrubber(Scrubber.RemoveLinesContaining("token"));
 settings.AddScrubber(Scrubber.RemoveEmptyLines());
-settings.AddScrubber(Scrubber.RemoveLines((CharSpan line) => ...));       // span predicate, no per-line alloc
-settings.AddScrubber(Scrubber.ReplaceLines((CharSpan line) => ...));      // returns LineResult.Keep / Remove / Replace(text)
+settings.AddScrubber(Scrubber.RemoveLines((ReadOnlySpan<char> line) => ...));       // span predicate, no per-line alloc
+settings.AddScrubber(Scrubber.ReplaceLines((ReadOnlySpan<char> line) => ...));      // returns LineResult.Keep / Remove / Replace(text)
 ```
 
 `ScrubLines` and `ScrubLinesWithReplace` also gained span-delegate overloads (`LineMatch` /
-`LineReplace`); select them with an explicitly typed lambda parameter (`(CharSpan line) => ...`). Untyped
+`LineReplace`); select them with an explicitly typed lambda parameter (`(ReadOnlySpan<char> line) => ...`). Untyped
 lambdas continue to bind the existing `string`-based overloads.
 
 See [scrubbers.md](/docs/scrubbers.md) for full semantics.

@@ -1,6 +1,6 @@
 # Counter
 
-The `Counter` class provides methods to attempt conversion of a `CharSpan` value into a string representation of supported types.
+The `Counter` class provides methods to attempt conversion of a `ReadOnlySpan<char>` value into a string representation of supported types.
 
 Supported types include 
 
@@ -11,7 +11,7 @@ It handles matching equivalent values and assigning a number to each match. It i
 
 ## TryConvert
 
-Takes a CharSpan and attempts to parse it to one of the supported types, then return the tokenized scrubbed value for that value. 
+Takes a `ReadOnlySpan<char>` and attempts to parse it to one of the supported types, then return the tokenized scrubbed value for that value. 
 
 One example usage is inside a custom scrubber:
 

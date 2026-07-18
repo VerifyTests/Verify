@@ -21,7 +21,7 @@ A `Scrubber` is created via static factory methods and registered via `AddScrubb
 
 snippet: AddScrubberEngine
 
-`ScrubLines` and `ScrubLinesWithReplace` (and the corresponding `Scrubber` factories) also accept span based delegates (`LineMatch` / `LineReplace`) that avoid allocating a string per line. Use an explicitly typed lambda parameter to select them, e.g. `ScrubLines((CharSpan line) => ...)`; untyped lambdas bind the string overloads.
+`ScrubLines` and `ScrubLinesWithReplace` (and the corresponding `Scrubber` factories) also accept span based delegates (`LineMatch` / `LineReplace`) that avoid allocating a string per line. Use an explicitly typed lambda parameter to select them, e.g. `ScrubLines((ReadOnlySpan<char> line) => ...)`; untyped lambdas bind the string overloads.
 
 Engine semantics:
 

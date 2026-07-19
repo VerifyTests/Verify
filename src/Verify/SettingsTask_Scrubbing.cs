@@ -1,4 +1,4 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 public partial class SettingsTask
 {
@@ -7,6 +7,22 @@ public partial class SettingsTask
     public SettingsTask DisableScrubbers()
     {
         CurrentSettings.DisableScrubbers();
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.AddScrubber(Scrubber)"/>
+    [Pure]
+    internal SettingsTask AddScrubber(Scrubber scrubber)
+    {
+        CurrentSettings.AddScrubber(scrubber);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.AddScrubber(string,Scrubber)"/>
+    [Pure]
+    internal SettingsTask AddScrubber(string extension, Scrubber scrubber)
+    {
+        CurrentSettings.AddScrubber(extension, scrubber);
         return this;
     }
 
@@ -26,11 +42,11 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubInlineGuids(ScrubberLocation)"/>
+    /// <inheritdoc cref="VerifySettings.ScrubInlineGuids()"/>
     [Pure]
-    public SettingsTask ScrubInlineGuids(ScrubberLocation location = ScrubberLocation.First)
+    public SettingsTask ScrubInlineGuids()
     {
-        CurrentSettings.ScrubInlineGuids(location);
+        CurrentSettings.ScrubInlineGuids();
         return this;
     }
 
@@ -50,11 +66,11 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubInlineGuids(string,ScrubberLocation)"/>
+    /// <inheritdoc cref="VerifySettings.ScrubInlineGuids(string)"/>
     [Pure]
-    public SettingsTask ScrubInlineGuids(string extension, ScrubberLocation location = ScrubberLocation.First)
+    public SettingsTask ScrubInlineGuids(string extension)
     {
-        CurrentSettings.ScrubInlineGuids(extension, location);
+        CurrentSettings.ScrubInlineGuids(extension);
         return this;
     }
 
@@ -74,72 +90,69 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubInlineDateTimes(string,Culture?,ScrubberLocation)"/>
+    /// <inheritdoc cref="VerifySettings.ScrubInlineDateTimes(string,Culture?)"/>
     [Pure]
     public SettingsTask ScrubInlineDateTimes(
         [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
-        Culture? culture = null,
-        ScrubberLocation location = ScrubberLocation.First)
+        Culture? culture = null)
     {
-        CurrentSettings.ScrubInlineDateTimes(format, culture, location);
+        CurrentSettings.ScrubInlineDateTimes(format, culture);
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubInlineDateTimeOffsets(string,Culture?,ScrubberLocation)"/>
+    /// <inheritdoc cref="VerifySettings.ScrubInlineDateTimeOffsets(string,Culture?)"/>
     [Pure]
     public SettingsTask ScrubInlineDateTimeOffsets(
         [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
-        Culture? culture = null,
-        ScrubberLocation location = ScrubberLocation.First)
+        Culture? culture = null)
     {
-        CurrentSettings.ScrubInlineDateTimeOffsets(format, culture, location);
+        CurrentSettings.ScrubInlineDateTimeOffsets(format, culture);
         return this;
     }
 
 #if NET6_0_OR_GREATER
 
-    /// <inheritdoc cref="VerifySettings.ScrubInlineDates(string,Culture?,ScrubberLocation)"/>
+    /// <inheritdoc cref="VerifySettings.ScrubInlineDates(string,Culture?)"/>
     [Pure]
     public SettingsTask ScrubInlineDates(
         [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)] string format,
-        Culture? culture = null,
-        ScrubberLocation location = ScrubberLocation.First)
+        Culture? culture = null)
     {
-        CurrentSettings.ScrubInlineDates(format, culture, location);
+        CurrentSettings.ScrubInlineDates(format, culture);
         return this;
     }
 
 #endif
 
-    /// <inheritdoc cref="VerifySettings.ScrubMachineName(ScrubberLocation)"/>
+    /// <inheritdoc cref="VerifySettings.ScrubMachineName()"/>
     [Pure]
-    public SettingsTask ScrubMachineName(ScrubberLocation location = ScrubberLocation.First)
+    public SettingsTask ScrubMachineName()
     {
-        CurrentSettings.ScrubMachineName(location);
+        CurrentSettings.ScrubMachineName();
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubMachineName(string,ScrubberLocation)"/>
+    /// <inheritdoc cref="VerifySettings.ScrubMachineName(string)"/>
     [Pure]
-    public SettingsTask ScrubMachineName(string extension, ScrubberLocation location = ScrubberLocation.First)
+    public SettingsTask ScrubMachineName(string extension)
     {
-        CurrentSettings.ScrubMachineName(extension, location);
+        CurrentSettings.ScrubMachineName(extension);
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubUserName(ScrubberLocation)"/>
+    /// <inheritdoc cref="VerifySettings.ScrubUserName()"/>
     [Pure]
-    public SettingsTask ScrubUserName(ScrubberLocation location = ScrubberLocation.First)
+    public SettingsTask ScrubUserName()
     {
-        CurrentSettings.ScrubUserName(location);
+        CurrentSettings.ScrubUserName();
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubUserName(string,ScrubberLocation)"/>
+    /// <inheritdoc cref="VerifySettings.ScrubUserName(string)"/>
     [Pure]
-    public SettingsTask ScrubUserName(string extension,ScrubberLocation location = ScrubberLocation.First)
+    public SettingsTask ScrubUserName(string extension)
     {
-        CurrentSettings.ScrubUserName(extension, location);
+        CurrentSettings.ScrubUserName(extension);
         return this;
     }
 
@@ -159,67 +172,87 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubLinesContaining(StringComparison,ScrubberLocation,string[])"/>
+    /// <inheritdoc cref="VerifySettings.ScrubLines(Func{string,bool})"/>
     [Pure]
-    public SettingsTask ScrubLinesContaining(StringComparison comparison, ScrubberLocation location = ScrubberLocation.First, params string[] stringToMatch)
+    public SettingsTask ScrubLines(Func<string, bool> removeLine)
     {
-        CurrentSettings.ScrubLinesContaining(comparison, location, stringToMatch);
+        CurrentSettings.ScrubLines(removeLine);
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubLinesContaining(string,StringComparison,ScrubberLocation,string[])"/>
+    /// <inheritdoc cref="VerifySettings.ScrubLines(LineMatch)"/>
+    [OverloadResolutionPriority(-1)]
     [Pure]
-    public SettingsTask ScrubLinesContaining(string extension, StringComparison comparison, ScrubberLocation location = ScrubberLocation.First, params string[] stringToMatch)
+    public SettingsTask ScrubLines(LineMatch removeLine)
     {
-        CurrentSettings.ScrubLinesContaining(extension, comparison, location, stringToMatch);
+        CurrentSettings.ScrubLines(removeLine);
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubLinesContaining(string,StringComparison,ScrubberLocation,string[])"/>
+    /// <inheritdoc cref="VerifySettings.ScrubLines(string,Func{string,bool})"/>
     [Pure]
-    public SettingsTask ScrubLines(Func<string, bool> removeLine, ScrubberLocation location = ScrubberLocation.First)
+    public SettingsTask ScrubLines(string extension, Func<string, bool> removeLine)
     {
-        CurrentSettings.ScrubLines(removeLine, location);
+        CurrentSettings.ScrubLines(extension, removeLine);
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubLines(Func{string,bool},ScrubberLocation)"/>
+    /// <inheritdoc cref="VerifySettings.ScrubLines(string,LineMatch)"/>
+    [OverloadResolutionPriority(-1)]
     [Pure]
-    public SettingsTask ScrubLines(string extension, Func<string, bool> removeLine, ScrubberLocation location = ScrubberLocation.First)
+    public SettingsTask ScrubLines(string extension, LineMatch removeLine)
     {
-        CurrentSettings.ScrubLines(extension, removeLine, location);
+        CurrentSettings.ScrubLines(extension, removeLine);
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubLinesWithReplace(Func{string,string?},ScrubberLocation)"/>
+    /// <inheritdoc cref="VerifySettings.ScrubLinesWithReplace(Func{string,string?})"/>
     [Pure]
-    public SettingsTask ScrubLinesWithReplace(Func<string, string?> replaceLine, ScrubberLocation location = ScrubberLocation.First)
+    public SettingsTask ScrubLinesWithReplace(Func<string, string?> replaceLine)
     {
-        CurrentSettings.ScrubLinesWithReplace(replaceLine, location);
+        CurrentSettings.ScrubLinesWithReplace(replaceLine);
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubLinesWithReplace(string,Func{string,string?},ScrubberLocation)"/>
+    /// <inheritdoc cref="VerifySettings.ScrubLinesWithReplace(LineReplace)"/>
+    [OverloadResolutionPriority(-1)]
     [Pure]
-    public SettingsTask ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine, ScrubberLocation location = ScrubberLocation.First)
+    public SettingsTask ScrubLinesWithReplace(LineReplace replaceLine)
     {
-        CurrentSettings.ScrubLinesWithReplace(extension, replaceLine, location);
+        CurrentSettings.ScrubLinesWithReplace(replaceLine);
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubEmptyLines(ScrubberLocation)"/>
+    /// <inheritdoc cref="VerifySettings.ScrubLinesWithReplace(string,Func{string,string?})"/>
     [Pure]
-    public SettingsTask ScrubEmptyLines(ScrubberLocation location = ScrubberLocation.First)
+    public SettingsTask ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine)
     {
-        CurrentSettings.ScrubEmptyLines(location);
+        CurrentSettings.ScrubLinesWithReplace(extension, replaceLine);
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubEmptyLines(string,ScrubberLocation)"/>
+    /// <inheritdoc cref="VerifySettings.ScrubLinesWithReplace(string,LineReplace)"/>
+    [OverloadResolutionPriority(-1)]
     [Pure]
-    public SettingsTask ScrubEmptyLines(string extension, ScrubberLocation location = ScrubberLocation.First)
+    public SettingsTask ScrubLinesWithReplace(string extension, LineReplace replaceLine)
     {
-        CurrentSettings.ScrubEmptyLines(extension, location);
+        CurrentSettings.ScrubLinesWithReplace(extension, replaceLine);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.ScrubEmptyLines()"/>
+    [Pure]
+    public SettingsTask ScrubEmptyLines()
+    {
+        CurrentSettings.ScrubEmptyLines();
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.ScrubEmptyLines(string)"/>
+    [Pure]
+    public SettingsTask ScrubEmptyLines(string extension)
+    {
+        CurrentSettings.ScrubEmptyLines(extension);
         return this;
     }
 
@@ -231,19 +264,67 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubLinesContaining(StringComparison,string[])"/>
+    /// <inheritdoc cref="VerifySettings.ScrubReplace(string,string,StringComparison,bool)"/>
     [Pure]
-    public SettingsTask ScrubLinesContaining(ScrubberLocation location = ScrubberLocation.First, params string[] stringToMatch)
+    public SettingsTask ScrubReplace(string find, string replacement, StringComparison comparison = StringComparison.Ordinal, bool requireWordBoundary = false)
     {
-        CurrentSettings.ScrubLinesContaining(location, stringToMatch);
+        CurrentSettings.ScrubReplace(find, replacement, comparison, requireWordBoundary);
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubLinesContaining(string,ScrubberLocation,string[])"/>
+    /// <inheritdoc cref="VerifySettings.ScrubReplace(string,string,string,StringComparison,bool)"/>
     [Pure]
-    public SettingsTask ScrubLinesContaining(string extension, ScrubberLocation location = ScrubberLocation.First, params string[] stringToMatch)
+    public SettingsTask ScrubReplace(string extension, string find, string replacement, StringComparison comparison = StringComparison.Ordinal, bool requireWordBoundary = false)
     {
-        CurrentSettings.ScrubLinesContaining(extension, location, stringToMatch);
+        CurrentSettings.ScrubReplace(extension, find, replacement, comparison, requireWordBoundary);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.ScrubReplace(StringComparison,bool,ValueTuple{string,string}[])"/>
+    [Pure]
+    public SettingsTask ScrubReplace(StringComparison comparison, bool requireWordBoundary, params (string Find, string Replacement)[] pairs)
+    {
+        CurrentSettings.ScrubReplace(comparison, requireWordBoundary, pairs);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.ScrubReplace(string,StringComparison,bool,ValueTuple{string,string}[])"/>
+    [Pure]
+    public SettingsTask ScrubReplace(string extension, StringComparison comparison, bool requireWordBoundary, params (string Find, string Replacement)[] pairs)
+    {
+        CurrentSettings.ScrubReplace(extension, comparison, requireWordBoundary, pairs);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.ScrubWindow(int,int,WindowMatch,bool)"/>
+    [Pure]
+    public SettingsTask ScrubWindow(int minLength, int maxLength, WindowMatch matcher, bool requireWordBoundary = false)
+    {
+        CurrentSettings.ScrubWindow(minLength, maxLength, matcher, requireWordBoundary);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.ScrubWindow(string,int,int,WindowMatch,bool)"/>
+    [Pure]
+    public SettingsTask ScrubWindow(string extension, int minLength, int maxLength, WindowMatch matcher, bool requireWordBoundary = false)
+    {
+        CurrentSettings.ScrubWindow(extension, minLength, maxLength, matcher, requireWordBoundary);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.ScrubMatch(SegmentMatch,int?,int?)"/>
+    [Pure]
+    public SettingsTask ScrubMatch(SegmentMatch matcher, int? minLength = null, int? maxLength = null)
+    {
+        CurrentSettings.ScrubMatch(matcher, minLength, maxLength);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.ScrubMatch(string,SegmentMatch,int?,int?)"/>
+    [Pure]
+    public SettingsTask ScrubMatch(string extension, SegmentMatch matcher, int? minLength = null, int? maxLength = null)
+    {
+        CurrentSettings.ScrubMatch(extension, matcher, minLength, maxLength);
         return this;
     }
 }

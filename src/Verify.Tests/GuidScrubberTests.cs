@@ -7,6 +7,14 @@ public class GuidScrubberTests
 
     #endregion
 
+    static Dictionary<string, object> emptyContext = [];
+
+    static string ReplaceGuids(string value, Counter counter)
+    {
+        var set = EngineScrubberSet.ForScrubbers([GuidMatcher.Instance]);
+        return ScrubEngine.Run(value, set, counter, emptyContext, applyDirectoryReplacements: false);
+    }
+
     [Theory]
     [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "no match")]
     [InlineData("aaaaaaaaaaaaaaaaaaaaaaaa", "no match short")]
@@ -43,9 +51,8 @@ public class GuidScrubberTests
     public async Task Run(string guid, string name)
     {
         using var counter = Counter.Start();
-        var builder = new StringBuilder(guid);
-        GuidScrubber.ReplaceGuids(builder, counter);
-        await Verify(builder)
+        var result = ReplaceGuids(guid, counter);
+        await Verify(result)
             .DontScrubGuids()
             .UseTextForParameters(name);
     }
@@ -91,31 +98,11 @@ public class GuidScrubberTests
     }
 
     [Fact]
-    public void MultipleChunks()
+    public void Multiple()
     {
-        var builder = new StringBuilder(capacity: 8, maxCapacity: int.MaxValue);
-        builder.Append("[2e6bddf7-fcf7-4b09-bb6f-a7948e1eecf3]");
-        builder.Append("[c2eeaf99-d5c4-4341-8543-4597c3fd40d9]");
         using var counter = Counter.Start();
-        GuidScrubber.ReplaceGuids(builder, counter);
-        Assert.Equal("[Guid_1][Guid_2]", builder.ToString());
-    }
-
-    [Fact]
-    public void GuidSpanningThreeChunks()
-    {
-        // Capacity 4 forces small chunks [4][4][rest]; the 36-char guid spans all
-        // three, and the 4-char middle chunk is shorter than the 35-char carryover.
-        // The carryover must accumulate across chunks or the prefix is dropped and
-        // the guid is never found (silent leak).
-        var guid = "173535ae-995b-4cc6-a74e-8cd4be57039c";
-        var builder = new StringBuilder(capacity: 4);
-        builder.Append(guid[..4]);  // chunk0
-        builder.Append(guid[4..8]); // chunk1 (short middle chunk)
-        builder.Append(guid[8..]);  // chunk2
-        using var counter = Counter.Start();
-        GuidScrubber.ReplaceGuids(builder, counter);
-        Assert.Equal("Guid_1", builder.ToString());
+        var result = ReplaceGuids("[2e6bddf7-fcf7-4b09-bb6f-a7948e1eecf3][c2eeaf99-d5c4-4341-8543-4597c3fd40d9]", counter);
+        Assert.Equal("[Guid_1][Guid_2]", result);
     }
 
     #region NamedGuidFluent

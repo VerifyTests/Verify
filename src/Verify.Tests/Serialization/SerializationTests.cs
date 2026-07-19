@@ -2023,6 +2023,39 @@ public class SerializationTests
             Property = "a\r\nb\\nc"
         });
 
+    [Fact]
+    public Task ScrubEngineMethods() =>
+        Verify("value id-123 abc")
+            .ScrubReplace("abc", "xyz")
+            .ScrubWindow(
+                minLength: 4,
+                maxLength: 6,
+                matcher: (window, _, _) =>
+                {
+                    if (window.Length == 6 &&
+                        window.StartsWith("id-"))
+                    {
+                        return "{Id}";
+                    }
+
+                    return null;
+                })
+            .ScrubMatch(
+                (ReadOnlySpan<char> segment, Counter _, IReadOnlyDictionary<string, object> _, out int index, out int length, out string? replacement) =>
+                {
+                    index = segment.IndexOf("value".AsSpan());
+                    if (index == -1)
+                    {
+                        length = 0;
+                        replacement = null;
+                        return false;
+                    }
+
+                    length = "value".Length;
+                    replacement = "{Value}";
+                    return true;
+                });
+
     // ReSharper disable once UnusedMember.Local
     static void List()
     {
@@ -2067,6 +2100,31 @@ public class SerializationTests
         #region AddScrubber
 
         verifySettings.AddScrubber(_ => _.Remove(0, 100));
+
+        #endregion
+
+        #region ScrubEngine
+
+        verifySettings.ScrubReplace("abc", "xyz");
+
+        verifySettings.ScrubWindow(
+            minLength: 3,
+            maxLength: 10,
+            matcher: (window, _, _) =>
+            {
+                if (window.StartsWith("id-"))
+                {
+                    return "{Id}";
+                }
+
+                return null;
+            });
+
+        #endregion
+
+        #region ScrubEngineExtension
+
+        verifySettings.ScrubReplace("json", "abc", "xyz");
 
         #endregion
     }

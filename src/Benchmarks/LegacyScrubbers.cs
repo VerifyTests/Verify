@@ -1,4 +1,8 @@
-﻿static class GuidScrubber
+// Copies of the pre-engine StringBuilder based scrubber implementations, preserved so the
+// benchmarks can report before/after rows over identical corpora. Sourced from
+// src/Verify/Serialization/Scrubbers (deleted when the span engine replaced them).
+
+static class LegacyGuidScrubber
 {
     public static void ReplaceGuids(StringBuilder builder, Counter counter)
     {
@@ -117,10 +121,7 @@
                 }
             }
 
-            // Roll the carryover forward: keep the last 35 chars of everything seen
-            // so far. Rebuilding it from the current chunk alone drops the prefix
-            // when a chunk is shorter than 35, so a guid spanning three or more
-            // chunks would never be found.
+            // Roll the carryover forward: keep the last 35 chars of everything seen so far
             if (chunk.Length >= 35)
             {
                 chunkSpan.Slice(chunk.Length - 35, 35).CopyTo(carryoverBuffer);
@@ -155,7 +156,7 @@
         ch != '{' &&
         ch != '(';
 
-    internal readonly struct Match(int index, string value)
+    readonly struct Match(int index, string value)
     {
         public readonly int Index = index;
         public readonly string Value = value;

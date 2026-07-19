@@ -2,15 +2,144 @@
 
 static partial class DirectoryReplacements
 {
-    static List<Pair> items = [];
-    static int shortestFindLength = int.MaxValue;
+    public readonly struct Pair
+    {
+        public Pair(string find, string replace)
+        {
+#if DEBUG
+            if (find.Contains('\\'))
+            {
+                throw new("Slashes should be sanitized");
+            }
+#endif
+            Find = find;
+            Replace = replace;
+        }
+
+        public string Find { get; }
+        public string Replace { get; }
+    }
+
+    // The anchors and the shortest find are derived from the pairs, so the three
+    // travel together rather than as separate statics a scan has to re-read.
+    // Assigned once, from AssignTargetAssembly.
+    internal sealed class Snapshot(List<Pair> pairs, int shortestFindLength, string anchors)
+    {
+        public readonly List<Pair> Pairs = pairs;
+
+        public readonly int ShortestFindLength = shortestFindLength;
+
+        // The distinct first chars of the Finds, so scans can skip to candidate
+        // positions with a vectorized IndexOfAny instead of probing every position
+        public readonly string Anchors = anchors;
+    }
+
+    static Snapshot current = new([], int.MaxValue, "");
+
+    internal static Snapshot Current => current;
 
     // Length of the shortest Find, so callers can cheaply skip values that are
     // too short to contain any replacement. int.MaxValue when there are none.
-    public static int ShortestFindLength => shortestFindLength;
+    public static int ShortestFindLength => current.ShortestFindLength;
 
-    public static void Replace(StringBuilder builder) =>
-        Replace(builder, items);
+    internal static string BuildAnchors(List<Pair> pairs)
+    {
+        var anchors = new List<char>();
+        foreach (var pair in pairs)
+        {
+            var first = pair.Find[0];
+            if (!anchors.Contains(first))
+            {
+                anchors.Add(first);
+            }
+
+            // '/' and '\' are equivalent during matching
+            if (first == '/' &&
+                !anchors.Contains('\\'))
+            {
+                anchors.Add('\\');
+            }
+        }
+
+        return new([.. anchors]);
+    }
+
+    public static void Replace(StringBuilder builder)
+    {
+        var snapshot = current;
+        Replace(builder, snapshot.Pairs, snapshot.Anchors);
+    }
+
+    public static void Replace(StringBuilder builder, List<Pair> pairs) =>
+        Replace(builder, pairs, BuildAnchors(pairs));
+
+    // Legacy pass entry point: materialize once, scan with the span matcher, apply
+    // matches position-descending so earlier indexes stay valid.
+    static void Replace(StringBuilder builder, List<Pair> pairs, string anchors)
+    {
+#if DEBUG
+        var finds = pairs.Select(_ => _.Find).ToList();
+        if (!finds.OrderByDescending(_ => _.Length).SequenceEqual(finds))
+        {
+            throw new("Pairs should be ordered");
+        }
+
+        if (finds.Count != finds.Distinct().Count())
+        {
+            throw new("Find should be distinct");
+        }
+#endif
+        if (pairs.Count == 0 ||
+            builder.Length == 0)
+        {
+            return;
+        }
+
+        // pairs are ordered by length desc, so the last is the shortest. If the
+        // builder is shorter than that, no pair can match.
+        var shortest = pairs[^1].Find.Length;
+        if (builder.Length < shortest)
+        {
+            return;
+        }
+
+        var span = builder.ToString().AsSpan();
+        List<(int Index, int Length, string Value)>? matches = null;
+        for (var position = 0; position + shortest <= span.Length; position++)
+        {
+            var skip = span[position..].IndexOfAny(anchors.AsSpan());
+            if (skip < 0)
+            {
+                break;
+            }
+
+            position += skip;
+            if (position + shortest > span.Length)
+            {
+                break;
+            }
+
+            if (!TryMatchAt(span, position, null, null, pairs, out var matchLength, out var replacement))
+            {
+                continue;
+            }
+
+            matches ??= [];
+            matches.Add((position, matchLength, replacement));
+            position += matchLength - 1;
+        }
+
+        if (matches == null)
+        {
+            return;
+        }
+
+        for (var index = matches.Count - 1; index >= 0; index--)
+        {
+            var match = matches[index];
+            builder.Overwrite(match.Value, match.Index, match.Length);
+        }
+    }
 
     public static void UseAssembly(string? solutionDir, string projectDir)
     {
@@ -48,10 +177,13 @@ static partial class DirectoryReplacements
         }
 
         AddProjectAndSolutionReplacements(solutionDir, projectDir, values);
-        items = values
+        var ordered = values
             .OrderByDescending(_ => _.Find.Length)
             .ToList();
-        shortestFindLength = items.Count == 0 ? int.MaxValue : items[^1].Find.Length;
+        current = new(
+            ordered,
+            ordered.Count == 0 ? int.MaxValue : ordered[^1].Find.Length,
+            BuildAnchors(ordered));
     }
 
     static void AddProjectAndSolutionReplacements(string? solutionDir, string projectDir, List<Pair> replacements)

@@ -18,7 +18,7 @@
 public class SerializationConvertBenchmarks
 {
     const int count = 100;
-    static readonly CultureInfo culture = CultureInfo.CurrentCulture;
+    static readonly Culture culture = Culture.CurrentCulture;
 
     Guid[] guids = null!;
     DateTime[] dateTimes = null!;

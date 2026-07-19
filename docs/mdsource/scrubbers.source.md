@@ -4,9 +4,43 @@ Scrubbers run on the final string before doing the verification action.
 
 Multiple scrubbers [can be defined at multiple levels](#Scrubber-levels).
 
-By default scrubber are executed in reverse order. So the most recent added method scrubber through to earliest added global scrubber. All scrubber APIs support a `ScrubberLocation location`. To execute a scrubber last use `ScrubberLocation.Last`.
+Scrubbing is performed by two mechanisms:
 
-Scrubbers can be added multiple times to have them execute multiple times. This can be helpful when compounding multiple scrubbers together.
+ * **The scrub engine**: a span based engine that performs all built-in scrubbing (`ScrubLinesContaining`, `ScrubInlineGuids`, `ScrubMachineName`, etc).
+ * **Legacy scrubbers**: `AddScrubber(Action<StringBuilder>)` overloads. These run after the engine, and only when at least one is registered.
+
+
+## The scrub engine
+
+Each engine operation is available as a `Scrub*` method at any [level](#Scrubber-levels):
+
+ * `ScrubReplace(find, replacement)`: replace every occurrence of a string. Supports an ordinal `StringComparison` (`Ordinal` or `OrdinalIgnoreCase`) and an optional word boundary requirement. A multi-pair overload replaces the longest matching find at any position.
+ * `ScrubWindow(minLength, maxLength, matcher)`: slide a window over the text; the matcher returns a replacement or null. Used by the inline guid and date scrubbers.
+ * `ScrubMatch(matcher, minLength, maxLength)`: custom search logic. The matcher locates the next match within a segment.
+ * `ScrubLinesContaining(...)`, `ScrubLines(...)`, `ScrubLinesWithReplace(...)`, `ScrubEmptyLines()`: line scoped scrubbing.
+
+snippet: ScrubEngine
+
+`ScrubLines` and `ScrubLinesWithReplace` also accept span based delegates (`LineMatch` / `LineReplace`) that avoid allocating a string per line. Use an explicitly typed lambda parameter to select them, e.g. `ScrubLines((ReadOnlySpan<char> line) => ...)`; untyped lambdas bind the string overloads.
+
+Engine semantics:
+
+ * **Quarantine**: text produced by a replacement is never re-examined by other engine scrubbers. Legacy scrubbers run afterwards and can still modify it.
+ * **Ordering** is engine determined, not registration determined: line removals run first, then line transforms (registration order), then inline scrubbers (unknown max length first, then longest max length first, ties broken by level then registration order). Directory replacements always run last, so scrubbers always see raw paths.
+ * **Length skip**: text shorter than a scrubber's minimum match length is never scanned by that scrubber.
+ * **Single line rule**: a match may never contain a line break.
+ * Text is newline normalized (`\r\n` and `\r` become `\n`) before scrubbers run.
+
+`ScrubberLocation` on the built-in scrub methods is obsolete and ignored; it still applies to legacy `AddScrubber` overloads (default `First` executes in reverse registration order, `Last` in registration order).
+
+
+## Legacy scrubbers
+
+Instead of being executed by the engine, `AddScrubber(Action<StringBuilder>)` mutates the full text directly. Overloads also accept a `Counter`, and the context dictionary:
+
+snippet: AddScrubber
+
+Since these run after every engine scrubber, they can also modify text that the engine has already replaced.
 
 
 ## Available Scrubbers
@@ -145,6 +179,15 @@ snippet: ScrubbersSampleTUnit
 ### Results
 
 snippet: Verify.XunitV3.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt
+
+
+## Extension specific scrubbers
+
+Scrubbers can be scoped to verified files with a matching extension by passing the extension as the first argument. The extension is specified without a leading dot:
+
+snippet: ScrubEngineExtension
+
+A scrubber registered this way runs only for verified files with that extension, while a scrubber registered without an extension runs for all of them. Extension scoping is available at every [level](#Scrubber-levels), and for the legacy `AddScrubber(Action<StringBuilder>)` overloads.
 
 
 ## Scrubber levels

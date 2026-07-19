@@ -36,6 +36,18 @@ public partial class VerifySettings
                 .ToDictionary(_ => _.Key, _ => _.Value.ToList());
         }
 
+        if (settings.InstanceSpanScrubbers != null)
+        {
+            InstanceSpanScrubbers = [..settings.InstanceSpanScrubbers];
+        }
+
+        if (settings.ExtensionMappedInstanceSpanScrubbers != null)
+        {
+            // Deep copy: the inner lists are mutated in place by AddScrubber.
+            ExtensionMappedInstanceSpanScrubbers = settings.ExtensionMappedInstanceSpanScrubbers
+                .ToDictionary(_ => _.Key, _ => _.Value.ToList());
+        }
+
         diffEnabled = settings.diffEnabled;
         MethodName = settings.MethodName;
         TypeName = settings.TypeName;

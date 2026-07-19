@@ -19,6 +19,14 @@ public class DateScrubberTests
     public Task GetCultureDates() =>
         Verify(DateFormatLengthCalculator.GetCultureLengthInfo(CultureInfo.InvariantCulture));
 
+    static Dictionary<string, object> emptyContext = [];
+
+    static string Scrub(string value, Scrubber[] scrubbers, Counter counter)
+    {
+        var set = EngineScrubberSet.ForScrubbers([.. scrubbers]);
+        return ScrubEngine.Run(value, set, counter, emptyContext, applyDirectoryReplacements: false);
+    }
+
     [Theory]
     [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "no match")]
     [InlineData("aaaa", "no match short")]
@@ -31,9 +39,8 @@ public class DateScrubberTests
     public async Task DateTimeOffsets(string value, string name)
     {
         using var counter = Counter.Start();
-        var builder = new StringBuilder(value);
-        DateScrubber.ReplaceDateTimeOffsets(builder, "yyyy-MM-dd", counter, CultureInfo.InvariantCulture);
-        await Verify(builder)
+        var result = Scrub(value, DateMatchers.DateTimeOffsets("yyyy-MM-dd", CultureInfo.InvariantCulture), counter);
+        await Verify(result)
             .UseTextForParameters(name);
     }
 
@@ -49,9 +56,8 @@ public class DateScrubberTests
     public async Task VariableLengthDateTimeOffsets(string value, string name)
     {
         using var counter = Counter.Start();
-        var builder = new StringBuilder(value);
-        DateScrubber.ReplaceDateTimeOffsets(builder, "yyyy MMMM dd dddd", counter, CultureInfo.InvariantCulture);
-        await Verify(builder)
+        var result = Scrub(value, DateMatchers.DateTimeOffsets("yyyy MMMM dd dddd", CultureInfo.InvariantCulture), counter);
+        await Verify(result)
             .UseTextForParameters(name);
     }
 
@@ -79,10 +85,34 @@ public class DateScrubberTests
     public async Task DateTimes(string value, string name)
     {
         using var counter = Counter.Start();
-        var builder = new StringBuilder(value);
-        DateScrubber.ReplaceDateTimes(builder, "yyyy-MM-dd", counter, CultureInfo.InvariantCulture);
-        await Verify(builder)
+        var result = Scrub(value, DateMatchers.DateTimes("yyyy-MM-dd", CultureInfo.InvariantCulture), counter);
+        await Verify(result)
             .UseTextForParameters(name);
+    }
+
+    [Fact]
+    public void StandardFormat_AllCultures()
+    {
+        // Single char standard formats expand per culture; the digit prefilter
+        // analysis runs on the expanded pattern and must never suppress a real match
+        foreach (var culture in CultureInfo.GetCultures(CultureTypes.AllCultures))
+        {
+            using var counter = Counter.Start();
+            var dateTime = DateTime.Now;
+            var value = dateTime.ToString("d", culture);
+            var result = Scrub($"a {value} b", DateMatchers.DateTimes("d", culture), counter);
+            if (result == "a DateTime_1 b")
+            {
+                continue;
+            }
+
+            throw new(
+                $"""
+                 {culture.DisplayName} {culture.Name}
+                 {result}
+                 {value}
+                 """);
+        }
     }
 
     [Fact]
@@ -91,7 +121,7 @@ public class DateScrubberTests
         foreach (var culture in CultureInfo.GetCultures(CultureTypes.AllCultures))
         {
             var format = "yyyy MMMM MMM MM dddd ddd dd d HH H mm m ss s fffff tt";
-            var counter = Counter.Start();
+            using var counter = Counter.Start();
             var dateTime = DateTime.Now;
 
             var dateFormat = culture.DateTimeFormat;
@@ -102,9 +132,7 @@ public class DateScrubberTests
             }
 
             var value = dateTime.ToString(format, culture);
-            var builder = new StringBuilder(value);
-            DateScrubber.ReplaceDateTimes(builder, format, counter, culture);
-            var result = builder.ToString();
+            var result = Scrub(value, DateMatchers.DateTimes(format, culture), counter);
             if (result == "DateTime_1")
             {
                 continue;
@@ -131,9 +159,8 @@ public class DateScrubberTests
     public async Task VariableLengthDateTimes(string value, string name)
     {
         using var counter = Counter.Start();
-        var builder = new StringBuilder(value);
-        DateScrubber.ReplaceDateTimes(builder, "yyyy MMMM dd dddd", counter, CultureInfo.InvariantCulture);
-        await Verify(builder)
+        var result = Scrub(value, DateMatchers.DateTimes("yyyy MMMM dd dddd", CultureInfo.InvariantCulture), counter);
+        await Verify(result)
             .UseTextForParameters(name);
     }
 
@@ -162,9 +189,8 @@ public class DateScrubberTests
     public async Task Dates(string value, string name)
     {
         using var counter = Counter.Start();
-        var builder = new StringBuilder(value);
-        DateScrubber.ReplaceDates(builder, "yyyy-MM-dd", counter, CultureInfo.InvariantCulture);
-        await Verify(builder)
+        var result = Scrub(value, DateMatchers.Dates("yyyy-MM-dd", CultureInfo.InvariantCulture), counter);
+        await Verify(result)
             .UseTextForParameters(name);
     }
 
@@ -180,9 +206,8 @@ public class DateScrubberTests
     public async Task VariableLengthDates(string value, string name)
     {
         using var counter = Counter.Start();
-        var builder = new StringBuilder(value);
-        DateScrubber.ReplaceDates(builder, "yyyy MMMM dd dddd", counter, CultureInfo.InvariantCulture);
-        await Verify(builder)
+        var result = Scrub(value, DateMatchers.Dates("yyyy MMMM dd dddd", CultureInfo.InvariantCulture), counter);
+        await Verify(result)
             .UseTextForParameters(name);
     }
 

@@ -25,7 +25,9 @@ static partial class ScrubEngine
     static List<Chunk>? LinePhase(string source, EngineScrubberSet set)
     {
         var endsWithNewline = source[^1] == '\n';
-        var items = new List<LineItem>();
+        // Created on the first change, so a document no line scrubber touches
+        // allocates nothing
+        List<LineItem>? items = null;
         var changed = false;
 
         // Coalesce runs of adjacent untouched kept lines (including their inner
@@ -37,7 +39,7 @@ static partial class ScrubEngine
         {
             if (runStart is { } start)
             {
-                items.Add(new(start, runEnd, null));
+                (items ??= []).Add(new(start, runEnd, null));
                 runStart = null;
             }
         }
@@ -70,7 +72,7 @@ static partial class ScrubEngine
                 {
                     changed = true;
                     FlushRun();
-                    items.Add(new(0, 0, current));
+                    (items ??= []).Add(new(0, 0, current));
                 }
                 else
                 {
@@ -87,12 +89,12 @@ static partial class ScrubEngine
             position = newlineIndex + 1;
         }
 
-        FlushRun();
-
-        // RemoveEmptyLines trims the trailing newline even when no line was dropped
+        // RemoveEmptyLines trims the trailing newline even when no line was dropped.
+        // Checked before the final flush so an untouched document stays unallocated:
+        // flushing would produce an item exactly when one exists or a run is pending.
         if (set.TrimOuterEmptyLines &&
             endsWithNewline &&
-            items.Count > 0)
+            (items != null || runStart != null))
         {
             changed = true;
         }
@@ -102,11 +104,14 @@ static partial class ScrubEngine
             return null;
         }
 
-        var chunks = new List<Chunk>(items.Count + 1);
-        for (var index = 0; index < items.Count; index++)
+        FlushRun();
+
+        var itemCount = items?.Count ?? 0;
+        var chunks = new List<Chunk>(itemCount + 1);
+        for (var index = 0; index < itemCount; index++)
         {
-            var item = items[index];
-            var needsSeparator = index < items.Count - 1 ||
+            var item = items![index];
+            var needsSeparator = index < itemCount - 1 ||
                                  (endsWithNewline && !set.TrimOuterEmptyLines);
 
             if (item.Fresh is { } fresh)

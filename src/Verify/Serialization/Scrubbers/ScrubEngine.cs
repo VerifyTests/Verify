@@ -111,8 +111,9 @@ static partial class ScrubEngine
             // the instance built for the culture in effect for this scrub
             var scrubber = registered.Resolve();
 
-            chunks ??= [new(source, 0, source.Length, scannable: true)];
-            if (ApplyInline(chunks, scrubber, counter, context) is { } applied)
+            // chunks stays null until something matches, so a pass that changes
+            // nothing allocates nothing
+            if (ApplyInline(chunks, source, scrubber, counter, context) is { } applied)
             {
                 chunks = applied;
                 changed = true;
@@ -123,31 +124,18 @@ static partial class ScrubEngine
         if (applyDirectoryReplacements)
         {
             var pairs = DirectoryReplacements.Items;
-            if (pairs.Count > 0)
+            // When nothing has run the source is still the whole document, so its
+            // length gates the scan. Once a scrubber has run the document may have
+            // grown past the shortest find, and ApplyDirectoryReplacements skips any
+            // chunk that is too short on its own.
+            if (pairs.Count > 0 &&
+                (chunks != null ||
+                 source.Length >= DirectoryReplacements.ShortestFindLength))
             {
-                if (chunks == null)
+                if (ApplyDirectoryReplacements(chunks, source, pairs) is { } replaced)
                 {
-                    // Nothing has run, so the source is still the whole document
-                    if (source.Length >= DirectoryReplacements.ShortestFindLength)
-                    {
-                        chunks = [new(source, 0, source.Length, scannable: true)];
-                        if (ApplyDirectoryReplacements(chunks, pairs) is { } replaced)
-                        {
-                            chunks = replaced;
-                            changed = true;
-                        }
-                    }
-                }
-                else
-                {
-                    // A scrubber may have grown the document past the shortest find,
-                    // so the pre-scrub length cannot gate this. ApplyDirectoryReplacements
-                    // skips any chunk that is too short on its own.
-                    if (ApplyDirectoryReplacements(chunks, pairs) is { } replaced)
-                    {
-                        chunks = replaced;
-                        changed = true;
-                    }
+                    chunks = replaced;
+                    changed = true;
                 }
             }
         }
@@ -162,14 +150,15 @@ static partial class ScrubEngine
 
     // Rebuilds the list, as ApplyInline does. Path replacements are never empty, so
     // no join can appear and the result needs no coalescing.
-    static List<Chunk>? ApplyDirectoryReplacements(List<Chunk> chunks, List<DirectoryReplacements.Pair> pairs)
+    static List<Chunk>? ApplyDirectoryReplacements(List<Chunk>? chunks, string source, List<DirectoryReplacements.Pair> pairs)
     {
         var shortest = pairs[^1].Find.Length;
         List<Chunk>? output = null;
+        var count = chunks?.Count ?? 1;
 
-        for (var index = 0; index < chunks.Count; index++)
+        for (var index = 0; index < count; index++)
         {
-            var chunk = chunks[index];
+            var chunk = chunks?[index] ?? new(source, 0, source.Length, scannable: true);
             if (!chunk.Scannable ||
                 chunk.Length < shortest)
             {
@@ -177,7 +166,7 @@ static partial class ScrubEngine
                 continue;
             }
 
-            var after = index + 1 < chunks.Count ? chunks[index + 1].First : (char?) null;
+            var after = chunks != null && index + 1 < count ? chunks[index + 1].First : (char?) null;
             var offset = 0;
             while (chunk.Length - offset >= shortest)
             {
@@ -294,7 +283,8 @@ static partial class ScrubEngine
     // Returns null when nothing matched, leaving the caller's list untouched and
     // unallocated.
     static List<Chunk>? ApplyInline(
-        List<Chunk> chunks,
+        List<Chunk>? chunks,
+        string source,
         Scrubber scrubber,
         Counter counter,
         IReadOnlyDictionary<string, object> context)
@@ -302,10 +292,13 @@ static partial class ScrubEngine
         var effectiveMin = Math.Max(1, scrubber.MinLength);
         List<Chunk>? output = null;
         var deleted = false;
+        var count = chunks?.Count ?? 1;
 
-        for (var index = 0; index < chunks.Count; index++)
+        for (var index = 0; index < count; index++)
         {
-            var chunk = chunks[index];
+            // A null list means nothing has changed yet, so the document is still
+            // the whole source
+            var chunk = chunks?[index] ?? new(source, 0, source.Length, scannable: true);
             if (!chunk.Scannable ||
                 chunk.Length < effectiveMin)
             {
@@ -314,7 +307,7 @@ static partial class ScrubEngine
             }
 
             // Chunks past this one are untouched, so the following neighbor is fixed
-            var after = index + 1 < chunks.Count ? chunks[index + 1].First : (char?) null;
+            var after = chunks != null && index + 1 < count ? chunks[index + 1].First : (char?) null;
             var offset = 0;
             while (chunk.Length - offset >= effectiveMin)
             {
@@ -367,12 +360,12 @@ static partial class ScrubEngine
     }
 
     // The chunks before index are emitted unchanged, so they seed the rebuilt list
-    static List<Chunk> CopyUpTo(List<Chunk> chunks, int index)
+    static List<Chunk> CopyUpTo(List<Chunk>? chunks, int index)
     {
-        var output = new List<Chunk>(chunks.Count + 4);
+        var output = new List<Chunk>((chunks?.Count ?? 1) + 4);
         for (var copied = 0; copied < index; copied++)
         {
-            output.Add(chunks[copied]);
+            output.Add(chunks![copied]);
         }
 
         return output;
@@ -380,14 +373,14 @@ static partial class ScrubEngine
 
     // The char before the position being scanned: the last one emitted so far, or
     // the end of the preceding chunk while nothing has been emitted
-    static char? PrecedingChar(List<Chunk>? output, List<Chunk> chunks, int index)
+    static char? PrecedingChar(List<Chunk>? output, List<Chunk>? chunks, int index)
     {
         if (output != null)
         {
             return output.Count > 0 ? output[^1].Last : null;
         }
 
-        return index > 0 ? chunks[index - 1].Last : null;
+        return chunks != null && index > 0 ? chunks[index - 1].Last : null;
     }
 
     // An empty replacement quarantines nothing, so the document text on either

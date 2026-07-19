@@ -6,7 +6,7 @@ Multiple scrubbers [can be defined at multiple levels](#Scrubber-levels).
 
 Scrubbing is performed by two mechanisms:
 
- * **The scrub engine**: a span based engine that executes `Scrubber` definitions. All built-in scrubbing (`ScrubLinesContaining`, `ScrubInlineGuids`, `ScrubMachineName`, etc) runs on the engine.
+ * **The scrub engine**: a span based engine that performs all built-in scrubbing (`ScrubLinesContaining`, `ScrubInlineGuids`, `ScrubMachineName`, etc).
  * **Legacy scrubbers**: `AddScrubber(Action<StringBuilder>)` overloads. These run after the engine, and only when at least one is registered.
 
 
@@ -21,11 +21,7 @@ Each engine operation is available as a `Scrub*` method at any [level](#Scrubber
 
 snippet: ScrubEngine
 
-To reuse a scrubbing operation across levels or expose one from a helper library, create a `Scrubber` via the equivalent static factory methods (`Scrubber.Replace`, `Scrubber.Window`, `Scrubber.Match`, `Scrubber.RemoveLinesContaining`, `Scrubber.RemoveLines`, `Scrubber.ReplaceLines`, `Scrubber.RemoveEmptyLines`) and register it via `AddScrubber`:
-
-snippet: AddScrubberEngine
-
-`ScrubLines` and `ScrubLinesWithReplace` (and the corresponding `Scrubber` factories) also accept span based delegates (`LineMatch` / `LineReplace`) that avoid allocating a string per line. Use an explicitly typed lambda parameter to select them, e.g. `ScrubLines((ReadOnlySpan<char> line) => ...)`; untyped lambdas bind the string overloads.
+`ScrubLines` and `ScrubLinesWithReplace` also accept span based delegates (`LineMatch` / `LineReplace`) that avoid allocating a string per line. Use an explicitly typed lambda parameter to select them, e.g. `ScrubLines((ReadOnlySpan<char> line) => ...)`; untyped lambdas bind the string overloads.
 
 Engine semantics:
 

@@ -13,7 +13,7 @@ Multiple scrubbers [can be defined at multiple levels](#Scrubber-levels).
 
 Scrubbing is performed by two mechanisms:
 
- * **The scrub engine**: a span based engine that executes `Scrubber` definitions. All built-in scrubbing (`ScrubLinesContaining`, `ScrubInlineGuids`, `ScrubMachineName`, etc) runs on the engine.
+ * **The scrub engine**: a span based engine that performs all built-in scrubbing (`ScrubLinesContaining`, `ScrubInlineGuids`, `ScrubMachineName`, etc).
  * **Legacy scrubbers**: `AddScrubber(Action<StringBuilder>)` overloads. These run after the engine, and only when at least one is registered.
 
 
@@ -47,18 +47,7 @@ verifySettings.ScrubWindow(
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2106-L2123' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubEngine' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-To reuse a scrubbing operation across levels or expose one from a helper library, create a `Scrubber` via the equivalent static factory methods (`Scrubber.Replace`, `Scrubber.Window`, `Scrubber.Match`, `Scrubber.RemoveLinesContaining`, `Scrubber.RemoveLines`, `Scrubber.ReplaceLines`, `Scrubber.RemoveEmptyLines`) and register it via `AddScrubber`:
-
-<!-- snippet: AddScrubberEngine -->
-<a id='snippet-AddScrubberEngine'></a>
-```cs
-var scrubber = Scrubber.Replace("abc", "xyz");
-verifySettings.AddScrubber(scrubber);
-```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2125-L2130' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddScrubberEngine' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-`ScrubLines` and `ScrubLinesWithReplace` (and the corresponding `Scrubber` factories) also accept span based delegates (`LineMatch` / `LineReplace`) that avoid allocating a string per line. Use an explicitly typed lambda parameter to select them, e.g. `ScrubLines((ReadOnlySpan<char> line) => ...)`; untyped lambdas bind the string overloads.
+`ScrubLines` and `ScrubLinesWithReplace` also accept span based delegates (`LineMatch` / `LineReplace`) that avoid allocating a string per line. Use an explicitly typed lambda parameter to select them, e.g. `ScrubLines((ReadOnlySpan<char> line) => ...)`; untyped lambdas bind the string overloads.
 
 Engine semantics:
 
@@ -799,7 +788,7 @@ Scrubbers can be scoped to verified files with a matching extension by passing t
 ```cs
 verifySettings.ScrubReplace("json", "abc", "xyz");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2132-L2136' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubEngineExtension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2125-L2129' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubEngineExtension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 A scrubber registered this way runs only for verified files with that extension, while a scrubber registered without an extension runs for all of them. Extension scoping is available at every [level](#Scrubber-levels), and for the legacy `AddScrubber(Action<StringBuilder>)` overloads.

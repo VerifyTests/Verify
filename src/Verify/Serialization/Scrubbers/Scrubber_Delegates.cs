@@ -2,7 +2,7 @@ namespace VerifyTests;
 
 /// <summary>
 /// Attempts to match a candidate window of text.
-/// The window length is between the minLength and maxLength of the owning <see cref="Scrubber" /> and never contains a line break.
+/// The window length is between the minLength and maxLength given at registration and never contains a line break.
 /// Return the replacement text, or null when the window is not a match.
 /// </summary>
 public delegate string? WindowMatch(

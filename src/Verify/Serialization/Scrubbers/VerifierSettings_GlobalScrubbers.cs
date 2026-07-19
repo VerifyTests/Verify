@@ -9,7 +9,7 @@ public static partial class VerifierSettings
     /// <summary>
     /// Add a <see cref="Scrubber" /> that applies to all verified files.
     /// </summary>
-    public static void AddScrubber(Scrubber scrubber)
+    internal static void AddScrubber(Scrubber scrubber)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         Ensure.NotNull(scrubber);

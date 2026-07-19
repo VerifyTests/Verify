@@ -2122,13 +2122,6 @@ public class SerializationTests
 
         #endregion
 
-        #region AddScrubberEngine
-
-        var scrubber = Scrubber.Replace("abc", "xyz");
-        verifySettings.AddScrubber(scrubber);
-
-        #endregion
-
         #region ScrubEngineExtension
 
         verifySettings.ScrubReplace("json", "abc", "xyz");

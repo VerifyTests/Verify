@@ -12,7 +12,7 @@ public partial class SettingsTask
 
     /// <inheritdoc cref="VerifySettings.AddScrubber(Scrubber)"/>
     [Pure]
-    public SettingsTask AddScrubber(Scrubber scrubber)
+    internal SettingsTask AddScrubber(Scrubber scrubber)
     {
         CurrentSettings.AddScrubber(scrubber);
         return this;
@@ -20,7 +20,7 @@ public partial class SettingsTask
 
     /// <inheritdoc cref="VerifySettings.AddScrubber(string,Scrubber)"/>
     [Pure]
-    public SettingsTask AddScrubber(string extension, Scrubber scrubber)
+    internal SettingsTask AddScrubber(string extension, Scrubber scrubber)
     {
         CurrentSettings.AddScrubber(extension, scrubber);
         return this;

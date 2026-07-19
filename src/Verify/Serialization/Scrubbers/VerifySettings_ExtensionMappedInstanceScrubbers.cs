@@ -9,7 +9,7 @@ public partial class VerifySettings
     /// <summary>
     /// Add a <see cref="Scrubber" /> that applies to verified files with a matching extension.
     /// </summary>
-    public void AddScrubber(string extension, Scrubber scrubber)
+    internal void AddScrubber(string extension, Scrubber scrubber)
     {
         Ensure.NotNull(scrubber);
         ExtensionMappedInstanceSpanScrubbers ??= [];

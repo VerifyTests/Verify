@@ -13,7 +13,7 @@ public partial class VerifySettings
     /// <summary>
     /// Add a <see cref="Scrubber" />.
     /// </summary>
-    public void AddScrubber(Scrubber scrubber)
+    internal void AddScrubber(Scrubber scrubber)
     {
         Ensure.NotNull(scrubber);
         InstanceSpanScrubbers ??= [];

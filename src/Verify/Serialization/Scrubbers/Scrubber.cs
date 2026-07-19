@@ -1,5 +1,3 @@
-namespace VerifyTests;
-
 /// <summary>
 /// Defines a scrubbing operation executed by the span based scrub engine.
 /// </summary>
@@ -19,7 +17,7 @@ namespace VerifyTests;
 /// <item><b>Word boundary</b>: when required, a match is rejected if the character on either side is a letter or digit.</item>
 /// </list>
 /// </remarks>
-public sealed class Scrubber
+sealed class Scrubber
 {
     internal ScrubberKind Kind { get; }
     internal int MinLength { get; }

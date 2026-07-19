@@ -1,6 +1,8 @@
 // The line phase: walks the (already newline-normalized) source once, applying line drops first
 // (needle, whitespace, and predicate based) then line transforms in registration order. Drops always
 // evaluate the raw line; transform output becomes fresh scannable source for the inline phase.
+// A transform that returns line breaks produces several lines, and the transforms after it see each
+// of those on its own, since a line transform is defined over a single line.
 // Join semantics replicate the legacy StringReader based line scrubbers: lines are joined with \n,
 // the trailing newline is preserved only when the original ended with one, and RemoveEmptyLines
 // additionally trims the trailing newline.
@@ -192,8 +194,10 @@ static partial class ScrubEngine
     {
         // The most recent replacement text; null while the line is unchanged
         string? current = null;
-        foreach (var transform in lineTransforms)
+        for (var index = 0; index < lineTransforms.Length; index++)
         {
+            var transform = lineTransforms[index];
+            string output;
             switch (transform.Kind)
             {
                 case ScrubberKind.LineTransformSpan:
@@ -204,30 +208,124 @@ static partial class ScrubEngine
                         return (true, null);
                     }
 
-                    if (result.Kind == LineResult.ReplaceKind)
+                    if (result.Kind != LineResult.ReplaceKind)
                     {
-                        current = result.Text!;
+                        continue;
                     }
 
-                    continue;
+                    output = result.Text!;
+                    break;
                 }
                 case ScrubberKind.LineTransformString:
                 {
                     var input = current ?? (lineString ??= lineSpan.ToString());
-                    var output = transform.LineStringReplacer!(input);
-                    if (output == null)
+                    var replaced = transform.LineStringReplacer!(input);
+                    if (replaced == null)
                     {
                         return (true, null);
                     }
 
-                    current = Scrubber.NormalizeNewlines(output);
-                    continue;
+                    output = Scrubber.NormalizeNewlines(replaced);
+                    break;
                 }
                 default:
                     throw new($"Unexpected line transform kind: {transform.Kind}");
             }
+
+            current = output;
+
+            // A replacement holding line breaks is several lines, and a line
+            // transform is defined over one line, so the remaining transforms see
+            // each produced line on its own. The pre engine pipeline did this by
+            // re-reading the document between passes.
+            if (output.Contains('\n'))
+            {
+                return ApplyToProducedLines(output, lineTransforms, index + 1);
+            }
         }
 
         return (false, current);
+    }
+
+    // The remaining transforms over each line of a multi line replacement.
+    // Splitting and joining on '\n' are exact inverses, so transforms that change
+    // nothing leave the text as it was.
+    static (bool removed, string? current) ApplyToProducedLines(string text, Scrubber[] lineTransforms, int startIndex)
+    {
+        if (startIndex == lineTransforms.Length)
+        {
+            return (false, text);
+        }
+
+        var lines = new List<string>(text.Split('\n'));
+        for (var index = startIndex; index < lineTransforms.Length; index++)
+        {
+            var transform = lineTransforms[index];
+            var next = new List<string>(lines.Count);
+            foreach (var line in lines)
+            {
+                if (!TryTransformLine(transform, line, out var replacement))
+                {
+                    continue;
+                }
+
+                if (replacement == null)
+                {
+                    next.Add(line);
+                    continue;
+                }
+
+                if (replacement.Contains('\n'))
+                {
+                    next.AddRange(replacement.Split('\n'));
+                    continue;
+                }
+
+                next.Add(replacement);
+            }
+
+            lines = next;
+        }
+
+        if (lines.Count == 0)
+        {
+            return (true, null);
+        }
+
+        return (false, string.Join("\n", lines));
+    }
+
+    // False when the line is removed. replacement is null when it is unchanged.
+    static bool TryTransformLine(Scrubber transform, string line, out string? replacement)
+    {
+        switch (transform.Kind)
+        {
+            case ScrubberKind.LineTransformSpan:
+            {
+                var result = transform.LineReplacer!(line.AsSpan());
+                if (result.Kind == LineResult.RemoveKind)
+                {
+                    replacement = null;
+                    return false;
+                }
+
+                replacement = result.Kind == LineResult.ReplaceKind ? result.Text! : null;
+                return true;
+            }
+            case ScrubberKind.LineTransformString:
+            {
+                var output = transform.LineStringReplacer!(line);
+                if (output == null)
+                {
+                    replacement = null;
+                    return false;
+                }
+
+                replacement = Scrubber.NormalizeNewlines(output);
+                return true;
+            }
+            default:
+                throw new($"Unexpected line transform kind: {transform.Kind}");
+        }
     }
 }

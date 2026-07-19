@@ -122,4 +122,34 @@ public static partial class VerifierSettings
     /// </summary>
     public static void ScrubUserName(string extension) =>
         AddScrubber(extension, UserMachineScrubber.UserScrubber());
+
+    /// <summary>
+    /// Replace every occurrence of <paramref name="find" /> with <paramref name="replacement" />.
+    /// <paramref name="comparison" /> must be <see cref="StringComparison.Ordinal" /> or <see cref="StringComparison.OrdinalIgnoreCase" />.
+    /// </summary>
+    public static void ScrubReplace(string extension, string find, string replacement, StringComparison comparison = StringComparison.Ordinal, bool requireWordBoundary = false) =>
+        AddScrubber(extension, Scrubber.Replace(find, replacement, comparison, requireWordBoundary));
+
+    /// <summary>
+    /// Replace every occurrence of each Find with its Replacement.
+    /// At a given position the longest matching Find wins.
+    /// <paramref name="comparison" /> must be <see cref="StringComparison.Ordinal" /> or <see cref="StringComparison.OrdinalIgnoreCase" />.
+    /// </summary>
+    public static void ScrubReplace(string extension, StringComparison comparison, bool requireWordBoundary, params (string Find, string Replacement)[] pairs) =>
+        AddScrubber(extension, Scrubber.Replace(comparison, requireWordBoundary, pairs));
+
+    /// <summary>
+    /// Match candidate windows of text between <paramref name="minLength" /> and <paramref name="maxLength" /> characters.
+    /// At each position the engine tries the longest window first.
+    /// </summary>
+    public static void ScrubWindow(string extension, int minLength, int maxLength, WindowMatch matcher, bool requireWordBoundary = false) =>
+        AddScrubber(extension, Scrubber.Window(minLength, maxLength, matcher, requireWordBoundary));
+
+    /// <summary>
+    /// Find matches using custom search logic.
+    /// <paramref name="minLength" />: segments shorter than this are skipped (null scans everything).
+    /// <paramref name="maxLength" />: used for ordering only; null (unknown) runs before all known length scrubbers.
+    /// </summary>
+    public static void ScrubMatch(string extension, SegmentMatch matcher, int? minLength = null, int? maxLength = null) =>
+        AddScrubber(extension, Scrubber.Match(matcher, minLength, maxLength));
 }

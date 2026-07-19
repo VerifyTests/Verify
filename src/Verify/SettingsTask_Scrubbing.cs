@@ -263,4 +263,68 @@ public partial class SettingsTask
         CurrentSettings.ScrubLinesContaining(stringToMatch);
         return this;
     }
+
+    /// <inheritdoc cref="VerifySettings.ScrubReplace(string,string,StringComparison,bool)"/>
+    [Pure]
+    public SettingsTask ScrubReplace(string find, string replacement, StringComparison comparison = StringComparison.Ordinal, bool requireWordBoundary = false)
+    {
+        CurrentSettings.ScrubReplace(find, replacement, comparison, requireWordBoundary);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.ScrubReplace(string,string,string,StringComparison,bool)"/>
+    [Pure]
+    public SettingsTask ScrubReplace(string extension, string find, string replacement, StringComparison comparison = StringComparison.Ordinal, bool requireWordBoundary = false)
+    {
+        CurrentSettings.ScrubReplace(extension, find, replacement, comparison, requireWordBoundary);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.ScrubReplace(StringComparison,bool,ValueTuple{string,string}[])"/>
+    [Pure]
+    public SettingsTask ScrubReplace(StringComparison comparison, bool requireWordBoundary, params (string Find, string Replacement)[] pairs)
+    {
+        CurrentSettings.ScrubReplace(comparison, requireWordBoundary, pairs);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.ScrubReplace(string,StringComparison,bool,ValueTuple{string,string}[])"/>
+    [Pure]
+    public SettingsTask ScrubReplace(string extension, StringComparison comparison, bool requireWordBoundary, params (string Find, string Replacement)[] pairs)
+    {
+        CurrentSettings.ScrubReplace(extension, comparison, requireWordBoundary, pairs);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.ScrubWindow(int,int,WindowMatch,bool)"/>
+    [Pure]
+    public SettingsTask ScrubWindow(int minLength, int maxLength, WindowMatch matcher, bool requireWordBoundary = false)
+    {
+        CurrentSettings.ScrubWindow(minLength, maxLength, matcher, requireWordBoundary);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.ScrubWindow(string,int,int,WindowMatch,bool)"/>
+    [Pure]
+    public SettingsTask ScrubWindow(string extension, int minLength, int maxLength, WindowMatch matcher, bool requireWordBoundary = false)
+    {
+        CurrentSettings.ScrubWindow(extension, minLength, maxLength, matcher, requireWordBoundary);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.ScrubMatch(SegmentMatch,int?,int?)"/>
+    [Pure]
+    public SettingsTask ScrubMatch(SegmentMatch matcher, int? minLength = null, int? maxLength = null)
+    {
+        CurrentSettings.ScrubMatch(matcher, minLength, maxLength);
+        return this;
+    }
+
+    /// <inheritdoc cref="VerifySettings.ScrubMatch(string,SegmentMatch,int?,int?)"/>
+    [Pure]
+    public SettingsTask ScrubMatch(string extension, SegmentMatch matcher, int? minLength = null, int? maxLength = null)
+    {
+        CurrentSettings.ScrubMatch(extension, matcher, minLength, maxLength);
+        return this;
+    }
 }

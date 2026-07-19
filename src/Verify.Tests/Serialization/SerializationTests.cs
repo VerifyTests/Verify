@@ -2023,6 +2023,39 @@ public class SerializationTests
             Property = "a\r\nb\\nc"
         });
 
+    [Fact]
+    public Task ScrubEngineMethods() =>
+        Verify("value id-123 abc")
+            .ScrubReplace("abc", "xyz")
+            .ScrubWindow(
+                minLength: 4,
+                maxLength: 6,
+                matcher: (window, _, _) =>
+                {
+                    if (window.Length == 6 &&
+                        window.StartsWith("id-"))
+                    {
+                        return "{Id}";
+                    }
+
+                    return null;
+                })
+            .ScrubMatch(
+                (ReadOnlySpan<char> segment, Counter _, IReadOnlyDictionary<string, object> _, out int index, out int length, out string? replacement) =>
+                {
+                    index = segment.IndexOf("value".AsSpan());
+                    if (index == -1)
+                    {
+                        length = 0;
+                        replacement = null;
+                        return false;
+                    }
+
+                    length = "value".Length;
+                    replacement = "{Value}";
+                    return true;
+                });
+
     // ReSharper disable once UnusedMember.Local
     static void List()
     {
@@ -2070,29 +2103,35 @@ public class SerializationTests
 
         #endregion
 
-        #region AddScrubberEngine
+        #region ScrubEngine
 
-        verifySettings.AddScrubber(Scrubber.Replace("abc", "xyz"));
+        verifySettings.ScrubReplace("abc", "xyz");
 
-        verifySettings.AddScrubber(
-            Scrubber.Window(
-                minLength: 3,
-                maxLength: 10,
-                matcher: (window, _, _) =>
+        verifySettings.ScrubWindow(
+            minLength: 3,
+            maxLength: 10,
+            matcher: (window, _, _) =>
+            {
+                if (window.StartsWith("id-"))
                 {
-                    if (window.StartsWith("id-"))
-                    {
-                        return "{Id}";
-                    }
+                    return "{Id}";
+                }
 
-                    return null;
-                }));
+                return null;
+            });
 
         #endregion
 
-        #region AddScrubberEngineExtension
+        #region AddScrubberEngine
 
-        verifySettings.AddScrubber("json", Scrubber.Replace("abc", "xyz"));
+        var scrubber = Scrubber.Replace("abc", "xyz");
+        verifySettings.AddScrubber(scrubber);
+
+        #endregion
+
+        #region ScrubEngineExtension
+
+        verifySettings.ScrubReplace("json", "abc", "xyz");
 
         #endregion
     }

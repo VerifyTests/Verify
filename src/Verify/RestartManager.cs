@@ -1,10 +1,10 @@
 [SupportedOSPlatform("windows")]
 static class RestartManager
 {
-    const int RmRebootReasonNone = 0;
-    const int CchRmMaxAppName = 255;
-    const int CchRmMaxSvcName = 63;
-    const int ErrorMoreData = 234;
+    const int rmRebootReasonNone = 0;
+    const int cchRmMaxAppName = 255;
+    const int cchRmMaxSvcName = 63;
+    const int errorMoreData = 234;
 
     [StructLayout(LayoutKind.Sequential)]
     struct RM_UNIQUE_PROCESS
@@ -29,10 +29,10 @@ static class RestartManager
     {
         public RM_UNIQUE_PROCESS Process;
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = CchRmMaxAppName + 1)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = cchRmMaxAppName + 1)]
         public string strAppName;
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = CchRmMaxSvcName + 1)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = cchRmMaxSvcName + 1)]
         public string strServiceShortName;
 
         public RM_APP_TYPE ApplicationType;
@@ -91,7 +91,7 @@ static class RestartManager
             }
 
             uint pnProcInfo = 0;
-            var rebootReasons = (uint) RmRebootReasonNone;
+            var rebootReasons = (uint) rmRebootReasonNone;
 
             var listResult = RmGetList(handle, out var pnProcInfoNeeded, ref pnProcInfo, null, ref rebootReasons);
             if (listResult == 0)
@@ -99,7 +99,7 @@ static class RestartManager
                 return processes;
             }
 
-            if (listResult != ErrorMoreData)
+            if (listResult != errorMoreData)
             {
                 return processes;
             }

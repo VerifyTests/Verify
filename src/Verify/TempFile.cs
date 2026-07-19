@@ -65,43 +65,8 @@ public class TempFile :
             },
             after: () => asyncPaths.Value = null);
 
-        // All temp file paths start with RootDirectory, so segments shorter than
-        // that can be skipped without invoking the matcher
         VerifierSettings.AddScrubber(
-            Scrubber.Match(
-                (CharSpan segment, Counter _, IReadOnlyDictionary<string, object> _, out int index, out int length, out string? replacement) =>
-                {
-                    index = -1;
-                    length = 0;
-                    replacement = "{TempFile}";
-                    var pathsValue = asyncPaths.Value;
-                    if (pathsValue == null)
-                    {
-                        return false;
-                    }
-
-                    lock (pathsLock)
-                    {
-                        foreach (var path in pathsValue)
-                        {
-                            var found = segment.IndexOf(path.AsSpan(), StringComparison.Ordinal);
-                            if (found < 0)
-                            {
-                                continue;
-                            }
-
-                            if (index < 0 ||
-                                found < index)
-                            {
-                                index = found;
-                                length = path.Length;
-                            }
-                        }
-                    }
-
-                    return index >= 0;
-                },
-                minLength: RootDirectory.Length));
+            TempPathScrubber.Build(asyncPaths, pathsLock, "{TempFile}", RootDirectory.Length));
 
         Cleanup();
     }

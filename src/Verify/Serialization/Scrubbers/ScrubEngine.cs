@@ -115,11 +115,24 @@ static partial class ScrubEngine
         if (applyDirectoryReplacements)
         {
             var pairs = DirectoryReplacements.Items;
-            if (pairs.Count > 0 &&
-                source.Length >= DirectoryReplacements.ShortestFindLength)
+            if (pairs.Count > 0)
             {
-                chunks ??= [new(source, 0, source.Length, scannable: true)];
-                changed |= ApplyDirectoryReplacements(chunks, pairs);
+                if (chunks == null)
+                {
+                    // Nothing has run, so the source is still the whole document
+                    if (source.Length >= DirectoryReplacements.ShortestFindLength)
+                    {
+                        chunks = [new(source, 0, source.Length, scannable: true)];
+                        changed |= ApplyDirectoryReplacements(chunks, pairs);
+                    }
+                }
+                else
+                {
+                    // A scrubber may have grown the document past the shortest find,
+                    // so the pre-scrub length cannot gate this. ApplyDirectoryReplacements
+                    // skips any chunk that is too short on its own.
+                    changed |= ApplyDirectoryReplacements(chunks, pairs);
+                }
             }
         }
 
@@ -245,6 +258,7 @@ static partial class ScrubEngine
         IReadOnlyDictionary<string, object> context)
     {
         var changed = false;
+        var deleted = false;
         var effectiveMin = Math.Max(1, scrubber.MinLength);
         var chunkIndex = 0;
         while (chunkIndex < chunks.Count)
@@ -264,10 +278,82 @@ static partial class ScrubEngine
             }
 
             changed = true;
+            deleted |= replacement.Length == 0;
             chunkIndex = Splice(chunks, chunkIndex, matchStart, matchLength, replacement);
         }
 
+        if (deleted)
+        {
+            CoalesceScannable(chunks);
+        }
+
         return changed;
+    }
+
+    // An empty replacement quarantines nothing, so the document text on either
+    // side of it is now adjacent. Merging those chunks keeps later scrubbers, and
+    // the path replacement pass, able to match across the join.
+    // Only called after a pass that deleted, since the line phase legitimately
+    // leaves the whole document as adjacent scannable chunks and merging those
+    // would materialize it for no gain.
+    static void CoalesceScannable(List<Chunk> chunks)
+    {
+        var index = 0;
+        while (index < chunks.Count - 1)
+        {
+            if (!chunks[index].Scannable ||
+                !chunks[index + 1].Scannable)
+            {
+                index++;
+                continue;
+            }
+
+            var end = index + 1;
+            while (end + 1 < chunks.Count &&
+                   chunks[end + 1].Scannable)
+            {
+                end++;
+            }
+
+            var merged = Merge(chunks, index, end);
+            chunks.RemoveRange(index, end - index + 1);
+            chunks.Insert(index, merged);
+            index++;
+        }
+    }
+
+    static Chunk Merge(List<Chunk> chunks, int start, int end)
+    {
+        var first = chunks[start];
+        var total = first.Length;
+        var contiguous = true;
+        for (var index = start + 1; index <= end; index++)
+        {
+            var chunk = chunks[index];
+            var previous = chunks[index - 1];
+            if (!ReferenceEquals(chunk.Text, previous.Text) ||
+                previous.Start + previous.Length != chunk.Start)
+            {
+                contiguous = false;
+            }
+
+            total += chunk.Length;
+        }
+
+        // Slices of the same string that are already adjacent need no allocation
+        if (contiguous)
+        {
+            return new(first.Text, first.Start, total, scannable: true);
+        }
+
+        var builder = new StringBuilder(total);
+        for (var index = start; index <= end; index++)
+        {
+            var chunk = chunks[index];
+            builder.Append(chunk.Text, chunk.Start, chunk.Length);
+        }
+
+        return new(builder.ToString(), 0, total, scannable: true);
     }
 
     // Splits the chunk at chunkIndex into [prefix][replacement][suffix].

@@ -97,6 +97,7 @@ public sealed class Scrubber
 
     /// <summary>
     /// Replace every occurrence of <paramref name="find" /> with <paramref name="replacement" />.
+    /// <paramref name="comparison" /> must be <see cref="StringComparison.Ordinal" /> or <see cref="StringComparison.OrdinalIgnoreCase" />.
     /// </summary>
     public static Scrubber Replace(
         string find,
@@ -106,6 +107,7 @@ public sealed class Scrubber
     {
         ValidateFind(find);
         Ensure.NotNull(replacement);
+        ValidateOrdinal(comparison);
         return new(
             ScrubberKind.Replace,
             minLength: find.Length,
@@ -118,6 +120,7 @@ public sealed class Scrubber
     /// <summary>
     /// Replace every occurrence of each Find with its Replacement.
     /// At a given position the longest matching Find wins.
+    /// <paramref name="comparison" /> must be <see cref="StringComparison.Ordinal" /> or <see cref="StringComparison.OrdinalIgnoreCase" />.
     /// </summary>
     public static Scrubber Replace(
         StringComparison comparison,
@@ -125,6 +128,7 @@ public sealed class Scrubber
         params (string Find, string Replacement)[] pairs)
     {
         Ensure.NotNullOrEmpty(pairs);
+        ValidateOrdinal(comparison);
         var ordered = new (string Find, string Replacement)[pairs.Length];
         for (var index = 0; index < pairs.Length; index++)
         {
@@ -255,7 +259,9 @@ public sealed class Scrubber
 
         return new(
             ScrubberKind.LineDropNeedles,
-            minLength: minLength,
+            // A linguistic comparison can match a run shorter than the needle, so
+            // a line shorter than the needle cannot be skipped unread
+            minLength: IsOrdinal(comparison) ? minLength : 0,
             comparison: comparison,
             needles: copy);
     }
@@ -328,6 +334,28 @@ public sealed class Scrubber
             .Replace("\r\n", "\n")
             .Replace('\r', '\n');
     }
+
+    // A replacement splices out exactly Find.Length chars, and the engine skips
+    // text shorter than Find. Both only hold for ordinal comparisons: a linguistic
+    // comparison can match a run of a different length than Find (for example an
+    // ignorable soft hyphen, or 'ss' matching 'ß'), which would splice the wrong
+    // range.
+    static void ValidateOrdinal(StringComparison comparison)
+    {
+        if (comparison is StringComparison.Ordinal or StringComparison.OrdinalIgnoreCase)
+        {
+            return;
+        }
+
+        throw new ArgumentException(
+            $"Only Ordinal and OrdinalIgnoreCase are supported, but was {comparison}. A linguistic comparison can match a different number of characters than the find, so the match cannot be replaced reliably.",
+            nameof(comparison));
+    }
+
+    // True when a match is guaranteed to be the same length as the needle, so
+    // text shorter than the needle can be skipped without comparing
+    static bool IsOrdinal(StringComparison comparison) =>
+        comparison is StringComparison.Ordinal or StringComparison.OrdinalIgnoreCase;
 
     static void ValidateFind(string find)
     {

@@ -102,7 +102,7 @@ Create a `Scrubber` via static factories and register it with `AddScrubber(Scrub
 (global, instance, extension mapped, fluent):
 
 ```csharp
-// Fixed-string replacement (optional comparison / word boundary)
+// Fixed-string replacement (optional ordinal comparison / word boundary)
 settings.AddScrubber(Scrubber.Replace("find", "replacement"));
 
 // Sliding window matcher (used internally by the guid and date scrubbers)

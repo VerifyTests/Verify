@@ -14,7 +14,7 @@ Scrubbing is performed by two mechanisms:
 
 A `Scrubber` is created via static factory methods and registered via `AddScrubber` at any [level](#Scrubber-levels):
 
- * `Scrubber.Replace(find, replacement)`: replace every occurrence of a string. Supports a `StringComparison` and an optional word boundary requirement. A multi-pair overload replaces the longest matching find at any position.
+ * `Scrubber.Replace(find, replacement)`: replace every occurrence of a string. Supports an ordinal `StringComparison` (`Ordinal` or `OrdinalIgnoreCase`) and an optional word boundary requirement. A multi-pair overload replaces the longest matching find at any position.
  * `Scrubber.Window(minLength, maxLength, matcher)`: slide a window over the text; the matcher returns a replacement or null. Used by the inline guid and date scrubbers.
  * `Scrubber.Match(matcher, minLength, maxLength)`: custom search logic. The matcher locates the next match within a segment.
  * `Scrubber.RemoveLinesContaining(...)`, `Scrubber.RemoveLines(...)`, `Scrubber.ReplaceLines(...)`, `Scrubber.RemoveEmptyLines()`: line scoped scrubbers.

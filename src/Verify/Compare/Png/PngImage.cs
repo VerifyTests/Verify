@@ -14,7 +14,6 @@ public readonly struct PngImage
             throw new ArgumentOutOfRangeException(nameof(height), height, "Must be at least 1.");
         }
 
-        Ensure.NotNull(rgba);
         if (rgba.Length != (long)width * height * 4)
         {
             throw new ArgumentException($"Length must be width * height * 4. Expected: {(long)width * height * 4}. Actual: {rgba.Length}.", nameof(rgba));

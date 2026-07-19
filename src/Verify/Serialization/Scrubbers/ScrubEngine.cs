@@ -112,7 +112,11 @@ static partial class ScrubEngine
             var scrubber = registered.Resolve();
 
             chunks ??= [new(source, 0, source.Length, scannable: true)];
-            changed |= ApplyInline(chunks, scrubber, counter, context);
+            if (ApplyInline(chunks, scrubber, counter, context) is { } applied)
+            {
+                chunks = applied;
+                changed = true;
+            }
         }
 
         // Path replacements are pinned last so user scrubbers always see raw paths
@@ -127,7 +131,11 @@ static partial class ScrubEngine
                     if (source.Length >= DirectoryReplacements.ShortestFindLength)
                     {
                         chunks = [new(source, 0, source.Length, scannable: true)];
-                        changed |= ApplyDirectoryReplacements(chunks, pairs);
+                        if (ApplyDirectoryReplacements(chunks, pairs) is { } replaced)
+                        {
+                            chunks = replaced;
+                            changed = true;
+                        }
                     }
                 }
                 else
@@ -135,7 +143,11 @@ static partial class ScrubEngine
                     // A scrubber may have grown the document past the shortest find,
                     // so the pre-scrub length cannot gate this. ApplyDirectoryReplacements
                     // skips any chunk that is too short on its own.
-                    changed |= ApplyDirectoryReplacements(chunks, pairs);
+                    if (ApplyDirectoryReplacements(chunks, pairs) is { } replaced)
+                    {
+                        chunks = replaced;
+                        changed = true;
+                    }
                 }
             }
         }
@@ -148,47 +160,68 @@ static partial class ScrubEngine
         return null;
     }
 
-    static bool ApplyDirectoryReplacements(List<Chunk> chunks, List<DirectoryReplacements.Pair> pairs)
+    // Rebuilds the list, as ApplyInline does. Path replacements are never empty, so
+    // no join can appear and the result needs no coalescing.
+    static List<Chunk>? ApplyDirectoryReplacements(List<Chunk> chunks, List<DirectoryReplacements.Pair> pairs)
     {
         var shortest = pairs[^1].Find.Length;
-        var changed = false;
-        var chunkIndex = 0;
-        while (chunkIndex < chunks.Count)
+        List<Chunk>? output = null;
+
+        for (var index = 0; index < chunks.Count; index++)
         {
-            var chunk = chunks[chunkIndex];
+            var chunk = chunks[index];
             if (!chunk.Scannable ||
                 chunk.Length < shortest)
             {
-                chunkIndex++;
+                output?.Add(chunk);
                 continue;
             }
 
-            if (!TryFindDirectoryMatch(chunks, chunkIndex, pairs, shortest, out var matchStart, out var matchLength, out var replacement))
+            var after = index + 1 < chunks.Count ? chunks[index + 1].First : (char?) null;
+            var offset = 0;
+            while (chunk.Length - offset >= shortest)
             {
-                chunkIndex++;
-                continue;
+                var span = chunk.Text.AsSpan(chunk.Start + offset, chunk.Length - offset);
+                var before = PrecedingChar(output, chunks, index);
+                if (!TryFindDirectoryMatch(span, before, after, pairs, shortest, out var matchStart, out var matchLength, out var replacement))
+                {
+                    break;
+                }
+
+                output ??= CopyUpTo(chunks, index);
+                if (matchStart > 0)
+                {
+                    output.Add(new(chunk.Text, chunk.Start + offset, matchStart, scannable: true));
+                }
+
+                output.Add(new(replacement, 0, replacement.Length, scannable: false));
+                offset += matchStart + matchLength;
             }
 
-            changed = true;
-            chunkIndex = Splice(chunks, chunkIndex, matchStart, matchLength, replacement);
+            if (output != null)
+            {
+                var remaining = chunk.Length - offset;
+                if (remaining > 0)
+                {
+                    output.Add(new(chunk.Text, chunk.Start + offset, remaining, scannable: true));
+                }
+            }
         }
 
-        return changed;
+        return output;
     }
 
     static bool TryFindDirectoryMatch(
-        List<Chunk> chunks,
-        int chunkIndex,
+        CharSpan span,
+        char? beforeSegment,
+        char? afterSegment,
         List<DirectoryReplacements.Pair> pairs,
         int shortest,
         out int matchStart,
         out int matchLength,
         out string replacement)
     {
-        var span = chunks[chunkIndex].Span;
         var anchors = DirectoryReplacements.ItemAnchors.AsSpan();
-        var beforeSegment = chunkIndex > 0 ? chunks[chunkIndex - 1].Last : (char?) null;
-        var afterSegment = chunkIndex + 1 < chunks.Count ? chunks[chunkIndex + 1].First : (char?) null;
         for (var position = 0; position + shortest <= span.Length; position++)
         {
             // Skip to the next candidate first char
@@ -255,43 +288,106 @@ static partial class ScrubEngine
 #endif
     }
 
-    static bool ApplyInline(
+    // Rebuilds the list instead of splicing in place. An in place remove and insert
+    // shifts every element after the match, so a pass over a list that an earlier
+    // scrubber already fragmented would cost O(matches x chunks).
+    // Returns null when nothing matched, leaving the caller's list untouched and
+    // unallocated.
+    static List<Chunk>? ApplyInline(
         List<Chunk> chunks,
         Scrubber scrubber,
         Counter counter,
         IReadOnlyDictionary<string, object> context)
     {
-        var changed = false;
-        var deleted = false;
         var effectiveMin = Math.Max(1, scrubber.MinLength);
-        var chunkIndex = 0;
-        while (chunkIndex < chunks.Count)
+        List<Chunk>? output = null;
+        var deleted = false;
+
+        for (var index = 0; index < chunks.Count; index++)
         {
-            var chunk = chunks[chunkIndex];
+            var chunk = chunks[index];
             if (!chunk.Scannable ||
                 chunk.Length < effectiveMin)
             {
-                chunkIndex++;
+                output?.Add(chunk);
                 continue;
             }
 
-            if (!TryFindMatch(chunks, chunkIndex, scrubber, counter, context, out var matchStart, out var matchLength, out var replacement))
+            // Chunks past this one are untouched, so the following neighbor is fixed
+            var after = index + 1 < chunks.Count ? chunks[index + 1].First : (char?) null;
+            var offset = 0;
+            while (chunk.Length - offset >= effectiveMin)
             {
-                chunkIndex++;
-                continue;
+                var span = chunk.Text.AsSpan(chunk.Start + offset, chunk.Length - offset);
+                var before = PrecedingChar(output, chunks, index);
+                if (!TryFindMatch(span, before, after, scrubber, counter, context, out var matchStart, out var matchLength, out var replacement))
+                {
+                    break;
+                }
+
+                output ??= CopyUpTo(chunks, index);
+                if (matchStart > 0)
+                {
+                    output.Add(new(chunk.Text, chunk.Start + offset, matchStart, scannable: true));
+                }
+
+                if (replacement.Length > 0)
+                {
+                    output.Add(new(replacement, 0, replacement.Length, scannable: false));
+                }
+                else
+                {
+                    deleted = true;
+                }
+
+                offset += matchStart + matchLength;
             }
 
-            changed = true;
-            deleted |= replacement.Length == 0;
-            chunkIndex = Splice(chunks, chunkIndex, matchStart, matchLength, replacement);
+            if (output != null)
+            {
+                var remaining = chunk.Length - offset;
+                if (remaining > 0)
+                {
+                    output.Add(new(chunk.Text, chunk.Start + offset, remaining, scannable: true));
+                }
+            }
+        }
+
+        if (output == null)
+        {
+            return null;
         }
 
         if (deleted)
         {
-            CoalesceScannable(chunks);
+            CoalesceScannable(output);
         }
 
-        return changed;
+        return output;
+    }
+
+    // The chunks before index are emitted unchanged, so they seed the rebuilt list
+    static List<Chunk> CopyUpTo(List<Chunk> chunks, int index)
+    {
+        var output = new List<Chunk>(chunks.Count + 4);
+        for (var copied = 0; copied < index; copied++)
+        {
+            output.Add(chunks[copied]);
+        }
+
+        return output;
+    }
+
+    // The char before the position being scanned: the last one emitted so far, or
+    // the end of the preceding chunk while nothing has been emitted
+    static char? PrecedingChar(List<Chunk>? output, List<Chunk> chunks, int index)
+    {
+        if (output != null)
+        {
+            return output.Count > 0 ? output[^1].Last : null;
+        }
+
+        return index > 0 ? chunks[index - 1].Last : null;
     }
 
     // An empty replacement quarantines nothing, so the document text on either
@@ -360,39 +456,10 @@ static partial class ScrubEngine
         return new(builder.ToString(), 0, total, scannable: true);
     }
 
-    // Splits the chunk at chunkIndex into [prefix][replacement][suffix].
-    // Returns the index of the suffix chunk (to continue scanning), or the index
-    // after the inserted chunks when the match ended at the chunk end.
-    static int Splice(List<Chunk> chunks, int chunkIndex, int matchStart, int matchLength, string replacement)
-    {
-        var chunk = chunks[chunkIndex];
-        chunks.RemoveAt(chunkIndex);
-        var insertIndex = chunkIndex;
-        if (matchStart > 0)
-        {
-            chunks.Insert(insertIndex, new(chunk.Text, chunk.Start, matchStart, scannable: true));
-            insertIndex++;
-        }
-
-        if (replacement.Length > 0)
-        {
-            chunks.Insert(insertIndex, new(replacement, 0, replacement.Length, scannable: false));
-            insertIndex++;
-        }
-
-        var suffixStart = matchStart + matchLength;
-        var suffixLength = chunk.Length - suffixStart;
-        if (suffixLength > 0)
-        {
-            chunks.Insert(insertIndex, new(chunk.Text, chunk.Start + suffixStart, suffixLength, scannable: true));
-        }
-
-        return insertIndex;
-    }
-
     static bool TryFindMatch(
-        List<Chunk> chunks,
-        int chunkIndex,
+        CharSpan span,
+        char? before,
+        char? after,
         Scrubber scrubber,
         Counter counter,
         IReadOnlyDictionary<string, object> context,
@@ -403,25 +470,25 @@ static partial class ScrubEngine
         switch (scrubber.Kind)
         {
             case ScrubberKind.Replace:
-                return TryFindReplaceMatch(chunks, chunkIndex, scrubber, out matchStart, out matchLength, out replacement);
+                return TryFindReplaceMatch(span, before, after, scrubber, out matchStart, out matchLength, out replacement);
             case ScrubberKind.Window:
-                return TryFindWindowMatch(chunks, chunkIndex, scrubber, counter, context, out matchStart, out matchLength, out replacement);
+                return TryFindWindowMatch(span, before, after, scrubber, counter, context, out matchStart, out matchLength, out replacement);
             case ScrubberKind.Match:
-                return TryFindCustomMatch(chunks, chunkIndex, scrubber, counter, context, out matchStart, out matchLength, out replacement);
+                return TryFindCustomMatch(span, scrubber, counter, context, out matchStart, out matchLength, out replacement);
             default:
                 throw new($"Unexpected inline scrubber kind: {scrubber.Kind}");
         }
     }
 
     static bool TryFindReplaceMatch(
-        List<Chunk> chunks,
-        int chunkIndex,
+        CharSpan span,
+        char? before,
+        char? after,
         Scrubber scrubber,
         out int matchStart,
         out int matchLength,
         out string replacement)
     {
-        var span = chunks[chunkIndex].Span;
         var pairs = scrubber.Pairs!;
         matchStart = -1;
         matchLength = 0;
@@ -453,7 +520,7 @@ static partial class ScrubEngine
                 }
 
                 if (scrubber.RequireWordBoundary &&
-                    !BoundaryOk(chunks, chunkIndex, index, find.Length))
+                    !BoundaryOk(span, before, after, index, find.Length))
                 {
                     searchFrom = index + 1;
                     continue;
@@ -470,8 +537,9 @@ static partial class ScrubEngine
     }
 
     static bool TryFindWindowMatch(
-        List<Chunk> chunks,
-        int chunkIndex,
+        CharSpan span,
+        char? before,
+        char? after,
         Scrubber scrubber,
         Counter counter,
         IReadOnlyDictionary<string, object> context,
@@ -479,7 +547,6 @@ static partial class ScrubEngine
         out int matchLength,
         out string replacement)
     {
-        var span = chunks[chunkIndex].Span;
         var min = scrubber.MinLength;
         var max = scrubber.MaxLength!.Value;
         var matcher = scrubber.WindowMatcher!;
@@ -505,8 +572,8 @@ static partial class ScrubEngine
                 }
 
                 if (scrubber.RequireWordBoundary &&
-                    PreviousChar(chunks, chunkIndex, position) is { } before &&
-                    char.IsLetterOrDigit(before))
+                    PreviousChar(span, before, position) is { } precedingChar &&
+                    char.IsLetterOrDigit(precedingChar))
                 {
                     continue;
                 }
@@ -515,8 +582,8 @@ static partial class ScrubEngine
                 for (var length = upper; length >= min; length--)
                 {
                     if (scrubber.RequireWordBoundary &&
-                        NextChar(chunks, chunkIndex, position + length) is { } after &&
-                        char.IsLetterOrDigit(after))
+                        NextChar(span, after, position + length) is { } followingChar &&
+                        char.IsLetterOrDigit(followingChar))
                     {
                         continue;
                     }
@@ -590,8 +657,7 @@ static partial class ScrubEngine
     }
 
     static bool TryFindCustomMatch(
-        List<Chunk> chunks,
-        int chunkIndex,
+        CharSpan span,
         Scrubber scrubber,
         Counter counter,
         IReadOnlyDictionary<string, object> context,
@@ -599,7 +665,6 @@ static partial class ScrubEngine
         out int matchLength,
         out string replacement)
     {
-        var span = chunks[chunkIndex].Span;
         if (!scrubber.SegmentMatcher!(span, counter, context, out matchStart, out matchLength, out var result))
         {
             replacement = string.Empty;
@@ -627,16 +692,16 @@ static partial class ScrubEngine
         return true;
     }
 
-    static bool BoundaryOk(List<Chunk> chunks, int chunkIndex, int index, int length)
+    static bool BoundaryOk(CharSpan span, char? before, char? after, int index, int length)
     {
-        if (PreviousChar(chunks, chunkIndex, index) is { } before &&
-            char.IsLetterOrDigit(before))
+        if (PreviousChar(span, before, index) is { } precedingChar &&
+            char.IsLetterOrDigit(precedingChar))
         {
             return false;
         }
 
-        if (NextChar(chunks, chunkIndex, index + length) is { } after &&
-            char.IsLetterOrDigit(after))
+        if (NextChar(span, after, index + length) is { } followingChar &&
+            char.IsLetterOrDigit(followingChar))
         {
             return false;
         }
@@ -644,39 +709,27 @@ static partial class ScrubEngine
         return true;
     }
 
-    // The char before the given position within the chunk. At the chunk start the
-    // neighbor is the last char of the previous chunk (replacement text counts).
-    static char? PreviousChar(List<Chunk> chunks, int chunkIndex, int position)
+    // The char before the given position within the span. At the span start the
+    // neighbor is the one preceding it in the document (replacement text counts).
+    static char? PreviousChar(CharSpan span, char? before, int position)
     {
-        var chunk = chunks[chunkIndex];
         if (position > 0)
         {
-            return chunk.Text[chunk.Start + position - 1];
+            return span[position - 1];
         }
 
-        if (chunkIndex > 0)
-        {
-            return chunks[chunkIndex - 1].Last;
-        }
-
-        return null;
+        return before;
     }
 
-    // The char at the given position within the chunk. At the chunk end the
-    // neighbor is the first char of the next chunk (replacement text counts).
-    static char? NextChar(List<Chunk> chunks, int chunkIndex, int position)
+    // The char at the given position within the span. At the span end the neighbor
+    // is the one following it in the document (replacement text counts).
+    static char? NextChar(CharSpan span, char? after, int position)
     {
-        var chunk = chunks[chunkIndex];
-        if (position < chunk.Length)
+        if (position < span.Length)
         {
-            return chunk.Text[chunk.Start + position];
+            return span[position];
         }
 
-        if (chunkIndex + 1 < chunks.Count)
-        {
-            return chunks[chunkIndex + 1].First;
-        }
-
-        return null;
+        return after;
     }
 }

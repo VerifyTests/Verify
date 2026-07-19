@@ -12,7 +12,6 @@ public static partial class VerifierSettings
     internal static void AddScrubber(string extension, Scrubber scrubber)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        Ensure.NotNull(scrubber);
         if (!ExtensionMappedGlobalSpanScrubbers.TryGetValue(extension, out var values))
         {
             ExtensionMappedGlobalSpanScrubbers[extension] = values = [];

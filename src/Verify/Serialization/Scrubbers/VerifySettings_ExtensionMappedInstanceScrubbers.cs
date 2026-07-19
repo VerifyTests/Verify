@@ -11,7 +11,6 @@ public partial class VerifySettings
     /// </summary>
     internal void AddScrubber(string extension, Scrubber scrubber)
     {
-        Ensure.NotNull(scrubber);
         ExtensionMappedInstanceSpanScrubbers ??= [];
 
         if (!ExtensionMappedInstanceSpanScrubbers.TryGetValue(extension, out var values))

@@ -15,7 +15,6 @@ public partial class VerifySettings
     /// </summary>
     internal void AddScrubber(Scrubber scrubber)
     {
-        Ensure.NotNull(scrubber);
         InstanceSpanScrubbers ??= [];
         InstanceSpanScrubbers.Add(scrubber);
         PropertyValueSetCache = null;

@@ -12,7 +12,6 @@ public static partial class VerifierSettings
     internal static void AddScrubber(Scrubber scrubber)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        Ensure.NotNull(scrubber);
         GlobalSpanScrubbers.Add(scrubber);
         EngineScrubberSet.InvalidateGlobalCache();
     }

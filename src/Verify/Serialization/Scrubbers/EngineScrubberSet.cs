@@ -17,11 +17,6 @@ sealed class EngineScrubberSet
 
     public bool HasLinePhase => LineDrops.Length > 0 || LineTransforms.Length > 0;
 
-    public bool IsEmpty =>
-        LineDrops.Length == 0 &&
-        LineTransforms.Length == 0 &&
-        Inline.Length == 0;
-
     static EngineScrubberSet empty = new([], [], []);
 
     // A set with no scrubbers, for a pass that only needs the engine's pinned

@@ -16,8 +16,6 @@ static partial class ScrubEngine
         public readonly int Start = start;
         public readonly int End = end;
         public readonly string? Fresh = fresh;
-
-        public int Length => Fresh?.Length ?? End - Start;
     }
 
     // Returns the chunks representing the document after line drops and transforms,

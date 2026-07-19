@@ -100,11 +100,6 @@ public sealed class Scrubber
         Kind is ScrubberKind.LineTransformSpan
             or ScrubberKind.LineTransformString;
 
-    internal bool IsInline =>
-        Kind is ScrubberKind.Replace
-            or ScrubberKind.Window
-            or ScrubberKind.Match;
-
     /// <summary>
     /// Replace every occurrence of <paramref name="find" /> with <paramref name="replacement" />.
     /// <paramref name="comparison" /> must be <see cref="StringComparison.Ordinal" /> or <see cref="StringComparison.OrdinalIgnoreCase" />.

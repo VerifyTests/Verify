@@ -18,8 +18,11 @@ static class ApplyScrubbers
         }
 
         // Span scrubbers run first, then the legacy pass over the intermediate result.
-        // Path replacements and newline normalization stay after the legacy pass so
-        // legacy scrubbers keep seeing raw paths and may inject '\r'.
+        // The engine normalizes newlines up front, so a legacy scrubber sees text
+        // that already uses '\n' and one matching a literal "\r\n" will not fire.
+        // Newlines are normalized again at the end because a legacy scrubber can
+        // inject '\r'. Path replacements are the only part held back until after the
+        // legacy pass, so those scrubbers still see raw paths.
         var intermediate = ScrubEngine.Run(source, set, counter, settings.Context, applyDirectoryReplacements: false);
         if (!ReferenceEquals(intermediate, source))
         {

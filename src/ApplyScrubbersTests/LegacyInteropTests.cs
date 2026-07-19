@@ -42,6 +42,18 @@ public class LegacyInteropTests
     }
 
     [Fact]
+    public void LegacyDoesNotSeeCarriageReturns()
+    {
+        // The engine normalizes newlines before the legacy pass, so a legacy
+        // scrubber matching a literal "\r\n" no longer fires. Declared as a
+        // breaking change in the 32.0.0 release notes.
+        var result = RunForExtension(
+            "a\r\nb",
+            settings => settings.AddScrubber(builder => builder.Replace("a\r\nb", "MATCHED")));
+        Assert.Equal("a\nb", result);
+    }
+
+    [Fact]
     public void FixNewlines_AfterLegacy()
     {
         var result = RunForExtension(

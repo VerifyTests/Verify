@@ -3,7 +3,9 @@
 // Formats ending in upper case fraction specifiers (.F to .FFFF) produce a second
 // scrubber for the trimmed format, since those fractions render as empty when zero;
 // the longer max of the untrimmed scrubber naturally orders it first.
-// The culture (CurrentCulture when null) is resolved when the scrubber is created.
+// An explicit culture is resolved when the scrubber is created. When none is given
+// the culture in effect at scrub time is used, resolved (and cached) per culture on
+// each scrub, since the parse, the window bounds, and the anchor all depend on it.
 static class DateMatchers
 {
     // A probe date within the supported range of every calendar
@@ -26,19 +28,17 @@ static class DateMatchers
 
         return BuildForFormats(
             format,
+            culture,
             resolvedCulture,
-            static (format, culture) => Single(
-                format,
-                culture,
-                (window, counter) =>
+            static (format, culture) => (window, counter) =>
+            {
+                if (DateTime.TryParseExact(window, format, culture, DateTimeStyles.None, out var date))
                 {
-                    if (DateTime.TryParseExact(window, format, culture, DateTimeStyles.None, out var date))
-                    {
-                        return counter.Convert(date);
-                    }
+                    return counter.Convert(date);
+                }
 
-                    return null;
-                }));
+                return null;
+            });
     }
 
     public static Scrubber[] DateTimeOffsets(
@@ -57,19 +57,17 @@ static class DateMatchers
 
         return BuildForFormats(
             format,
+            culture,
             resolvedCulture,
-            static (format, culture) => Single(
-                format,
-                culture,
-                (window, counter) =>
+            static (format, culture) => (window, counter) =>
+            {
+                if (DateTimeOffset.TryParseExact(window, format, culture, DateTimeStyles.None, out var date))
                 {
-                    if (DateTimeOffset.TryParseExact(window, format, culture, DateTimeStyles.None, out var date))
-                    {
-                        return counter.Convert(date);
-                    }
+                    return counter.Convert(date);
+                }
 
-                    return null;
-                }));
+                return null;
+            });
     }
 
 #if NET6_0_OR_GREATER
@@ -90,40 +88,81 @@ static class DateMatchers
 
         return BuildForFormats(
             format,
+            culture,
             resolvedCulture,
-            static (format, culture) => Single(
-                format,
-                culture,
-                (window, counter) =>
+            static (format, culture) => (window, counter) =>
+            {
+                if (Date.TryParseExact(window, format, culture, DateTimeStyles.None, out var date))
                 {
-                    if (Date.TryParseExact(window, format, culture, DateTimeStyles.None, out var date))
-                    {
-                        return counter.Convert(date);
-                    }
+                    return counter.Convert(date);
+                }
 
-                    return null;
-                }));
+                return null;
+            });
     }
 
 #endif
 
     delegate string? ParseWindow(CharSpan window, Counter counter);
 
-    static Scrubber[] BuildForFormats(string format, Culture culture, Func<string, Culture, Scrubber> build)
+    // Builds the parse for one format and culture pair
+    delegate ParseWindow ParseFactory(string format, Culture culture);
+
+    static Scrubber[] BuildForFormats(
+        string format,
+        Culture? culture,
+        Culture registrationCulture,
+        ParseFactory parseFactory)
     {
         if (TryGetFormatWithUpperMillisecondsTrimmed(format, out var trimmedFormat))
         {
             return
             [
-                build(format, culture),
-                build(trimmedFormat, culture)
+                ForCulture(format, culture, registrationCulture, parseFactory),
+                ForCulture(trimmedFormat, culture, registrationCulture, parseFactory)
             ];
         }
 
-        return [build(format, culture)];
+        return [ForCulture(format, culture, registrationCulture, parseFactory)];
     }
 
-    static Scrubber Single(string format, Culture culture, ParseWindow parse)
+    static Scrubber ForCulture(
+        string format,
+        Culture? culture,
+        Culture registrationCulture,
+        ParseFactory parseFactory)
+    {
+        if (culture != null)
+        {
+            return Single(format, culture, parseFactory(format, culture));
+        }
+
+        // No culture was supplied, so each scrub uses the culture in effect at that
+        // point. Building a scrubber reads the format lengths and expands the
+        // pattern, so the result is cached per culture.
+        ConcurrentDictionary<Culture, Scrubber> cache = new();
+
+        Scrubber ForCurrentCulture()
+        {
+            var current = Culture.CurrentCulture;
+            if (cache.TryGetValue(current, out var existing))
+            {
+                return existing;
+            }
+
+            return cache.GetOrAdd(current, Single(format, current, parseFactory(format, current)));
+        }
+
+        // The registration culture instance supplies the bounds used for ordering
+        // and the length fast path; the resolver supplies the one actually run
+        return Single(
+            format,
+            registrationCulture,
+            parseFactory(format, registrationCulture),
+            ForCurrentCulture);
+    }
+
+    static Scrubber Single(string format, Culture culture, ParseWindow parse, Func<Scrubber>? resolver = null)
     {
         var (max, min) = DateFormatLengthCalculator.GetLength(format, culture);
         // Single char standard formats expand to the culture's pattern, so the
@@ -142,14 +181,16 @@ static class DateMatchers
                 max,
                 Match,
                 static counter => counter.ScrubDateTimes,
-                anchor: WindowAnchor.Digit);
+                anchor: WindowAnchor.Digit,
+                resolver: resolver);
         }
 
         return Scrubber.GatedWindow(
             Math.Max(1, min),
             max,
             Match,
-            static counter => counter.ScrubDateTimes);
+            static counter => counter.ScrubDateTimes,
+            resolver: resolver);
     }
 
     // True when the (expanded) format is guaranteed to render a digit first,

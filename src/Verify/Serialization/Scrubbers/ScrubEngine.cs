@@ -96,16 +96,20 @@ static partial class ScrubEngine
             changed = chunks != null;
         }
 
-        foreach (var scrubber in set.Inline)
+        foreach (var registered in set.Inline)
         {
             // A gated off built-in (inline dates or guids when the corresponding
             // scrubbing is disabled) is skipped for the whole scrub rather than
             // being probed at every candidate window
-            if (scrubber.Gate is { } gate &&
+            if (registered.Gate is { } gate &&
                 !gate(counter))
             {
                 continue;
             }
+
+            // A scrubber registered without an explicit culture resolves here to
+            // the instance built for the culture in effect for this scrub
+            var scrubber = registered.Resolve();
 
             chunks ??= [new(source, 0, source.Length, scannable: true)];
             changed |= ApplyInline(chunks, scrubber, counter, context);

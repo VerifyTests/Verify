@@ -42,6 +42,14 @@ public sealed class Scrubber
     // scrub rather than invoking it per candidate
     internal Func<Counter, bool>? Gate { get; }
 
+    // When set, the instance actually run is resolved at scrub time. Used by the
+    // built-in date scrubbers, whose parse culture, window bounds, and anchor all
+    // depend on the culture in effect when the scrub runs.
+    internal Func<Scrubber>? Resolver { get; }
+
+    internal Scrubber Resolve() =>
+        Resolver?.Invoke() ?? this;
+
     Scrubber(
         ScrubberKind kind,
         int minLength = 0,
@@ -59,7 +67,8 @@ public sealed class Scrubber
         WindowAnchor anchor = WindowAnchor.None,
         char anchorChar = default,
         int anchorOffset = 0,
-        Func<Counter, bool>? gate = null)
+        Func<Counter, bool>? gate = null,
+        Func<Scrubber>? resolver = null)
     {
         Kind = kind;
         MinLength = minLength;
@@ -78,6 +87,7 @@ public sealed class Scrubber
         AnchorChar = anchorChar;
         AnchorOffset = anchorOffset;
         Gate = gate;
+        Resolver = resolver;
     }
 
     internal bool IsLineDrop =>
@@ -197,7 +207,8 @@ public sealed class Scrubber
         bool requireWordBoundary = false,
         WindowAnchor anchor = WindowAnchor.None,
         char anchorChar = default,
-        int anchorOffset = 0)
+        int anchorOffset = 0,
+        Func<Scrubber>? resolver = null)
     {
         ValidateWindowLengths(minLength, maxLength);
 
@@ -210,7 +221,8 @@ public sealed class Scrubber
             anchor: anchor,
             anchorChar: anchorChar,
             anchorOffset: anchorOffset,
-            gate: gate);
+            gate: gate,
+            resolver: resolver);
     }
 
     /// <summary>

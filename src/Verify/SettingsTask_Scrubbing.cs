@@ -197,6 +197,15 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubLines(string,LineMatch)"/>
+    [OverloadResolutionPriority(-1)]
+    [Pure]
+    public SettingsTask ScrubLines(string extension, LineMatch removeLine)
+    {
+        CurrentSettings.ScrubLines(extension, removeLine);
+        return this;
+    }
+
     /// <inheritdoc cref="VerifySettings.ScrubLinesWithReplace(Func{string,string?})"/>
     [Pure]
     public SettingsTask ScrubLinesWithReplace(Func<string, string?> replaceLine)

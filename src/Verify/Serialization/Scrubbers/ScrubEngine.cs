@@ -548,6 +548,10 @@ static partial class ScrubEngine
         return false;
     }
 
+#if !NET8_0_OR_GREATER
+    static string asciiDigits = "0123456789";
+#endif
+
     // The next position at or after the given one where the scrubber's anchor
     // appears at its offset from the window start. Returns past regionEnd when no
     // candidate remains.
@@ -567,18 +571,13 @@ static partial class ScrubEngine
         }
         else
         {
+            // ASCII only on every target: char.IsDigit would also accept other
+            // Unicode digits, so the same input would anchor differently per
+            // target framework while sharing one verified file
 #if NET8_0_OR_GREATER
             found = region.IndexOfAnyInRange('0', '9');
 #else
-            found = -1;
-            for (var index = 0; index < region.Length; index++)
-            {
-                if (char.IsDigit(region[index]))
-                {
-                    found = index;
-                    break;
-                }
-            }
+            found = region.IndexOfAny(asciiDigits.AsSpan());
 #endif
         }
 

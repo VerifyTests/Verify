@@ -165,9 +165,7 @@ static class DateMatchers
     static Scrubber Single(string format, Culture culture, ParseWindow parse, Func<Scrubber>? resolver = null)
     {
         var (max, min) = DateFormatLengthCalculator.GetLength(format, culture);
-        // Single char standard formats expand to the culture's pattern, so the
-        // prefilter analysis runs on what will actually render
-        var digitPrefilter = HasDigitPrefilter(culture.DateTimeFormat.ExpandFormat(format));
+        var digitPrefilter = HasDigitPrefilter(format, culture);
 
         string? Match(CharSpan window, Counter counter, IReadOnlyDictionary<string, object> context) =>
             parse(window, counter);
@@ -193,10 +191,59 @@ static class DateMatchers
             resolver: resolver);
     }
 
-    // True when the (expanded) format is guaranteed to render a digit first,
-    // allowing the parse to be skipped cheaply. Formats starting with a name,
-    // era, or literal token are not prefiltered.
-    static bool HasDigitPrefilter(string format)
+    // Probe dates for the digit prefilter: a zero fraction and a non zero one,
+    // single and double digit components, AM and PM. All sit within the supported
+    // range of every calendar.
+    static DateTime[] prefilterProbes =
+    [
+        new(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc),
+        new(2000, 12, 25, 23, 59, 59, 999, DateTimeKind.Utc),
+        new(2001, 6, 15, 11, 30, 5, DateTimeKind.Utc)
+    ];
+
+    // True when the format renders an ASCII digit first, letting the engine jump
+    // between digit positions instead of probing every one. The format grammar is
+    // only a necessary condition, so it is confirmed by rendering: that excludes
+    // tokens which can render empty (upper case F with a zero fraction) and
+    // calendars that render numbers as letters (for example Hebrew).
+    static bool HasDigitPrefilter(string format, Culture culture)
+    {
+        // Single char standard formats expand to the culture's pattern, so the
+        // grammar check runs on what will actually render
+        if (!StartsWithNumericToken(culture.DateTimeFormat.ExpandFormat(format)))
+        {
+            return false;
+        }
+
+        foreach (var probe in prefilterProbes)
+        {
+            string rendered;
+            try
+            {
+                rendered = probe.ToString(format, culture);
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+
+            if (rendered.Length == 0 ||
+                !IsAsciiDigit(rendered[0]))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    static bool IsAsciiDigit(char value) =>
+        value is >= '0' and <= '9';
+
+    // True when the (expanded) format starts with a token that renders a number.
+    // Formats starting with a name, era, or literal token are not prefiltered.
+    // Upper case F is excluded since it renders nothing when the fraction is zero.
+    static bool StartsWithNumericToken(string format)
     {
         if (format.Length < 2)
         {
@@ -206,7 +253,7 @@ static class DateMatchers
         var first = format[0];
         switch (first)
         {
-            case 'y' or 'H' or 'h' or 'm' or 's' or 'f' or 'F':
+            case 'y' or 'H' or 'h' or 'm' or 's' or 'f':
                 return true;
             case 'd' or 'M':
                 // 1 or 2 repeats render digits; 3+ render names

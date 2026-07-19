@@ -91,15 +91,6 @@ public partial class SettingsTask
     public SettingsTask ScrubLines(Func<string, bool> removeLine, ScrubberLocation location) =>
         ScrubLines(removeLine);
 
-    /// <inheritdoc cref="VerifySettings.ScrubLines(string,LineMatch)"/>
-    [OverloadResolutionPriority(-1)]
-    [Pure]
-    public SettingsTask ScrubLines(string extension, LineMatch removeLine)
-    {
-        CurrentSettings.ScrubLines(extension, removeLine);
-        return this;
-    }
-
     /// <inheritdoc cref="VerifySettings.ScrubLines(string,Func{string,bool})"/>
     [Obsolete(locationObsolete)]
     [Pure]

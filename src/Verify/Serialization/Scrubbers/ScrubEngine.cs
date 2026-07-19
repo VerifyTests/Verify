@@ -123,16 +123,16 @@ static partial class ScrubEngine
         // Path replacements are pinned last so user scrubbers always see raw paths
         if (applyDirectoryReplacements)
         {
-            var pairs = DirectoryReplacements.Items;
+            var replacements = DirectoryReplacements.Current;
             // When nothing has run the source is still the whole document, so its
             // length gates the scan. Once a scrubber has run the document may have
             // grown past the shortest find, and ApplyDirectoryReplacements skips any
             // chunk that is too short on its own.
-            if (pairs.Count > 0 &&
+            if (replacements.Pairs.Count > 0 &&
                 (chunks != null ||
-                 source.Length >= DirectoryReplacements.ShortestFindLength))
+                 source.Length >= replacements.ShortestFindLength))
             {
-                if (ApplyDirectoryReplacements(chunks, source, pairs) is { } replaced)
+                if (ApplyDirectoryReplacements(chunks, source, replacements) is { } replaced)
                 {
                     chunks = replaced;
                     changed = true;
@@ -150,9 +150,9 @@ static partial class ScrubEngine
 
     // Rebuilds the list, as ApplyInline does. Path replacements are never empty, so
     // no join can appear and the result needs no coalescing.
-    static List<Chunk>? ApplyDirectoryReplacements(List<Chunk>? chunks, string source, List<DirectoryReplacements.Pair> pairs)
+    static List<Chunk>? ApplyDirectoryReplacements(List<Chunk>? chunks, string source, DirectoryReplacements.Snapshot replacements)
     {
-        var shortest = pairs[^1].Find.Length;
+        var shortest = replacements.ShortestFindLength;
         List<Chunk>? output = null;
         var count = chunks?.Count ?? 1;
 
@@ -172,7 +172,7 @@ static partial class ScrubEngine
             {
                 var span = chunk.Text.AsSpan(chunk.Start + offset, chunk.Length - offset);
                 var before = PrecedingChar(output, chunks, index);
-                if (!TryFindDirectoryMatch(span, before, after, pairs, shortest, out var matchStart, out var matchLength, out var replacement))
+                if (!TryFindDirectoryMatch(span, before, after, replacements, out var matchStart, out var matchLength, out var replacement))
                 {
                     break;
                 }
@@ -204,13 +204,14 @@ static partial class ScrubEngine
         CharSpan span,
         char? beforeSegment,
         char? afterSegment,
-        List<DirectoryReplacements.Pair> pairs,
-        int shortest,
+        DirectoryReplacements.Snapshot replacements,
         out int matchStart,
         out int matchLength,
         out string replacement)
     {
-        var anchors = DirectoryReplacements.ItemAnchors.AsSpan();
+        var pairs = replacements.Pairs;
+        var shortest = replacements.ShortestFindLength;
+        var anchors = replacements.Anchors.AsSpan();
         for (var position = 0; position + shortest <= span.Length; position++)
         {
             // Skip to the next candidate first char

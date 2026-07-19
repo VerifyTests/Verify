@@ -20,19 +20,27 @@ static partial class DirectoryReplacements
         public string Replace { get; }
     }
 
-    static List<Pair> items = [];
-    static int shortestFindLength = int.MaxValue;
-    static string itemAnchors = "";
+    // The anchors and the shortest find are derived from the pairs, so the three
+    // travel together rather than as separate statics a scan has to re-read.
+    // Assigned once, from AssignTargetAssembly.
+    internal sealed class Snapshot(List<Pair> pairs, int shortestFindLength, string anchors)
+    {
+        public readonly List<Pair> Pairs = pairs;
+
+        public readonly int ShortestFindLength = shortestFindLength;
+
+        // The distinct first chars of the Finds, so scans can skip to candidate
+        // positions with a vectorized IndexOfAny instead of probing every position
+        public readonly string Anchors = anchors;
+    }
+
+    static Snapshot current = new([], int.MaxValue, "");
+
+    internal static Snapshot Current => current;
 
     // Length of the shortest Find, so callers can cheaply skip values that are
     // too short to contain any replacement. int.MaxValue when there are none.
-    public static int ShortestFindLength => shortestFindLength;
-
-    internal static List<Pair> Items => items;
-
-    // The distinct first chars of the Finds, so scans can skip to candidate
-    // positions with a vectorized IndexOfAny instead of probing every position
-    internal static string ItemAnchors => itemAnchors;
+    public static int ShortestFindLength => current.ShortestFindLength;
 
     internal static string BuildAnchors(List<Pair> pairs)
     {
@@ -56,8 +64,11 @@ static partial class DirectoryReplacements
         return new([.. anchors]);
     }
 
-    public static void Replace(StringBuilder builder) =>
-        Replace(builder, items, itemAnchors);
+    public static void Replace(StringBuilder builder)
+    {
+        var snapshot = current;
+        Replace(builder, snapshot.Pairs, snapshot.Anchors);
+    }
 
     public static void Replace(StringBuilder builder, List<Pair> pairs) =>
         Replace(builder, pairs, BuildAnchors(pairs));
@@ -166,11 +177,13 @@ static partial class DirectoryReplacements
         }
 
         AddProjectAndSolutionReplacements(solutionDir, projectDir, values);
-        items = values
+        var ordered = values
             .OrderByDescending(_ => _.Find.Length)
             .ToList();
-        shortestFindLength = items.Count == 0 ? int.MaxValue : items[^1].Find.Length;
-        itemAnchors = BuildAnchors(items);
+        current = new(
+            ordered,
+            ordered.Count == 0 ? int.MaxValue : ordered[^1].Find.Length,
+            BuildAnchors(ordered));
     }
 
     static void AddProjectAndSolutionReplacements(string? solutionDir, string projectDir, List<Pair> replacements)

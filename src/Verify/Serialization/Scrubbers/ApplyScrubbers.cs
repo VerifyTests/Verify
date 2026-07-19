@@ -136,10 +136,14 @@ static class ApplyScrubbers
             scrubber(builder, counter, settings.Context);
         }
 
-        DirectoryReplacements.Replace(builder);
-
-        builder.FixNewlines();
-        return builder.ToString();
+        // Path replacements and the newline fix both run on the engine, so the
+        // builder is materialized once. Doing them on the builder materialized it
+        // again inside the path scan, copying the whole value twice.
+        // The engine normalizes newlines before replacing paths rather than after,
+        // which cannot change a match: a path never contains '\r' or '\n', and both
+        // are non alphanumeric so the boundary and trailing separator rules see them
+        // the same either way.
+        return ScrubEngine.Run(builder.ToString(), EngineScrubberSet.Empty, counter, settings.Context, applyDirectoryReplacements: true);
     }
 
     static bool HasLegacyForExtension(VerifySettings settings, string extension) =>

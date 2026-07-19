@@ -24,6 +24,10 @@ sealed class EngineScrubberSet
 
     static EngineScrubberSet empty = new([], [], []);
 
+    // A set with no scrubbers, for a pass that only needs the engine's pinned
+    // trailing work (path replacements and newline normalization)
+    public static EngineScrubberSet Empty => empty;
+
     EngineScrubberSet(Scrubber[] lineDrops, Scrubber[] lineTransforms, Scrubber[] inline)
     {
         LineDrops = lineDrops;

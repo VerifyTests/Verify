@@ -70,7 +70,7 @@ settings.DontScrubDateTimes();
 
 return Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1923-L1935' title='Snippet source file'>snippet source</a> | <a href='#snippet-DontScrubDateTimes' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1931-L1943' title='Snippet source file'>snippet source</a> | <a href='#snippet-DontScrubDateTimes' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -87,7 +87,7 @@ var target = new
 return Verify(target)
     .DontScrubDateTimes();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1941-L1951' title='Snippet source file'>snippet source</a> | <a href='#snippet-DontScrubDateTimesFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1949-L1959' title='Snippet source file'>snippet source</a> | <a href='#snippet-DontScrubDateTimesFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -100,7 +100,7 @@ return Verify(target)
 public static void ModuleInitializer() =>
     VerifierSettings.DontScrubDateTimes();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2009-L2015' title='Snippet source file'>snippet source</a> | <a href='#snippet-DontScrubDateTimesGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2017-L2023' title='Snippet source file'>snippet source</a> | <a href='#snippet-DontScrubDateTimesGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -124,7 +124,7 @@ settings.DisableDateCounting();
 
 return Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1970-L1982' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableDateCounting' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1978-L1990' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableDateCounting' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -141,7 +141,7 @@ var target = new
 return Verify(target)
     .DisableDateCounting();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1988-L1998' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableDateCountingFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1996-L2006' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableDateCountingFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -154,7 +154,7 @@ return Verify(target)
 public static void ModuleInitializer() =>
     VerifierSettings.DisableDateCounting();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1957-L1963' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableDateCountingGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1965-L1971' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableDateCountingGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -201,7 +201,7 @@ public Task ScrubInlineDateTimesInstance()
         settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1893-L1905' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubInlineDateTimesInstance' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1901-L1913' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubInlineDateTimesInstance' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -215,7 +215,7 @@ public Task ScrubInlineDateTimesFluent() =>
     Verify("content 2020-10-20 content")
         .ScrubInlineDateTimes("yyyy-MM-dd");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1884-L1891' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubInlineDateTimesFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1892-L1899' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubInlineDateTimesFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -231,7 +231,7 @@ public static class ModuleInitializer
         VerifierSettings.ScrubInlineDateTimes("yyyy-MM-dd");
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1872-L1881' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubInlineDateTimesGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1880-L1889' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubInlineDateTimesGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

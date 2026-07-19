@@ -78,8 +78,11 @@ public partial class VerifySettings
     /// <summary>
     /// Replace inline <see cref="Guid" />s with a placeholder.
     /// </summary>
-    public void ScrubInlineGuids(string extension) =>
+    public void ScrubInlineGuids(string extension)
+    {
         AddScrubber(extension, GuidMatcher.Instance);
+        AddScrubber(extension, GuidMatcher.NInstance);
+    }
 
     /// <summary>
     /// Remove any lines matching <paramref name="removeLine" /> from the test results.

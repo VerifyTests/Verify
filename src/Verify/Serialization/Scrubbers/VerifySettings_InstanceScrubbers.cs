@@ -93,6 +93,7 @@ public partial class VerifySettings
         }
 
         AddScrubber(GuidMatcher.Instance);
+        AddScrubber(GuidMatcher.NInstance);
     }
 
     /// <summary>

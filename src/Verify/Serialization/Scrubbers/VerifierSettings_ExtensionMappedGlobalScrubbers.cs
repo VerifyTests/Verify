@@ -90,8 +90,11 @@ public static partial class VerifierSettings
     /// <summary>
     /// Replace inline <see cref="Guid" />s with a placeholder.
     /// </summary>
-    public static void ScrubInlineGuids(string extension) =>
+    public static void ScrubInlineGuids(string extension)
+    {
         AddScrubber(extension, GuidMatcher.Instance);
+        AddScrubber(extension, GuidMatcher.NInstance);
+    }
 
     /// <summary>
     /// Scrub lines with an optional replace.

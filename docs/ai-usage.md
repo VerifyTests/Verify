@@ -82,7 +82,7 @@ Verified: TestClass.Method.verified.txt
 ## Rules
 
 - **Never hand-edit `.verified.*` files** to make tests pass. Always let Verify generate the correct output by running the test.
-- **Never derive the verified name from the received name.** The two are not always identical. When a test project targets multiple frameworks, the received file carries a runtime suffix (eg `TheTest.TheMethod.DotNet11_0.received.txt`) that the verified file does not (eg `TheTest.TheMethod.verified.txt`). Always take the destination from the `Verified:` line of the exception message.
+- **Never derive the verified name from the received name.** The two are not always identical. Multi-targeted projects add a runtime and version suffix to the received file, and ignored parameters are kept in the received name but dropped from the verified name. Always take the destination from the `Verified:` line of the exception message.
 - Snapshot files live next to the test source file. For a test in `Tests/MyTests.cs`, look for `Tests/MyTests.MethodName.verified.txt`.
 
 ## Scrubbed values
@@ -136,7 +136,7 @@ When a snapshot test fails:
    - **If expected**: copy the `.received.*` file to the `Verified:` path listed in the exception message to accept the new snapshot.
    - **If a bug**: fix the code, not the snapshot.
 4. Never hand-edit `.verified.*` files to make tests pass. Always let Verify generate the correct output by running the test.
-5. Never derive the verified name from the received name. The two are not always identical. When a test project targets multiple frameworks, the received file carries a runtime suffix (eg `TheTest.TheMethod.DotNet11_0.received.txt`) that the verified file does not (eg `TheTest.TheMethod.verified.txt`). Always take the destination from the `Verified:` line of the exception message.
+5. Never derive the verified name from the received name. The two are not always identical. Multi-targeted projects add a runtime and version suffix to the received file, and ignored parameters are kept in the received name but dropped from the verified name. Always take the destination from the `Verified:` line of the exception message.
 
 ### Scrubbed values
 

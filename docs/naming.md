@@ -897,7 +897,9 @@ eg. add the following to `.gitignore`
 
 ## Received and multi-targeting
 
-When a test project uses more than one `TargetFrameworks` (eg `<TargetFrameworks>net48;net7.0</TargetFrameworks>`) the runtime and version will be always be added as a uniqueness to the received file. This prevents file locking contention when the tests from both target framework run in parallel.
+When a test project uses more than one `TargetFrameworks` (eg `<TargetFrameworks>net48;net7.0</TargetFrameworks>`) the runtime and version will always be added as a uniqueness to the received file name. This prevents file locking contention when the tests from both target framework run in parallel.
+
+This applies to the default file naming. Under [UseUniqueDirectory](#useuniquedirectory) the received files use the same uniqueness as the verified files.
 
 
 ## Received and single-targeting

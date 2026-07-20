@@ -338,6 +338,7 @@ public partial class InnerVerifier :
     // the concurrent runs of each framework do not overwrite each others received files. Otherwise
     // only one runtime is in play, so the received file can use the same uniqueness as the verified
     // file. Keeping the two aligned allows tooling to pair a received file with its verified file.
+    // Mutates sharedUniqueness, so GetUniquenessVerified, which takes a copy, has to be called first.
     static UniquenessList GetUniquenessReceived(UniquenessList sharedUniqueness, UniquenessList uniquenessVerified)
     {
         if (!VerifierSettings.TargetsMultipleFramework)

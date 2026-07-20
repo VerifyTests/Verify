@@ -899,7 +899,17 @@ eg. add the following to `.gitignore`
 
 When a test project uses more than one `TargetFrameworks` (eg `<TargetFrameworks>net48;net7.0</TargetFrameworks>`) the runtime and version will always be added as a uniqueness to the received file name. This prevents file locking contention when the tests from both target framework run in parallel.
 
-This applies to the default file naming. Under [UseUniqueDirectory](#useuniquedirectory) the received files use the same uniqueness as the verified files.
+Under [UseUniqueDirectory](#useuniquedirectory) the same applies to the received side only. In split mode the received directory carries the runtime and version, and otherwise the received files inside the shared directory do:
+
+```
+TheTest.TheMethod/target.DotNet7_0.received.txt
+TheTest.TheMethod/target.verified.txt
+
+TheTest.TheMethod.DotNet7_0.received/target.txt
+TheTest.TheMethod.verified/target.txt
+```
+
+The verified names are left unscoped, so the one snapshot is shared by every target framework.
 
 
 ## Received and single-targeting

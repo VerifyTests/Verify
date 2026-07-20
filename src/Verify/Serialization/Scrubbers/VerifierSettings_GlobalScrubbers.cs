@@ -127,8 +127,11 @@ public static partial class VerifierSettings
     /// <summary>
     /// Replace inline <see cref="Guid" />s with a placeholder.
     /// </summary>
-    public static void ScrubInlineGuids() =>
+    public static void ScrubInlineGuids()
+    {
         AddScrubber(GuidMatcher.Instance);
+        AddScrubber(GuidMatcher.NInstance);
+    }
 
     /// <summary>
     /// Scrub lines with an optional replace.

@@ -1499,6 +1499,14 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task ScrubInlineGuidsNFormatInString()
+    {
+        var id = Guid.NewGuid();
+        return Verify($"The string {id:N} ")
+            .ScrubInlineGuids();
+    }
+
+    [Fact]
     public Task WriteRawInConverterTest()
     {
         var target = new WriteRawInConverterTarget();

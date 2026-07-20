@@ -44,7 +44,7 @@ verifySettings.ScrubWindow(
         return null;
     });
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2106-L2123' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubEngine' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2114-L2131' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubEngine' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `ScrubLines` and `ScrubLinesWithReplace` also accept span based delegates (`LineMatch` / `LineReplace`) that avoid allocating a string per line. Use an explicitly typed lambda parameter to select them, e.g. `ScrubLines((ReadOnlySpan<char> line) => ...)`; untyped lambdas bind the string overloads.
@@ -69,7 +69,7 @@ Instead of being executed by the engine, `AddScrubber(Action<StringBuilder>)` mu
 ```cs
 verifySettings.AddScrubber(_ => _.Remove(0, 100));
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2100-L2104' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddScrubber' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2108-L2112' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddScrubber' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Since these run after every engine scrubber, they can also modify text that the engine has already replaced.
@@ -118,7 +118,7 @@ For example remove lines containing `text`:
 ```cs
 verifySettings.ScrubLines(line => line.Contains("text"));
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2064-L2068' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLines' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2072-L2076' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLines' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -133,7 +133,7 @@ For example remove lines containing `text1` or `text2`
 ```cs
 verifySettings.ScrubLinesContaining("text1", "text2");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2070-L2074' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesContaining' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2078-L2082' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesContaining' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Case insensitive by default (`StringComparison.OrdinalIgnoreCase`).
@@ -145,7 +145,7 @@ Case insensitive by default (`StringComparison.OrdinalIgnoreCase`).
 ```cs
 verifySettings.ScrubLinesContaining(StringComparison.Ordinal, "text1", "text2");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2076-L2080' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesContainingOrdinal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2084-L2088' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesContainingOrdinal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -160,7 +160,7 @@ For example converts lines to upper case:
 ```cs
 verifySettings.ScrubLinesWithReplace(line => line.ToUpper());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2082-L2086' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesWithReplace' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2090-L2094' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubLinesWithReplace' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -173,7 +173,7 @@ Replaces `Environment.MachineName` with `TheMachineName`.
 ```cs
 verifySettings.ScrubMachineName();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2088-L2092' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMachineName' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2096-L2100' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMachineName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -186,7 +186,7 @@ Replaces `Environment.UserName` with `TheUserName`.
 ```cs
 verifySettings.ScrubUserName();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2094-L2098' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubUserName' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2102-L2106' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubUserName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -788,7 +788,7 @@ Scrubbers can be scoped to verified files with a matching extension by passing t
 ```cs
 verifySettings.ScrubReplace("json", "abc", "xyz");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2125-L2129' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubEngineExtension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2133-L2137' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubEngineExtension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 A scrubber registered this way runs only for verified files with that extension, while a scrubber registered without an extension runs for all of them. Extension scoping is available at every [level](#Scrubber-levels), and for the legacy `AddScrubber(Action<StringBuilder>)` overloads.

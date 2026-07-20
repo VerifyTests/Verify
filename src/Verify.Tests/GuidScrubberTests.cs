@@ -11,7 +11,7 @@ public class GuidScrubberTests
 
     static string ReplaceGuids(string value, Counter counter)
     {
-        var set = EngineScrubberSet.ForScrubbers([GuidMatcher.Instance]);
+        var set = EngineScrubberSet.ForScrubbers([GuidMatcher.Instance, GuidMatcher.NInstance]);
         return ScrubEngine.Run(value, set, counter, emptyContext, applyDirectoryReplacements: false);
     }
 
@@ -48,6 +48,19 @@ public class GuidScrubberTests
     [InlineData("1173535ae-995b-4cc6-a74e-8cd4be57039c1", "numbers")]
     [InlineData("1173535ae-995b-4cc6-a74e-8cd4be57039c", "start-numbers")]
     [InlineData("173535ae-995b-4cc6-a74e-8cd4be57039c1", "end-numbers")]
+    [InlineData("173535ae995b4cc6a74e8cd4be57039c", "n")]
+    [InlineData("173535ae995b4cc6a74e8cd4be57039c 173535ae995b4cc6a74e8cd4be57039d", "n-multiple")]
+    [InlineData("173535ae995b4cc6a74e8cd4be57039c 173535ae995b4cc6a74e8cd4be57039c", "n-duplicate")]
+    [InlineData("173535ae-995b-4cc6-a74e-8cd4be57039c 173535ae995b4cc6a74e8cd4be57039c", "n-d-same")]
+    [InlineData("173535AE995B4CC6A74E8CD4BE57039C", "n-upper")]
+    [InlineData("[173535ae995b4cc6a74e8cd4be57039c]", "n-square")]
+    [InlineData("-173535ae995b4cc6a74e8cd4be57039c-", "n-dash")]
+    [InlineData("a173535ae995b4cc6a74e8cd4be57039ca", "n-letters")]
+    [InlineData("a173535ae995b4cc6a74e8cd4be57039c", "n-start-letters")]
+    [InlineData("173535ae995b4cc6a74e8cd4be57039ca", "n-end-letters")]
+    [InlineData("00000000000000000000000000000000", "n-zeros")]
+    [InlineData("da39a3ee5e6b4b0d3255bfef95601890afd80709", "n-sha1")]
+    [InlineData("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "n-sha256")]
     public async Task Run(string guid, string name)
     {
         using var counter = Counter.Start();
@@ -104,6 +117,11 @@ public class GuidScrubberTests
         var result = ReplaceGuids("[2e6bddf7-fcf7-4b09-bb6f-a7948e1eecf3][c2eeaf99-d5c4-4341-8543-4597c3fd40d9]", counter);
         Assert.Equal("[Guid_1][Guid_2]", result);
     }
+
+    [Fact]
+    public Task InlineNamedGuidNFormat() =>
+        Verify("value: c8eeaf99d5c4434185434597c3fd40c9")
+            .ScrubInlineGuids();
 
     #region NamedGuidFluent
 

@@ -55,13 +55,47 @@ public class AotCompatibilityTests
         await File.WriteAllTextAsync(Path.Combine(tempDir, "Program.cs"), programContent);
 
         var (publishSuccess, publishOutput) = await PublishProject(tempDir);
-        Assert.True(publishSuccess, $"Publish failed: {publishOutput}");
+        if (!publishSuccess)
+        {
+            SkipIfAotToolchainMissing(publishOutput);
+            Assert.Fail($"Publish failed:{Environment.NewLine}{ErrorLines(publishOutput)}");
+        }
 
         var exePath = GetPublishedExePath(tempDir, "AotTestApp");
         var (exitCode, stdout, _) = await RunExecutable(exePath);
 
         Assert.Equal(0, exitCode);
         Assert.Contains("OK", stdout);
+    }
+
+    // A native AOT publish needs a platform linker, which on Windows comes from the "Desktop development
+    // with C++" workload. That is a machine prerequisite rather than anything Verify controls, so name it
+    // and skip, instead of reporting it as a Verify failure buried in a wall of publish output.
+    static void SkipIfAotToolchainMissing(string publishOutput)
+    {
+        if (publishOutput.Contains("Platform linker not found"))
+        {
+            Assert.Skip("Native AOT prerequisites are missing: the platform linker was not found. On Windows install the 'Desktop development with C++' workload. See https://aka.ms/nativeaot-prerequisites");
+        }
+    }
+
+    // The publish output is hundreds of lines of MSBuild noise, and the reason for the failure is the
+    // handful of error lines in it.
+    static string ErrorLines(string publishOutput)
+    {
+        var errors = publishOutput
+            .Split('\n')
+            .Select(_ => _.Trim())
+            .Where(_ => _.Contains(": error ", StringComparison.Ordinal))
+            .Distinct()
+            .ToList();
+
+        if (errors.Count == 0)
+        {
+            return publishOutput;
+        }
+
+        return string.Join(Environment.NewLine, errors);
     }
 
     static async Task<(bool success, string output)> PublishProject(string projectDir)

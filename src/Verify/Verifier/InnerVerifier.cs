@@ -179,10 +179,12 @@ public partial class InnerVerifier :
 
         var directoryPrefix = Path.Combine(directory, verifiedPrefix);
 
+        var receivedUniqueness = ReceivedUniquenessForDirectoryConvention(namer);
+
         if (ShouldUseUniqueDirectorySplitMode(settings))
         {
             var verifiedDirectory = $"{directoryPrefix}.verified";
-            var receivedDirectory = $"{directoryPrefix}.received";
+            var receivedDirectory = $"{directoryPrefix}{receivedUniqueness}.received";
             Directory.CreateDirectory(verifiedDirectory);
             verifiedFiles = IoHelpers.Files(verifiedDirectory, "*");
 
@@ -215,18 +217,35 @@ public partial class InnerVerifier :
             getFileNames = target =>
                 new(
                     target.Extension,
-                    Path.Combine(directoryPrefix, $"{target.NameOrTarget}.received.{target.Extension}"),
+                    Path.Combine(directoryPrefix, $"{target.NameOrTarget}{receivedUniqueness}.received.{target.Extension}"),
                     Path.Combine(directoryPrefix, $"{target.NameOrTarget}.verified.{target.Extension}"),
                     target.IsString);
             getIndexedFileNames = (target, index) =>
                 new(
                     target.Extension,
-                    Path.Combine(directoryPrefix, $"{target.NameOrTarget}#{index}.received.{target.Extension}"),
+                    Path.Combine(directoryPrefix, $"{target.NameOrTarget}#{index}{receivedUniqueness}.received.{target.Extension}"),
                     Path.Combine(directoryPrefix, $"{target.NameOrTarget}#{index}.verified.{target.Extension}"),
                     target.IsString);
 
-            IoHelpers.DeleteFiles(directoryPrefix, "*.received.*");
+            IoHelpers.DeleteFiles(directoryPrefix, $"*{receivedUniqueness}.received.*");
         }
+    }
+
+    // The directory convention derives both the received and the verified paths from the verified
+    // prefix, so, unlike the file convention, the received paths are shared by every target framework.
+    // When multiple frameworks are targeted, scope the received side to the runtime and version so the
+    // runs of each framework do not delete or overwrite each others received output. The verified paths
+    // are deliberately left alone, so accepting is unaffected. If the test already opted into
+    // UniqueForRuntimeAndVersion then the prefix separates the frameworks and nothing is needed.
+    static string ReceivedUniquenessForDirectoryConvention(Namer namer)
+    {
+        if (!VerifierSettings.TargetsMultipleFramework ||
+            namer.ResolveUniqueForRuntimeAndVersion())
+        {
+            return string.Empty;
+        }
+
+        return $".{Namer.RuntimeAndVersion}";
     }
 
     string PrefixForDirectoryConvention(Namer namer, string typeAndMethod, Action<StringBuilder>? verifiedParameters)

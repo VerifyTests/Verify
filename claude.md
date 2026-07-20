@@ -215,6 +215,8 @@ When tests fail, `.received.*` files are created showing actual output. To accep
 
 **Multi-target naming**: When a test project targets multiple frameworks, `.received.` files include a runtime suffix (e.g., `.DotNet11_0.received.txt`) but `.verified.` files do **not** (e.g., `.verified.txt`). When accepting snapshots, strip the runtime suffix from the filename.
 
+**Single-target naming**: When a test project targets a single framework, the `.received.` file carries the same uniqueness as its `.verified.` file, including any `UniqueForRuntime`/`UniqueForRuntimeAndVersion` suffix. The two names match exactly, so accepting is a plain rename.
+
 ### Debugging Tests
 
 On CI (AppVeyor), failed test artifacts are uploaded for inspection.

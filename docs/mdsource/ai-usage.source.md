@@ -68,13 +68,14 @@ Verified: TestClass.Method.verified.txt
 
 ### Step 3: Determine the action
 
-- **If the change is expected** (due to an intentional code change): copy the `.received.*` file over the `.verified.*` file to accept the new snapshot.
-- **If it is a new test** (no `.verified.*` file): accept the `.received.*` file as the new snapshot by renaming it to `.verified.*`.
+- **If the change is expected** (due to an intentional code change): copy the `.received.*` file to the `Verified:` path to accept the new snapshot.
+- **If it is a new test** (no `.verified.*` file): accept the `.received.*` file as the new snapshot by copying it to the `Verified:` path.
 - **If the change is a bug**: fix the code, not the snapshot. Re-run the test to confirm the fix.
 
 ## Rules
 
 - **Never hand-edit `.verified.*` files** to make tests pass. Always let Verify generate the correct output by running the test.
+- **Never derive the verified name from the received name.** The two are not always identical. Multi-targeted projects add a runtime and version suffix to the received file, and ignored parameters are kept in the received name but dropped from the verified name. Always take the destination from the `Verified:` line of the exception message.
 - Snapshot files live next to the test source file. For a test in `Tests/MyTests.cs`, look for `Tests/MyTests.MethodName.verified.txt`.
 
 ## Scrubbed values
@@ -125,9 +126,10 @@ When a snapshot test fails:
 1. Run the failing test and read the `.received.*` file that was generated.
 2. Compare it to the corresponding `.verified.*` file.
 3. Determine if the difference is expected (due to an intentional code change) or a bug.
-   - **If expected**: copy the `.received.*` file over the `.verified.*` file to accept the new snapshot, or delete the `.verified.*` file and rename the `.received.*` file.
+   - **If expected**: copy the `.received.*` file to the `Verified:` path listed in the exception message to accept the new snapshot.
    - **If a bug**: fix the code, not the snapshot.
 4. Never hand-edit `.verified.*` files to make tests pass. Always let Verify generate the correct output by running the test.
+5. Never derive the verified name from the received name. The two are not always identical. Multi-targeted projects add a runtime and version suffix to the received file, and ignored parameters are kept in the received name but dropped from the verified name. Always take the destination from the `Verified:` line of the exception message.
 
 ### Scrubbed values
 

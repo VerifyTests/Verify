@@ -211,9 +211,13 @@ Reference existing adapters like `Verify.Xunit/Verifier.cs` or `Verify.NUnit/Ver
 
 ### Accepting New Snapshots
 
-When tests fail, `.received.*` files are created showing actual output. To accept a new snapshot, copy the `.received.*` file to the corresponding `.verified.*` filename.
+When tests fail, `.received.*` files are created showing actual output. To accept a new snapshot, copy the `.received.*` file to the path on the `Verified:` line of the exception message. Do not derive the verified name from the received name — the two are not always the same.
 
-**Multi-target naming**: When a test project targets multiple frameworks, `.received.` files include a runtime suffix (e.g., `.DotNet11_0.received.txt`) but `.verified.` files do **not** (e.g., `.verified.txt`). When accepting snapshots, strip the runtime suffix from the filename.
+**Multi-target naming**: When a test project targets multiple frameworks (e.g., `Verify.Tests`), the `.received.` file always carries a runtime and version suffix (e.g., `.DotNet11_0.received.txt`). The `.verified.` file carries whatever `UniqueFor*` the test asked for, which may be nothing (`.verified.txt`), the runtime (`.DotNet.verified.txt`), or the same runtime and version (`.DotNet11_0.verified.txt`).
+
+**Single-target naming**: When a test project targets a single framework (e.g., `StaticSettingsTests`), the `.received.` file uses the same uniqueness as its `.verified.` file, including any `UniqueForRuntime`/`UniqueForRuntimeAndVersion` suffix.
+
+**Parameters**: Ignored parameters (`IgnoreParameters`, `IgnoreParametersForVerified`, `IgnoreConstructorParameters`) are kept in the `.received.` name and dropped from the `.verified.` name, regardless of how many frameworks are targeted.
 
 ### Debugging Tests
 

@@ -306,22 +306,18 @@ public partial class InnerVerifier :
     {
         var sharedUniqueness = PrefixUnique.SharedUniqueness(namer);
         var uniquenessVerified = GetUniquenessVerified(sharedUniqueness, namer);
-
-        if (VerifierSettings.TargetsMultipleFramework)
-        {
-            sharedUniqueness.Add(Namer.RuntimeAndVersion);
-        }
+        var uniquenessReceived = GetUniquenessReceived(sharedUniqueness, uniquenessVerified);
 
         if (settings.FileName is not null)
         {
             return (
-                $"{settings.FileName}{sharedUniqueness}",
+                $"{settings.FileName}{uniquenessReceived}",
                 $"{settings.FileName}{uniquenessVerified}");
         }
 
         var receivedBuilder = new StringBuilder(typeAndMethod);
         receivedParameters?.Invoke(receivedBuilder);
-        receivedBuilder.Append(sharedUniqueness);
+        receivedBuilder.Append(uniquenessReceived);
         var receivedPrefix = receivedBuilder.ToString();
         if (settings.ignoreParametersForVerified)
         {
@@ -336,6 +332,22 @@ public partial class InnerVerifier :
         return (
             receivedPrefix,
             verifiedBuilder.ToString());
+    }
+
+    // When multiple frameworks are targeted, the received file uses the runtime and version, so that
+    // the concurrent runs of each framework do not overwrite each others received files. Otherwise
+    // only one runtime is in play, so the received file can use the same uniqueness as the verified
+    // file. Keeping the two aligned allows tooling to pair a received file with its verified file.
+    // Mutates sharedUniqueness, so GetUniquenessVerified, which takes a copy, has to be called first.
+    static UniquenessList GetUniquenessReceived(UniquenessList sharedUniqueness, UniquenessList uniquenessVerified)
+    {
+        if (!VerifierSettings.TargetsMultipleFramework)
+        {
+            return uniquenessVerified;
+        }
+
+        sharedUniqueness.Add(Namer.RuntimeAndVersion);
+        return sharedUniqueness;
     }
 
     static UniquenessList GetUniquenessVerified(UniquenessList sharedUniqueness, Namer namer)

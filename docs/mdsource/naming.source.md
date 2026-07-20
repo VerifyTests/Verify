@@ -325,6 +325,16 @@ eg. add the following to `.gitignore`
 When a test project uses more than one `TargetFrameworks` (eg `<TargetFrameworks>net48;net7.0</TargetFrameworks>`) the runtime and version will be always be added as a uniqueness to the received file. This prevents file locking contention when the tests from both target framework run in parallel.
 
 
+## Received and single-targeting
+
+When a test project uses a single `TargetFramework`, there is no such contention, so the received file uses the same uniqueness as the verified file. With `UniqueForRuntime` both files include the runtime:
+
+```
+TheTest.TheMethod.DotNet.received.txt
+TheTest.TheMethod.DotNet.verified.txt
+```
+
+
 ## Orphaned verified files
 
 One problem with Verify is there is currently no way to track or clean up orphaned verified files.

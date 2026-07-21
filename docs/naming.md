@@ -922,6 +922,46 @@ TheTest.TheMethod.DotNet.verified.txt
 ```
 
 
+## Received map file
+
+The verified name cannot be reliably derived from the received name. A multi targeted project adds the runtime and version to the received name only, and ignored parameters are kept in the received name but dropped from the verified name. Code running inside the test has both paths available, but tooling that runs after the test run, for example a snapshot review or accept tool, only sees the files on disk. So, whenever a received file is left on disk, Verify records which verified file it belongs to.
+
+The record is written to the intermediate (`obj`) directory of the test project, not next to the snapshot, so it neither clutters the directory holding the code and snapshots nor is picked up by the `*.received.*` globs used to find snapshots:
+
+```
+{IntermediateDirectory}/VerifyReceived/{hash}.txt
+```
+
+Each file holds two lines, the received path and the verified path:
+
+```
+C:\code\MyProject\Tests\TheTest.TheMethod.DotNet11_0.received.txt
+C:\code\MyProject\Tests\TheTest.TheMethod.verified.txt
+```
+
+The [Verify.ExceptionParsing](https://nuget.org/packages/Verify.ExceptionParsing) NuGet package provides a reader for these:
+
+```cs
+var maps = ReceivedMaps.Read(directory);
+if (maps.TryGetVerified(receivedPath, out var verifiedPath))
+{
+    // accept by moving receivedPath to verifiedPath
+}
+```
+
+`ReceivedMaps.Pairs` enumerates every pair instead, for accepting a whole run at once.
+
+It scans the directory recursively, so it can be pointed at a project or a repository root. `.git` and `node_modules` are skipped.
+
+Notes:
+
+ * A record is only written when a received file is left on disk, so passing tests produce none, and none are written for [AutoVerify](autoverify.md).
+ * No records are written on a [build server](build-server.md), since nothing there consumes them, and the paths recorded do not apply off the agent.
+ * The file name is derived from the received path, so re running a test overwrites the same file rather than accumulating.
+ * Records outlive the received files they describe, for example once a snapshot has been accepted, or the test is fixed or deleted. The reader drops those, so only pairs that can be acted on are returned. They are removed from disk whenever `obj` is cleaned.
+ * The intermediate directory is resolved at build time via Verify's MSBuild props. A project that does not consume those props gets no records.
+
+
 ## Orphaned verified files
 
 One problem with Verify is there is currently no way to track or clean up orphaned verified files.

@@ -9,6 +9,11 @@ public static partial class VerifierSettings
     public static string ProjectDir { get; private set; } = null!;
 
     internal static string? SolutionDir { get; private set; }
+
+    // The obj directory, used to store the received map files. Null when the project does not consume
+    // Verify's build props, in which case no maps are written.
+    internal static string? IntermediateDir { get; private set; }
+
     internal static bool TargetsMultipleFramework { get; private set; } = true;
 
     [Experimental("VerifierSettingsTestAssembly")]
@@ -46,6 +51,8 @@ public static partial class VerifierSettings
             ProjectDir = AttributeReader.GetProjectDirectory(assembly);
             AttributeReader.TryGetSolutionDirectory(assembly, out var solutionDir);
             SolutionDir = solutionDir;
+            AttributeReader.TryGetIntermediateDirectory(assembly, out var intermediateDir);
+            IntermediateDir = intermediateDir;
             if (AttributeReader.TryGetTargetFrameworks(assembly, out var targetFrameworks))
             {
                 TargetsMultipleFramework = targetFrameworks.Contains(';');

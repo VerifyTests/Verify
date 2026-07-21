@@ -38,6 +38,24 @@ public static class AttributeReader
     public static bool TryGetProjectName(Assembly assembly, [NotNullWhen(true)] out string? projectName) =>
         TryGetProjectName(assembly, true, out projectName);
 
+    /// <summary>
+    /// The intermediate (obj) directory of the project, as resolved at build time.
+    /// </summary>
+    public static string GetIntermediateDirectory() =>
+        GetIntermediateDirectory(Assembly.GetCallingAssembly());
+
+    /// <inheritdoc cref="GetIntermediateDirectory()" />
+    public static string GetIntermediateDirectory(Assembly assembly) =>
+        GetValue(assembly, "Verify.IntermediateDirectory");
+
+    /// <inheritdoc cref="GetIntermediateDirectory()" />
+    public static bool TryGetIntermediateDirectory([NotNullWhen(true)] out string? intermediateDirectory) =>
+        TryGetIntermediateDirectory(Assembly.GetCallingAssembly(), out intermediateDirectory);
+
+    /// <inheritdoc cref="GetIntermediateDirectory()" />
+    public static bool TryGetIntermediateDirectory(Assembly assembly, [NotNullWhen(true)] out string? intermediateDirectory) =>
+        TryGetValue(assembly, "Verify.IntermediateDirectory", out intermediateDirectory);
+
     public static string GetSolutionDirectory() =>
         GetSolutionDirectory(Assembly.GetCallingAssembly());
 

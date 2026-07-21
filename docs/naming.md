@@ -939,7 +939,17 @@ C:\code\MyProject\Tests\TheTest.TheMethod.DotNet11_0.received.txt
 C:\code\MyProject\Tests\TheTest.TheMethod.verified.txt
 ```
 
-To consume these, read every file under any `VerifyReceived` directory and key them by the first line.
+The [Verify.ExceptionParsing](https://nuget.org/packages/Verify.ExceptionParsing) NuGet package provides a reader for these:
+
+```cs
+var maps = ReceivedMaps.Read(directory);
+if (maps.TryGetVerified(receivedPath, out var verifiedPath))
+{
+    // accept by moving receivedPath to verifiedPath
+}
+```
+
+It scans the directory recursively, so it can be pointed at a project or a repository root.
 
 Notes:
 

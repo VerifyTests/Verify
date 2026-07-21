@@ -184,6 +184,26 @@ Verify("the source text", "texttoconvert");
 <sup><a href='/src/Verify.Tests/Converters/ExtensionConverterTests.cs#L30-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-TextExtensionConverterVerify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+A target for a text extension can also be built from a stream. The stream is read as text, so a converter can re-emit its source without converting it back to a string:
+
+<!-- snippet: RegisterStreamConverterTextExtensionStream -->
+<a id='snippet-RegisterStreamConverterTextExtensionStream'></a>
+```cs
+// A target for a text extension can be built from a stream, eg to re-emit the
+// source of the conversion. The stream is read as text.
+VerifierSettings.RegisterStreamConverter(
+    "streamtoconvert",
+    (_, stream, _) =>
+        new(
+            null,
+            [
+                new("streamtoconvert", stream),
+                new("txt", "derived from text")
+            ]));
+```
+<sup><a href='/src/Verify.Tests/Converters/ExtensionConverterTests.cs#L39-L53' title='Snippet source file'>snippet source</a> | <a href='#snippet-RegisterStreamConverterTextExtensionStream' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
 
 ### Cleanup
 

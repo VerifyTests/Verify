@@ -32,6 +32,33 @@
         #endregion
 
     [ModuleInitializer]
+    public static void TextSplitterStreamInit()
+    {
+        FileExtensions.AddTextExtension("streamtoconvert");
+
+        #region RegisterStreamConverterTextExtensionStream
+
+        // A target for a text extension can be built from a stream, eg to re-emit the
+        // source of the conversion. The stream is read as text.
+        VerifierSettings.RegisterStreamConverter(
+            "streamtoconvert",
+            (_, stream, _) =>
+                new(
+                    null,
+                    [
+                        new("streamtoconvert", stream),
+                        new("txt", "derived from text")
+                    ]));
+
+        #endregion
+    }
+
+    // a conversion splitter for a text extension that re-emits its source stream
+    [Fact]
+    public Task TextSplitterStream() =>
+        Verify("the source text", "streamtoconvert");
+
+    [ModuleInitializer]
     public static void RecursiveInit() =>
         VerifierSettings.RegisterStreamConverter(
             "recursive",

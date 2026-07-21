@@ -47,6 +47,7 @@ public class ReceivedMapsTests
         using var temp = new TempDirectory();
         var received = Path.Combine(temp.Path, "Foo.received.txt");
         var verified = Path.Combine(temp.Path, "Foo.verified.txt");
+        File.WriteAllText(received, "value");
         WriteMap(Path.Combine(temp.Path, "project", "obj", "Debug", "net10.0"), received, verified);
 
         var maps = ReceivedMaps.Read(temp);
@@ -54,6 +55,52 @@ public class ReceivedMapsTests
         Assert.Single(maps.Pairs);
         Assert.True(maps.TryGetVerified(received, out var found));
         Assert.Equal(verified, found);
+    }
+
+    [Fact]
+    public void ExcludesRecordWhenReceivedIsGone()
+    {
+        using var temp = new TempDirectory();
+        // No received file on disk, as after the snapshot was accepted, or the test fixed or deleted.
+        var received = Path.Combine(temp.Path, "Foo.received.txt");
+        WriteMap(Path.Combine(temp.Path, "obj"), received, Path.Combine(temp.Path, "Foo.verified.txt"));
+
+        var maps = ReceivedMaps.Read(temp);
+
+        // Enumerating Pairs is how a run is accepted, so a record that cannot be acted on must not
+        // appear there.
+        Assert.Empty(maps.Pairs);
+        Assert.False(maps.TryGetVerified(received, out _));
+    }
+
+    [Fact]
+    public void DeduplicatesReceivedRecordedByMoreThanOneBuild()
+    {
+        using var temp = new TempDirectory();
+        var received = Path.Combine(temp.Path, "Foo.received.txt");
+        var verified = Path.Combine(temp.Path, "Foo.verified.txt");
+        File.WriteAllText(received, "value");
+        WriteMap(Path.Combine(temp.Path, "obj", "Debug"), received, verified);
+        WriteMap(Path.Combine(temp.Path, "obj", "Release"), received, verified);
+
+        var maps = ReceivedMaps.Read(temp);
+
+        var pair = Assert.Single(maps.Pairs);
+        Assert.Equal(received, pair.Received);
+        Assert.Equal(verified, pair.Verified);
+    }
+
+    [Fact]
+    public void SkipsDirectoriesThatCannotHoldMaps()
+    {
+        using var temp = new TempDirectory();
+        var received = Path.Combine(temp.Path, "Foo.received.txt");
+        File.WriteAllText(received, "value");
+        WriteMap(Path.Combine(temp.Path, ".git"), received, Path.Combine(temp.Path, "Foo.verified.txt"));
+
+        var maps = ReceivedMaps.Read(temp);
+
+        Assert.Empty(maps.Pairs);
     }
 
     [Fact]
@@ -88,6 +135,7 @@ public class ReceivedMapsTests
         var recorded = Path.Combine(temp.Path, "sub", "..", "Foo.received.txt");
         var resolved = Path.Combine(temp.Path, "Foo.received.txt");
         var verified = Path.Combine(temp.Path, "Foo.verified.txt");
+        File.WriteAllText(resolved, "value");
         WriteMap(Path.Combine(temp.Path, "obj"), recorded, verified);
 
         var maps = ReceivedMaps.Read(temp);

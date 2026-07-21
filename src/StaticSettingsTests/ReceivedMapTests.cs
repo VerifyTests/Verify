@@ -19,7 +19,7 @@ public class ReceivedMapTests :
 
         // The map lives in obj, not beside the snapshot, so it neither clutters the snapshot
         // directory nor gets picked up by the `*.received.*` globs used to find snapshots.
-        Assert.Empty(Directory.EnumerateFiles(temp, "*.map"));
+        Assert.Equal(received, Assert.Single(Directory.EnumerateFiles(temp)));
 
         Assert.Equal(
             Path.Combine(temp.Path, "ReceivedMapTests.WritesMapToIntermediateDirectory.verified.txt"),
@@ -56,9 +56,12 @@ public class ReceivedMapTests :
 
         await Verify("value", settings);
 
-        // The received file is moved to verified, so there is nothing for a map to describe.
-        var received = Path.Combine(temp.Path, "ReceivedMapTests.NoMapWhenAutoVerified.received.txt");
-        Assert.Null(FindMap(received));
+        // The received file is moved to verified, so there is nothing for a map to describe. Asserted
+        // against the directory rather than a constructed received name, so that a name that never
+        // matches cannot pass this for the wrong reason.
+        Assert.DoesNotContain(
+            MapRecords(),
+            _ => _.Received.StartsWith(temp.Path, StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]
@@ -121,20 +124,26 @@ public class ReceivedMapTests :
         Directory.Exists(MapDirectory) ? Directory.EnumerateFiles(MapDirectory).ToList() : [];
 
     // Maps are named from a hash of the received path, so they are located by content rather than name.
-    static string? FindMap(string receivedPath)
+    static List<(string Received, string Verified)> MapRecords()
     {
+        var records = new List<(string, string)>();
         foreach (var file in MapFiles())
         {
             var lines = File.ReadAllLines(file);
-            if (lines.Length == 2 &&
-                lines[0] == receivedPath)
+            if (lines.Length == 2)
             {
-                return lines[1];
+                records.Add((lines[0], lines[1]));
             }
         }
 
-        return null;
+        return records;
     }
+
+    static string? FindMap(string receivedPath) =>
+        MapRecords()
+            .Where(_ => _.Received == receivedPath)
+            .Select(_ => _.Verified)
+            .SingleOrDefault();
 
     static string Received(string directory) =>
         Directory.EnumerateFiles(directory)

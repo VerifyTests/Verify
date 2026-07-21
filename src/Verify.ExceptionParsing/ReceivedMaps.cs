@@ -33,7 +33,9 @@ public sealed class ReceivedMaps
     }
 
     /// <summary>
-    /// Every received and verified pair that was found.
+    /// Every received and verified pair that can be acted on, one per received file. Records whose
+    /// received file no longer exists are excluded, as are duplicate records for the same received
+    /// file, so this can be enumerated directly to accept a run.
     /// </summary>
     public IReadOnlyList<FilePair> Pairs { get; }
 
@@ -43,7 +45,6 @@ public sealed class ReceivedMaps
     /// </summary>
     public static ReceivedMaps Read(string directory)
     {
-        var pairs = new List<FilePair>();
         var lookup = new Dictionary<string, string>(pathComparer);
 
         foreach (var mapDirectory in FindMapDirectories(directory))
@@ -55,12 +56,28 @@ public sealed class ReceivedMaps
                     continue;
                 }
 
-                pairs.Add(pair);
+                var received = Normalize(pair.Received);
+
+                // Records outlive the received files they describe, for example once a snapshot has
+                // been accepted or the test has been fixed or deleted. Dropping those here keeps
+                // every pair returned one that can actually be acted on.
+                if (!File.Exists(received))
+                {
+                    continue;
+                }
 
                 // The same received path can be recorded by more than one build, for example Debug
                 // and Release, with the same result. So the last wins rather than throwing.
-                lookup[Normalize(pair.Received)] = pair.Verified;
+                lookup[received] = pair.Verified;
             }
+        }
+
+        // Built from the lookup, so a received file recorded more than once yields a single pair,
+        // and that pair agrees with what TryGetVerified returns.
+        var pairs = new List<FilePair>(lookup.Count);
+        foreach (var entry in lookup)
+        {
+            pairs.Add(new(entry.Key, entry.Value));
         }
 
         return new(pairs, lookup);
@@ -70,11 +87,15 @@ public sealed class ReceivedMaps
     /// Finds the verified file that <paramref name="receivedPath" /> belongs to.
     /// </summary>
     /// <remarks>
-    /// Records for a received file that no longer exists are never matched, since the lookup is by
-    /// the received path.
+    /// Records for a received file that no longer exists are never matched.
     /// </remarks>
     public bool TryGetVerified(string receivedPath, [NotNullWhen(true)] out string? verified) =>
         verifiedByReceived.TryGetValue(Normalize(receivedPath), out verified);
+
+    // A junction or symlink can make the tree cyclic, and netstandard2.0 has no way to resolve a link
+    // target to detect that. So the walk is bounded instead. An intermediate directory sits only a
+    // handful of levels below the project or repository root it is scanned from.
+    const int maxDepth = 20;
 
     static IEnumerable<string> FindMapDirectories(string directory)
     {
@@ -83,12 +104,12 @@ public sealed class ReceivedMaps
             yield break;
         }
 
-        var pending = new Stack<string>();
-        pending.Push(directory);
+        var pending = new Stack<(string Directory, int Depth)>();
+        pending.Push((directory, 0));
 
         while (pending.Count > 0)
         {
-            var current = pending.Pop();
+            var (current, depth) = pending.Pop();
 
             string[] children;
             try
@@ -104,18 +125,28 @@ public sealed class ReceivedMaps
 
             foreach (var child in children)
             {
-                if (string.Equals(Path.GetFileName(child), directoryName, StringComparison.OrdinalIgnoreCase))
+                var name = Path.GetFileName(child);
+                if (string.Equals(name, directoryName, StringComparison.OrdinalIgnoreCase))
                 {
                     // Maps are flat inside, so there is no need to descend further.
                     yield return child;
+                    continue;
                 }
-                else
+
+                if (depth + 1 < maxDepth &&
+                    !IsSkipped(name))
                 {
-                    pending.Push(child);
+                    pending.Push((child, depth + 1));
                 }
             }
         }
     }
+
+    // Directories that can never hold an intermediate directory, and that are large enough to dwarf
+    // the rest of the walk when scanning from a repository root.
+    static bool IsSkipped(string name) =>
+        string.Equals(name, ".git", StringComparison.OrdinalIgnoreCase) ||
+        string.Equals(name, "node_modules", StringComparison.OrdinalIgnoreCase);
 
     static IEnumerable<string> EnumerateFiles(string directory)
     {

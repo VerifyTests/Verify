@@ -374,14 +374,16 @@ if (maps.TryGetVerified(receivedPath, out var verifiedPath))
 }
 ```
 
-It scans the directory recursively, so it can be pointed at a project or a repository root.
+`ReceivedMaps.Pairs` enumerates every pair instead, for accepting a whole run at once.
+
+It scans the directory recursively, so it can be pointed at a project or a repository root. `.git` and `node_modules` are skipped.
 
 Notes:
 
  * A record is only written when a received file is left on disk, so passing tests produce none, and none are written for [AutoVerify](autoverify.md).
  * No records are written on a [build server](build-server.md), since nothing there consumes them, and the paths recorded do not apply off the agent.
  * The file name is derived from the received path, so re running a test overwrites the same file rather than accumulating.
- * Records for a deleted or renamed test are never read, since tooling looks them up by the received files that exist. They are removed whenever `obj` is cleaned.
+ * Records outlive the received files they describe, for example once a snapshot has been accepted, or the test is fixed or deleted. The reader drops those, so only pairs that can be acted on are returned. They are removed from disk whenever `obj` is cleaned.
  * The intermediate directory is resolved at build time via Verify's MSBuild props. A project that does not consume those props gets no records.
 
 

@@ -9,6 +9,9 @@ insert_final_newline = true
 indent_size = 4
 charset = utf-8
 
+# Convention (not tool-enforced): line comments go on their own line directly above the code they
+# describe, never trailing at the end of a code line.
+
 # Redundant accessor body
 resharper_redundant_accessor_body_highlighting = error
 
@@ -232,6 +235,7 @@ resharper_arrange_redundant_parentheses_highlighting = error
 resharper_arrange_static_member_qualifier_highlighting = error
 resharper_arrange_this_qualifier_highlighting = error
 resharper_arrange_type_member_modifiers_highlighting = none
+resharper_arrange_type_modifiers_highlighting = none
 resharper_built_in_type_reference_style_for_member_access_highlighting = hint
 resharper_built_in_type_reference_style_highlighting = hint
 resharper_check_namespace_highlighting = none

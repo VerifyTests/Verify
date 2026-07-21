@@ -88,6 +88,13 @@ public class NewLineTests
             var json = await Assert.ThrowsAnyAsync<Exception>(
                 () => Verify("{\n}", extension: "json", settings: settings));
             Assert.Contains("*.verified.json text eol=lf", json.Message);
+            // Inline, not only in the finally, since the verifies below would otherwise treat
+            // the json as a dangling verified file for this test and fail on it
+            File.Delete(jsonPath);
+            foreach (var stale in Directory.EnumerateFiles(directory, receivedJsonPattern))
+            {
+                File.Delete(stale);
+            }
 
             // A verified file using \n still matches received content normalized to \n
             await File.WriteAllTextAsync(fullPath, "a\nb");

@@ -43,58 +43,70 @@ public class NewLineTests
     public async Task StringWithDifferingNewline()
     {
         var fullPath = CurrentFile.Relative("NewLineTests.StringWithDifferingNewline.verified.txt");
-        File.Delete(fullPath);
-        var settings = new VerifySettings();
-        settings.DisableRequireUniquePrefix();
-
-        // A verified file containing \r is rejected rather than silently normalized
-        await File.WriteAllTextAsync(fullPath, "a\r\nb");
-        var crlf = await Assert.ThrowsAnyAsync<Exception>(() => Verify("a\nb", settings));
-        Assert.Contains("carriage return", crlf.ToString());
-
-        await File.WriteAllTextAsync(fullPath, "a\rb");
-        var cr = await Assert.ThrowsAnyAsync<Exception>(() => Verify("a\nb", settings));
-        Assert.Contains("carriage return", cr.ToString());
-
-        // The rejection writes received, so the run is not silent, and is not wrapped in a
-        // generic "Failed to compare files" that hides the cause.
-        // Globbed because received carries the namer uniqueness suffix, while the verified
-        // file above is the unsuffixed fallback.
-        var directory = Path.GetDirectoryName(fullPath)!;
-        const string receivedPattern = "NewLineTests.StringWithDifferingNewline*.received.txt";
-        foreach (var stale in Directory.EnumerateFiles(directory, receivedPattern))
-        {
-            File.Delete(stale);
-        }
-
-        await File.WriteAllTextAsync(fullPath, "a\r\nb");
-        var rejection = await Assert.ThrowsAnyAsync<Exception>(() => Verify("a\nb", settings));
-        Assert.DoesNotContain("Failed to compare files", rejection.Message);
-        Assert.Contains("*.verified.txt text eol=lf", rejection.Message);
-        var received = Directory.EnumerateFiles(directory, receivedPattern).Single();
-        Assert.Equal("a\nb", await File.ReadAllTextAsync(received));
-        File.Delete(received);
-
         // The suggested .gitattributes line uses the extension of the failing file,
         // which is not always txt
         var jsonPath = CurrentFile.Relative("NewLineTests.StringWithDifferingNewline.verified.json");
-        await File.WriteAllTextAsync(jsonPath, "{\r\n}");
-        var json = await Assert.ThrowsAnyAsync<Exception>(
-            () => Verify("{\n}", extension: "json", settings: settings));
-        Assert.Contains("*.verified.json text eol=lf", json.Message);
-        File.Delete(jsonPath);
-        foreach (var stale in Directory.EnumerateFiles(directory, "NewLineTests.StringWithDifferingNewline*.received.json"))
-        {
-            File.Delete(stale);
-        }
-
-        // A verified file using \n still matches received content normalized to \n
-        await File.WriteAllTextAsync(fullPath, "a\nb");
-        await Verify("a\r\nb", settings);
-        await Verify("a\rb", settings);
-        await Verify("a\nb", settings);
-
+        var directory = Path.GetDirectoryName(fullPath)!;
+        // Globbed because received carries the namer uniqueness suffix, while the verified
+        // files above are the unsuffixed fallback.
+        const string receivedPattern = "NewLineTests.StringWithDifferingNewline*.received.txt";
+        const string receivedJsonPattern = "NewLineTests.StringWithDifferingNewline*.received.json";
         File.Delete(fullPath);
+        File.Delete(jsonPath);
+        var settings = new VerifySettings();
+        settings.DisableRequireUniquePrefix();
+        // Every verify below is expected to fail, so without this the diff tool is launched
+        settings.DisableDiff();
+
+        try
+        {
+            // A verified file containing \r is rejected rather than silently normalized
+            await File.WriteAllTextAsync(fullPath, "a\r\nb");
+            var crlf = await Assert.ThrowsAnyAsync<Exception>(() => Verify("a\nb", settings));
+            Assert.Contains("carriage return", crlf.ToString());
+
+            await File.WriteAllTextAsync(fullPath, "a\rb");
+            var cr = await Assert.ThrowsAnyAsync<Exception>(() => Verify("a\nb", settings));
+            Assert.Contains("carriage return", cr.ToString());
+
+            // The rejection writes received, so the run is not silent, and is not wrapped in a
+            // generic "Failed to compare files" that hides the cause.
+            foreach (var stale in Directory.EnumerateFiles(directory, receivedPattern))
+            {
+                File.Delete(stale);
+            }
+
+            await File.WriteAllTextAsync(fullPath, "a\r\nb");
+            var rejection = await Assert.ThrowsAnyAsync<Exception>(() => Verify("a\nb", settings));
+            Assert.DoesNotContain("Failed to compare files", rejection.Message);
+            Assert.Contains("*.verified.txt text eol=lf", rejection.Message);
+            var received = Directory.EnumerateFiles(directory, receivedPattern).Single();
+            Assert.Equal("a\nb", await File.ReadAllTextAsync(received));
+            File.Delete(received);
+
+            await File.WriteAllTextAsync(jsonPath, "{\r\n}");
+            var json = await Assert.ThrowsAnyAsync<Exception>(
+                () => Verify("{\n}", extension: "json", settings: settings));
+            Assert.Contains("*.verified.json text eol=lf", json.Message);
+
+            // A verified file using \n still matches received content normalized to \n
+            await File.WriteAllTextAsync(fullPath, "a\nb");
+            await Verify("a\r\nb", settings);
+            await Verify("a\rb", settings);
+            await Verify("a\nb", settings);
+        }
+        finally
+        {
+            // In a finally since these deliberately contain \r. A leftover verified file is
+            // normalized to \n by .gitattributes if committed, silently voiding this test.
+            File.Delete(fullPath);
+            File.Delete(jsonPath);
+            foreach (var stale in Directory.EnumerateFiles(directory, receivedPattern)
+                         .Concat(Directory.EnumerateFiles(directory, receivedJsonPattern)))
+            {
+                File.Delete(stale);
+            }
+        }
     }
 
     //TODO: add test for trailing newlines
@@ -128,24 +140,42 @@ public class NewLineTests
     public async Task TrailingNewlinesRaw()
     {
         var file = CurrentFile.Relative("NewLineTests.TrailingNewlinesRaw.verified.txt");
+        var directory = Path.GetDirectoryName(file)!;
+        // Globbed because received carries the namer uniqueness suffix, while the verified
+        // file above is the unsuffixed fallback.
+        const string receivedPattern = "NewLineTests.TrailingNewlinesRaw*.received.txt";
         File.Delete(file);
         var settings = new VerifySettings();
         settings.DisableRequireUniquePrefix();
+        // Several verifies below are expected to fail, so without this the diff tool is launched
+        settings.DisableDiff();
 
-        // A verified file containing \r is rejected
-        await File.WriteAllTextAsync(file, "a\r\n");
-        var exception = await Assert.ThrowsAnyAsync<Exception>(() => Verify("a\n", settings));
-        Assert.Contains("carriage return", exception.ToString());
+        try
+        {
+            // A verified file containing \r is rejected
+            await File.WriteAllTextAsync(file, "a\r\n");
+            var exception = await Assert.ThrowsAnyAsync<Exception>(() => Verify("a\n", settings));
+            Assert.Contains("carriage return", exception.ToString());
 
-        // Trailing newlines are now compared exactly, with no tolerance
-        await File.WriteAllTextAsync(file, "a\n");
-        await Verify("a\n", settings);
-        await Assert.ThrowsAsync<VerifyException>(() => Verify("a", settings));
+            // Trailing newlines are now compared exactly, with no tolerance
+            await File.WriteAllTextAsync(file, "a\n");
+            await Verify("a\n", settings);
+            await Assert.ThrowsAsync<VerifyException>(() => Verify("a", settings));
 
-        await File.WriteAllTextAsync(file, "a\n\n");
-        await Verify("a\n\n", settings);
-        await Assert.ThrowsAsync<VerifyException>(() => Verify("a\n", settings));
-        File.Delete(file);
+            await File.WriteAllTextAsync(file, "a\n\n");
+            await Verify("a\n\n", settings);
+            await Assert.ThrowsAsync<VerifyException>(() => Verify("a\n", settings));
+        }
+        finally
+        {
+            // Deleting verified orphans received, so no subsequent run reconciles it, and
+            // DiffEngineTray shows it as a pending change forever.
+            File.Delete(file);
+            foreach (var stale in Directory.EnumerateFiles(directory, receivedPattern))
+            {
+                File.Delete(stale);
+            }
+        }
     }
 #endif
 }

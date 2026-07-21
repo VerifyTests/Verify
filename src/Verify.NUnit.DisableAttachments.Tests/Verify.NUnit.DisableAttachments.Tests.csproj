@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" />
     <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
 

@@ -379,6 +379,7 @@ It scans the directory recursively, so it can be pointed at a project or a repos
 Notes:
 
  * A record is only written when a received file is left on disk, so passing tests produce none, and none are written for [AutoVerify](autoverify.md).
+ * No records are written on a [build server](build-server.md), since nothing there consumes them, and the paths recorded do not apply off the agent.
  * The file name is derived from the received path, so re running a test overwrites the same file rather than accumulating.
  * Records for a deleted or renamed test are never read, since tooling looks them up by the received files that exist. They are removed whenever `obj` is cleaned.
  * The intermediate directory is resolved at build time via Verify's MSBuild props. A project that does not consume those props gets no records.

@@ -21,6 +21,13 @@ static class ReceivedMap
 
     public static void Write(in FilePair file)
     {
+        if (BuildServerDetector.Detected)
+        {
+            // Maps exist for local tooling to accept snapshots. A build server has nothing to consume
+            // them, and the paths recorded do not apply off the agent.
+            return;
+        }
+
         var intermediate = VerifierSettings.IntermediateDir;
         if (intermediate is null)
         {

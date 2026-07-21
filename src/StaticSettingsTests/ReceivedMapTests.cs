@@ -1,8 +1,13 @@
-public class ReceivedMapTests
+// Lives here, rather than in Verify.Tests, since these toggle the build server detection, and this
+// project runs serially with BaseTest restoring that state between tests.
+public class ReceivedMapTests :
+    BaseTest
 {
     [Fact]
     public async Task WritesMapToIntermediateDirectory()
     {
+        DiffEngine.BuildServerDetector.Detected = false;
+
         using var temp = new TempDirectory();
         var settings = new VerifySettings();
         settings.UseDirectory(temp);
@@ -13,22 +18,36 @@ public class ReceivedMapTests
         var received = Received(temp);
 
         // The map lives in obj, not beside the snapshot, so it neither clutters the snapshot
-        // directory nor gets picked up by the `*.received.*` globs tooling uses to find snapshots.
+        // directory nor gets picked up by the `*.received.*` globs used to find snapshots.
         Assert.Empty(Directory.EnumerateFiles(temp, "*.map"));
 
-        var map = FindMap(received);
-        Assert.NotNull(map);
-
-        // The received name carries the runtime and version, since Verify.Tests is multi targeted,
-        // while the verified name does not. The map removes the need to derive one from the other.
         Assert.Equal(
             Path.Combine(temp.Path, "ReceivedMapTests.WritesMapToIntermediateDirectory.verified.txt"),
-            map);
+            FindMap(received));
+    }
+
+    [Fact]
+    public async Task NoMapOnBuildServer()
+    {
+        DiffEngine.BuildServerDetector.Detected = true;
+
+        using var temp = new TempDirectory();
+        var settings = new VerifySettings();
+        settings.UseDirectory(temp);
+        settings.DisableDiff();
+
+        await Assert.ThrowsAsync<VerifyException>(() => Verify("value", settings));
+
+        // A received file is still produced, but nothing on a build server consumes a map.
+        Assert.NotNull(Received(temp));
+        Assert.Null(FindMap(Received(temp)));
     }
 
     [Fact]
     public async Task NoMapWhenAutoVerified()
     {
+        DiffEngine.BuildServerDetector.Detected = false;
+
         using var temp = new TempDirectory();
         var settings = new VerifySettings();
         settings.UseDirectory(temp);
@@ -37,14 +56,16 @@ public class ReceivedMapTests
 
         await Verify("value", settings);
 
-        // The received file is moved to verified, so there is no received file for a map to describe.
-        var received = Path.Combine(temp.Path, $"ReceivedMapTests.NoMapWhenAutoVerified.{Namer.RuntimeAndVersion}.received.txt");
+        // The received file is moved to verified, so there is nothing for a map to describe.
+        var received = Path.Combine(temp.Path, "ReceivedMapTests.NoMapWhenAutoVerified.received.txt");
         Assert.Null(FindMap(received));
     }
 
     [Fact]
     public async Task MapIsOverwrittenNotDuplicated()
     {
+        DiffEngine.BuildServerDetector.Detected = false;
+
         using var temp = new TempDirectory();
 
         VerifySettings Settings()
@@ -69,6 +90,8 @@ public class ReceivedMapTests
     [Fact]
     public async Task MapEnablesAccept()
     {
+        DiffEngine.BuildServerDetector.Detected = false;
+
         using var temp = new TempDirectory();
 
         VerifySettings Settings()
@@ -85,8 +108,7 @@ public class ReceivedMapTests
         // Accept the way out of process tooling would: read the verified path from the map, rather
         // than trying to derive it from the received name.
         var received = Received(temp);
-        var verified = FindMap(received)!;
-        File.Move(received, verified, true);
+        File.Move(received, FindMap(received)!, true);
 
         // The accept landed on the file Verify expects, so the next run passes.
         await Verify("value", Settings());

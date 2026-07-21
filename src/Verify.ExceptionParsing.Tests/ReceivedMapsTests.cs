@@ -1,5 +1,8 @@
 using VerifyTests.ExceptionParsing;
 
+// Verify's build server detection is global state, and the contract test below toggles it.
+[assembly: CollectionBehavior(DisableTestParallelization = true)]
+
 public class ReceivedMapsTests
 {
     // Pins the contract between the writer, in Verify, and the reader here. If either side changes
@@ -7,25 +10,35 @@ public class ReceivedMapsTests
     [Fact]
     public async Task ReadsMapWrittenByVerify()
     {
-        using var temp = new TempDirectory();
-        var settings = new VerifySettings();
-        settings.UseDirectory(temp);
-        settings.DisableDiff();
+        // Maps are not written on a build server, so enable the writer for this test.
+        var detected = DiffEngine.BuildServerDetector.Detected;
+        DiffEngine.BuildServerDetector.Detected = false;
+        try
+        {
+            using var temp = new TempDirectory();
+            var settings = new VerifySettings();
+            settings.UseDirectory(temp);
+            settings.DisableDiff();
 
-        await Assert.ThrowsAsync<VerifyException>(() => VerifyXunit.Verifier.Verify("value", settings));
+            await Assert.ThrowsAsync<VerifyException>(() => VerifyXunit.Verifier.Verify("value", settings));
 
-        var received = Directory.EnumerateFiles(temp)
-            .Single(_ => _.EndsWith(".received.txt", StringComparison.Ordinal));
+            var received = Directory.EnumerateFiles(temp)
+                .Single(_ => _.EndsWith(".received.txt", StringComparison.Ordinal));
 
-        var maps = ReceivedMaps.Read(AttributeReader.GetIntermediateDirectory());
+            var maps = ReceivedMaps.Read(AttributeReader.GetIntermediateDirectory());
 
-        Assert.True(maps.TryGetVerified(received, out var verified));
+            Assert.True(maps.TryGetVerified(received, out var verified));
 
-        // The received name carries the runtime and version, since this project is multi targeted,
-        // while the verified name does not.
-        Assert.Equal(
-            Path.Combine(temp.Path, "ReceivedMapsTests.ReadsMapWrittenByVerify.verified.txt"),
-            verified);
+            // The received name carries the runtime and version, since this project is multi
+            // targeted, while the verified name does not.
+            Assert.Equal(
+                Path.Combine(temp.Path, "ReceivedMapsTests.ReadsMapWrittenByVerify.verified.txt"),
+                verified);
+        }
+        finally
+        {
+            DiffEngine.BuildServerDetector.Detected = detected;
+        }
     }
 
     [Fact]

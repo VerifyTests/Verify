@@ -347,6 +347,33 @@ TheTest.TheMethod.DotNet.verified.txt
 ```
 
 
+## Received map file
+
+The verified name cannot be reliably derived from the received name. A multi targeted project adds the runtime and version to the received name only, and ignored parameters are kept in the received name but dropped from the verified name. Code running inside the test has both paths available, but tooling that runs after the test run, for example a snapshot review or accept tool, only sees the files on disk. So, whenever a received file is left on disk, Verify records which verified file it belongs to.
+
+The record is written to the intermediate (`obj`) directory of the test project, not next to the snapshot, so it neither clutters the directory holding the code and snapshots nor is picked up by the `*.received.*` globs used to find snapshots:
+
+```
+{IntermediateDirectory}/VerifyReceived/{hash}.txt
+```
+
+Each file holds two lines, the received path and the verified path:
+
+```
+C:\code\MyProject\Tests\TheTest.TheMethod.DotNet11_0.received.txt
+C:\code\MyProject\Tests\TheTest.TheMethod.verified.txt
+```
+
+To consume these, read every file under any `VerifyReceived` directory and key them by the first line.
+
+Notes:
+
+ * A record is only written when a received file is left on disk, so passing tests produce none, and none are written for [AutoVerify](autoverify.md).
+ * The file name is derived from the received path, so re running a test overwrites the same file rather than accumulating.
+ * Records for a deleted or renamed test are never read, since tooling looks them up by the received files that exist. They are removed whenever `obj` is cleaned.
+ * The intermediate directory is resolved at build time via Verify's MSBuild props. A project that does not consume those props gets no records.
+
+
 ## Orphaned verified files
 
 One problem with Verify is there is currently no way to track or clean up orphaned verified files.

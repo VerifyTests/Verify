@@ -160,6 +160,11 @@
     internal static async Task<StringBuilder> ReadStringBuilderWithFixedLines(TextReader reader)
     {
         var contents = await reader.ReadToEndAsync();
+        return contents.ToStringBuilderWithFixedLines();
+    }
+
+    internal static StringBuilder ToStringBuilderWithFixedLines(this string contents)
+    {
         var builder = new StringBuilder(contents);
         if (contents.Contains('\r'))
         {

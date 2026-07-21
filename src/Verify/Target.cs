@@ -57,21 +57,29 @@ public readonly struct Target
     {
         Guards.AgainstBadExtension(extension);
 
-        if (FileExtensions.IsTextExtension(extension))
-        {
-            throw new(
-                $"""
-                 Don't pass a stream for text.
-                 If {extension} is not a text extension then use `FileExtensions.RemoveTextExtensions(\"{extension}\")` at initialization;
-                 Otherwise use `Target(string extension, string data)` or `Target(string extension, StringBuilder data, string? name)`.
-                 """);
-        }
-
         Extension = extension;
         Name = FileNameCleaner.SanitizeFilePath(name);
         PerformConversion = performConversion;
+
+        // text is always stored as text, so for a text extension the stream is read here.
+        // eg a converter registered against a text extension re-emitting its source stream.
+        if (FileExtensions.IsTextExtension(extension))
+        {
+            streamData = null;
+            stringBuilderData = ReadText(data);
+            return;
+        }
+
         streamData = data;
         stringBuilderData = null;
+    }
+
+    // the stream is owned by the target, so it is consumed here
+    static StringBuilder ReadText(Stream stream)
+    {
+        stream.MoveToStart();
+        using var reader = new StreamReader(stream);
+        return reader.ReadToEnd().ToStringBuilderWithFixedLines();
     }
 
     public Target(string extension, StringBuilder data, string? name = null)

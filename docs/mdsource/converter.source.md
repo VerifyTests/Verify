@@ -62,6 +62,10 @@ snippet: RegisterStreamConverterTextExtension
 
 snippet: TextExtensionConverterVerify
 
+A target for a text extension can also be built from a stream. The stream is read as text, so a converter can re-emit its source without converting it back to a string:
+
+snippet: RegisterStreamConverterTextExtensionStream
+
 
 ### Cleanup
 

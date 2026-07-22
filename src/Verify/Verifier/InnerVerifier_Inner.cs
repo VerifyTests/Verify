@@ -136,6 +136,14 @@ partial class InnerVerifier
         if (target.TryGetStringBuilder(out var builder))
         {
             ApplyScrubbers.ApplyForExtension(target.Extension, builder, settings, counter);
+            // Content scrubbed away entirely is normalized to the same sentinel used for an
+            // empty root string (see TryGetRootTarget). This keeps empty out of the written
+            // snapshot and, more importantly, out of any registered string comparer, which may
+            // assume non-empty input.
+            if (builder.Length == 0)
+            {
+                builder.Append("emptyString");
+            }
         }
     }
 
@@ -170,9 +178,9 @@ partial class InnerVerifier
             }
             else
             {
-                var builder = new StringBuilder(stringRoot);
-                ApplyScrubbers.ApplyForExtension("txt", builder, settings, counter);
-                target = new("txt", builder);
+                var textTarget = new Target("txt", new StringBuilder(stringRoot));
+                Scrub(textTarget);
+                target = textTarget;
             }
 
             return true;

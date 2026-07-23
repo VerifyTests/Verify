@@ -25,14 +25,7 @@ public partial class Verifier
     }
 
     /// <summary>
-    /// Use a directory relative to the project directory for storing for `.verified.` files.
-    /// </summary>
-    [Obsolete("Use the overload that accepts mirrorSourceStructure.")]
-    public static void UseProjectRelativeDirectory(string directory) =>
-        UseProjectRelativeDirectory(directory, false);
-
-    /// <summary>
-    /// Use a directory relative to the project directory for storing for `.verified.` files.
+    /// Use a directory relative to the project directory for storing `.verified.` files.
     /// </summary>
     /// <param name="directory">The project relative directory to store `.verified.` files in.</param>
     /// <param name="mirrorSourceStructure">
@@ -45,7 +38,7 @@ public partial class Verifier
                 PathInfo.DeriveProjectRelative(directory, mirrorSourceStructure, sourceFile, projectDirectory, type.NameWithParent(), method.Name));
 
     /// <summary>
-    /// Use a directory relative to the source file directory for storing for `.verified.` files.
+    /// Use a directory relative to the source file directory for storing `.verified.` files.
     /// </summary>
     public static void UseSourceFileRelativeDirectory(string directory) =>
         DerivePathInfo(

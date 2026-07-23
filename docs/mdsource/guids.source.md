@@ -31,7 +31,9 @@ snippet: DontScrubGuidsGlobal
 
 ## Inline Guids
 
-Strings containing inline Guids can also be scrubbed. To enable this behavior, use:
+Strings containing inline Guids can also be scrubbed. Guids in the `D` format (`00000000-0000-0000-0000-000000000000`) and the `N` format (`00000000000000000000000000000000`) are matched when bounded by non-alphanumeric characters. `B` and `P` formatted Guids are covered by the `D` format matching between their delimiters. Note that any 32 character hex sequence is a valid `N` format Guid, so hex content of that exact length (an MD5 hash for example) will also be scrubbed.
+
+To enable this behavior, use:
 
 
 ### Instance

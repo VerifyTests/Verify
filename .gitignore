@@ -16,7 +16,8 @@ src/Verify.Tests/Tests.TextNegative.verified.tmp
 *.ncrunchproject
 *nCrunchTemp*
 *.cache
-src/Verify.Tests/NewLineTests.StringWithDifferingNewline.verified.txt
+src/Verify.Tests/NewLineTests.StringWithDifferingNewline.*
+src/Verify.Tests/NewLineTests.TrailingNewlinesRaw.*
 src/Verify.MSTest.Tests/Tests.AutoVerifyHasAttachment.verified.txt
 src/Verify.NUnit.Tests/Tests.AutoVerifyHasAttachment.verified.txt
 src/Verify.TUnit.Tests/Tests.AutoVerifyHasAttachment.verified.txt

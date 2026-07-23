@@ -59,6 +59,21 @@ snippet: InstanceSsimForPng
 Dimension mismatches between the received and verified images are always reported as not equal, regardless of threshold.
 
 
+### Standalone SSIM scoring
+
+The SSIM score can also be computed directly, outside of a verification. This is useful, for example, to report a similarity metric per rendered page in a custom report:
+
+snippet: SsimCompare
+
+`Ssim.Compare` accepts two PNG streams, two PNG byte arrays, or two `PngImage` instances decoded via `PngDecoder.Decode`. Scores range from `0` (completely different) to `1` (identical). Comparing images of different dimensions throws an `ArgumentException`.
+
+To treat a dimension mismatch as a distinct state instead of an exception, decode with `PngDecoder.Decode` and check dimensions before comparing:
+
+snippet: SsimCompareDimensions
+
+`PngDecoder` supports the same PNG subset as the comparer (see below).
+
+
 ### Supported PNG variants
 
 The bundled decoder targets the common subset of PNGs produced by test scenarios:

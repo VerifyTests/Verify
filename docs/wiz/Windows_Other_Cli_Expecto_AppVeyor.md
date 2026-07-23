@@ -91,6 +91,26 @@ On Windows, if `core.autocrlf` is set to `true`, files may show as modified with
 git config --global core.autocrlf input
 ```
 
+`core.autocrlf=true` normalizes line endings to lf on commit, and converts them back to crlf on checkout. So the blobs stored in git are lf while the files on disk are crlf. Verify rejects a verified file containing a carriage return, so tests fail even though the committed content is correct.
+
+Adding the `.gitattributes` entries above overrides `core.autocrlf` for those paths, but it does not update files that are already checked out. Git re-applies line ending filters only when a file's blob changes, and since `core.autocrlf` already normalized those blobs to lf, adding the attributes changes no content. A one-time refresh of the working tree is required after committing `.gitattributes`:
+
+```
+git rm --cached -r .
+git reset --hard
+```
+
+This discards uncommitted changes, so commit or stash first.
+
+Where crlf was committed to the blobs (`core.autocrlf` unset or `false`), the content itself needs normalizing instead. In that case `git add --renormalize .` produces a commit that converts the blobs, and checkout updates each working tree as it is pulled:
+
+```
+git add --renormalize .
+git commit -m "Normalize line endings"
+```
+
+Build servers that reuse a cached working directory between runs need the same refresh as a developer machine. A build that clones fresh each run is unaffected.
+
 
 #### EditorConfig settings
 

@@ -223,7 +223,7 @@ public static class InnerVerifyChecks
 
     static bool HasAllExtensions(List<string> extensions, string[] lines)
     {
-        var line = lines.FirstOrDefault(_ => _.StartsWith("[*.{received,verified}."));
+        var line = lines.FirstOrDefault(_ => _.StartsWith("[*.{received,verified}.", StringComparison.Ordinal));
         if (line == null)
         {
             return false;

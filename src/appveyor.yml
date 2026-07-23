@@ -28,6 +28,7 @@ before_build:
   - dotnet tool restore --tool-manifest src/.config/dotnet-tools.json
 build_script:
 - dotnet build src/Verify.slnx --configuration Release --verbosity minimal
+- dotnet test src/ApplyScrubbersTests --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet test src/DeterministicTests --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet test src/FSharpTests --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet test src/StaticSettingsTests --configuration Release --no-build --no-restore --verbosity minimal
@@ -37,19 +38,19 @@ build_script:
 - dotnet run --project src/Verify.Expecto.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet run --project src/Verify.Expecto.FSharpTests --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet run --project src/Verify.Expecto.Tests --configuration Release --no-build --no-restore --verbosity minimal
-- dotnet test src/Verify.MSTest.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity minimal
-- dotnet test src/Verify.MSTest.Tests --configuration Release --no-build --no-restore --verbosity minimal
-- dotnet test src/Verify.MSTest.SourceGenerator.Tests --configuration Release --no-build --no-restore --verbosity minimal
-- dotnet test src/Verify.MSTest.DisableAttachments.Tests --configuration Release --no-build --no-restore --verbosity minimal
-- dotnet test src/Verify.NUnit.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity minimal
-- dotnet test src/Verify.NUnit.Tests --configuration Release --no-build --no-restore --verbosity minimal
-- dotnet test src/Verify.NUnit.DisableAttachments.Tests --configuration Release --no-build --no-restore --verbosity minimal
+- dotnet test src/Verify.MSTest.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity minimal --report-trx
+- dotnet test src/Verify.MSTest.Tests --configuration Release --no-build --no-restore --verbosity minimal --report-trx
+- dotnet test src/Verify.MSTest.SourceGenerator.Tests --configuration Release --no-build --no-restore --verbosity minimal --report-trx
+- dotnet test src/Verify.MSTest.DisableAttachments.Tests --configuration Release --no-build --no-restore --verbosity minimal --report-trx
+- dotnet test src/Verify.NUnit.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity minimal --report-trx
+- dotnet test src/Verify.NUnit.Tests --configuration Release --no-build --no-restore --verbosity minimal --report-trx
+- dotnet test src/Verify.NUnit.DisableAttachments.Tests --configuration Release --no-build --no-restore --verbosity minimal --report-trx
 - dotnet test src/Verify.Tests --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet test src/Verify.XunitV3.Tests --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet test src/Verify.XunitV3.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity minimal
-- dotnet run --project src/Verify.TUnit.DerivePaths.Tests/Verify.TUnit.DerivePaths.Tests.csproj --configuration Release --no-build --no-restore --verbosity minimal
-- dotnet run --project src/Verify.TUnit.Tests/Verify.TUnit.Tests.csproj --configuration Release --no-build --no-restore --verbosity minimal
-- dotnet run --project src/Verify.TUnit.DisableAttachments.Tests/Verify.TUnit.DisableAttachments.Tests.csproj --configuration Release --no-build --no-restore --verbosity minimal
+- dotnet run --project src/Verify.TUnit.DerivePaths.Tests/Verify.TUnit.DerivePaths.Tests.csproj --configuration Release --no-build --no-restore --verbosity minimal -- --report-trx
+- dotnet run --project src/Verify.TUnit.Tests/Verify.TUnit.Tests.csproj --configuration Release --no-build --no-restore --verbosity minimal -- --report-trx
+- dotnet run --project src/Verify.TUnit.DisableAttachments.Tests/Verify.TUnit.DisableAttachments.Tests.csproj --configuration Release --no-build --no-restore --verbosity minimal -- --report-trx
 # Fixie has no Microsoft.Testing.Platform runner, so it cannot run via `dotnet test` in MTP mode.
 # Run it via the fixie.console tool (restored from src/.config/dotnet-tools.json, which is only discoverable from src).
 # Use pushd/popd so the `cd` into src does not persist into subsequent AppVeyor script lines.
@@ -78,6 +79,18 @@ on_failure:
       }
 # end-snippet
 test: off
+# xunit.v3 projects are not included: they use xunit's own command line rather than
+# the Microsoft.Testing.Platform one, so --report-trx is not a valid option for them.
+# They auto-enable xunit's AppVeyor reporter instead. Fixie has no MTP runner at all.
+on_finish:
+  - pwsh: |
+      $url = "https://ci.appveyor.com/api/testresults/mstest/$env:APPVEYOR_JOB_ID"
+      $client = [System.Net.WebClient]::new()
+      foreach ($trx in Get-ChildItem -Recurse -Filter *.trx -ErrorAction SilentlyContinue)
+      {
+        Write-Host "Uploading $($trx.FullName)"
+        $client.UploadFile($url, $trx.FullName)
+      }
 after_build:
   - pwsh: |
       if ($isWindows) {

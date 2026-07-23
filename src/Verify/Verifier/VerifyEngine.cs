@@ -266,6 +266,9 @@ class VerifyEngine(
             return autoVerify;
         }
 
+        // The received file is being left on disk, so record the verified file it belongs to.
+        ReceivedMap.Write(file);
+
         if (diffEnabled)
         {
             if (file.IsText)

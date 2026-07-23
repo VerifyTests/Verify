@@ -98,11 +98,18 @@
           Outputs="$(IntermediateOutputPath)$(VerifyAttributesFile)">
     <PropertyGroup>
       <VerifyAttributesFilePath>$(IntermediateOutputPath)$(VerifyAttributesFile)</VerifyAttributesFilePath>
+      <!-- IntermediateOutputPath is relative to the project for the default layout, but absolute for
+           others (eg artifacts output), so combine rather than concatenate. -->
+      <VerifyIntermediateDirectory>$([System.IO.Path]::Combine('$(MSBuildProjectDirectory)', '$(IntermediateOutputPath)'))</VerifyIntermediateDirectory>
     </PropertyGroup>
     <ItemGroup>
       <VerifyAttributes Include="System.Reflection.AssemblyMetadata">
         <_Parameter1>Verify.TargetFrameworks</_Parameter1>
         <_Parameter2>$(TargetFrameworks)</_Parameter2>
+      </VerifyAttributes>
+      <VerifyAttributes Include="System.Reflection.AssemblyMetadata">
+        <_Parameter1>Verify.IntermediateDirectory</_Parameter1>
+        <_Parameter2>$(VerifyIntermediateDirectory)</_Parameter2>
       </VerifyAttributes>
       <VerifyAttributes Include="System.Reflection.AssemblyMetadata">
         <_Parameter1>Verify.ProjectDirectory</_Parameter1>

@@ -5,13 +5,12 @@
         UserMachineScrubber.ResetReplacements("FakeMachineName", "FakeUserName");
 
     [Fact]
-    public void MultipleChunks()
+    public void Replace()
     {
-        var builder = new StringBuilder(capacity: 8, maxCapacity: int.MaxValue);
-        builder.Append("FakeUserName");
         using var counter = Counter.Start();
-        UserMachineScrubber.PerformReplacements(builder, "FakeUserName", "TheUserName");
-        Assert.Equal("TheUserName", builder.ToString());
+        var set = EngineScrubberSet.ForScrubbers([UserMachineScrubber.UserScrubber()]);
+        var result = ScrubEngine.Run("FakeUserName", set, counter, new Dictionary<string, object>(), applyDirectoryReplacements: false);
+        Assert.Equal("TheUserName", result);
     }
 
     [Fact]

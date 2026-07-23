@@ -36,6 +36,18 @@ public partial class VerifySettings
                 .ToDictionary(_ => _.Key, _ => _.Value.ToList());
         }
 
+        if (settings.InstanceSpanScrubbers != null)
+        {
+            InstanceSpanScrubbers = [..settings.InstanceSpanScrubbers];
+        }
+
+        if (settings.ExtensionMappedInstanceSpanScrubbers != null)
+        {
+            // Deep copy: the inner lists are mutated in place by AddScrubber.
+            ExtensionMappedInstanceSpanScrubbers = settings.ExtensionMappedInstanceSpanScrubbers
+                .ToDictionary(_ => _.Key, _ => _.Value.ToList());
+        }
+
         diffEnabled = settings.diffEnabled;
         MethodName = settings.MethodName;
         TypeName = settings.TypeName;
@@ -158,23 +170,9 @@ public partial class VerifySettings
     /// <summary>
     /// Automatically accept the results of the current test.
     /// </summary>
-    [Obsolete("Use VerifySettings.AutoVerify(bool includeBuildServer, bool throwException)")]
-    public void AutoVerify(bool includeBuildServer = true) =>
-        AutoVerify(includeBuildServer, false);
-
-    /// <summary>
-    /// Automatically accept the results of the current test.
-    /// </summary>
     [OverloadResolutionPriority(1)]
     public void AutoVerify(bool includeBuildServer = true, bool throwException = false) =>
         AutoVerify(_ => true, includeBuildServer, throwException);
-
-    /// <summary>
-    /// Automatically accept the results of the current test.
-    /// </summary>
-    [Obsolete("Use VerifySettings.AutoVerify(AutoVerify, autoVerify, bool includeBuildServer, bool throwException)")]
-    public void AutoVerify(AutoVerify autoVerify, bool includeBuildServer = true) =>
-        AutoVerify(autoVerify, includeBuildServer, false);
 
     /// <summary>
     /// Automatically accept the results of the current test.

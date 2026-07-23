@@ -1,4 +1,4 @@
-﻿static partial class UserMachineScrubber
+static class UserMachineScrubber
 {
     static string machineName;
     static string userName;
@@ -13,9 +13,9 @@
         UserMachineScrubber.userName = userName;
     }
 
-    public static void Machine(StringBuilder builder) =>
-        PerformReplacements(builder, machineName, "TheMachineName");
+    public static Scrubber MachineScrubber() =>
+        Scrubber.Replace(machineName, "TheMachineName", StringComparison.Ordinal, requireWordBoundary: true);
 
-    public static void User(StringBuilder builder) =>
-        PerformReplacements(builder, userName, "TheUserName");
+    public static Scrubber UserScrubber() =>
+        Scrubber.Replace(userName, "TheUserName", StringComparison.Ordinal, requireWordBoundary: true);
 }

@@ -178,7 +178,8 @@ partial class Counter
     {
         if (ScrubDateTimes)
         {
-            if (TryParseDateTime(value, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", out var date))
+            if (CanBeIsoDate(value) &&
+                TryParseDateTime(value, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", out var date))
             {
                 result = Convert(date);
                 return true;
@@ -198,6 +199,15 @@ partial class Counter
         return false;
     }
 
+    // The ISO format is "yyyy-MM-ddTHH:mm:ss.FFFFFFFK": at least 19 chars, starting
+    // with a 4 digit year then '-'. TryParseExact with DateTimeStyles.None allows no
+    // whitespace, so values failing this shape can never parse and the attempt can
+    // be skipped.
+    static bool CanBeIsoDate(CharSpan value) =>
+        value.Length >= 19 &&
+        char.IsDigit(value[0]) &&
+        value[4] == '-';
+
     static bool TryParseDateTime(CharSpan value, string format, out DateTime dateTime) =>
         DateTime.TryParseExact(value, format, null, DateTimeStyles.None, out dateTime);
 
@@ -205,7 +215,8 @@ partial class Counter
     {
         if (ScrubDateTimes)
         {
-            if (TryParseDateTimeOffset(value, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", out var date))
+            if (CanBeIsoDate(value) &&
+                TryParseDateTimeOffset(value, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", out var date))
             {
                 result = Convert(date);
                 return true;

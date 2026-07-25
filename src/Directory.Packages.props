@@ -33,13 +33,8 @@
     <!-- keep at 4.5.0 -->
     <PackageVersion Include="System.ValueTuple" Version="4.5.0" Pinned="true" />
     <PackageVersion Include="TextCopy" Version="6.2.1" />
-<<<<<<< HEAD
-    <PackageVersion Include="TUnit" Version="1.61.15" />
-    <PackageVersion Include="TUnit.Core" Version="1.61.15" />
-=======
     <PackageVersion Include="TUnit" Version="1.61.35" />
     <PackageVersion Include="TUnit.Core" Version="1.61.35" />
->>>>>>> 0b0b3fba3d40fb1743c9558af717400986232fce
     <PackageVersion Include="xunit.v3" Version="3.2.2" />
     <PackageVersion Include="xunit.v3.extensibility.core" Version="3.2.2" />
     <PackageVersion Include="YoloDev.Expecto.TestSdk" Version="0.16.0" />

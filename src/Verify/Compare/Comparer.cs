@@ -14,11 +14,18 @@ static class Comparer
         var verified = await File.ReadAllTextAsync(filePair.VerifiedPath, VerifierSettings.Encoding);
         if (verified.Contains('\r'))
         {
-            // Write received before throwing. Otherwise the run produces no output at all,
-            // which reads as "verify silently did nothing" rather than a line ending problem.
-            // Accepting the received file also rewrites verified with \n endings.
-            IoHelpers.WriteText(filePair.ReceivedPath, received);
-            throw new VerifiedLineEndingException(filePair.VerifiedPath, filePair.Extension);
+            if (!VerifierSettings.fixNewlinesOnRead)
+            {
+                // Write received before throwing. Otherwise the run produces no output at all,
+                // which reads as "verify silently did nothing" rather than a line ending problem.
+                // Accepting the received file also rewrites verified with \n endings.
+                IoHelpers.WriteText(filePair.ReceivedPath, received);
+                throw new VerifiedLineEndingException(filePair.VerifiedPath, filePair.Extension);
+            }
+
+            verified = verified
+                .Replace("\r\n", "\n")
+                .Replace('\r', '\n');
         }
 
         var result = await CompareStrings(filePair.Extension, received, verified, settings, bypassComparer);
@@ -33,6 +40,15 @@ static class Comparer
 
     static Task<CompareResult> CompareStrings(string extension, StringBuilder received, string verified, VerifySettings settings, bool bypassComparer)
     {
+        // Only a single trailing \n, and only where it is the sole difference in length. An
+        // editor adding a final newline to verified is tolerated, a genuine content change is not.
+        if (VerifierSettings.ignoreTrailingNewline &&
+            verified.Length - 1 == received.Length &&
+            verified[^1] == '\n')
+        {
+            verified = verified[..^1];
+        }
+
         var isEqual = received.Equals(verified.AsSpan());
         if (!isEqual &&
             !bypassComparer &&

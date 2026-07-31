@@ -1,0 +1,70 @@
+## Newline tolerance
+
+Text snapshots use line-feed newlines, and have no trailing newline. See [Text file settings](/readme.md#text-file-settings) for the source control and editor configuration that keeps them that way.
+
+The received side of a comparison always conforms, since Verify normalizes content to `\n` before comparing and writes the file itself. The verified side is whatever last wrote it, which is not always Verify. An editor saving with crlf, or a git checkout applying `core.autocrlf=true`, leaves carriage returns in a verified file, and a verified file containing a `\r` is rejected. An editor adding a final newline on save leaves the file one character longer than the content the test produces, and that fails as a mismatch.
+
+Two opt in settings make the comparison tolerant of those two cases. Both are global, and both throw if called after the first verify has run, so a module initializer is the only place to set them.
+
+**Neither setting is a replacement for the source control and editor settings.** Those keep the content on disk consistent for everyone working on a repository. The settings below only stop a local misconfiguration from failing the test run, and doing that has [side effects](#side-effects).
+
+
+### FixNewlinesOnRead
+
+snippet: FixNewlinesOnRead
+
+With this enabled, `\r\n` and `\r` in a verified file are treated as `\n` when comparing, so a verified file saved with crlf still matches. Normalizing happens in memory only. The file on disk is left as is until it is next written, at which point it is written with lf.
+
+
+### IgnoreTrailingNewline
+
+snippet: IgnoreTrailingNewline
+
+With this enabled, a verified file that ends in a single `\n`, where that newline accounts for the entire difference in length, matches the received content.
+
+The tolerance is deliberately narrow. Two trailing newlines, or any other change in content, still fails. Received files are not covered, since those are written by Verify rather than by an editor. As above, trimming happens in memory only.
+
+
+### Side effects
+
+
+#### Line endings on disk diverge between developers
+
+Accepting a snapshot through DiffEngineTray, or through the Rider or ReSharper plugins, moves the received file over the verified file. Received files are written by Verify, so the result is lf. Accepting by editing the verified file in a diff editor writes whatever that editor is configured to write, which on Windows is often crlf. With tolerance enabled both accepts pass, so the line endings of a snapshot file end up reflecting the workflow of whoever last accepted it rather than a single convention.
+
+Whether that flip is visible in a pending git diff depends on the repository. Where `.gitattributes` or `core.autocrlf` normalizes on commit, the crlf stays in the working tree and never reaches a blob. Where it does not, each flip is committed as a change to every line of the file. A one line snapshot change then arrives for review as a whole file diff, and `git blame` attributes every line to the flip rather than to the change that matters.
+
+
+#### IgnoreTrailingNewline can mask a lost trailing newline
+
+The two settings do not carry the same risk.
+
+Newline style is already normalized, on both sides. Content is converted to `\n` before it is compared or written, so a `\r` can never reach the received side, and a `\r` in a verified file is always an artifact of tooling rather than something a test produced. Treating it as `\n` cannot hide a change in behavior, since that difference cannot be asserted in the first place.
+
+A trailing newline is not style, it is content. `a` and `a\n` differ under any newline convention, and are compared exactly.
+
+The masking that results is narrow, and applies in one direction only. The tolerance fires when the verified file is the longer of the two, so output that starts emitting a trailing newline still fails. Output that stops emitting one, where the verified file has it, now passes. That needs a snapshot whose content genuinely ends in a newline, which serialized objects do not, but verified files and generated text can.
+
+
+#### The misconfiguration is no longer surfaced
+
+Rejecting a carriage return is the signal that a checkout, an editor, or a build agent working directory is misconfigured. With tolerance enabled the tests pass everywhere, including on CI, so nothing reports the problem.
+
+Nor does it correct itself. A verified file is only rewritten when a snapshot changes, so a file that has crlf keeps it until something else happens to that snapshot.
+
+
+#### Diff output during a real mismatch
+
+When a comparison genuinely fails, the received file is written with lf while the verified file keeps its crlf. A diff tool that treats line endings as significant then presents every line as changed, which buries the difference the test is reporting.
+
+
+#### Reported content is not the content on disk
+
+Normalizing and trimming happen in memory. The verified text passed to a [custom comparer](/docs/comparer.md), to `OnVerifyMismatch`, and into the `FileContent` section of the [exception message](/docs/exception-message-format.md) is the normalized text, not the bytes in the file. Tooling that consumes those and compares against the file on disk sees a difference.
+
+
+#### Performance
+
+For `FixNewlinesOnRead`, the scan for `\r` runs either way, since it is the same check that drives the rejection. Where a `\r` is found, normalizing allocates and copies the verified content twice, once per replacement. That cost is proportional to snapshot size and is paid for every affected file on every run. On a checkout where every verified file has crlf, that is the entire snapshot corpus copied twice per test run.
+
+For `IgnoreTrailingNewline`, the added length and character check on every text comparison is not measurable. The trim allocates one copy of the verified content, and only in the case being tolerated.

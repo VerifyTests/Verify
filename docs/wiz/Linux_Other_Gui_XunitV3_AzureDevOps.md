@@ -140,7 +140,12 @@ indent_style = space
 
 **Note that the above are suggested for subset of text extension. Add others as required based on the text file types being verified.**
 
-**Visual Studio Code** does not apply the EditorConfig `end_of_line` setting natively. Without it, accepting a snapshot by editing in the built-in diff editor (for example reverting a block from received into verified) can save the verified file with `crlf` on Windows, taken from the default `files.eol`. Verify then rejects that file for containing a carriage return. Installing the [EditorConfig for VS Code extension](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) applies `end_of_line = lf` on save. Setting `"files.eol": "\n"` in Visual Studio Code settings has the same effect without the extension.<!-- endInclude -->
+**Visual Studio Code** does not apply the EditorConfig `end_of_line` setting natively. Without it, accepting a snapshot by editing in the built-in diff editor (for example reverting a block from received into verified) can save the verified file with `crlf` on Windows, taken from the default `files.eol`. Verify then rejects that file for containing a carriage return. Installing the [EditorConfig for VS Code extension](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) applies `end_of_line = lf` on save. Setting `"files.eol": "\n"` in Visual Studio Code settings has the same effect without the extension.
+
+
+#### Newline tolerance
+
+The settings above are the recommended approach, since they keep the content on disk consistent for everyone working on a repository. Where per developer setup cannot be relied on, Verify can instead be made tolerant of carriage returns and of a trailing newline in verified files. Both are opt in, and both have side effects worth understanding before enabling them. See [Newline tolerance](/docs/newline-tolerance.md).<!-- endInclude -->
 
 
 ### Conventions check

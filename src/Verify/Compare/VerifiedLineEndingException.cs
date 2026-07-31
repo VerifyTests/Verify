@@ -9,4 +9,7 @@ class VerifiedLineEndingException(string path, string extension) :
            git rm --cached -r .
            git reset --hard
          See https://github.com/verifytests/verify#text-file-settings
+         Alternatively Verify can be made tolerant of line endings in verified files, with
+         the side effects described in
+         https://github.com/VerifyTests/Verify/blob/main/docs/newline-tolerance.md
          """);

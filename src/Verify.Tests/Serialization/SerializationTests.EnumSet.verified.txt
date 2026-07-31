@@ -1,0 +1,4 @@
+﻿{
+  Fruit: Banana,
+  NullableFruit: Banana
+}

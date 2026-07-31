@@ -1100,9 +1100,15 @@ public class SerializationTests
     [Fact]
     public Task BoolDefault()
     {
+        #region BoolDefault
+
         var target = new BoolModel();
         return Verify(target);
+
+        #endregion
     }
+
+    #region NullDefault
 
     [Fact]
     public Task NullProperty() =>
@@ -1112,6 +1118,10 @@ public class SerializationTests
                 property = "value1",
                 nullProperty = (string?) null
             });
+
+    #endregion
+
+    #region IncludeDefaultValues
 
     [Fact]
     public Task NullPropertyInclude() =>
@@ -1125,6 +1135,8 @@ public class SerializationTests
                 _.DefaultValueHandling = DefaultValueHandling.Include;
                 _.NullValueHandling = NullValueHandling.Include;
             });
+
+    #endregion
 
     [Fact]
     public Task NullStructPropertyInclude() =>
@@ -1160,12 +1172,16 @@ public class SerializationTests
     [Fact]
     public Task BoolFalse()
     {
+        #region BoolFalse
+
         var target = new BoolModel
         {
             BoolMember = false,
             NullableBoolMember = false
         };
         return Verify(target);
+
+        #endregion
     }
 
     [Fact]
@@ -1179,11 +1195,60 @@ public class SerializationTests
         return Verify(target);
     }
 
+    [Fact]
+    public Task EnumDefault()
+    {
+        #region EnumDefault
+
+        var target = new EnumModel
+        {
+            NullableFruit = Fruit.Apple
+        };
+        return Verify(target);
+
+        #endregion
+    }
+
+    [Fact]
+    public Task EnumSet()
+    {
+        #region EnumSet
+
+        var target = new EnumModel
+        {
+            Fruit = Fruit.Banana,
+            NullableFruit = Fruit.Banana
+        };
+        return Verify(target);
+
+        #endregion
+    }
+
+    #region EnumModel
+
+    class EnumModel
+    {
+        public Fruit Fruit;
+        public Fruit? NullableFruit;
+    }
+
+    enum Fruit
+    {
+        Apple,
+        Banana
+    }
+
+    #endregion
+
+    #region BoolModel
+
     class BoolModel
     {
         public bool BoolMember;
         public bool? NullableBoolMember;
     }
+
+    #endregion
 
     [Fact]
     public Task TypeNameHandlingAll()
@@ -1799,6 +1864,20 @@ public class SerializationTests
         #region DontIgnoreEmptyCollections
 
         VerifierSettings.DontIgnoreEmptyCollections();
+
+    #endregion
+
+    // ReSharper disable once UnusedMember.Local
+    static void IncludeDefaultValuesGlobal() =>
+
+        #region IncludeDefaultValuesGlobal
+
+        VerifierSettings.AddExtraSettings(
+            _ =>
+            {
+                _.DefaultValueHandling = DefaultValueHandling.Include;
+                _.NullValueHandling = NullValueHandling.Include;
+            });
 
     #endregion
 

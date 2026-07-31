@@ -16,6 +16,7 @@ To change this file edit the source file and then run MarkdownSnippets.
   * [VerifyFile](/docs/verify-file.md)
   * [VerifyXml](/docs/verify-xml.md)
   * [Serializer Settings](/docs/serializer-settings.md)
+    * [Default values](/docs/default-values.md)
     * [Obsolete members](/docs/obsolete-members.md)
     * [Guids](/docs/guids.md)
     * [Dates](/docs/dates.md)

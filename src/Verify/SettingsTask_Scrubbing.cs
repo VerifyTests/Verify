@@ -42,11 +42,11 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubInlineGuids()"/>
+    /// <inheritdoc cref="VerifySettings.ScrubInlineGuids(GuidFormats)"/>
     [Pure]
-    public SettingsTask ScrubInlineGuids()
+    public SettingsTask ScrubInlineGuids(GuidFormats formats = GuidFormats.All)
     {
-        CurrentSettings.ScrubInlineGuids();
+        CurrentSettings.ScrubInlineGuids(formats);
         return this;
     }
 
@@ -66,11 +66,11 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <inheritdoc cref="VerifySettings.ScrubInlineGuids(string)"/>
+    /// <inheritdoc cref="VerifySettings.ScrubInlineGuids(string,GuidFormats)"/>
     [Pure]
-    public SettingsTask ScrubInlineGuids(string extension)
+    public SettingsTask ScrubInlineGuids(string extension, GuidFormats formats = GuidFormats.All)
     {
-        CurrentSettings.ScrubInlineGuids(extension);
+        CurrentSettings.ScrubInlineGuids(extension, formats);
         return this;
     }
 

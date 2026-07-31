@@ -139,6 +139,33 @@ public static class ModuleInitializer
 <!-- endSnippet -->
 
 
+### Limiting to specific formats
+
+By default both the `D` and `N` formats are scrubbed. To restrict scrubbing to specific formats, pass a `GuidFormats` value. This is useful for avoiding the scrubbing of 32 character hex content (an MD5 hash for example) that would otherwise match the `N` format:
+
+<!-- snippet: ScrubInlineGuidsDashedOnly -->
+<a id='snippet-ScrubInlineGuidsDashedOnly'></a>
+```cs
+// Only the "D" format is scrubbed. The 32 char hex hash is left untouched.
+[Fact]
+public Task ScrubInlineGuidsDashedOnly() =>
+    Verify("guid: 173535ae-995b-4cc6-a74e-8cd4be57039c hash: 5d41402abc4b2a76b9719d911017c592")
+        .ScrubInlineGuids(GuidFormats.Dashed);
+```
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L126-L134' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubInlineGuidsDashedOnly' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Results in the following, where the `D` format Guid is scrubbed but the hash is left untouched:
+
+<!-- snippet: GuidScrubberTests.ScrubInlineGuidsDashedOnly.verified.txt -->
+<a id='snippet-GuidScrubberTests.ScrubInlineGuidsDashedOnly.verified.txt'></a>
+```txt
+guid: Guid_1 hash: 5d41402abc4b2a76b9719d911017c592
+```
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.ScrubInlineGuidsDashedOnly.verified.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#snippet-GuidScrubberTests.ScrubInlineGuidsDashedOnly.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ## Named Guid
 
 Specific Guids can be named. When any of those Guids are found, it will be replaced with the supplied name.
@@ -184,7 +211,7 @@ public Task NamedGuidFluent()
         .AddNamedGuid(guid, "instanceNamed");
 }
 ```
-<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L126-L140' title='Snippet source file'>snippet source</a> | <a href='#snippet-NamedGuidFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L142-L156' title='Snippet source file'>snippet source</a> | <a href='#snippet-NamedGuidFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -219,7 +246,7 @@ public Task InferredNamedGuidFluent()
         .AddNamedGuid(namedGuid);
 }
 ```
-<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L142-L156' title='Snippet source file'>snippet source</a> | <a href='#snippet-InferredNamedGuidFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L158-L172' title='Snippet source file'>snippet source</a> | <a href='#snippet-InferredNamedGuidFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result: 

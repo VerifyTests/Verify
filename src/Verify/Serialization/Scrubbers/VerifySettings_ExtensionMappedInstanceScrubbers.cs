@@ -78,10 +78,14 @@ public partial class VerifySettings
     /// <summary>
     /// Replace inline <see cref="Guid" />s with a placeholder.
     /// </summary>
-    public void ScrubInlineGuids(string extension)
+    /// <param name="extension">The file extension to apply the scrubber to.</param>
+    /// <param name="formats">The <see cref="Guid" /> formats to match. Defaults to <see cref="GuidFormats.All" />.</param>
+    public void ScrubInlineGuids(string extension, GuidFormats formats = GuidFormats.All)
     {
-        AddScrubber(extension, GuidMatcher.Instance);
-        AddScrubber(extension, GuidMatcher.NInstance);
+        foreach (var scrubber in GuidMatcher.ForFormats(formats))
+        {
+            AddScrubber(extension, scrubber);
+        }
     }
 
     /// <summary>

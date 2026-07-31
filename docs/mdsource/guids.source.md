@@ -51,6 +51,17 @@ snippet: ScrubInlineGuidsFluent
 snippet: ScrubInlineGuidsGlobal
 
 
+### Limiting to specific formats
+
+By default both the `D` and `N` formats are scrubbed. To restrict scrubbing to specific formats, pass a `GuidFormats` value. This is useful for avoiding the scrubbing of 32 character hex content (an MD5 hash for example) that would otherwise match the `N` format:
+
+snippet: ScrubInlineGuidsDashedOnly
+
+Results in the following, where the `D` format Guid is scrubbed but the hash is left untouched:
+
+snippet: GuidScrubberTests.ScrubInlineGuidsDashedOnly.verified.txt
+
+
 ## Named Guid
 
 Specific Guids can be named. When any of those Guids are found, it will be replaced with the supplied name.

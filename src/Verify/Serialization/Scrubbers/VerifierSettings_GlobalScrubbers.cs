@@ -127,10 +127,19 @@ public static partial class VerifierSettings
     /// <summary>
     /// Replace inline <see cref="Guid" />s with a placeholder.
     /// </summary>
-    public static void ScrubInlineGuids()
+    public static void ScrubInlineGuids() =>
+        ScrubInlineGuids(GuidFormats.All);
+
+    /// <summary>
+    /// Replace inline <see cref="Guid" />s with a placeholder.
+    /// </summary>
+    /// <param name="formats">The <see cref="Guid" /> formats to match.</param>
+    public static void ScrubInlineGuids(GuidFormats formats)
     {
-        AddScrubber(GuidMatcher.Instance);
-        AddScrubber(GuidMatcher.NInstance);
+        foreach (var scrubber in GuidMatcher.ForFormats(formats))
+        {
+            AddScrubber(scrubber);
+        }
     }
 
     /// <summary>

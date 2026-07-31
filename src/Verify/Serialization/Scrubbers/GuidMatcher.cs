@@ -26,6 +26,20 @@ static class GuidMatcher
         static counter => counter.ScrubGuids,
         requireWordBoundary: true);
 
+    // The scrubbers for the requested formats, in the order they should be applied.
+    public static IEnumerable<Scrubber> ForFormats(GuidFormats formats)
+    {
+        if ((formats & GuidFormats.Dashed) != 0)
+        {
+            yield return Instance;
+        }
+
+        if ((formats & GuidFormats.Undashed) != 0)
+        {
+            yield return NInstance;
+        }
+    }
+
     static string? Match(CharSpan window, Counter counter, IReadOnlyDictionary<string, object> context)
     {
         // Cheap prefilter: the "D" format has dashes at fixed offsets

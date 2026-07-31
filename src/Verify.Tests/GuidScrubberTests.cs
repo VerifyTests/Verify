@@ -123,6 +123,22 @@ public class GuidScrubberTests
         Verify("value: c8eeaf99d5c4434185434597c3fd40c9")
             .ScrubInlineGuids();
 
+    #region ScrubInlineGuidsDashedOnly
+
+    // Only the "D" format is scrubbed. The 32 char hex hash is left untouched.
+    [Fact]
+    public Task ScrubInlineGuidsDashedOnly() =>
+        Verify("guid: 173535ae-995b-4cc6-a74e-8cd4be57039c hash: 5d41402abc4b2a76b9719d911017c592")
+            .ScrubInlineGuids(GuidFormats.Dashed);
+
+    #endregion
+
+    // Only the "N" format is scrubbed. The "D" format guid is left untouched.
+    [Fact]
+    public Task ScrubInlineGuidsUndashedOnly() =>
+        Verify("guid: 173535ae-995b-4cc6-a74e-8cd4be57039c hash: 5d41402abc4b2a76b9719d911017c592")
+            .ScrubInlineGuids(GuidFormats.Undashed);
+
     #region NamedGuidFluent
 
     [Fact]

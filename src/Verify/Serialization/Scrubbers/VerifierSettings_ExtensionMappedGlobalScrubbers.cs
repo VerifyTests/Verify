@@ -91,8 +91,15 @@ public static partial class VerifierSettings
     /// Replace inline <see cref="Guid" />s with a placeholder.
     /// </summary>
     /// <param name="extension">The file extension to apply the scrubber to.</param>
-    /// <param name="formats">The <see cref="Guid" /> formats to match. Defaults to <see cref="GuidFormats.All" />.</param>
-    public static void ScrubInlineGuids(string extension, GuidFormats formats = GuidFormats.All)
+    public static void ScrubInlineGuids(string extension) =>
+        ScrubInlineGuids(extension, GuidFormats.All);
+
+    /// <summary>
+    /// Replace inline <see cref="Guid" />s with a placeholder.
+    /// </summary>
+    /// <param name="extension">The file extension to apply the scrubber to.</param>
+    /// <param name="formats">The <see cref="Guid" /> formats to match.</param>
+    public static void ScrubInlineGuids(string extension, GuidFormats formats)
     {
         foreach (var scrubber in GuidMatcher.ForFormats(formats))
         {

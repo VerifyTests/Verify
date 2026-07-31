@@ -42,9 +42,17 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubInlineGuids()"/>
+    [Pure]
+    public SettingsTask ScrubInlineGuids()
+    {
+        CurrentSettings.ScrubInlineGuids();
+        return this;
+    }
+
     /// <inheritdoc cref="VerifySettings.ScrubInlineGuids(GuidFormats)"/>
     [Pure]
-    public SettingsTask ScrubInlineGuids(GuidFormats formats = GuidFormats.All)
+    public SettingsTask ScrubInlineGuids(GuidFormats formats)
     {
         CurrentSettings.ScrubInlineGuids(formats);
         return this;
@@ -66,9 +74,17 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.ScrubInlineGuids(string)"/>
+    [Pure]
+    public SettingsTask ScrubInlineGuids(string extension)
+    {
+        CurrentSettings.ScrubInlineGuids(extension);
+        return this;
+    }
+
     /// <inheritdoc cref="VerifySettings.ScrubInlineGuids(string,GuidFormats)"/>
     [Pure]
-    public SettingsTask ScrubInlineGuids(string extension, GuidFormats formats = GuidFormats.All)
+    public SettingsTask ScrubInlineGuids(string extension, GuidFormats formats)
     {
         CurrentSettings.ScrubInlineGuids(extension, formats);
         return this;

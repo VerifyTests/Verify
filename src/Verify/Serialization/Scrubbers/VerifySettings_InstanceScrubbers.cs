@@ -85,8 +85,14 @@ public partial class VerifySettings
     /// <summary>
     /// Replace inline <see cref="Guid" />s with a placeholder.
     /// </summary>
-    /// <param name="formats">The <see cref="Guid" /> formats to match. Defaults to <see cref="GuidFormats.All" />.</param>
-    public void ScrubInlineGuids(GuidFormats formats = GuidFormats.All)
+    public void ScrubInlineGuids() =>
+        ScrubInlineGuids(GuidFormats.All);
+
+    /// <summary>
+    /// Replace inline <see cref="Guid" />s with a placeholder.
+    /// </summary>
+    /// <param name="formats">The <see cref="Guid" /> formats to match.</param>
+    public void ScrubInlineGuids(GuidFormats formats)
     {
         if (serialization.ScrubGuids == false)
         {

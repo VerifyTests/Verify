@@ -36,7 +36,7 @@ public class CombinationTests
     {
         var exception = await Assert.ThrowsAnyAsync<Exception>(
             async () => await Combination()
-                .Verify((int _) => "x", System.Array.Empty<int>()));
+                .Verify((int _) => "x", []));
         Assert.Contains("empty", exception.Message);
     }
 

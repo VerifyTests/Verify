@@ -28,7 +28,7 @@
     <PackageVersion Include="ProjectFiles" Version="1.4.0" />
     <PackageVersion Include="PublicApiGenerator" Version="11.5.4" />
     <PackageVersion Include="SimpleInfoName" Version="3.2.0" />
-    <PackageVersion Include="SponsorCheck" Version="0.15.0"
+    <PackageVersion Include="SponsorCheck" Version="0.16.0"
                     GitHubSponsorsAccount="VerifyTests"
                     SponsorOwner="Verify"
                     CheckTransitiveReferences="true" />

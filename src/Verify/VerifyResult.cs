@@ -3,12 +3,17 @@
 public class VerifyResult
 {
     IReadOnlyList<FilePair> files;
+    string? inlineText;
 
     internal VerifyResult(IReadOnlyList<FilePair> files, object? target)
     {
         this.files = files;
         Target = target;
     }
+
+    internal VerifyResult(string inlineText, object? target)
+        : this([], target) =>
+        this.inlineText = inlineText;
 
     public Exception Exception
     {
@@ -34,6 +39,11 @@ public class VerifyResult
     {
         get
         {
+            if (inlineText is not null)
+            {
+                return inlineText;
+            }
+
             var textFiles = TextFiles.ToList();
             if (textFiles.Count == 0)
             {

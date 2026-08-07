@@ -22,6 +22,20 @@ Then zero or more categorized sections, each listing file pairs:
  * **NotEqual** - both files exist but content differs.
  * **Delete** - a `.verified.` file exists that is no longer produced by any test.
  * **Equal** - both files exist and match (included for completeness when other categories are present).
+ * **InlineNew** - an [inline snapshot](inline-snapshots.md) with no expected value yet.
+ * **InlineNotEqual** - an inline snapshot whose expected value differs from the result.
+
+Inline entries use a different shape: a `Source:` line with the absolute source file path and 1 based line number (`path:line`), followed by optional absolute staged file paths:
+
+```
+InlineNotEqual:
+  - Source: /path/to/MyTests.cs:12
+    Received: /path/to/obj/VerifyInline/def.received.txt
+    Expected: /path/to/obj/VerifyInline/def.expected.txt
+    Patch: /path/to/obj/VerifyInline/def.inlinepatch
+```
+
+The staged path lines are omitted when staging was unavailable (build server, or the project does not consume Verify's build props). The `Patch:` file is readable via the DiffEngine `InlinePatchFile` API.
 
 
 ### File Content
@@ -32,6 +46,13 @@ After the file listing, a `FileContent:` section includes the text content of ne
 ## Example: All Categories
 
 snippet: ExceptionMessageFormatSamples.AllCategories.verified.txt
+
+
+### Inline snapshot examples
+
+snippet: ExceptionMessageFormatSamples.InlineNew.verified.txt
+
+snippet: ExceptionMessageFormatSamples.InlineNotEqualWithDelete.verified.txt
 
 
 ### NotEqual with Comparer Message
@@ -65,6 +86,8 @@ The `Result` contains:
  * `NotEqual` - list of `FilePair`.
  * `Delete` - list of file paths.
  * `Equal` - list of `FilePair`.
+ * `InlineNew` - list of `InlineEntry` (source file, line, and optional staged paths).
+ * `InlineNotEqual` - list of `InlineEntry`.
 
 
 ### Test Framework Prefixes

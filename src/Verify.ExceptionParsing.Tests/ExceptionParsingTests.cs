@@ -199,6 +199,82 @@ public class ExceptionParsingTests
         return ParseVerify([], [], delete, []);
     }
 
+    [Fact]
+    public Task ParseInlineNew()
+    {
+        var message = VerifyExceptionMessageBuilder.BuildInline(
+            projectDirectory,
+            Path.Combine(projectDirectory, "MyTests.cs"),
+            10,
+            isNew: true,
+            "the new content",
+            null,
+            Path.Combine(projectDirectory, "obj/VerifyInline/abc.received.txt"),
+            Path.Combine(projectDirectory, "obj/VerifyInline/abc.expected.txt"),
+            Path.Combine(projectDirectory, "obj/VerifyInline/abc.inlinepatch"),
+            []);
+        var result = Parser.Parse(message);
+        Assert.Single(result.InlineNew);
+        Assert.Equal(10, result.InlineNew[0].Line);
+        Assert.EndsWith("MyTests.cs", result.InlineNew[0].SourceFile);
+        Assert.NotNull(result.InlineNew[0].ReceivedPath);
+        Assert.NotNull(result.InlineNew[0].PatchPath);
+        return Verifier.Verify(
+            new
+            {
+                message,
+                result
+            });
+    }
+
+    [Fact]
+    public Task ParseInlineNotEqualWithDelete()
+    {
+        var message = VerifyExceptionMessageBuilder.BuildInline(
+            projectDirectory,
+            Path.Combine(projectDirectory, "MyTests.cs"),
+            12,
+            isNew: false,
+            "received text",
+            "expected text",
+            Path.Combine(projectDirectory, "obj/VerifyInline/def.received.txt"),
+            Path.Combine(projectDirectory, "obj/VerifyInline/def.expected.txt"),
+            Path.Combine(projectDirectory, "obj/VerifyInline/def.inlinepatch"),
+            [Path.Combine(projectDirectory, "MyTests.OldTest.verified.txt")]);
+        var result = Parser.Parse(message);
+        Assert.Single(result.InlineNotEqual);
+        Assert.Single(result.Delete);
+        return Verifier.Verify(
+            new
+            {
+                message,
+                result
+            });
+    }
+
+    [Fact]
+    public void ParseInlineWithoutStagedPaths()
+    {
+        var message = VerifyExceptionMessageBuilder.BuildInline(
+            projectDirectory,
+            @"C:\code\MyTests.cs",
+            7,
+            isNew: false,
+            "received",
+            "expected",
+            null,
+            null,
+            null,
+            []);
+        var result = Parser.Parse(message);
+        Assert.Single(result.InlineNotEqual);
+        var entry = result.InlineNotEqual[0];
+        Assert.Equal(7, entry.Line);
+        Assert.Null(entry.ReceivedPath);
+        Assert.Null(entry.ExpectedPath);
+        Assert.Null(entry.PatchPath);
+    }
+
     #region ExceptionParsing
 
     static Result ParseExceptionMessage(string exceptionMessage)

@@ -62,12 +62,30 @@ public partial class InnerVerifier :
 
         if (settings.UniqueDirectory)
         {
+            if (settings.inline != null)
+            {
+                throw new("Inline is not compatible with UseUniqueDirectory.");
+            }
+
             InitForDirectoryConvention(namer, typeAndMethod, verifiedParameters);
         }
         else
         {
             InitForFileConvention(namer, typeAndMethod, receivedParameters, verifiedParameters);
         }
+    }
+
+    internal static string MapSourceFile(string file)
+    {
+        var mapped = IoHelpers.GetMappedBuildPath(file);
+        if (ContinuousTestingDetector.IsNCrunch)
+        {
+            var sourceFileDirectory = IoHelpers.ResolveDirectoryFromSourceFile(mapped);
+            var projectDirectory = ProjectDirectoryFinder.Find(sourceFileDirectory);
+            mapped = mapped.Replace(projectDirectory, ContinuousTestingDetector.NCrunchOriginalProjectDirectory);
+        }
+
+        return mapped;
     }
 
     /// <summary>
@@ -90,6 +108,7 @@ public partial class InnerVerifier :
                 settings.MethodName != null ||
                 settings.parametersText != null ||
                 settings.UniqueDirectory ||
+                settings.inline != null ||
                 settings.UseUniqueDirectorySplitMode == true)
             {
                 throw new(
@@ -102,6 +121,7 @@ public partial class InnerVerifier :
                        * {nameof(VerifySettings.UseTextForParameters)}
                        * {nameof(VerifySettings.UseUniqueDirectory)}
                        * {nameof(VerifySettings.UseUniqueDirectorySplitMode)}
+                       * {nameof(VerifySettings.Inline)}
                      """);
             }
 
@@ -278,8 +298,13 @@ public partial class InnerVerifier :
 
         var pathPrefixReceived = Path.Combine(directory, receivedPrefix);
         var pathPrefixVerified = Path.Combine(directory, verifiedPrefix);
-        // intentionally do not validate filePathPrefixVerified
-        ValidatePrefix(settings, pathPrefixReceived);
+        // Inline verifies have no file prefix to collide on, and multiple inline
+        // verifies per test method are legal, so skip prefix uniqueness
+        if (settings.inline is null)
+        {
+            // intentionally do not validate filePathPrefixVerified
+            ValidatePrefix(settings, pathPrefixReceived);
+        }
 
         verifiedFiles = MatchingFileFinder.FindVerified(verifiedPrefix, directory);
 

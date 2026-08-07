@@ -50,6 +50,80 @@
         return builder.ToString();
     }
 
+    public static string BuildInline(
+        string directory,
+        string sourceFile,
+        int line,
+        bool isNew,
+        string receivedText,
+        string? expectedText,
+        string? stagedReceived,
+        string? stagedExpected,
+        string? stagedPatch,
+        IReadOnlyCollection<string> delete,
+        string? hint = null)
+    {
+        var section = isNew ? "InlineNew" : "InlineNotEqual";
+        var builder = new StringBuilder($"Directory: {directory}\n");
+        builder.AppendLineN($"{section}:");
+        builder.AppendLineN($"  - Source: {sourceFile}:{line}");
+        if (stagedReceived is not null)
+        {
+            builder.AppendLineN($"    Received: {stagedReceived}");
+        }
+
+        if (stagedExpected is not null)
+        {
+            builder.AppendLineN($"    Expected: {stagedExpected}");
+        }
+
+        if (stagedPatch is not null)
+        {
+            builder.AppendLineN($"    Patch: {stagedPatch}");
+        }
+
+        if (delete.Count > 0)
+        {
+            builder.AppendLineN("Delete:");
+            foreach (var file in delete)
+            {
+                builder.AppendLineN($"  - {Path.GetFileName(file)}");
+            }
+        }
+
+        // Everything below the FileContent: marker is ignored by the exception parser,
+        // so the hint must not be emitted before it
+        var appendContent = !VerifierSettings.omitContentFromException;
+        if (appendContent || hint is not null)
+        {
+            builder.AppendLineN();
+            builder.AppendLineN("FileContent:");
+            builder.AppendLineN();
+        }
+
+        if (hint is not null)
+        {
+            builder.AppendLineN(hint);
+            builder.AppendLineN();
+        }
+
+        if (appendContent)
+        {
+            builder.AppendLineN($"{section}:");
+            builder.AppendLineN();
+            builder.AppendLineN($"Source: {sourceFile}:{line}");
+            builder.AppendLineN("Received:");
+            builder.AppendLineN(receivedText);
+            if (!isNew)
+            {
+                builder.AppendLineN("Expected:");
+                builder.AppendLineN(expectedText);
+            }
+        }
+
+        return builder.ToString();
+    }
+
     static void AppendFile(string directory, StringBuilder builder, FilePair file)
     {
         var receivedPath = IoHelpers.GetRelativePath(directory, file.ReceivedPath);

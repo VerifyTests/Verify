@@ -26,6 +26,30 @@ partial class InnerVerifier
             throw new("All targets have been excluded by ExcludeTargets. A verification requires at least one target.");
         }
 
+        if (settings.inline is { } inline)
+        {
+            var inlineEngine = new InlineEngine(
+                directory,
+                settings,
+                inline,
+                verifiedFiles,
+                settings.TypeName ?? typeName,
+                settings.MethodName ?? methodName);
+
+            try
+            {
+                inlineEngine.HandleResults(resultTargets);
+            }
+            finally
+            {
+                // Always run cleanup (stream/converter disposal), even if comparison throws.
+                await cleanup();
+            }
+
+            await inlineEngine.ThrowIfRequired();
+            return new(inlineEngine.RenderedText, root);
+        }
+
         var engine = new VerifyEngine(
             directory,
             settings,

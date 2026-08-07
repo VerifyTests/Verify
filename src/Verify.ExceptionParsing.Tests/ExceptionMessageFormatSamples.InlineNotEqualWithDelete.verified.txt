@@ -1,0 +1,18 @@
+﻿Directory: {ProjectDirectory}
+InlineNotEqual:
+  - Source: {ProjectDirectory}MyTests.cs:12
+    Received: {ProjectDirectory}obj/VerifyInline/def.received.txt
+    Expected: {ProjectDirectory}obj/VerifyInline/def.expected.txt
+    Patch: {ProjectDirectory}obj/VerifyInline/def.inlinepatch
+Delete:
+  - MyTests.OldTest.verified.txt
+
+FileContent:
+
+InlineNotEqual:
+
+Source: {ProjectDirectory}MyTests.cs:12
+Received:
+received text
+Expected:
+expected text

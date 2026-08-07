@@ -60,6 +60,7 @@ public partial class VerifySettings
         UniqueDirectory = settings.UniqueDirectory;
         Directory = settings.Directory;
         autoVerify = settings.autoVerify;
+        inline = settings.inline;
         throwException = settings.throwException;
         serialization = settings.serialization;
         stringComparer = settings.stringComparer;

@@ -32,6 +32,8 @@ public static class Parser
         var notEqual = new List<FilePair>();
         var @new = new List<FilePair>();
         var equal = new List<FilePair>();
+        var inlineNew = new List<InlineEntryBuilder>();
+        var inlineNotEqual = new List<InlineEntryBuilder>();
         Action<string, IEnumerator<string>>? lineHandler = null;
         using (var enumerator = lines.GetEnumerator())
         {
@@ -67,6 +69,20 @@ public static class Parser
                     break;
                 }
 
+                // Inline sections are checked before New/NotEqual for
+                // specific-before-general ordering
+                if (line.StartsWith("InlineNew:", StringComparison.Ordinal))
+                {
+                    lineHandler = (next, _) => AddInlineLine(next, inlineNew);
+                    continue;
+                }
+
+                if (line.StartsWith("InlineNotEqual:", StringComparison.Ordinal))
+                {
+                    lineHandler = (next, _) => AddInlineLine(next, inlineNotEqual);
+                    continue;
+                }
+
                 if (line.StartsWith("New:", StringComparison.Ordinal))
                 {
                     lineHandler = (next, scopedEnum) => AddFilePair(directory, next, scopedEnum, @new);
@@ -99,7 +115,74 @@ public static class Parser
             }
         }
 
-        return new(@new, notEqual, delete, equal);
+        return new(
+            @new,
+            notEqual,
+            delete,
+            equal,
+            inlineNew.Select(_ => _.Build()).ToList(),
+            inlineNotEqual.Select(_ => _.Build()).ToList());
+    }
+
+    class InlineEntryBuilder
+    {
+        public string SourceFile = "";
+        public int Line;
+        public string? ReceivedPath;
+        public string? ExpectedPath;
+        public string? PatchPath;
+
+        public InlineEntry Build() =>
+            new(SourceFile, Line, ReceivedPath, ExpectedPath, PatchPath);
+    }
+
+    static void AddInlineLine(string line, List<InlineEntryBuilder> entries)
+    {
+        if (line.StartsWith("  - Source: ", StringComparison.Ordinal))
+        {
+            var value = TrimStart(line, "  - Source: ");
+            // Split on the last colon: Windows drive letters contain one
+            var index = value.LastIndexOf(':');
+            if (index < 1 ||
+                !int.TryParse(value[(index + 1)..], out var lineNumber))
+            {
+                throw new ParseException($"Expected `path:line` after `Source: `. Line: {line}");
+            }
+
+            entries.Add(
+                new()
+                {
+                    SourceFile = value[..index],
+                    Line = lineNumber
+                });
+            return;
+        }
+
+        if (entries.Count == 0)
+        {
+            throw new ParseException($"Expected `  - Source: ` line. Line: {line}");
+        }
+
+        var entry = entries[^1];
+        if (line.StartsWith("    Received: ", StringComparison.Ordinal))
+        {
+            entry.ReceivedPath = TrimStart(line, "    Received: ");
+            return;
+        }
+
+        if (line.StartsWith("    Expected: ", StringComparison.Ordinal))
+        {
+            entry.ExpectedPath = TrimStart(line, "    Expected: ");
+            return;
+        }
+
+        if (line.StartsWith("    Patch: ", StringComparison.Ordinal))
+        {
+            entry.PatchPath = TrimStart(line, "    Patch: ");
+            return;
+        }
+
+        throw new ParseException($"Unexpected line in inline section. Line: {line}");
     }
 
     static string GetDirectory(string firstLine)

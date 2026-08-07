@@ -1101,6 +1101,7 @@ Browser testing via
   * [Using anonymous types](/docs/anonymous-types.md)
   * [Verifying binary data](/docs/binary.md)
   * [Newline tolerance](/docs/newline-tolerance.md)
+  * [Inline Snapshots](/docs/inline-snapshots.md)
   * [Exception Message Format](/docs/exception-message-format.md)
   * [Build server](/docs/build-server.md)
   * [Kill process locking file](/docs/kill-process-locking-file.md)

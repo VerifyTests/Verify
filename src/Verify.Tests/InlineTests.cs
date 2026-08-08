@@ -10,13 +10,16 @@
     #region InlineSample
 
     [Fact]
-    public Task MultiLine() =>
-        VerifyInline(
-            "line1\nline2",
+    public Task MultiLine()
+    {
+        var input = "line1\nline2";
+        return VerifyInline(
+            input,
             """
             line1
             line2
             """);
+    }
 
     #endregion
 

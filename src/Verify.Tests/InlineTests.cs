@@ -54,7 +54,7 @@
     public Task CrlfExpectedMatchesLfReceived()
     {
         var settings = new VerifySettings();
-        settings.Inline("line1\r\nline2", CurrentFile.Path(), 1, "\"ignored\"");
+        settings.Inline("line1\r\nline2", FakeSource(), 1, "\"ignored\"");
         return Verify("line1\nline2", settings);
     }
 
@@ -118,6 +118,11 @@
         Assert.Contains("C# source files", exception.Message);
     }
 
+    // Deliberately not a real source file: a failing inline verify stages a patch, and
+    // pointing it at real source would let a tray accept rewrite it
+    static string FakeSource() =>
+        Path.Combine(Path.GetTempPath(), "VerifyInlineFakeSource.cs");
+
     static string WriteTemplate(string body)
     {
         var directory = Path.Combine(Path.GetTempPath(), $"VerifyInlineTests_{Guid.NewGuid():N}");
@@ -125,6 +130,135 @@
         var path = Path.Combine(directory, "Template.cs");
         File.WriteAllText(path, body);
         return path;
+    }
+
+    // The template's line endings would otherwise be whatever the checkout produced
+    static string WriteTemplate(string body, string eol) =>
+        WriteTemplate(
+            body
+                .Replace("\r\n", "\n")
+                .Replace("\n", eol));
+
+    // Every line ending in the rewritten file must match the original, with no strays
+    static void AssertEolConsistent(string text, string eol)
+    {
+        for (var index = 0; index < text.Length; index++)
+        {
+            var current = text[index];
+            if (current == '\r')
+            {
+                Assert.Equal("\r\n", eol);
+                Assert.True(index + 1 < text.Length && text[index + 1] == '\n');
+            }
+            else if (current == '\n' &&
+                     eol == "\r\n")
+            {
+                Assert.True(index > 0 && text[index - 1] == '\r');
+            }
+        }
+    }
+
+    // The literal inherits the .cs file's line endings, so the expected value can arrive
+    // with any of these and must still match the \n normalized received text
+    [Theory]
+    [InlineData("\r\n")]
+    [InlineData("\r")]
+    [InlineData("\n")]
+    public Task ExpectedLiteralEolNormalized(string eol)
+    {
+        var settings = new VerifySettings();
+        settings.Inline($"line1{eol}line2", FakeSource(), 1, "\"ignored\"");
+        return Verify("line1\nline2", settings);
+    }
+
+    // Scrubbing normalizes received content, so a target containing CR still matches
+    // an expected literal written with \n
+    [Theory]
+    [InlineData("\r\n")]
+    [InlineData("\r")]
+    public Task ReceivedContentEolNormalized(string eol) =>
+        VerifyInline(
+            $"line1{eol}line2",
+            """
+            line1
+            line2
+            """);
+
+    [Fact]
+    public Task MultiTargetWithCrlfExpected()
+    {
+        var settings = new VerifySettings();
+        settings.Inline(
+            "---------- target#00.txt ----------\r\nroot\r\n---------- target#01.txt ----------\r\nextra",
+            FakeSource(),
+            1,
+            "\"ignored\"");
+        settings.AppendContentAsFile("extra");
+        return Verify("root", settings);
+    }
+
+    [Theory]
+    [InlineData("\r\n")]
+    [InlineData("\n")]
+    public async Task AutoVerifyRewriteHonorsTemplateEol(string eol)
+    {
+        var template = WriteTemplate(mismatchTemplate, eol);
+        try
+        {
+            var settings = new VerifySettings();
+            settings.Inline("old", template, 4, "\"old\"");
+            settings.AutoVerify();
+            settings.DisableDiff();
+
+            await Verify("new1\nnew2", settings);
+
+            var content = File.ReadAllText(template);
+            var indent = new string(' ', 12);
+            Assert.Contains(
+                $"VerifyInline(value, \"\"\"{eol}{indent}new1{eol}{indent}new2{eol}{indent}\"\"\");",
+                content);
+            AssertEolConsistent(content, eol);
+        }
+        finally
+        {
+            Directory.Delete(Path.GetDirectoryName(template)!, true);
+        }
+    }
+
+    [Theory]
+    [InlineData("\r\n")]
+    [InlineData("\n")]
+    public async Task AutoVerifyInsertHonorsTemplateEol(string eol)
+    {
+        var template = WriteTemplate(
+            """
+            class Templ
+            {
+                void Method() =>
+                    VerifyInline(value);
+            }
+            """,
+            eol);
+        try
+        {
+            var settings = new VerifySettings();
+            settings.Inline(null, template, 4, null);
+            settings.AutoVerify();
+            settings.DisableDiff();
+
+            await Verify("new1\nnew2", settings);
+
+            var content = File.ReadAllText(template);
+            var indent = new string(' ', 12);
+            Assert.Contains(
+                $"VerifyInline(value, \"\"\"{eol}{indent}new1{eol}{indent}new2{eol}{indent}\"\"\");",
+                content);
+            AssertEolConsistent(content, eol);
+        }
+        finally
+        {
+            Directory.Delete(Path.GetDirectoryName(template)!, true);
+        }
     }
 
     const string mismatchTemplate =
@@ -293,7 +427,7 @@
             settings.UseFileName("MovedToInline");
             settings.AutoVerify();
             settings.DisableDiff();
-            settings.Inline("value", CurrentFile.Path(), 1, "\"value\"");
+            settings.Inline("value", FakeSource(), 1, "\"value\"");
             await Verify("value", settings);
             Assert.False(File.Exists(stale));
         }

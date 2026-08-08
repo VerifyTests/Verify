@@ -374,6 +374,108 @@
         }
     }
 
+    static int Count(string text, string value)
+    {
+        var count = 0;
+        var index = 0;
+        while (true)
+        {
+            index = text.IndexOf(value, index, StringComparison.Ordinal);
+            if (index < 0)
+            {
+                return count;
+            }
+
+            count++;
+            index += value.Length;
+        }
+    }
+
+    const string twoSiteTemplate =
+        """
+        class Templ
+        {
+            void A() => VerifyInline(a, "old");
+            void B() => VerifyInline(b, "old");
+        }
+        """;
+
+    static VerifySettings AcceptSettings(string template, int line, string expression)
+    {
+        var settings = new VerifySettings();
+        settings.Inline("old", template, line, expression);
+        settings.AutoVerify();
+        settings.DisableDiff();
+        return settings;
+    }
+
+    // Two tests in the same file producing the same result. The identical literals give
+    // the search nothing to tell the sites apart beyond the line hint, so both must still
+    // be patched rather than one being taken twice.
+    [Fact]
+    public async Task TwoSitesInSameFileWithSameResult()
+    {
+        var template = WriteTemplate(twoSiteTemplate);
+        try
+        {
+            await Verify("same", AcceptSettings(template, 3, "\"old\""));
+            await Verify("same", AcceptSettings(template, 4, "\"old\""));
+
+            var content = File.ReadAllText(template);
+            Assert.DoesNotContain("\"old\"", content);
+            Assert.Equal(2, Count(content, "same"));
+        }
+        finally
+        {
+            Directory.Delete(Path.GetDirectoryName(template)!, true);
+        }
+    }
+
+    [Fact]
+    public async Task TwoSitesInSameFileWithDifferentResults()
+    {
+        var template = WriteTemplate(twoSiteTemplate);
+        try
+        {
+            await Verify("resultA", AcceptSettings(template, 3, "\"old\""));
+            await Verify("resultB", AcceptSettings(template, 4, "\"old\""));
+
+            var content = File.ReadAllText(template);
+            Assert.DoesNotContain("\"old\"", content);
+            var indexA = content.IndexOf("VerifyInline(a", StringComparison.Ordinal);
+            var indexB = content.IndexOf("VerifyInline(b", StringComparison.Ordinal);
+            var segmentA = content.Substring(indexA, indexB - indexA);
+            // Each site keeps its own result
+            Assert.Contains("resultA", segmentA);
+            Assert.DoesNotContain("resultB", segmentA);
+            Assert.Contains("resultB", content.Substring(indexB));
+        }
+        finally
+        {
+            Directory.Delete(Path.GetDirectoryName(template)!, true);
+        }
+    }
+
+    [Fact]
+    public async Task ParallelSameFileAcceptsWithIdenticalLiterals()
+    {
+        var template = WriteTemplate(twoSiteTemplate);
+        try
+        {
+            await Task.WhenAll(
+                Verify("same", AcceptSettings(template, 3, "\"old\"")),
+                Verify("same", AcceptSettings(template, 4, "\"old\"")));
+
+            var content = File.ReadAllText(template);
+            Assert.DoesNotContain("\"old\"", content);
+            Assert.Equal(2, Count(content, "same"));
+        }
+        finally
+        {
+            Directory.Delete(Path.GetDirectoryName(template)!, true);
+        }
+    }
+
     [Fact]
     public async Task ParallelSameFileAccepts()
     {

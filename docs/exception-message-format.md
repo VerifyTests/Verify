@@ -208,7 +208,7 @@ static Result ParseExceptionMessage(string exceptionMessage)
     return result;
 }
 ```
-<sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionParsingTests.cs#L278-L298' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionParsing' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionParsingTests.cs#L291-L311' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionParsing' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The `Result` contains:

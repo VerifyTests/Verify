@@ -1,9 +1,10 @@
-﻿public class InlineTests
+public class InlineTests
 {
     [Fact]
     public async Task Simple()
     {
-        var result = await VerifyInline("value", "value");
+        var result = await Verify("value")
+            .Snapshot("value");
         Assert.Equal("value", result.Text);
     }
 
@@ -13,75 +14,116 @@
     public Task MultiLine()
     {
         var input = "line1\nline2";
-        return VerifyInline(
-            input,
-            """
-            line1
-            line2
-            """);
+        return Verify(input)
+            .Snapshot(
+                """
+                line1
+                line2
+                """);
     }
 
     #endregion
 
     [Fact]
     public Task EmptyString() =>
-        VerifyInline("", "emptyString");
+        Verify("")
+            .Snapshot("emptyString");
 
     [Fact]
     public Task Object() =>
-        VerifyInline(
-            new
-            {
-                a = 1
-            },
-            """
-            {
-              a: 1
-            }
-            """);
+        Verify(
+                new
+                {
+                    a = 1
+                })
+            .Snapshot(
+                """
+                {
+                  a: 1
+                }
+                """);
+
+    /// <summary>
+    /// The terminator composes with every entry point, which is the point of it not being a
+    /// dedicated VerifyInline overload.
+    /// </summary>
+    [Fact]
+    public Task Xml() =>
+        VerifyXml("<a><b/></a>")
+            .Snapshot(
+                """
+                <a>
+                  <b />
+                </a>
+                """);
+
+    [Fact]
+    public Task Json() =>
+        VerifyJson("{a: 1}")
+            .Snapshot(
+                """
+                {
+                  a: 1
+                }
+                """);
 
     [Fact]
     public Task EdgeContent() =>
-        VerifyInline(
-            "has \"\"\" quotes\n\nand a blank line",
-            """"
-            has """ quotes
+        Verify("has \"\"\" quotes\n\nand a blank line")
+            .Snapshot(
+                """"
+                has """ quotes
 
-            and a blank line
-            """");
+                and a blank line
+                """");
 
     [Fact]
     public Task CrlfExpectedMatchesLfReceived()
     {
         var settings = new VerifySettings();
-        settings.Inline("line1\r\nline2", FakeSource(), 1, "\"ignored\"");
+        settings.Snapshot("line1\r\nline2", FakeSource(), 1, "\"ignored\"");
         return Verify("line1\nline2", settings);
     }
 
     [Fact]
     public async Task MultipleInlinePerMethod()
     {
-        await VerifyInline("first", "first");
-        await VerifyInline("second", "second");
+        await Verify("first")
+            .Snapshot("first");
+        await Verify("second")
+            .Snapshot("second");
     }
 
+    /// <summary>
+    /// Only the first target is inlined. The rest keep the names they would have had without
+    /// inline, so the #01 file below is the same file it would be with no literal at all.
+    /// </summary>
     [Fact]
     public Task MultiTarget() =>
-        VerifyInline(
-            "root",
-            """
-            ---------- target#00.txt ----------
-            root
-            ---------- target#01.txt ----------
-            extra
-            """)
-            .AppendContentAsFile("extra");
+        Verify("root")
+            .AppendContentAsFile("extra")
+            .Snapshot("root");
+
+    [Fact]
+    public async Task NotInlineBeatsAnExplicitSnapshot()
+    {
+        var settings = new VerifySettings();
+        settings.NotInline();
+        settings.Snapshot("ignored", FakeSource(), 1, "\"ignored\"");
+
+        var result = await Verify("value", settings);
+
+        // A file pair, not an inline result
+        Assert.NotEmpty(result.Files);
+    }
 
     [Fact]
     public async Task MismatchThrows()
     {
         var exception = await Assert.ThrowsAsync<VerifyException>(
-            async () => await VerifyInline("value", "wrong").DisableDiff());
+            async () => await Verify("value")
+                .DisableDiff()
+                .Snapshot("wrong"));
         Assert.Contains("InlineNotEqual:", exception.Message);
         Assert.Contains("Source: ", exception.Message);
         Assert.Contains("Received:", exception.Message);
@@ -93,7 +135,9 @@
     public async Task NewThrows()
     {
         var exception = await Assert.ThrowsAsync<VerifyException>(
-            async () => await VerifyInline("value").DisableDiff());
+            async () => await Verify("value")
+                .DisableDiff()
+                .Snapshot());
         Assert.Contains("InlineNew:", exception.Message);
         Assert.Contains("Received:", exception.Message);
         // The content block has no Expected section for a new snapshot
@@ -101,12 +145,17 @@
     }
 
     [Fact]
-    public async Task NonTextTarget()
+    public async Task FirstTargetMustBeText()
     {
+        var settings = new VerifySettings();
+        settings.Snapshot("ignored", FakeSource(), 1, "\"ignored\"");
+
         var exception = await Assert.ThrowsAsync<VerifyException>(
-            async () => await VerifyInline("root", "root")
-                .AppendContentAsFile(new byte[] { 1, 2, 3 }, "bin"));
+            async () => await Verify(new MemoryStream([1, 2, 3]), "bin", settings));
+
         Assert.Contains("only support text", exception.Message);
+        Assert.Contains("NotInline", exception.Message);
+        Assert.Contains("DontInline", exception.Message);
     }
 
     [Fact]
@@ -114,7 +163,7 @@
     {
         var settings = new VerifySettings();
         var exception = Assert.ThrowsAny<Exception>(
-            () => settings.Inline("x", "Tests.vb", 1, "\"x\""));
+            () => settings.Snapshot("x", "Tests.vb", 1, "\"x\""));
         Assert.Contains("C# source files", exception.Message);
     }
 
@@ -167,7 +216,7 @@
     public Task ExpectedLiteralEolNormalized(string eol)
     {
         var settings = new VerifySettings();
-        settings.Inline($"line1{eol}line2", FakeSource(), 1, "\"ignored\"");
+        settings.Snapshot($"line1{eol}line2", FakeSource(), 1, "\"ignored\"");
         return Verify("line1\nline2", settings);
     }
 
@@ -177,25 +226,12 @@
     [InlineData("\r\n")]
     [InlineData("\r")]
     public Task ReceivedContentEolNormalized(string eol) =>
-        VerifyInline(
-            $"line1{eol}line2",
-            """
-            line1
-            line2
-            """);
-
-    [Fact]
-    public Task MultiTargetWithCrlfExpected()
-    {
-        var settings = new VerifySettings();
-        settings.Inline(
-            "---------- target#00.txt ----------\r\nroot\r\n---------- target#01.txt ----------\r\nextra",
-            FakeSource(),
-            1,
-            "\"ignored\"");
-        settings.AppendContentAsFile("extra");
-        return Verify("root", settings);
-    }
+        Verify($"line1{eol}line2")
+            .Snapshot(
+                """
+                line1
+                line2
+                """);
 
     [Theory]
     [InlineData("\r\n")]
@@ -206,7 +242,7 @@
         try
         {
             var settings = new VerifySettings();
-            settings.Inline("old", template, 4, "\"old\"");
+            settings.Snapshot("old", template, 4, "\"old\"");
             settings.AutoVerify();
             settings.DisableDiff();
 
@@ -215,7 +251,7 @@
             var content = File.ReadAllText(template);
             var indent = new string(' ', 12);
             Assert.Contains(
-                $"VerifyInline(value, \"\"\"{eol}{indent}new1{eol}{indent}new2{eol}{indent}\"\"\");",
+                $".Snapshot(\"\"\"{eol}{indent}new1{eol}{indent}new2{eol}{indent}\"\"\");",
                 content);
             AssertEolConsistent(content, eol);
         }
@@ -230,19 +266,11 @@
     [InlineData("\n")]
     public async Task AutoVerifyInsertHonorsTemplateEol(string eol)
     {
-        var template = WriteTemplate(
-            """
-            class Templ
-            {
-                void Method() =>
-                    VerifyInline(value);
-            }
-            """,
-            eol);
+        var template = WriteTemplate(insertTemplate, eol);
         try
         {
             var settings = new VerifySettings();
-            settings.Inline(null, template, 4, null);
+            settings.Snapshot(null, template, 4, null);
             settings.AutoVerify();
             settings.DisableDiff();
 
@@ -251,7 +279,7 @@
             var content = File.ReadAllText(template);
             var indent = new string(' ', 12);
             Assert.Contains(
-                $"VerifyInline(value, \"\"\"{eol}{indent}new1{eol}{indent}new2{eol}{indent}\"\"\");",
+                $".Snapshot(\"\"\"{eol}{indent}new1{eol}{indent}new2{eol}{indent}\"\"\");",
                 content);
             AssertEolConsistent(content, eol);
         }
@@ -265,8 +293,17 @@
         """
         class Templ
         {
-            void Method() =>
-                VerifyInline(value, "old");
+            Task Method() =>
+                Verify(value).Snapshot("old");
+        }
+        """;
+
+    const string insertTemplate =
+        """
+        class Templ
+        {
+            Task Method() =>
+                Verify(value).Snapshot();
         }
         """;
 
@@ -277,7 +314,7 @@
         try
         {
             var settings = new VerifySettings();
-            settings.Inline("old", template, 4, "\"old\"");
+            settings.Snapshot("old", template, 4, "\"old\"");
             settings.AutoVerify();
             settings.DisableDiff();
             await Verify("newvalue", settings);
@@ -294,22 +331,15 @@
     [Fact]
     public async Task AutoVerifyNewInsertsLiteral()
     {
-        var template = WriteTemplate(
-            """
-            class Templ
-            {
-                void Method() =>
-                    VerifyInline(value);
-            }
-            """);
+        var template = WriteTemplate(insertTemplate);
         try
         {
             var settings = new VerifySettings();
-            settings.Inline(null, template, 4, null);
+            settings.Snapshot(null, template, 4, null);
             settings.AutoVerify();
             settings.DisableDiff();
             await Verify("newvalue", settings);
-            Assert.Contains("VerifyInline(value, \"\"\"", File.ReadAllText(template));
+            Assert.Contains(".Snapshot(\"\"\"", File.ReadAllText(template));
         }
         finally
         {
@@ -326,15 +356,15 @@
             """
             class Templ
             {
-                void Method() =>
-                    VerifyInline(value, "newvalue");
+                Task Method() =>
+                    Verify(value).Snapshot("newvalue");
             }
             """);
         try
         {
             var before = File.ReadAllText(template);
             var settings = new VerifySettings();
-            settings.Inline("stale", template, 4, "\"stale\"");
+            settings.Snapshot("stale", template, 4, "\"stale\"");
             settings.AutoVerify();
             settings.DisableDiff();
             await Verify("newvalue", settings);
@@ -353,14 +383,14 @@
             """
             class Templ
             {
-                void Method() =>
-                    VerifyInline(value, "different");
+                Task Method() =>
+                    Verify(value).Snapshot("different");
             }
             """);
         try
         {
             var settings = new VerifySettings();
-            settings.Inline("stale", template, 4, "\"stale\"");
+            settings.Snapshot("stale", template, 4, "\"stale\"");
             settings.AutoVerify();
             settings.DisableDiff();
             var exception = await Assert.ThrowsAsync<VerifyException>(
@@ -395,15 +425,15 @@
         """
         class Templ
         {
-            void A() => VerifyInline(a, "old");
-            void B() => VerifyInline(b, "old");
+            Task A() => Verify(a).Snapshot("old");
+            Task B() => Verify(b).Snapshot("old");
         }
         """;
 
     static VerifySettings AcceptSettings(string template, int line, string expression)
     {
         var settings = new VerifySettings();
-        settings.Inline("old", template, line, expression);
+        settings.Snapshot("old", template, line, expression);
         settings.AutoVerify();
         settings.DisableDiff();
         return settings;
@@ -442,8 +472,8 @@
 
             var content = File.ReadAllText(template);
             Assert.DoesNotContain("\"old\"", content);
-            var indexA = content.IndexOf("VerifyInline(a", StringComparison.Ordinal);
-            var indexB = content.IndexOf("VerifyInline(b", StringComparison.Ordinal);
+            var indexA = content.IndexOf("Verify(a)", StringComparison.Ordinal);
+            var indexB = content.IndexOf("Verify(b)", StringComparison.Ordinal);
             var segmentA = content.Substring(indexA, indexB - indexA);
             // Each site keeps its own result
             Assert.Contains("resultA", segmentA);
@@ -483,9 +513,9 @@
             """
             class Templ
             {
-                void A() => VerifyInline(a, "oldA");
-                void B() => VerifyInline(b, "oldB");
-                void C() => VerifyInline(c, "oldC");
+                Task A() => Verify(a).Snapshot("oldA");
+                Task B() => Verify(b).Snapshot("oldB");
+                Task C() => Verify(c).Snapshot("oldC");
             }
             """);
         try
@@ -493,7 +523,7 @@
             async Task Accept(string old, int line, string value)
             {
                 var settings = new VerifySettings();
-                settings.Inline(old, template, line, $"\"{old}\"");
+                settings.Snapshot(old, template, line, $"\"{old}\"");
                 settings.AutoVerify();
                 settings.DisableDiff();
                 await Verify(value, settings);
@@ -515,6 +545,10 @@
         }
     }
 
+    /// <summary>
+    /// The inlined target never claims its verified file, so the file a previous run left behind
+    /// flows through the normal delete path.
+    /// </summary>
     [Fact]
     public async Task MovedToInlineCleanup()
     {
@@ -529,7 +563,7 @@
             settings.UseFileName("MovedToInline");
             settings.AutoVerify();
             settings.DisableDiff();
-            settings.Inline("value", FakeSource(), 1, "\"value\"");
+            settings.Snapshot("value", FakeSource(), 1, "\"value\"");
             await Verify("value", settings);
             Assert.False(File.Exists(stale));
         }
@@ -542,6 +576,37 @@
         }
     }
 
+    /// <summary>
+    /// The other direction: a test with a literal that opts out. The Snapshot call is stripped and
+    /// the snapshot goes back to being a file, which the user accepts the usual way.
+    /// </summary>
+    [Fact]
+    public async Task MovedToFileRemovesTheLiteral()
+    {
+        var template = WriteTemplate(mismatchTemplate);
+        try
+        {
+            var settings = new VerifySettings();
+            settings.Snapshot("old", template, 4, "\"old\"");
+            settings.NotInline();
+            settings.AutoVerify();
+            settings.DisableDiff();
+            settings.UseDirectory("InlineScratch");
+            settings.UseFileName("MovedToFile");
+
+            await Verify("value", settings);
+
+            Assert.DoesNotContain("Snapshot", File.ReadAllText(template));
+            var verified = Path.Combine(AttributeReader.GetProjectDirectory(), "InlineScratch", "MovedToFile.verified.txt");
+            Assert.True(File.Exists(verified));
+            File.Delete(verified);
+        }
+        finally
+        {
+            Directory.Delete(Path.GetDirectoryName(template)!, true);
+        }
+    }
+
     [Fact]
     public async Task BuildServerDoesNotRewrite()
     {
@@ -551,12 +616,44 @@
         try
         {
             var settings = new VerifySettings();
-            settings.Inline("old", template, 4, "\"old\"");
+            settings.Snapshot("old", template, 4, "\"old\"");
             settings.AutoVerify();
             settings.DisableDiff();
             await Assert.ThrowsAsync<VerifyException>(
                 async () => await Verify("newvalue", settings));
             Assert.Equal(original, File.ReadAllText(template));
+        }
+        finally
+        {
+            BuildServerDetector.Detected = false;
+            Directory.Delete(Path.GetDirectoryName(template)!, true);
+        }
+    }
+
+    [Fact]
+    public async Task BuildServerDoesNotRemoveTheLiteral()
+    {
+        var template = WriteTemplate(mismatchTemplate);
+        var original = File.ReadAllText(template);
+        BuildServerDetector.Detected = true;
+        try
+        {
+            var settings = new VerifySettings();
+            settings.Snapshot("old", template, 4, "\"old\"");
+            settings.NotInline();
+            settings.AutoVerify();
+            settings.DisableDiff();
+            settings.UseDirectory("InlineScratch");
+            settings.UseFileName("BuildServerNotInline");
+
+            await Verify("value", settings);
+
+            Assert.Equal(original, File.ReadAllText(template));
+            var verified = Path.Combine(AttributeReader.GetProjectDirectory(), "InlineScratch", "BuildServerNotInline.verified.txt");
+            if (File.Exists(verified))
+            {
+                File.Delete(verified);
+            }
         }
         finally
         {

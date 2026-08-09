@@ -38,7 +38,7 @@ public partial class VerifySettings
             expression = null;
         }
 
-        inline = new(expected, file, line, expression);
+        inline = new(expected, file, line, expression, InlinePatchMode.Set);
     }
 
     /// <summary>

@@ -9,7 +9,8 @@ class VerifyEngine(
     GetFileNames getFileNames,
     GetIndexedFileNames getIndexedFileNames,
     string? typeName,
-    string? methodName)
+    string? methodName,
+    InlineEngine? inlineEngine = null)
 {
     bool diffEnabled = !DiffRunner.Disabled &&
                        settings.diffEnabled &&
@@ -59,6 +60,12 @@ class VerifyEngine(
         if (targetList.Count == 1)
         {
             var target = targetList[0];
+            if (inlineEngine is not null)
+            {
+                inlineEngine.Compare(target);
+                return;
+            }
+
             var file = getFileNames(target);
             var result = await GetResult(settings, file, target, false, false);
             HandleCompareResult(result, file);
@@ -88,22 +95,38 @@ class VerifyEngine(
             HandleCompareResult(result, file);
         }
 
-        foreach (var group in targetList.GroupBy(_ => _, targetNameExtensionComparer))
+        // Grouped over the full list, including the inlined target, so the file names of the
+        // remaining targets are the same whether or not inline is on. That leaves a deliberate
+        // gap where the inlined target's #00 would have been.
+        var indexed = targetList
+            .Select((target, position) => (target, position))
+            .ToList();
+        foreach (var group in indexed.GroupBy(_ => _.target, targetNameExtensionComparer))
         {
             var targets = group.ToList();
             if (targets.Count == 1)
             {
-                var target = targets[0];
-                var file = getFileNames(target);
-                await Inner(file, target);
+                var (target, position) = targets[0];
+                if (position == 0 && inlineEngine is not null)
+                {
+                    inlineEngine.Compare(target);
+                    continue;
+                }
+
+                await Inner(getFileNames(target), target);
                 continue;
             }
 
             for (var index = 0; index < targets.Count; index++)
             {
-                var target = targets[index];
-                var file = getIndexedFileNames(target, index.ToString("D2"));
-                await Inner(file, target);
+                var (target, position) = targets[index];
+                if (position == 0 && inlineEngine is not null)
+                {
+                    inlineEngine.Compare(target);
+                    continue;
+                }
+
+                await Inner(getIndexedFileNames(target, index.ToString("D2")), target);
             }
         }
     }
@@ -145,7 +168,22 @@ class VerifyEngine(
     public async Task ThrowIfRequired()
     {
         ProcessEquals();
-        if (@new.Count == 0 &&
+
+        var inlineFailed = false;
+        if (inlineEngine is { } engine)
+        {
+            if (engine.Equality == Equality.Equal)
+            {
+                engine.Settle();
+            }
+            else
+            {
+                inlineFailed = true;
+            }
+        }
+
+        if (!inlineFailed &&
+            @new.Count == 0 &&
             notEquals.Count == 0 &&
             delete.Count == 0)
         {
@@ -158,18 +196,57 @@ class VerifyEngine(
 
         var allNotEqualsVerified = await ProcessNotEquals();
 
+        var (allInlineVerified, inlineSection) = await ProcessInline(inlineFailed);
+
         var throwException = VerifierSettings.throwException || settings.throwException;
 
         if (allDeletesVerified &&
             allNewVerified &&
             allNotEqualsVerified &&
+            allInlineVerified &&
             !throwException)
         {
             return;
         }
 
-        var message = VerifyExceptionMessageBuilder.Build(directory, @new, notEquals, delete, equal);
+        var message = VerifyExceptionMessageBuilder.Build(
+            directory,
+            @new,
+            notEquals,
+            delete,
+            equal,
+            inlineSection,
+            inlineHint);
         throw new VerifyException(message);
+    }
+
+    string? inlineHint;
+
+    async Task<(bool verified, InlineSection? section)> ProcessInline(bool inlineFailed)
+    {
+        if (!inlineFailed)
+        {
+            return (true, null);
+        }
+
+        var engine = inlineEngine!;
+        StagedInline? staged = null;
+        // The source file stands in for the verified file, because that is where the snapshot lives
+        var verified = IsAutoVerify(engine.MappedSourceFile) && engine.TryApply();
+        if (!verified)
+        {
+            (inlineHint, staged) = await engine.Queue();
+        }
+
+        return (
+            verified,
+            new(
+                engine.MappedSourceFile,
+                engine.Line,
+                engine.Equality == Equality.New,
+                engine.Rendered,
+                engine.NormalizedExpected,
+                staged));
     }
 
     internal bool IsAutoVerify(string verifiedFile)

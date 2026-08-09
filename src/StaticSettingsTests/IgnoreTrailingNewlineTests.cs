@@ -142,7 +142,7 @@ public class IgnoreTrailingNewlineTests :
         var settings = Settings(temp);
         // Deliberately not this file: the failing cases stage a patch, and pointing it at
         // real source would let a tray accept rewrite it
-        settings.Inline(expected, temp.BuildPath("Fake.cs"), 1, "\"ignored\"");
+        settings.Snapshot(expected, temp.BuildPath("Fake.cs"), 1, "\"ignored\"");
         return settings;
     }
 

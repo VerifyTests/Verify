@@ -21,15 +21,15 @@ Only C# source files and text results are supported.
 public Task MultiLine()
 {
     var input = "line1\nline2";
-    return VerifyInline(
-        input,
-        """
-        line1
-        line2
-        """);
+    return Verify(input)
+        .Snapshot(
+            """
+            line1
+            line2
+            """);
 }
 ```
-<sup><a href='/src/Verify.Tests/InlineTests.cs#L10-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineSample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/InlineTests.cs#L11-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Omitting the expected argument (or passing `null`) marks the snapshot as new; accepting it writes the literal into the source file.

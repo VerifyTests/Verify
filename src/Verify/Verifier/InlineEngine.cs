@@ -1,46 +1,40 @@
-﻿// Inline counterpart of VerifyEngine. The expected content lives in the test source file, so no
-// FilePair is ever created (FilePair feeds DanglingSnapshotsCheck) and accept is a source rewrite
-// (via DiffEngine InlineApplier) instead of a file move.
+// The inline half of VerifyEngine. One target's expected content lives in the test source file
+// instead of a .verified file, so no FilePair is created (FilePair feeds DanglingSnapshotsCheck)
+// and accept is a source rewrite (via DiffEngine InlineApplier) instead of a file move.
+// Owned and driven by VerifyEngine, which keeps deletes, auto verify and the exception message.
 class InlineEngine(
-    string directory,
     VerifySettings settings,
     InlineInfo inline,
-    IEnumerable<string> verifiedFiles,
     string? typeName,
     string? methodName)
 {
-    const string separator = "----------";
-
     bool diffEnabled = !DiffRunner.Disabled &&
                        settings.diffEnabled &&
                        !BuildServerDetector.Detected;
-    string mappedSourceFile = InnerVerifier.MapSourceFile(inline.File);
-    HashSet<string> delete = new(verifiedFiles, StringComparer.InvariantCultureIgnoreCase);
-    Equality equality;
-    string rendered = null!;
-    string? normalizedExpected;
 
-    public string RenderedText => rendered;
+    public string MappedSourceFile { get; } = InnerVerifier.MapSourceFile(inline.File);
+    public int Line => inline.Line;
+    public Equality Equality { get; private set; }
+    public string Rendered { get; private set; } = null!;
+    public string? NormalizedExpected { get; private set; }
 
-    public void HandleResults(List<Target> targets)
+    public void Compare(in Target target)
     {
-        foreach (var target in targets)
+        if (target.IsStream)
         {
-            if (target.IsStream)
-            {
-                throw new VerifyException(
-                    $"""
-                     Inline snapshots only support text content. A target with extension '{target.Extension}' is a binary stream.
-                     Remove the Inline usage, or remove the binary target (converters, AppendFile, and stream targets all produce binary targets).
-                     """);
-            }
+            throw new VerifyException(
+                $"""
+                 Inline snapshots only support text content. The first target, with extension '{target.Extension}', is a binary stream.
+                 Use `.NotInline()` for this test, or `Target.DontInline` for this extension.
+                 """);
         }
 
-        rendered = Render(targets);
+        target.TryGetStringBuilder(out var builder);
+        Rendered = builder!.ToString();
 
         if (inline.Expected is null)
         {
-            equality = Equality.New;
+            Equality = Equality.New;
             return;
         }
 
@@ -51,130 +45,61 @@ class InlineEngine(
 
         // Mirror Comparer.CompareStrings trailing newline tolerance
         if (VerifierSettings.ignoreTrailingNewline &&
-            expected.Length - 1 == rendered.Length &&
+            expected.Length - 1 == Rendered.Length &&
             expected[^1] == '\n')
         {
             expected = expected[..^1];
         }
 
-        normalizedExpected = expected;
-        equality = string.Equals(rendered, expected, StringComparison.Ordinal)
+        NormalizedExpected = expected;
+        Equality = string.Equals(Rendered, expected, StringComparison.Ordinal)
             ? Equality.Equal
             : Equality.NotEqual;
     }
 
-    static string Render(List<Target> targets)
+    /// <summary>
+    /// Drops anything a prior failing run left queued in the viewer.
+    /// </summary>
+    public void Settle()
     {
-        // Grouping and indexing mirror VerifyEngine.HandleResults
-        var parts = new List<(string name, string content)>();
-        foreach (var group in targets.GroupBy(_ => (_.Name ?? "", _.Extension)))
+        if (diffEnabled)
         {
-            var list = group.ToList();
-            if (list.Count == 1)
-            {
-                var target = list[0];
-                parts.Add(($"{target.NameOrTarget}.{target.Extension}", Content(target)));
-                continue;
-            }
-
-            for (var index = 0; index < list.Count; index++)
-            {
-                var target = list[index];
-                parts.Add(($"{target.NameOrTarget}#{index:D2}.{target.Extension}", Content(target)));
-            }
+            DiffRunner.SettleInline(MappedSourceFile, inline.Line);
         }
-
-        if (parts.Count == 1)
-        {
-            return parts[0].content;
-        }
-
-        return string.Join(
-            "\n",
-            parts.Select(_ => $"{separator} {_.name} {separator}\n{_.content}"));
     }
 
-    static string Content(in Target target)
+    /// <summary>
+    /// Rewrites the source in place. Only used by auto verify, and by the migration away from
+    /// inline, both of which are decided rather than reviewed.
+    /// </summary>
+    public bool TryApply()
     {
-        target.TryGetStringBuilder(out var builder);
-        return builder!.ToString();
+        if (BuildServerDetector.Detected)
+        {
+            return false;
+        }
+
+        // InlineApplier owns all locking (cross process mutex + in process gate)
+        var result = InlineApplier.Apply(BuildPatch());
+        return result.Status is InlineApplyStatus.Applied or InlineApplyStatus.AlreadyApplied;
     }
 
-    public async Task ThrowIfRequired()
+    /// <summary>
+    /// Hands the snapshot to DiffEngineViewer for review. Nothing is written to disk: an already
+    /// running viewer receives the patch over its socket, and a newly launched one over stdin.
+    /// Returns the staging paths only when no viewer could be found.
+    /// </summary>
+    public async Task<(string? Hint, StagedInline? Staged)> Queue()
     {
-        if (equality == Equality.Equal)
+        var result = await DiffRunner.AddInlineAsync(BuildPatch());
+        if (result != InlineResult.NoViewerFound)
         {
-            if (diffEnabled)
-            {
-                // Drop anything a prior failing run left queued in the viewer
-                DiffRunner.SettleInline(mappedSourceFile, inline.Line);
-            }
-
-            if (delete.Count == 0 && !Throw())
-            {
-                return;
-            }
+            return (null, null);
         }
 
-        var allDeletesVerified = await ProcessDeletes();
-
-        if (equality == Equality.Equal)
-        {
-            if (allDeletesVerified && !Throw())
-            {
-                return;
-            }
-
-            // Deletes-only failure: reuse the existing builder so tooling parses it unchanged
-            throw new VerifyException(VerifyExceptionMessageBuilder.Build(directory, [], [], delete, []));
-        }
-
-        // New or NotEqual. The source file is passed as the delegates' verifiedFile argument
-        var autoVerify = IsAutoVerify(mappedSourceFile);
-        var applied = false;
-        if (autoVerify && !BuildServerDetector.Detected)
-        {
-            // InlineApplier owns all locking (cross process mutex + in process gate)
-            var result = InlineApplier.Apply(BuildPatch());
-            applied = result.Status is InlineApplyStatus.Applied or InlineApplyStatus.AlreadyApplied;
-        }
-
-        if (applied)
-        {
-            if (allDeletesVerified && !Throw())
-            {
-                return;
-            }
-        }
-
-        string? hint = null;
-        (string Received, string Expected, string Patch)? staging = null;
-        if (!applied)
-        {
-            // Nothing is written to disk on this path. The patch goes to DiffEngineViewer over
-            // stdin, or over its socket when one is already running, and the exception message
-            // below already carries the full received and expected text.
-            var result = await DiffRunner.AddInlineAsync(BuildPatch());
-            if (result == InlineResult.NoViewerFound)
-            {
-                hint = "No DiffEngineViewer was found, so the snapshot could not be opened for review. Install it: dotnet tool install -g DiffEngineViewer";
-                staging = await WriteStaging();
-            }
-        }
-
-        throw new VerifyException(
-            VerifyExceptionMessageBuilder.BuildInline(
-                directory,
-                mappedSourceFile,
-                inline.Line,
-                isNew: equality == Equality.New,
-                rendered,
-                normalizedExpected,
-                staging?.Received,
-                staging?.Expected,
-                staging?.Patch,
-                delete,
-                hint));
+        return (
+            "No DiffEngineViewer was found, so the snapshot could not be opened for review. Install it: dotnet tool install -g DiffEngineViewer",
+            await WriteStaging());
     }
 
     /// <summary>
@@ -182,7 +107,7 @@ class InlineEngine(
     /// native renderer. Writes the received and expected text so there is still something to look
     /// at, and opens whatever diff tool is configured.
     /// </summary>
-    async Task<(string Received, string Expected, string Patch)?> WriteStaging()
+    async Task<StagedInline?> WriteStaging()
     {
         if (BuildServerDetector.Detected ||
             VerifierSettings.IntermediateDir is null)
@@ -209,7 +134,7 @@ class InlineEngine(
             nameBuilder.Append('.');
         }
 
-        nameBuilder.Append(Fnv1a.Hash($"{mappedSourceFile}:{inline.Line}"));
+        nameBuilder.Append(Fnv1a.Hash($"{MappedSourceFile}:{inline.Line}"));
         nameBuilder.Append('.');
         nameBuilder.Append(Namer.RuntimeAndVersion);
         var baseName = nameBuilder.ToString();
@@ -218,9 +143,9 @@ class InlineEngine(
         var expected = Path.Combine(stagingDirectory, $"{baseName}.expected.txt");
         var patch = Path.Combine(stagingDirectory, $"{baseName}.inlinepatch");
 
-        IoHelpers.WriteText(received, new(rendered));
+        IoHelpers.WriteText(received, new(Rendered));
         await VerifierSettings.RunAddTestAttachment(received);
-        IoHelpers.WriteText(expected, new(normalizedExpected ?? ""));
+        IoHelpers.WriteText(expected, new(NormalizedExpected ?? ""));
         // Kept so the snapshot can still be reviewed by hand:
         // DiffEngineViewer --inline --source <cs> --line <n> < thisFile
         InlinePatchFile.Write(patch, BuildPatch());
@@ -230,65 +155,36 @@ class InlineEngine(
             await DiffRunner.LaunchForTextAsync(received, expected, VerifierSettings.Encoding);
         }
 
-        return (received, expected, patch);
+        return new(received, expected, patch);
     }
 
     InlinePatch BuildPatch() =>
         new(
-            mappedSourceFile,
+            MappedSourceFile,
             inline.Line,
             inline.Expression,
-            rendered);
+            Rendered,
+            inline.Mode);
 
-    bool Throw() =>
-        VerifierSettings.throwException ||
-        settings.throwException;
-
-    // mirrors VerifyEngine.IsAutoVerify; keep in sync
-    bool IsAutoVerify(string verifiedFile)
+    /// <summary>
+    /// Strips the Snapshot call, for when a test that had an inline literal is moving back to a
+    /// .verified file. Nothing is queued for review: the file snapshot is what gets accepted.
+    /// </summary>
+    public static bool TryRemove(InlineInfo inline)
     {
-        if (typeName != null &&
-            VerifierSettings.autoVerify != null)
+        if (BuildServerDetector.Detected)
         {
-            return VerifierSettings.autoVerify(typeName, methodName!, verifiedFile);
+            return false;
         }
 
-        if (settings.autoVerify != null)
-        {
-            return settings.autoVerify(verifiedFile);
-        }
-
-        return false;
-    }
-
-    // mirrors VerifyEngine.ProcessDeletes; keep in sync
-    async Task<bool> ProcessDeletes()
-    {
-        var verified = true;
-        foreach (var item in delete)
-        {
-            if (!await ProcessDelete(item))
-            {
-                verified = false;
-            }
-        }
-
-        return verified;
-    }
-
-    async Task<bool> ProcessDelete(string file)
-    {
-        var autoVerify = IsAutoVerify(file);
-        await settings.RunOnVerifyDelete(file, autoVerify);
-
-        if (autoVerify)
-        {
-            File.Delete(file);
-            return true;
-        }
-
-        await DiffRunner.AddDeleteAsync(file);
-
-        return false;
+        var patch = new InlinePatch(
+            InnerVerifier.MapSourceFile(inline.File),
+            inline.Line,
+            inline.Expression,
+            "",
+            InlinePatchMode.Remove);
+        return InlineApplier.Apply(patch).Status == InlineApplyStatus.Applied;
     }
 }
+
+record StagedInline(string Received, string Expected, string Patch);

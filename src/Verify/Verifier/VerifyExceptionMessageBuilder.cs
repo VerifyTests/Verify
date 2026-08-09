@@ -141,7 +141,11 @@ static class VerifyExceptionMessageBuilder
                 builder.AppendLineN(inlineContent.ExpectedText);
             }
 
-            builder.AppendLineN();
+            if (newContentFiles.Count > 0 ||
+                notEqualContentFiles.Count > 0)
+            {
+                builder.AppendLineN();
+            }
         }
 
         if (newContentFiles.Count > 0)

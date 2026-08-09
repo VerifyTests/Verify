@@ -14,6 +14,8 @@ Only C# source files and text results are supported.
 
 ## Usage
 
+Add `.Snapshot(...)` to any verification:
+
 <!-- snippet: InlineSample -->
 <a id='snippet-InlineSample'></a>
 ```cs
@@ -34,9 +36,65 @@ public Task MultiLine()
 
 Omitting the expected argument (or passing `null`) marks the snapshot as new; accepting it writes the literal into the source file.
 
+Because `Snapshot` is a modifier rather than a separate entry point, it composes with every overload: `VerifyXml(...).Snapshot(...)`, `VerifyJson(...).Snapshot(...)`, `VerifyFile(...).Snapshot(...)`, and so on.
+
 The verification pipeline is unchanged: the target is serialized and scrubbed exactly as for file snapshots, then compared against the literal. Line endings in the literal are normalized (`\r\n` to `\n`) before comparison, so the comparison is not affected by the line endings of the source file.
 
 Multiple inline verifications in a single test method are supported.
+
+
+## Enabling inline snapshots globally
+
+Most codebases want inline snapshots everywhere rather than one call at a time. Turn them on in a module initializer:
+
+```cs
+[ModuleInitializer]
+public static void Init() =>
+    VerifierSettings.Inline();
+```
+
+Every `Verify*` then uses an inline snapshot, and accepting one appends the `.Snapshot(...)` call to the verify invocation.
+
+To decide per verification, pass a delegate:
+
+```cs
+[ModuleInitializer]
+public static void Init() =>
+    VerifierSettings.Inline(
+        (typeName, methodName, sourceFile, extension) => extension == "txt");
+```
+
+`extension` is that of the target that would be inlined, which is the first one.
+
+Opt a single test out with `.NotInline()`, on either the instance or the fluent settings:
+
+```cs
+await Verify(target)
+    .NotInline();
+```
+
+`NotInline` wins over both the global switch and an explicit `.Snapshot(...)`.
+
+
+## Which target is inlined
+
+The **first** target is the inline snapshot. Any others are written to `.verified.` files as usual, keeping the names they would have had, so turning inline on never renames a snapshot file. That leaves a deliberate gap where the first target's file would have been: a verification that produced `#00`, `#01` and `#02` keeps `#01` and `#02` on disk.
+
+If the first target is not text, the verification throws. Use `.NotInline()` for that test, or `Target.DontInline` for that extension.
+
+
+## Extensions that should never inline
+
+A converter that splits one input into several text targets has no sensible first target: inlining the first page of a document and writing the rest to files helps nobody. Such a converter sets `DontInline` on the target that would otherwise be inlined:
+
+```cs
+new Target("md", page1)
+{
+    DontInline = true
+}
+```
+
+The whole verification then falls back to files.
 
 
 ## Accepting a snapshot
@@ -54,25 +112,15 @@ Nothing is written to disk for a pending inline snapshot: the patch is handed to
 On a build server, no source rewriting, review or staging occurs; the failure exception carries the full content.
 
 
-## Multiple targets
+## Moving between file and inline snapshots
 
-When a verification produces multiple text targets (for example via `AppendContentAsFile`), all targets render into a single document separated by header lines:
+Both directions are handled without any manual file editing.
 
-```
----------- target#00.txt ----------
-first content
----------- target#01.txt ----------
-second content
-```
+**File to inline.** The existing `.verified.` file for the inlined target is detected as stale and flows through the standard [Delete handling](exception-message-format.md): deleted automatically under AutoVerify, otherwise listed in the `Delete:` section and pended in DiffEngineTray. Deletes still go through the tray; only the inline snapshot queue moved to the viewer. Files belonging to the other targets keep their names and are left alone.
 
-Binary targets are not supported and produce an error.
-
-
-## Moving a test from file snapshots to inline
-
-When a test switches to inline snapshots, its existing `.verified.` files are detected as stale and flow through the standard [Delete handling](exception-message-format.md): deleted automatically under AutoVerify, otherwise listed in the `Delete:` section and pended in DiffEngineTray. Deletes still go through the tray; only the inline snapshot queue moved to the viewer.
+**Inline to file.** When a `.Snapshot(...)` call exists but inline is off for that verification, the call is removed from the source and the snapshot runs as a normal file snapshot, which is then accepted the usual way. Nothing is rewritten on a build server.
 
 
 ## Exception message
 
-Inline failures use the `InlineNew:` and `InlineNotEqual:` sections of the [exception message format](exception-message-format.md), and can be parsed with the Verify.ExceptionParsing package.
+Inline failures use the `InlineNew:` and `InlineNotEqual:` sections of the [exception message format](exception-message-format.md), and can be parsed with the Verify.ExceptionParsing package. Because only the first target is inlined, one message can carry both an inline section and the file sections for the remaining targets.

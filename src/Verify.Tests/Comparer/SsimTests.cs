@@ -94,7 +94,9 @@ public class SsimTests
             var aRgba = Random(w, h, seed: w * 7 + h).Rgba;
             var bRgba = Random(w, h, seed: w * 7 + h + 1).Rgba;
 
-            var inMemory = Ssim.Compare(new PngImage(w, h, aRgba), new PngImage(w, h, bRgba));
+            var image1 = new PngImage(w, h, aRgba);
+            var image2 = new PngImage(w, h, bRgba);
+            var inMemory = Ssim.Compare(image1, image2);
             var streamed = Ssim.Compare(
                 new MemoryStream(PngTestHelper.EncodeRgba(w, h, aRgba)),
                 new MemoryStream(PngTestHelper.EncodeRgba(w, h, bRgba)));

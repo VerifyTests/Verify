@@ -1,4 +1,7 @@
-﻿public class SingleTfmTests
+﻿// BaseTest resets the static settings between tests. Without it this class inherits whatever
+// the previous test left set, and the global inline switch turns off received files entirely.
+public class SingleTfmTests :
+    BaseTest
 {
     [Fact]
     public async Task Simple()

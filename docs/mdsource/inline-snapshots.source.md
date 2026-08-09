@@ -24,22 +24,13 @@ Multiple inline verifications in a single test method are supported.
 
 Most codebases want inline snapshots everywhere rather than one call at a time. Turn them on in a module initializer:
 
-```cs
-[ModuleInitializer]
-public static void Init() =>
-    VerifierSettings.Inline();
-```
+snippet: StaticInline
 
 Every `Verify*` then uses an inline snapshot, and accepting one appends the `.Snapshot(...)` call to the verify invocation.
 
 To decide per verification, pass a delegate:
 
-```cs
-[ModuleInitializer]
-public static void Init() =>
-    VerifierSettings.Inline(
-        (typeName, methodName, sourceFile, extension) => extension == "txt");
-```
+snippet: StaticInlineDelegate
 
 `extension` is that of the target that would be inlined, which is the first one.
 

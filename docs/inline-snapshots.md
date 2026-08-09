@@ -47,22 +47,36 @@ Multiple inline verifications in a single test method are supported.
 
 Most codebases want inline snapshots everywhere rather than one call at a time. Turn them on in a module initializer:
 
+<!-- snippet: StaticInline -->
+<a id='snippet-StaticInline'></a>
 ```cs
-[ModuleInitializer]
-public static void Init() =>
-    VerifierSettings.Inline();
+public static class ModuleInitializer
+{
+    [ModuleInitializer]
+    public static void Init() =>
+        VerifierSettings.Inline();
+}
 ```
+<sup><a href='/src/ModuleInitDocs/Inline.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticInline' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 Every `Verify*` then uses an inline snapshot, and accepting one appends the `.Snapshot(...)` call to the verify invocation.
 
 To decide per verification, pass a delegate:
 
+<!-- snippet: StaticInlineDelegate -->
+<a id='snippet-StaticInlineDelegate'></a>
 ```cs
-[ModuleInitializer]
-public static void Init() =>
-    VerifierSettings.Inline(
-        (typeName, methodName, sourceFile, extension) => extension == "txt");
+public static class ModuleInitializer
+{
+    [ModuleInitializer]
+    public static void Init() =>
+        VerifierSettings.Inline(
+            (typeName, methodName, sourceFile, extension) => extension == "txt");
+}
 ```
+<sup><a href='/src/ModuleInitDocs/InlineDelegate.cs#L4-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticInlineDelegate' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 `extension` is that of the target that would be inlined, which is the first one.
 

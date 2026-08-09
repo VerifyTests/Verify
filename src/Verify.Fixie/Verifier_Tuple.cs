@@ -6,6 +6,7 @@ public static partial class Verifier
     public static SettingsTask VerifyTuple(
         Expression<Func<ITuple>> expression,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyTuple(expression));
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, sourceFile, lineNumber, _ => _.VerifyTuple(expression));
 }

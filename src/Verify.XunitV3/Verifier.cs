@@ -39,7 +39,7 @@ public static partial class Verifier
     public static void AddAttachmentEvents() =>
         VerifierSettings.AddTestAttachment(AddFile);
 
-    public static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory = false)
+    public static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory = false, int lineNumber = 0)
     {
         var context = TestContext.Current;
         var testMethod = context.GetTestMethod();
@@ -65,7 +65,8 @@ public static partial class Verifier
             type.NameWithParent(),
             method.Name,
             parameterNames,
-            pathInfo);
+            pathInfo,
+            lineNumber);
     }
 
     static void SetParametersFromContext(VerifySettings settings, ITestContext context, IReadOnlyList<string>? parameterNames)
@@ -96,35 +97,42 @@ public static partial class Verifier
         object? target,
         IEnumerable<Target> rawTargets,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
         Verify(
             settings,
             sourceFile,
+            lineNumber,
             _ => _.Verify(target, rawTargets));
 
     [Pure]
     public static SettingsTask Verify(
         IEnumerable<Target> targets,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
         Verify(
             settings,
             sourceFile,
+            lineNumber,
             _ => _.Verify(targets));
 
     [Pure]
     public static SettingsTask Verify(
         Target target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
         Verify(
             settings,
             sourceFile,
+            lineNumber,
             _ => _.Verify(target));
 
     static SettingsTask Verify(
         VerifySettings? settings,
         string sourceFile,
+        int lineNumber,
         Func<InnerVerifier, Task<VerifyResult>> verify,
         bool useUniqueDirectory = false)
     {
@@ -133,7 +141,7 @@ public static partial class Verifier
             settings,
             async settings =>
             {
-                using var verifier = BuildVerifier(settings, sourceFile, useUniqueDirectory);
+                using var verifier = BuildVerifier(settings, sourceFile, useUniqueDirectory, lineNumber);
                 return await verify(verifier);
             });
     }

@@ -61,6 +61,7 @@ public partial class VerifySettings
         Directory = settings.Directory;
         autoVerify = settings.autoVerify;
         inline = settings.inline;
+        notInline = settings.notInline;
         throwException = settings.throwException;
         serialization = settings.serialization;
         stringComparer = settings.stringComparer;

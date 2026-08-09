@@ -14,7 +14,8 @@ public partial class VerifyBase
         FileScrubber? fileScrubber = null,
         bool includeStructure = false,
         bool persistArchive = false,
-        string? archiveExtension = null) =>
+        string? archiveExtension = null,
+        [CallerLineNumber] int lineNumber = 0) =>
         Verifier.Verify(
             archive,
             include,
@@ -24,7 +25,8 @@ public partial class VerifyBase
             includeStructure,
             persistArchive,
             archiveExtension,
-            sourceFile);
+            sourceFile,
+            lineNumber);
 
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive" />
@@ -37,7 +39,8 @@ public partial class VerifyBase
         object? info = null,
         FileScrubber? fileScrubber = null,
         bool includeStructure = false,
-        bool persistArchive = false) =>
+        bool persistArchive = false,
+        [CallerLineNumber] int lineNumber = 0) =>
         Verifier.VerifyZip(
             path,
             include,
@@ -46,7 +49,8 @@ public partial class VerifyBase
             fileScrubber,
             includeStructure,
             persistArchive,
-            sourceFile);
+            sourceFile,
+            lineNumber);
 
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive" />
@@ -60,7 +64,8 @@ public partial class VerifyBase
         FileScrubber? fileScrubber = null,
         bool includeStructure = false,
         bool persistArchive = false,
-        string? archiveExtension = null) =>
+        string? archiveExtension = null,
+        [CallerLineNumber] int lineNumber = 0) =>
         Verifier.VerifyZip(
             stream,
             include,
@@ -70,7 +75,8 @@ public partial class VerifyBase
             includeStructure,
             persistArchive,
             archiveExtension,
-            sourceFile);
+            sourceFile,
+            lineNumber);
 
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive" />
@@ -84,7 +90,8 @@ public partial class VerifyBase
         FileScrubber? fileScrubber = null,
         bool includeStructure = false,
         bool persistArchive = false,
-        string? archiveExtension = null) =>
+        string? archiveExtension = null,
+        [CallerLineNumber] int lineNumber = 0) =>
         Verifier.VerifyZip(
             bytes,
             include,
@@ -94,5 +101,6 @@ public partial class VerifyBase
             includeStructure,
             persistArchive,
             archiveExtension,
-            sourceFile);
+            sourceFile,
+            lineNumber);
 }

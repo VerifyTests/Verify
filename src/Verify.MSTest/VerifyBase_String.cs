@@ -9,16 +9,18 @@ partial class VerifyBase
         [StringSyntax("*")]
         string? target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.Verify(target, settings, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(target, settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask Verify(
         [StringSyntax("*")]
         Task<string> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.Verify(target, settings, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(target, settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask Verify(
@@ -26,8 +28,9 @@ partial class VerifyBase
         string? target,
         string extension,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.Verify(target, extension, settings, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(target, extension, settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask Verify(
@@ -35,6 +38,7 @@ partial class VerifyBase
         Task<string> target,
         string extension,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.Verify(target, extension, settings, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(target, extension, settings, sourceFile, lineNumber);
 }

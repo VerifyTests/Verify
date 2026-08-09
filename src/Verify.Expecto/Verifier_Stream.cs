@@ -11,10 +11,11 @@ public static partial class Verifier
         string extension,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, extension, info));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyStream(target, extension, info));
     }
 
     [Pure]
@@ -23,10 +24,11 @@ public static partial class Verifier
         byte[]? target,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, info));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyStream(target, info));
     }
 
     [Pure]
@@ -36,10 +38,11 @@ public static partial class Verifier
         string extension,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, extension, info));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyStream(target, extension, info));
     }
 
     [Pure]
@@ -49,10 +52,11 @@ public static partial class Verifier
         string extension,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, extension, info));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyStream(target, extension, info));
     }
 
     [Pure]
@@ -61,10 +65,11 @@ public static partial class Verifier
         FileStream? target,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, info));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyStream(target, info));
     }
 
     [Pure]
@@ -73,10 +78,11 @@ public static partial class Verifier
         Stream? target,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, info));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyStream(target, info));
     }
 
     [Pure]
@@ -86,10 +92,11 @@ public static partial class Verifier
         string extension,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, extension, info));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyStream(target, extension, info));
     }
 
     [Pure]
@@ -99,11 +106,12 @@ public static partial class Verifier
         string extension,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
         where T : Stream
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, extension, info));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyStream(target, extension, info));
     }
 
     [Pure]
@@ -113,11 +121,12 @@ public static partial class Verifier
         string extension,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
         where T : Stream
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, extension, info));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyStream(target, extension, info));
     }
 
     [Pure]
@@ -127,10 +136,11 @@ public static partial class Verifier
         string extension,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
         where T : Stream
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStreams(targets, extension, info));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyStreams(targets, extension, info));
     }
 }

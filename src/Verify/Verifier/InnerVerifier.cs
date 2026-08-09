@@ -15,6 +15,8 @@ public partial class InnerVerifier :
     internal static string? verifyHasBeenRunBy;
     string? typeName;
     string? methodName;
+    string? inlineSourceFile;
+    int lineNumber;
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ThrowIfVerifyHasBeenRun()
@@ -36,7 +38,8 @@ public partial class InnerVerifier :
         string typeName,
         string methodName,
         IReadOnlyList<string>? methodParameters,
-        PathInfo pathInfo)
+        PathInfo pathInfo,
+        int lineNumber = 0)
     {
         Ensure.NotEmpty(sourceFile);
         Ensure.NotEmpty(typeName);
@@ -48,6 +51,10 @@ public partial class InnerVerifier :
 
         this.typeName = typeName;
         this.methodName = methodName;
+        // Only used to locate the verify call when inlining a snapshot that has no
+        // .Snapshot(...) call yet, so a zero (no caller info) simply means: cannot inline.
+        inlineSourceFile = sourceFile;
+        this.lineNumber = lineNumber;
         var typeAndMethod = FileNameBuilder.GetTypeAndMethod(methodName, typeName, settings, pathInfo);
 
         counter = StartCounter(settings);
@@ -121,7 +128,7 @@ public partial class InnerVerifier :
                        * {nameof(VerifySettings.UseTextForParameters)}
                        * {nameof(VerifySettings.UseUniqueDirectory)}
                        * {nameof(VerifySettings.UseUniqueDirectorySplitMode)}
-                       * {nameof(VerifySettings.Inline)}
+                       * {nameof(VerifySettings.Snapshot)}
                      """);
             }
 

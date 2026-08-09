@@ -7,16 +7,18 @@ partial class Verifier
         [StringSyntax("*")]
         string? target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyString(target));
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, sourceFile, lineNumber, _ => _.VerifyString(target));
 
     [Pure]
     public static SettingsTask Verify(
         [StringSyntax("*")]
         Task<string> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyString(target));
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, sourceFile, lineNumber, _ => _.VerifyString(target));
 
     [Pure]
     public static SettingsTask Verify(
@@ -24,8 +26,9 @@ partial class Verifier
         string? target,
         string extension,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyString(target, extension));
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, sourceFile, lineNumber, _ => _.VerifyString(target, extension));
 
     [Pure]
     public static SettingsTask Verify(
@@ -33,6 +36,7 @@ partial class Verifier
         Task<string> target,
         string extension,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyString(target, extension));
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, sourceFile, lineNumber, _ => _.VerifyString(target, extension));
 }

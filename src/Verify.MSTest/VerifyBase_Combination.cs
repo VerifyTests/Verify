@@ -9,6 +9,7 @@ public partial class VerifyBase
         bool? captureExceptions = null,
         VerifySettings? settings = null,
         bool? header = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.Combination(captureExceptions, settings ?? settings, header, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Combination(captureExceptions, settings ?? settings, header, sourceFile, lineNumber);
 }

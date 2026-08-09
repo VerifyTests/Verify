@@ -7,11 +7,13 @@ public static partial class Verifier
         bool? captureExceptions = null,
         VerifySettings? settings = null,
         bool? header = null,
-        [CallerFilePath] string sourceFile = "") =>
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
         new(
             captureExceptions,
             settings,
             header,
             sourceFile,
-            (settings, sourceFile, verify) => Verify(settings, sourceFile, verify));
+            lineNumber,
+            (settings, sourceFile, line, verify) => Verify(settings, sourceFile, line, verify));
 }

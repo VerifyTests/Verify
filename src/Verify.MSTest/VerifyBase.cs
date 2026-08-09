@@ -11,20 +11,23 @@ public abstract partial class VerifyBase
         object? target,
         IEnumerable<Target> rawTargets,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.Verify(target, rawTargets, settings, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(target, rawTargets, settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask Verify(
         IEnumerable<Target> targets,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.Verify(targets, settings, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(targets, settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask Verify(
         Target target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.Verify(target, settings, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(target, settings, sourceFile, lineNumber);
 }

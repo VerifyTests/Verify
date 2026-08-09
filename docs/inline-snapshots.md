@@ -46,10 +46,12 @@ On a mismatch (or a new snapshot), Verify records the call site (file, line, and
 Accept mechanisms:
 
  * **AutoVerify**: with [AutoVerify](autoverify.md) enabled, the source file is rewritten immediately during the test run.
- * **DiffEngineTray**: pending inline snapshots appear under "Pending Snapshots" and can be accepted or discarded. Requires DiffEngineTray 20.0.0 or later (`dotnet tool update -g DiffEngineTray`).
- * A diff tool is launched comparing the received and expected text (staged as files under `obj/VerifyInline/`).
+ * **[DiffEngineViewer](https://github.com/VerifyTests/DiffEngine/blob/main/docs/viewer.md)**: opens showing the received text against the expected text, with Accept and Discard. It ships inside the DiffEngine package, so it needs no install, and it runs on Windows, macOS and Linux. Several snapshots failing in one run queue into a single window.
+ * **[DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md)**: pending snapshots appear under "Pending Snapshots" and can be accepted, discarded, or opened in the viewer. The viewer owns the queue and the tray drives it over the same socket, so the two always agree.
 
-On a build server, no source rewriting or staging occurs; the failure exception carries the full content.
+Nothing is written to disk for a pending inline snapshot: the patch is handed to the viewer directly. Only when no viewer can be resolved does Verify fall back to staging the received and expected text under `obj/VerifyInline/` and launching whatever diff tool is configured.
+
+On a build server, no source rewriting, review or staging occurs; the failure exception carries the full content.
 
 
 ## Multiple targets
@@ -68,7 +70,7 @@ Binary targets are not supported and produce an error.
 
 ## Moving a test from file snapshots to inline
 
-When a test switches to inline snapshots, its existing `.verified.` files are detected as stale and flow through the standard [Delete handling](exception-message-format.md): deleted automatically under AutoVerify, otherwise listed in the `Delete:` section and pended in DiffEngineTray.
+When a test switches to inline snapshots, its existing `.verified.` files are detected as stale and flow through the standard [Delete handling](exception-message-format.md): deleted automatically under AutoVerify, otherwise listed in the `Delete:` section and pended in DiffEngineTray. Deletes still go through the tray; only the inline snapshot queue moved to the viewer.
 
 
 ## Exception message

@@ -102,57 +102,12 @@ class InlineEngine(
 
     public async Task ThrowIfRequired()
     {
-        var stagingDirectory = VerifierSettings.IntermediateDir is null
-            ? null
-            : Path.Combine(VerifierSettings.IntermediateDir, "VerifyInline");
-        var stagingAvailable = !BuildServerDetector.Detected && stagingDirectory is not null;
-        string? receivedStaged = null;
-        string? expectedStaged = null;
-        string? patchStaged = null;
-        if (stagingAvailable)
-        {
-            // Deterministic per call site so re-runs overwrite; runtime+version keeps
-            // parallel multi-targeted runs distinct. Known accepted edge: two inline
-            // verifies on the same source line share a base (staging only). The type
-            // and method prefix exists only for readability in accept tooling.
-            var nameBuilder = new StringBuilder();
-            if (typeName is not null)
-            {
-                FileNameCleaner.AppendValid(nameBuilder, typeName);
-                nameBuilder.Append('.');
-            }
-
-            if (methodName is not null)
-            {
-                FileNameCleaner.AppendValid(nameBuilder, methodName);
-                nameBuilder.Append('.');
-            }
-
-            nameBuilder.Append(Fnv1a.Hash($"{mappedSourceFile}:{inline.Line}"));
-            nameBuilder.Append('.');
-            nameBuilder.Append(Namer.RuntimeAndVersion);
-            var baseName = nameBuilder.ToString();
-            receivedStaged = Path.Combine(stagingDirectory!, $"{baseName}.received.txt");
-            // Named .expected (not .verified) so *.verified.* tooling globs never see it
-            expectedStaged = Path.Combine(stagingDirectory!, $"{baseName}.expected.txt");
-            patchStaged = Path.Combine(stagingDirectory!, $"{baseName}.inlinepatch");
-
-            // Fresh state per run. On a passing run this also settles any pending
-            // tray item: the tray drops inline moves whose staging files vanished
-            if (Directory.Exists(stagingDirectory))
-            {
-                File.Delete(receivedStaged);
-                File.Delete(expectedStaged);
-                File.Delete(patchStaged);
-            }
-        }
-
         if (equality == Equality.Equal)
         {
-            if (diffEnabled && stagingAvailable)
+            if (diffEnabled)
             {
-                // Close any diff tool left from a prior failing run
-                DiffRunner.Kill(receivedStaged!, expectedStaged!);
+                // Drop anything a prior failing run left queued in the viewer
+                DiffRunner.SettleInline(mappedSourceFile, inline.Line);
             }
 
             if (delete.Count == 0 && !Throw())
@@ -193,21 +148,17 @@ class InlineEngine(
         }
 
         string? hint = null;
-        if (!applied && stagingAvailable)
+        (string Received, string Expected, string Patch)? staging = null;
+        if (!applied)
         {
-            IoHelpers.WriteText(receivedStaged!, new StringBuilder(rendered));
-            await VerifierSettings.RunAddTestAttachment(receivedStaged!);
-            IoHelpers.WriteText(expectedStaged!, new StringBuilder(normalizedExpected ?? ""));
-            InlinePatchFile.Write(patchStaged!, BuildPatch());
-            var moveResult = await DiffRunner.AddInlineMoveAsync(receivedStaged!, mappedSourceFile, patchStaged!, expectedStaged);
-            if (moveResult == InlineMoveResult.TrayTooOld)
+            // Nothing is written to disk on this path. The patch goes to DiffEngineViewer over
+            // stdin, or over its socket when one is already running, and the exception message
+            // below already carries the full received and expected text.
+            var result = await DiffRunner.AddInlineAsync(BuildPatch());
+            if (result == InlineResult.NoViewerFound)
             {
-                hint = "The running DiffEngineTray predates inline snapshot support. Update it: dotnet tool update -g DiffEngineTray";
-            }
-
-            if (diffEnabled)
-            {
-                await DiffRunner.LaunchForTextAsync(receivedStaged!, expectedStaged!, VerifierSettings.Encoding);
+                hint = "No DiffEngineViewer was found, so the snapshot could not be opened for review. Install it: dotnet tool install -g DiffEngineViewer";
+                staging = await WriteStaging();
             }
         }
 
@@ -219,11 +170,67 @@ class InlineEngine(
                 isNew: equality == Equality.New,
                 rendered,
                 normalizedExpected,
-                applied ? null : receivedStaged,
-                applied ? null : expectedStaged,
-                applied ? null : patchStaged,
+                staging?.Received,
+                staging?.Expected,
+                staging?.Patch,
                 delete,
                 hint));
+    }
+
+    /// <summary>
+    /// Fallback for when no viewer can be resolved, such as a net462 consumer or a RID with no
+    /// native renderer. Writes the received and expected text so there is still something to look
+    /// at, and opens whatever diff tool is configured.
+    /// </summary>
+    async Task<(string Received, string Expected, string Patch)?> WriteStaging()
+    {
+        if (BuildServerDetector.Detected ||
+            VerifierSettings.IntermediateDir is null)
+        {
+            return null;
+        }
+
+        var stagingDirectory = Path.Combine(VerifierSettings.IntermediateDir, "VerifyInline");
+
+        // Deterministic per call site so re-runs overwrite; runtime+version keeps
+        // parallel multi-targeted runs distinct. Known accepted edge: two inline
+        // verifies on the same source line share a base (staging only). The type
+        // and method prefix exists only for readability in accept tooling.
+        var nameBuilder = new StringBuilder();
+        if (typeName is not null)
+        {
+            FileNameCleaner.AppendValid(nameBuilder, typeName);
+            nameBuilder.Append('.');
+        }
+
+        if (methodName is not null)
+        {
+            FileNameCleaner.AppendValid(nameBuilder, methodName);
+            nameBuilder.Append('.');
+        }
+
+        nameBuilder.Append(Fnv1a.Hash($"{mappedSourceFile}:{inline.Line}"));
+        nameBuilder.Append('.');
+        nameBuilder.Append(Namer.RuntimeAndVersion);
+        var baseName = nameBuilder.ToString();
+        var received = Path.Combine(stagingDirectory, $"{baseName}.received.txt");
+        // Named .expected (not .verified) so *.verified.* tooling globs never see it
+        var expected = Path.Combine(stagingDirectory, $"{baseName}.expected.txt");
+        var patch = Path.Combine(stagingDirectory, $"{baseName}.inlinepatch");
+
+        IoHelpers.WriteText(received, new(rendered));
+        await VerifierSettings.RunAddTestAttachment(received);
+        IoHelpers.WriteText(expected, new(normalizedExpected ?? ""));
+        // Kept so the snapshot can still be reviewed by hand:
+        // DiffEngineViewer --inline --source <cs> --line <n> < thisFile
+        InlinePatchFile.Write(patch, BuildPatch());
+
+        if (diffEnabled)
+        {
+            await DiffRunner.LaunchForTextAsync(received, expected, VerifierSettings.Encoding);
+        }
+
+        return (received, expected, patch);
     }
 
     InlinePatch BuildPatch() =>

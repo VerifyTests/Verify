@@ -31,7 +31,7 @@ public Task MultiLine()
             """);
 }
 ```
-<sup><a href='/src/Verify.Tests/InlineTests.cs#L11-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineSample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/InlineTests.cs#L13-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Omitting the expected argument (or passing `null`) marks the snapshot as new; accepting it writes the literal into the source file.

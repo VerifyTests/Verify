@@ -1,3 +1,5 @@
+// ReSharper disable ConstantExpected
+[SuppressMessage("Performance", "CA1857:A constant is expected for the parameter")]
 public class InlineTests
 {
     [Fact]
@@ -248,7 +250,7 @@ public class InlineTests
 
             await Verify("new1\nnew2", settings);
 
-            var content = File.ReadAllText(template);
+            var content = await File.ReadAllTextAsync(template);
             var indent = new string(' ', 12);
             Assert.Contains(
                 $".Snapshot(\"\"\"{eol}{indent}new1{eol}{indent}new2{eol}{indent}\"\"\");",
@@ -276,7 +278,7 @@ public class InlineTests
 
             await Verify("new1\nnew2", settings);
 
-            var content = File.ReadAllText(template);
+            var content = await File.ReadAllTextAsync(template);
             var indent = new string(' ', 12);
             Assert.Contains(
                 $".Snapshot(\"\"\"{eol}{indent}new1{eol}{indent}new2{eol}{indent}\"\"\");",
@@ -318,7 +320,7 @@ public class InlineTests
             settings.AutoVerify();
             settings.DisableDiff();
             await Verify("newvalue", settings);
-            var content = File.ReadAllText(template);
+            var content = await File.ReadAllTextAsync(template);
             Assert.Contains("newvalue", content);
             Assert.DoesNotContain("\"old\"", content);
         }
@@ -339,7 +341,7 @@ public class InlineTests
             settings.AutoVerify();
             settings.DisableDiff();
             await Verify("newvalue", settings);
-            Assert.Contains(".Snapshot(\"\"\"", File.ReadAllText(template));
+            Assert.Contains(".Snapshot(\"\"\"", await File.ReadAllTextAsync(template));
         }
         finally
         {
@@ -362,13 +364,13 @@ public class InlineTests
             """);
         try
         {
-            var before = File.ReadAllText(template);
+            var before = await File.ReadAllTextAsync(template);
             var settings = new VerifySettings();
             settings.Snapshot("stale", template, 4, "\"stale\"");
             settings.AutoVerify();
             settings.DisableDiff();
             await Verify("newvalue", settings);
-            Assert.Equal(before, File.ReadAllText(template));
+            Assert.Equal(before, await File.ReadAllTextAsync(template));
         }
         finally
         {
@@ -396,7 +398,7 @@ public class InlineTests
             var exception = await Assert.ThrowsAsync<VerifyException>(
                 async () => await Verify("newvalue", settings));
             Assert.Contains("InlineNotEqual:", exception.Message);
-            Assert.Contains("\"different\"", File.ReadAllText(template));
+            Assert.Contains("\"different\"", await File.ReadAllTextAsync(template));
         }
         finally
         {
@@ -451,7 +453,7 @@ public class InlineTests
             await Verify("same", AcceptSettings(template, 3, "\"old\""));
             await Verify("same", AcceptSettings(template, 4, "\"old\""));
 
-            var content = File.ReadAllText(template);
+            var content = await File.ReadAllTextAsync(template);
             Assert.DoesNotContain("\"old\"", content);
             Assert.Equal(2, Count(content, "same"));
         }
@@ -470,7 +472,7 @@ public class InlineTests
             await Verify("resultA", AcceptSettings(template, 3, "\"old\""));
             await Verify("resultB", AcceptSettings(template, 4, "\"old\""));
 
-            var content = File.ReadAllText(template);
+            var content = await File.ReadAllTextAsync(template);
             Assert.DoesNotContain("\"old\"", content);
             var indexA = content.IndexOf("Verify(a)", StringComparison.Ordinal);
             var indexB = content.IndexOf("Verify(b)", StringComparison.Ordinal);
@@ -496,7 +498,7 @@ public class InlineTests
                 Verify("same", AcceptSettings(template, 3, "\"old\"")),
                 Verify("same", AcceptSettings(template, 4, "\"old\"")));
 
-            var content = File.ReadAllText(template);
+            var content = await File.ReadAllTextAsync(template);
             Assert.DoesNotContain("\"old\"", content);
             Assert.Equal(2, Count(content, "same"));
         }
@@ -534,7 +536,7 @@ public class InlineTests
                 Accept("oldB", 4, "newB"),
                 Accept("oldC", 5, "newC"));
 
-            var content = File.ReadAllText(template);
+            var content = await File.ReadAllTextAsync(template);
             Assert.Contains("newA", content);
             Assert.Contains("newB", content);
             Assert.Contains("newC", content);
@@ -555,7 +557,7 @@ public class InlineTests
         var directory = Path.Combine(AttributeReader.GetProjectDirectory(), "InlineScratch");
         Directory.CreateDirectory(directory);
         var stale = Path.Combine(directory, "MovedToInline.verified.txt");
-        File.WriteAllText(stale, "stale");
+        await File.WriteAllTextAsync(stale, "stale");
         try
         {
             var settings = new VerifySettings();
@@ -596,7 +598,7 @@ public class InlineTests
 
             await Verify("value", settings);
 
-            Assert.DoesNotContain("Snapshot", File.ReadAllText(template));
+            Assert.DoesNotContain("Snapshot", await File.ReadAllTextAsync(template));
             var verified = Path.Combine(AttributeReader.GetProjectDirectory(), "InlineScratch", "MovedToFile.verified.txt");
             Assert.True(File.Exists(verified));
             File.Delete(verified);
@@ -611,7 +613,7 @@ public class InlineTests
     public async Task BuildServerDoesNotRewrite()
     {
         var template = WriteTemplate(mismatchTemplate);
-        var original = File.ReadAllText(template);
+        var original = await File.ReadAllTextAsync(template);
         BuildServerDetector.Detected = true;
         try
         {
@@ -621,7 +623,7 @@ public class InlineTests
             settings.DisableDiff();
             await Assert.ThrowsAsync<VerifyException>(
                 async () => await Verify("newvalue", settings));
-            Assert.Equal(original, File.ReadAllText(template));
+            Assert.Equal(original, await File.ReadAllTextAsync(template));
         }
         finally
         {
@@ -634,7 +636,7 @@ public class InlineTests
     public async Task BuildServerDoesNotRemoveTheLiteral()
     {
         var template = WriteTemplate(mismatchTemplate);
-        var original = File.ReadAllText(template);
+        var original = await File.ReadAllTextAsync(template);
         BuildServerDetector.Detected = true;
         try
         {
@@ -648,7 +650,7 @@ public class InlineTests
 
             await Verify("value", settings);
 
-            Assert.Equal(original, File.ReadAllText(template));
+            Assert.Equal(original, await File.ReadAllTextAsync(template));
             var verified = Path.Combine(AttributeReader.GetProjectDirectory(), "InlineScratch", "BuildServerNotInline.verified.txt");
             if (File.Exists(verified))
             {

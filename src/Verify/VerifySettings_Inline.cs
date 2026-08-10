@@ -16,7 +16,7 @@ public partial class VerifySettings
     /// </para>
     /// </summary>
     public void Snapshot(
-        [StringSyntax("*")] string? expected = null,
+        [StringSyntax("*")][ConstantExpected]  string? expected = null,
         [CallerFilePath] string file = "",
         [CallerLineNumber] int line = 0,
         [CallerArgumentExpression(nameof(expected))] string? expression = null)

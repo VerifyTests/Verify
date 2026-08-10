@@ -5,7 +5,7 @@ public partial class SettingsTask
     /// <inheritdoc cref="VerifySettings.Snapshot(string,string,int,string)"/>
     [Pure]
     public SettingsTask Snapshot(
-        [StringSyntax("*")] string? expected = null,
+        [StringSyntax("*")][ConstantExpected] string? expected = null,
         [CallerFilePath] string file = "",
         [CallerLineNumber] int line = 0,
         [CallerArgumentExpression(nameof(expected))] string? expression = null)

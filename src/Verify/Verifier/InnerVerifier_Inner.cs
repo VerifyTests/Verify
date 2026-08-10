@@ -103,8 +103,10 @@ partial class InnerVerifier
         }
 
         // Hard incompatibilities. A global switch must not break unrelated tests, so these are
-        // "not inline" rather than errors; the explicit path above still throws for UniqueDirectory.
+        // "not inline" rather than errors; the explicit path above still throws for UniqueDirectory
+        // and for parameters.
         if (settings.UniqueDirectory ||
+            verifiedHasParameters ||
             typeName is null ||
             lineNumber == 0 ||
             inlineSourceFile is null ||

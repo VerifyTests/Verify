@@ -120,6 +120,36 @@ await Verify(target)
 `NotInline` wins over both the global switch and an explicit `.Snapshot(...)`.
 
 
+## Parameterised tests
+
+An inline snapshot is one literal at one call site, so it cannot hold a different expected value for each case of a [parameterised test](parameterised.md). What decides compatibility is whether the parameters reach the verified name:
+
+ * **Parameters in the verified name**: not inlineable. The [global switch](#enabling-inline-snapshots-globally) declines such a test, which keeps using `.verified.` files, so turning inline on across a codebase leaves data driven tests alone. An explicit `.Snapshot(...)` throws instead, since it is a stated intent that cannot be honoured.
+ * **No parameters in the verified name**: inlineable. Every case already shares the one snapshot, which is exactly what a literal can represent.
+
+Constructor arguments are treated the same as method parameters: they form part of the verified name unless ignored.
+
+Dropping the parameters from the verified name therefore opts a parameterised test back in:
+
+<!-- snippet: InlineIgnoreParametersSample -->
+<a id='snippet-InlineIgnoreParametersSample'></a>
+```cs
+[Theory]
+[InlineData("a")]
+[InlineData("b")]
+public Task IgnoredParameters(string value) =>
+    Verify(value.Length)
+        .IgnoreParameters()
+        .Snapshot("1");
+```
+<sup><a href='/src/Verify.Tests/InlineTests.cs#L163-L173' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineIgnoreParametersSample' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+The APIs that do this are `IgnoreParameters()`, `IgnoreParametersForVerified()` and `IgnoreConstructorParameters()` on the instance settings, and `VerifierSettings.IgnoreParameters()` and `VerifierSettings.IgnoreConstructorParameters()` globally. Ignoring only some of the parameters is not enough, since the remaining ones still vary the verified name per case. `UseTextForParameters` counts as a parameter here for the same reason, while `UseFileName` pins the verified name so no parameter ever reaches it.
+
+`NotInline()` still wins over everything: it keeps a test on files without any of this applying.
+
+
 ## Which target is inlined
 
 The **first** target is the inline snapshot. Any others are written to `.verified.` files as usual, keeping the names they would have had, so turning inline on never renames a snapshot file. That leaves a deliberate gap where the first target's file would have been: a verification that produced `#00`, `#01` and `#02` keeps `#01` and `#02` on disk.

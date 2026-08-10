@@ -17,6 +17,7 @@ public partial class InnerVerifier :
     string? methodName;
     string? inlineSourceFile;
     int lineNumber;
+    bool verifiedHasParameters;
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ThrowIfVerifyHasBeenRun()
@@ -59,7 +60,13 @@ public partial class InnerVerifier :
 
         counter = StartCounter(settings);
 
-        var (receivedParameters, verifiedParameters) = FileNameBuilder.GetParameterText(methodParameters, settings, counter);
+        var (receivedParameters, verifiedParameters) = FileNameBuilder.GetParameterText(methodParameters, settings, counter, out var hasParameters);
+
+        // UseFileName pins the verified name, so parameters never reach it and every case shares
+        // the one snapshot, which is the same thing the ignore APIs achieve
+        verifiedHasParameters = hasParameters && settings.FileName is null;
+
+        ThrowIfInlineAndParameterised(verifiedParameters);
 
         var namer = settings.Namer;
 
@@ -80,6 +87,32 @@ public partial class InnerVerifier :
         {
             InitForFileConvention(namer, typeAndMethod, receivedParameters, verifiedParameters);
         }
+    }
+
+    /// <summary>
+    /// An inline snapshot is one literal at one call site, so it cannot hold a different value for
+    /// each test case. The global switch declines such a test in <c>ResolveInline</c>, but an
+    /// explicit <c>Snapshot(...)</c> is a stated intent that cannot be honoured, so it throws.
+    /// </summary>
+    void ThrowIfInlineAndParameterised(Action<StringBuilder>? verifiedParameters)
+    {
+        if (!verifiedHasParameters ||
+            settings.inline is null ||
+            settings.notInline)
+        {
+            return;
+        }
+
+        var builder = new StringBuilder();
+        verifiedParameters?.Invoke(builder);
+        throw new(
+            $"""
+             Inline snapshots are not compatible with parameterised tests. The literal lives at a single call site, so it cannot hold a different value for each test case.
+             Parameters: {builder}
+             Use parameters or inline, not both:
+               * Remove the `Snapshot(...)` call, or add `NotInline()`, to keep this test on verified files.
+               * If every case is expected to produce the same snapshot, drop the parameters from the verified name with `IgnoreParameters()`, `IgnoreParametersForVerified()` or `IgnoreConstructorParameters()`.
+             """);
     }
 
     internal static string MapSourceFile(string file)

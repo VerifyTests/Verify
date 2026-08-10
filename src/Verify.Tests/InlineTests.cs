@@ -143,6 +143,165 @@ public class InlineTests
         Assert.NotEmpty(result.Files);
     }
 
+    [Theory]
+    [InlineData("a")]
+    [InlineData("b")]
+    public async Task ParametersThrow(string value)
+    {
+        var exception = await Assert.ThrowsAnyAsync<Exception>(
+            async () => await Verify(value)
+                .Snapshot("a"));
+
+        Assert.Contains("not compatible with parameterised tests", exception.Message);
+        Assert.Contains($"_value={value}", exception.Message);
+    }
+
+    /// <summary>
+    /// One literal serves every case, so the parameters have to be dropped from the verified
+    /// name before the test can be inlined.
+    /// </summary>
+    #region InlineIgnoreParametersSample
+
+    [Theory]
+    [InlineData("a")]
+    [InlineData("b")]
+    public Task IgnoredParameters(string value) =>
+        Verify(value.Length)
+            .IgnoreParameters()
+            .Snapshot("1");
+
+    #endregion
+
+    [Theory]
+    [InlineData("a")]
+    [InlineData("b")]
+    public Task IgnoredParametersByName(string value) =>
+        Verify(value.Length)
+            .IgnoreParameters("value")
+            .Snapshot("1");
+
+    [Theory]
+    [InlineData("a")]
+    [InlineData("b")]
+    public Task IgnoredParametersForVerified(string value) =>
+        Verify(value.Length)
+            .IgnoreParametersForVerified()
+            .Snapshot("1");
+
+    /// <summary>
+    /// Ignoring only some parameters still leaves the verified name varying per case.
+    /// </summary>
+    [Theory]
+    [InlineData("a", 1)]
+    [InlineData("b", 2)]
+    public async Task PartiallyIgnoredParametersThrow(string value, int number)
+    {
+        var exception = await Assert.ThrowsAnyAsync<Exception>(
+            async () => await Verify(value)
+                .IgnoreParameters("value")
+                .Snapshot("a"));
+
+        Assert.Contains("not compatible with parameterised tests", exception.Message);
+        Assert.Contains($"_number={number}", exception.Message);
+        Assert.DoesNotContain("_value=", exception.Message);
+    }
+
+    /// <summary>
+    /// Constructor arguments arrive as leading method parameters, with the class argument count
+    /// separating them, so they gate inline in the same way.
+    /// </summary>
+    [Theory]
+    [InlineData("a")]
+    [InlineData("b")]
+    public async Task ConstructorParametersThrow(string classArg)
+    {
+        var settings = new VerifySettings();
+        settings.SetClassArgumentCount(1);
+
+        var exception = await Assert.ThrowsAnyAsync<Exception>(
+            async () => await Verify(classArg, settings)
+                .Snapshot("a"));
+
+        Assert.Contains("not compatible with parameterised tests", exception.Message);
+        Assert.Contains($"_classArg={classArg}", exception.Message);
+    }
+
+    [Theory]
+    [InlineData("a")]
+    [InlineData("b")]
+    public Task IgnoredConstructorParameters(string classArg)
+    {
+        var settings = new VerifySettings();
+        settings.SetClassArgumentCount(1);
+        return Verify(classArg.Length, settings)
+            .IgnoreConstructorParameters()
+            .Snapshot("1");
+    }
+
+    /// <summary>
+    /// IgnoreConstructorParameters only drops the class arguments, so a method parameter
+    /// alongside them still varies the verified name.
+    /// </summary>
+    [Theory]
+    [InlineData("a", 1)]
+    [InlineData("b", 2)]
+    public async Task ConstructorAndMethodParametersThrow(string classArg, int number)
+    {
+        var settings = new VerifySettings();
+        settings.SetClassArgumentCount(1);
+
+        var exception = await Assert.ThrowsAnyAsync<Exception>(
+            async () => await Verify(classArg, settings)
+                .IgnoreConstructorParameters()
+                .Snapshot("a"));
+
+        Assert.Contains("not compatible with parameterised tests", exception.Message);
+        Assert.Contains($"_number={number}", exception.Message);
+        Assert.DoesNotContain("_classArg=", exception.Message);
+    }
+
+    [Fact]
+    public async Task TextForParametersThrows()
+    {
+        var exception = await Assert.ThrowsAnyAsync<Exception>(
+            async () => await Verify("value")
+                .UseTextForParameters("case1")
+                .Snapshot("value"));
+
+        Assert.Contains("not compatible with parameterised tests", exception.Message);
+        Assert.Contains("_case1", exception.Message);
+    }
+
+    /// <summary>
+    /// UseFileName pins the verified name, so the parameters never reach it and every case
+    /// already shares the one snapshot.
+    /// </summary>
+    [Theory]
+    [InlineData("a")]
+    [InlineData("b")]
+    public Task FileNameDropsParameters(string value) =>
+        Verify(value.Length)
+            .UseFileName("InlineFileName")
+            .Snapshot("1");
+
+    [Theory]
+    [InlineData("a")]
+    [InlineData("b")]
+    public async Task NotInlineBeatsParametersThrow(string value)
+    {
+        using var temp = new TempDirectory();
+        var settings = new VerifySettings();
+        settings.UseDirectory(temp);
+        settings.DisableDiff();
+        settings.AutoVerify();
+        settings.NotInline();
+        settings.Snapshot("ignored", FakeSource(), 1, "\"ignored\"");
+
+        var result = await Verify(value, settings);
+
+        Assert.NotEmpty(result.Files);
+    }
+
     [Fact]
     public async Task MismatchThrows()
     {
@@ -234,7 +393,8 @@ public class InlineTests
     }
 
     // The literal inherits the .cs file's line endings, so the expected value can arrive
-    // with any of these and must still match the \n normalized received text
+    // with any of these and must still match the \n normalized received text.
+    // IgnoreParameters, since every case shares the one literal
     [Theory]
     [InlineData("\r\n")]
     [InlineData("\r")]
@@ -242,6 +402,7 @@ public class InlineTests
     public Task ExpectedLiteralEolNormalized(string eol)
     {
         var settings = new VerifySettings();
+        settings.IgnoreParameters();
         settings.Snapshot($"line1{eol}line2", FakeSource(), 1, "\"ignored\"");
         return Verify("line1\nline2", settings);
     }
@@ -253,6 +414,7 @@ public class InlineTests
     [InlineData("\r")]
     public Task ReceivedContentEolNormalized(string eol) =>
         Verify($"line1{eol}line2")
+            .IgnoreParameters()
             .Snapshot(
                 """
                 line1
@@ -268,6 +430,7 @@ public class InlineTests
         try
         {
             var settings = new VerifySettings();
+            settings.IgnoreParameters();
             settings.Snapshot("old", template, 4, "\"old\"");
             settings.AutoVerify();
             settings.DisableDiff();
@@ -296,6 +459,7 @@ public class InlineTests
         try
         {
             var settings = new VerifySettings();
+            settings.IgnoreParameters();
             settings.Snapshot(null, template, 4, null);
             settings.AutoVerify();
             settings.DisableDiff();

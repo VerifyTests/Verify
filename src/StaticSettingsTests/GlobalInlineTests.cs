@@ -170,6 +170,89 @@ public class GlobalInlineTests :
     }
 
     /// <summary>
+    /// One literal at one call site cannot hold a different value per test case, so the switch
+    /// declines parameterised tests rather than breaking every data driven test in a codebase.
+    /// An explicit Snapshot(...) still throws for them.
+    /// </summary>
+    [Theory]
+    [InlineData("a")]
+    [InlineData("b")]
+    public async Task ParametersAreNotInlined(string value)
+    {
+        VerifierSettings.Inline();
+
+        using var temp = new TempDirectory();
+        var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify(value, Settings(temp)));
+
+        Assert.DoesNotContain("InlineNew:", exception.Message);
+        Assert.Contains("New:", exception.Message);
+    }
+
+    [Theory]
+    [InlineData("a")]
+    [InlineData("b")]
+    public async Task ConstructorParametersAreNotInlined(string classArg)
+    {
+        VerifierSettings.Inline();
+
+        using var temp = new TempDirectory();
+        var settings = Settings(temp);
+        settings.SetClassArgumentCount(1);
+
+        var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify(classArg, settings));
+
+        Assert.DoesNotContain("InlineNew:", exception.Message);
+    }
+
+    /// <summary>
+    /// The ignore APIs collapse every case onto one verified snapshot, which is exactly what an
+    /// inline literal can represent, so they bring the test back within the switch.
+    /// </summary>
+    [Theory]
+    [InlineData("a")]
+    [InlineData("b")]
+    public async Task IgnoredParametersAreInlined(string value)
+    {
+        VerifierSettings.Inline();
+
+        var settings = new VerifySettings();
+        settings.IgnoreParameters();
+
+        var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify(value, settings));
+
+        Assert.Contains("InlineNew:", exception.Message);
+    }
+
+    [Theory]
+    [InlineData("a")]
+    [InlineData("b")]
+    public async Task GloballyIgnoredParametersAreInlined(string value)
+    {
+        VerifierSettings.Inline();
+        VerifierSettings.IgnoreParameters();
+
+        var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify(value));
+
+        Assert.Contains("InlineNew:", exception.Message);
+    }
+
+    [Theory]
+    [InlineData("a")]
+    [InlineData("b")]
+    public async Task GloballyIgnoredConstructorParametersAreInlined(string classArg)
+    {
+        VerifierSettings.Inline();
+        VerifierSettings.IgnoreConstructorParameters();
+
+        var settings = new VerifySettings();
+        settings.SetClassArgumentCount(1);
+
+        var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify(classArg, settings));
+
+        Assert.Contains("InlineNew:", exception.Message);
+    }
+
+    /// <summary>
     /// UseUniqueDirectory has no single file to stand in for the snapshot. An explicit Snapshot(...)
     /// still throws for it, but the switch has to decline quietly rather than break the test.
     /// </summary>

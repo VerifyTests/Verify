@@ -10,13 +10,20 @@ class InlineEngine(
 {
     bool diffEnabled = !DiffRunner.Disabled &&
                        settings.diffEnabled &&
-                       !BuildServerDetector.Detected;
+                       !IsBuildServer();
 
     /// <summary>
     /// Swapped in tests. Whether a patch reached the viewer is otherwise unobservable: the result
     /// is Queued either way, and there is no way to ask the viewer what it was sent.
     /// </summary>
     internal static Func<InlinePatch, Task<InlineResult>> AddInline = _ => DiffRunner.AddInlineAsync(_);
+
+    /// <summary>
+    /// Swapped in tests. Every source rewrite below is a no-op on a build server, so the tests that
+    /// cover those rewrites need the check off. Scoped to inline rather than moving
+    /// BuildServerDetector.Detected, which is global and would reach tests running in parallel.
+    /// </summary>
+    internal static Func<bool> IsBuildServer = () => BuildServerDetector.Detected;
 
     public string MappedSourceFile { get; } = InnerVerifier.MapSourceFile(inline.File);
     public int Line => inline.Line;
@@ -80,7 +87,7 @@ class InlineEngine(
     /// </summary>
     public bool TryApply()
     {
-        if (BuildServerDetector.Detected)
+        if (IsBuildServer())
         {
             return false;
         }
@@ -123,7 +130,7 @@ class InlineEngine(
     /// </summary>
     async Task<StagedInline?> WriteStaging()
     {
-        if (BuildServerDetector.Detected ||
+        if (IsBuildServer() ||
             VerifierSettings.IntermediateDir is null)
         {
             return null;
@@ -186,7 +193,7 @@ class InlineEngine(
     /// </summary>
     public static bool TryRemove(InlineInfo inline)
     {
-        if (BuildServerDetector.Detected)
+        if (IsBuildServer())
         {
             return false;
         }

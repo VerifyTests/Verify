@@ -35,7 +35,7 @@ public Task MultiLine()
             """);
 }
 ```
-<sup><a href='/src/Verify.Tests/InlineTests.cs#L13-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineSample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/InlineTests.cs#L25-L39' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Omitting the expected argument (or passing `null`) marks the snapshot as new; accepting it writes the literal into the source file.
@@ -67,7 +67,7 @@ public Task Combinations() =>
             }
             """);
 ```
-<sup><a href='/src/Verify.Tests/InlineTests.cs#L72-L94' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineCombinationSample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/InlineTests.cs#L84-L106' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineCombinationSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The verification pipeline is unchanged: the target is serialized and scrubbed exactly as for file snapshots, then compared against the literal. Line endings in the literal are normalized (`\r\n` to `\n`) before comparison, so the comparison is not affected by the line endings of the source file.
@@ -144,7 +144,7 @@ public Task IgnoredParameters(string value) =>
         .IgnoreParameters()
         .Snapshot("1");
 ```
-<sup><a href='/src/Verify.Tests/InlineTests.cs#L163-L173' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineIgnoreParametersSample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/InlineTests.cs#L175-L185' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineIgnoreParametersSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The APIs that do this are `IgnoreParameters()`, `IgnoreParametersForVerified()` and `IgnoreConstructorParameters()` on the instance settings, and `VerifierSettings.IgnoreParameters()` and `VerifierSettings.IgnoreConstructorParameters()` globally. Ignoring only some of the parameters is not enough, since the remaining ones still vary the verified name per case. `UseTextForParameters` counts as a parameter here for the same reason, while `UseFileName` pins the verified name so no parameter ever reaches it.

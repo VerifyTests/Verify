@@ -1,7 +1,19 @@
 // ReSharper disable ConstantExpected
 [SuppressMessage("Performance", "CA1857:A constant is expected for the parameter")]
-public class InlineTests
+public class InlineTests :
+    IDisposable
 {
+    // Every test below that accepts a snapshot rewrites source, which InlineEngine declines to do on
+    // a build server. Pin the check off for the class, rather than have those tests pass locally and
+    // fail on CI. The two build server tests move it back for their duration.
+    Func<bool> originalIsBuildServer = InlineEngine.IsBuildServer;
+
+    public InlineTests() =>
+        InlineEngine.IsBuildServer = () => false;
+
+    public void Dispose() =>
+        InlineEngine.IsBuildServer = originalIsBuildServer;
+
     [Fact]
     public async Task Simple()
     {
@@ -802,7 +814,8 @@ public class InlineTests
     {
         var template = WriteTemplate(mismatchTemplate);
         var original = await File.ReadAllTextAsync(template);
-        BuildServerDetector.Detected = true;
+        // Dispose puts the seam back
+        InlineEngine.IsBuildServer = () => true;
         try
         {
             var settings = new VerifySettings();
@@ -815,7 +828,6 @@ public class InlineTests
         }
         finally
         {
-            BuildServerDetector.Detected = false;
             Directory.Delete(Path.GetDirectoryName(template)!, true);
         }
     }
@@ -825,7 +837,8 @@ public class InlineTests
     {
         var template = WriteTemplate(mismatchTemplate);
         var original = await File.ReadAllTextAsync(template);
-        BuildServerDetector.Detected = true;
+        // Dispose puts the seam back
+        InlineEngine.IsBuildServer = () => true;
         try
         {
             var settings = new VerifySettings();
@@ -847,7 +860,6 @@ public class InlineTests
         }
         finally
         {
-            BuildServerDetector.Detected = false;
             Directory.Delete(Path.GetDirectoryName(template)!, true);
         }
     }

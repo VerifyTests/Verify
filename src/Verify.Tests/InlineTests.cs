@@ -69,6 +69,30 @@ public class InlineTests
                 }
                 """);
 
+    #region InlineCombinationSample
+
+    static string Concat(string a, int b) =>
+        $"{a}{b}";
+
+    [Fact]
+    public Task Combinations() =>
+        Combination()
+            .Verify(
+                Concat,
+                ["a", "b"],
+                [1, 2])
+            .Snapshot(
+                """
+                {
+                  a, 1: a1,
+                  a, 2: a2,
+                  b, 1: b1,
+                  b, 2: b2
+                }
+                """);
+
+    #endregion
+
     [Fact]
     public Task EdgeContent() =>
         Verify("has \"\"\" quotes\n\nand a blank line")

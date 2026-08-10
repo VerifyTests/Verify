@@ -7,6 +7,8 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Inline Snapshots
 
+**Currently in 32.0.0-beta.1**
+
 Inline snapshots store the expected text inside the C# test file as a raw string literal, next to the code that produces it, instead of in a `.verified.` file on disk.
 
 Only C# source files and text results are supported.
@@ -37,6 +39,34 @@ public Task MultiLine()
 Omitting the expected argument (or passing `null`) marks the snapshot as new; accepting it writes the literal into the source file.
 
 Because `Snapshot` is a modifier rather than a separate entry point, it composes with every overload: `VerifyXml(...).Snapshot(...)`, `VerifyJson(...).Snapshot(...)`, `VerifyFile(...).Snapshot(...)`, and so on.
+
+[Combinations](combinations.md) are included, since `Combination().Verify(...)` also returns a `SettingsTask`:
+
+<!-- snippet: InlineCombinationSample -->
+<a id='snippet-InlineCombinationSample'></a>
+```cs
+static string Concat(string a, int b) =>
+    $"{a}{b}";
+
+[Fact]
+public Task Combinations() =>
+    Combination()
+        .Verify(
+            Concat,
+            ["a", "b"],
+            [1, 2])
+        .Snapshot(
+            """
+            {
+              a, 1: a1,
+              a, 2: a2,
+              b, 1: b1,
+              b, 2: b2
+            }
+            """);
+```
+<sup><a href='/src/Verify.Tests/InlineTests.cs#L72-L94' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineCombinationSample' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 The verification pipeline is unchanged: the target is serialized and scrubbed exactly as for file snapshots, then compared against the literal. Line endings in the literal are normalized (`\r\n` to `\n`) before comparison, so the comparison is not affected by the line endings of the source file.
 

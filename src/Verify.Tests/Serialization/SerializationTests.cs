@@ -15,6 +15,14 @@ public class SerializationTests
     {
         VerifierSettings.AddExtraDateTimeFormat("F");
         VerifierSettings.AddExtraDateTimeOffsetFormat("F");
+#if NET6_0_OR_GREATER
+        // The only Date format enabled by default is "d", the culture short date pattern.
+        // In cultures where that pattern has a two digit year (en-AU is "d/M/yy"), a
+        // rendered Date.MinValue/MaxValue cannot round trip: "1/1/01" reads back as 2001.
+        // "D", the long date pattern, has a four digit year in every culture, so
+        // DateTimeMin/DateTimeMax render DateString with it.
+        VerifierSettings.AddExtraDateFormat("D");
+#endif
     }
 
     [Fact]
@@ -1287,7 +1295,7 @@ public class SerializationTests
             DateTime = dateTime,
             Date = Date.MinValue,
             DateNullable = Date.MinValue,
-            DateString = Date.MinValue.ToString(),
+            DateString = Date.MinValue.ToString("D"),
             DateTimeNullable = dateTime,
             DateTimeString = dateTime.ToString("F"),
             DateTimeOffset = dateTimeOffset,
@@ -1308,7 +1316,7 @@ public class SerializationTests
             DateTime = dateTime,
             Date = Date.MaxValue,
             DateNullable = Date.MaxValue,
-            DateString = Date.MaxValue.ToString(),
+            DateString = Date.MaxValue.ToString("D"),
             DateTimeNullable = dateTime,
             DateTimeString = dateTime.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK"),
             DateTimeOffset = dateTimeOffset,

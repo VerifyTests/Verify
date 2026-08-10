@@ -1,5 +1,6 @@
 // Lives here, rather than in Verify.Tests, since IgnoreTrailingNewline is a static setting, and
 // this project runs serially with BaseTest resetting it between tests.
+[SuppressMessage("Performance", "CA1857:A constant is expected for the parameter")]
 public class IgnoreTrailingNewlineTests :
     BaseTest
 {

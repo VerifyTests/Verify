@@ -21,7 +21,7 @@
 
     [Fact]
     public Task StringNullWrappedInTask() =>
-        Verify(Task.FromResult((string) null!));
+        Verify(Task.FromResult<string>(null!));
 
     [Fact]
     public Task StringEmpty() =>

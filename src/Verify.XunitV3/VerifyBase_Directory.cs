@@ -15,7 +15,8 @@ public partial class VerifyBase
         EnumerationOptions? options = null,
         VerifySettings? settings = null,
         object? info = null,
-        FileScrubber? fileScrubber = null) =>
+        FileScrubber? fileScrubber = null,
+        [CallerLineNumber] int lineNumber = 0) =>
         Verifier.VerifyDirectory(
             path,
             include,
@@ -24,7 +25,8 @@ public partial class VerifyBase
             settings ?? this.settings,
             info,
             fileScrubber,
-            sourceFile);
+            sourceFile,
+            lineNumber);
 
     /// <summary>
     /// Verifies the contents of <paramref name="path" />.
@@ -39,7 +41,8 @@ public partial class VerifyBase
         EnumerationOptions? options = null,
         VerifySettings? settings = null,
         object? info = null,
-        FileScrubber? fileScrubber = null) =>
+        FileScrubber? fileScrubber = null,
+        [CallerLineNumber] int lineNumber = 0) =>
         Verifier.VerifyDirectory(
             path.FullName,
             include,
@@ -48,7 +51,8 @@ public partial class VerifyBase
             settings ?? this.settings,
             info,
             fileScrubber,
-            sourceFile);
+            sourceFile,
+            lineNumber);
 
 #else
     /// <summary>
@@ -62,7 +66,8 @@ public partial class VerifyBase
         SearchOption option = SearchOption.AllDirectories,
         VerifySettings? settings = null,
         object? info = null,
-        FileScrubber? fileScrubber = null) =>
+        FileScrubber? fileScrubber = null,
+        [CallerLineNumber] int lineNumber = 0) =>
         Verifier.VerifyDirectory(
             path,
             include,
@@ -71,7 +76,8 @@ public partial class VerifyBase
             settings ?? this.settings,
             info,
             fileScrubber,
-            sourceFile);
+            sourceFile,
+            lineNumber);
 
     /// <summary>
     /// Verifies the contents of <paramref name="path"/>.
@@ -86,7 +92,8 @@ public partial class VerifyBase
         SearchOption option = SearchOption.AllDirectories,
         VerifySettings? settings = null,
         object? info = null,
-        FileScrubber? fileScrubber = null) =>
+        FileScrubber? fileScrubber = null,
+        [CallerLineNumber] int lineNumber = 0) =>
         Verifier.VerifyDirectory(
             path.FullName,
             include,
@@ -95,7 +102,8 @@ public partial class VerifyBase
             settings ?? this.settings,
             info,
             fileScrubber,
-            sourceFile);
+            sourceFile,
+            lineNumber);
 
 #endif
 }

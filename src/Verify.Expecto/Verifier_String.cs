@@ -10,10 +10,11 @@ public static partial class Verifier
         [StringSyntax("*")]
         string? target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyString(target));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyString(target));
     }
 
     [Pure]
@@ -22,10 +23,11 @@ public static partial class Verifier
         [StringSyntax("*")]
         Task<string> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyString(target));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyString(target));
     }
 
     [Pure]
@@ -35,10 +37,11 @@ public static partial class Verifier
         string? target,
         string extension,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyString(target, extension));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyString(target, extension));
     }
 
     [Pure]
@@ -48,9 +51,10 @@ public static partial class Verifier
         Task<string> target,
         string extension,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyString(target, extension));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyString(target, extension));
     }
 }

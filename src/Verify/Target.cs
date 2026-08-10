@@ -17,6 +17,15 @@ public readonly struct Target
     /// </summary>
     public bool BypassComparersForSubsequentOnDifference { get; init; }
 
+    /// <summary>
+    /// When <c>true</c>, this target is never used as the inline snapshot, and the whole
+    /// verification falls back to <c>.verified</c> files.
+    /// Intended for converters that split one input into several text targets, where inlining the
+    /// first and writing the rest to files makes no sense (eg a document rendered as one markdown
+    /// target per page). Set this on the target that would otherwise be inlined, which is the first.
+    /// </summary>
+    public bool DontInline { get; init; }
+
     public string NameOrTarget => Name ?? "target";
 
     public Stream StreamData

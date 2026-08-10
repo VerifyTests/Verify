@@ -1,0 +1,36 @@
+﻿{
+  message:
+Directory: {ProjectDirectory}
+InlineNotEqual:
+  - Source: {ProjectDirectory}MyTests.cs:12
+    Received: {ProjectDirectory}obj/VerifyInline/def.received.txt
+    Expected: {ProjectDirectory}obj/VerifyInline/def.expected.txt
+    Patch: {ProjectDirectory}obj/VerifyInline/def.inlinepatch
+Delete:
+  - MyTests.OldTest.verified.txt
+
+FileContent:
+
+InlineNotEqual:
+
+Source: {ProjectDirectory}MyTests.cs:12
+Received:
+received text
+Expected:
+expected text
+,
+  result: {
+    Delete: [
+      {ProjectDirectory}MyTests.OldTest.verified.txt
+    ],
+    InlineNotEqual: [
+      {
+        SourceFile: {ProjectDirectory}MyTests.cs,
+        Line: 12,
+        ReceivedPath: {ProjectDirectory}obj/VerifyInline/def.received.txt,
+        ExpectedPath: {ProjectDirectory}obj/VerifyInline/def.expected.txt,
+        PatchPath: {ProjectDirectory}obj/VerifyInline/def.inlinepatch
+      }
+    ]
+  }
+}

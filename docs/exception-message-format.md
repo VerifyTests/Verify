@@ -29,6 +29,20 @@ Then zero or more categorized sections, each listing file pairs:
  * **NotEqual** - both files exist but content differs.
  * **Delete** - a `.verified.` file exists that is no longer produced by any test.
  * **Equal** - both files exist and match (included for completeness when other categories are present).
+ * **InlineNew** - an [inline snapshot](inline-snapshots.md) with no expected value yet.
+ * **InlineNotEqual** - an inline snapshot whose expected value differs from the result.
+
+Inline entries use a different shape: a `Source:` line with the absolute source file path and 1 based line number (`path:line`), followed by optional absolute staged file paths:
+
+```
+InlineNotEqual:
+  - Source: /path/to/MyTests.cs:12
+    Received: /path/to/obj/VerifyInline/def.received.txt
+    Expected: /path/to/obj/VerifyInline/def.expected.txt
+    Patch: /path/to/obj/VerifyInline/def.inlinepatch
+```
+
+The staged path lines are omitted when staging was unavailable (build server, or the project does not consume Verify's build props). The `Patch:` file is readable via the DiffEngine `InlinePatchFile` API.
 
 
 ### File Content
@@ -69,6 +83,55 @@ Verified: MyTests.Test2.verified.txt
 verified text
 ```
 <sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionMessageFormatSamples.AllCategories.verified.txt#L1-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionMessageFormatSamples.AllCategories.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Inline snapshot examples
+
+<!-- snippet: ExceptionMessageFormatSamples.InlineNew.verified.txt -->
+<a id='snippet-ExceptionMessageFormatSamples.InlineNew.verified.txt'></a>
+```txt
+Directory: {ProjectDirectory}
+InlineNew:
+  - Source: {ProjectDirectory}MyTests.cs:10
+    Received: {ProjectDirectory}obj/VerifyInline/abc.received.txt
+    Expected: {ProjectDirectory}obj/VerifyInline/abc.expected.txt
+    Patch: {ProjectDirectory}obj/VerifyInline/abc.inlinepatch
+
+FileContent:
+
+InlineNew:
+
+Source: {ProjectDirectory}MyTests.cs:10
+Received:
+the new content
+```
+<sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionMessageFormatSamples.InlineNew.verified.txt#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionMessageFormatSamples.InlineNew.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+<!-- snippet: ExceptionMessageFormatSamples.InlineNotEqualWithDelete.verified.txt -->
+<a id='snippet-ExceptionMessageFormatSamples.InlineNotEqualWithDelete.verified.txt'></a>
+```txt
+Directory: {ProjectDirectory}
+InlineNotEqual:
+  - Source: {ProjectDirectory}MyTests.cs:12
+    Received: {ProjectDirectory}obj/VerifyInline/def.received.txt
+    Expected: {ProjectDirectory}obj/VerifyInline/def.expected.txt
+    Patch: {ProjectDirectory}obj/VerifyInline/def.inlinepatch
+Delete:
+  - MyTests.OldTest.verified.txt
+
+FileContent:
+
+InlineNotEqual:
+
+Source: {ProjectDirectory}MyTests.cs:12
+Received:
+received text
+Expected:
+expected text
+```
+<sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionMessageFormatSamples.InlineNotEqualWithDelete.verified.txt#L1-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionMessageFormatSamples.InlineNotEqualWithDelete.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -145,7 +208,7 @@ static Result ParseExceptionMessage(string exceptionMessage)
     return result;
 }
 ```
-<sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionParsingTests.cs#L202-L222' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionParsing' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionParsingTests.cs#L291-L311' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionParsing' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The `Result` contains:
@@ -154,6 +217,8 @@ The `Result` contains:
  * `NotEqual` - list of `FilePair`.
  * `Delete` - list of file paths.
  * `Equal` - list of `FilePair`.
+ * `InlineNew` - list of `InlineEntry` (source file, line, and optional staged paths).
+ * `InlineNotEqual` - list of `InlineEntry`.
 
 
 ### Test Framework Prefixes

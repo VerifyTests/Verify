@@ -1,13 +1,40 @@
-﻿static class VerifyExceptionMessageBuilder
+// The inline snapshot's contribution to the exception message. Sits alongside the file sections
+// rather than replacing them, because only the first target is inlined.
+record InlineSection(
+    string SourceFile,
+    int Line,
+    bool IsNew,
+    string ReceivedText,
+    string? ExpectedText,
+    StagedInline? Staged)
+{
+    public string Header => IsNew ? "InlineNew" : "InlineNotEqual";
+}
+
+static class VerifyExceptionMessageBuilder
 {
     public static string Build(
         string directory,
         IReadOnlyCollection<NewResult> @new,
         IReadOnlyCollection<NotEqualResult> notEquals,
         IReadOnlyCollection<string> delete,
-        IReadOnlyCollection<FilePair> equal)
+        IReadOnlyCollection<FilePair> equal,
+        InlineSection? inline = null,
+        string? hint = null)
     {
         var builder = new StringBuilder($"Directory: {directory}\n");
+
+        if (inline is not null)
+        {
+            builder.AppendLineN($"{inline.Header}:");
+            builder.AppendLineN($"  - Source: {inline.SourceFile}:{inline.Line}");
+            if (inline.Staged is { } staged)
+            {
+                builder.AppendLineN($"    Received: {staged.Received}");
+                builder.AppendLineN($"    Expected: {staged.Expected}");
+                builder.AppendLineN($"    Patch: {staged.Patch}");
+            }
+        }
 
         if (@new.Count > 0)
         {
@@ -45,7 +72,7 @@
             }
         }
 
-        AppendContent(directory, @new, notEquals, builder);
+        AppendContent(directory, @new, notEquals, inline, hint, builder);
 
         return builder.ToString();
     }
@@ -58,36 +85,68 @@
         builder.AppendLineN($"    Verified: {verifiedPath}");
     }
 
-    static void AppendContent(string directory, IReadOnlyCollection<NewResult> @new, IReadOnlyCollection<NotEqualResult> notEquals, StringBuilder builder)
+    static void AppendContent(
+        string directory,
+        IReadOnlyCollection<NewResult> @new,
+        IReadOnlyCollection<NotEqualResult> notEquals,
+        InlineSection? inline,
+        string? hint,
+        StringBuilder builder)
     {
-        if (VerifierSettings.omitContentFromException)
-        {
-            return;
-        }
+        var omit = VerifierSettings.omitContentFromException;
 
-        if (@new.Count == 0 &&
-            notEquals.Count == 0)
-        {
-            return;
-        }
+        var newContentFiles = omit
+            ? []
+            : @new
+                .Where(_ => _.File.IsText)
+                .ToList();
+        var notEqualContentFiles = omit
+            ? []
+            : notEquals
+                .Where(_ => _.File.IsText ||
+                            _.Message is not null)
+                .ToList();
+        var inlineContent = omit ? null : inline;
 
-        var newContentFiles = @new
-            .Where(_ => _.File.IsText)
-            .ToList();
-        var notEqualContentFiles = notEquals
-            .Where(_ => _.File.IsText ||
-                        _.Message is not null)
-            .ToList();
-
-        if (newContentFiles.Count == 0 &&
+        if (hint is null &&
+            inlineContent is null &&
+            newContentFiles.Count == 0 &&
             notEqualContentFiles.Count == 0)
         {
             return;
         }
 
+        // Everything below the FileContent: marker is ignored by the exception parser,
+        // so the hint must not be emitted before it
         builder.AppendLineN();
         builder.AppendLineN("FileContent:");
         builder.AppendLineN();
+
+        if (hint is not null)
+        {
+            builder.AppendLineN(hint);
+            builder.AppendLineN();
+        }
+
+        if (inlineContent is not null)
+        {
+            builder.AppendLineN($"{inlineContent.Header}:");
+            builder.AppendLineN();
+            builder.AppendLineN($"Source: {inlineContent.SourceFile}:{inlineContent.Line}");
+            builder.AppendLineN("Received:");
+            builder.AppendLineN(inlineContent.ReceivedText);
+            if (!inlineContent.IsNew)
+            {
+                builder.AppendLineN("Expected:");
+                builder.AppendLineN(inlineContent.ExpectedText);
+            }
+
+            if (newContentFiles.Count > 0 ||
+                notEqualContentFiles.Count > 0)
+            {
+                builder.AppendLineN();
+            }
+        }
 
         if (newContentFiles.Count > 0)
         {
@@ -108,12 +167,8 @@
             builder.AppendLineN();
             foreach (var notEqual in notEqualContentFiles)
             {
-                if (notEqual.File.IsText ||
-                    notEqual.Message is not null)
-                {
-                    AppendNotEqualContent(directory, builder, notEqual);
-                    builder.AppendLineN();
-                }
+                AppendNotEqualContent(directory, builder, notEqual);
+                builder.AppendLineN();
             }
         }
     }

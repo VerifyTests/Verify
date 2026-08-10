@@ -16,8 +16,9 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, options, info, fileScrubber), true);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, sourceFile, lineNumber, _ => _.VerifyDirectory(path, include, pattern, options, info, fileScrubber), true);
 
     /// <summary>
     /// Verifies the contents of <paramref name="path" />.
@@ -33,8 +34,9 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
-        [CallerFilePath] string sourceFile = "") =>
-        VerifyDirectory(path.FullName, include, pattern, options, settings, info, fileScrubber, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        VerifyDirectory(path.FullName, include, pattern, options, settings, info, fileScrubber, sourceFile, lineNumber);
 
 #else
     /// <summary>
@@ -49,10 +51,12 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
-        [CallerFilePath] string sourceFile = "") =>
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
         Verify(
             settings,
             sourceFile,
+            lineNumber,
             _ => _.VerifyDirectory(path, include, pattern, option, info, fileScrubber),
             true);
 
@@ -70,8 +74,9 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
-        [CallerFilePath] string sourceFile = "") =>
-        VerifyDirectory(path.FullName, include, pattern, option, settings, info, fileScrubber, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        VerifyDirectory(path.FullName, include, pattern, option, settings, info, fileScrubber, sourceFile, lineNumber);
 
 #endif
 }

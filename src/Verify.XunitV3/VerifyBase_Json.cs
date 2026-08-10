@@ -6,59 +6,68 @@ public partial class VerifyBase
     public SettingsTask VerifyJson(
         [StringSyntax(StringSyntaxAttribute.Json)]
         StringBuilder? target,
-        VerifySettings? settings = null) =>
-        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile);
+        VerifySettings? settings = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask VerifyJson(
         [StringSyntax(StringSyntaxAttribute.Json)]
         Task<StringBuilder> target,
-        VerifySettings? settings = null) =>
-        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile);
+        VerifySettings? settings = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask VerifyJson(
         [StringSyntax(StringSyntaxAttribute.Json)]
         ValueTask<StringBuilder> target,
-        VerifySettings? settings = null) =>
-        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile);
+        VerifySettings? settings = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask VerifyJson(
         [StringSyntax(StringSyntaxAttribute.Json)]
         string? target,
-        VerifySettings? settings = null) =>
-        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile);
+        VerifySettings? settings = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask VerifyJson(
         [StringSyntax(StringSyntaxAttribute.Json)]
         Task<string> target,
-        VerifySettings? settings = null) =>
-        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile);
+        VerifySettings? settings = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask VerifyJson(
         [StringSyntax(StringSyntaxAttribute.Json)]
         ValueTask<string> target,
-        VerifySettings? settings = null) =>
-        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile);
+        VerifySettings? settings = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask VerifyJson(
         Stream? target,
-        VerifySettings? settings = null) =>
-        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile);
+        VerifySettings? settings = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask VerifyJson(
         Task<Stream> target,
-        VerifySettings? settings = null) =>
-        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile);
+        VerifySettings? settings = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask VerifyJson(
         ValueTask<Stream> target,
-        VerifySettings? settings = null) =>
-        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile);
+        VerifySettings? settings = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyJson(target, settings ?? this.settings, sourceFile, lineNumber);
 }

@@ -8,16 +8,18 @@ public static partial class Verifier
         string extension,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, sourceFile, lineNumber, _ => _.VerifyStream(target, extension, info));
 
     [Pure]
     public static SettingsTask Verify(
         byte[]? target,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(target, info));
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, sourceFile, lineNumber, _ => _.VerifyStream(target, info));
 
     [Pure]
     public static SettingsTask Verify(
@@ -25,8 +27,9 @@ public static partial class Verifier
         string extension,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, sourceFile, lineNumber, _ => _.VerifyStream(target, extension, info));
 
     [Pure]
     public static SettingsTask Verify(
@@ -34,24 +37,27 @@ public static partial class Verifier
         string extension,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, sourceFile, lineNumber, _ => _.VerifyStream(target, extension, info));
 
     [Pure]
     public static SettingsTask Verify(
         FileStream? target,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(target, info));
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, sourceFile, lineNumber, _ => _.VerifyStream(target, info));
 
     [Pure]
     public static SettingsTask Verify(
         Stream? target,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(target, info));
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, sourceFile, lineNumber, _ => _.VerifyStream(target, info));
 
     [Pure]
     public static SettingsTask Verify(
@@ -59,8 +65,9 @@ public static partial class Verifier
         string extension,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, sourceFile, lineNumber, _ => _.VerifyStream(target, extension, info));
 
     [Pure]
     public static SettingsTask Verify<T>(
@@ -68,9 +75,10 @@ public static partial class Verifier
         string extension,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
         where T : Stream =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
+        Verify(settings, sourceFile, lineNumber, _ => _.VerifyStream(target, extension, info));
 
     [Pure]
     public static SettingsTask Verify<T>(
@@ -78,9 +86,10 @@ public static partial class Verifier
         string extension,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
         where T : Stream =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
+        Verify(settings, sourceFile, lineNumber, _ => _.VerifyStream(target, extension, info));
 
     [Pure]
     public static SettingsTask Verify<T>(
@@ -88,7 +97,8 @@ public static partial class Verifier
         string extension,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
         where T : Stream =>
-        Verify(settings, sourceFile, _ => _.VerifyStreams(targets, extension, info));
+        Verify(settings, sourceFile, lineNumber, _ => _.VerifyStreams(targets, extension, info));
 }

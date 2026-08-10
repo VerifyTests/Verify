@@ -1,0 +1,29 @@
+﻿{
+  message:
+Directory: {ProjectDirectory}
+InlineNew:
+  - Source: {ProjectDirectory}MyTests.cs:10
+    Received: {ProjectDirectory}obj/VerifyInline/abc.received.txt
+    Expected: {ProjectDirectory}obj/VerifyInline/abc.expected.txt
+    Patch: {ProjectDirectory}obj/VerifyInline/abc.inlinepatch
+
+FileContent:
+
+InlineNew:
+
+Source: {ProjectDirectory}MyTests.cs:10
+Received:
+the new content
+,
+  result: {
+    InlineNew: [
+      {
+        SourceFile: {ProjectDirectory}MyTests.cs,
+        Line: 10,
+        ReceivedPath: {ProjectDirectory}obj/VerifyInline/abc.received.txt,
+        ExpectedPath: {ProjectDirectory}obj/VerifyInline/abc.expected.txt,
+        PatchPath: {ProjectDirectory}obj/VerifyInline/abc.inlinepatch
+      }
+    ]
+  }
+}

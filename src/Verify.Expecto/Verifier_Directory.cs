@@ -19,10 +19,11 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyDirectory(path, include, pattern, options, info, fileScrubber), true);
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyDirectory(path, include, pattern, options, info, fileScrubber), true);
     }
 
     /// <summary>
@@ -39,12 +40,13 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         // Capture the caller here rather than delegating to the string overload,
         // otherwise GetCallingAssembly would resolve to Verify.Expecto.
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyDirectory(path.FullName, include, pattern, options, info, fileScrubber), true);
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyDirectory(path.FullName, include, pattern, options, info, fileScrubber), true);
     }
 
 #else
@@ -61,10 +63,11 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyDirectory(path, include, pattern, option, info, fileScrubber), true);
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyDirectory(path, include, pattern, option, info, fileScrubber), true);
     }
 
     /// <summary>
@@ -82,12 +85,13 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         // Capture the caller here rather than delegating to the string overload,
         // otherwise GetCallingAssembly would resolve to Verify.Expecto.
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyDirectory(path.FullName, include, pattern, option, info, fileScrubber), true);
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyDirectory(path.FullName, include, pattern, option, info, fileScrubber), true);
     }
 
 #endif

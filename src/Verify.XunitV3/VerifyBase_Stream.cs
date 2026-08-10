@@ -6,79 +6,89 @@ public partial class VerifyBase
     public SettingsTask Verify(
         FileStream? target,
         VerifySettings? settings = null,
-        object? info = null) =>
-        Verifier.Verify(target, settings ?? this.settings, info, sourceFile);
+        object? info = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(target, settings ?? this.settings, info, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask Verify(
         Stream? target,
         string extension,
         VerifySettings? settings = null,
-        object? info = null) =>
-        Verifier.Verify(target, extension, settings ?? this.settings, info, sourceFile);
+        object? info = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(target, extension, settings ?? this.settings, info, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask Verify(
         Stream? target,
         VerifySettings? settings = null,
-        object? info = null) =>
-        Verifier.Verify(target, settings ?? this.settings, info, sourceFile);
+        object? info = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(target, settings ?? this.settings, info, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask Verify<T>(
         Task<T> target,
         string extension,
         VerifySettings? settings = null,
-        object? info = null)
+        object? info = null,
+        [CallerLineNumber] int lineNumber = 0)
         where T : Stream =>
-        Verifier.Verify(target, extension, settings ?? this.settings, info, sourceFile);
+        Verifier.Verify(target, extension, settings ?? this.settings, info, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask Verify<T>(
         ValueTask<T> target,
         string extension,
         VerifySettings? settings = null,
-        object? info = null)
+        object? info = null,
+        [CallerLineNumber] int lineNumber = 0)
         where T : Stream =>
-        Verifier.Verify(target, extension, settings ?? this.settings, info, sourceFile);
+        Verifier.Verify(target, extension, settings ?? this.settings, info, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask Verify<T>(
         IEnumerable<T> targets,
         string extension,
         VerifySettings? settings = null,
-        object? info = null)
+        object? info = null,
+        [CallerLineNumber] int lineNumber = 0)
         where T : Stream =>
-        Verifier.Verify(targets, extension, settings ?? this.settings, info, sourceFile);
+        Verifier.Verify(targets, extension, settings ?? this.settings, info, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask Verify(
         byte[]? target,
         VerifySettings? settings = null,
-        object? info = null) =>
-        Verifier.Verify(target, settings ?? this.settings, info, sourceFile);
+        object? info = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(target, settings ?? this.settings, info, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask Verify(
         byte[]? target,
         string extension,
         VerifySettings? settings = null,
-        object? info = null) =>
-        Verifier.Verify(target, extension, settings ?? this.settings, info, sourceFile);
+        object? info = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(target, extension, settings ?? this.settings, info, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask Verify(
         Task<byte[]> target,
         string extension,
         VerifySettings? settings = null,
-        object? info = null) =>
-        Verifier.Verify(target, extension, settings ?? this.settings, info, sourceFile);
+        object? info = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(target, extension, settings ?? this.settings, info, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask Verify(
         ValueTask<byte[]> target,
         string extension,
         VerifySettings? settings = null,
-        object? info = null) =>
-        Verifier.Verify(target, extension, settings ?? this.settings, info, sourceFile);
+        object? info = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(target, extension, settings ?? this.settings, info, sourceFile, lineNumber);
 }

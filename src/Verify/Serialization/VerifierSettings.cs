@@ -160,6 +160,7 @@ public static partial class VerifierSettings
         orderJsonObjects = false;
         scrubUserProfile = true;
         autoVerify = null;
+        inline = null;
         UniquePrefixDisabled = false;
         UseUniqueDirectorySplitMode = false;
         omitContentFromException = false;

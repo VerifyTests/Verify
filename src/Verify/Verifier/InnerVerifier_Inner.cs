@@ -26,6 +26,24 @@ partial class InnerVerifier
             throw new("All targets have been excluded by ExcludeTargets. A verification requires at least one target.");
         }
 
+        var inline = ResolveInline(resultTargets);
+        InlineEngine? inlineEngine = null;
+        if (inline is not null)
+        {
+            inlineEngine = new(
+                settings,
+                inline,
+                settings.TypeName ?? typeName,
+                settings.MethodName ?? methodName);
+        }
+        else if (settings.inline is { } stale)
+        {
+            // A literal exists but inline is off for this verification, so migrate: strip the
+            // Snapshot call and let the snapshot flow through as a file, which the user then
+            // accepts the usual way.
+            InlineEngine.TryRemove(stale);
+        }
+
         var engine = new VerifyEngine(
             directory,
             settings,
@@ -33,7 +51,8 @@ partial class InnerVerifier
             getFileNames,
             getIndexedFileNames,
             settings.TypeName ?? typeName,
-            settings.MethodName ?? methodName);
+            settings.MethodName ?? methodName,
+            inlineEngine);
 
         try
         {
@@ -47,6 +66,11 @@ partial class InnerVerifier
 
         await engine.ThrowIfRequired();
 
+        if (inlineEngine is not null)
+        {
+            return new(inlineEngine.Rendered, root);
+        }
+
         var filePairs = new List<FilePair>(engine.Equal);
         if (engine.AutoVerified.Count > 0)
         {
@@ -54,6 +78,56 @@ partial class InnerVerifier
         }
 
         return new(filePairs, root);
+    }
+
+    /// <summary>
+    /// Decides whether this verification uses an inline snapshot, and where the literal lives.
+    /// The first target is the one inlined; the rest go through the file pipeline as usual.
+    /// </summary>
+    InlineInfo? ResolveInline(List<Target> targets)
+    {
+        if (settings.notInline)
+        {
+            return null;
+        }
+
+        // An explicit Snapshot(...) is the user's stated intent, whatever the global switch says
+        if (settings.inline is { } explicitInline)
+        {
+            return explicitInline;
+        }
+
+        if (VerifierSettings.inline is not { } globalInline)
+        {
+            return null;
+        }
+
+        // Hard incompatibilities. A global switch must not break unrelated tests, so these are
+        // "not inline" rather than errors; the explicit path above still throws for UniqueDirectory
+        // and for parameters.
+        if (settings.UniqueDirectory ||
+            verifiedHasParameters ||
+            typeName is null ||
+            lineNumber == 0 ||
+            inlineSourceFile is null ||
+            !inlineSourceFile.EndsWith(".cs", StringComparison.OrdinalIgnoreCase))
+        {
+            return null;
+        }
+
+        var first = targets[0];
+        if (first.DontInline ||
+            !globalInline(
+                settings.TypeName ?? typeName,
+                settings.MethodName ?? methodName!,
+                inlineSourceFile,
+                first.Extension))
+        {
+            return null;
+        }
+
+        // No literal yet, so the patcher appends a Snapshot call to the verify invocation
+        return new(null, inlineSourceFile, lineNumber, null, InlinePatchMode.Append);
     }
 
     Func<Task> RemoveExcludedTargets(List<Target> targets, Func<Task> cleanup, out bool removed)

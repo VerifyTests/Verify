@@ -21,12 +21,14 @@ public abstract partial class VerifyBase
     public SettingsTask Verify(
         object? target,
         IEnumerable<Target> rawTargets,
-        VerifySettings? settings = null) =>
-        Verifier.Verify(target, rawTargets, settings ?? this.settings, sourceFile);
+        VerifySettings? settings = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(target, rawTargets, settings ?? this.settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask Verify(
         IEnumerable<Target> targets,
-        VerifySettings? settings = null) =>
-        Verifier.Verify(targets, settings ?? this.settings, sourceFile);
+        VerifySettings? settings = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(targets, settings ?? this.settings, sourceFile, lineNumber);
 }

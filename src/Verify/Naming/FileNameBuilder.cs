@@ -28,10 +28,15 @@ static class FileNameBuilder
         return $"{type}.{method}";
     }
 
-    public static (Action<StringBuilder>?, Action<StringBuilder>?) GetParameterText(IReadOnlyList<string>? methodParameters, VerifySettings settings, Counter counter)
+    /// <summary>
+    /// <paramref name="verifiedHasParameters" /> is whether the verified name varies per test case,
+    /// which is what makes a test incompatible with an inline snapshot.
+    /// </summary>
+    public static (Action<StringBuilder>?, Action<StringBuilder>?) GetParameterText(IReadOnlyList<string>? methodParameters, VerifySettings settings, Counter counter, out bool verifiedHasParameters)
     {
         if (settings.parametersText is not null)
         {
+            verifiedHasParameters = true;
             Action<StringBuilder> action = _ => _.Append($"_{settings.parametersText}");
             return (action, action);
         }
@@ -39,6 +44,7 @@ static class FileNameBuilder
         if (methodParameters is null ||
             !settings.TryGetParameters(out var settingsParameters))
         {
+            verifiedHasParameters = false;
             return (null, null);
         }
 
@@ -92,6 +98,10 @@ static class FileNameBuilder
 
         var verifiedValues = GetVerifiedValues(ignored, allValues);
 
+        // ignoreParametersForVerified drops the whole segment further up, in the prefix builders
+        verifiedHasParameters = !settings.ignoreParametersForVerified &&
+                                verifiedValues.Count > 0;
+
         if (settings.ParametersAppender == null)
         {
             return (
@@ -116,7 +126,7 @@ static class FileNameBuilder
             }
         };
 
-    static IEnumerable<KeyValuePair<string, object?>> GetVerifiedValues(HashSet<string>? ignored, KeyValuePair<string, object?>[] allValues)
+    static IReadOnlyList<KeyValuePair<string, object?>> GetVerifiedValues(HashSet<string>? ignored, KeyValuePair<string, object?>[] allValues)
     {
         if (ignored is null)
         {
@@ -128,6 +138,8 @@ static class FileNameBuilder
             return [];
         }
 
-        return allValues.Where(_ => !ignored.Contains(_.Key));
+        return allValues
+            .Where(_ => !ignored.Contains(_.Key))
+            .ToList();
     }
 }

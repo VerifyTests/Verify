@@ -39,7 +39,7 @@ static class ReceivedMap
         {
             var directory = Path.Combine(intermediate, directoryName);
             Directory.CreateDirectory(directory);
-            var path = Path.Combine(directory, $"{Hash(file.ReceivedPath)}.txt");
+            var path = Path.Combine(directory, $"{Fnv1a.Hash(file.ReceivedPath)}.txt");
             File.WriteAllText(path, $"{file.ReceivedPath}{Environment.NewLine}{file.VerifiedPath}");
         }
         catch
@@ -49,17 +49,4 @@ static class ReceivedMap
         }
     }
 
-    // FNV-1a. Used instead of string.GetHashCode since that is randomized per process, and the name
-    // has to be stable across runs for the map to be overwritten rather than duplicated.
-    static string Hash(string value)
-    {
-        var hash = 14695981039346656037UL;
-        foreach (var character in value)
-        {
-            hash ^= character;
-            hash *= 1099511628211UL;
-        }
-
-        return hash.ToString("x16");
-    }
 }

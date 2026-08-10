@@ -7,41 +7,47 @@ partial class VerifyBase
     [Pure]
     public SettingsTask Verify(
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.Verify(settings, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask Verify<T>(
         Func<Task<T>> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.Verify(target, settings, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(target, settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask Verify<T>(
         Task<T> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.Verify(target, settings, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(target, settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask Verify<T>(
         ValueTask<T> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.Verify(target, settings, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(target, settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask Verify<T>(
         IAsyncEnumerable<T> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.Verify(target, settings, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(target, settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask Verify(
         object? target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.Verify(target, settings, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.Verify(target, settings, sourceFile, lineNumber);
 }

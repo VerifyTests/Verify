@@ -12,8 +12,9 @@ partial class VerifyBase
         string path,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.VerifyFile(path, settings, info, null, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyFile(path, settings, info, sourceFile: sourceFile, lineNumber: lineNumber);
 
     /// <summary>
     /// Verifies the contents of files.
@@ -24,8 +25,9 @@ partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.VerifyFiles(paths, settings, info, fileScrubber, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyFiles(paths, settings, info, fileScrubber, sourceFile, lineNumber);
 
     /// <summary>
     /// Verifies the contents of <paramref name="path" />.
@@ -37,6 +39,7 @@ partial class VerifyBase
         FileInfo path,
         VerifySettings? settings = null,
         object? info = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.VerifyFile(path, settings, info, null, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyFile(path, settings, info, sourceFile: sourceFile, lineNumber: lineNumber);
 }

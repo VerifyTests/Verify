@@ -102,4 +102,5 @@ Tools supported by Linux:
  * [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
  * [Rider](https://www.jetbrains.com/rider/)
  * [Neovim](https://neovim.io/)
+ * [DiffEngineViewer](https://github.com/VerifyTests/DiffEngine)
 

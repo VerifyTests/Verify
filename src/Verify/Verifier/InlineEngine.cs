@@ -100,9 +100,6 @@ class InlineEngine(
         // Queueing is the inline equivalent of launching a diff tool, so it answers to the same
         // switches. Without this a test that disables diff still piles patches into the viewer,
         // and those patches point at real source that an accept would rewrite.
-        // Queueing is the inline equivalent of launching a diff tool, so it answers to the same
-        // switches. Without this a test that disables diff still piles patches into the viewer,
-        // and those patches point at real source that an accept would rewrite.
         if (!diffEnabled)
         {
             return (null, null);

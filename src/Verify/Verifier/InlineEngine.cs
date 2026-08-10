@@ -12,6 +12,12 @@ class InlineEngine(
                        settings.diffEnabled &&
                        !BuildServerDetector.Detected;
 
+    /// <summary>
+    /// Swapped in tests. Whether a patch reached the viewer is otherwise unobservable: the result
+    /// is Queued either way, and there is no way to ask the viewer what it was sent.
+    /// </summary>
+    internal static Func<InlinePatch, Task<InlineResult>> AddInline = _ => DiffRunner.AddInlineAsync(_);
+
     public string MappedSourceFile { get; } = InnerVerifier.MapSourceFile(inline.File);
     public int Line => inline.Line;
     public Equality Equality { get; private set; }
@@ -91,7 +97,18 @@ class InlineEngine(
     /// </summary>
     public async Task<(string? Hint, StagedInline? Staged)> Queue()
     {
-        var result = await DiffRunner.AddInlineAsync(BuildPatch());
+        // Queueing is the inline equivalent of launching a diff tool, so it answers to the same
+        // switches. Without this a test that disables diff still piles patches into the viewer,
+        // and those patches point at real source that an accept would rewrite.
+        // Queueing is the inline equivalent of launching a diff tool, so it answers to the same
+        // switches. Without this a test that disables diff still piles patches into the viewer,
+        // and those patches point at real source that an accept would rewrite.
+        if (!diffEnabled)
+        {
+            return (null, null);
+        }
+
+        var result = await AddInline(BuildPatch());
         if (result != InlineResult.NoViewerFound)
         {
             return (null, null);

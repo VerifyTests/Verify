@@ -18,7 +18,7 @@ It is also exposed as `VerifyJsonWriter.Context` to serialization converters.
 
 Those extension points are registered globally, and are shared by every test. Context is how a single test passes state to them, for example an environment name or a feature flag.
 
-Set the values on the settings used for the verification:
+Values are written to the dictionary on the settings used for the verification:
 
 <!-- snippet: ContextInTest -->
 <a id='snippet-ContextInTest'></a>
@@ -35,7 +35,21 @@ public Task ComparerWithContext()
 <sup><a href='/src/Verify.Tests/Snippets/ContextSnippets.cs#L5-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-ContextInTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-And read them in the extension point:
+Or fluently, via `AddContext`:
+
+<!-- snippet: ContextInTestFluent -->
+<a id='snippet-ContextInTestFluent'></a>
+```cs
+[Fact]
+public Task ComparerWithContextFluent() =>
+    Verify("TheText")
+        .AddContext("featureEnabled", true)
+        .UseStringComparer(Compare, "txt");
+```
+<sup><a href='/src/Verify.Tests/Snippets/ContextSnippets.cs#L18-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-ContextInTestFluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+And read in the extension point:
 
 <!-- snippet: ContextInComparer -->
 <a id='snippet-ContextInComparer'></a>
@@ -63,7 +77,7 @@ static string RemoveFlagged(string value) =>
             .Split('\n')
             .Where(_ => !_.Contains("FeatureFlagged")));
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ContextSnippets.cs#L18-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-ContextInComparer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ContextSnippets.cs#L28-L53' title='Snippet source file'>snippet source</a> | <a href='#snippet-ContextInComparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Values that are the same for every test do not need Context. A static field is sufficient in that case. Context matters where the value varies per test.

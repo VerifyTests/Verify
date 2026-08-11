@@ -15,6 +15,16 @@ public class ContextSnippets
 
     #endregion
 
+    #region ContextInTestFluent
+
+    [Fact]
+    public Task ComparerWithContextFluent() =>
+        Verify("TheText")
+            .AddContext("featureEnabled", true)
+            .UseStringComparer(Compare, "txt");
+
+    #endregion
+
     #region ContextInComparer
 
     static Task<CompareResult> Compare(

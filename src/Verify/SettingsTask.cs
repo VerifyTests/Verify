@@ -23,6 +23,19 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <summary>
+    /// Adds <paramref name="value" /> to <see cref="VerifySettings.Context" /> under
+    /// <paramref name="name" />, replacing any existing entry.
+    /// Keys prefixed with `Verify.` are reserved for internal use.
+    /// </summary>
+    [Pure]
+    public SettingsTask AddContext(string name, object value)
+    {
+        Ensure.NotNullOrEmpty(name);
+        CurrentSettings.Context[name] = value;
+        return this;
+    }
+
     /// <inheritdoc cref="VerifySettings.AppendValue(string,object)"/>
     [Pure]
     public SettingsTask AppendValue(string name, object data)

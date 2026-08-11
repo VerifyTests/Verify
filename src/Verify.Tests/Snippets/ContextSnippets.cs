@@ -7,8 +7,13 @@ public class ContextSnippets
     [Fact]
     public Task ComparerWithContext()
     {
-        var settings = new VerifySettings();
-        settings.Context["featureEnabled"] = true;
+        var settings = new VerifySettings
+        {
+            Context =
+            {
+                ["featureEnabled"] = true
+            }
+        };
         settings.UseStringComparer(Compare, "txt");
         return Verify("TheText", settings);
     }

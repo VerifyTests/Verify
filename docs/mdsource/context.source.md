@@ -11,11 +11,15 @@ It is also exposed as `VerifyJsonWriter.Context` to serialization converters.
 
 Those extension points are registered globally, and are shared by every test. Context is how a single test passes state to them, for example an environment name or a feature flag.
 
-Set the values on the settings used for the verification:
+Values are written to the dictionary on the settings used for the verification:
 
 snippet: ContextInTest
 
-And read them in the extension point:
+Or fluently, via `AddContext`:
+
+snippet: ContextInTestFluent
+
+And read in the extension point:
 
 snippet: ContextInComparer
 

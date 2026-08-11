@@ -15,6 +15,9 @@ When a target is split the result is:
  * Zero or more documents of a specified extension. File name: `{TestType}.{TestMethod}.{Index}.verified.{Extension}`
 
 
+Converters are registered globally. The `context` parameter passed to a conversion carries per-test information. See [Context](/docs/context.md).
+
+
 ## Usage scenarios
 
  * tiff => png per page

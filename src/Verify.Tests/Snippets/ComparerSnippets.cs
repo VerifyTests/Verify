@@ -8,14 +8,31 @@ public class ComparerSnippets
     public Task InstanceComparer()
     {
         var settings = new VerifySettings();
-        settings.UseStreamComparer(CompareImages);
+        settings.UseStreamComparer(CompareImages, "png");
         return VerifyFile("sample.png", settings);
     }
 
     [Fact]
     public Task InstanceComparerFluent() =>
         VerifyFile("sample.png")
-            .UseStreamComparer(CompareImages);
+            .UseStreamComparer(CompareImages, "png");
+
+    #endregion
+
+    #region StringComparerInstance
+
+    [Fact]
+    public Task StringComparerInstance()
+    {
+        var settings = new VerifySettings();
+        settings.UseStringComparer(CompareIgnoringCase, "txt");
+        return Verify("TheText", settings);
+    }
+
+    [Fact]
+    public Task StringComparerInstanceFluent() =>
+        Verify("TheText")
+            .UseStringComparer(CompareIgnoringCase, "txt");
 
     #endregion
 
@@ -71,6 +88,46 @@ public class ComparerSnippets
 
         #endregion
     }
+
+    public async Task StringComparerStatic()
+    {
+        #region StringComparerStatic
+
+        VerifierSettings.RegisterStringComparer(
+            extension: "txt",
+            compare: CompareIgnoringCase);
+        await Verify("TheText");
+
+        #endregion
+    }
+
+    public async Task DefaultStringComparer()
+    {
+        #region DefaultStringComparer
+
+        VerifierSettings.SetDefaultStringComparer(CompareIgnoringCase);
+        await Verify("TheText");
+
+        #endregion
+    }
+
+    #region StringComparer
+
+    static Task<CompareResult> CompareIgnoringCase(
+        string received,
+        string verified,
+        IReadOnlyDictionary<string, object> context)
+    {
+        if (string.Equals(received, verified, StringComparison.OrdinalIgnoreCase))
+        {
+            return Task.FromResult(CompareResult.Equal);
+        }
+
+        var result = CompareResult.NotEqual("Differed by more than case");
+        return Task.FromResult(result);
+    }
+
+    #endregion
 
     #region ImageComparer
 

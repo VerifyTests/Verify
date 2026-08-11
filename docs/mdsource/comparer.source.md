@@ -1,19 +1,77 @@
 # Comparer
 
-Comparers are used to compare non-text files.
+Comparers control how a received result is compared to its verified file. They apply to both text and binary targets.
+
+A comparer is helpful when a result has changed, but not enough to fail verification. For example when rendering images/forms on different operating systems, or when part of a text snapshot legitimately varies between environments.
+
+There are two kinds, selected by the type of the target being compared:
+
+ * String comparers (`StringCompare`) for text targets.
+ * Stream comparers (`StreamCompare`) for binary targets.
+
+Note that a comparer only runs when the received and verified content are not already identical. A matching result never reaches the comparer, so the passing path keeps the fast comparison.
+
+In both cases the returned `CompareResult.NotEqual` takes an optional message that will be rendered in the resulting text displayed to the user on test failure.
+
+Comparers change only the equality check. The received and verified content is left as-is, so relaxing a comparison does not churn existing verified files, unlike scrubbing or ignoring members.
 
 
-## Custom Comparer
+## Comparer resolution
 
-Using a custom comparer can be helpful when a result has changed, but not enough to fail verification. For example when rendering images/forms on different operating systems.
+Comparers are matched on the extension of the target being compared, and the first match wins:
+
+ 1. An instance comparer registered for that extension: `settings.UseStringComparer(compare, "json")`.
+ 2. An instance comparer registered with no extension, which applies to all extensions: `settings.UseStringComparer(compare)`.
+ 3. A static comparer registered for that extension: `VerifierSettings.RegisterStringComparer("json", compare)`.
+ 4. For text targets only, the static default: `VerifierSettings.SetDefaultStringComparer(compare)`.
+
+So a global comparer can be registered once and overridden for specific tests.
+
+The extension match is exact, and an extension with no match is a silent no-op rather than an error. Care is needed where a setting changes the extension of a snapshot: [UseStrictJson](/docs/serializer-settings.md#usestrictjson) renames text snapshots from `txt` to `json`, so a comparer registered against `txt` stops running once it is enabled. `SetDefaultStringComparer` avoids pinning an extension.
+
+Static comparers must be registered before the first verification runs, so a [ModuleInitializer](https://learn.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.moduleinitializerattribute) is the usual location.
+
+
+## String comparer
+
+For sample purposes only case differences will be ignored:
+
+snippet: StringComparer
+
+
+### Instance string comparer
+
+snippet: StringComparerInstance
+
+
+### Static string comparer
+
+snippet: StringComparerStatic
+
+Or as the default for all text extensions:
+
+snippet: DefaultStringComparer
+
+Information can be passed from a test to its comparer via [Context](/docs/context.md).
+
+
+## Stream comparer
 
 For samples purposes only the image sizes will be compared:
 
 snippet: ImageComparer
 
-The returned `CompareResult.NotEqual` takes an optional message that will be rendered in the resulting text displayed to the user on test failure.
-
 **If an input is split into multiple files, and a text file fails, then all subsequent binary comparisons will revert to the default comparison.**
+
+
+### Instance stream comparer
+
+snippet: InstanceComparer
+
+
+### Static stream comparer
+
+snippet: StaticComparer
 
 
 ### Bypass comparers for derived targets
@@ -23,16 +81,6 @@ When a converter splits an input into multiple targets, for example a source doc
 snippet: BypassComparersForSubsequentOnDifference
 
 The flag must be set on the source target, and that target must precede the derived targets in the conversion result.
-
-
-### Instance comparer
-
-snippet: InstanceComparer
-
-
-### Static comparer
-
-snippet: StaticComparer
 
 
 ## Default Comparison

@@ -1107,6 +1107,7 @@ Browser testing via
   * [Kill process locking file](/docs/kill-process-locking-file.md)
   * [Comparers](/docs/comparer.md)
   * [Converters](/docs/converter.md)
+  * [Context](/docs/context.md)
   * [Recording](/docs/recording.md)
   * [Explicit Targets](/docs/explicit-targets.md)
   * [TempDirectory](/docs/temp-directory.md)

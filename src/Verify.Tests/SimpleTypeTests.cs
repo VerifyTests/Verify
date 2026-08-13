@@ -103,7 +103,7 @@
         yield return [(uint) 1];
         yield return [(ulong) 1];
         yield return [(ushort) 1];
-        yield return [(decimal) 1.1];
+        yield return [1.1m];
         yield return [(float) 1.1];
         yield return [new Guid("ebced679-45d3-4653-8791-3d969c4a986c")];
         yield return [new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc).ToUniversalTime()];

@@ -28,6 +28,7 @@ partial class InnerVerifier
 
         var inline = ResolveInline(resultTargets);
         InlineEngine? inlineEngine = null;
+        string? migratedExpected = null;
         if (inline is not null)
         {
             inlineEngine = new(
@@ -40,8 +41,21 @@ partial class InnerVerifier
         {
             // A literal exists but inline is off for this verification, so migrate: strip the
             // Snapshot call and let the snapshot flow through as a file, which the user then
-            // accepts the usual way.
-            InlineEngine.TryRemove(stale);
+            // accepts the usual way. Only where the source was actually rewritten, so a build
+            // server is left alone.
+            if (InlineEngine.TryRemove(stale) &&
+                stale.Expected is not null)
+            {
+                // The literal was the approved snapshot, so it becomes the verified file's
+                // content. Otherwise the migration reads as a brand new snapshot, and the
+                // approved text is lost from both the source and the failure message.
+                migratedExpected = InlineEngine.NormalizeExpected(stale.Expected);
+            }
+
+            // Prefix uniqueness is skipped while inline, since several inline verifies per
+            // method are legal. Migrating puts this one back under the file naming rules, where
+            // two of them in one method would resolve to the same name.
+            ValidatePrefix(settings, pathPrefixReceived!);
         }
 
         var engine = new VerifyEngine(
@@ -52,7 +66,8 @@ partial class InnerVerifier
             getIndexedFileNames,
             settings.TypeName ?? typeName,
             settings.MethodName ?? methodName,
-            inlineEngine);
+            inlineEngine,
+            migratedExpected);
 
         try
         {
@@ -91,9 +106,19 @@ partial class InnerVerifier
             return null;
         }
 
-        // An explicit Snapshot(...) is the user's stated intent, whatever the global switch says
+        // An explicit Snapshot(...) is the user's stated intent, whatever the global switch says.
+        // The size limit is the one exception, and only where it was opted in to cover existing
+        // calls. Not on a build server: the source cannot be rewritten there, so the literal that
+        // is actually checked out is the one to compare against.
         if (settings.inline is { } explicitInline)
         {
+            if (VerifierSettings.inlineApplyMaxLinesToExisting &&
+                !InlineEngine.IsBuildServer() &&
+                ExceedsMaxLines(targets))
+            {
+                return null;
+            }
+
             return explicitInline;
         }
 
@@ -126,8 +151,48 @@ partial class InnerVerifier
             return null;
         }
 
+        // A long snapshot swamps the test it sits in, so it stays a file
+        if (ExceedsMaxLines(targets))
+        {
+            return null;
+        }
+
         // No literal yet, so the patcher appends a Snapshot call to the verify invocation
         return new(null, inlineSourceFile, lineNumber, null, InlinePatchMode.Append);
+    }
+
+    /// <summary>
+    /// Whether the content that would be inlined has more lines than the configured limit.
+    /// A trailing newline starts no line, so it is not counted. The content is already
+    /// newline normalized.
+    /// </summary>
+    static bool ExceedsMaxLines(List<Target> targets)
+    {
+        if (VerifierSettings.inlineMaxLines is not { } maxLines ||
+            targets.Count == 0 ||
+            // A binary first target has no lines to count. It is not inlineable at all, and
+            // InlineEngine.Compare owns that error message, so it is left to reach it.
+            !targets[0].TryGetStringBuilder(out var builder))
+        {
+            return false;
+        }
+
+        var lines = 1;
+        for (var index = 0; index < builder.Length - 1; index++)
+        {
+            if (builder[index] != '\n')
+            {
+                continue;
+            }
+
+            lines++;
+            if (lines > maxLines)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     Func<Task> RemoveExcludedTargets(List<Target> targets, Func<Task> cleanup, out bool removed)

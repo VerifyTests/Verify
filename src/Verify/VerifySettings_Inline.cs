@@ -11,7 +11,7 @@ public partial class VerifySettings
     /// Only supported from C# source files, and only for text results.
     /// <para>
     /// Calling this is an explicit opt in, so it applies whether or not
-    /// <see cref="VerifierSettings.Inline()" /> has been used. When inline is off for this
+    /// <see cref="VerifierSettings.Inline" /> has been used. When inline is off for this
     /// verification, the call is removed from the source and the snapshot moves to a file.
     /// </para>
     /// </summary>
@@ -43,7 +43,7 @@ public partial class VerifySettings
 
     /// <summary>
     /// Use a <c>.verified</c> file for this verification even when
-    /// <see cref="VerifierSettings.Inline()" /> is on.
+    /// <see cref="VerifierSettings.Inline" /> is on.
     /// </summary>
     public void NotInline() =>
         notInline = true;

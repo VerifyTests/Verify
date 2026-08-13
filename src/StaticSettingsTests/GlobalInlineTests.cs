@@ -11,8 +11,14 @@ public class GlobalInlineTests :
     bool diffDisabled = DiffEngine.DiffRunner.Disabled;
     Func<bool> isBuildServer = InlineEngine.IsBuildServer;
 
-    public GlobalInlineTests() =>
+    public GlobalInlineTests()
+    {
         DiffEngine.DiffRunner.Disabled = true;
+        // The migration tests below rewrite source, which InlineEngine declines to do on a build
+        // server. Pin the check off for the class, rather than have those tests pass locally and
+        // fail on CI. MigrationSkippedOnBuildServer moves it back for its duration.
+        InlineEngine.IsBuildServer = () => false;
+    }
 
     public void Dispose()
     {

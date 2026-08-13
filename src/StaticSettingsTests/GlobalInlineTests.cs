@@ -9,12 +9,16 @@ public class GlobalInlineTests :
     IDisposable
 {
     bool diffDisabled = DiffEngine.DiffRunner.Disabled;
+    Func<bool> isBuildServer = InlineEngine.IsBuildServer;
 
     public GlobalInlineTests() =>
         DiffEngine.DiffRunner.Disabled = true;
 
-    public void Dispose() =>
+    public void Dispose()
+    {
         DiffEngine.DiffRunner.Disabled = diffDisabled;
+        InlineEngine.IsBuildServer = isBuildServer;
+    }
 
     [Fact]
     public async Task On()
@@ -290,6 +294,337 @@ public class GlobalInlineTests :
         Assert.Contains("#01.verified.txt", exception.Message);
         Assert.DoesNotContain("#00.verified.txt", exception.Message);
     }
+
+    /// <summary>
+    /// The delegate cannot see the content, so a line limit is the only way to keep a long
+    /// snapshot out of the test method it would otherwise swamp.
+    /// </summary>
+    [Fact]
+    public async Task MaxLinesAtLimit()
+    {
+        VerifierSettings.Inline(maxLines: 3);
+
+        var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify(Lines(3)));
+
+        Assert.Contains("InlineNew:", exception.Message);
+    }
+
+    [Fact]
+    public async Task MaxLinesOverLimit()
+    {
+        VerifierSettings.Inline(maxLines: 3);
+
+        using var temp = new TempDirectory();
+        var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify(Lines(4), Settings(temp)));
+
+        Assert.DoesNotContain("InlineNew:", exception.Message);
+        Assert.Contains("New:", exception.Message);
+    }
+
+    /// <summary>
+    /// Snapshots routinely end with a newline, and counting it would take a line off every
+    /// budget for nothing.
+    /// </summary>
+    [Fact]
+    public async Task MaxLinesIgnoresTrailingNewline()
+    {
+        VerifierSettings.Inline(maxLines: 2);
+
+        var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify("line1\nline2\n"));
+
+        Assert.Contains("InlineNew:", exception.Message);
+    }
+
+    [Fact]
+    public async Task MaxLinesNotSet()
+    {
+        VerifierSettings.Inline();
+
+        var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify(Lines(500)));
+
+        Assert.Contains("InlineNew:", exception.Message);
+    }
+
+    /// <summary>
+    /// The two combine as an and: the delegate picks the candidate tests, and the limit then
+    /// applies to what those produce. So the delegate still runs for content over the limit.
+    /// </summary>
+    [Fact]
+    public async Task MaxLinesAppliesAfterTheDelegate()
+    {
+        var delegateRan = false;
+        VerifierSettings.Inline(
+            (_, _, _, _) =>
+            {
+                delegateRan = true;
+                return true;
+            },
+            maxLines: 2);
+
+        using var temp = new TempDirectory();
+        var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify(Lines(3), Settings(temp)));
+
+        Assert.True(delegateRan);
+        Assert.DoesNotContain("InlineNew:", exception.Message);
+    }
+
+    /// <summary>
+    /// A binary target has no lines to count, and quietly routing it to files would trade a
+    /// clear error for a silent fallback.
+    /// </summary>
+    [Fact]
+    public async Task MaxLinesDoesNotSwallowBinaryFirstTarget()
+    {
+        VerifierSettings.Inline(maxLines: 1);
+
+        using var temp = new TempDirectory();
+        var exception = await Assert.ThrowsAsync<VerifyException>(
+            () => Verify(new MemoryStream([1, 2, 3]), "bin", Settings(temp)));
+
+        Assert.Contains("only support text", exception.Message);
+    }
+
+    [Fact]
+    public void MaxLinesInvalid() =>
+        Assert.Throws<ArgumentOutOfRangeException>(() => VerifierSettings.Inline(maxLines: 0));
+
+    [Fact]
+    public void ApplyMaxLinesToExistingRequiresMaxLines() =>
+        Assert.Throws<ArgumentException>(() => VerifierSettings.Inline(applyMaxLinesToExisting: true));
+
+    /// <summary>
+    /// The limit routes new snapshots only. Removing a literal rewrites source, so an existing
+    /// one is left alone until that is opted in to.
+    /// </summary>
+    [Fact]
+    public async Task ExistingOverLimitKeptByDefault()
+    {
+        VerifierSettings.Inline(maxLines: 1);
+
+        var template = WriteTemplate();
+        try
+        {
+            using var temp = new TempDirectory();
+            var settings = Settings(temp);
+            settings.Snapshot("old", template, 3, "\"old\"");
+
+            var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify(Lines(2), settings));
+
+            Assert.Contains("InlineNotEqual:", exception.Message);
+            Assert.Contains("\"old\"", await File.ReadAllTextAsync(template));
+        }
+        finally
+        {
+            Directory.Delete(Path.GetDirectoryName(template)!, true);
+        }
+    }
+
+    [Fact]
+    public async Task ExistingUnderLimitStaysInline()
+    {
+        VerifierSettings.Inline(maxLines: 5, applyMaxLinesToExisting: true);
+
+        var template = WriteTemplate();
+        try
+        {
+            using var temp = new TempDirectory();
+            var settings = Settings(temp);
+            settings.Snapshot("old", template, 3, "\"old\"");
+
+            var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify(Lines(2), settings));
+
+            Assert.Contains("InlineNotEqual:", exception.Message);
+            Assert.Contains("\"old\"", await File.ReadAllTextAsync(template));
+        }
+        finally
+        {
+            Directory.Delete(Path.GetDirectoryName(template)!, true);
+        }
+    }
+
+    /// <summary>
+    /// The literal was the approved snapshot, so it seeds the verified file. Without that the
+    /// migration reads as a brand new snapshot and the approved text is lost from both the
+    /// source and the failure message.
+    /// </summary>
+    [Fact]
+    public async Task ExistingOverLimitMovesToFile()
+    {
+        VerifierSettings.Inline(maxLines: 1, applyMaxLinesToExisting: true);
+
+        var template = WriteTemplate();
+        try
+        {
+            using var temp = new TempDirectory();
+            var settings = Settings(temp);
+            settings.Snapshot("old", template, 3, "\"old\"");
+
+            var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify(Lines(2), settings));
+
+            Assert.DoesNotContain("Snapshot", await File.ReadAllTextAsync(template));
+            Assert.DoesNotContain("InlineNotEqual:", exception.Message);
+            Assert.Contains("NotEqual:", exception.Message);
+            Assert.Equal("old", await File.ReadAllTextAsync(VerifiedPath(temp)));
+        }
+        finally
+        {
+            Directory.Delete(Path.GetDirectoryName(template)!, true);
+        }
+    }
+
+    /// <summary>
+    /// The limit covers every existing literal, not only ones whose content changed, so the
+    /// migration has to leave a passing test passing.
+    /// </summary>
+    [Fact]
+    public async Task UnchangedOverLimitMigratesWithoutFailing()
+    {
+        VerifierSettings.Inline(maxLines: 1, applyMaxLinesToExisting: true);
+
+        var template = WriteTemplate();
+        try
+        {
+            using var temp = new TempDirectory();
+            var settings = Settings(temp);
+            // Same content as Lines(2); Snapshot takes a constant
+            settings.Snapshot("line1\nline2", template, 3, "\"old\"");
+
+            await Verify(Lines(2), settings);
+
+            Assert.DoesNotContain("Snapshot", await File.ReadAllTextAsync(template));
+            Assert.Equal(Lines(2), await File.ReadAllTextAsync(VerifiedPath(temp)));
+        }
+        finally
+        {
+            Directory.Delete(Path.GetDirectoryName(template)!, true);
+        }
+    }
+
+    [Fact]
+    public async Task EmptySnapshotOverLimitMovesToFile()
+    {
+        VerifierSettings.Inline(maxLines: 1, applyMaxLinesToExisting: true);
+
+        var template = WriteTemplate(
+            """
+            class Templ
+            {
+                Task A() => Verify(a).Snapshot();
+            }
+            """);
+        try
+        {
+            using var temp = new TempDirectory();
+            var settings = Settings(temp);
+            settings.Snapshot(null, template, 3, null);
+
+            var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify(Lines(2), settings));
+
+            Assert.DoesNotContain("Snapshot", await File.ReadAllTextAsync(template));
+            Assert.DoesNotContain("InlineNew:", exception.Message);
+            // Nothing to seed the verified file with, so it really is a new snapshot
+            Assert.Contains("New:", exception.Message);
+        }
+        finally
+        {
+            Directory.Delete(Path.GetDirectoryName(template)!, true);
+        }
+    }
+
+    /// <summary>
+    /// Nothing is rewritten on a build server, so migrating there would leave the literal in the
+    /// source and point the verification at a file that is not in the repository.
+    /// </summary>
+    [Fact]
+    public async Task MigrationSkippedOnBuildServer()
+    {
+        InlineEngine.IsBuildServer = () => true;
+        VerifierSettings.Inline(maxLines: 1, applyMaxLinesToExisting: true);
+
+        var template = WriteTemplate();
+        var original = await File.ReadAllTextAsync(template);
+        try
+        {
+            using var temp = new TempDirectory();
+            var settings = Settings(temp);
+            settings.Snapshot("old", template, 3, "\"old\"");
+
+            var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify(Lines(2), settings));
+
+            Assert.Contains("InlineNotEqual:", exception.Message);
+            Assert.Equal(original, await File.ReadAllTextAsync(template));
+            Assert.False(File.Exists(VerifiedPath(temp)));
+        }
+        finally
+        {
+            Directory.Delete(Path.GetDirectoryName(template)!, true);
+        }
+    }
+
+    /// <summary>
+    /// Several inline verifies per method are legal, since a literal has no file name to collide
+    /// on. Migrating puts them back under the file naming rules, where they do.
+    /// </summary>
+    [Fact]
+    public async Task TwoMigratingSnapshotsInOneMethodThrow()
+    {
+        VerifierSettings.Inline(maxLines: 1, applyMaxLinesToExisting: true);
+
+        var template = WriteTemplate(
+            """
+            class Templ
+            {
+                Task A() => Verify(a).Snapshot("old");
+                Task B() => Verify(b).Snapshot("old");
+            }
+            """);
+        try
+        {
+            using var temp = new TempDirectory();
+
+            VerifySettings SiteSettings(int line)
+            {
+                var settings = Settings(temp);
+                settings.Snapshot("old", template, line, "\"old\"");
+                return settings;
+            }
+
+            await Assert.ThrowsAsync<VerifyException>(() => Verify(Lines(2), SiteSettings(3)));
+            var exception = await Assert.ThrowsAnyAsync<Exception>(() => Verify(Lines(2), SiteSettings(4)));
+
+            Assert.Contains("The prefix has already been used", exception.Message);
+        }
+        finally
+        {
+            Directory.Delete(Path.GetDirectoryName(template)!, true);
+        }
+    }
+
+    // Content with a known line count, for exercising maxLines
+    static string Lines(int count) =>
+        string.Join('\n', Enumerable.Range(1, count).Select(_ => $"line{_}"));
+
+    static string VerifiedPath(TempDirectory temp, [CallerMemberName] string name = "") =>
+        temp.BuildPath($"{nameof(GlobalInlineTests)}.{name}.verified.txt");
+
+    // Migrating away from inline rewrites source, so the tests that exercise it point at a
+    // throwaway file rather than this one
+    static string WriteTemplate(string body = snapshotTemplate)
+    {
+        var directory = Path.Combine(Path.GetTempPath(), $"VerifyGlobalInlineTests_{Guid.NewGuid():N}");
+        Directory.CreateDirectory(directory);
+        var path = Path.Combine(directory, "Template.cs");
+        File.WriteAllText(path, body);
+        return path;
+    }
+
+    const string snapshotTemplate =
+        """
+        class Templ
+        {
+            Task A() => Verify(a).Snapshot("old");
+        }
+        """;
 
     static VerifySettings Settings(TempDirectory temp)
     {

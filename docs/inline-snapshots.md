@@ -92,7 +92,7 @@ public static class ModuleInitializer
 <sup><a href='/src/ModuleInitDocs/Inline.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticInline' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Every `Verify*` then uses an inline snapshot, and accepting one appends the `.Snapshot(...)` call to the verify invocation.
+Every `Verify*` then uses an inline snapshot, unless it is declined by one of the rules below, and accepting one appends the `.Snapshot(...)` call to the verify invocation.
 
 To decide per verification, pass a delegate:
 
@@ -120,6 +120,49 @@ await Verify(target)
 ```
 
 `NotInline` wins over both the global switch and an explicit `.Snapshot(...)`.
+
+
+## Limiting the size of an inline snapshot
+
+A long literal drowns the test method it sits in, which is the opposite of what an inline snapshot is for. `maxLines` keeps those on files:
+
+<!-- snippet: StaticInlineMaxLines -->
+<a id='snippet-StaticInlineMaxLines'></a>
+```cs
+public static class ModuleInitializer
+{
+    [ModuleInitializer]
+    public static void Init() =>
+        VerifierSettings.Inline(maxLines: 30);
+}
+```
+<sup><a href='/src/ModuleInitDocs/InlineMaxLines.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticInlineMaxLines' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+A result of more than 30 lines then uses a `.verified.` file, and everything shorter is inlined.
+
+The limit and the delegate combine as an and: the delegate picks the candidate tests, and the limit applies to what those produce.
+
+`maxLines` counts the lines of the snapshot content, not the lines the literal occupies in source. A raw string literal adds two delimiter lines plus indentation on top of that. A single trailing newline starts no line, so it is not counted. Nothing is measured for width, so a one line snapshot is inlined however long that line is.
+
+By default the limit routes new snapshots only, and a `.Snapshot(...)` call that already exists is left alone. Removing one rewrites source, so that is opted in to separately:
+
+<!-- snippet: StaticInlineApplyMaxLinesToExisting -->
+<a id='snippet-StaticInlineApplyMaxLinesToExisting'></a>
+```cs
+public static class ModuleInitializer
+{
+    [ModuleInitializer]
+    public static void Init() =>
+        VerifierSettings.Inline(
+            maxLines: 30,
+            applyMaxLinesToExisting: true);
+}
+```
+<sup><a href='/src/ModuleInitDocs/InlineApplyMaxLinesToExisting.cs#L3-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticInlineApplyMaxLinesToExisting' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Every existing literal over the limit then migrates, not only the ones whose content changed, so a test that was passing keeps passing: the literal seeds the verified file, as described below. Nothing is rewritten on a build server, where such a test keeps using its literal.
 
 
 ## Parameterised tests
@@ -156,7 +199,7 @@ The APIs that do this are `IgnoreParameters()`, `IgnoreParametersForVerified()` 
 
 The **first** target is the inline snapshot. Any others are written to `.verified.` files as usual, keeping the names they would have had, so turning inline on never renames a snapshot file. That leaves a deliberate gap where the first target's file would have been: a verification that produced `#00`, `#01` and `#02` keeps `#01` and `#02` on disk.
 
-If the first target is not text, the verification throws. Use `.NotInline()` for that test, or `Target.DontInline` for that extension.
+If the first target is not text, the verification throws. Use `.NotInline()` for that test, or `Target.DontInline` for that extension. A [`maxLines`](#limiting-the-size-of-an-inline-snapshot) limit does not change this: a binary target has no lines to count, so it still reaches the same error rather than quietly falling back to files.
 
 
 ## Extensions that should never inline
@@ -171,6 +214,62 @@ new Target("md", page1)
 ```
 
 The whole verification then falls back to files.
+
+
+## How a verification is routed
+
+Every rule above feeds one decision, made per verification once the targets have been serialized and scrubbed:
+
+```mermaid
+graph TD
+start["Verification"]
+notInline{"NotInline() ?"}
+start-->notInline
+
+literal{"Snapshot(...)<br/>already in the source ?"}
+notInline-- No -->literal
+
+existing{"applyMaxLinesToExisting,<br/>over maxLines, and<br/>not a build server ?"}
+literal-- Yes -->existing
+
+migrate["Strip the Snapshot call.<br/>The literal seeds<br/>the verified file"]
+existing-- Yes -->migrate
+
+globalSwitch{"VerifierSettings.Inline()<br/>in a module initializer ?"}
+literal-- No -->globalSwitch
+
+compatible{"C# source, no parameters in<br/>the verified name, and no<br/>UseUniqueDirectory ?"}
+globalSwitch-- Yes -->compatible
+
+accepted{"Delegate accepts, and the first<br/>target is not DontInline ?"}
+compatible-- Yes -->accepted
+
+within{"Within maxLines ?"}
+accepted-- Yes -->within
+
+inline["Inline snapshot"]
+within-- Yes -->inline
+existing-- No -->inline
+
+isText{"First target<br/>is text ?"}
+inline-->isText
+
+compare["Compare against the literal.<br/>Accepting rewrites it in source"]
+isText-- Yes -->compare
+
+throws["Throws: inline snapshots<br/>only support text"]
+isText-- No -->throws
+
+file["Verified file"]
+notInline-- Yes -->file
+migrate-->file
+globalSwitch-- No -->file
+compatible-- No -->file
+accepted-- No -->file
+within-- No -->file
+```
+
+The checks that route a verification to files are silent rather than errors, so turning the switch on across a codebase leaves the tests it cannot represent alone. An explicit `.Snapshot(...)` is stricter: it throws for parameterised tests and for `UseUniqueDirectory`, since those are a stated intent that cannot be honoured.
 
 
 ## Accepting a snapshot
@@ -194,7 +293,11 @@ Both directions are handled without any manual file editing.
 
 **File to inline.** The existing `.verified.` file for the inlined target is detected as stale and flows through the standard [Delete handling](exception-message-format.md): deleted automatically under AutoVerify, otherwise listed in the `Delete:` section and pended in DiffEngineTray. Deletes still go through the tray; only the inline snapshot queue moved to the viewer. Files belonging to the other targets keep their names and are left alone.
 
-**Inline to file.** When a `.Snapshot(...)` call exists but inline is off for that verification, the call is removed from the source and the snapshot runs as a normal file snapshot, which is then accepted the usual way. Nothing is rewritten on a build server.
+There is no size opt out on this direction, so a snapshot that shrinks back under a [`maxLines`](#limiting-the-size-of-an-inline-snapshot) limit returns to being inline and leaves its file behind as a stale delete. One sitting on the boundary therefore moves each time it crosses it.
+
+**Inline to file.** When a `.Snapshot(...)` call exists but inline is off for that verification, the call is removed from the source and the snapshot runs as a normal file snapshot. The literal was the approved snapshot, so it seeds the verified file: an unchanged snapshot migrates without failing, and a changed one is an ordinary mismatch with the old and new text, accepted the usual way. Accepting a migration means committing both the source edit and the new `.verified.` file. Nothing is rewritten on a build server.
+
+The two triggers for this direction are `.NotInline()` and an existing literal over a [`maxLines`](#limiting-the-size-of-an-inline-snapshot) limit.
 
 
 ## Exception message

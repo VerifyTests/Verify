@@ -19,6 +19,11 @@ public partial class InnerVerifier :
     int lineNumber;
     bool verifiedHasParameters;
 
+    // Only used to re-run prefix validation when an inline snapshot migrates back to a file,
+    // since the validation is skipped for inline. Null under the directory convention, which
+    // inline is not compatible with.
+    string? pathPrefixReceived;
+
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ThrowIfVerifyHasBeenRun()
     {
@@ -338,6 +343,7 @@ public partial class InnerVerifier :
 
         var pathPrefixReceived = Path.Combine(directory, receivedPrefix);
         var pathPrefixVerified = Path.Combine(directory, verifiedPrefix);
+        this.pathPrefixReceived = pathPrefixReceived;
         // Inline verifies have no file prefix to collide on, and multiple inline
         // verifies per test method are legal, so skip prefix uniqueness
         if (settings.inline is null)

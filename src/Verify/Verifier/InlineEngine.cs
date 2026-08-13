@@ -51,10 +51,7 @@ class InlineEngine(
             return;
         }
 
-        // The literal inherits the .cs file's line endings; mirror Comparer.Text normalization
-        var expected = inline.Expected
-            .Replace("\r\n", "\n")
-            .Replace('\r', '\n');
+        var expected = NormalizeExpected(inline.Expected);
 
         // Mirror Comparer.CompareStrings trailing newline tolerance
         if (VerifierSettings.ignoreTrailingNewline &&
@@ -69,6 +66,15 @@ class InlineEngine(
             ? Equality.Equal
             : Equality.NotEqual;
     }
+
+    /// <summary>
+    /// The literal inherits the .cs file's line endings; mirror Comparer.Text normalization.
+    /// Also used when a literal is migrated into a verified file, so the two can never drift.
+    /// </summary>
+    internal static string NormalizeExpected(string expected) =>
+        expected
+            .Replace("\r\n", "\n")
+            .Replace('\r', '\n');
 
     /// <summary>
     /// Drops anything a prior failing run left queued in the viewer.

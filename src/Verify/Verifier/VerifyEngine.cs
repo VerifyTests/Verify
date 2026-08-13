@@ -10,7 +10,8 @@ class VerifyEngine(
     GetIndexedFileNames getIndexedFileNames,
     string? typeName,
     string? methodName,
-    InlineEngine? inlineEngine = null)
+    InlineEngine? inlineEngine = null,
+    string? migratedExpected = null)
 {
     bool diffEnabled = !DiffRunner.Disabled &&
                        settings.diffEnabled &&
@@ -67,6 +68,7 @@ class VerifyEngine(
             }
 
             var file = getFileNames(target);
+            SeedMigrated(file);
             var result = await GetResult(settings, file, target, false, false);
             HandleCompareResult(result, file);
             return;
@@ -75,8 +77,13 @@ class VerifyEngine(
         var textHasFailed = false;
         var bypassComparers = false;
 
-        async Task Inner(FilePair file, Target target)
+        async Task Inner(FilePair file, Target target, bool isFirst)
         {
+            if (isFirst)
+            {
+                SeedMigrated(file);
+            }
+
             var result = await GetResult(settings, file, target, textHasFailed, bypassComparers);
 
             if (result.Equality != Equality.Equal)
@@ -113,7 +120,7 @@ class VerifyEngine(
                     continue;
                 }
 
-                await Inner(getFileNames(target), target);
+                await Inner(getFileNames(target), target, position == 0);
                 continue;
             }
 
@@ -126,9 +133,25 @@ class VerifyEngine(
                     continue;
                 }
 
-                await Inner(getIndexedFileNames(target, index.ToString("D2")), target);
+                await Inner(getIndexedFileNames(target, index.ToString("D2")), target, position == 0);
             }
         }
+    }
+
+    /// <summary>
+    /// A verification that just migrated away from an inline snapshot has no verified file yet,
+    /// but its literal was the approved content, so that becomes the file. Without this the
+    /// migration reads as a brand new snapshot and the approved text is lost.
+    /// </summary>
+    void SeedMigrated(in FilePair file)
+    {
+        if (migratedExpected is null ||
+            File.Exists(file.VerifiedPath))
+        {
+            return;
+        }
+
+        IoHelpers.WriteText(file.VerifiedPath, new(migratedExpected));
     }
 
     void HandleCompareResult(EqualityResult result, FilePair file)

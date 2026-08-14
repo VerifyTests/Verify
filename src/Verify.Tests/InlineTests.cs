@@ -452,7 +452,7 @@ public class InlineTests :
             var content = await File.ReadAllTextAsync(template);
             var indent = new string(' ', 12);
             Assert.Contains(
-                $".Snapshot(\"\"\"{eol}{indent}new1{eol}{indent}new2{eol}{indent}\"\"\");",
+                $".Snapshot({eol}{indent}\"\"\"{eol}{indent}new1{eol}{indent}new2{eol}{indent}\"\"\");",
                 content);
             AssertEolConsistent(content, eol);
         }
@@ -481,7 +481,7 @@ public class InlineTests :
             var content = await File.ReadAllTextAsync(template);
             var indent = new string(' ', 12);
             Assert.Contains(
-                $".Snapshot(\"\"\"{eol}{indent}new1{eol}{indent}new2{eol}{indent}\"\"\");",
+                $".Snapshot({eol}{indent}\"\"\"{eol}{indent}new1{eol}{indent}new2{eol}{indent}\"\"\");",
                 content);
             AssertEolConsistent(content, eol);
         }
@@ -541,7 +541,8 @@ public class InlineTests :
             settings.AutoVerify();
             settings.DisableDiff();
             await Verify("newvalue", settings);
-            Assert.Contains(".Snapshot(\"\"\"", await File.ReadAllTextAsync(template));
+            // Single line content is a regular literal, not a raw one
+            Assert.Contains(".Snapshot(\"newvalue\");", await File.ReadAllTextAsync(template));
         }
         finally
         {

@@ -185,13 +185,28 @@ class InlineEngine(
         return new(received, expected, patch);
     }
 
+    /// <summary>
+    /// What the viewer labels and groups a queued entry by. Type and method, the pair that already
+    /// names a verified file, so the queue shows a name the reader knows from test output instead
+    /// of falling back to the call site. Null only when neither could be resolved, which is the
+    /// explicit Snapshot path outside a recognised test.
+    /// </summary>
+    string? TestName => (typeName, methodName) switch
+    {
+        (not null, not null) => $"{typeName}.{methodName}",
+        _ => typeName ?? methodName
+    };
+
     InlinePatch BuildPatch() =>
         new(
             MappedSourceFile,
             inline.Line,
             inline.Expression,
             Rendered,
-            inline.Mode);
+            inline.Mode)
+        {
+            TestName = TestName
+        };
 
     /// <summary>
     /// Strips the Snapshot call, for when a test that had an inline literal is moving back to a
@@ -209,7 +224,11 @@ class InlineEngine(
             inline.Line,
             inline.Expression,
             "",
-            InlinePatchMode.Remove);
+            InlinePatchMode.Remove)
+        {
+            // Applied here rather than queued, so it is never displayed and has no name to show.
+            TestName = null
+        };
         return InlineApplier.Apply(patch).Status == InlineApplyStatus.Applied;
     }
 }

@@ -53,6 +53,21 @@ public class InlineQueueTests :
         Assert.Equal(1, patch.LineHint);
     }
 
+    /// <summary>
+    /// The viewer labels and groups queue entries by this, and falls back to the bare call site
+    /// without it, so an unnamed patch is a queue that cannot group.
+    /// </summary>
+    [Fact]
+    public async Task QueuedPatchCarriesTheTestName()
+    {
+        using var temp = new TempDirectory();
+
+        await Assert.ThrowsAsync<VerifyException>(() => Verify("value", Settings(temp)));
+
+        var patch = Assert.Single(queued);
+        Assert.Equal($"{nameof(InlineQueueTests)}.{nameof(QueuedPatchCarriesTheTestName)}", patch.TestName);
+    }
+
     [Fact]
     public async Task NotQueuedWhenDiffDisabled()
     {

@@ -757,13 +757,15 @@ public class InlineTests :
     {
         var directory = Path.Combine(AttributeReader.GetProjectDirectory(), "InlineScratch");
         Directory.CreateDirectory(directory);
-        var stale = Path.Combine(directory, "MovedToInline.verified.txt");
+        // Scoped to the runtime: every target framework runs this concurrently against the same directory
+        var name = $"MovedToInline_{Namer.RuntimeAndVersion}";
+        var stale = Path.Combine(directory, $"{name}.verified.txt");
         await File.WriteAllTextAsync(stale, "stale");
         try
         {
             var settings = new VerifySettings();
             settings.UseDirectory("InlineScratch");
-            settings.UseFileName("MovedToInline");
+            settings.UseFileName(name);
             settings.AutoVerify();
             settings.DisableDiff();
             settings.Snapshot("value", FakeSource(), 1, "\"value\"");
@@ -795,12 +797,14 @@ public class InlineTests :
             settings.AutoVerify();
             settings.DisableDiff();
             settings.UseDirectory("InlineScratch");
-            settings.UseFileName("MovedToFile");
+            // Scoped to the runtime: every target framework runs this concurrently against the same directory
+            var name = $"MovedToFile_{Namer.RuntimeAndVersion}";
+            settings.UseFileName(name);
 
             await Verify("value", settings);
 
             Assert.DoesNotContain("Snapshot", await File.ReadAllTextAsync(template));
-            var verified = Path.Combine(AttributeReader.GetProjectDirectory(), "InlineScratch", "MovedToFile.verified.txt");
+            var verified = Path.Combine(AttributeReader.GetProjectDirectory(), "InlineScratch", $"{name}.verified.txt");
             Assert.True(File.Exists(verified));
             File.Delete(verified);
         }
@@ -848,12 +852,14 @@ public class InlineTests :
             settings.AutoVerify();
             settings.DisableDiff();
             settings.UseDirectory("InlineScratch");
-            settings.UseFileName("BuildServerNotInline");
+            // Scoped to the runtime: every target framework runs this concurrently against the same directory
+            var name = $"BuildServerNotInline_{Namer.RuntimeAndVersion}";
+            settings.UseFileName(name);
 
             await Verify("value", settings);
 
             Assert.Equal(original, await File.ReadAllTextAsync(template));
-            var verified = Path.Combine(AttributeReader.GetProjectDirectory(), "InlineScratch", "BuildServerNotInline.verified.txt");
+            var verified = Path.Combine(AttributeReader.GetProjectDirectory(), "InlineScratch", $"{name}.verified.txt");
             if (File.Exists(verified))
             {
                 File.Delete(verified);

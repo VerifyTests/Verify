@@ -7,13 +7,14 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Inline Snapshots
 
-**Currently in 32.0.0-beta.1**
+**Currently in 32.0.0-beta**
+
+Only C# supported. F# is being worked on.
 
 If using [DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md) ensure to update to the current beta.
 
-Inline snapshots store the expected text inside the C# test file as a raw string literal, next to the code that produces it, instead of in a `.verified.` file on disk.
+Inline snapshots store the expected text inside the test file as a raw string literal, next to the code that produces it, instead of in a `.verified.` file on disk.
 
-Only C# source files and text results are supported.
 
 
 ## Usage

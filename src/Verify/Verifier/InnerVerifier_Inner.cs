@@ -49,7 +49,7 @@ partial class InnerVerifier
                 // The literal was the approved snapshot, so it becomes the verified file's
                 // content. Otherwise the migration reads as a brand new snapshot, and the
                 // approved text is lost from both the source and the failure message.
-                migratedExpected = InlineEngine.NormalizeExpected(stale.Expected);
+                migratedExpected = InlineEngine.NormalizeExpected(stale.Expected, stale.File);
             }
 
             // Prefix uniqueness is skipped while inline, since several inline verifies per
@@ -135,7 +135,7 @@ partial class InnerVerifier
             typeName is null ||
             lineNumber == 0 ||
             inlineSourceFile is null ||
-            !inlineSourceFile.EndsWith(".cs", StringComparison.OrdinalIgnoreCase))
+            !InlineInfo.IsSupported(inlineSourceFile))
         {
             return null;
         }
@@ -157,8 +157,10 @@ partial class InnerVerifier
             return null;
         }
 
-        // No literal yet, so the patcher appends a Snapshot call to the verify invocation
-        return new(null, inlineSourceFile, lineNumber, null, InlinePatchMode.Append);
+        // No literal yet, so the patcher appends a Snapshot call to the verify invocation. No
+        // member name: the caller info here comes from the verify call, and the test method name
+        // resolved for naming is not reliably the one the source declares
+        return new(null, inlineSourceFile, lineNumber, null, null, InlinePatchMode.Append);
     }
 
     /// <summary>

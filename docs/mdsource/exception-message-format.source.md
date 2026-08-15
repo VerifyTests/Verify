@@ -54,6 +54,10 @@ snippet: ExceptionMessageFormatSamples.InlineNew.verified.txt
 
 snippet: ExceptionMessageFormatSamples.InlineNotEqualWithDelete.verified.txt
 
+Only the first target of a verification is inlined, so one message can carry an inline section and the file sections for the remaining targets together:
+
+snippet: ExceptionMessageFormatSamples.InlineAndFileTogether.verified.txt
+
 
 ### NotEqual with Comparer Message
 

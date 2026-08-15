@@ -134,6 +134,40 @@ expected text
 <sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionMessageFormatSamples.InlineNotEqualWithDelete.verified.txt#L1-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionMessageFormatSamples.InlineNotEqualWithDelete.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+Only the first target of a verification is inlined, so one message can carry an inline section and the file sections for the remaining targets together:
+
+<!-- snippet: ExceptionMessageFormatSamples.InlineAndFileTogether.verified.txt -->
+<a id='snippet-ExceptionMessageFormatSamples.InlineAndFileTogether.verified.txt'></a>
+```txt
+Directory: {ProjectDirectory}
+InlineNotEqual:
+  - Source: {ProjectDirectory}MyTests.cs:14
+NotEqual:
+  - Received: MyTests.Test1#01.received.txt
+    Verified: MyTests.Test1#01.verified.txt
+Delete:
+  - MyTests.OldTest.verified.txt
+
+FileContent:
+
+InlineNotEqual:
+
+Source: {ProjectDirectory}MyTests.cs:14
+Received:
+inline received
+Expected:
+inline expected
+
+NotEqual:
+
+Received: MyTests.Test1#01.received.txt
+received text
+Verified: MyTests.Test1#01.verified.txt
+verified text
+```
+<sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionMessageFormatSamples.InlineAndFileTogether.verified.txt#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionMessageFormatSamples.InlineAndFileTogether.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
 
 ### NotEqual with Comparer Message
 

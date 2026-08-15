@@ -6,9 +6,9 @@ Only C# and F# are supported
 
 If using [DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md) ensure to update to the current beta.
 
-Inline snapshots store the expected text inside the test file (.cs or .fs) as a raw string literal, next to the code that produces it, instead of in a `.verified.` file on disk.
+Inline snapshots store the expected text inside the test file (.cs, .fs or .fsx) as a raw string literal, next to the code that produces it, instead of in a `.verified.` file on disk.
 
-Support for the [Rider/R# Verify plugin](https://github.com/matkoch/jetbrains-plugin-verify) is in the queue.
+The [Rider/R# Verify plugin](https://github.com/matkoch/jetbrains-plugin-verify) handles them from 2026.3.0: accepting from the test runner splices the snapshot into the source, and comparing shows the received text against the snapshot the run was measured against.
 
 
 ## Usage
@@ -25,7 +25,7 @@ Because `Snapshot` is a modifier rather than a separate entry point, it composes
 
 snippet: InlineCombinationSample
 
-The verification pipeline is unchanged: the target is serialized and scrubbed exactly as for file snapshots, then compared against the literal. Line endings in the literal are normalized (`\r\n` to `\n`) before comparison, so the comparison is not affected by the line endings of the source file.
+The verification pipeline is unchanged: the target is serialized and scrubbed exactly as for file snapshots, then compared against the literal. Line endings in the literal are normalized to `\n` before comparison, whether the source file uses `\r\n`, `\n` or a lone `\r`, so the comparison is not affected by the line endings of the source file.
 
 Multiple inline verifications in a single test method are supported.
 
@@ -51,7 +51,7 @@ await Verify(target)
     .NotInline();
 ```
 
-`NotInline` wins over both the global switch and an explicit `.Snapshot(...)`.
+`NotInline` wins over both the global switch and an explicit `.Snapshot(...)`, with one exception: a `.Snapshot(...)` call combined with `UseUniqueDirectory` throws whether or not `NotInline()` is alongside it.
 
 
 ## Limiting the size of an inline snapshot
@@ -88,14 +88,14 @@ snippet: InlineIgnoreParametersSample
 
 The APIs that do this are `IgnoreParameters()`, `IgnoreParametersForVerified()` and `IgnoreConstructorParameters()` on the instance settings, and `VerifierSettings.IgnoreParameters()` and `VerifierSettings.IgnoreConstructorParameters()` globally. Ignoring only some of the parameters is not enough, since the remaining ones still vary the verified name per case. `UseTextForParameters` counts as a parameter here for the same reason, while `UseFileName` pins the verified name so no parameter ever reaches it.
 
-`NotInline()` still wins over everything: it keeps a test on files without any of this applying.
+[`NotInline()`](#enabling-inline-snapshots-globally) is the other way out: it keeps a test on files without any of this applying.
 
 
 ## Which target is inlined
 
 The **first** target is the inline snapshot. Any others are written to `.verified.` files as usual, keeping the names they would have had, so turning inline on never renames a snapshot file. That leaves a deliberate gap where the first target's file would have been: a verification that produced `#00`, `#01` and `#02` keeps `#01` and `#02` on disk.
 
-If the first target is not text, the verification throws. Use `.NotInline()` for that test, or `Target.DontInline` for that extension. A [`maxLines`](#limiting-the-size-of-an-inline-snapshot) limit does not change this: a binary target has no lines to count, so it still reaches the same error rather than quietly falling back to files.
+If the first target is not text, the verification throws. `.NotInline()` keeps that test on files. `Target.DontInline` opts an extension out as well, but only where the global switch is what turned inline on: an explicit `.Snapshot(...)` is honoured whatever the target says. A [`maxLines`](#limiting-the-size-of-an-inline-snapshot) limit does not change this: a binary target has no lines to count, so it still reaches the same error rather than quietly falling back to files.
 
 
 ## Extensions that should never inline
@@ -134,7 +134,7 @@ existing-- Yes -->migrate
 globalSwitch{"VerifierSettings.Inline()<br/>in a module initializer ?"}
 literal-- No -->globalSwitch
 
-compatible{"C# source, no parameters in<br/>the verified name, and no<br/>UseUniqueDirectory ?"}
+compatible{"C# or F# source, a recognised test,<br/>no parameters in the verified name,<br/>and no UseUniqueDirectory ?"}
 globalSwitch-- Yes -->compatible
 
 accepted{"Delegate accepts, and the first<br/>target is not DontInline ?"}
@@ -176,9 +176,11 @@ Accept mechanisms:
 
  * **AutoVerify**: with [AutoVerify](autoverify.md) enabled, the source file is rewritten immediately during the test run.
  * **[DiffEngineViewer](https://github.com/VerifyTests/DiffEngine/blob/main/docs/viewer.md)**: opens showing the received text against the expected text, with Accept and Discard. It ships inside the DiffEngine package, so it needs no install, and it runs on Windows, macOS and Linux. Several snapshots failing in one run queue into a single window.
- * **[DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md)**: pending snapshots appear under "Pending Snapshots" and can be accepted, discarded, or opened in the viewer. The viewer owns the queue and the tray drives it over the same socket, so the two always agree.
+ * **[DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md)**: pending snapshots appear under "Pending Snapshots" and can be accepted, discarded, or opened in the viewer.
 
-Nothing is written to disk for a pending inline snapshot: the patch is handed to the viewer directly. Only when no viewer can be resolved does Verify fall back to staging the received and expected text under `obj/VerifyInline/` and launching whatever diff tool is configured.
+The queue belongs to whichever process bound the port first, which is normally the tray since it starts at login. Whichever holds it, the other drives it over the same socket, so the two always agree about what is pending.
+
+Nothing is written to disk for a pending inline snapshot: the patch is handed to the queue owner. Only when nothing owns a queue does Verify fall back to staging the received text, the expected text and the patch itself under `obj/VerifyInline/`, and launching whatever diff tool is configured.
 
 On a build server, no source rewriting, review or staging occurs; the failure exception carries the full content.
 
@@ -206,11 +208,11 @@ Two further differences need nothing from the reader. F# does not implement `Cal
 
 Both directions are handled without any manual file editing.
 
-**File to inline.** The existing `.verified.` file for the inlined target is detected as stale and flows through the standard [Delete handling](exception-message-format.md): deleted automatically under AutoVerify, otherwise listed in the `Delete:` section and pended in DiffEngineTray. Deletes still go through the tray; only the inline snapshot queue moved to the viewer. Files belonging to the other targets keep their names and are left alone.
+**File to inline.** The existing `.verified.` file for the inlined target is detected as stale and flows through the standard [Delete handling](exception-message-format.md): deleted automatically under AutoVerify, otherwise listed in the `Delete:` section and pended for review. A pending delete goes to the tray when one is running, and to the queue owner otherwise, so it is reviewable with no tray installed. Files belonging to the other targets keep their names and are left alone.
 
 There is no size opt out on this direction, so a snapshot that shrinks back under a [`maxLines`](#limiting-the-size-of-an-inline-snapshot) limit returns to being inline and leaves its file behind as a stale delete. One sitting on the boundary therefore moves each time it crosses it.
 
-**Inline to file.** When a `.Snapshot(...)` call exists but inline is off for that verification, the call is removed from the source and the snapshot runs as a normal file snapshot. The literal was the approved snapshot, so it seeds the verified file: an unchanged snapshot migrates without failing, and a changed one is an ordinary mismatch with the old and new text, accepted the usual way. Accepting a migration means committing both the source edit and the new `.verified.` file. Nothing is rewritten on a build server.
+**Inline to file.** When a `.Snapshot(...)` call exists but inline is off for that verification, the call is removed from the source and the snapshot runs as a normal file snapshot. The literal was the approved snapshot, so it seeds the verified file: an unchanged snapshot migrates without failing, and a changed one is an ordinary mismatch with the old and new text, accepted the usual way. Accepting a migration means committing both the source edit and the new `.verified.` file.
 
 The two triggers for this direction are `.NotInline()` and an existing literal over a [`maxLines`](#limiting-the-size-of-an-inline-snapshot) limit.
 

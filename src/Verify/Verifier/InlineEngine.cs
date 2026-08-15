@@ -38,7 +38,7 @@ class InlineEngine(
     /// </summary>
     string? SnapshotInSource { get; set; }
 
-    public void Compare(in Target target)
+    public async Task Compare(Target target)
     {
         if (target.IsStream)
         {
@@ -60,18 +60,14 @@ class InlineEngine(
 
         // What the source is holding right now, which is also what a patch is anchored to
         SnapshotInSource = NormalizeExpected(inline.Expected, inline.File);
-        var expected = SnapshotInSource;
+        NormalizedExpected = Comparer.ApplyTrailingNewlineTolerance(SnapshotInSource, Rendered.Length);
 
-        // Mirror Comparer.CompareStrings trailing newline tolerance
-        if (VerifierSettings.ignoreTrailingNewline &&
-            expected.Length - 1 == Rendered.Length &&
-            expected[^1] == '\n')
-        {
-            expected = expected[..^1];
-        }
-
-        NormalizedExpected = expected;
-        Equality = string.Equals(Rendered, expected, StringComparison.Ordinal)
+        // Through the comparison the file pipeline uses, rather than an ordinal compare that
+        // looked like it. A suite with a string comparer registered - one that tolerates an
+        // ordering, or a timestamp, or a rounding - passed against its verified files and started
+        // failing the moment the same snapshot moved inline, with nothing saying why
+        var result = await Comparer.CompareStrings(target.Extension, builder, NormalizedExpected, settings, false);
+        Equality = result.IsEqual
             ? Equality.Equal
             : Equality.NotEqual;
     }

@@ -63,7 +63,7 @@ class VerifyEngine(
             var target = targetList[0];
             if (inlineEngine is not null)
             {
-                inlineEngine.Compare(target);
+                await inlineEngine.Compare(target);
                 return;
             }
 
@@ -116,7 +116,7 @@ class VerifyEngine(
                 var (target, position) = targets[0];
                 if (position == 0 && inlineEngine is not null)
                 {
-                    inlineEngine.Compare(target);
+                    await inlineEngine.Compare(target);
                     continue;
                 }
 
@@ -129,7 +129,7 @@ class VerifyEngine(
                 var (target, position) = targets[index];
                 if (position == 0 && inlineEngine is not null)
                 {
-                    inlineEngine.Compare(target);
+                    await inlineEngine.Compare(target);
                     continue;
                 }
 

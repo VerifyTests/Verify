@@ -136,6 +136,41 @@ public class InlineTests :
     }
 
     /// <summary>
+    /// A registered string comparer decides equality here the same as it does for a verified
+    /// file. An ordinal compare that stopped there meant a suite whose comparer passes against its
+    /// files started failing the moment one of those snapshots moved inline, and nothing in the
+    /// failure said the comparer had been skipped.
+    /// </summary>
+    [Fact]
+    public Task StringComparerDecidesEquality() =>
+        Verify("THE TEXT")
+            .UseStringComparer(CaseInsensitive)
+            .Snapshot("the text");
+
+    /// <summary>
+    /// And it is asked only when the two differ, so a comparer cannot make equal text unequal.
+    /// </summary>
+    [Fact]
+    public async Task StringComparerIsNotAskedWhenTextMatches()
+    {
+        var asked = false;
+
+        await Verify("value")
+            .UseStringComparer(
+                (_, _, _) =>
+                {
+                    asked = true;
+                    return Task.FromResult(CompareResult.NotEqual("should not be asked"));
+                })
+            .Snapshot("value");
+
+        Assert.False(asked);
+    }
+
+    static Task<CompareResult> CaseInsensitive(string received, string verified, IReadOnlyDictionary<string, object> context) =>
+        Task.FromResult(new CompareResult(string.Equals(received, verified, StringComparison.OrdinalIgnoreCase)));
+
+    /// <summary>
     /// Only the first target is inlined. The rest keep the names they would have had without
     /// inline, so the #01 file below is the same file it would be with no literal at all.
     /// </summary>

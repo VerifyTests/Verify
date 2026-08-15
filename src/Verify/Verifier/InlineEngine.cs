@@ -55,7 +55,7 @@ class InlineEngine(
             throw new VerifyException(
                 $"""
                  Inline snapshots only support text content. The first target, with extension '{target.Extension}', is a binary stream.
-                 Use `.NotInline()` for this test, or `Target.DontInline` for this extension.
+                 Use `.NotInline()` for this test. `Target.DontInline` opts an extension out as well, but only where the global switch is what turned inline on: an explicit `Snapshot(...)` is honoured whatever it says.
                  """);
         }
 
@@ -149,8 +149,30 @@ class InlineEngine(
         }
 
         return (
-            "No DiffEngineViewer was found, so the snapshot could not be opened for review. Install it: dotnet tool install -g DiffEngineViewer",
+            $"No DiffEngineViewer was found, so the snapshot could not be opened for review. Install it: dotnet tool install -g {ViewerPackage}",
             await WriteStaging());
+    }
+
+    /// <summary>
+    /// The viewer ships one package per platform, and there is no DiffEngineViewer package: the
+    /// command the hint used to give failed with "not found" for everyone who ran it.
+    /// </summary>
+    static string ViewerPackage
+    {
+        get
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return "DiffEngineViewer.Windows";
+            }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                return "DiffEngineViewer.Mac";
+            }
+
+            return "DiffEngineViewer.Linux";
+        }
     }
 
     /// <summary>

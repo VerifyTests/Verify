@@ -8,6 +8,7 @@ If using [DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/main/do
 
 Inline snapshots store the expected text inside the test file (.cs or .fs) as a raw string literal, next to the code that produces it, instead of in a `.verified.` file on disk.
 
+Support for the [Rider/R# Verify plugin](https://github.com/matkoch/jetbrains-plugin-verify) is in the queue.
 
 
 ## Usage

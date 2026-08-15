@@ -68,6 +68,25 @@ public class InlineQueueTests :
         Assert.Equal($"{nameof(InlineQueueTests)}.{nameof(QueuedPatchCarriesTheTestName)}", patch.TestName);
     }
 
+    /// <summary>
+    /// A snapshot with no literal yet is located by its line, and every accept in the same file
+    /// moves the lines below it. Accepting a file's worth in one go therefore had later patches
+    /// searching from hints that had drifted past their own test, landing in the neighbouring one
+    /// or refusing outright. The member is what survives that: the patcher looks the declaration
+    /// up by name in the file as it stands and floors its search there.
+    /// </summary>
+    [Fact]
+    public async Task AnAppendedPatchCarriesTheMemberName()
+    {
+        VerifierSettings.Inline();
+
+        await Assert.ThrowsAsync<VerifyException>(() => Verify("value"));
+
+        var patch = Assert.Single(queued);
+        Assert.Equal(InlinePatchMode.Append, patch.Mode);
+        Assert.Equal(nameof(AnAppendedPatchCarriesTheMemberName), patch.MemberName);
+    }
+
     [Fact]
     public async Task NotQueuedWhenDiffDisabled()
     {

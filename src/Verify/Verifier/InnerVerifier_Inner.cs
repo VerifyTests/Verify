@@ -176,10 +176,18 @@ partial class InnerVerifier
             return null;
         }
 
-        // No literal yet, so the patcher appends a Snapshot call to the verify invocation. No
-        // member name: the caller info here comes from the verify call, and the test method name
-        // resolved for naming is not reliably the one the source declares
-        return new(null, inlineSourceFile, lineNumber, null, null, InlinePatchMode.Append);
+        // No literal yet, so the patcher appends a Snapshot call to the verify invocation. The
+        // line is the only thing that says which one, and it stops being true the moment another
+        // accept in the same file inserts above it: a snapshot is several lines of source, call
+        // sites are a handful of lines apart, and accepting a file's worth of them in one go moved
+        // later hints past their own test. The member is what survives that, since the patcher
+        // finds the declaration by name in the file as it is now and floors its search there.
+        //
+        // The declared name rather than the one naming resolved: UseMethodName renames the
+        // snapshot, not the method. A name the file does not declare - a renamed test, or a
+        // framework whose tests are strings rather than methods - finds no declaration and leaves
+        // the search exactly as it was, so this only ever narrows
+        return new(null, inlineSourceFile, lineNumber, null, methodName, InlinePatchMode.Append);
     }
 
     /// <summary>

@@ -81,15 +81,18 @@ partial class InnerVerifier
 
         await engine.ThrowIfRequired();
 
-        if (inlineEngine is not null)
-        {
-            return new(inlineEngine.Rendered, root);
-        }
-
         var filePairs = new List<FilePair>(engine.Equal);
         if (engine.AutoVerified.Count > 0)
         {
             filePairs.AddRange(engine.AutoVerified);
+        }
+
+        // The file pairs go with the inline result too. Only the first target is inlined, so a
+        // verification with more than one still wrote files, and returning the snapshot alone left
+        // a caller enumerating Files to post-process attachments seeing none of them
+        if (inlineEngine is not null)
+        {
+            return new(inlineEngine.Rendered, filePairs, root);
         }
 
         return new(filePairs, root);
@@ -104,6 +107,22 @@ partial class InnerVerifier
         if (settings.notInline)
         {
             return null;
+        }
+
+        // Nothing was produced, so there is nothing to inline and nothing for the first target to
+        // be. An explicit Snapshot call stated what the result should be and there is no result,
+        // which is worth saying: the literal would otherwise be compared against nothing and the
+        // verification would pass without having checked it. The global switch declines instead,
+        // the way it declines every other thing it cannot do, and the verification goes on to the
+        // file pipeline, which passes an empty target list the same as it always has
+        if (targets.Count == 0)
+        {
+            if (settings.inline is null)
+            {
+                return null;
+            }
+
+            throw new VerifyException("Snapshot was used on a verification that produced no targets, so there is nothing to compare the snapshot against.");
         }
 
         // An explicit Snapshot(...) is the user's stated intent, whatever the global switch says.

@@ -27,7 +27,17 @@ class InlineEngine(
 
     public string MappedSourceFile { get; } = InnerVerifier.MapSourceFile(inline.File);
     public int Line => inline.Line;
-    public Equality Equality { get; private set; }
+
+    /// <summary>
+    /// The verdict, which only exists once <see cref="Compare" /> has reached one. Held as a
+    /// nullable rather than left to default, because the default of this enum is Equal: a
+    /// verification that never compared anything would otherwise report that it passed, and
+    /// nothing downstream could tell that apart from one that did.
+    /// </summary>
+    public Equality Equality =>
+        equality ?? throw new("The inline snapshot was never compared.");
+
+    Equality? equality;
     public string Rendered { get; private set; } = null!;
     public string? NormalizedExpected { get; private set; }
 
@@ -38,14 +48,14 @@ class InlineEngine(
     /// </summary>
     string? SnapshotInSource { get; set; }
 
-    public void Compare(in Target target)
+    public async Task Compare(Target target)
     {
         if (target.IsStream)
         {
             throw new VerifyException(
                 $"""
                  Inline snapshots only support text content. The first target, with extension '{target.Extension}', is a binary stream.
-                 Use `.NotInline()` for this test, or `Target.DontInline` for this extension.
+                 Use `.NotInline()` for this test. `Target.DontInline` opts an extension out as well, but only where the global switch is what turned inline on: an explicit `Snapshot(...)` is honoured whatever it says.
                  """);
         }
 
@@ -54,24 +64,20 @@ class InlineEngine(
 
         if (inline.Expected is null)
         {
-            Equality = Equality.New;
+            equality = Equality.New;
             return;
         }
 
         // What the source is holding right now, which is also what a patch is anchored to
         SnapshotInSource = NormalizeExpected(inline.Expected, inline.File);
-        var expected = SnapshotInSource;
+        NormalizedExpected = Comparer.ApplyTrailingNewlineTolerance(SnapshotInSource, Rendered.Length);
 
-        // Mirror Comparer.CompareStrings trailing newline tolerance
-        if (VerifierSettings.ignoreTrailingNewline &&
-            expected.Length - 1 == Rendered.Length &&
-            expected[^1] == '\n')
-        {
-            expected = expected[..^1];
-        }
-
-        NormalizedExpected = expected;
-        Equality = string.Equals(Rendered, expected, StringComparison.Ordinal)
+        // Through the comparison the file pipeline uses, rather than an ordinal compare that
+        // looked like it. A suite with a string comparer registered - one that tolerates an
+        // ordering, or a timestamp, or a rounding - passed against its verified files and started
+        // failing the moment the same snapshot moved inline, with nothing saying why
+        var result = await Comparer.CompareStrings(target.Extension, builder, NormalizedExpected, settings, false);
+        equality = result.IsEqual
             ? Equality.Equal
             : Equality.NotEqual;
     }
@@ -143,8 +149,30 @@ class InlineEngine(
         }
 
         return (
-            "No DiffEngineViewer was found, so the snapshot could not be opened for review. Install it: dotnet tool install -g DiffEngineViewer",
+            $"No DiffEngineViewer was found, so the snapshot could not be opened for review. Install it: dotnet tool install -g {ViewerPackage}",
             await WriteStaging());
+    }
+
+    /// <summary>
+    /// The viewer ships one package per platform, and there is no DiffEngineViewer package: the
+    /// command the hint used to give failed with "not found" for everyone who ran it.
+    /// </summary>
+    static string ViewerPackage
+    {
+        get
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return "DiffEngineViewer.Windows";
+            }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                return "DiffEngineViewer.Mac";
+            }
+
+            return "DiffEngineViewer.Linux";
+        }
     }
 
     /// <summary>

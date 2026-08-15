@@ -136,14 +136,118 @@ public class InlineTests :
     }
 
     /// <summary>
+    /// Nothing was produced, so the literal would be compared against nothing. That used to pass:
+    /// Compare was never reached, and the verdict defaulted to Equal, so a snapshot that was never
+    /// checked reported success and the result then had no text in it.
+    /// </summary>
+    [Fact]
+    public async Task NoTargetsWithAnExplicitSnapshotSaysSo()
+    {
+        var settings = new VerifySettings();
+        settings.Snapshot("expected", FakeSource(), 1, "\"expected\"");
+
+        var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify(new List<Target>(), settings));
+
+        Assert.Contains("nothing to compare the snapshot against", exception.Message);
+    }
+
+    /// <summary>
+    /// A registered string comparer decides equality here the same as it does for a verified
+    /// file. An ordinal compare that stopped there meant a suite whose comparer passes against its
+    /// files started failing the moment one of those snapshots moved inline, and nothing in the
+    /// failure said the comparer had been skipped.
+    /// </summary>
+    [Fact]
+    public Task StringComparerDecidesEquality() =>
+        Verify("THE TEXT")
+            .UseStringComparer(CaseInsensitive)
+            .Snapshot("the text");
+
+    /// <summary>
+    /// And it is asked only when the two differ, so a comparer cannot make equal text unequal.
+    /// </summary>
+    [Fact]
+    public async Task StringComparerIsNotAskedWhenTextMatches()
+    {
+        var asked = false;
+
+        await Verify("value")
+            .UseStringComparer(
+                (_, _, _) =>
+                {
+                    asked = true;
+                    return Task.FromResult(CompareResult.NotEqual("should not be asked"));
+                })
+            .Snapshot("value");
+
+        Assert.False(asked);
+    }
+
+    static Task<CompareResult> CaseInsensitive(string received, string verified, IReadOnlyDictionary<string, object> context) =>
+        Task.FromResult(new CompareResult(string.Equals(received, verified, StringComparison.OrdinalIgnoreCase)));
+
+    /// <summary>
+    /// A first target that differs tells the targets after it to stop trusting their comparers:
+    /// they are usually derived from it, and a comparer that tolerates the difference would hide
+    /// a real change in the source. The inlined target is compared outside the loop that feeds
+    /// that cascade, so it was telling them nothing and the switch stopped working as soon as the
+    /// source target was the inlined one.
+    /// </summary>
+    [Fact]
+    public async Task ADifferingInlineFirstTargetBypassesComparersAfterIt()
+    {
+        using var directory = new TempDirectory();
+        var asked = false;
+
+        var settings = new VerifySettings();
+        settings.DisableDiff();
+        settings.UseDirectory(directory.Path);
+        settings.UseFileName("Cascade");
+        // Only the second target's extension, so the inlined one is not the thing being watched
+        settings.UseStringComparer(
+            (_, _, _) =>
+            {
+                asked = true;
+                return Task.FromResult(CompareResult.Equal);
+            },
+            "json");
+        settings.Snapshot("expected", FakeSource(), 1, "\"expected\"");
+
+        // Content its verified file does not hold, so the comparer is what would decide it
+        await File.WriteAllTextAsync(Path.Combine(directory.Path, "Cascade.verified.json"), "verified");
+
+        List<Target> targets =
+        [
+            new("txt", new StringBuilder("received"))
+            {
+                BypassComparersForSubsequentOnDifference = true
+            },
+            new("json", new StringBuilder("second"))
+        ];
+
+        await Assert.ThrowsAsync<VerifyException>(() => Verify(targets, settings));
+
+        Assert.False(asked);
+    }
+
+    /// <summary>
     /// Only the first target is inlined. The rest keep the names they would have had without
     /// inline, so the #01 file below is the same file it would be with no literal at all.
     /// </summary>
     [Fact]
-    public Task MultiTarget() =>
-        Verify("root")
+    public async Task MultiTarget()
+    {
+        var result = await Verify("root")
             .AppendContentAsFile("extra")
             .Snapshot("root");
+
+        // The snapshot is the first target, and the rest are files the same as they always were.
+        // The result used to carry the snapshot alone, so anything reading Files to post-process
+        // what a verification wrote found nothing there
+        Assert.Equal("root", result.Text);
+        Assert.Single(result.Files);
+        Assert.EndsWith("MultiTarget#01.verified.txt", result.Files.Single());
+    }
 
     [Fact]
     public async Task NotInlineBeatsAnExplicitSnapshot()

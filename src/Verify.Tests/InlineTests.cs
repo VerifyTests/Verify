@@ -1,5 +1,8 @@
 // ReSharper disable ConstantExpected
 [SuppressMessage("Performance", "CA1857:A constant is expected for the parameter")]
+// Shared with InlineFSharpTests: both swap the global IsBuildServer, so running them in parallel
+// has whichever finishes first restore the real detector under the other
+[Collection("Inline")]
 public class InlineTests :
     IDisposable
 {
@@ -356,12 +359,23 @@ public class InlineTests :
     }
 
     [Fact]
-    public void NonCsFile()
+    public void UnsupportedSourceLanguage()
     {
         var settings = new VerifySettings();
         var exception = Assert.ThrowsAny<Exception>(
             () => settings.Snapshot("x", "Tests.vb", 1, "\"x\""));
-        Assert.Contains("C# source files", exception.Message);
+        Assert.Contains("C# and F# source files", exception.Message);
+    }
+
+    [Theory]
+    [InlineData("Tests.cs")]
+    [InlineData("Tests.fs")]
+    [InlineData("Tests.fsx")]
+    public void SupportedSourceLanguages(string file)
+    {
+        var settings = new VerifySettings();
+        settings.Snapshot("x", file, 1, "\"x\"");
+        Assert.NotNull(settings.inline);
     }
 
     // Deliberately not a real source file: a failing inline verify stages a patch, and

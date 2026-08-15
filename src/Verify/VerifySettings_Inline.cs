@@ -8,7 +8,7 @@ public partial class VerifySettings
     /// <summary>
     /// Compare the result against an inline snapshot instead of a <c>.verified</c> file.
     /// Passing no <paramref name="expected" /> means: new snapshot, populate the literal on accept.
-    /// Only supported from C# source files, and only for text results.
+    /// Supported from C# and F# source files, and only for text results.
     /// <para>
     /// Calling this is an explicit opt in, so it applies whether or not
     /// <see cref="VerifierSettings.Inline" /> has been used. When inline is off for this
@@ -19,14 +19,15 @@ public partial class VerifySettings
         [StringSyntax("*")][ConstantExpected]  string? expected = null,
         [CallerFilePath] string file = "",
         [CallerLineNumber] int line = 0,
-        [CallerArgumentExpression(nameof(expected))] string? expression = null)
+        [CallerArgumentExpression(nameof(expected))] string? expression = null,
+        [CallerMemberName] string member = "")
     {
         Guards.AgainstBadSourceFile(file);
-        if (!file.EndsWith(".cs", StringComparison.OrdinalIgnoreCase))
+        if (!InlineInfo.IsSupported(file))
         {
             throw new(
                 $"""
-                 Inline snapshots are only supported from C# source files.
+                 Inline snapshots are only supported from C# and F# source files.
                  SourceFile: {file}
                  """);
         }
@@ -38,7 +39,7 @@ public partial class VerifySettings
             expression = null;
         }
 
-        inline = new(expected, file, line, expression, InlinePatchMode.Set);
+        inline = new(expected, file, line, expression, member, InlinePatchMode.Set);
     }
 
     /// <summary>

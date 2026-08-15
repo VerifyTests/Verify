@@ -182,6 +182,25 @@ Nothing is written to disk for a pending inline snapshot: the patch is handed to
 On a build server, no source rewriting, review or staging occurs; the failure exception carries the full content.
 
 
+## F#
+
+F# test files (`.fs`, `.fsx`) work the same way, with one difference worth knowing because it decides what a literal means.
+
+C# has raw strings: the compiler drops the line break after the opening delimiter and the indentation the closing delimiter sits at, and hands over the snapshot. F# has no such form. A triple-quoted string is verbatim, so what F# hands over still carries that line break and the indentation of every line. Writing the snapshot at the left margin instead is not an option either, since F#'s offside rule then rejects anything ending in a newline.
+
+So the layout is taken off by agreement rather than by the compiler. Verify writes the shape C# would, and reads it back the same way:
+
+snippet: InlineFSharpAccept
+
+Which means a literal like that compares as the snapshot it looks like, rather than as the indented text F# produced:
+
+snippet: InlineFSharpMatches
+
+Two consequences. Content ending in a newline is written as a blank line before the closing delimiter, exactly as in C#. And an F# `expected` argument is only the snapshot once Verify has read it: look at it any other way, in a debugger or by passing it somewhere else, and it still has its indentation.
+
+Two further differences need nothing from the reader. F# does not implement `CallerArgumentExpression` (it warns FS0202), so a patch is anchored by the previous snapshot's value and by `CallerMemberName` rather than by the literal's source text. And `Snapshot` returns the `SettingsTask`, so an accepted snapshot is written in front of the `ToTask()` an F# test ends its chain with.
+
+
 ## Moving between file and inline snapshots
 
 Both directions are handled without any manual file editing.

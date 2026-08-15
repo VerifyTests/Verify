@@ -31,6 +31,13 @@ class InlineEngine(
     public string Rendered { get; private set; } = null!;
     public string? NormalizedExpected { get; private set; }
 
+    /// <summary>
+    /// The snapshot the source file holds as it stands, which is what a patch anchors to. Kept
+    /// apart from <see cref="NormalizedExpected"/>, which the trailing newline tolerance may have
+    /// shortened: an anchor that does not match the source finds nothing.
+    /// </summary>
+    string? SnapshotInSource { get; set; }
+
     public void Compare(in Target target)
     {
         if (target.IsStream)
@@ -51,7 +58,9 @@ class InlineEngine(
             return;
         }
 
-        var expected = NormalizeExpected(inline.Expected);
+        // What the source is holding right now, which is also what a patch is anchored to
+        SnapshotInSource = NormalizeExpected(inline.Expected, inline.File);
+        var expected = SnapshotInSource;
 
         // Mirror Comparer.CompareStrings trailing newline tolerance
         if (VerifierSettings.ignoreTrailingNewline &&
@@ -68,11 +77,20 @@ class InlineEngine(
     }
 
     /// <summary>
-    /// The literal inherits the .cs file's line endings; mirror Comparer.Text normalization.
-    /// Also used when a literal is migrated into a verified file, so the two can never drift.
+    /// The snapshot an expected argument holds. The literal inherits the source file's line
+    /// endings, so mirror Comparer.Text normalization; and it inherits its language, so ask that
+    /// language what the value it produced actually means.
+    /// <para>
+    /// The second half is only ever a no-op for C#, whose compiler takes the layout off a raw
+    /// string itself. F# has no such form, so the value still carries the line break after the
+    /// opening delimiter and the indentation of every line, and comparing it as it stands would
+    /// fail every F# snapshot against itself. Also used when a literal is migrated into a verified
+    /// file, so the two can never drift.
+    /// </para>
     /// </summary>
-    internal static string NormalizeExpected(string expected) =>
-        expected
+    internal static string NormalizeExpected(string expected, string sourceFile) =>
+        SourceLanguage.ForFile(sourceFile)
+            .SnapshotValue(expected)
             .Replace("\r\n", "\n")
             .Replace('\r', '\n');
 
@@ -205,7 +223,12 @@ class InlineEngine(
             Rendered,
             inline.Mode)
         {
-            TestName = TestName
+            TestName = TestName,
+            // The anchors that say which call this patch came from. The expression is what the
+            // source says and is null from F#, whose compiler does not implement the attribute;
+            // the value is what it means, and the member is where it lives
+            OriginalValue = SnapshotInSource,
+            MemberName = inline.MemberName
         };
 
     /// <summary>
@@ -227,7 +250,9 @@ class InlineEngine(
             InlinePatchMode.Remove)
         {
             // Applied here rather than queued, so it is never displayed and has no name to show.
-            TestName = null
+            TestName = null,
+            OriginalValue = inline.Expected is null ? null : NormalizeExpected(inline.Expected, inline.File),
+            MemberName = inline.MemberName
         };
         return InlineApplier.Apply(patch).Status == InlineApplyStatus.Applied;
     }

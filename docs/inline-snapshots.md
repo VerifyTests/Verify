@@ -36,7 +36,7 @@ public Task MultiLine()
             """);
 }
 ```
-<sup><a href='/src/Verify.Tests/InlineTests.cs#L25-L39' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineSample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/InlineTests.cs#L28-L42' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Omitting the expected argument (or passing `null`) marks the snapshot as new; accepting it writes the literal into the source file.
@@ -68,7 +68,7 @@ public Task Combinations() =>
             }
             """);
 ```
-<sup><a href='/src/Verify.Tests/InlineTests.cs#L84-L106' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineCombinationSample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/InlineTests.cs#L87-L109' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineCombinationSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The verification pipeline is unchanged: the target is serialized and scrubbed exactly as for file snapshots, then compared against the literal. Line endings in the literal are normalized (`\r\n` to `\n`) before comparison, so the comparison is not affected by the line endings of the source file.
@@ -188,7 +188,7 @@ public Task IgnoredParameters(string value) =>
         .IgnoreParameters()
         .Snapshot("1");
 ```
-<sup><a href='/src/Verify.Tests/InlineTests.cs#L175-L185' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineIgnoreParametersSample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/InlineTests.cs#L178-L188' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineIgnoreParametersSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The APIs that do this are `IgnoreParameters()`, `IgnoreParametersForVerified()` and `IgnoreConstructorParameters()` on the instance settings, and `VerifierSettings.IgnoreParameters()` and `VerifierSettings.IgnoreConstructorParameters()` globally. Ignoring only some of the parameters is not enough, since the remaining ones still vary the verified name per case. `UseTextForParameters` counts as a parameter here for the same reason, while `UseFileName` pins the verified name so no parameter ever reaches it.
@@ -286,6 +286,81 @@ Accept mechanisms:
 Nothing is written to disk for a pending inline snapshot: the patch is handed to the viewer directly. Only when no viewer can be resolved does Verify fall back to staging the received and expected text under `obj/VerifyInline/` and launching whatever diff tool is configured.
 
 On a build server, no source rewriting, review or staging occurs; the failure exception carries the full content.
+
+
+## F#
+
+F# test files (`.fs`, `.fsx`) work the same way, with one difference worth knowing because it decides what a literal means.
+
+C# has raw strings: the compiler drops the line break after the opening delimiter and the indentation the closing delimiter sits at, and hands over the snapshot. F# has no such form. A triple-quoted string is verbatim, so what F# hands over still carries that line break and the indentation of every line. Writing the snapshot at the left margin instead is not an option either, since F#'s offside rule then rejects anything ending in a newline.
+
+So the layout is taken off by agreement rather than by the compiler. Verify writes the shape C# would, and reads it back the same way:
+
+<!-- snippet: InlineFSharpAccept -->
+<a id='snippet-InlineFSharpAccept'></a>
+```cs
+[Fact]
+public async Task AcceptWritesTheIndentedForm()
+{
+    var template = WriteTemplate(
+        """
+        module Tests
+
+        let MyTest () =
+            Verifier.Verify(value).Snapshot("old").ToTask()
+        """);
+    try
+    {
+        var settings = new VerifySettings();
+        settings.IgnoreParameters();
+        settings.Snapshot("old", template, 4, null, "MyTest");
+        settings.AutoVerify();
+        settings.DisableDiff();
+
+        await Verify("line one\nline two", settings);
+
+        Assert.Equal(
+            """"
+            module Tests
+
+            let MyTest () =
+                Verifier.Verify(value).Snapshot(
+                    """
+                    line one
+                    line two
+                    """).ToTask()
+            """",
+            await File.ReadAllTextAsync(template));
+    }
+    finally
+    {
+        Directory.Delete(Path.GetDirectoryName(template)!, true);
+    }
+}
+```
+<sup><a href='/src/Verify.Tests/InlineFSharpTests.cs#L93-L132' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineFSharpAccept' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Which means a literal like that compares as the snapshot it looks like, rather than as the indented text F# produced:
+
+<!-- snippet: InlineFSharpMatches -->
+<a id='snippet-InlineFSharpMatches'></a>
+```cs
+[Fact]
+public Task LayoutIsNotContent()
+{
+    var settings = new VerifySettings();
+    settings.IgnoreParameters();
+    settings.Snapshot(asFSharpHandsItOver, FakeSource(), 1, null, "LayoutIsNotContent");
+    return Verify("line one\nline two", settings);
+}
+```
+<sup><a href='/src/Verify.Tests/InlineFSharpTests.cs#L34-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineFSharpMatches' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Two consequences. Content ending in a newline is written as a blank line before the closing delimiter, exactly as in C#. And an F# `expected` argument is only the snapshot once Verify has read it: look at it any other way, in a debugger or by passing it somewhere else, and it still has its indentation.
+
+Two further differences need nothing from the reader. F# does not implement `CallerArgumentExpression` (it warns FS0202), so a patch is anchored by the previous snapshot's value and by `CallerMemberName` rather than by the literal's source text. And `Snapshot` returns the `SettingsTask`, so an accepted snapshot is written in front of the `ToTask()` an F# test ends its chain with.
 
 
 ## Moving between file and inline snapshots

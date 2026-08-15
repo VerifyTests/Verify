@@ -37,6 +37,19 @@ public class GlobalInlineTests :
         Assert.Contains("GlobalInlineTests.cs:", exception.Message);
     }
 
+    /// <summary>
+    /// A verification with no targets has no first target to inline, and indexing for one threw
+    /// an ArgumentOutOfRangeException out of the switch. It declines, the way it declines
+    /// everything else it cannot do, and an empty target list passes as it always has.
+    /// </summary>
+    [Fact]
+    public async Task NoTargetsDeclinesRatherThanThrowing()
+    {
+        VerifierSettings.Inline();
+
+        await Verify(new List<Target>());
+    }
+
     [Fact]
     public async Task Off()
     {

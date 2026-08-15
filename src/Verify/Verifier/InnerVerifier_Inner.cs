@@ -106,6 +106,22 @@ partial class InnerVerifier
             return null;
         }
 
+        // Nothing was produced, so there is nothing to inline and nothing for the first target to
+        // be. An explicit Snapshot call stated what the result should be and there is no result,
+        // which is worth saying: the literal would otherwise be compared against nothing and the
+        // verification would pass without having checked it. The global switch declines instead,
+        // the way it declines every other thing it cannot do, and the verification goes on to the
+        // file pipeline, which passes an empty target list the same as it always has
+        if (targets.Count == 0)
+        {
+            if (settings.inline is null)
+            {
+                return null;
+            }
+
+            throw new VerifyException("Snapshot was used on a verification that produced no targets, so there is nothing to compare the snapshot against.");
+        }
+
         // An explicit Snapshot(...) is the user's stated intent, whatever the global switch says.
         // The size limit is the one exception, and only where it was opted in to cover existing
         // calls. Not on a build server: the source cannot be rewritten there, so the literal that

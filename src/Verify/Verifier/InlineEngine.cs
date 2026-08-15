@@ -27,7 +27,17 @@ class InlineEngine(
 
     public string MappedSourceFile { get; } = InnerVerifier.MapSourceFile(inline.File);
     public int Line => inline.Line;
-    public Equality Equality { get; private set; }
+
+    /// <summary>
+    /// The verdict, which only exists once <see cref="Compare" /> has reached one. Held as a
+    /// nullable rather than left to default, because the default of this enum is Equal: a
+    /// verification that never compared anything would otherwise report that it passed, and
+    /// nothing downstream could tell that apart from one that did.
+    /// </summary>
+    public Equality Equality =>
+        equality ?? throw new("The inline snapshot was never compared.");
+
+    Equality? equality;
     public string Rendered { get; private set; } = null!;
     public string? NormalizedExpected { get; private set; }
 
@@ -54,7 +64,7 @@ class InlineEngine(
 
         if (inline.Expected is null)
         {
-            Equality = Equality.New;
+            equality = Equality.New;
             return;
         }
 
@@ -67,7 +77,7 @@ class InlineEngine(
         // ordering, or a timestamp, or a rounding - passed against its verified files and started
         // failing the moment the same snapshot moved inline, with nothing saying why
         var result = await Comparer.CompareStrings(target.Extension, builder, NormalizedExpected, settings, false);
-        Equality = result.IsEqual
+        equality = result.IsEqual
             ? Equality.Equal
             : Equality.NotEqual;
     }

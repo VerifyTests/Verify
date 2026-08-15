@@ -136,6 +136,22 @@ public class InlineTests :
     }
 
     /// <summary>
+    /// Nothing was produced, so the literal would be compared against nothing. That used to pass:
+    /// Compare was never reached, and the verdict defaulted to Equal, so a snapshot that was never
+    /// checked reported success and the result then had no text in it.
+    /// </summary>
+    [Fact]
+    public async Task NoTargetsWithAnExplicitSnapshotSaysSo()
+    {
+        var settings = new VerifySettings();
+        settings.Snapshot("expected", FakeSource(), 1, "\"expected\"");
+
+        var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify(new List<Target>(), settings));
+
+        Assert.Contains("nothing to compare the snapshot against", exception.Message);
+    }
+
+    /// <summary>
     /// A registered string comparer decides equality here the same as it does for a verified
     /// file. An ordinal compare that stopped there meant a suite whose comparer passes against its
     /// files started failing the moment one of those snapshots moved inline, and nothing in the

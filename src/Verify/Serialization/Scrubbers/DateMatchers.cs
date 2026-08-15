@@ -48,6 +48,7 @@ static class DateMatchers
         var resolvedCulture = culture ?? Culture.CurrentCulture;
         try
         {
+            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             new DateTimeOffset(probeDateTime).ToString(format, resolvedCulture);
         }
         catch (FormatException exception)

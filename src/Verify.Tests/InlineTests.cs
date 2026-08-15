@@ -187,6 +187,50 @@ public class InlineTests :
         Task.FromResult(new CompareResult(string.Equals(received, verified, StringComparison.OrdinalIgnoreCase)));
 
     /// <summary>
+    /// A first target that differs tells the targets after it to stop trusting their comparers:
+    /// they are usually derived from it, and a comparer that tolerates the difference would hide
+    /// a real change in the source. The inlined target is compared outside the loop that feeds
+    /// that cascade, so it was telling them nothing and the switch stopped working as soon as the
+    /// source target was the inlined one.
+    /// </summary>
+    [Fact]
+    public async Task ADifferingInlineFirstTargetBypassesComparersAfterIt()
+    {
+        using var directory = new TempDirectory();
+        var asked = false;
+
+        var settings = new VerifySettings();
+        settings.DisableDiff();
+        settings.UseDirectory(directory.Path);
+        settings.UseFileName("Cascade");
+        // Only the second target's extension, so the inlined one is not the thing being watched
+        settings.UseStringComparer(
+            (_, _, _) =>
+            {
+                asked = true;
+                return Task.FromResult(CompareResult.Equal);
+            },
+            "json");
+        settings.Snapshot("expected", FakeSource(), 1, "\"expected\"");
+
+        // Content its verified file does not hold, so the comparer is what would decide it
+        await File.WriteAllTextAsync(Path.Combine(directory.Path, "Cascade.verified.json"), "verified");
+
+        List<Target> targets =
+        [
+            new("txt", new StringBuilder("received"))
+            {
+                BypassComparersForSubsequentOnDifference = true
+            },
+            new("json", new StringBuilder("second"))
+        ];
+
+        await Assert.ThrowsAsync<VerifyException>(() => Verify(targets, settings));
+
+        Assert.False(asked);
+    }
+
+    /// <summary>
     /// Only the first target is inlined. The rest keep the names they would have had without
     /// inline, so the #01 file below is the same file it would be with no literal at all.
     /// </summary>

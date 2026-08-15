@@ -77,6 +77,27 @@ class VerifyEngine(
         var textHasFailed = false;
         var bypassComparers = false;
 
+        // The inlined target is compared outside Inner, so it has to feed the same cascade by
+        // hand. Without this a first target that differed told the targets after it nothing, and
+        // the derived ones kept trusting comparers that exist to tolerate differences the source
+        // target had just failed on - which is what BypassComparersForSubsequentOnDifference is
+        // for, and it stopped working as soon as that target was the inlined one
+        async Task CompareInline(Target target)
+        {
+            await inlineEngine!.Compare(target);
+            if (inlineEngine.Equality == Equality.Equal)
+            {
+                return;
+            }
+
+            // Always text: Compare refuses a stream outright
+            textHasFailed = true;
+            if (target.BypassComparersForSubsequentOnDifference)
+            {
+                bypassComparers = true;
+            }
+        }
+
         async Task Inner(FilePair file, Target target, bool isFirst)
         {
             if (isFirst)
@@ -116,7 +137,7 @@ class VerifyEngine(
                 var (target, position) = targets[0];
                 if (position == 0 && inlineEngine is not null)
                 {
-                    await inlineEngine.Compare(target);
+                    await CompareInline(target);
                     continue;
                 }
 
@@ -129,7 +150,7 @@ class VerifyEngine(
                 var (target, position) = targets[index];
                 if (position == 0 && inlineEngine is not null)
                 {
-                    await inlineEngine.Compare(target);
+                    await CompareInline(target);
                     continue;
                 }
 

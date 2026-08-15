@@ -189,7 +189,7 @@ public Task IgnoredParameters(string value) =>
         .IgnoreParameters()
         .Snapshot("1");
 ```
-<sup><a href='/src/Verify.Tests/InlineTests.cs#L273-L283' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineIgnoreParametersSample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/InlineTests.cs#L282-L292' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineIgnoreParametersSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The APIs that do this are `IgnoreParameters()`, `IgnoreParametersForVerified()` and `IgnoreConstructorParameters()` on the instance settings, and `VerifierSettings.IgnoreParameters()` and `VerifierSettings.IgnoreConstructorParameters()` globally. Ignoring only some of the parameters is not enough, since the remaining ones still vary the verified name per case. `UseTextForParameters` counts as a parameter here for the same reason, while `UseFileName` pins the verified name so no parameter ever reaches it.

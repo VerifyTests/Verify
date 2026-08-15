@@ -81,15 +81,18 @@ partial class InnerVerifier
 
         await engine.ThrowIfRequired();
 
-        if (inlineEngine is not null)
-        {
-            return new(inlineEngine.Rendered, root);
-        }
-
         var filePairs = new List<FilePair>(engine.Equal);
         if (engine.AutoVerified.Count > 0)
         {
             filePairs.AddRange(engine.AutoVerified);
+        }
+
+        // The file pairs go with the inline result too. Only the first target is inlined, so a
+        // verification with more than one still wrote files, and returning the snapshot alone left
+        // a caller enumerating Files to post-process attachments seeing none of them
+        if (inlineEngine is not null)
+        {
+            return new(inlineEngine.Rendered, filePairs, root);
         }
 
         return new(filePairs, root);

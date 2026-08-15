@@ -235,10 +235,19 @@ public class InlineTests :
     /// inline, so the #01 file below is the same file it would be with no literal at all.
     /// </summary>
     [Fact]
-    public Task MultiTarget() =>
-        Verify("root")
+    public async Task MultiTarget()
+    {
+        var result = await Verify("root")
             .AppendContentAsFile("extra")
             .Snapshot("root");
+
+        // The snapshot is the first target, and the rest are files the same as they always were.
+        // The result used to carry the snapshot alone, so anything reading Files to post-process
+        // what a verification wrote found nothing there
+        Assert.Equal("root", result.Text);
+        Assert.Single(result.Files);
+        Assert.EndsWith("MultiTarget#01.verified.txt", result.Files.Single());
+    }
 
     [Fact]
     public async Task NotInlineBeatsAnExplicitSnapshot()

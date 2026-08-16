@@ -76,8 +76,17 @@
                     break;
                 case 't':
                     tokenLen = ParseRepeatPattern(format, index, ch);
-                    maxLength += cultureDates.AmPmLong;
-                    minLength += cultureDates.AmPmShort;
+                    if (tokenLen == 1)
+                    {
+                        // A single t renders only the first character of the designator
+                        minLength += Math.Min(cultureDates.AmPmShort, 1);
+                        maxLength += Math.Min(cultureDates.AmPmLong, 1);
+                    }
+                    else
+                    {
+                        minLength += cultureDates.AmPmShort;
+                        maxLength += cultureDates.AmPmLong;
+                    }
 
                     break;
                 case 'd':
@@ -197,10 +206,9 @@
                     break;
                 case '\'':
                 case '\"':
-                    tokenLen = ParseQuoteString(format, index);
-                    var unwrapped = tokenLen - 2;
-                    minLength += unwrapped;
-                    maxLength += unwrapped;
+                    tokenLen = ParseQuoteString(format, index, out var quotedLength);
+                    minLength += quotedLength;
+                    maxLength += quotedLength;
                     break;
                 case '%':
                     // Optional format character.
@@ -280,13 +288,16 @@
 
     // The pos should point to a quote character. This method will
     // append to the result StringBuilder the string enclosed by the quote character.
-    static int ParseQuoteString(scoped CharSpan format, int pos)
+    // renderedLength is the number of characters the literal produces in output:
+    // the quotes and the escape backslashes are consumed, not rendered.
+    static int ParseQuoteString(scoped CharSpan format, int pos, out int renderedLength)
     {
         // pos will be the index of the quote character in the 'format' string.
         var formatLen = format.Length;
         var beginPos = pos;
         // Get the character used to quote the following string.
         var quoteChar = format[pos++];
+        renderedLength = 0;
 
         var foundQuote = false;
         while (pos < formatLen)
@@ -300,6 +311,7 @@
 
             if (ch != '\\')
             {
+                renderedLength++;
                 continue;
             }
 
@@ -313,6 +325,7 @@
             // Therefore, someone can use a format like "'minute:' mm\"" to display:
             //  minute: 45"
             // because the second double quote is escaped.
+            renderedLength++;
             pos++;
         }
 
@@ -346,8 +359,10 @@
             amPmShort = pm;
         }
 
-        var monthNames = Lengths(info.MonthNames);
-        var abbreviatedMonthNames = Lengths(info.AbbreviatedMonthNames);
+        // Genitive month names render for MMMM/MMM next to a day component and can be
+        // longer or shorter than every nominative form, so both pools feed the bounds
+        var monthNames = Lengths(info.MonthNames.Concat(info.MonthGenitiveNames));
+        var abbreviatedMonthNames = Lengths(info.AbbreviatedMonthNames.Concat(info.AbbreviatedMonthGenitiveNames));
         var dayNames = Lengths(info.DayNames);
         var abbreviatedDayNames = Lengths(info.AbbreviatedDayNames);
         var eras = Lengths(calendar.Eras.Select(_ => info.GetEraName(_)));

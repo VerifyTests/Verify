@@ -65,33 +65,46 @@ static class FileNameBuilder
             throw new($"Some of the ignored parameter names ({string.Join(", ", instanceIgnored)}) do not exist in the test method parameters ({string.Join(", ", methodParameters)}).");
         }
 
-        var ignored = instanceIgnored;
         var globalIgnored = VerifierSettings.GlobalIgnoredParameters;
-        if (globalIgnored is not null)
-        {
-            if (ignored is not null)
-            {
-                ignored = [..ignored, ..globalIgnored];
-            }
-            else
-            {
-                ignored = globalIgnored;
-            }
-        }
 
-        if (settings.ignoreConstructorParameters || VerifierSettings.GlobalIgnoreConstructorParameters)
+        HashSet<string>? ignored;
+        // An empty ignore list is the "ignore all parameters" sentinel. Merging the other
+        // ignore sources into it would turn ignore-everything into ignore-some, so it wins
+        // outright.
+        if (instanceIgnored is {Count: 0} ||
+            globalIgnored is {Count: 0})
         {
-            var classArgCount = settings.classArgumentCount;
-            if (classArgCount > 0)
+            ignored = [];
+        }
+        else
+        {
+            ignored = instanceIgnored;
+            if (globalIgnored is not null)
             {
-                var classParamNames = methodParameters.Take(classArgCount);
                 if (ignored is not null)
                 {
-                    ignored = [..ignored, ..classParamNames];
+                    ignored = [..ignored, ..globalIgnored];
                 }
                 else
                 {
-                    ignored = classParamNames.ToHashSet();
+                    ignored = globalIgnored;
+                }
+            }
+
+            if (settings.ignoreConstructorParameters || VerifierSettings.GlobalIgnoreConstructorParameters)
+            {
+                var classArgCount = settings.classArgumentCount;
+                if (classArgCount > 0)
+                {
+                    var classParamNames = methodParameters.Take(classArgCount);
+                    if (ignored is not null)
+                    {
+                        ignored = [..ignored, ..classParamNames];
+                    }
+                    else
+                    {
+                        ignored = classParamNames.ToHashSet();
+                    }
                 }
             }
         }

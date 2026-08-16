@@ -204,7 +204,7 @@ VerifierSettings.RegisterStreamConverter(
                 new("txt", "derived from text")
             ]));
 ```
-<sup><a href='/src/Verify.Tests/Converters/ExtensionConverterTests.cs#L39-L53' title='Snippet source file'>snippet source</a> | <a href='#snippet-RegisterStreamConverterTextExtensionStream' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/ExtensionConverterTests.cs#L46-L60' title='Snippet source file'>snippet source</a> | <a href='#snippet-RegisterStreamConverterTextExtensionStream' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

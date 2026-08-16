@@ -294,18 +294,24 @@ partial class InnerVerifier
 
     async Task<(List<Target> extra, Func<Task> cleanup)> GetTargets(IEnumerable<Target> targets, bool doExtensionConversion)
     {
-        List<Target> list = [..targets, ..VerifierSettings.GetFileAppenders(settings)];
         var cleanup = () => Task.CompletedTask;
+        var result = new List<Target>();
 
-        // When doExtensionConversion is false the targets have already been run through
-        // conversion and scrubbing (the only caller is the post-conversion stream path),
-        // so pass them through untouched to avoid double scrubbing.
-        if (!doExtensionConversion)
+        List<Target> list;
+        if (doExtensionConversion)
         {
-            return (list, cleanup);
+            list = [..targets, ..VerifierSettings.GetFileAppenders(settings)];
+        }
+        else
+        {
+            // On the post-conversion stream path (the only caller that passes false) the
+            // targets have already been run through conversion and scrubbing, so they pass
+            // through untouched to avoid double scrubbing. The appenders have been through
+            // neither, so they still take the loop below.
+            result.AddRange(targets);
+            list = [..VerifierSettings.GetFileAppenders(settings)];
         }
 
-        var result = new List<Target>();
         foreach (var target in list)
         {
             if (!target.PerformConversion ||

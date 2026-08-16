@@ -648,6 +648,40 @@ public class InlineTests :
         }
     }
 
+    /// <summary>
+    /// What the AutoVerify delegate is handed for an inline snapshot: the test source file, since
+    /// that is what accepting rewrites, rather than anything shaped like a .verified path. A
+    /// delegate deciding by that convention therefore declines every inline snapshot, which is
+    /// worth pinning because it is the sort of thing a later change would break silently.
+    /// </summary>
+    [Fact]
+    public async Task AutoVerifyIsHandedTheSourceFile()
+    {
+        var template = WriteTemplate(mismatchTemplate);
+        try
+        {
+            var seen = new List<string>();
+            var settings = new VerifySettings();
+            settings.Snapshot("old", template, 4, "\"old\"");
+            settings.DisableDiff();
+            settings.AutoVerify(
+                file =>
+                {
+                    seen.Add(file);
+                    return true;
+                });
+
+            await Verify("newvalue", settings);
+
+            Assert.Equal(template, Assert.Single(seen));
+            Assert.Contains("newvalue", await File.ReadAllTextAsync(template));
+        }
+        finally
+        {
+            Directory.Delete(Path.GetDirectoryName(template)!, true);
+        }
+    }
+
     [Fact]
     public async Task AutoVerifyNewInsertsLiteral()
     {

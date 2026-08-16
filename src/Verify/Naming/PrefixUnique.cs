@@ -41,7 +41,7 @@
 
     static void AppendTargetFramework(Namer namer, UniquenessList uniqueness)
     {
-        var name = namer.UniqueForTargetFrameworkName;
+        var name = namer.ResolveUniqueForTargetFrameworkName();
         if (namer.ResolveUniqueForTargetFrameworkAndVersion())
         {
             if (name is null)

@@ -132,19 +132,9 @@ class VerifyEngine(
         foreach (var group in indexed.GroupBy(_ => _.target, targetNameExtensionComparer))
         {
             var targets = group.ToList();
-            if (targets.Count == 1)
-            {
-                var (target, position) = targets[0];
-                if (position == 0 && inlineEngine is not null)
-                {
-                    await CompareInline(target);
-                    continue;
-                }
-
-                await Inner(getFileNames(target), target, position == 0);
-                continue;
-            }
-
+            // Several targets sharing a name and extension are told apart by an index; one on its
+            // own keeps the plain name
+            var indexNames = targets.Count > 1;
             for (var index = 0; index < targets.Count; index++)
             {
                 var (target, position) = targets[index];
@@ -154,7 +144,10 @@ class VerifyEngine(
                     continue;
                 }
 
-                await Inner(getIndexedFileNames(target, index.ToString("D2")), target, position == 0);
+                var file = indexNames
+                    ? getIndexedFileNames(target, index.ToString("D2"))
+                    : getFileNames(target);
+                await Inner(file, target, position == 0);
             }
         }
     }

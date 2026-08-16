@@ -149,6 +149,10 @@ partial class InnerVerifier
         // Hard incompatibilities. A global switch must not break unrelated tests, so these are
         // "not inline" rather than errors; the explicit path above still throws for UniqueDirectory
         // and for parameters.
+        //
+        // The source file is null only on the ctor that leaves typeName null too, so that check
+        // reads as redundant. It is what tells the compiler the argument below is not null, so it
+        // stays rather than becoming a suppression.
         if (settings.UniqueDirectory ||
             verifiedHasParameters ||
             typeName is null ||

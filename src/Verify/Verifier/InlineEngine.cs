@@ -182,8 +182,9 @@ class InlineEngine(
     /// </summary>
     async Task<StagedInline?> WriteStaging()
     {
-        if (IsBuildServer() ||
-            VerifierSettings.IntermediateDir is null)
+        // No build server check: the only caller is Queue, which returns before reaching here
+        // unless diffEnabled, and that already required this not to be one
+        if (VerifierSettings.IntermediateDir is null)
         {
             return null;
         }

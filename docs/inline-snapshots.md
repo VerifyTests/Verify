@@ -341,7 +341,7 @@ public async Task AcceptWritesTheIndentedForm()
     }
 }
 ```
-<sup><a href='/src/Verify.Tests/InlineFSharpTests.cs#L93-L132' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineFSharpAccept' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/InlineFSharpTests.cs#L118-L157' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineFSharpAccept' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Which means a literal like that compares as the snapshot it looks like, rather than as the indented text F# produced:
@@ -358,7 +358,7 @@ public Task LayoutIsNotContent()
     return Verify("line one\nline two", settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/InlineFSharpTests.cs#L34-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineFSharpMatches' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/InlineFSharpTests.cs#L59-L68' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineFSharpMatches' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Two consequences. Content ending in a newline is written as a blank line before the closing delimiter, exactly as in C#. And an F# `expected` argument is only the snapshot once Verify has read it: look at it any other way, in a debugger or by passing it somewhere else, and it still has its indentation.

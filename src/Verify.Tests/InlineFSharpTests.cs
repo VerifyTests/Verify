@@ -31,6 +31,31 @@ public class InlineFSharpTests :
     // is everything between the delimiters, verbatim
     const string asFSharpHandsItOver = "\n        line one\n        line two\n        ";
 
+    /// <summary>
+    /// The agreement Verify's F# comparison rests on, asserted directly rather than only through
+    /// a verification.
+    /// <para>
+    /// It is not Verify's to keep: taking the layout off is DiffEngine's
+    /// <c>SourceLanguage.SnapshotValue</c>, reached through <c>NormalizeExpected</c>, and the
+    /// package it comes from moves on its own. A release that changed it would flip the pass or
+    /// fail of every F# inline snapshot with no change here, and the failures would say the
+    /// snapshot differed rather than that the contract had. This says which.
+    /// </para>
+    /// </summary>
+    [Fact]
+    public void FSharpLayoutIsTakenOffByTheDependency()
+    {
+        // What the compiler hands over, into what the comparison uses
+        Assert.Equal("line one\nline two", InlineEngine.NormalizeExpected(asFSharpHandsItOver, "Tests.fs"));
+
+        // A value not written to that shape is its own content, which is what keeps a single line
+        // snapshot, or one that merely looks like layout, from being trimmed into something else
+        Assert.Equal("line one", InlineEngine.NormalizeExpected("line one", "Tests.fs"));
+
+        // C# has raw strings, so its compiler has already done it and there is nothing to take off
+        Assert.Equal("line one\nline two", InlineEngine.NormalizeExpected("line one\r\nline two", "Tests.cs"));
+    }
+
     // begin-snippet: InlineFSharpMatches
     [Fact]
     public Task LayoutIsNotContent()

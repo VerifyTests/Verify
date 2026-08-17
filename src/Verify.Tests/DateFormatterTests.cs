@@ -227,6 +227,24 @@
         });
     }
 
+    // A sub hour offset has a zero hour component, so the sign has to come from
+    // the offset itself
+    [Fact]
+    public void SubHourOffsets()
+    {
+        var negative = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.FromMinutes(-30));
+        Assert.Equal("2000-10-01 -0-30", DateFormatter.Convert(negative));
+        Assert.Equal("2000-10-01-0-30", DateFormatter.ToParameterString(negative));
+
+        var positive = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.FromMinutes(30));
+        Assert.Equal("2000-10-01 +0-30", DateFormatter.Convert(positive));
+        Assert.Equal("2000-10-01+0-30", DateFormatter.ToParameterString(positive));
+
+        Assert.NotEqual(
+            DateFormatter.ToParameterString(negative),
+            DateFormatter.ToParameterString(positive));
+    }
+
     static bool[] bools =
     [
         true,

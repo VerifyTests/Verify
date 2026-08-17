@@ -36,6 +36,16 @@
             var indexOfLeft = span.IndexOf('(');
 
             var indexOfRight = span.IndexOf(')');
+
+            // Not every frame has a parameter list. NativeAOT renders unresolved frames
+            // as `at MyApp!<BaseAddress>+0x1a2b3c`, which has nothing to trim.
+            if (indexOfLeft == -1 ||
+                indexOfRight == -1)
+            {
+                builder.AppendLineN(span);
+                continue;
+            }
+
             if (removeParams)
             {
                 var next = indexOfLeft + 1;

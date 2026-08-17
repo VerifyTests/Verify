@@ -310,7 +310,7 @@ public static partial class DateFormatter
     }
 }
 ```
-<sup><a href='/src/Verify/Serialization/DateFormatter_DateTimeOffset.cs#L1-L91' title='Snippet source file'>snippet source</a> | <a href='#snippet-DateFormatter_DateTimeOffset.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/DateFormatter_DateTimeOffset.cs#L1-L96' title='Snippet source file'>snippet source</a> | <a href='#snippet-DateFormatter_DateTimeOffset.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

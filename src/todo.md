@@ -44,7 +44,7 @@ All six resolved 2026-08-16 (five fixed here; the inline item resolved as by-des
 - [ ] **`MemberConverter` has no exact-type precedence.**
   `Verify/Serialization/VerifierSettings_MemberConverter.cs:13-25` — first registered entry with `IsAssignableFrom` wins, so a base-interface converter registered earlier permanently shadows a more specific one. Contrast `TryGetScrubOrIgnoreByMemberOfType`, which checks the exact declaring type first.
 
-- [ ] **Registering an `IgnoreInstance` predicate disables empty-collection ignoring for that type.**
+- [x] **Registering an `IgnoreInstance` predicate disables empty-collection ignoring for that type.**
   `Verify/Serialization/SerializationSettings_ShouldIgnore.cs:26-40` — when predicates exist but none match, the early `return false` skips the `ignoreEmptyCollections` check at 42-47. An empty `List<string>` starts appearing as `[]` merely because an unrelated predicate was registered.
 
 - [x] **Combinations name cache collapses distinct keys.**

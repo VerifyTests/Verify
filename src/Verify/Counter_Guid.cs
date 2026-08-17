@@ -28,14 +28,18 @@ public partial class Counter
             return new(0, name);
         }
 
-        return guidCache.GetOrAdd(
-            input,
-            _ => BuildGuidValue());
+        lock (cacheLock)
+        {
+            return guidCache.GetOrAdd(
+                input,
+                _ => BuildGuidValue());
+        }
     }
 
+    // Called under cacheLock
     (int intValue, string stringValue) BuildGuidValue()
     {
-        var value = Interlocked.Increment(ref currentGuid);
+        var value = ++currentGuid;
         return (value, $"Guid_{value}");
     }
 }

@@ -33,17 +33,21 @@ public partial class Counter
 
     (int intValue, string stringValue) NextNumericIdValue(string entityName, string input)
     {
-        if (!numericIdCache.TryGetValue(entityName, out var cache))
+        lock (cacheLock)
         {
-            cache = [];
-            numericIdCache[entityName] = cache;
-        }
+            if (!numericIdCache.TryGetValue(entityName, out var cache))
+            {
+                cache = [];
+                numericIdCache[entityName] = cache;
+            }
 
-        return cache.GetOrAdd(
-            input,
-            _ => BuildNumericIdValue(entityName));
+            return cache.GetOrAdd(
+                input,
+                _ => BuildNumericIdValue(entityName));
+        }
     }
 
+    // Called under cacheLock
     (int intValue, string stringValue) BuildNumericIdValue(string entityName)
     {
         numericIdCounters.TryGetValue(entityName, out var current);

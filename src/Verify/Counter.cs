@@ -10,6 +10,10 @@ public partial class Counter :
     Dictionary<DateTime, string> namedDateTimes;
     Dictionary<Guid, string> namedGuids;
     Dictionary<DateTimeOffset, string> namedDateTimeOffsets;
+    // Guards every value cache below. User code can reach Counter.Current from
+    // parallel work inside one test, and a Dictionary does not survive that.
+    internal object cacheLock = new();
+
     public bool DateCounting { get; }
     public bool ScrubDateTimes { get; }
     public bool ScrubGuids { get; }

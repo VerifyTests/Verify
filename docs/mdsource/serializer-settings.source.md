@@ -68,6 +68,8 @@ The default `JsonSerializerSettings` are:
 
 snippet: defaultSerialization
 
+`DefaultValueHandling` is `Ignore`, but bool members are an exception, so `false` is still rendered. Explicitly assigning `DefaultValueHandling` (using any of the below approaches) disables that exception, and `false` is then treated as any other default value.
+
 
 ### Modify Defaults
 

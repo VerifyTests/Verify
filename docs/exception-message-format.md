@@ -32,6 +32,8 @@ Then zero or more categorized sections, each listing file pairs:
  * **InlineNew** - an [inline snapshot](inline-snapshots.md) with no expected value yet.
  * **InlineNotEqual** - an inline snapshot whose expected value differs from the result.
 
+File paths in these sections are relative to the reported directory, and keep any subdirectory. `UseUniqueDirectory` and `VerifyDirectory` place snapshots in a subdirectory, so combining the reported directory with the listed path is what rebuilds the full path.
+
 Inline entries use a different shape: a `Source:` line with the absolute source file path and 1 based line number (`path:line`), followed by optional absolute staged file paths:
 
 ```
@@ -242,7 +244,7 @@ static Result ParseExceptionMessage(string exceptionMessage)
     return result;
 }
 ```
-<sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionParsingTests.cs#L291-L311' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionParsing' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionParsingTests.cs#L304-L324' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionParsing' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The `Result` contains:

@@ -3,6 +3,21 @@ static class Extensions
     public static string GetTypeNameWithGenericParameters(this TypeDeclarationSyntax syntax) =>
         syntax.Identifier.ToString() + syntax.TypeParameterList;
 
+    /// <summary>
+    /// The keyword to redeclare the type with. A partial declaration has to repeat the kind,
+    /// and for a record struct that kind is two tokens: `Keyword` is only the `record` half.
+    /// </summary>
+    public static string GetPartialKeyword(this TypeDeclarationSyntax syntax)
+    {
+        if (syntax is RecordDeclarationSyntax record &&
+            record.ClassOrStructKeyword.IsKind(SyntaxKind.StructKeyword))
+        {
+            return "record struct";
+        }
+
+        return syntax.Keyword.ValueText;
+    }
+
     public static IEnumerable<INamedTypeSymbol> GetBaseTypes(this ITypeSymbol symbol)
     {
         var baseType = symbol.BaseType;

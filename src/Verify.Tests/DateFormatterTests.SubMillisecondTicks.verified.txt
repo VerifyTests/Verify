@@ -1,0 +1,50 @@
+﻿{
+  0: {
+    dateJson: 2000-10-01 Utc,
+    dateParameter: 2000-10-01Utc,
+    offsetJson: 2000-10-01 +0,
+    offsetParameter: 2000-10-01+0
+  },
+  1: {
+    dateJson: 2000-10-01 00:00:00.0000001 Utc,
+    dateParameter: 2000-10-01T00-00-00.0000001Utc,
+    offsetJson: 2000-10-01 00:00:00.0000001 +0,
+    offsetParameter: 2000-10-01T00-00-00.0000001+0
+  },
+  10000: {
+    dateJson: 2000-10-01 00:00:00.001 Utc,
+    dateParameter: 2000-10-01T00-00-00.001Utc,
+    offsetJson: 2000-10-01 00:00:00.001 +0,
+    offsetParameter: 2000-10-01T00-00-00.001+0
+  },
+  10000000: {
+    dateJson: 2000-10-01 00:00:01 Utc,
+    dateParameter: 2000-10-01T00-00-01Utc,
+    offsetJson: 2000-10-01 00:00:01 +0,
+    offsetParameter: 2000-10-01T00-00-01+0
+  },
+  10000001: {
+    dateJson: 2000-10-01 00:00:01.0000001 Utc,
+    dateParameter: 2000-10-01T00-00-01.0000001Utc,
+    offsetJson: 2000-10-01 00:00:01.0000001 +0,
+    offsetParameter: 2000-10-01T00-00-01.0000001+0
+  },
+  2: {
+    dateJson: 2000-10-01 00:00:00.0000002 Utc,
+    dateParameter: 2000-10-01T00-00-00.0000002Utc,
+    offsetJson: 2000-10-01 00:00:00.0000002 +0,
+    offsetParameter: 2000-10-01T00-00-00.0000002+0
+  },
+  600000000: {
+    dateJson: 2000-10-01 00:01 Utc,
+    dateParameter: 2000-10-01T00-01Utc,
+    offsetJson: 2000-10-01 00:01 +0,
+    offsetParameter: 2000-10-01T00-01+0
+  },
+  600000001: {
+    dateJson: 2000-10-01 00:01:00.0000001 Utc,
+    dateParameter: 2000-10-01T00-01-00.0000001Utc,
+    offsetJson: 2000-10-01 00:01:00.0000001 +0,
+    offsetParameter: 2000-10-01T00-01-00.0000001+0
+  }
+}

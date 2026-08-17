@@ -41,7 +41,7 @@ All six resolved 2026-08-16 (five fixed here; the inline item resolved as by-des
 - [x] **Trimmed fraction format collapses into a standard format specifier.**
   `Verify/Serialization/Scrubbers/DateMatchers.cs:269-297` (consumed at 118-127) — `ScrubInlineDateTimes("s.F")` builds a secondary scrubber for `"s"`; length-1 formats are standard specifiers, so it scrubs every full sortable date-time in the output. `"H.F"` trims to `"H"` and throws `Invalid format: H` at registration despite passing up-front validation.
 
-- [ ] **`MemberConverter` has no exact-type precedence.**
+- [x] **`MemberConverter` has no exact-type precedence.**
   `Verify/Serialization/VerifierSettings_MemberConverter.cs:13-25` — first registered entry with `IsAssignableFrom` wins, so a base-interface converter registered earlier permanently shadows a more specific one. Contrast `TryGetScrubOrIgnoreByMemberOfType`, which checks the exact declaring type first.
 
 - [x] **Registering an `IgnoreInstance` predicate disables empty-collection ignoring for that type.**

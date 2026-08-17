@@ -1,0 +1,8 @@
+﻿{
+  exact: {
+    Value: TheValue_Exact
+  },
+  inherited: {
+    Value: TheValue_Base
+  }
+}

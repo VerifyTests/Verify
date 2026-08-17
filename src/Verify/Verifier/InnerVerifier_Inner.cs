@@ -213,7 +213,6 @@ partial class InnerVerifier
         // The last character is excluded, a trailing newline starting no line
         var end = builder.Length - 1;
         var lines = 1;
-#if NET6_0_OR_GREATER
         // A chunk at a time, so each character is read once. The indexer walks the chunk list to
         // find the one holding the index, so reading a builder through it costs the chunk count per
         // character - and a builder is a chunk per few thousand characters, which for a target of a
@@ -244,21 +243,6 @@ partial class InnerVerifier
                 }
             }
         }
-#else
-        for (var index = 0; index < end; index++)
-        {
-            if (builder[index] != '\n')
-            {
-                continue;
-            }
-
-            lines++;
-            if (lines > maxLines)
-            {
-                return true;
-            }
-        }
-#endif
 
         return false;
     }

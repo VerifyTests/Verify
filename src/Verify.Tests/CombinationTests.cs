@@ -174,4 +174,24 @@ public class CombinationTests
                 params1,
                 params2);
     }
+
+    // DateTime.Equals ignores Kind and DateTimeOffset.Equals compares only the instant,
+    // while the rendered names include both, so keys that differ only in those must not
+    // share a cached name
+    [Fact]
+    public Task DateKeysThatCompareEqual() =>
+        Combination()
+            .Verify(
+                (dateTime, dateTimeOffset) => $"{dateTime.Kind} {dateTimeOffset.Offset}",
+                new List<DateTime>
+                {
+                    new(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                    new(2000, 1, 1, 0, 0, 0, DateTimeKind.Local),
+                    new(2000, 1, 1, 0, 0, 0, DateTimeKind.Unspecified)
+                },
+                new List<DateTimeOffset>
+                {
+                    new(2000, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                    new(2000, 1, 1, 1, 0, 0, TimeSpan.FromHours(1))
+                });
 }

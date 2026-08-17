@@ -47,7 +47,7 @@ All six resolved 2026-08-16 (five fixed here; the inline item resolved as by-des
 - [ ] **Registering an `IgnoreInstance` predicate disables empty-collection ignoring for that type.**
   `Verify/Serialization/SerializationSettings_ShouldIgnore.cs:26-40` — when predicates exist but none match, the early `return false` skips the `ignoreEmptyCollections` check at 42-47. An empty `List<string>` starts appearing as `[]` merely because an unrelated predicate was registered.
 
-- [ ] **Combinations name cache collapses distinct keys.**
+- [x] **Combinations name cache collapses distinct keys.**
   `Verify/Combinations/CombinationResultsConverter.cs:32-54` — `Dictionary<object, string>` keyed on the boxed value: `DateTime.Equals` ignores `Kind`, `DateTimeOffset.Equals` compares only the instant, while the rendered names include Kind/offset. Inputs `2000-01-01 Utc` and `2000-01-01 Local` both get labeled `2000-01-01Utc`.
 
 - [ ] **MSTest overloaded test methods resolve to the wrong `MethodInfo`.**

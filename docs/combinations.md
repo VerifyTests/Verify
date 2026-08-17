@@ -216,8 +216,8 @@ public class CombinationResultsConverter :
         var keyValues = new string[items.Count, keysLength];
 
         // Keys repeat across rows (a column only has as many distinct values as
-        // its input list), so cache the computed name per distinct key value.
-        var nameCache = new Dictionary<object, string>();
+        // its input list), so cache the computed name per key.
+        var nameCache = new Dictionary<object, string>(ReferenceComparer.Instance);
         string? nullName = null;
 
         for (var itemIndex = 0; itemIndex < items.Count; itemIndex++)

@@ -28,6 +28,39 @@
         return Verify(DateFormatter.ToParameterString(date));
     }
 
+    // NumberFormatInfo.NegativeSign is not "-" in every culture: sv-SE renders U+2212 and ar-SA
+    // prefixes U+061C to it. The offset is both snapshot content and part of a parameter file
+    // name, so a negative offset rendered on one machine has to equal the snapshot committed
+    // from another. The sign is set explicitly rather than by picking a real culture, so the
+    // assertion does not move with the ICU data the test happens to run against
+    [Theory]
+    [InlineData(-1.5, "2000-10-01 -1-30", "2000-10-01-1-30")]
+    [InlineData(-5, "2000-10-01 -5", "2000-10-01-5")]
+    [InlineData(1.5, "2000-10-01 +1-30", "2000-10-01+1-30")]
+    [InlineData(5, "2000-10-01 +5", "2000-10-01+5")]
+    [InlineData(0, "2000-10-01 +0", "2000-10-01+0")]
+    public void OffsetDoesNotTakeTheCurrentCultureNegativeSign(double hours, string expectedJson, string expectedParameter)
+    {
+        var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.FromHours(hours));
+
+        // U+2212 MINUS SIGN, as sv-SE uses
+        var culture = (CultureInfo) CultureInfo.InvariantCulture.Clone();
+        culture.NumberFormat.NegativeSign = "−";
+
+        var original = CultureInfo.CurrentCulture;
+        try
+        {
+            CultureInfo.CurrentCulture = culture;
+
+            Assert.Equal(expectedJson, DateFormatter.Convert(date));
+            Assert.Equal(expectedParameter, DateFormatter.ToParameterString(date));
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = original;
+        }
+    }
+
     [Fact]
     public Task DateTimeLocalToJsonString()
     {

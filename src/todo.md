@@ -29,8 +29,8 @@ All six resolved 2026-08-16 (five fixed here; the inline item resolved as by-des
 
 ## Correctness, narrower triggers
 
-- [ ] **Negative UTC offsets formatted with current culture.**
-  `Verify/Serialization/DateFormatter_DateTimeOffset.cs:78,81` — plain interpolation (`$"{offset.Hours:0}"`) uses `CurrentCulture` while every other call in the file passes `Culture.InvariantCulture`. Under `ar-SA` the negative sign renders as invisible U+061C + `-`, so a `DateTimeOffset` parameter with offset `-05:00` produces a filename that never matches a snapshot committed from an en-US machine. Also leaks into snapshot content via `Convert` when date scrubbing is off.
+- [x] **Negative UTC offsets formatted with current culture.**
+  `Verify/Serialization/DateFormatter_DateTimeOffset.cs:78,81` — plain interpolation (`$"{offset.Hours:0}"`) uses `CurrentCulture` while every other call in the file passes `Culture.InvariantCulture`. Under `ar-SA` the negative sign renders as invisible U+061C + `-`, so a `DateTimeOffset` parameter with offset `-05:00` produces a filename that never matches a snapshot committed from an en-US machine. Also leaks into snapshot content via `Convert` when date scrubbing is off. Wider than first recorded: `sv-SE` renders U+2212 MINUS SIGN and `fa-IR` U+200E + U+2212, so the sign is visibly wrong, not just invisible.
 
 - [x] **Sub-millisecond date parameters collide.**
   `Verify/Serialization/DateFormatter_DateTime.cs` (and the `DateTimeOffset` twin) use `Second == 0` / `Millisecond == 0` to omit the fraction, but sub-millisecond ticks leave those properties 0. `AddTicks(1)` and `AddTicks(2)` cases format identically → spurious "prefix has already been used" (or silent sharing of one verified file). Correct check is ticks-based.

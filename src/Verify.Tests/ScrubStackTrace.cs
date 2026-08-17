@@ -31,6 +31,34 @@
         return Verify(scrubbed);
     }
 
+    // NativeAOT renders unresolved frames with no parameter list
+    [Fact]
+    public Task NoParens()
+    {
+        var scrubbed = ScrubStackTrace.Scrub(
+            """
+            System.Exception: Boom
+               at MyApp!<BaseAddress>+0x1a2b3c
+               at MyApp.Program.Main(String[] args) in /src/Program.cs:line 12
+               at MyApp!<BaseAddress>+0x4d5e6f
+            """);
+        return Verify(scrubbed);
+    }
+
+    [Fact]
+    public Task NoParens_RemoveParams()
+    {
+        var scrubbed = ScrubStackTrace.Scrub(
+            """
+            System.Exception: Boom
+               at MyApp!<BaseAddress>+0x1a2b3c
+               at MyApp.Program.Main(String[] args) in /src/Program.cs:line 12
+               at MyApp!<BaseAddress>+0x4d5e6f
+            """,
+            removeParams: true);
+        return Verify(scrubbed);
+    }
+
     [Fact]
     public Task WhiteSpace()
     {

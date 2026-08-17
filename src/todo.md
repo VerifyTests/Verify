@@ -73,7 +73,7 @@ All six resolved 2026-08-16 (five fixed here; the inline item resolved as by-des
 - [x] **`FlattenMessage` omits the joining space after a line ending in `.`.**
   `Verify/Combinations/CombinationResultsConverter.cs:168-183` — two-line messages (net48 `ArgumentNullException`) render as `"Value cannot be null.Parameter name: p"`.
 
-- [ ] **Negative sub-hour offsets render unsigned.**
+- [x] **Negative sub-hour offsets render unsigned.**
   `Verify/Serialization/DateFormatter_DateTimeOffset.cs:74-82` — `TimeSpan.FromMinutes(-30)` renders `0-30` (positive twin is `+0-30`). No real timezone in that range; constructed offsets only.
 
 - [x] **Mismatch crash for handle-based `FileStream` received streams.**

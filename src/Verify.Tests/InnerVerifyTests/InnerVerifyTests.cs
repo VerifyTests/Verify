@@ -27,6 +27,7 @@ public class InnerVerifyTests
     [Fact]
     public async Task VerifyExternalFileLocked()
     {
+        // ReSharper disable once UseAwaitUsing
         using var locker = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
         using var verifier = new InnerVerifier(targetDirectory, "sample2");
         await verifier.VerifyFile(filePath);
@@ -43,18 +44,19 @@ public class InnerVerifyTests
         Trace.WriteLine(assembly);
 
         VerifierSettings.RegisterStreamConverter(
-            "innersplit",
-            (_, stream, _) =>
-            {
-                var reader = new StreamReader(stream);
-                return new(
-                    "the info",
-                    [
-                        new("txt", reader.ReadToEnd()),
-                        new("txt", "text1"),
-                        new("txt", "text2")
-                    ]);
-            });
+            "innersplit", (_, stream, _) => BuildConversionResult(stream));
+    }
+
+    static ConversionResult BuildConversionResult(Stream stream)
+    {
+        var reader = new StreamReader(stream);
+        return new(
+            "the info",
+            [
+                new("txt", reader.ReadToEnd()),
+                new("txt", "text1"),
+                new("txt", "text2")
+            ]);
     }
 
     [Fact]

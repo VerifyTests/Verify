@@ -3,7 +3,9 @@
     [Fact]
     public async Task BinaryEquals()
     {
+        // ReSharper disable once UseAwaitUsing
         using var stream1 = File.OpenRead("sample.bmp");
+        // ReSharper disable once UseAwaitUsing
         using var stream2 = File.OpenRead("sample.bmp");
         var result = await StreamComparer.AreEqual(stream1, stream2);
         Assert.True(result.IsEqual);
@@ -42,6 +44,7 @@
     [Fact]
     public async Task BinaryNotEqualsSameLength()
     {
+        // ReSharper disable once UseAwaitUsing
         using var stream1 = File.OpenRead("sample.bmp");
         using var stream2 = new MemoryStream();
         await stream1.CopyToAsync(stream2);
@@ -57,6 +60,7 @@
     [Fact]
     public async Task BinaryNotEquals()
     {
+        // ReSharper disable once UseAwaitUsing
         using var stream1 = File.OpenRead("sample.bmp");
         using var stream2 = new MemoryStream();
         stream2.WriteByte(8);
@@ -96,6 +100,7 @@
     [Fact]
     public async Task ShouldNotLock()
     {
+        // ReSharper disable UseAwaitUsing
         using var stream1 = File.OpenRead("sample.bmp");
         using var stream2 = File.OpenRead("sample.bmp");
         using (
@@ -108,5 +113,6 @@
             var result = await StreamComparer.AreEqual(stream1, stream2);
             Assert.True(result.IsEqual);
         }
+        // ReSharper restore UseAwaitUsing
     }
 }

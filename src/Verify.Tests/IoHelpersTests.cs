@@ -29,6 +29,7 @@
 
         // Writable + FileShare.None means File.Copy cannot re-open the source
         // by path on Windows; WriteStream must fall back to the handle.
+        // ReSharper disable once UseAwaitUsing
         using var stream = new FileStream(source, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
         await IoHelpers.WriteStream(destination, stream);
 

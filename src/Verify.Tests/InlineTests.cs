@@ -11,11 +11,18 @@ public class InlineTests :
     // fail on CI. The two build server tests move it back for their duration.
     Func<bool> originalIsBuildServer = InlineEngine.IsBuildServer;
 
+    // Built on demand by WriteTemplate, so the tests that never write one neither create a
+    // directory nor put a path in front of the temp path scrubber
+    TempDirectory? templates;
+
     public InlineTests() =>
         InlineEngine.IsBuildServer = () => false;
 
-    public void Dispose() =>
+    public void Dispose()
+    {
         InlineEngine.IsBuildServer = originalIsBuildServer;
+        templates?.Dispose();
+    }
 
     [Fact]
     public async Task Simple()
@@ -487,17 +494,17 @@ public class InlineTests :
     static string FakeSource() =>
         Path.Combine(Path.GetTempPath(), "VerifyInlineFakeSource.cs");
 
-    static string WriteTemplate(string body)
+    // xunit builds an instance per test, so the one template name cannot collide
+    string WriteTemplate(string body)
     {
-        var directory = Path.Combine(Path.GetTempPath(), $"VerifyInlineTests_{Guid.NewGuid():N}");
-        Directory.CreateDirectory(directory);
-        var path = Path.Combine(directory, "Template.cs");
+        templates ??= new();
+        var path = templates.BuildPath("Template.cs");
         File.WriteAllText(path, body);
         return path;
     }
 
     // The template's line endings would otherwise be whatever the checkout produced
-    static string WriteTemplate(string body, string eol) =>
+    string WriteTemplate(string body, string eol) =>
         WriteTemplate(
             body
                 .Replace("\r\n", "\n")

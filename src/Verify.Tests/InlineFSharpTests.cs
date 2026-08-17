@@ -14,11 +14,18 @@ public class InlineFSharpTests :
     // Accepting rewrites source, which InlineEngine declines to do on a build server
     Func<bool> originalIsBuildServer = InlineEngine.IsBuildServer;
 
+    // Built on demand by WriteTemplate, so the tests that never write one neither create a
+    // directory nor put a path in front of the temp path scrubber
+    TempDirectory? templates;
+
     public InlineFSharpTests() =>
         InlineEngine.IsBuildServer = () => false;
 
-    public void Dispose() =>
+    public void Dispose()
+    {
         InlineEngine.IsBuildServer = originalIsBuildServer;
+        templates?.Dispose();
+    }
 
     // What the F# compiler produces for
     //
@@ -247,11 +254,11 @@ public class InlineFSharpTests :
     static string FakeCsSource() =>
         Path.Combine(Path.GetTempPath(), "VerifyInlineFakeSource.cs");
 
-    static string WriteTemplate(string body)
+    // xunit builds an instance per test, so the one template name cannot collide
+    string WriteTemplate(string body)
     {
-        var directory = Path.Combine(Path.GetTempPath(), $"VerifyInlineFSharpTests_{Guid.NewGuid():N}");
-        Directory.CreateDirectory(directory);
-        var path = Path.Combine(directory, "Template.fs");
+        templates ??= new();
+        var path = templates.BuildPath("Template.fs");
         File.WriteAllText(path, body);
         return path;
     }

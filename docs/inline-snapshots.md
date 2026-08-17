@@ -37,7 +37,7 @@ public Task MultiLine()
             """);
 }
 ```
-<sup><a href='/src/Verify.Tests/InlineTests.cs#L28-L42' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineSample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/InlineTests.cs#L35-L49' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Omitting the expected argument (or passing `null`) marks the snapshot as new; accepting it writes the literal into the source file.
@@ -69,7 +69,7 @@ public Task Combinations() =>
             }
             """);
 ```
-<sup><a href='/src/Verify.Tests/InlineTests.cs#L87-L109' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineCombinationSample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/InlineTests.cs#L94-L116' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineCombinationSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The verification pipeline is unchanged: the target is serialized and scrubbed exactly as for file snapshots, then compared against the literal. Line endings in the literal are normalized to `\n` before comparison, whether the source file uses `\r\n`, `\n` or a lone `\r`, so the comparison is not affected by the line endings of the source file.
@@ -189,7 +189,7 @@ public Task IgnoredParameters(string value) =>
         .IgnoreParameters()
         .Snapshot("1");
 ```
-<sup><a href='/src/Verify.Tests/InlineTests.cs#L282-L292' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineIgnoreParametersSample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/InlineTests.cs#L289-L299' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineIgnoreParametersSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The APIs that do this are `IgnoreParameters()`, `IgnoreParametersForVerified()` and `IgnoreConstructorParameters()` on the instance settings, and `VerifierSettings.IgnoreParameters()` and `VerifierSettings.IgnoreConstructorParameters()` globally. Ignoring only some of the parameters is not enough, since the remaining ones still vary the verified name per case. `UseTextForParameters` counts as a parameter here for the same reason, while `UseFileName` pins the verified name so no parameter ever reaches it.
@@ -341,7 +341,7 @@ public async Task AcceptWritesTheIndentedForm()
     }
 }
 ```
-<sup><a href='/src/Verify.Tests/InlineFSharpTests.cs#L118-L157' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineFSharpAccept' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/InlineFSharpTests.cs#L125-L164' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineFSharpAccept' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Which means a literal like that compares as the snapshot it looks like, rather than as the indented text F# produced:
@@ -358,7 +358,7 @@ public Task LayoutIsNotContent()
     return Verify("line one\nline two", settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/InlineFSharpTests.cs#L59-L68' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineFSharpMatches' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/InlineFSharpTests.cs#L66-L75' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineFSharpMatches' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Two consequences. Content ending in a newline is written as a blank line before the closing delimiter, exactly as in C#. And an F# `expected` argument is only the snapshot once Verify has read it: look at it any other way, in a debugger or by passing it somewhere else, and it still has its indentation.

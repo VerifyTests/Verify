@@ -20,10 +20,15 @@ public class GlobalInlineTests :
         InlineEngine.IsBuildServer = () => false;
     }
 
+    // Built on demand by WriteTemplate, so the tests that never write one neither create a
+    // directory nor put a path in front of the temp path scrubber
+    TempDirectory? templates;
+
     public void Dispose()
     {
         DiffEngine.DiffRunner.Disabled = diffDisabled;
         InlineEngine.IsBuildServer = isBuildServer;
+        templates?.Dispose();
     }
 
     [Fact]
@@ -627,12 +632,12 @@ public class GlobalInlineTests :
         temp.BuildPath($"{nameof(GlobalInlineTests)}.{name}.verified.txt");
 
     // Migrating away from inline rewrites source, so the tests that exercise it point at a
-    // throwaway file rather than this one
-    static string WriteTemplate(string body = snapshotTemplate)
+    // throwaway file rather than this one. xunit builds an instance per test, so the one
+    // template name cannot collide
+    string WriteTemplate(string body = snapshotTemplate)
     {
-        var directory = Path.Combine(Path.GetTempPath(), $"VerifyGlobalInlineTests_{Guid.NewGuid():N}");
-        Directory.CreateDirectory(directory);
-        var path = Path.Combine(directory, "Template.cs");
+        templates ??= new();
+        var path = templates.BuildPath("Template.cs");
         File.WriteAllText(path, body);
         return path;
     }

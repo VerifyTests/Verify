@@ -38,7 +38,7 @@ All six resolved 2026-08-16 (five fixed here; the inline item resolved as by-des
 - [ ] **`#` in parameter values collides with the indexed-target namespace.**
   `Verify/Naming/MatchingFileFinder.cs:9,20` — `indexedPattern: "{prefix}#"` matches by prefix, and `#` is not sanitized. Cases `"x"` and `"x#1"` on one method: running `"x"` deletes `C.M_p=x#1.received.txt` and sweeps `C.M_p=x#1.verified.txt` into the stale set (deleted under AutoVerify).
 
-- [ ] **Trimmed fraction format collapses into a standard format specifier.**
+- [x] **Trimmed fraction format collapses into a standard format specifier.**
   `Verify/Serialization/Scrubbers/DateMatchers.cs:269-297` (consumed at 118-127) — `ScrubInlineDateTimes("s.F")` builds a secondary scrubber for `"s"`; length-1 formats are standard specifiers, so it scrubs every full sortable date-time in the output. `"H.F"` trims to `"H"` and throws `Invalid format: H` at registration despite passing up-front validation.
 
 - [ ] **`MemberConverter` has no exact-type precedence.**

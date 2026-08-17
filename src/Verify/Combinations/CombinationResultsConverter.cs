@@ -10,6 +10,7 @@ public class CombinationResultsConverter :
         var items = results.Items;
         if (items.Count == 0)
         {
+            writer.WriteEndObject();
             return;
         }
 
@@ -175,8 +176,11 @@ public class CombinationResultsConverter :
             builder.Append(trimmed);
             if (!trimmed.EndsWith('.'))
             {
-                builder.Append(". ");
+                builder.Append('.');
             }
+
+            // separate from the next line even when the sentence was already terminated
+            builder.Append(' ');
         }
 
         builder.TrimEnd();

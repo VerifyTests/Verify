@@ -198,6 +198,7 @@ public class CombinationResultsConverter :
         var items = results.Items;
         if (items.Count == 0)
         {
+            writer.WriteEndObject();
             return;
         }
 
@@ -363,8 +364,11 @@ public class CombinationResultsConverter :
             builder.Append(trimmed);
             if (!trimmed.EndsWith('.'))
             {
-                builder.Append(". ");
+                builder.Append('.');
             }
+
+            // separate from the next line even when the sentence was already terminated
+            builder.Append(' ');
         }
 
         builder.TrimEnd();
@@ -372,7 +376,7 @@ public class CombinationResultsConverter :
     }
 }
 ```
-<sup><a href='/src/Verify/Combinations/CombinationResultsConverter.cs#L1-L185' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationResultsConverter.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Combinations/CombinationResultsConverter.cs#L1-L189' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationResultsConverter.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

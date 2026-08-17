@@ -159,6 +159,38 @@ public class CombinationTests
             .IgnoreStackTrace();
     }
 
+    static string ThrowMultiLine(int value) =>
+        throw new ArgumentException(
+            """
+            Value cannot be null.
+            Parameter name: p
+            """);
+
+    // ArgumentException messages are flattened onto one line, so the parts of the
+    // message need a separator between them
+    [Fact]
+    public Task MultiLineArgumentException() =>
+        Combination(captureExceptions: true)
+            .Verify(
+                ThrowMultiLine,
+                params1);
+
+    // Only reachable by constructing the results directly, since the runner requires
+    // every list to have at least one item
+    [Fact]
+    public Task EmptyResults() =>
+        Verify(new CombinationResults([], [], null));
+
+    // an unclosed object would swallow everything written after it
+    [Fact]
+    public Task EmptyResultsNested() =>
+        Verify(
+            new
+            {
+                results = new CombinationResults([], [], null),
+                after = "TheValue"
+            });
+
     [Fact]
     public Task RecordingPausedTest()
     {

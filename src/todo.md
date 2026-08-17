@@ -67,10 +67,10 @@ All six resolved 2026-08-16 (five fixed here; the inline item resolved as by-des
 - [ ] **MSTest source generator ignores `record` test classes.**
   `Verify.MSTest.SourceGenerator/UsesVerifyGenerator.cs:125-126` — only `ClassDeclarationSyntax` is eligible; `[UsesVerify] [TestClass] partial record` compiles then fails at runtime with the misleading "TestContext is null" error. `Parser.GetParentClasses` similarly stops at a `record struct` parent.
 
-- [ ] **Unclosed JSON object for empty `CombinationResults`.**
+- [x] **Unclosed JSON object for empty `CombinationResults`.**
   `Verify/Combinations/CombinationResultsConverter.cs:8-14` — `WriteStartObject()` then early `return` with no `WriteEndObject()`. Only reachable by constructing `CombinationResults([], ...)` directly.
 
-- [ ] **`FlattenMessage` omits the joining space after a line ending in `.`.**
+- [x] **`FlattenMessage` omits the joining space after a line ending in `.`.**
   `Verify/Combinations/CombinationResultsConverter.cs:168-183` — two-line messages (net48 `ArgumentNullException`) render as `"Value cannot be null.Parameter name: p"`.
 
 - [ ] **Negative sub-hour offsets render unsigned.**

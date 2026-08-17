@@ -118,12 +118,20 @@ public class UsesVerifyGenerator : IIncrementalGenerator
     static bool HasTestClassAttribute(INamedTypeSymbol symbol, INamedTypeSymbol testClassType) =>
         !symbol.HasAttributeOfType(testClassType, includeDerived: true);
 
-    // Require at least one attribute list: both paths only care about classes
+    // Require at least one attribute list: both paths only care about types
     // carrying [UsesVerify] or [TestClass]. Without this filter the uncached
-    // CreateSyntaxProvider transform runs semantic work for every class in the
+    // CreateSyntaxProvider transform runs semantic work for every type in the
     // consuming project on every keystroke.
+    // Records are eligible too: a record class is a class, so it is a legal test class.
+    // A record struct is not, and [UsesVerify] does not permit one.
     static bool IsSyntaxEligibleForGeneration(SyntaxNode node, Cancel _) =>
-        node is ClassDeclarationSyntax { AttributeLists.Count: > 0 };
+        node switch
+        {
+            ClassDeclarationSyntax syntax => syntax.AttributeLists.Count > 0,
+            RecordDeclarationSyntax syntax => syntax.AttributeLists.Count > 0 &&
+                                              !syntax.ClassOrStructKeyword.IsKind(SyntaxKind.StructKeyword),
+            _ => false
+        };
 
     static bool IsAssemblyEligibleForGeneration(IAssemblySymbol assembly, INamedTypeSymbol markerType) =>
         assembly.HasAttributeOfType(markerType, includeDerived: false);

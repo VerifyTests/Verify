@@ -29,16 +29,16 @@ All six resolved 2026-08-16 (five fixed here; the inline item resolved as by-des
 
 ## Correctness, narrower triggers
 
-- [ ] **Negative UTC offsets formatted with current culture.**
-  `Verify/Serialization/DateFormatter_DateTimeOffset.cs:78,81` — plain interpolation (`$"{offset.Hours:0}"`) uses `CurrentCulture` while every other call in the file passes `Culture.InvariantCulture`. Under `ar-SA` the negative sign renders as invisible U+061C + `-`, so a `DateTimeOffset` parameter with offset `-05:00` produces a filename that never matches a snapshot committed from an en-US machine. Also leaks into snapshot content via `Convert` when date scrubbing is off.
+- [x] **Negative UTC offsets formatted with current culture.**
+  `Verify/Serialization/DateFormatter_DateTimeOffset.cs:78,81` — plain interpolation (`$"{offset.Hours:0}"`) uses `CurrentCulture` while every other call in the file passes `Culture.InvariantCulture`. Under `ar-SA` the negative sign renders as invisible U+061C + `-`, so a `DateTimeOffset` parameter with offset `-05:00` produces a filename that never matches a snapshot committed from an en-US machine. Also leaks into snapshot content via `Convert` when date scrubbing is off. Wider than first recorded: `sv-SE` renders U+2212 MINUS SIGN and `fa-IR` U+200E + U+2212, so the sign is visibly wrong, not just invisible.
 
-- [ ] **Sub-millisecond date parameters collide.**
+- [x] **Sub-millisecond date parameters collide.**
   `Verify/Serialization/DateFormatter_DateTime.cs` (and the `DateTimeOffset` twin) use `Second == 0` / `Millisecond == 0` to omit the fraction, but sub-millisecond ticks leave those properties 0. `AddTicks(1)` and `AddTicks(2)` cases format identically → spurious "prefix has already been used" (or silent sharing of one verified file). Correct check is ticks-based.
 
-- [ ] **`#` in parameter values collides with the indexed-target namespace.**
+- [x] **`#` in parameter values collides with the indexed-target namespace.**
   `Verify/Naming/MatchingFileFinder.cs:9,20` — `indexedPattern: "{prefix}#"` matches by prefix, and `#` is not sanitized. Cases `"x"` and `"x#1"` on one method: running `"x"` deletes `C.M_p=x#1.received.txt` and sweeps `C.M_p=x#1.verified.txt` into the stale set (deleted under AutoVerify).
 
-- [ ] **Trimmed fraction format collapses into a standard format specifier.**
+- [x] **Trimmed fraction format collapses into a standard format specifier.**
   `Verify/Serialization/Scrubbers/DateMatchers.cs:269-297` (consumed at 118-127) — `ScrubInlineDateTimes("s.F")` builds a secondary scrubber for `"s"`; length-1 formats are standard specifiers, so it scrubs every full sortable date-time in the output. `"H.F"` trims to `"H"` and throws `Invalid format: H` at registration despite passing up-front validation.
 
 - [ ] **`MemberConverter` has no exact-type precedence.**
@@ -47,13 +47,13 @@ All six resolved 2026-08-16 (five fixed here; the inline item resolved as by-des
 - [ ] **Registering an `IgnoreInstance` predicate disables empty-collection ignoring for that type.**
   `Verify/Serialization/SerializationSettings_ShouldIgnore.cs:26-40` — when predicates exist but none match, the early `return false` skips the `ignoreEmptyCollections` check at 42-47. An empty `List<string>` starts appearing as `[]` merely because an unrelated predicate was registered.
 
-- [ ] **Combinations name cache collapses distinct keys.**
+- [x] **Combinations name cache collapses distinct keys.**
   `Verify/Combinations/CombinationResultsConverter.cs:32-54` — `Dictionary<object, string>` keyed on the boxed value: `DateTime.Equals` ignores `Kind`, `DateTimeOffset.Equals` compares only the instant, while the rendered names include Kind/offset. Inputs `2000-01-01 Utc` and `2000-01-01 Local` both get labeled `2000-01-01Utc`.
 
-- [ ] **MSTest overloaded test methods resolve to the wrong `MethodInfo`.**
+- [x] **MSTest overloaded test methods resolve to the wrong `MethodInfo`.**
   `Verify.MSTest/TestExecutionContext.cs:24-30` — `FindMethod` returns the first name match, ignoring parameters. With two `[DataRow]` overloads of one name, the parameter-count guard in `Verifier.BuildVerifier` mismatches for one of them → `SetParameters` silently skipped → both overloads collide on one snapshot prefix.
 
-- [ ] **`Delete:` section drops subdirectories, breaking the parse round-trip.**
+- [x] **`Delete:` section drops subdirectories, breaking the parse round-trip.**
   `Verify/Verifier/VerifyExceptionMessageBuilder.cs:62` emits `Path.GetFileName(file)` while the other sections emit directory-relative paths, and `Verify.ExceptionParsing/Parser.cs:109` reconstructs with `Path.Combine(directory, name)`. For `UseUniqueDirectory()`/`VerifyDirectory` tests, a stale `{Directory}\Type.Method\old.verified.txt` parses back as the nonexistent `{Directory}\old.verified.txt`; same-named files in different subdirectories collapse.
 
 - [x] **`ThrowIfVerifyHasBeenRun` blames the caller instead of the API.**
@@ -61,26 +61,26 @@ All six resolved 2026-08-16 (five fixed here; the inline item resolved as by-des
 
 ## Minor / edge cases
 
-- [ ] **Stack-trace scrubber destroys paren-less `at` frames** (NativeAOT: `at MyApp!<BaseAddress>+0x1a2b3c`).
+- [x] **Stack-trace scrubber destroys paren-less `at` frames** (NativeAOT: `at MyApp!<BaseAddress>+0x1a2b3c`).
   `Verify/Serialization/Scrubbers/ScrubStackTrace.cs:36-58` — `IndexOf('(')`/`')'` return −1, slice keeps zero chars → frame becomes an empty line, or the literal `...)` with `removeParams: true`.
 
-- [ ] **MSTest source generator ignores `record` test classes.**
+- [x] **MSTest source generator ignores `record` test classes.**
   `Verify.MSTest.SourceGenerator/UsesVerifyGenerator.cs:125-126` — only `ClassDeclarationSyntax` is eligible; `[UsesVerify] [TestClass] partial record` compiles then fails at runtime with the misleading "TestContext is null" error. `Parser.GetParentClasses` similarly stops at a `record struct` parent.
 
-- [ ] **Unclosed JSON object for empty `CombinationResults`.**
+- [x] **Unclosed JSON object for empty `CombinationResults`.**
   `Verify/Combinations/CombinationResultsConverter.cs:8-14` — `WriteStartObject()` then early `return` with no `WriteEndObject()`. Only reachable by constructing `CombinationResults([], ...)` directly.
 
-- [ ] **`FlattenMessage` omits the joining space after a line ending in `.`.**
+- [x] **`FlattenMessage` omits the joining space after a line ending in `.`.**
   `Verify/Combinations/CombinationResultsConverter.cs:168-183` — two-line messages (net48 `ArgumentNullException`) render as `"Value cannot be null.Parameter name: p"`.
 
-- [ ] **Negative sub-hour offsets render unsigned.**
+- [x] **Negative sub-hour offsets render unsigned.**
   `Verify/Serialization/DateFormatter_DateTimeOffset.cs:74-82` — `TimeSpan.FromMinutes(-30)` renders `0-30` (positive twin is `+0-30`). No real timezone in that range; constructed offsets only.
 
-- [ ] **Mismatch crash for handle-based `FileStream` received streams.**
+- [x] **Mismatch crash for handle-based `FileStream` received streams.**
   `Verify/Compare/FileComparer.cs:50` — NotEqual fast path copies by `fileStream.Name` with no fallback; handle-based streams have `Name == "[Unknown]"`. First (New) run succeeds via the guarded `IoHelpers.WriteStream` path; later mismatches throw the generic "Failed to compare files".
 
-- [ ] **`PrefixUnique` set is case-sensitive on case-insensitive filesystems.**
+- [x] **`PrefixUnique` set is case-sensitive on case-insensitive filesystems.**
   `Verify/Naming/PrefixUnique.cs:3` — methods `Foo` and `foo` map to the same files on NTFS/APFS but pass the uniqueness check and silently clobber each other.
 
-- [ ] **`Counter` caches mix `Interlocked` counters with unsynchronized `Dictionary` writes.**
+- [x] **`Counter` caches mix `Interlocked` counters with unsynchronized `Dictionary` writes.**
   `Verify/Counter_*.cs` → `Extensions.cs:155-164` — concurrent `Counter.Current.Next(...)` calls from parallel user code inside one test can corrupt the plain `Dictionary`.

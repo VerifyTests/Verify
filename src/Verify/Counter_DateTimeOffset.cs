@@ -48,14 +48,18 @@ public partial class Counter
             return new(0, name);
         }
 
-        return dateTimeOffsetCache.GetOrAdd(
-            input,
-            _ => BuildDateTimeOffsetValue());
+        lock (cacheLock)
+        {
+            return dateTimeOffsetCache.GetOrAdd(
+                input,
+                _ => BuildDateTimeOffsetValue());
+        }
     }
 
+    // Called under cacheLock
     (int intValue, string stringValue) BuildDateTimeOffsetValue()
     {
-        var value = Interlocked.Increment(ref currentDateTimeOffset);
+        var value = ++currentDateTimeOffset;
 
         if (DateCounting)
         {

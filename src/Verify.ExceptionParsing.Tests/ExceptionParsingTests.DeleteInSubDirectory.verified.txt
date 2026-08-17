@@ -1,0 +1,12 @@
+﻿{
+  message:
+Directory: {ProjectDirectory}
+Delete:
+  - TheType.TheMethod\old.verified.txt
+,
+  result: {
+    Delete: [
+      {ProjectDirectory}TheType.TheMethod\old.verified.txt
+    ]
+  }
+}

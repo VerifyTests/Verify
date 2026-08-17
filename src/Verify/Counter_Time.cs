@@ -43,14 +43,18 @@ public partial class Counter
             return new(0, name);
         }
 
-        return timeCache.GetOrAdd(
-            input,
-            _ => BuildTimeValue());
+        lock (cacheLock)
+        {
+            return timeCache.GetOrAdd(
+                input,
+                _ => BuildTimeValue());
+        }
     }
 
+    // Called under cacheLock
     (int intValue, string stringValue) BuildTimeValue()
     {
-        var value = Interlocked.Increment(ref currentTime);
+        var value = ++currentTime;
         return (value, $"Time_{value}");
     }
 }

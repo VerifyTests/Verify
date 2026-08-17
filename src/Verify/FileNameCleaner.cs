@@ -42,7 +42,10 @@
         ':',
         '*',
         '?',
-        '/'
+        '/',
+        // Not invalid on disk, but reserved: `{prefix}#` is the indexed-target namespace,
+        // so a `#` in a value would make one case's files look like another case's targets
+        '#'
     ];
 
     static char[] invalidPathChars =

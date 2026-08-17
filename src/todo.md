@@ -53,7 +53,7 @@ All six resolved 2026-08-16 (five fixed here; the inline item resolved as by-des
 - [ ] **MSTest overloaded test methods resolve to the wrong `MethodInfo`.**
   `Verify.MSTest/TestExecutionContext.cs:24-30` — `FindMethod` returns the first name match, ignoring parameters. With two `[DataRow]` overloads of one name, the parameter-count guard in `Verifier.BuildVerifier` mismatches for one of them → `SetParameters` silently skipped → both overloads collide on one snapshot prefix.
 
-- [ ] **`Delete:` section drops subdirectories, breaking the parse round-trip.**
+- [x] **`Delete:` section drops subdirectories, breaking the parse round-trip.**
   `Verify/Verifier/VerifyExceptionMessageBuilder.cs:62` emits `Path.GetFileName(file)` while the other sections emit directory-relative paths, and `Verify.ExceptionParsing/Parser.cs:109` reconstructs with `Path.Combine(directory, name)`. For `UseUniqueDirectory()`/`VerifyDirectory` tests, a stale `{Directory}\Type.Method\old.verified.txt` parses back as the nonexistent `{Directory}\old.verified.txt`; same-named files in different subdirectories collapse.
 
 - [ ] **`ThrowIfVerifyHasBeenRun` blames the caller instead of the API.**

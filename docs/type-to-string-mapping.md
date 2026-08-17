@@ -146,17 +146,20 @@ public static partial class DateFormatter
 
     static string GetJsonDatePart(DateTime value)
     {
-        if (value.TimeOfDay == TimeSpan.Zero)
+        // ticks, not the Second/Millisecond properties, since sub-millisecond ticks leave both of those zero
+        var ticks = value.TimeOfDay.Ticks;
+
+        if (ticks == 0)
         {
             return value.ToString("yyyy-MM-dd", Culture.InvariantCulture);
         }
 
-        if (value is {Second: 0, Millisecond: 0})
+        if (ticks % TimeSpan.TicksPerMinute == 0)
         {
             return value.ToString("yyyy-MM-dd HH:mm", Culture.InvariantCulture);
         }
 
-        if (value.Millisecond == 0)
+        if (ticks % TimeSpan.TicksPerSecond == 0)
         {
             return value.ToString("yyyy-MM-dd HH:mm:ss", Culture.InvariantCulture);
         }
@@ -178,17 +181,19 @@ public static partial class DateFormatter
 
     static string GetParameterDatePart(DateTime value)
     {
-        if (value.TimeOfDay == TimeSpan.Zero)
+        var ticks = value.TimeOfDay.Ticks;
+
+        if (ticks == 0)
         {
             return value.ToString("yyyy-MM-dd", Culture.InvariantCulture);
         }
 
-        if (value is {Second: 0, Millisecond: 0})
+        if (ticks % TimeSpan.TicksPerMinute == 0)
         {
             return value.ToString("yyyy-MM-ddTHH-mm", Culture.InvariantCulture);
         }
 
-        if (value.Millisecond == 0)
+        if (ticks % TimeSpan.TicksPerSecond == 0)
         {
             return value.ToString("yyyy-MM-ddTHH-mm-ss", Culture.InvariantCulture);
         }
@@ -197,7 +202,7 @@ public static partial class DateFormatter
     }
 }
 ```
-<sup><a href='/src/Verify/Serialization/DateFormatter_DateTime.cs#L1-L68' title='Snippet source file'>snippet source</a> | <a href='#snippet-DateFormatter_DateTime.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/DateFormatter_DateTime.cs#L1-L73' title='Snippet source file'>snippet source</a> | <a href='#snippet-DateFormatter_DateTime.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -221,17 +226,20 @@ public static partial class DateFormatter
 
     static string GetJsonDatePart(DateTimeOffset value)
     {
-        if (value.TimeOfDay == TimeSpan.Zero)
+        // ticks, not the Second/Millisecond properties, since sub-millisecond ticks leave both of those zero
+        var ticks = value.TimeOfDay.Ticks;
+
+        if (ticks == 0)
         {
             return value.ToString("yyyy-MM-dd", Culture.InvariantCulture);
         }
 
-        if (value is {Second: 0, Millisecond: 0})
+        if (ticks % TimeSpan.TicksPerMinute == 0)
         {
             return value.ToString("yyyy-MM-dd HH:mm", Culture.InvariantCulture);
         }
 
-        if (value.Millisecond == 0)
+        if (ticks % TimeSpan.TicksPerSecond == 0)
         {
             return value.ToString("yyyy-MM-dd HH:mm:ss", Culture.InvariantCulture);
         }
@@ -249,17 +257,19 @@ public static partial class DateFormatter
 
     static string GetParameterDatePart(DateTimeOffset value)
     {
-        if (value.TimeOfDay == TimeSpan.Zero)
+        var ticks = value.TimeOfDay.Ticks;
+
+        if (ticks == 0)
         {
             return value.ToString("yyyy-MM-dd", Culture.InvariantCulture);
         }
 
-        if (value is {Second: 0, Millisecond: 0})
+        if (ticks % TimeSpan.TicksPerMinute == 0)
         {
             return value.ToString("yyyy-MM-ddTHH-mm", Culture.InvariantCulture);
         }
 
-        if (value.Millisecond == 0)
+        if (ticks % TimeSpan.TicksPerSecond == 0)
         {
             return value.ToString("yyyy-MM-ddTHH-mm-ss", Culture.InvariantCulture);
         }
@@ -295,7 +305,7 @@ public static partial class DateFormatter
     }
 }
 ```
-<sup><a href='/src/Verify/Serialization/DateFormatter_DateTimeOffset.cs#L1-L86' title='Snippet source file'>snippet source</a> | <a href='#snippet-DateFormatter_DateTimeOffset.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/DateFormatter_DateTimeOffset.cs#L1-L91' title='Snippet source file'>snippet source</a> | <a href='#snippet-DateFormatter_DateTimeOffset.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

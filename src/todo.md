@@ -35,7 +35,7 @@ All six resolved 2026-08-16 (five fixed here; the inline item resolved as by-des
 - [x] **Sub-millisecond date parameters collide.**
   `Verify/Serialization/DateFormatter_DateTime.cs` (and the `DateTimeOffset` twin) use `Second == 0` / `Millisecond == 0` to omit the fraction, but sub-millisecond ticks leave those properties 0. `AddTicks(1)` and `AddTicks(2)` cases format identically → spurious "prefix has already been used" (or silent sharing of one verified file). Correct check is ticks-based.
 
-- [ ] **`#` in parameter values collides with the indexed-target namespace.**
+- [x] **`#` in parameter values collides with the indexed-target namespace.**
   `Verify/Naming/MatchingFileFinder.cs:9,20` — `indexedPattern: "{prefix}#"` matches by prefix, and `#` is not sanitized. Cases `"x"` and `"x#1"` on one method: running `"x"` deletes `C.M_p=x#1.received.txt` and sweeps `C.M_p=x#1.verified.txt` into the stale set (deleted under AutoVerify).
 
 - [x] **Trimmed fraction format collapses into a standard format specifier.**

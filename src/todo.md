@@ -29,7 +29,7 @@ All six resolved 2026-08-16 (five fixed here; the inline item resolved as by-des
 
 ## Correctness, narrower triggers
 
-- [ ] **Negative UTC offsets formatted with current culture.**
+- [x] **Negative UTC offsets formatted with current culture.**
   `Verify/Serialization/DateFormatter_DateTimeOffset.cs:78,81` — plain interpolation (`$"{offset.Hours:0}"`) uses `CurrentCulture` while every other call in the file passes `Culture.InvariantCulture`. Under `ar-SA` the negative sign renders as invisible U+061C + `-`, so a `DateTimeOffset` parameter with offset `-05:00` produces a filename that never matches a snapshot committed from an en-US machine. Also leaks into snapshot content via `Convert` when date scrubbing is off.
 
 - [ ] **Sub-millisecond date parameters collide.**

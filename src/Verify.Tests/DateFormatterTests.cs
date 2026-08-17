@@ -194,6 +194,36 @@
         });
     }
 
+    [Fact]
+    public void OffsetIsNotAffectedByCurrentCulture()
+    {
+        // some cultures (for example ar-SA) use a negative sign that is not "-"
+        var culture = (CultureInfo) CultureInfo.InvariantCulture.Clone();
+        culture.NumberFormat.NegativeSign = "!";
+
+        var original = CultureInfo.CurrentCulture;
+        try
+        {
+            CultureInfo.CurrentCulture = culture;
+
+            var negativeHalfHour = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.FromHours(-1.5));
+            Assert.Equal("2000-10-01 -1-30", DateFormatter.Convert(negativeHalfHour));
+            Assert.Equal("2000-10-01-1-30", DateFormatter.ToParameterString(negativeHalfHour));
+
+            var negativeWholeHour = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.FromHours(-5));
+            Assert.Equal("2000-10-01 -5", DateFormatter.Convert(negativeWholeHour));
+            Assert.Equal("2000-10-01-5", DateFormatter.ToParameterString(negativeWholeHour));
+
+            var positiveHalfHour = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.FromHours(1.5));
+            Assert.Equal("2000-10-01 +1-30", DateFormatter.Convert(positiveHalfHour));
+            Assert.Equal("2000-10-01+1-30", DateFormatter.ToParameterString(positiveHalfHour));
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = original;
+        }
+    }
+
     static bool[] bools =
     [
         true,

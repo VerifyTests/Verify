@@ -275,20 +275,20 @@ public static partial class DateFormatter
         {
             if (offset.Minutes == 0)
             {
-                return $"+{offset.TotalHours:0}";
+                return $"+{offset.TotalHours.ToString("0", Culture.InvariantCulture)}";
             }
 
-            return $"+{offset.Hours:0}-{offset.Minutes:00}";
+            return $"+{offset.Hours.ToString("0", Culture.InvariantCulture)}-{offset.Minutes.ToString("00", Culture.InvariantCulture)}";
         }
 
         if (offset < TimeSpan.Zero)
         {
             if (offset.Minutes == 0)
             {
-                return $"{offset.Hours:0}";
+                return offset.Hours.ToString("0", Culture.InvariantCulture);
             }
 
-            return $"{offset.Hours:0}{offset.Minutes:00}";
+            return $"{offset.Hours.ToString("0", Culture.InvariantCulture)}{offset.Minutes.ToString("00", Culture.InvariantCulture)}";
         }
 
         return "+0";

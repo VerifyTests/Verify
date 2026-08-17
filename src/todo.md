@@ -64,7 +64,7 @@ All six resolved 2026-08-16 (five fixed here; the inline item resolved as by-des
 - [ ] **Stack-trace scrubber destroys paren-less `at` frames** (NativeAOT: `at MyApp!<BaseAddress>+0x1a2b3c`).
   `Verify/Serialization/Scrubbers/ScrubStackTrace.cs:36-58` — `IndexOf('(')`/`')'` return −1, slice keeps zero chars → frame becomes an empty line, or the literal `...)` with `removeParams: true`.
 
-- [ ] **MSTest source generator ignores `record` test classes.**
+- [x] **MSTest source generator ignores `record` test classes.**
   `Verify.MSTest.SourceGenerator/UsesVerifyGenerator.cs:125-126` — only `ClassDeclarationSyntax` is eligible; `[UsesVerify] [TestClass] partial record` compiles then fails at runtime with the misleading "TestContext is null" error. `Parser.GetParentClasses` similarly stops at a `record struct` parent.
 
 - [ ] **Unclosed JSON object for empty `CombinationResults`.**

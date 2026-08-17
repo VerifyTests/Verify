@@ -56,7 +56,7 @@ All six resolved 2026-08-16 (five fixed here; the inline item resolved as by-des
 - [x] **`Delete:` section drops subdirectories, breaking the parse round-trip.**
   `Verify/Verifier/VerifyExceptionMessageBuilder.cs:62` emits `Path.GetFileName(file)` while the other sections emit directory-relative paths, and `Verify.ExceptionParsing/Parser.cs:109` reconstructs with `Path.Combine(directory, name)`. For `UseUniqueDirectory()`/`VerifyDirectory` tests, a stale `{Directory}\Type.Method\old.verified.txt` parses back as the nonexistent `{Directory}\old.verified.txt`; same-named files in different subdirectories collapse.
 
-- [ ] **`ThrowIfVerifyHasBeenRun` blames the caller instead of the API.**
+- [x] **`ThrowIfVerifyHasBeenRun` blames the caller instead of the API.**
   `Verify/Verifier/InnerVerifier.cs:35-38` — `new StackTrace(1, false)` already skips the guard, so frame 0 is the guarded API; `GetFrame(1)` fetches the API's caller. The message names the user's own method as "The API". Runtime-reproduced (Debug and Release). Fix: `GetFrame(0)`.
 
 ## Minor / edge cases

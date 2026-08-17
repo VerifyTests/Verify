@@ -1,5 +1,3 @@
-using StackTrace = System.Diagnostics.StackTrace;
-
 namespace VerifyTests;
 
 public partial class InnerVerifier :
@@ -24,18 +22,20 @@ public partial class InnerVerifier :
     // inline is not compatible with.
     string? pathPrefixReceived;
 
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ThrowIfVerifyHasBeenRun()
+    /// <param name="api">
+    /// Defaulted from the calling member, so it names the API that has the restriction.
+    /// Reading it off a StackTrace instead only works while that API has a frame of its
+    /// own: the JIT is free to inline it into the caller, and does on net48 in release,
+    /// which put the caller's name in the message.
+    /// </param>
+    public static void ThrowIfVerifyHasBeenRun([CallerMemberName] string api = "")
     {
         if (!verifyHasBeenRun)
         {
             return;
         }
 
-        var stackTrace = new StackTrace(1, false);
-        var method = stackTrace.GetFrame(1)!.GetMethod()!;
-        var type = method.DeclaringType;
-        throw new($"The API '{type}.{method.Name}' must be called prior to any Verify has run. Usually this is done in a [ModuleInitializer]. Verify run by: {verifyHasBeenRunBy}");
+        throw new($"The API '{api}' must be called prior to any Verify has run. Usually this is done in a [ModuleInitializer]. Verify run by: {verifyHasBeenRunBy}");
     }
 
     public InnerVerifier(

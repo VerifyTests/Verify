@@ -79,7 +79,7 @@ All six resolved 2026-08-16 (five fixed here; the inline item resolved as by-des
 - [x] **Mismatch crash for handle-based `FileStream` received streams.**
   `Verify/Compare/FileComparer.cs:50` — NotEqual fast path copies by `fileStream.Name` with no fallback; handle-based streams have `Name == "[Unknown]"`. First (New) run succeeds via the guarded `IoHelpers.WriteStream` path; later mismatches throw the generic "Failed to compare files".
 
-- [ ] **`PrefixUnique` set is case-sensitive on case-insensitive filesystems.**
+- [x] **`PrefixUnique` set is case-sensitive on case-insensitive filesystems.**
   `Verify/Naming/PrefixUnique.cs:3` — methods `Foo` and `foo` map to the same files on NTFS/APFS but pass the uniqueness check and silently clobber each other.
 
 - [ ] **`Counter` caches mix `Interlocked` counters with unsynchronized `Dictionary` writes.**

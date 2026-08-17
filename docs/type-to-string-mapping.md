@@ -267,6 +267,10 @@ public static partial class DateFormatter
         return value.ToString("yyyy-MM-ddTHH-mm-ss.FFFFFFF", Culture.InvariantCulture);
     }
 
+    // Interpolation formats with the current culture, and NumberFormatInfo.NegativeSign is not "-"
+    // everywhere: sv-SE renders U+2212 and ar-SA prefixes U+061C. A negative offset carries that
+    // sign into both snapshot content and parameter file names, so the culture is pinned here the
+    // same way it is for every date part above
     static string GetDateOffset(DateTimeOffset value)
     {
         var offset = value.Offset;
@@ -275,27 +279,28 @@ public static partial class DateFormatter
         {
             if (offset.Minutes == 0)
             {
-                return $"+{offset.TotalHours:0}";
+                return FormattableString.Invariant($"+{offset.TotalHours:0}");
             }
 
-            return $"+{offset.Hours:0}-{offset.Minutes:00}";
+            return FormattableString.Invariant($"+{offset.Hours:0}-{offset.Minutes:00}");
         }
 
         if (offset < TimeSpan.Zero)
         {
             if (offset.Minutes == 0)
             {
-                return $"{offset.Hours:0}";
+                return FormattableString.Invariant($"{offset.Hours:0}");
             }
 
-            return $"{offset.Hours:0}{offset.Minutes:00}";
+            // Minutes is negative too, which is what renders the separator
+            return FormattableString.Invariant($"{offset.Hours:0}{offset.Minutes:00}");
         }
 
         return "+0";
     }
 }
 ```
-<sup><a href='/src/Verify/Serialization/DateFormatter_DateTimeOffset.cs#L1-L86' title='Snippet source file'>snippet source</a> | <a href='#snippet-DateFormatter_DateTimeOffset.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/DateFormatter_DateTimeOffset.cs#L1-L91' title='Snippet source file'>snippet source</a> | <a href='#snippet-DateFormatter_DateTimeOffset.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

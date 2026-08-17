@@ -194,6 +194,55 @@
         });
     }
 
+    [Fact]
+    public void SubMillisecondTicksDoNotCollide()
+    {
+        var date = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Utc);
+        Assert.NotEqual(
+            DateFormatter.ToParameterString(date.AddTicks(1)),
+            DateFormatter.ToParameterString(date.AddTicks(2)));
+
+        var offset = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero);
+        Assert.NotEqual(
+            DateFormatter.ToParameterString(offset.AddTicks(1)),
+            DateFormatter.ToParameterString(offset.AddTicks(2)));
+    }
+
+    [Fact]
+    public Task SubMillisecondTicks()
+    {
+        var date = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Utc);
+        var offset = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero);
+
+        var values = new Dictionary<string, object>();
+        foreach (var ticks in tickOffsets)
+        {
+            values.Add(
+                ticks.ToString(),
+                new
+                {
+                    dateJson = DateFormatter.Convert(date.AddTicks(ticks)),
+                    dateParameter = DateFormatter.ToParameterString(date.AddTicks(ticks)),
+                    offsetJson = DateFormatter.Convert(offset.AddTicks(ticks)),
+                    offsetParameter = DateFormatter.ToParameterString(offset.AddTicks(ticks))
+                });
+        }
+
+        return Verify(values);
+    }
+
+    static long[] tickOffsets =
+    [
+        0,
+        1,
+        2,
+        TimeSpan.TicksPerMillisecond,
+        TimeSpan.TicksPerSecond,
+        TimeSpan.TicksPerSecond + 1,
+        TimeSpan.TicksPerMinute,
+        TimeSpan.TicksPerMinute + 1
+    ];
+
     static bool[] bools =
     [
         true,

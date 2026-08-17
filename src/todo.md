@@ -76,7 +76,7 @@ All six resolved 2026-08-16 (five fixed here; the inline item resolved as by-des
 - [ ] **Negative sub-hour offsets render unsigned.**
   `Verify/Serialization/DateFormatter_DateTimeOffset.cs:74-82` — `TimeSpan.FromMinutes(-30)` renders `0-30` (positive twin is `+0-30`). No real timezone in that range; constructed offsets only.
 
-- [ ] **Mismatch crash for handle-based `FileStream` received streams.**
+- [x] **Mismatch crash for handle-based `FileStream` received streams.**
   `Verify/Compare/FileComparer.cs:50` — NotEqual fast path copies by `fileStream.Name` with no fallback; handle-based streams have `Name == "[Unknown]"`. First (New) run succeeds via the guarded `IoHelpers.WriteStream` path; later mismatches throw the generic "Failed to compare files".
 
 - [ ] **`PrefixUnique` set is case-sensitive on case-insensitive filesystems.**

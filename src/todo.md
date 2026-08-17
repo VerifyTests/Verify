@@ -82,5 +82,5 @@ All six resolved 2026-08-16 (five fixed here; the inline item resolved as by-des
 - [x] **`PrefixUnique` set is case-sensitive on case-insensitive filesystems.**
   `Verify/Naming/PrefixUnique.cs:3` — methods `Foo` and `foo` map to the same files on NTFS/APFS but pass the uniqueness check and silently clobber each other.
 
-- [ ] **`Counter` caches mix `Interlocked` counters with unsynchronized `Dictionary` writes.**
+- [x] **`Counter` caches mix `Interlocked` counters with unsynchronized `Dictionary` writes.**
   `Verify/Counter_*.cs` → `Extensions.cs:155-164` — concurrent `Counter.Current.Next(...)` calls from parallel user code inside one test can corrupt the plain `Dictionary`.

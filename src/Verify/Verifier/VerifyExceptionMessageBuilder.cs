@@ -59,7 +59,10 @@ static class VerifyExceptionMessageBuilder
             builder.AppendLineN("Delete:");
             foreach (var file in delete)
             {
-                builder.AppendLineN($"  - {Path.GetFileName(file)}");
+                // directory relative, like the other sections, so the parser can
+                // rebuild the path. UseUniqueDirectory and VerifyDirectory put the
+                // verified files in a subdirectory, which a file name would drop.
+                builder.AppendLineN($"  - {IoHelpers.GetRelativePath(directory, file)}");
             }
         }
 

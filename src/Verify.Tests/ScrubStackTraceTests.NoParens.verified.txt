@@ -1,0 +1,4 @@
+﻿System.Exception: Boom
+at MyApp!<BaseAddress>+0x1a2b3c
+at MyApp.Program.Main(String[] args)
+at MyApp!<BaseAddress>+0x4d5e6f

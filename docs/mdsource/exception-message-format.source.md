@@ -25,6 +25,8 @@ Then zero or more categorized sections, each listing file pairs:
  * **InlineNew** - an [inline snapshot](inline-snapshots.md) with no expected value yet.
  * **InlineNotEqual** - an inline snapshot whose expected value differs from the result.
 
+File paths in these sections are relative to the reported directory, and keep any subdirectory. `UseUniqueDirectory` and `VerifyDirectory` place snapshots in a subdirectory, so combining the reported directory with the listed path is what rebuilds the full path.
+
 Inline entries use a different shape: a `Source:` line with the absolute source file path and 1 based line number (`path:line`), followed by optional absolute staged file paths:
 
 ```

@@ -1187,6 +1187,30 @@ public class SerializationTests
         return Verify(target);
     }
 
+    [Fact]
+    public Task BoolFalseWithDefaultValueIgnore()
+    {
+        var target = new BoolModel
+        {
+            BoolMember = false,
+            NullableBoolMember = false
+        };
+        return Verify(target)
+            .AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Ignore);
+    }
+
+    [Fact]
+    public Task BoolFalseWithDefaultValueInclude()
+    {
+        var target = new BoolModel
+        {
+            BoolMember = false,
+            NullableBoolMember = null
+        };
+        return Verify(target)
+            .AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
+    }
+
     class BoolModel
     {
         public bool BoolMember;

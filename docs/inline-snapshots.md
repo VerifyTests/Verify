@@ -40,7 +40,7 @@ public Task MultiLine()
 <sup><a href='/src/Verify.Tests/InlineTests.cs#L35-L49' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Omitting the expected argument (or passing `null`) marks the snapshot as new; accepting it writes the literal into the source file.
+Omitting the expected argument (or passing `null` or `default`) marks the snapshot as new; accepting it writes the literal into the source file.
 
 Because `Snapshot` is a modifier rather than a separate entry point, it composes with every overload: `VerifyXml(...).Snapshot(...)`, `VerifyJson(...).Snapshot(...)`, `VerifyFile(...).Snapshot(...)`, and so on.
 

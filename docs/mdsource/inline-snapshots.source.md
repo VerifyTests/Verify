@@ -17,7 +17,7 @@ Add `.Snapshot(...)` to any verification:
 
 snippet: InlineSample
 
-Omitting the expected argument (or passing `null`) marks the snapshot as new; accepting it writes the literal into the source file.
+Omitting the expected argument (or passing `null` or `default`) marks the snapshot as new; accepting it writes the literal into the source file.
 
 Because `Snapshot` is a modifier rather than a separate entry point, it composes with every overload: `VerifyXml(...).Snapshot(...)`, `VerifyJson(...).Snapshot(...)`, `VerifyFile(...).Snapshot(...)`, and so on.
 

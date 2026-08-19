@@ -107,8 +107,68 @@ class InlineEngine(
     {
         if (diffEnabled)
         {
-            DiffRunner.SettleInline(MappedSourceFile, inline.Line);
+            // The member goes with the line, because the line alone stops finding the entry as
+            // soon as an accept earlier in the file inserts a literal above this call site.
+            DiffRunner.SettleInline(MappedSourceFile, inline.Line, inline.MemberName);
         }
+    }
+
+    /// <summary>
+    /// The members this process has actually inlined a verification for, so a retire in the same
+    /// member does not reach for one of their entries. See <see cref="Retire" />.
+    /// </summary>
+    static readonly ConcurrentDictionary<string, byte> inlinedMembers = new(StringComparer.OrdinalIgnoreCase);
+
+    public static void RecordInline(string mappedSourceFile, string? memberName)
+    {
+        if (memberName is not null)
+        {
+            inlinedMembers[$"{mappedSourceFile}|{memberName}"] = 0;
+        }
+    }
+
+    /// <summary>
+    /// Drops whatever a previous run queued for a call site that is no longer an inline snapshot:
+    /// <c>NotInline</c>, a global switch that declined it, or a literal that outgrew the size
+    /// limit. Nothing here compares anything, so this is static and needs no engine — there is no
+    /// inline verification to build one for, which is the whole point.
+    /// </summary>
+    /// <remarks>
+    /// Without this the entry outlives the decision that made it meaningless. Settling only ever
+    /// happened on the inline path, so a verification that stopped being inline left its queued
+    /// snapshot pending for good: no run would ever settle it, and the reviewer was left with an
+    /// entry for a test that passes.
+    /// <para>
+    /// The member is withheld once this process has inlined something in that member. It is the
+    /// owner's fallback for a call site whose line has moved, and it cannot tell that from a
+    /// sibling call site in the same member — so a member holding both an inline verification and
+    /// a declined one would have the inline one's freshly queued entry retired out from under it,
+    /// every run, and its snapshot would never be reviewable. Withholding the member costs only
+    /// the drift tolerance, and only for members that have an inline verification to lose.
+    /// </para>
+    /// </remarks>
+    public static void Retire(VerifySettings settings, string? sourceFile, int line, string? memberName)
+    {
+        if (DiffRunner.Disabled ||
+            !settings.diffEnabled ||
+            IsBuildServer())
+        {
+            return;
+        }
+
+        if (sourceFile is null ||
+            line == 0 ||
+            !InlineInfo.IsSupported(sourceFile))
+        {
+            return;
+        }
+
+        var mapped = InnerVerifier.MapSourceFile(sourceFile);
+        var member = memberName is not null &&
+                     inlinedMembers.ContainsKey($"{mapped}|{memberName}")
+            ? null
+            : memberName;
+        DiffRunner.RetireInline(mapped, line, member);
     }
 
     /// <summary>

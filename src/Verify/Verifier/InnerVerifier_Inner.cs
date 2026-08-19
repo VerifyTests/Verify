@@ -36,6 +36,10 @@ partial class InnerVerifier
                 inline,
                 settings.TypeName ?? typeName,
                 settings.MethodName ?? methodName);
+
+            // Recorded before anything else can retire in this member, so a sibling verification
+            // that is not inline retires by call site alone rather than reaching for this one.
+            InlineEngine.RecordInline(inlineEngine.MappedSourceFile, inline.MemberName);
         }
         else if (settings.inline is { } stale)
         {
@@ -56,6 +60,11 @@ partial class InnerVerifier
             // method are legal. Migrating puts this one back under the file naming rules, where
             // two of them in one method would resolve to the same name.
             ValidatePrefix(settings, pathPrefixReceived!);
+        }
+
+        if (inline is null)
+        {
+            RetireInline();
         }
 
         var engine = new VerifyEngine(
@@ -96,6 +105,34 @@ partial class InnerVerifier
         }
 
         return new(filePairs, root);
+    }
+
+    /// <summary>
+    /// This verification is not inline, so anything a previous run queued for its call site is
+    /// stale whatever happens next — the file snapshot passing or failing says nothing about a
+    /// snapshot that no longer lives in the source.
+    /// </summary>
+    /// <remarks>
+    /// Gated on inline being in play at all, so a codebase that never turned it on never pays a
+    /// loopback round trip per verification. Where a Snapshot call is still there but declined,
+    /// its own call site is the one to retire; otherwise it is the verify call's.
+    /// </remarks>
+    void RetireInline()
+    {
+        if (VerifierSettings.inline is null &&
+            settings.inline is null &&
+            !settings.notInline)
+        {
+            return;
+        }
+
+        if (settings.inline is { } declined)
+        {
+            InlineEngine.Retire(settings, declined.File, declined.Line, declined.MemberName);
+            return;
+        }
+
+        InlineEngine.Retire(settings, inlineSourceFile, lineNumber, methodName);
     }
 
     /// <summary>

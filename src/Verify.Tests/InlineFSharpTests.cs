@@ -69,7 +69,7 @@ public class InlineFSharpTests :
     {
         var settings = new VerifySettings();
         settings.IgnoreParameters();
-        settings.Snapshot(asFSharpHandsItOver, FakeSource(), 1, null, "LayoutIsNotContent");
+        settings.Snapshot(asFSharpHandsItOver, FakeSource(), 1, null);
         return Verify("line one\nline two", settings);
     }
     // end-snippet
@@ -82,7 +82,7 @@ public class InlineFSharpTests :
         var settings = new VerifySettings();
         settings.IgnoreParameters();
         settings.DisableDiff();
-        settings.Snapshot(asFSharpHandsItOver, FakeCsSource(), 1, null, "LayoutIsContentInCSharp");
+        settings.Snapshot(asFSharpHandsItOver, FakeCsSource(), 1, null);
 
         var exception = await Assert.ThrowsAsync<VerifyException>(
             async () => await Verify("line one\nline two", settings));
@@ -96,7 +96,7 @@ public class InlineFSharpTests :
     {
         var settings = new VerifySettings();
         settings.IgnoreParameters();
-        settings.Snapshot("\n        line one\n\n        ", FakeSource(), 1, null, "TrailingNewline");
+        settings.Snapshot("\n        line one\n\n        ", FakeSource(), 1, null);
         return Verify("line one\n", settings);
     }
 
@@ -106,7 +106,7 @@ public class InlineFSharpTests :
     {
         var settings = new VerifySettings();
         settings.IgnoreParameters();
-        settings.Snapshot("the value", FakeSource(), 1, null, "SingleLine");
+        settings.Snapshot("the value", FakeSource(), 1, null);
         return Verify("the value", settings);
     }
 
@@ -118,7 +118,7 @@ public class InlineFSharpTests :
         var content = "\n    indented\n    ";
         var settings = new VerifySettings();
         settings.IgnoreParameters();
-        settings.Snapshot(RenderedAsFSharp(content), FakeSource(), 1, null, "ContentThatLooksLikeLayout");
+        settings.Snapshot(RenderedAsFSharp(content), FakeSource(), 1, null);
         return Verify(content, settings);
     }
 

@@ -354,7 +354,7 @@ public Task LayoutIsNotContent()
 {
     var settings = new VerifySettings();
     settings.IgnoreParameters();
-    settings.Snapshot(asFSharpHandsItOver, FakeSource(), 1, null, "LayoutIsNotContent");
+    settings.Snapshot(asFSharpHandsItOver, FakeSource(), 1, null);
     return Verify("line one\nline two", settings);
 }
 ```

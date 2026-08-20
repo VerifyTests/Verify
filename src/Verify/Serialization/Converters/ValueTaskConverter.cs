@@ -39,7 +39,9 @@
     }
 
     // ReSharper disable once UnusedMember.Local
+#pragma warning disable IDE0051
     static void WriteGeneric<T>(VerifyJsonWriter writer, ValueTask<T?> task)
+#pragma warning restore IDE0051
         where T : notnull
     {
         writer.WriteMember(task, task.IsCanceled, "IsCanceled");

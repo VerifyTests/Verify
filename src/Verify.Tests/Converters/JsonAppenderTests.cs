@@ -18,7 +18,9 @@
     #endregion
 
     // ReSharper disable once UnusedParameter.Local
+#pragma warning disable IDE0060
     static bool ShouldInclude(IReadOnlyDictionary<string, object> context) =>
+#pragma warning restore IDE0060
         isInThisTest.Value;
 
     public JsonAppenderTests() =>

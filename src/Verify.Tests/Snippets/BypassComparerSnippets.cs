@@ -23,7 +23,9 @@ public class BypassComparerSnippets
     #endregion
 
     // ReSharper disable once UnusedParameter.Local
+#pragma warning disable IDE0060
     static Stream RenderPage(Stream document) =>
+#pragma warning restore IDE0060
         new MemoryStream();
 }
 

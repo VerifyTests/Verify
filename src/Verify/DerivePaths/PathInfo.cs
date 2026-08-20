@@ -75,4 +75,16 @@ public readonly struct PathInfo
             typeName: typeName,
             methodName: methodName);
     }
+
+    internal static PathInfo DeriveDefault(
+        string sourceFile,
+#pragma warning disable IDE0060
+        string projectDirectory,
+#pragma warning restore IDE0060
+        string typeName,
+        string methodName) =>
+        new(
+            directory: IoHelpers.ResolveDirectoryFromSourceFile(sourceFile),
+            typeName: typeName,
+            methodName: methodName);
 }

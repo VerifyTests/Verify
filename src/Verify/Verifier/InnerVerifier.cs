@@ -35,8 +35,31 @@ public partial class InnerVerifier :
             return;
         }
 
-        throw new($"The API '{api}' must be called prior to any Verify has run. Usually this is done in a [ModuleInitializer]. Verify run by: {verifyHasBeenRunBy}");
+        throw BuildHasBeenRunException($"The API '{api}'");
     }
+
+    /// <summary>
+    /// Retained for binary compatibility. Plugins compiled against Verify 32.0.0-beta.8 and
+    /// earlier reference the parameterless signature, so adding an <c>api</c> parameter to it
+    /// made those binaries fail with a MissingMethodException at plugin initialization.
+    /// Deprioritized so that source calls keep binding to the overload above, which names the
+    /// API in the message.
+    /// </summary>
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    [OverloadResolutionPriority(-1)]
+    [Obsolete("Use ThrowIfVerifyHasBeenRun(string api)")]
+    public static void ThrowIfVerifyHasBeenRun()
+    {
+        if (!verifyHasBeenRun)
+        {
+            return;
+        }
+
+        throw BuildHasBeenRunException("The API");
+    }
+
+    static Exception BuildHasBeenRunException(string api) =>
+        new($"{api} must be called prior to any Verify has run. Usually this is done in a [ModuleInitializer]. Verify run by: {verifyHasBeenRunBy}");
 
     public InnerVerifier(
         string sourceFile,

@@ -93,6 +93,20 @@ dotnet_diagnostic.CA1822.severity = error
 # Avoid unused private fields
 dotnet_diagnostic.CA1823.severity = error
 
+# Remove unused parameter
+# non_public, because a public signature sometimes keeps a parameter it does not read: an overload
+# retained for binary compatibility cannot drop one without breaking every caller compiled against
+# it. Inside a type there is no such excuse, and a parameter nothing reads is either dead weight or
+# a bug where the argument was meant to be used.
+dotnet_diagnostic.IDE0060.severity = error
+dotnet_code_quality_unused_parameters = non_public
+
+# Remove unused private member
+dotnet_diagnostic.IDE0051.severity = error
+
+# Remove unread private member
+dotnet_diagnostic.IDE0052.severity = error
+
 # Avoid zero-length array allocations
 dotnet_diagnostic.CA1825.severity = error
 
@@ -384,7 +398,7 @@ ij_xml_space_inside_empty_tag = true
 indent_size = 2
 
 # Verify settings
-[*.{received,verified}.{txt,xml,json,md,sql,csv,html,htm,nuspec,rels}]
+[*.{received,verified}.{txt,xml,json,md,mdx,yml,sql,csv,html,htm,nuspec,rels}]
 charset = utf-8-bom
 end_of_line = lf
 indent_size = unset

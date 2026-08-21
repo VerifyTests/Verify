@@ -72,6 +72,49 @@ public class InlineRetireTests :
         Assert.Null(settle.Origin);
     }
 
+    /// <summary>
+    /// A settle only ever reached the queue owner, which says nothing to a snapshot that is on
+    /// disk instead — staged by a run that found no owner, or written out by one on its way out.
+    /// Those files are what accept tooling reads, so the snapshot stayed pending for a test that
+    /// had stopped being inline.
+    /// </summary>
+    [Fact]
+    public async Task NotInlineClearsStagedFilesForTheCallSite()
+    {
+        var intermediate = VerifierSettings.IntermediateDir;
+        Assert.NotNull(intermediate);
+
+        var staging = Path.Combine(intermediate!, InlineStaging.DirectoryName);
+        Directory.CreateDirectory(staging);
+
+        // A deliberately wrong line, so this only clears by way of the member fallback — which is
+        // the case that matters, since a staged snapshot outlives the edits that move its line.
+        var stem = nameof(NotInlineClearsStagedFilesForTheCallSite);
+        var patchFile = Path.Combine(staging, $"{stem}.inlinepatch");
+        var receivedFile = Path.Combine(staging, $"{stem}.received.txt");
+        var expectedFile = Path.Combine(staging, $"{stem}.expected.txt");
+        InlinePatchFile.Write(
+            patchFile,
+            new(SourceFile(), 1, "\"old\"", "staged content")
+            {
+                TestName = $"InlineRetireTests.{stem}",
+                MemberName = stem,
+                OriginalValue = "old"
+            });
+        File.WriteAllText(receivedFile, "staged content");
+        File.WriteAllText(expectedFile, "old");
+
+        var settings = new VerifySettings();
+        settings.UseDirectory(listener.Directory);
+        settings.NotInline();
+
+        await Record.ExceptionAsync(() => Verify("value", settings));
+
+        Assert.False(File.Exists(patchFile));
+        Assert.False(File.Exists(receivedFile));
+        Assert.False(File.Exists(expectedFile));
+    }
+
     static string SourceFile([CallerFilePath] string file = "") =>
         InnerVerifier.MapSourceFile(file);
 

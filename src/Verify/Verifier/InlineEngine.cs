@@ -110,8 +110,17 @@ class InlineEngine(
             // The member goes with the line, because the line alone stops finding the entry as
             // soon as an accept earlier in the file inserts a literal above this call site.
             DiffRunner.SettleInline(MappedSourceFile, inline.Line, inline.MemberName);
+            ClearStaged(MappedSourceFile, inline.Line, inline.MemberName);
         }
     }
+
+    /// <summary>
+    /// A settle only reaches a queue owner, and a snapshot can be on disk instead: staged by a run
+    /// that found no owner, or written out by one on its way out. Those files are what accept
+    /// tooling reads, so without this the snapshot stays pending for a test that now passes.
+    /// </summary>
+    static void ClearStaged(string mappedSourceFile, int line, string? memberName) =>
+        InlineStaging.Clear(mappedSourceFile, line, memberName, VerifierSettings.IntermediateDir);
 
     /// <summary>
     /// The members this process has actually inlined a verification for, so a retire in the same
@@ -169,6 +178,7 @@ class InlineEngine(
             ? null
             : memberName;
         DiffRunner.RetireInline(mapped, line, member);
+        ClearStaged(mapped, line, member);
     }
 
     /// <summary>

@@ -84,6 +84,7 @@ public class InlineRetireTests :
         var intermediate = VerifierSettings.IntermediateDir;
         Assert.NotNull(intermediate);
 
+        // ReSharper disable once RedundantSuppressNullableWarningExpression
         var staging = Path.Combine(intermediate!, InlineStaging.DirectoryName);
         Directory.CreateDirectory(staging);
 

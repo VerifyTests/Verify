@@ -14,23 +14,20 @@
     [Fact]
     public void AddContextReplacesExisting()
     {
-        var task = BuildTask();
-        task.AddContext("key", "first");
-        task.AddContext("key", "second");
+        var task = BuildTask()
+            .AddContext("key", "first")
+            .AddContext("key", "second");
         Assert.Equal("second", task.CurrentSettings.Context["key"]);
     }
 
     [Fact]
-    public void AddContextRejectsEmptyName()
+    public async Task AddContextRejectsEmptyName()
     {
         var task = BuildTask();
         // Not an expression body, since SettingsTask is awaitable
         // and would bind to the async Assert.Throws overload
-        Assert.Throws<ArgumentException>(
-            () =>
-            {
-                task.AddContext("", "value");
-            });
+        await Assert.ThrowsAsync<ArgumentException>(
+            () => task.AddContext("", "value"));
     }
 
     static SettingsTask BuildTask() =>

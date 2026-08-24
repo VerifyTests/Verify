@@ -29,9 +29,6 @@ public class InlineRetireTests :
         // DiffEngine switches diff off by itself on a build server, under continuous testing and
         // under an AI CLI, and a retire rides the same switch.
         DiffRunner.Disabled = false;
-        // Nothing here should open a window; a blocked launch still reports its move to the owner,
-        // which the assertions below filter out.
-        DiffRunner.MaxInstancesToLaunch(0);
         Environment.SetEnvironmentVariable(portVariable, listener.Port.ToString());
     }
 
@@ -50,9 +47,16 @@ public class InlineRetireTests :
         settings.UseDirectory(listener.Directory);
         settings.NotInline();
 
+        // The file verification has to pass. A failing one hands a pending move to whatever owns
+        // the queue on this machine, and on a developer box that is the tray - which shows the
+        // move and then drops it again when the temp directory goes. Turning diff off is not open
+        // to this test: Retire rides settings.diffEnabled too, so it would retire nothing.
+        // RetireInline runs before the file pipeline, so accepting the snapshot costs it nothing.
+        settings.AutoVerify();
+
         // The verification itself is beside the point: the call site stops being an inline
         // snapshot whether the file snapshot then passes or fails, so the retire goes either way.
-        await Record.ExceptionAsync(() => Verify("value", settings));
+        await Verify("value", settings);
 
         var settle = listener.AwaitSettle();
         Assert.NotNull(settle);
@@ -109,7 +113,10 @@ public class InlineRetireTests :
         settings.UseDirectory(listener.Directory);
         settings.NotInline();
 
-        await Record.ExceptionAsync(() => Verify("value", settings));
+        // Accepted rather than left failing, for the reason given in NotInlineRetiresTheCallSite
+        settings.AutoVerify();
+
+        await Verify("value", settings);
 
         Assert.False(File.Exists(patchFile));
         Assert.False(File.Exists(receivedFile));
@@ -182,8 +189,8 @@ public class InlineRetireTests :
         }
 
         /// <summary>
-        /// The first settle to arrive, or null. Other verbs reach the owner on the same port — a
-        /// blocked diff launch still reports its move — so this reads past them.
+        /// The first settle to arrive, or null. Other verbs can reach the owner on the same port,
+        /// so this reads past them.
         /// </summary>
         public Settle? AwaitSettle()
         {

@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-
 // Used for the combinations name cache. Each input list is materialized once, so a key
 // recurs as the same boxed instance and reference equality is what makes the cache hit.
 // Value equality would be wrong there: DateTime.Equals ignores Kind and

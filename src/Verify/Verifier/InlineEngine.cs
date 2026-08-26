@@ -1,4 +1,4 @@
-// The inline half of VerifyEngine. One target's expected content lives in the test source file
+﻿// The inline half of VerifyEngine. One target's expected content lives in the test source file
 // instead of a .verified file, so no FilePair is created (FilePair feeds DanglingSnapshotsCheck)
 // and accept is a source rewrite (via DiffEngine InlineApplier) instead of a file move.
 // Owned and driven by VerifyEngine, which keeps deletes, auto verify and the exception message.
@@ -55,7 +55,7 @@ class InlineEngine(
             throw new VerifyException(
                 $"""
                  Inline snapshots only support text content. The first target, with extension '{target.Extension}', is a binary stream.
-                 Use `.NotInline()` for this test. `Target.DontInline` opts an extension out as well, but only where the global switch is what turned inline on: an explicit `Snapshot(...)` is honoured whatever it says.
+                 Remove the `Snapshot(...)` call, or add `NotInline()`, to keep this test on verified files. Only an explicit `Snapshot(...)` reaches this: the global switch declines a binary target and falls back to files.
                  """);
         }
 

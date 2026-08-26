@@ -1,4 +1,4 @@
-// ReSharper disable ConstantExpected
+﻿// ReSharper disable ConstantExpected
 [SuppressMessage("Performance", "CA1857:A constant is expected for the parameter")]
 // Shared with InlineFSharpTests: both swap the global IsBuildServer, so running them in parallel
 // has whichever finishes first restore the real detector under the other
@@ -466,7 +466,6 @@ public class InlineTests :
 
         Assert.Contains("only support text", exception.Message);
         Assert.Contains("NotInline", exception.Message);
-        Assert.Contains("DontInline", exception.Message);
     }
 
     [Fact]

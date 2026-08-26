@@ -1,4 +1,4 @@
-// Lives here, rather than in Verify.Tests, since the inline switch is a static setting, and this
+﻿// Lives here, rather than in Verify.Tests, since the inline switch is a static setting, and this
 // project runs serially with BaseTest resetting it between tests.
 //
 // The switch makes the verify calls below real inline call sites in this file. Nothing rewrites
@@ -183,8 +183,14 @@ public class GlobalInlineTests :
         Assert.DoesNotContain("InlineNew:", exception.Message);
     }
 
+    /// <summary>
+    /// A binary target has no text to hold in a literal. The switch declines it, the way it
+    /// declines everything else it cannot do: a codebase that turns inline on for everything
+    /// still has tests that emit documents and images, and those must keep working untouched.
+    /// An explicit Snapshot(...) still throws for them.
+    /// </summary>
     [Fact]
-    public async Task NonTextFirstTargetThrows()
+    public async Task NonTextFirstTargetFallsBackToFiles()
     {
         VerifierSettings.Inline();
 
@@ -192,9 +198,9 @@ public class GlobalInlineTests :
         var exception = await Assert.ThrowsAsync<VerifyException>(
             () => Verify(new MemoryStream([1, 2, 3]), "bin", Settings(temp)));
 
-        Assert.Contains("only support text", exception.Message);
-        Assert.Contains("NotInline", exception.Message);
-        Assert.Contains("DontInline", exception.Message);
+        Assert.DoesNotContain("only support text", exception.Message);
+        Assert.DoesNotContain("InlineNew:", exception.Message);
+        Assert.Contains("New:", exception.Message);
     }
 
     /// <summary>
@@ -393,11 +399,11 @@ public class GlobalInlineTests :
     }
 
     /// <summary>
-    /// A binary target has no lines to count, and quietly routing it to files would trade a
-    /// clear error for a silent fallback.
+    /// A binary target has no lines to count, so the limit has nothing to say about it. It is
+    /// declined for being binary, before the limit is ever reached.
     /// </summary>
     [Fact]
-    public async Task MaxLinesDoesNotSwallowBinaryFirstTarget()
+    public async Task MaxLinesWithBinaryFirstTarget()
     {
         VerifierSettings.Inline(maxLines: 1);
 
@@ -405,7 +411,9 @@ public class GlobalInlineTests :
         var exception = await Assert.ThrowsAsync<VerifyException>(
             () => Verify(new MemoryStream([1, 2, 3]), "bin", Settings(temp)));
 
-        Assert.Contains("only support text", exception.Message);
+        Assert.DoesNotContain("only support text", exception.Message);
+        Assert.DoesNotContain("InlineNew:", exception.Message);
+        Assert.Contains("New:", exception.Message);
     }
 
     [Fact]

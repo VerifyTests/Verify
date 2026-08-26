@@ -1,4 +1,4 @@
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 partial class InnerVerifier
 {
@@ -184,8 +184,8 @@ partial class InnerVerifier
         }
 
         // Hard incompatibilities. A global switch must not break unrelated tests, so these are
-        // "not inline" rather than errors; the explicit path above still throws for UniqueDirectory
-        // and for parameters.
+        // "not inline" rather than errors; the explicit path above still throws for UniqueDirectory,
+        // for parameters, and for a binary first target.
         //
         // The source file is null only on the ctor that leaves typeName null too, so that check
         // reads as redundant. It is what tells the compiler the argument below is not null, so it
@@ -202,6 +202,10 @@ partial class InnerVerifier
 
         var first = targets[0];
         if (first.DontInline ||
+            // A binary target has no text to hold in a literal. The explicit path throws for it,
+            // stating an intent that cannot be honoured; the switch declines, since a codebase
+            // that turns inline on for everything still has tests that emit documents and images
+            first.IsStream ||
             !globalInline(
                 settings.TypeName ?? typeName,
                 settings.MethodName ?? methodName!,
@@ -240,8 +244,9 @@ partial class InnerVerifier
     {
         if (VerifierSettings.inlineMaxLines is not { } maxLines ||
             targets.Count == 0 ||
-            // A binary first target has no lines to count. It is not inlineable at all, and
-            // InlineEngine.Compare owns that error message, so it is left to reach it.
+            // A binary first target has no lines to count. Only the explicit path can still be
+            // holding one here, and InlineEngine.Compare owns that error message, so it is left
+            // to reach it rather than being routed to files by a limit it cannot be measured against.
             !targets[0].TryGetStringBuilder(out var builder))
         {
             return false;

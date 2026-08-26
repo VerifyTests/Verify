@@ -201,7 +201,7 @@ The APIs that do this are `IgnoreParameters()`, `IgnoreParametersForVerified()` 
 
 The **first** target is the inline snapshot. Any others are written to `.verified.` files as usual, keeping the names they would have had, so turning inline on never renames a snapshot file. That leaves a deliberate gap where the first target's file would have been: a verification that produced `#00`, `#01` and `#02` keeps `#01` and `#02` on disk.
 
-If the first target is not text, the verification throws. `.NotInline()` keeps that test on files. `Target.DontInline` opts an extension out as well, but only where the global switch is what turned inline on: an explicit `.Snapshot(...)` is honoured whatever the target says. A [`maxLines`](#limiting-the-size-of-an-inline-snapshot) limit does not change this: a binary target has no lines to count, so it still reaches the same error rather than quietly falling back to files.
+If the first target is not text there is nothing for a literal to hold, so the global switch declines the verification and it falls back to files. Turning inline on therefore never breaks a test that emits a document or an image. An explicit `.Snapshot(...)` states an intent that cannot be honoured, so it throws instead: remove the `.Snapshot(...)` call, or add `.NotInline()`. `Target.DontInline` opts a target out as well, but only where the global switch is what turned inline on.
 
 
 ## Extensions that should never inline
@@ -243,7 +243,7 @@ literal-- No -->globalSwitch
 compatible{"C# or F# source, a recognised test,<br/>no parameters in the verified name,<br/>and no UseUniqueDirectory ?"}
 globalSwitch-- Yes -->compatible
 
-accepted{"Delegate accepts, and the first<br/>target is not DontInline ?"}
+accepted{"Delegate accepts, and the first target<br/>is text and not DontInline ?"}
 compatible-- Yes -->accepted
 
 within{"Within maxLines ?"}
@@ -259,7 +259,7 @@ inline-->isText
 compare["Compare against the literal.<br/>Accepting rewrites it in source"]
 isText-- Yes -->compare
 
-throws["Throws: inline snapshots<br/>only support text"]
+throws["Throws: inline snapshots only<br/>support text. Reachable only<br/>from a Snapshot call"]
 isText-- No -->throws
 
 file["Verified file"]

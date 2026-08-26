@@ -134,6 +134,7 @@ await Verify(input)
 - `VerifierSettings.Inline()` in a module initializer turns this on for every verification, in which case accepting a new snapshot means adding the `.Snapshot(...)` call to the verify invocation.
 - `.NotInline()` opts a single test back onto files, and wins over everything else.
 - Only the **first** target of a verification is inlined. Any other targets stay as `.verified.` files and keep their existing names.
+- A verification whose first target is binary, such as a document or an image, stays on files: the global switch declines it. Only an explicit `.Snapshot(...)` call on such a verification is an error.
 - Parameterised tests are only inlineable when the parameters do not reach the verified name, since one literal cannot hold a value per case.
 - Switching a test from a file to inline makes the old `.verified.` file stale, so it appears in the `Delete:` section and should be deleted.
 - A project can cap how many lines an inline snapshot may have. A snapshot over the cap uses a `.verified.` file instead, so a failure for it appears in the ordinary `New:` or `NotEqual:` sections rather than the inline ones. Accept it as a file; do not add a `.Snapshot(...)` call back.

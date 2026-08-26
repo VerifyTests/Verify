@@ -221,6 +221,15 @@ partial class InnerVerifier
             return null;
         }
 
+        // Last, because it reads the source file and every other check is a field comparison. The
+        // accept has to have a call to chain a Snapshot onto, and the switch cannot see the source
+        // the way it can see the verification: a wrapper of the test project's own returning a
+        // Task looks like an entry point from here and like one in the file as well
+        if (!InlineAnchor.CanHost(inlineSourceFile, lineNumber, methodName))
+        {
+            return null;
+        }
+
         // No literal yet, so the patcher appends a Snapshot call to the verify invocation. The
         // line is the only thing that says which one, and it stops being true the moment another
         // accept in the same file inserts above it: a snapshot is several lines of source, call

@@ -327,7 +327,11 @@ class InlineEngine(
             // source says and is null from F#, whose compiler does not implement the attribute;
             // the value is what it means, and the member is where it lives
             OriginalValue = SnapshotInSource,
-            MemberName = inline.MemberName
+            MemberName = inline.MemberName,
+            // What the accept may chain onto beyond the built-in entry points. Carried on the
+            // patch rather than known to the applier, since it is the test project that declares
+            // its own wrappers and the patch is what crosses to the process that applies it
+            EntryPoints = VerifierSettings.inlineEntryPoints
         };
 
     /// <summary>

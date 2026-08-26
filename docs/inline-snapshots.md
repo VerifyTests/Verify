@@ -218,6 +218,49 @@ new Target("md", page1)
 The whole verification then falls back to files.
 
 
+## Calling Verify through a wrapper
+
+A test project often reaches verify through a wrapper of its own, to convert a type Verify cannot take or to apply settings shared by a group of tests:
+
+```cs
+public static SettingsTask VerifyDocx(
+    Document document,
+    [CallerFilePath] string sourceFile = "",
+    [CallerLineNumber] int lineNumber = 0)
+{
+    var stream = new MemoryStream();
+    document.Save(stream, SaveFormat.Docx);
+    stream.Position = 0;
+    return Verify(stream, "docx", sourceFile: sourceFile, lineNumber: lineNumber);
+}
+```
+
+Accepting a new inline snapshot chains a `.Snapshot(...)` call onto the call written in the **test**, not onto the one inside the wrapper. Three things have to hold for that to work:
+
+ * The wrapper returns a `SettingsTask`. An `async Task` wrapper cannot: by the time it returns there is nothing left to chain onto, and the accepted source would not compile.
+ * It forwards `sourceFile`, which is what puts the snapshot directory next to the test rather than next to the wrapper.
+ * It forwards `lineNumber` as well. Forwarding one and not the other pairs a file with a line from a different file, and the call site that pair names is not the one the test wrote.
+
+The last is what the wrapper has to be named for:
+
+<!-- snippet: StaticInlineEntryPoint -->
+<a id='snippet-StaticInlineEntryPoint'></a>
+```cs
+public static class ModuleInitializer
+{
+    [ModuleInitializer]
+    public static void Init() =>
+        VerifierSettings.AddInlineEntryPoint("VerifyDocx");
+}
+```
+<sup><a href='/src/ModuleInitDocs/InlineEntryPoint.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticInlineEntryPoint' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Naming a wrapper is the assertion that it does all three, since none of it is readable from the file being accepted into. A wrapper that is not named keeps its verifications on `.verified.` files: the switch checks the call site before declaring a verification inline, and declines one that cannot hold a literal rather than have an accept write source that does not compile. `.NotInline()` inside the wrapper states the same thing outright.
+
+The check is only for a snapshot that is new. An existing `.Snapshot(...)` call is already in the file, and already compiling.
+
+
 ## How a verification is routed
 
 Every rule above feeds one decision, made per verification once the targets have been serialized and scrubbed:
@@ -249,8 +292,11 @@ compatible-- Yes -->accepted
 within{"Within maxLines ?"}
 accepted-- Yes -->within
 
+callSite{"A verify entry point, or a<br/>declared wrapper, at the call site ?"}
+within-- Yes -->callSite
+
 inline["Inline snapshot"]
-within-- Yes -->inline
+callSite-- Yes -->inline
 existing-- No -->inline
 
 isText{"First target<br/>is text ?"}
@@ -269,6 +315,7 @@ globalSwitch-- No -->file
 compatible-- No -->file
 accepted-- No -->file
 within-- No -->file
+callSite-- No -->file
 ```
 
 The checks that route a verification to files are silent rather than errors, so turning the switch on across a codebase leaves the tests it cannot represent alone. An explicit `.Snapshot(...)` is stricter: it throws for parameterised tests and for `UseUniqueDirectory`, since those are a stated intent that cannot be honoured.

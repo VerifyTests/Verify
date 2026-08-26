@@ -204,6 +204,123 @@ public class GlobalInlineTests :
     }
 
     /// <summary>
+    /// A combination captures its caller info at <c>Combination()</c>, so that is the line the hint
+    /// names and the call an accept hangs the Snapshot off. The chained <c>Verify</c> is reached
+    /// through a receiver of its own, which no entry point is, so it is not a candidate at all.
+    /// </summary>
+    [Fact]
+    public async Task CombinationIsInlined()
+    {
+        VerifierSettings.Inline();
+
+        using var temp = new TempDirectory();
+        var exception = await Assert.ThrowsAsync<VerifyException>(
+            () => Combination(settings: Settings(temp))
+                .Verify(Concat, ["a", "b"], [1, 2]));
+
+        Assert.Contains("InlineNew:", exception.Message);
+    }
+
+    static string Concat(string a, int b) =>
+        $"{a}{b}";
+
+    /// <summary>
+    /// A test that reaches verify through a wrapper of its own. Accepting chains a Snapshot call
+    /// onto the call written in the test, which only compiles where that call returns a
+    /// SettingsTask, and a wrapper returning a Task does not. The switch cannot tell one from the
+    /// other by looking at the verification, so it asks the source and declines.
+    /// <para>
+    /// sourceFile and lineNumber are ordinary optional parameters, which is how a wrapper points
+    /// the snapshot at the test that called it, and how these tests stand one up.
+    /// </para>
+    /// </summary>
+    [Fact]
+    public async Task AWrapperCallSiteFallsBackToFiles()
+    {
+        VerifierSettings.Inline();
+
+        using var temp = new TempDirectory();
+        var exception = await Assert.ThrowsAsync<VerifyException>(
+            () => Verify("value", Settings(temp), sourceFile: WrapperTemplate(), lineNumber: 3));
+
+        Assert.DoesNotContain("InlineNew:", exception.Message);
+        Assert.Contains("New:", exception.Message);
+    }
+
+    /// <summary>
+    /// The same wrapper, once the test project has declared that it returns a SettingsTask.
+    /// </summary>
+    [Fact]
+    public async Task ADeclaredWrapperIsInlined()
+    {
+        VerifierSettings.Inline();
+        VerifierSettings.AddInlineEntryPoint("VerifyDocx");
+
+        using var temp = new TempDirectory();
+        var exception = await Assert.ThrowsAsync<VerifyException>(
+            () => Verify("value", Settings(temp), sourceFile: WrapperTemplate(), lineNumber: 3));
+
+        Assert.Contains("InlineNew:", exception.Message);
+    }
+
+    /// <summary>
+    /// The control: the same shape of call site, with an entry point at it.
+    /// </summary>
+    [Fact]
+    public async Task AnEntryPointCallSiteIsInlined()
+    {
+        VerifierSettings.Inline();
+
+        var template = WriteTemplate(
+            """
+            class Templ
+            {
+                Task A() => Verify(value);
+            }
+            """);
+
+        using var temp = new TempDirectory();
+        var exception = await Assert.ThrowsAsync<VerifyException>(
+            () => Verify("value", Settings(temp), sourceFile: template, lineNumber: 3));
+
+        Assert.Contains("InlineNew:", exception.Message);
+    }
+
+    /// <summary>
+    /// A source file that cannot be read says nothing about the call site, and taking that for a
+    /// refusal would drop inline for a whole suite over an unrelated problem: a test assembly run
+    /// from somewhere its sources were never deployed to still has a source path recorded in it.
+    /// </summary>
+    [Fact]
+    public async Task AnUnreadableSourceFileIsStillInlined()
+    {
+        VerifierSettings.Inline();
+
+        using var temp = new TempDirectory();
+        var exception = await Assert.ThrowsAsync<VerifyException>(
+            () => Verify("value", Settings(temp), sourceFile: temp.BuildPath("Gone.cs"), lineNumber: 3));
+
+        Assert.Contains("InlineNew:", exception.Message);
+    }
+
+    [Fact]
+    public void EntryPointsMustBeIdentifiers()
+    {
+        Assert.Throws<ArgumentException>(() => VerifierSettings.AddInlineEntryPoint("Verifier.VerifyDocx"));
+        Assert.Throws<ArgumentException>(() => VerifierSettings.AddInlineEntryPoint("VerifyDocx(document)"));
+        Assert.Throws<ArgumentException>(() => VerifierSettings.AddInlineEntryPoint(""));
+    }
+
+    string WrapperTemplate() =>
+        WriteTemplate(
+            """
+            class Templ
+            {
+                Task A() => VerifyDocx(document);
+            }
+            """);
+
+    /// <summary>
     /// One literal at one call site cannot hold a different value per test case, so the switch
     /// declines parameterised tests rather than breaking every data driven test in a codebase.
     /// An explicit Snapshot(...) still throws for them.

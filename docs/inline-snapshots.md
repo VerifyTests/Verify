@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Inline Snapshots
 
-Only C# and F# are supported
+C# and F# are supported
 
 Inline snapshots store the expected text inside the test file (.cs, .fs or .fsx) as a raw string literal, next to the code that produces it, instead of in a `.verified.` file on disk.
 
@@ -315,10 +315,10 @@ existing-- No -->inline
 isText{"First target<br/>is text ?"}
 inline-->isText
 
-compare["Compare against the literal.<br/>Accepting rewrites it in source"]
+compare["Compare against the literal.<br/>Accept rewrites the source"]
 isText-- Yes -->compare
 
-throws["Throws: inline snapshots only<br/>support text. Reachable only<br/>from a Snapshot call"]
+throws["Throws:<br/>Inline only supports text."]
 isText-- No -->throws
 
 file["Verified file"]

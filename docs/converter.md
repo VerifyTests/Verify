@@ -15,6 +15,9 @@ When a target is split the result is:
  * Zero or more documents of a specified extension. File name: `{TestType}.{TestMethod}.{Index}.verified.{Extension}`
 
 
+Converters are registered globally. The `context` parameter passed to a conversion carries per-test information. See [Context](/docs/context.md).
+
+
 ## Usage scenarios
 
  * tiff => png per page
@@ -201,7 +204,7 @@ VerifierSettings.RegisterStreamConverter(
                 new("txt", "derived from text")
             ]));
 ```
-<sup><a href='/src/Verify.Tests/Converters/ExtensionConverterTests.cs#L39-L53' title='Snippet source file'>snippet source</a> | <a href='#snippet-RegisterStreamConverterTextExtensionStream' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/ExtensionConverterTests.cs#L46-L60' title='Snippet source file'>snippet source</a> | <a href='#snippet-RegisterStreamConverterTextExtensionStream' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

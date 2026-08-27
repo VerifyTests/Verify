@@ -7,10 +7,11 @@ public static partial class Verifier
     public static SettingsTask Verify(
         string name,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.Verify());
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.Verify());
     }
 
     [Pure]
@@ -18,10 +19,11 @@ public static partial class Verifier
         string name,
         Func<Task<T>> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target()));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.Verify(target()));
     }
 
     [Pure]
@@ -29,10 +31,11 @@ public static partial class Verifier
         string name,
         Task<T> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.Verify(target));
     }
 
     [Pure]
@@ -40,10 +43,11 @@ public static partial class Verifier
         string name,
         ValueTask<T> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.Verify(target));
     }
 
     [Pure]
@@ -51,10 +55,11 @@ public static partial class Verifier
         string name,
         IAsyncEnumerable<T> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.Verify(target));
     }
 
     [Pure]
@@ -62,9 +67,10 @@ public static partial class Verifier
         string name,
         object? target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.Verify(target));
     }
 }

@@ -11,6 +11,7 @@
 readonly record struct ClassToGenerate(
     string? Namespace,
     string ClassName,
+    string Keyword,
     ClassToGenerate.PropertyFlags TestContextPropertyFlags,
     ParentClass[] ParentClasses)
 {
@@ -24,12 +25,14 @@ readonly record struct ClassToGenerate(
 
     public string? Namespace { get; } = Namespace;
     public string ClassName { get; } = ClassName;
+    public string Keyword { get; } = Keyword;
     public ParentClass[] ParentClasses { get; } = ParentClasses;
     public PropertyFlags TestContextPropertyFlags { get; } = TestContextPropertyFlags;
 
     public bool Equals(ClassToGenerate other) =>
         Namespace == other.Namespace &&
         ClassName == other.ClassName &&
+        Keyword == other.Keyword &&
         TestContextPropertyFlags == other.TestContextPropertyFlags &&
         ParentClasses.SequenceEqual(other.ParentClasses);
 
@@ -41,6 +44,7 @@ readonly record struct ClassToGenerate(
             var hash = 1430287;
             hash = hash * 7302013 ^ (Namespace ?? string.Empty).GetHashCode();
             hash = hash * 7302013 ^ ClassName.GetHashCode();
+            hash = hash * 7302013 ^ Keyword.GetHashCode();
             hash = hash * 7302013 ^ TestContextPropertyFlags.GetHashCode();
 
             // Include (up to) the last 8 elements in the hash code to balance performance and specificity.

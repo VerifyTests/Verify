@@ -14,10 +14,11 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         string? extension = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyFile(path, info, extension));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyFile(path, info, extension));
     }
 
     /// <summary>
@@ -30,10 +31,11 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyFiles(paths, info, fileScrubber));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyFiles(paths, info, fileScrubber));
     }
 
     /// <summary>
@@ -48,9 +50,10 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         string? extension = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyFile(path, info, extension));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyFile(path, info, extension));
     }
 }

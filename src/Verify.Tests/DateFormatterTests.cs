@@ -28,6 +28,39 @@
         return Verify(DateFormatter.ToParameterString(date));
     }
 
+    // NumberFormatInfo.NegativeSign is not "-" in every culture: sv-SE renders U+2212 and ar-SA
+    // prefixes U+061C to it. The offset is both snapshot content and part of a parameter file
+    // name, so a negative offset rendered on one machine has to equal the snapshot committed
+    // from another. The sign is set explicitly rather than by picking a real culture, so the
+    // assertion does not move with the ICU data the test happens to run against
+    [Theory]
+    [InlineData(-1.5, "2000-10-01 -1-30", "2000-10-01-1-30")]
+    [InlineData(-5, "2000-10-01 -5", "2000-10-01-5")]
+    [InlineData(1.5, "2000-10-01 +1-30", "2000-10-01+1-30")]
+    [InlineData(5, "2000-10-01 +5", "2000-10-01+5")]
+    [InlineData(0, "2000-10-01 +0", "2000-10-01+0")]
+    public void OffsetDoesNotTakeTheCurrentCultureNegativeSign(double hours, string expectedJson, string expectedParameter)
+    {
+        var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.FromHours(hours));
+
+        // U+2212 MINUS SIGN, as sv-SE uses
+        var culture = (CultureInfo) CultureInfo.InvariantCulture.Clone();
+        culture.NumberFormat.NegativeSign = "−";
+
+        var original = CultureInfo.CurrentCulture;
+        try
+        {
+            CultureInfo.CurrentCulture = culture;
+
+            Assert.Equal(expectedJson, DateFormatter.Convert(date));
+            Assert.Equal(expectedParameter, DateFormatter.ToParameterString(date));
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = original;
+        }
+    }
+
     [Fact]
     public Task DateTimeLocalToJsonString()
     {
@@ -192,6 +225,73 @@
             jsonValues,
             parameterValues
         });
+    }
+
+    [Fact]
+    public void SubMillisecondTicksDoNotCollide()
+    {
+        var date = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Utc);
+        Assert.NotEqual(
+            DateFormatter.ToParameterString(date.AddTicks(1)),
+            DateFormatter.ToParameterString(date.AddTicks(2)));
+
+        var offset = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero);
+        Assert.NotEqual(
+            DateFormatter.ToParameterString(offset.AddTicks(1)),
+            DateFormatter.ToParameterString(offset.AddTicks(2)));
+    }
+
+    [Fact]
+    public Task SubMillisecondTicks()
+    {
+        var date = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Utc);
+        var offset = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero);
+
+        var values = new Dictionary<string, object>();
+        foreach (var ticks in tickOffsets)
+        {
+            values.Add(
+                ticks.ToString(),
+                new
+                {
+                    dateJson = DateFormatter.Convert(date.AddTicks(ticks)),
+                    dateParameter = DateFormatter.ToParameterString(date.AddTicks(ticks)),
+                    offsetJson = DateFormatter.Convert(offset.AddTicks(ticks)),
+                    offsetParameter = DateFormatter.ToParameterString(offset.AddTicks(ticks))
+                });
+        }
+
+        return Verify(values);
+    }
+
+    static long[] tickOffsets =
+    [
+        0,
+        1,
+        2,
+        TimeSpan.TicksPerMillisecond,
+        TimeSpan.TicksPerSecond,
+        TimeSpan.TicksPerSecond + 1,
+        TimeSpan.TicksPerMinute,
+        TimeSpan.TicksPerMinute + 1
+    ];
+
+    // A sub hour offset has a zero hour component, so the sign has to come from
+    // the offset itself
+    [Fact]
+    public void SubHourOffsets()
+    {
+        var negative = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.FromMinutes(-30));
+        Assert.Equal("2000-10-01 -0-30", DateFormatter.Convert(negative));
+        Assert.Equal("2000-10-01-0-30", DateFormatter.ToParameterString(negative));
+
+        var positive = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.FromMinutes(30));
+        Assert.Equal("2000-10-01 +0-30", DateFormatter.Convert(positive));
+        Assert.Equal("2000-10-01+0-30", DateFormatter.ToParameterString(positive));
+
+        Assert.NotEqual(
+            DateFormatter.ToParameterString(negative),
+            DateFormatter.ToParameterString(positive));
     }
 
     static bool[] bools =

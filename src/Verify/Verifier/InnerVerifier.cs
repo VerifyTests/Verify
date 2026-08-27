@@ -1,5 +1,3 @@
-using StackTrace = System.Diagnostics.StackTrace;
-
 namespace VerifyTests;
 
 public partial class InnerVerifier :
@@ -15,8 +13,41 @@ public partial class InnerVerifier :
     internal static string? verifyHasBeenRunBy;
     string? typeName;
     string? methodName;
+    string? inlineSourceFile;
+    int lineNumber;
+    bool verifiedHasParameters;
 
-    [MethodImpl(MethodImplOptions.NoInlining)]
+    // Only used to re-run prefix validation when an inline snapshot migrates back to a file,
+    // since the validation is skipped for inline. Null under the directory convention, which
+    // inline is not compatible with.
+    string? pathPrefixReceived;
+
+    /// <param name="api">
+    /// Defaulted from the calling member, so it names the API that has the restriction.
+    /// Reading it off a StackTrace instead only works while that API has a frame of its
+    /// own: the JIT is free to inline it into the caller, and does on net48 in release,
+    /// which put the caller's name in the message.
+    /// </param>
+    public static void ThrowIfVerifyHasBeenRun([CallerMemberName] string api = "")
+    {
+        if (!verifyHasBeenRun)
+        {
+            return;
+        }
+
+        throw BuildHasBeenRunException($"The API '{api}'");
+    }
+
+    /// <summary>
+    /// Retained for binary compatibility. Plugins compiled against Verify 32.0.0-beta.8 and
+    /// earlier reference the parameterless signature, so adding an <c>api</c> parameter to it
+    /// made those binaries fail with a MissingMethodException at plugin initialization.
+    /// Deprioritized so that source calls keep binding to the overload above, which names the
+    /// API in the message.
+    /// </summary>
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    [OverloadResolutionPriority(-1)]
+    [Obsolete("Use ThrowIfVerifyHasBeenRun(string api)")]
     public static void ThrowIfVerifyHasBeenRun()
     {
         if (!verifyHasBeenRun)
@@ -24,11 +55,11 @@ public partial class InnerVerifier :
             return;
         }
 
-        var stackTrace = new StackTrace(1, false);
-        var method = stackTrace.GetFrame(1)!.GetMethod()!;
-        var type = method.DeclaringType;
-        throw new($"The API '{type}.{method.Name}' must be called prior to any Verify has run. Usually this is done in a [ModuleInitializer]. Verify run by: {verifyHasBeenRunBy}");
+        throw BuildHasBeenRunException("The API");
     }
+
+    static Exception BuildHasBeenRunException(string api) =>
+        new($"{api} must be called prior to any Verify has run. Usually this is done in a [ModuleInitializer]. Verify run by: {verifyHasBeenRunBy}");
 
     public InnerVerifier(
         string sourceFile,
@@ -36,7 +67,8 @@ public partial class InnerVerifier :
         string typeName,
         string methodName,
         IReadOnlyList<string>? methodParameters,
-        PathInfo pathInfo)
+        PathInfo pathInfo,
+        int lineNumber = 0)
     {
         Ensure.NotEmpty(sourceFile);
         Ensure.NotEmpty(typeName);
@@ -48,11 +80,21 @@ public partial class InnerVerifier :
 
         this.typeName = typeName;
         this.methodName = methodName;
+        // Only used to locate the verify call when inlining a snapshot that has no
+        // .Snapshot(...) call yet, so a zero (no caller info) simply means: cannot inline.
+        inlineSourceFile = sourceFile;
+        this.lineNumber = lineNumber;
         var typeAndMethod = FileNameBuilder.GetTypeAndMethod(methodName, typeName, settings, pathInfo);
 
         counter = StartCounter(settings);
 
-        var (receivedParameters, verifiedParameters) = FileNameBuilder.GetParameterText(methodParameters, settings, counter);
+        var (receivedParameters, verifiedParameters) = FileNameBuilder.GetParameterText(methodParameters, settings, counter, out var hasParameters);
+
+        // UseFileName pins the verified name, so parameters never reach it and every case shares
+        // the one snapshot, which is the same thing the ignore APIs achieve
+        verifiedHasParameters = hasParameters && settings.FileName is null;
+
+        ThrowIfInlineAndParameterised(verifiedParameters);
 
         var namer = settings.Namer;
 
@@ -62,12 +104,56 @@ public partial class InnerVerifier :
 
         if (settings.UniqueDirectory)
         {
+            if (settings.inline != null)
+            {
+                throw new("Inline is not compatible with UseUniqueDirectory.");
+            }
+
             InitForDirectoryConvention(namer, typeAndMethod, verifiedParameters);
         }
         else
         {
             InitForFileConvention(namer, typeAndMethod, receivedParameters, verifiedParameters);
         }
+    }
+
+    /// <summary>
+    /// An inline snapshot is one literal at one call site, so it cannot hold a different value for
+    /// each test case. The global switch declines such a test in <c>ResolveInline</c>, but an
+    /// explicit <c>Snapshot(...)</c> is a stated intent that cannot be honoured, so it throws.
+    /// </summary>
+    void ThrowIfInlineAndParameterised(Action<StringBuilder>? verifiedParameters)
+    {
+        if (!verifiedHasParameters ||
+            settings.inline is null ||
+            settings.notInline)
+        {
+            return;
+        }
+
+        var builder = new StringBuilder();
+        verifiedParameters?.Invoke(builder);
+        throw new(
+            $"""
+             Inline snapshots are not compatible with parameterised tests. The literal lives at a single call site, so it cannot hold a different value for each test case.
+             Parameters: {builder}
+             Use parameters or inline, not both:
+               * Remove the `Snapshot(...)` call, or add `NotInline()`, to keep this test on verified files.
+               * If every case is expected to produce the same snapshot, drop the parameters from the verified name with `IgnoreParameters()`, `IgnoreParametersForVerified()` or `IgnoreConstructorParameters()`.
+             """);
+    }
+
+    internal static string MapSourceFile(string file)
+    {
+        var mapped = IoHelpers.GetMappedBuildPath(file);
+        if (ContinuousTestingDetector.IsNCrunch)
+        {
+            var sourceFileDirectory = IoHelpers.ResolveDirectoryFromSourceFile(mapped);
+            var projectDirectory = ProjectDirectoryFinder.Find(sourceFileDirectory);
+            mapped = mapped.Replace(projectDirectory, ContinuousTestingDetector.NCrunchOriginalProjectDirectory);
+        }
+
+        return mapped;
     }
 
     /// <summary>
@@ -90,6 +176,7 @@ public partial class InnerVerifier :
                 settings.MethodName != null ||
                 settings.parametersText != null ||
                 settings.UniqueDirectory ||
+                settings.inline != null ||
                 settings.UseUniqueDirectorySplitMode == true)
             {
                 throw new(
@@ -102,6 +189,7 @@ public partial class InnerVerifier :
                        * {nameof(VerifySettings.UseTextForParameters)}
                        * {nameof(VerifySettings.UseUniqueDirectory)}
                        * {nameof(VerifySettings.UseUniqueDirectorySplitMode)}
+                       * {nameof(VerifySettings.Snapshot)}
                      """);
             }
 
@@ -278,8 +366,14 @@ public partial class InnerVerifier :
 
         var pathPrefixReceived = Path.Combine(directory, receivedPrefix);
         var pathPrefixVerified = Path.Combine(directory, verifiedPrefix);
-        // intentionally do not validate filePathPrefixVerified
-        ValidatePrefix(settings, pathPrefixReceived);
+        this.pathPrefixReceived = pathPrefixReceived;
+        // Inline verifies have no file prefix to collide on, and multiple inline
+        // verifies per test method are legal, so skip prefix uniqueness
+        if (settings.inline is null)
+        {
+            // intentionally do not validate filePathPrefixVerified
+            ValidatePrefix(settings, pathPrefixReceived);
+        }
 
         verifiedFiles = MatchingFileFinder.FindVerified(verifiedPrefix, directory);
 

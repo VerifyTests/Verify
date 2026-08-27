@@ -10,6 +10,7 @@ public partial class Combination
         verify(
             settings,
             sourceFile,
+            lineNumber,
             _ =>
             {
                 var target = CombinationRunner.Run(method, captureExceptions, header, a, [aName]);
@@ -26,6 +27,7 @@ public partial class Combination
         verify(
             settings,
             sourceFile,
+            lineNumber,
             _ =>
             {
                 var target = CombinationRunner.Run(method, captureExceptions, header, a, b, [aName, bName]);
@@ -44,6 +46,7 @@ public partial class Combination
         verify(
             settings,
             sourceFile,
+            lineNumber,
             _ =>
             {
                 var target = CombinationRunner.Run(method, captureExceptions, header, a, b, c, [aName, bName, cName]);
@@ -64,6 +67,7 @@ public partial class Combination
         verify(
             settings,
             sourceFile,
+            lineNumber,
             _ =>
             {
                 var target = CombinationRunner.Run(method, captureExceptions, header, a, b, c, d, [aName, bName, cName, dName]);
@@ -86,6 +90,7 @@ public partial class Combination
         verify(
             settings,
             sourceFile,
+            lineNumber,
             _ =>
             {
                 var target = CombinationRunner.Run(method, captureExceptions, header, a, b, c, d, e, [aName, bName, cName, dName, eName]);
@@ -110,6 +115,7 @@ public partial class Combination
         verify(
             settings,
             sourceFile,
+            lineNumber,
             _ =>
             {
                 var target = CombinationRunner.Run(method, captureExceptions, header, a, b, c, d, e, f, [aName, bName, cName, dName, eName, fName]);
@@ -136,6 +142,7 @@ public partial class Combination
         verify(
             settings,
             sourceFile,
+            lineNumber,
             _ =>
             {
                 var target = CombinationRunner.Run(method, captureExceptions, header, a, b, c, d, e, f, g, [aName, bName, cName, dName, eName, fName, gName]);
@@ -164,6 +171,7 @@ public partial class Combination
         verify(
             settings,
             sourceFile,
+            lineNumber,
             _ =>
             {
                 var target = CombinationRunner.Run(method, captureExceptions, header, a, b, c, d, e, f, g, h, [aName, bName, cName, dName, eName, fName, gName, hName]);

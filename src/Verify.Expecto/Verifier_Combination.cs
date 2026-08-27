@@ -9,7 +9,8 @@ public static partial class Verifier
         bool? captureExceptions = null,
         VerifySettings? settings = null,
         bool? header = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
         return new(
@@ -17,6 +18,7 @@ public static partial class Verifier
             settings,
             header,
             sourceFile,
-            (settings, sourceFile, verify) => Verify(settings, assembly, sourceFile, name, verify));
+            lineNumber,
+            (settings, sourceFile, line, verify) => Verify(settings, assembly, sourceFile, line, name, verify));
     }
 }

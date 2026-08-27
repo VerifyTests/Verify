@@ -88,6 +88,16 @@ public class VerifyExceptionMessageBuilderTests
             delete: [fakeReceivedTextFile],
             equal: []);
 
+    // UseUniqueDirectory and VerifyDirectory put the verified files in a subdirectory
+    // of the reported directory, which a file name would drop
+    [Fact]
+    public Task DeleteInSubDirectory() =>
+        BuildVerify(
+            @new: [],
+            notEquals: [],
+            delete: [Path.Combine(projectDirectory, "TheType.TheMethod", "old.verified.txt")],
+            equal: []);
+
     [Fact]
     public Task SingleEqual() =>
         BuildVerify(

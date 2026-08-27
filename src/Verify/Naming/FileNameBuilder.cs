@@ -28,10 +28,15 @@ static class FileNameBuilder
         return $"{type}.{method}";
     }
 
-    public static (Action<StringBuilder>?, Action<StringBuilder>?) GetParameterText(IReadOnlyList<string>? methodParameters, VerifySettings settings, Counter counter)
+    /// <summary>
+    /// <paramref name="verifiedHasParameters" /> is whether the verified name varies per test case,
+    /// which is what makes a test incompatible with an inline snapshot.
+    /// </summary>
+    public static (Action<StringBuilder>?, Action<StringBuilder>?) GetParameterText(IReadOnlyList<string>? methodParameters, VerifySettings settings, Counter counter, out bool verifiedHasParameters)
     {
         if (settings.parametersText is not null)
         {
+            verifiedHasParameters = true;
             Action<StringBuilder> action = _ => _.Append($"_{settings.parametersText}");
             return (action, action);
         }
@@ -39,6 +44,7 @@ static class FileNameBuilder
         if (methodParameters is null ||
             !settings.TryGetParameters(out var settingsParameters))
         {
+            verifiedHasParameters = false;
             return (null, null);
         }
 
@@ -59,38 +65,55 @@ static class FileNameBuilder
             throw new($"Some of the ignored parameter names ({string.Join(", ", instanceIgnored)}) do not exist in the test method parameters ({string.Join(", ", methodParameters)}).");
         }
 
-        var ignored = instanceIgnored;
         var globalIgnored = VerifierSettings.GlobalIgnoredParameters;
-        if (globalIgnored is not null)
-        {
-            if (ignored is not null)
-            {
-                ignored = [..ignored, ..globalIgnored];
-            }
-            else
-            {
-                ignored = globalIgnored;
-            }
-        }
 
-        if (settings.ignoreConstructorParameters || VerifierSettings.GlobalIgnoreConstructorParameters)
+        HashSet<string>? ignored;
+        // An empty ignore list is the "ignore all parameters" sentinel. Merging the other
+        // ignore sources into it would turn ignore-everything into ignore-some, so it wins
+        // outright.
+        if (instanceIgnored is {Count: 0} ||
+            globalIgnored is {Count: 0})
         {
-            var classArgCount = settings.classArgumentCount;
-            if (classArgCount > 0)
+            ignored = [];
+        }
+        else
+        {
+            ignored = instanceIgnored;
+            if (globalIgnored is not null)
             {
-                var classParamNames = methodParameters.Take(classArgCount);
                 if (ignored is not null)
                 {
-                    ignored = [..ignored, ..classParamNames];
+                    ignored = [..ignored, ..globalIgnored];
                 }
                 else
                 {
-                    ignored = classParamNames.ToHashSet();
+                    ignored = globalIgnored;
+                }
+            }
+
+            if (settings.ignoreConstructorParameters || VerifierSettings.GlobalIgnoreConstructorParameters)
+            {
+                var classArgCount = settings.classArgumentCount;
+                if (classArgCount > 0)
+                {
+                    var classParamNames = methodParameters.Take(classArgCount);
+                    if (ignored is not null)
+                    {
+                        ignored = [..ignored, ..classParamNames];
+                    }
+                    else
+                    {
+                        ignored = classParamNames.ToHashSet();
+                    }
                 }
             }
         }
 
         var verifiedValues = GetVerifiedValues(ignored, allValues);
+
+        // ignoreParametersForVerified drops the whole segment further up, in the prefix builders
+        verifiedHasParameters = !settings.ignoreParametersForVerified &&
+                                verifiedValues.Count > 0;
 
         if (settings.ParametersAppender == null)
         {
@@ -116,7 +139,7 @@ static class FileNameBuilder
             }
         };
 
-    static IEnumerable<KeyValuePair<string, object?>> GetVerifiedValues(HashSet<string>? ignored, KeyValuePair<string, object?>[] allValues)
+    static IReadOnlyList<KeyValuePair<string, object?>> GetVerifiedValues(HashSet<string>? ignored, KeyValuePair<string, object?>[] allValues)
     {
         if (ignored is null)
         {
@@ -128,6 +151,8 @@ static class FileNameBuilder
             return [];
         }
 
-        return allValues.Where(_ => !ignored.Contains(_.Key));
+        return allValues
+            .Where(_ => !ignored.Contains(_.Key))
+            .ToList();
     }
 }

@@ -2,7 +2,9 @@ static class PngSsimComparer
 {
     public static double Threshold { get; set; } = 0.98;
 
+#pragma warning disable IDE0060
     internal static Task<CompareResult> Compare(Stream received, Stream verified, IReadOnlyDictionary<string, object> context) =>
+#pragma warning restore IDE0060
         Compare(received, verified, Threshold);
 
     internal static StreamCompare BuildCompare(double threshold) =>

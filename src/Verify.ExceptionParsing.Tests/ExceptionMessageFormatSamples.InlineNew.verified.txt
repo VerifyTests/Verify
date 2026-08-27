@@ -1,0 +1,14 @@
+﻿Directory: {ProjectDirectory}
+InlineNew:
+  - Source: {ProjectDirectory}MyTests.cs:10
+    Received: {ProjectDirectory}obj/VerifyInline/abc.received.txt
+    Expected: {ProjectDirectory}obj/VerifyInline/abc.expected.txt
+    Patch: {ProjectDirectory}obj/VerifyInline/abc.inlinepatch
+
+FileContent:
+
+InlineNew:
+
+Source: {ProjectDirectory}MyTests.cs:10
+Received:
+the new content

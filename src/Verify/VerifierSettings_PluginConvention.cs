@@ -229,17 +229,6 @@ public static partial class VerifierSettings
         method.Invoke(null, parameters);
     }
 
-    // ReSharper disable once UnusedMember.Local
-    static object? DefaultValue(this Type type)
-    {
-        if (type.IsValueType)
-        {
-            return Activator.CreateInstance(type);
-        }
-
-        return null;
-    }
-
     internal static bool GetInitialized(Type type)
     {
         var property = type.GetProperty("Initialized", BindingFlags.Static | BindingFlags.Public | BindingFlags.GetProperty);

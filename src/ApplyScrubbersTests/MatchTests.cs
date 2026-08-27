@@ -135,7 +135,7 @@ public class MatchTests
         var hash = 17;
         foreach (var ch in window)
         {
-            hash = unchecked((hash * 31) + ch);
+            hash = unchecked(hash * 31 + ch);
         }
 
         return hash;

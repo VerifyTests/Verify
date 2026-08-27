@@ -344,9 +344,9 @@ Tools supported by Windows:
  * [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
  * [DeltaWalker](https://www.deltawalker.com/)
  * [WinMerge](https://winmerge.org/)
+ * [TortoiseMerge](https://tortoisesvn.net/TortoiseMerge.html)
  * [TortoiseGitMerge](https://tortoisegit.org/docs/tortoisegitmerge/)
  * [TortoiseGitIDiff](https://tortoisegit.org/docs/tortoisegitmerge/)
- * [TortoiseMerge](https://tortoisesvn.net/TortoiseMerge.html)
  * [TortoiseIDiff](https://tortoisesvn.net/TortoiseIDiff.html)
  * [KDiff3](https://github.com/KDE/kdiff3)
  * [Guiffy](https://www.guiffy.com/)
@@ -355,6 +355,7 @@ Tools supported by Windows:
  * [Rider](https://www.jetbrains.com/rider/)
  * [Vim](https://www.vim.org/)
  * [Neovim](https://neovim.io/)
+ * [DiffEngineViewer](https://github.com/VerifyTests/DiffEngine)
 
 ## Getting .received in output on Azure DevOps
 

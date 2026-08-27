@@ -9,8 +9,9 @@ public partial class VerifyBase
     public SettingsTask VerifyFile(
         string path,
         VerifySettings? settings = null,
-        object? info = null) =>
-        Verifier.VerifyFile(path, settings ?? this.settings, info, sourceFile);
+        object? info = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyFile(path, settings ?? this.settings, info, sourceFile: sourceFile, lineNumber: lineNumber);
 
     /// <summary>
     /// Verifies the contents of files.
@@ -20,8 +21,9 @@ public partial class VerifyBase
         IEnumerable<string> paths,
         VerifySettings? settings = null,
         object? info = null,
-        FileScrubber? fileScrubber = null) =>
-        Verifier.VerifyFiles(paths, settings ?? this.settings, info, fileScrubber, sourceFile);
+        FileScrubber? fileScrubber = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyFiles(paths, settings ?? this.settings, info, fileScrubber, sourceFile, lineNumber);
 
     /// <summary>
     /// Verifies the contents of <paramref name="path" />.
@@ -32,6 +34,7 @@ public partial class VerifyBase
     public SettingsTask VerifyFile(
         FileInfo path,
         VerifySettings? settings = null,
-        object? info = null) =>
-        Verifier.VerifyFile(path, settings ?? this.settings, info, sourceFile);
+        object? info = null,
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyFile(path, settings ?? this.settings, info, sourceFile: sourceFile, lineNumber: lineNumber);
 }

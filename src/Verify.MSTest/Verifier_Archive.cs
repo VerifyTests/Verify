@@ -15,8 +15,9 @@ partial class Verifier
         bool includeStructure = false,
         bool persistArchive = false,
         string? archiveExtension = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyZip(archive, include, info, fileScrubber, includeStructure, persistArchive, archiveExtension), true);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, sourceFile, lineNumber, _ => _.VerifyZip(archive, include, info, fileScrubber, includeStructure, persistArchive, archiveExtension), true);
 
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive" />
@@ -30,8 +31,9 @@ partial class Verifier
         FileScrubber? fileScrubber = null,
         bool includeStructure = false,
         bool persistArchive = false,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyZip(path, include, info, fileScrubber, includeStructure, persistArchive), true);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, sourceFile, lineNumber, _ => _.VerifyZip(path, include, info, fileScrubber, includeStructure, persistArchive), true);
 
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive" />
@@ -46,8 +48,9 @@ partial class Verifier
         bool includeStructure = false,
         bool persistArchive = false,
         string? archiveExtension = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyZip(stream, include, info, fileScrubber, includeStructure, persistArchive, archiveExtension), true);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, sourceFile, lineNumber, _ => _.VerifyZip(stream, include, info, fileScrubber, includeStructure, persistArchive, archiveExtension), true);
 
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive" />
@@ -62,6 +65,7 @@ partial class Verifier
         bool includeStructure = false,
         bool persistArchive = false,
         string? archiveExtension = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyZip(bytes, include, info, fileScrubber, includeStructure, persistArchive, archiveExtension), true);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, sourceFile, lineNumber, _ => _.VerifyZip(bytes, include, info, fileScrubber, includeStructure, persistArchive, archiveExtension), true);
 }

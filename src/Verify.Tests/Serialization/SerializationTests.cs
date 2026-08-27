@@ -15,6 +15,14 @@ public class SerializationTests
     {
         VerifierSettings.AddExtraDateTimeFormat("F");
         VerifierSettings.AddExtraDateTimeOffsetFormat("F");
+#if NET6_0_OR_GREATER
+        // The only Date format enabled by default is "d", the culture short date pattern.
+        // In cultures where that pattern has a two digit year (en-AU is "d/M/yy"), a
+        // rendered Date.MinValue/MaxValue cannot round trip: "1/1/01" reads back as 2001.
+        // "D", the long date pattern, has a four digit year in every culture, so
+        // DateTimeMin/DateTimeMax render DateString with it.
+        VerifierSettings.AddExtraDateFormat("D");
+#endif
     }
 
     [Fact]
@@ -1179,6 +1187,30 @@ public class SerializationTests
         return Verify(target);
     }
 
+    [Fact]
+    public Task BoolFalseWithDefaultValueIgnore()
+    {
+        var target = new BoolModel
+        {
+            BoolMember = false,
+            NullableBoolMember = false
+        };
+        return Verify(target)
+            .AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Ignore);
+    }
+
+    [Fact]
+    public Task BoolFalseWithDefaultValueInclude()
+    {
+        var target = new BoolModel
+        {
+            BoolMember = false,
+            NullableBoolMember = null
+        };
+        return Verify(target)
+            .AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
+    }
+
     class BoolModel
     {
         public bool BoolMember;
@@ -1287,7 +1319,7 @@ public class SerializationTests
             DateTime = dateTime,
             Date = Date.MinValue,
             DateNullable = Date.MinValue,
-            DateString = Date.MinValue.ToString(),
+            DateString = Date.MinValue.ToString("D"),
             DateTimeNullable = dateTime,
             DateTimeString = dateTime.ToString("F"),
             DateTimeOffset = dateTimeOffset,
@@ -1308,7 +1340,7 @@ public class SerializationTests
             DateTime = dateTime,
             Date = Date.MaxValue,
             DateNullable = Date.MaxValue,
-            DateString = Date.MaxValue.ToString(),
+            DateString = Date.MaxValue.ToString("D"),
             DateTimeNullable = dateTime,
             DateTimeString = dateTime.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK"),
             DateTimeOffset = dateTimeOffset,
@@ -4641,4 +4673,52 @@ public class SerializationTests
                """)
             .ScrubInlineDateTimes("yyyy-MM-ddTHH:mm:ss.F");
 #endif
+
+    [ModuleInitializer]
+    public static void MemberConverterExactTypeInit()
+    {
+        // the interface is registered first, so without exact type precedence it wins
+        // for every implementation
+        VerifierSettings.MemberConverter<IMemberConverterBase, string>(
+            expression: _ => _.Value,
+            converter: _ => $"{_}_Base");
+
+        VerifierSettings.MemberConverter<MemberConverterExact, string>(
+            expression: _ => _.Value,
+            converter: _ => $"{_}_Exact");
+    }
+
+    [Fact]
+    public Task MemberConverterExactType() =>
+        Verify(
+            new
+            {
+                // the converter for the exact type wins
+                exact = new MemberConverterExact
+                {
+                    Value = "TheValue"
+                },
+                // and an implementation without one still falls back to the interface
+                inherited = new MemberConverterInherited
+                {
+                    Value = "TheValue"
+                }
+            });
+
+    interface IMemberConverterBase
+    {
+        string Value { get; set; }
+    }
+
+    class MemberConverterExact :
+        IMemberConverterBase
+    {
+        public string Value { get; set; }
+    }
+
+    class MemberConverterInherited :
+        IMemberConverterBase
+    {
+        public string Value { get; set; }
+    }
 }

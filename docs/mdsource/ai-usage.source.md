@@ -4,6 +4,8 @@ AI coding assistants (Claude Code, GitHub Copilot, Cursor, etc.) work well with 
 
 There are two approaches: a **skill** (action-oriented, invocable on-demand) and a **context file** (passive, always-on knowledge). Both can be used together.
 
+The templates below also cover [inline snapshots](/docs/inline-snapshots.md), **currently in 32.0.0-beta**. On a stable release, omit the inline parts.
+
 
 ## Skill
 
@@ -28,6 +30,7 @@ Handle [Verify](https://github.com/VerifyTests/Verify) snapshot test failures.
 
 - **`.verified.*` files** are the approved snapshots. They are committed to source control.
 - **`.received.*` files** are the actual output from the latest test run. They are generated when a test fails (actual != expected) and are git-ignored.
+- **Inline snapshots** store the approved text in the test source file as a raw string literal passed to `.Snapshot(...)`, instead of in a `.verified.` file. A project may use files, inline, or both.
 
 ## Handling a test failure
 
@@ -60,11 +63,41 @@ Verified: TestClass.Method.verified.txt
 - `Delete` means a `.verified.` file is no longer produced by any test.
 - `FileContent:` contains the actual content for comparison.
 
+Inline snapshots use two extra sections, with a different shape:
+
+```
+InlineNew:
+  - Source: /path/to/MyTests.cs:10
+    Received: /path/to/obj/VerifyInline/abc.received.txt
+    Expected: /path/to/obj/VerifyInline/abc.expected.txt
+    Patch: /path/to/obj/VerifyInline/abc.inlinepatch
+InlineNotEqual:
+  - Source: /path/to/MyTests.cs:12
+
+FileContent:
+
+InlineNotEqual:
+
+Source: /path/to/MyTests.cs:12
+Received:
+<received content>
+Expected:
+<expected content>
+```
+
+- `InlineNew` means the `.Snapshot(...)` call has no expected value yet (or the argument is `null`).
+- `InlineNotEqual` means the literal passed to `.Snapshot(...)` differs from the result.
+- `Source:` is the absolute source file path and 1 based line number of the verification.
+- The `Received:`, `Expected:` and `Patch:` lines are absent on a build server, or when the project does not consume Verify's build props. The content is still in the `FileContent:` section.
+- A single message can carry both inline and file sections, since only the first target of a verification is inlined.
+
 ### Step 2: Read the files
 
 1. Read the `.received.*` file to see the actual output.
 2. Read the `.verified.*` file (if it exists) to see the expected output.
 3. Compare the two to understand the difference.
+
+For an inline failure, read the received and expected text from the `FileContent:` section, or from the staged `Received:` and `Expected:` paths.
 
 ### Step 3: Determine the action
 
@@ -72,11 +105,40 @@ Verified: TestClass.Method.verified.txt
 - **If it is a new test** (no `.verified.*` file): accept the `.received.*` file as the new snapshot by copying it to the `Verified:` path.
 - **If the change is a bug**: fix the code, not the snapshot. Re-run the test to confirm the fix.
 
+For an inline failure, accepting means editing the raw string literal at the `Source:` location so it matches the received text exactly. Re-run the test to confirm.
+
+For each entry in the `Delete:` section, delete that `.verified.` file. It is no longer produced by any test, usually because a test was renamed or removed, or because it moved to an inline snapshot.
+
 ## Rules
 
 - **Never hand-edit `.verified.*` files** to make tests pass. Always let Verify generate the correct output by running the test.
 - **Never derive the verified name from the received name.** The two are not always identical. Multi-targeted projects add a runtime and version suffix to the received file, and ignored parameters are kept in the received name but dropped from the verified name. Always take the destination from the `Verified:` line of the exception message.
 - Snapshot files live next to the test source file. For a test in `Tests/MyTests.cs`, look for `Tests/MyTests.MethodName.verified.txt`.
+- For inline snapshots, edit only the `.Snapshot(...)` literal identified by the `Source:` line, and only with the received text verbatim. Never invent the expected text, and never adjust the test to match a snapshot that is wrong.
+
+## Inline snapshots
+
+Inline snapshots are currently in 32.0.0-beta. Drop this section for projects on a stable release.
+
+A verification with `.Snapshot(...)` holds its expected text in the C# source file:
+
+```csharp
+await Verify(input)
+    .Snapshot(
+        """
+        line1
+        line2
+        """);
+```
+
+- `VerifierSettings.Inline()` in a module initializer turns this on for every verification, in which case accepting a new snapshot means adding the `.Snapshot(...)` call to the verify invocation.
+- `.NotInline()` opts a single test back onto files, and wins over everything else.
+- Only the **first** target of a verification is inlined. Any other targets stay as `.verified.` files and keep their existing names.
+- A verification whose first target is binary, such as a document or an image, stays on files: the global switch declines it. Only an explicit `.Snapshot(...)` call on such a verification is an error.
+- A verification reached through a wrapper of the test project's own stays on files unless that wrapper is registered with `VerifierSettings.AddInlineEntryPoint`, since the `.Snapshot(...)` call is chained onto the call written in the test.
+- Parameterised tests are only inlineable when the parameters do not reach the verified name, since one literal cannot hold a value per case.
+- Switching a test from a file to inline makes the old `.verified.` file stale, so it appears in the `Delete:` section and should be deleted.
+- A project can cap how many lines an inline snapshot may have. A snapshot over the cap uses a `.verified.` file instead, so a failure for it appears in the ordinary `New:` or `NotEqual:` sections rather than the inline ones. Accept it as a file; do not add a `.Snapshot(...)` call back.
 
 ## Scrubbed values
 
@@ -87,6 +149,8 @@ Verify replaces non-deterministic values with stable placeholders. These are int
 - File paths become `{SolutionDirectory}`, `{ProjectDirectory}`, `{TempPath}`.
 
 Do not treat these placeholders as errors.
+
+If a snapshot changes between runs or between machines, the fix is a scrubber on the test, not repeatedly accepting the new output. Use `ScrubLinesContaining(...)`, `ScrubLines(...)` or `AddScrubber(...)` on the verification.
 
 ## Verified file conventions
 
@@ -118,6 +182,7 @@ This project uses [Verify](https://github.com/VerifyTests/Verify) for snapshot t
 - **`.verified.*` files** are the approved snapshots. They are committed to source control.
 - **`.received.*` files** are the actual output from the latest test run. They are generated when a test fails (actual != expected) and are git-ignored.
 - When a test fails, compare the `.received.*` file to the `.verified.*` file to understand the difference.
+- **Inline snapshots** store the approved text in the test source file as a raw string literal passed to `.Snapshot(...)`, instead of in a `.verified.` file.
 
 ### Handling test failures
 
@@ -130,6 +195,31 @@ When a snapshot test fails:
    - **If a bug**: fix the code, not the snapshot.
 4. Never hand-edit `.verified.*` files to make tests pass. Always let Verify generate the correct output by running the test.
 5. Never derive the verified name from the received name. The two are not always identical. Multi-targeted projects add a runtime and version suffix to the received file, and ignored parameters are kept in the received name but dropped from the verified name. Always take the destination from the `Verified:` line of the exception message.
+6. Delete every `.verified.` file listed in the `Delete:` section. Those files are no longer produced by any test, usually because a test was renamed or removed.
+
+If a snapshot differs between runs or between machines, add a scrubber to the test (`ScrubLinesContaining(...)`, `ScrubLines(...)`, `AddScrubber(...)`) rather than accepting the new output each time.
+
+### Handling inline snapshot failures
+
+Inline snapshots are currently in 32.0.0-beta. Drop this section for projects on a stable release.
+
+An inline failure is reported in the `InlineNew:` or `InlineNotEqual:` section, which carries a `Source:` line with the source file path and line number instead of a file pair:
+
+```csharp
+await Verify(input)
+    .Snapshot(
+        """
+        line1
+        line2
+        """);
+```
+
+1. Read the received and expected text from the `FileContent:` section of the exception message, or from the staged `Received:` and `Expected:` paths under `obj/VerifyInline/` when present.
+2. If the difference is expected, replace the raw string literal at the `Source:` location with the received text verbatim. If it is a bug, fix the code instead.
+3. `InlineNew` means the `.Snapshot(...)` call has no expected value yet, so the received text becomes the literal.
+4. Never invent the expected text and never edit a literal other than the one at the reported `Source:` location.
+
+Only the first target of a verification is inlined, so one exception message can carry both inline sections and file sections.
 
 ### Scrubbed values
 
@@ -174,6 +264,7 @@ Verified: TestClass.Method.verified.txt
  * `New` means no `.verified.` file exists yet (first run or new test).
  * `NotEqual` means the `.received.` and `.verified.` files differ.
  * `Delete` means a `.verified.` file is no longer produced by any test.
+ * `InlineNew` and `InlineNotEqual` are the inline snapshot equivalents of `New` and `NotEqual`. They list a `Source:` line (`path:line`) rather than a received/verified pair, optionally followed by staged `Received:`, `Expected:` and `Patch:` paths.
  * The `FileContent:` section contains the actual text content for quick comparison without needing to read files separately.
 
 See [Exception Message Format](/docs/exception-message-format.md) for full details.
@@ -201,11 +292,29 @@ await Verify(myObject)
 // Verify throws
 await ThrowsTask(() => MethodThatThrows())
     .IgnoreStackTrace();
+
+// Verify with an inline snapshot instead of a .verified. file
+await Verify(myObject)
+    .Snapshot(
+        """
+        expected text
+        """);
 ```
 ~~~
 
 
 ## Tips for effective AI-assisted snapshot testing
+
+
+### Running tests non-interactively
+
+An AI assistant runs tests in a terminal, where a diff tool launching per failed snapshot is unhelpful and can block the run. Set the `DiffEngine_Disabled` environment variable to `true` for those runs:
+
+```
+DiffEngine_Disabled=true
+```
+
+This also suppresses the [inline snapshot](/docs/inline-snapshots.md) viewer. The exception message still carries the file paths and the content, which is all an assistant needs. Note that with no diff tool and no viewer, an inline snapshot has no interactive accept path, so the literal is edited directly.
 
 
 ### Let the test show what changed
@@ -219,6 +328,20 @@ If a refactor changes many snapshots, use [AutoVerify](/docs/autoverify.md) temp
 
 snippet: StaticAutoVerify
 
+With [inline snapshots](/docs/inline-snapshots.md), AutoVerify rewrites the literals in the test source files directly, so the same approach applies.
+
+
+### Inline snapshots
+
+**Currently in 32.0.0-beta**
+
+[Inline snapshots](/docs/inline-snapshots.md) keep the expected text in the test file, which suits AI assistants well: the code and its snapshot are read and edited in one place, with no second file to locate and no naming rules to get right.
+
+Two things to keep in mind:
+
+ * Accepting an inline snapshot is a source edit, so the received text has to be copied into the literal verbatim. The temptation to hand-tune a literal into passing is stronger than with a `.verified.` file, and equally wrong.
+ * Only the first target of a verification is inlined, and parameterised tests whose parameters reach the verified name cannot be inlined at all. Those cases stay on files.
+
 
 ### Prompt strategies
 
@@ -226,9 +349,9 @@ When asking an AI assistant to work with Verify tests:
 
  * **"Run the tests and update the snapshots"** - Good for after intentional changes. The assistant should run the tests, review the `.received.*` files, and accept the expected changes.
  * **"The test is failing, fix it"** - The assistant should read both the `.received.*` and `.verified.*` files, understand the difference, then fix the code rather than the snapshot.
- * **"Add a new test for X"** - The assistant should write the test, run it (it will fail on first run since there is no `.verified.*` file yet), then accept the generated `.received.*` file as the new snapshot.
+ * **"Add a new test for X"** - The assistant should write the test, run it (it will fail on first run since there is no `.verified.*` file yet), then accept the generated `.received.*` file as the new snapshot. With inline snapshots, the test is written with a bare `.Snapshot()` call, and the first run supplies the literal.
 
 
 ### File location
 
-Snapshot files live next to the test source file by default. For a test in `Tests/MyTests.cs`, the verified file will be at `Tests/MyTests.MethodName.verified.txt` (or `.json`, `.xml`, etc. depending on the content type).
+Snapshot files live next to the test source file by default. For a test in `Tests/MyTests.cs`, the verified file will be at `Tests/MyTests.MethodName.verified.txt` (or `.json`, `.xml`, etc. depending on the content type). An inline snapshot has no such file: the expected text is the literal in `Tests/MyTests.cs`.

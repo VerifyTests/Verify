@@ -9,9 +9,10 @@ public static partial class Verifier
         string name,
         Expression<Func<ITuple>> expression,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyTuple(expression));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.VerifyTuple(expression));
     }
 }

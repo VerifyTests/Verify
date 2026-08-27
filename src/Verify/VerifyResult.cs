@@ -3,12 +3,22 @@
 public class VerifyResult
 {
     IReadOnlyList<FilePair> files;
+    string? inlineText;
 
     internal VerifyResult(IReadOnlyList<FilePair> files, object? target)
     {
         this.files = files;
         Target = target;
     }
+
+    /// <summary>
+    /// An inline verification, which carries file pairs as well: only the first target is inlined,
+    /// so any others went to files and belong in <see cref="Files" /> the same as they would have
+    /// without a literal. <see cref="Text" /> is still the snapshot, which is the first target.
+    /// </summary>
+    internal VerifyResult(string inlineText, IReadOnlyList<FilePair> files, object? target)
+        : this(files, target) =>
+        this.inlineText = inlineText;
 
     public Exception Exception
     {
@@ -34,6 +44,11 @@ public class VerifyResult
     {
         get
         {
+            if (inlineText is not null)
+            {
+                return inlineText;
+            }
+
             var textFiles = TextFiles.ToList();
             if (textFiles.Count == 0)
             {

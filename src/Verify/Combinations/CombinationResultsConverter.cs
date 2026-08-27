@@ -10,6 +10,7 @@ public class CombinationResultsConverter :
         var items = results.Items;
         if (items.Count == 0)
         {
+            writer.WriteEndObject();
             return;
         }
 
@@ -28,8 +29,8 @@ public class CombinationResultsConverter :
         var keyValues = new string[items.Count, keysLength];
 
         // Keys repeat across rows (a column only has as many distinct values as
-        // its input list), so cache the computed name per distinct key value.
-        var nameCache = new Dictionary<object, string>();
+        // its input list), so cache the computed name per key.
+        var nameCache = new Dictionary<object, string>(ReferenceComparer.Instance);
         string? nullName = null;
 
         for (var itemIndex = 0; itemIndex < items.Count; itemIndex++)
@@ -175,8 +176,11 @@ public class CombinationResultsConverter :
             builder.Append(trimmed);
             if (!trimmed.EndsWith('.'))
             {
-                builder.Append(". ");
+                builder.Append('.');
             }
+
+            // separate from the next line even when the sentence was already terminated
+            builder.Append(' ');
         }
 
         builder.TrimEnd();

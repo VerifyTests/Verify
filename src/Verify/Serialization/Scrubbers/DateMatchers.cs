@@ -48,6 +48,7 @@ static class DateMatchers
         var resolvedCulture = culture ?? Culture.CurrentCulture;
         try
         {
+            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             new DateTimeOffset(probeDateTime).ToString(format, resolvedCulture);
         }
         catch (FormatException exception)
@@ -267,31 +268,46 @@ static class DateMatchers
 
     static bool TryGetFormatWithUpperMillisecondsTrimmed(string format, [NotNullWhen(true)] out string? trimmedFormat)
     {
+        string trimmed;
         if (format.EndsWith(".FFFF", StringComparison.Ordinal))
         {
-            trimmedFormat = format[..^5];
-            return true;
+            trimmed = format[..^5];
         }
-
-        if (format.EndsWith(".FFF", StringComparison.Ordinal))
+        else if (format.EndsWith(".FFF", StringComparison.Ordinal))
         {
-            trimmedFormat = format[..^4];
-            return true;
+            trimmed = format[..^4];
         }
-
-        if (format.EndsWith(".FF", StringComparison.Ordinal))
+        else if (format.EndsWith(".FF", StringComparison.Ordinal))
         {
-            trimmedFormat = format[..^3];
-            return true;
+            trimmed = format[..^3];
         }
-
-        if (format.EndsWith(".F", StringComparison.Ordinal))
+        else if (format.EndsWith(".F", StringComparison.Ordinal))
         {
-            trimmedFormat = format[..^2];
+            trimmed = format[..^2];
+        }
+        else
+        {
+            trimmedFormat = null;
+            return false;
+        }
+
+        // Nothing is left to parse, so the untrimmed scrubber is the only one
+        if (trimmed.Length == 0)
+        {
+            trimmedFormat = null;
+            return false;
+        }
+
+        // A one character format string is read as a standard format specifier, so "s.F"
+        // would trim to the culture's sortable pattern and "H.F" to nothing valid at all.
+        // `%` forces the character to be read as the custom specifier it was written as.
+        if (trimmed.Length == 1)
+        {
+            trimmedFormat = $"%{trimmed}";
             return true;
         }
 
-        trimmedFormat = null;
-        return false;
+        trimmedFormat = trimmed;
+        return true;
     }
 }

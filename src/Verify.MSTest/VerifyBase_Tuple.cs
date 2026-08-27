@@ -9,7 +9,8 @@ partial class VerifyBase
     public SettingsTask VerifyTuple(
         Expression<Func<ITuple>> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.VerifyTuple(target, settings, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyTuple(target, settings, sourceFile, lineNumber);
 }
 #endif

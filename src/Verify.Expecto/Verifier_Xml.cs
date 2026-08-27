@@ -9,8 +9,9 @@ public static partial class Verifier
         [StringSyntax(StringSyntaxAttribute.Xml)]
         string? target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyXml(target));
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, lineNumber, name, _ => _.VerifyXml(target));
 
     [Pure]
     public static SettingsTask VerifyXml(
@@ -18,8 +19,9 @@ public static partial class Verifier
         [StringSyntax(StringSyntaxAttribute.Xml)]
         Task<string> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyXml(target));
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, lineNumber, name, _ => _.VerifyXml(target));
 
     [Pure]
     public static SettingsTask VerifyXml(
@@ -27,30 +29,34 @@ public static partial class Verifier
         [StringSyntax(StringSyntaxAttribute.Xml)]
         ValueTask<string> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyXml(target));
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, lineNumber, name, _ => _.VerifyXml(target));
 
     [Pure]
     public static SettingsTask VerifyXml(
         string name,
         Stream? target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyXml(target));
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, lineNumber, name, _ => _.VerifyXml(target));
 
     [Pure]
     public static SettingsTask VerifyXml(
         string name,
         Task<Stream> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyXml(target));
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, lineNumber, name, _ => _.VerifyXml(target));
 
     [Pure]
     public static SettingsTask VerifyXml(
         string name,
         ValueTask<Stream> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyXml(target));
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, lineNumber, name, _ => _.VerifyXml(target));
 }

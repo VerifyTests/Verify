@@ -7,12 +7,113 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Comparer
 
-Comparers are used to compare non-text files.
+Comparers control how a received result is compared to its verified file. They apply to both text and binary targets.
+
+A comparer is helpful when a result has changed, but not enough to fail verification. For example when rendering images/forms on different operating systems, or when part of a text snapshot legitimately varies between environments.
+
+There are two kinds, selected by the type of the target being compared:
+
+ * String comparers (`StringCompare`) for text targets.
+ * Stream comparers (`StreamCompare`) for binary targets.
+
+Note that a comparer only runs when the received and verified content are not already identical. A matching result never reaches the comparer, so the passing path keeps the fast comparison.
+
+In both cases the returned `CompareResult.NotEqual` takes an optional message that will be rendered in the resulting text displayed to the user on test failure.
+
+Comparers change only the equality check. The received and verified content is left as-is, so relaxing a comparison does not churn existing verified files, unlike scrubbing or ignoring members.
 
 
-## Custom Comparer
+## Comparer resolution
 
-Using a custom comparer can be helpful when a result has changed, but not enough to fail verification. For example when rendering images/forms on different operating systems.
+Comparers are matched on the extension of the target being compared, and the first match wins:
+
+ 1. An instance comparer registered for that extension: `settings.UseStringComparer(compare, "json")`.
+ 2. An instance comparer registered with no extension, which applies to all extensions: `settings.UseStringComparer(compare)`.
+ 3. A static comparer registered for that extension: `VerifierSettings.RegisterStringComparer("json", compare)`.
+ 4. For text targets only, the static default: `VerifierSettings.SetDefaultStringComparer(compare)`.
+
+So a global comparer can be registered once and overridden for specific tests.
+
+The extension match is exact, and an extension with no match is a silent no-op rather than an error. Care is needed where a setting changes the extension of a snapshot: [UseStrictJson](/docs/serializer-settings.md#usestrictjson) renames text snapshots from `txt` to `json`, so a comparer registered against `txt` stops running once it is enabled. `SetDefaultStringComparer` avoids pinning an extension.
+
+Static comparers must be registered before the first verification runs, so a [ModuleInitializer](https://learn.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.moduleinitializerattribute) is the usual location.
+
+
+## String comparer
+
+For sample purposes only case differences will be ignored:
+
+<!-- snippet: StringComparer -->
+<a id='snippet-StringComparer'></a>
+```cs
+static Task<CompareResult> CompareIgnoringCase(
+    string received,
+    string verified,
+    IReadOnlyDictionary<string, object> context)
+{
+    if (string.Equals(received, verified, StringComparison.OrdinalIgnoreCase))
+    {
+        return Task.FromResult(CompareResult.Equal);
+    }
+
+    var result = CompareResult.NotEqual("Differed by more than case");
+    return Task.FromResult(result);
+}
+```
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L114-L130' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringComparer' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Instance string comparer
+
+<!-- snippet: StringComparerInstance -->
+<a id='snippet-StringComparerInstance'></a>
+```cs
+[Fact]
+public Task StringComparerInstance()
+{
+    var settings = new VerifySettings();
+    settings.UseStringComparer(CompareIgnoringCase, "txt");
+    return Verify("TheText", settings);
+}
+
+[Fact]
+public Task StringComparerInstanceFluent() =>
+    Verify("TheText")
+        .UseStringComparer(CompareIgnoringCase, "txt");
+```
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L22-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringComparerInstance' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Static string comparer
+
+<!-- snippet: StringComparerStatic -->
+<a id='snippet-StringComparerStatic'></a>
+```cs
+VerifierSettings.RegisterStringComparer(
+    extension: "txt",
+    compare: CompareIgnoringCase);
+await Verify("TheText");
+```
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L94-L101' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringComparerStatic' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Or as the default for all text extensions:
+
+<!-- snippet: DefaultStringComparer -->
+<a id='snippet-DefaultStringComparer'></a>
+```cs
+VerifierSettings.SetDefaultStringComparer(CompareIgnoringCase);
+await Verify("TheText");
+```
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L106-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-DefaultStringComparer' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Information can be passed from a test to its comparer via [Context](/docs/context.md).
+
+
+## Stream comparer
 
 For samples purposes only the image sizes will be compared:
 
@@ -34,12 +135,46 @@ static Task<CompareResult> CompareImages(
     return Task.FromResult(result);
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L75-L92' title='Snippet source file'>snippet source</a> | <a href='#snippet-ImageComparer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L132-L149' title='Snippet source file'>snippet source</a> | <a href='#snippet-ImageComparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-The returned `CompareResult.NotEqual` takes an optional message that will be rendered in the resulting text displayed to the user on test failure.
-
 **If an input is split into multiple files, and a text file fails, then all subsequent binary comparisons will revert to the default comparison.**
+
+
+### Instance stream comparer
+
+<!-- snippet: InstanceComparer -->
+<a id='snippet-InstanceComparer'></a>
+```cs
+[Fact]
+public Task InstanceComparer()
+{
+    var settings = new VerifySettings();
+    settings.UseStreamComparer(CompareImages, "png");
+    return VerifyFile("sample.png", settings);
+}
+
+[Fact]
+public Task InstanceComparerFluent() =>
+    VerifyFile("sample.png")
+        .UseStreamComparer(CompareImages, "png");
+```
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L5-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-InstanceComparer' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Static stream comparer
+
+<!-- snippet: StaticComparer -->
+<a id='snippet-StaticComparer'></a>
+```cs
+VerifierSettings.RegisterStreamComparer(
+    extension: "png",
+    compare: CompareImages);
+await VerifyFile("TheImage.png");
+```
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L82-L89' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticComparer' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 
 ### Bypass comparers for derived targets
@@ -69,42 +204,6 @@ public static ConversionResult ConvertDocument(Stream document, IReadOnlyDiction
 <!-- endSnippet -->
 
 The flag must be set on the source target, and that target must precede the derived targets in the conversion result.
-
-
-### Instance comparer
-
-<!-- snippet: InstanceComparer -->
-<a id='snippet-InstanceComparer'></a>
-```cs
-[Fact]
-public Task InstanceComparer()
-{
-    var settings = new VerifySettings();
-    settings.UseStreamComparer(CompareImages);
-    return VerifyFile("sample.png", settings);
-}
-
-[Fact]
-public Task InstanceComparerFluent() =>
-    VerifyFile("sample.png")
-        .UseStreamComparer(CompareImages);
-```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L5-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-InstanceComparer' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
-### Static comparer
-
-<!-- snippet: StaticComparer -->
-<a id='snippet-StaticComparer'></a>
-```cs
-VerifierSettings.RegisterStreamComparer(
-    extension: "png",
-    compare: CompareImages);
-await VerifyFile("TheImage.png");
-```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L65-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticComparer' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
 
 
 ## Default Comparison
@@ -242,7 +341,7 @@ public Task InstanceSsimForPngFluent() =>
     VerifyFile("sample.png")
         .UseSsimForPng(threshold: 0.995);
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L22-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-InstanceSsimForPng' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L39-L54' title='Snippet source file'>snippet source</a> | <a href='#snippet-InstanceSsimForPng' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Dimension mismatches between the received and verified images are always reported as not equal, regardless of threshold.
@@ -258,7 +357,7 @@ The SSIM score can also be computed directly, outside of a verification. This is
 public static double Score(Stream received, Stream verified) =>
     Ssim.Compare(received, verified);
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L39-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-SsimCompare' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L56-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-SsimCompare' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `Ssim.Compare` accepts two PNG streams, two PNG byte arrays, or two `PngImage` instances decoded via `PngDecoder.Decode`. Scores range from `0` (completely different) to `1` (identical). Comparing images of different dimensions throws an `ArgumentException`.
@@ -281,7 +380,7 @@ public static double? ScoreIfSameSize(Stream received, Stream verified)
     return Ssim.Compare(receivedImage, verifiedImage);
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L46-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-SsimCompareDimensions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L63-L78' title='Snippet source file'>snippet source</a> | <a href='#snippet-SsimCompareDimensions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `PngDecoder` supports the same PNG subset as the comparer (see below).

@@ -1,0 +1,26 @@
+﻿Directory: {ProjectDirectory}
+InlineNotEqual:
+  - Source: {ProjectDirectory}MyTests.cs:14
+NotEqual:
+  - Received: MyTests.Test1#01.received.txt
+    Verified: MyTests.Test1#01.verified.txt
+Delete:
+  - MyTests.OldTest.verified.txt
+
+FileContent:
+
+InlineNotEqual:
+
+Source: {ProjectDirectory}MyTests.cs:14
+Received:
+inline received
+Expected:
+inline expected
+
+NotEqual:
+
+Received: MyTests.Test1#01.received.txt
+received text
+Verified: MyTests.Test1#01.verified.txt
+verified text
+

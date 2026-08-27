@@ -26,6 +26,47 @@ partial class InnerVerifier
             throw new("All targets have been excluded by ExcludeTargets. A verification requires at least one target.");
         }
 
+        var inline = ResolveInline(resultTargets);
+        InlineEngine? inlineEngine = null;
+        string? migratedExpected = null;
+        if (inline is not null)
+        {
+            inlineEngine = new(
+                settings,
+                inline,
+                settings.TypeName ?? typeName,
+                settings.MethodName ?? methodName);
+
+            // Recorded before anything else can retire in this member, so a sibling verification
+            // that is not inline retires by call site alone rather than reaching for this one.
+            InlineEngine.RecordInline(inlineEngine.MappedSourceFile, inline.MemberName);
+        }
+        else if (settings.inline is { } stale)
+        {
+            // A literal exists but inline is off for this verification, so migrate: strip the
+            // Snapshot call and let the snapshot flow through as a file, which the user then
+            // accepts the usual way. Only where the source was actually rewritten, so a build
+            // server is left alone.
+            if (InlineEngine.TryRemove(stale) &&
+                stale.Expected is not null)
+            {
+                // The literal was the approved snapshot, so it becomes the verified file's
+                // content. Otherwise the migration reads as a brand new snapshot, and the
+                // approved text is lost from both the source and the failure message.
+                migratedExpected = InlineEngine.NormalizeExpected(stale.Expected, stale.File);
+            }
+
+            // Prefix uniqueness is skipped while inline, since several inline verifies per
+            // method are legal. Migrating puts this one back under the file naming rules, where
+            // two of them in one method would resolve to the same name.
+            ValidatePrefix(settings, pathPrefixReceived!);
+        }
+
+        if (inline is null)
+        {
+            RetireInline();
+        }
+
         var engine = new VerifyEngine(
             directory,
             settings,
@@ -33,7 +74,9 @@ partial class InnerVerifier
             getFileNames,
             getIndexedFileNames,
             settings.TypeName ?? typeName,
-            settings.MethodName ?? methodName);
+            settings.MethodName ?? methodName,
+            inlineEngine,
+            migratedExpected);
 
         try
         {
@@ -53,7 +96,206 @@ partial class InnerVerifier
             filePairs.AddRange(engine.AutoVerified);
         }
 
+        // The file pairs go with the inline result too. Only the first target is inlined, so a
+        // verification with more than one still wrote files, and returning the snapshot alone left
+        // a caller enumerating Files to post-process attachments seeing none of them
+        if (inlineEngine is not null)
+        {
+            return new(inlineEngine.Rendered, filePairs, root);
+        }
+
         return new(filePairs, root);
+    }
+
+    /// <summary>
+    /// This verification is not inline, so anything a previous run queued for its call site is
+    /// stale whatever happens next — the file snapshot passing or failing says nothing about a
+    /// snapshot that no longer lives in the source.
+    /// </summary>
+    /// <remarks>
+    /// Gated on inline being in play at all, so a codebase that never turned it on never pays a
+    /// loopback round trip per verification. Where a Snapshot call is still there but declined,
+    /// its own call site is the one to retire; otherwise it is the verify call's.
+    /// </remarks>
+    void RetireInline()
+    {
+        if (VerifierSettings.inline is null &&
+            settings.inline is null &&
+            !settings.notInline)
+        {
+            return;
+        }
+
+        if (settings.inline is { } declined)
+        {
+            InlineEngine.Retire(settings, declined.File, declined.Line, declined.MemberName);
+            return;
+        }
+
+        InlineEngine.Retire(settings, inlineSourceFile, lineNumber, methodName);
+    }
+
+    /// <summary>
+    /// Decides whether this verification uses an inline snapshot, and where the literal lives.
+    /// The first target is the one inlined; the rest go through the file pipeline as usual.
+    /// </summary>
+    InlineInfo? ResolveInline(List<Target> targets)
+    {
+        if (settings.notInline)
+        {
+            return null;
+        }
+
+        // Nothing was produced, so there is nothing to inline and nothing for the first target to
+        // be. An explicit Snapshot call stated what the result should be and there is no result,
+        // which is worth saying: the literal would otherwise be compared against nothing and the
+        // verification would pass without having checked it. The global switch declines instead,
+        // the way it declines every other thing it cannot do, and the verification goes on to the
+        // file pipeline, which passes an empty target list the same as it always has
+        if (targets.Count == 0)
+        {
+            if (settings.inline is null)
+            {
+                return null;
+            }
+
+            throw new VerifyException("Snapshot was used on a verification that produced no targets, so there is nothing to compare the snapshot against.");
+        }
+
+        // An explicit Snapshot(...) is the user's stated intent, whatever the global switch says.
+        // The size limit is the one exception, and only where it was opted in to cover existing
+        // calls. Not on a build server: the source cannot be rewritten there, so the literal that
+        // is actually checked out is the one to compare against.
+        if (settings.inline is { } explicitInline)
+        {
+            if (VerifierSettings.inlineApplyMaxLinesToExisting &&
+                !InlineEngine.IsBuildServer() &&
+                ExceedsMaxLines(targets))
+            {
+                return null;
+            }
+
+            return explicitInline;
+        }
+
+        if (VerifierSettings.inline is not { } globalInline)
+        {
+            return null;
+        }
+
+        // Hard incompatibilities. A global switch must not break unrelated tests, so these are
+        // "not inline" rather than errors; the explicit path above still throws for UniqueDirectory,
+        // for parameters, and for a binary first target.
+        //
+        // The source file is null only on the ctor that leaves typeName null too, so that check
+        // reads as redundant. It is what tells the compiler the argument below is not null, so it
+        // stays rather than becoming a suppression.
+        if (settings.UniqueDirectory ||
+            verifiedHasParameters ||
+            typeName is null ||
+            lineNumber == 0 ||
+            inlineSourceFile is null ||
+            !InlineInfo.IsSupported(inlineSourceFile))
+        {
+            return null;
+        }
+
+        var first = targets[0];
+        if (first.DontInline ||
+            // A binary target has no text to hold in a literal. The explicit path throws for it,
+            // stating an intent that cannot be honoured; the switch declines, since a codebase
+            // that turns inline on for everything still has tests that emit documents and images
+            first.IsStream ||
+            !globalInline(
+                settings.TypeName ?? typeName,
+                settings.MethodName ?? methodName!,
+                inlineSourceFile,
+                first.Extension))
+        {
+            return null;
+        }
+
+        // A long snapshot swamps the test it sits in, so it stays a file
+        if (ExceedsMaxLines(targets))
+        {
+            return null;
+        }
+
+        // Last, because it reads the source file and every other check is a field comparison. The
+        // accept has to have a call to chain a Snapshot onto, and the switch cannot see the source
+        // the way it can see the verification: a wrapper of the test project's own returning a
+        // Task looks like an entry point from here and like one in the file as well
+        if (!InlineAnchor.CanHost(inlineSourceFile, lineNumber, methodName))
+        {
+            return null;
+        }
+
+        // No literal yet, so the patcher appends a Snapshot call to the verify invocation. The
+        // line is the only thing that says which one, and it stops being true the moment another
+        // accept in the same file inserts above it: a snapshot is several lines of source, call
+        // sites are a handful of lines apart, and accepting a file's worth of them in one go moved
+        // later hints past their own test. The member is what survives that, since the patcher
+        // finds the declaration by name in the file as it is now and floors its search there.
+        //
+        // The declared name rather than the one naming resolved: UseMethodName renames the
+        // snapshot, not the method. A name the file does not declare - a renamed test, or a
+        // framework whose tests are strings rather than methods - finds no declaration and leaves
+        // the search exactly as it was, so this only ever narrows
+        return new(null, inlineSourceFile, lineNumber, null, methodName, InlinePatchMode.Append);
+    }
+
+    /// <summary>
+    /// Whether the content that would be inlined has more lines than the configured limit.
+    /// A trailing newline starts no line, so it is not counted. The content is already
+    /// newline normalized.
+    /// </summary>
+    static bool ExceedsMaxLines(List<Target> targets)
+    {
+        if (VerifierSettings.inlineMaxLines is not { } maxLines ||
+            targets.Count == 0 ||
+            // A binary first target has no lines to count. Only the explicit path can still be
+            // holding one here, and InlineEngine.Compare owns that error message, so it is left
+            // to reach it rather than being routed to files by a limit it cannot be measured against.
+            !targets[0].TryGetStringBuilder(out var builder))
+        {
+            return false;
+        }
+
+        // The last character is excluded, a trailing newline starting no line
+        var end = builder.Length - 1;
+        var lines = 1;
+        // A chunk at a time, so each character is read once. The indexer walks the chunk list to
+        // find the one holding the index, so reading a builder through it costs the chunk count per
+        // character - and a builder is a chunk per few thousand characters, which for a target of a
+        // few megabytes is hundreds of them. Measured over a builder filled the way serialization
+        // fills one, at 1/2/4MB: 129ms, 520ms, 1651ms by the indexer against under a millisecond
+        // here. It is the target with no newlines in it that pays the whole bill, having nothing to
+        // exit early on.
+        var index = 0;
+        foreach (var chunk in builder.GetChunks())
+        {
+            foreach (var character in chunk.Span)
+            {
+                if (index == end)
+                {
+                    return false;
+                }
+
+                index++;
+                if (character != '\n')
+                {
+                    continue;
+                }
+
+                lines++;
+                if (lines > maxLines)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     Func<Task> RemoveExcludedTargets(List<Target> targets, Func<Task> cleanup, out bool removed)
@@ -87,18 +329,24 @@ partial class InnerVerifier
 
     async Task<(List<Target> extra, Func<Task> cleanup)> GetTargets(IEnumerable<Target> targets, bool doExtensionConversion)
     {
-        List<Target> list = [..targets, ..VerifierSettings.GetFileAppenders(settings)];
         var cleanup = () => Task.CompletedTask;
+        var result = new List<Target>();
 
-        // When doExtensionConversion is false the targets have already been run through
-        // conversion and scrubbing (the only caller is the post-conversion stream path),
-        // so pass them through untouched to avoid double scrubbing.
-        if (!doExtensionConversion)
+        List<Target> list;
+        if (doExtensionConversion)
         {
-            return (list, cleanup);
+            list = [..targets, ..VerifierSettings.GetFileAppenders(settings)];
+        }
+        else
+        {
+            // On the post-conversion stream path (the only caller that passes false) the
+            // targets have already been run through conversion and scrubbing, so they pass
+            // through untouched to avoid double scrubbing. The appenders have been through
+            // neither, so they still take the loop below.
+            result.AddRange(targets);
+            list = [..VerifierSettings.GetFileAppenders(settings)];
         }
 
-        var result = new List<Target>();
         foreach (var target in list)
         {
             if (!target.PerformConversion ||

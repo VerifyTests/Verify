@@ -4,7 +4,7 @@ namespace VerifyExpecto;
 
 public static partial class Verifier
 {
-    public static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, string methodName, bool useUniqueDirectory = false)
+    public static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, string methodName, bool useUniqueDirectory = false, int lineNumber = 0)
     {
         if (settings.HasParameters)
         {
@@ -25,7 +25,7 @@ public static partial class Verifier
         var fileName = Path.GetFileNameWithoutExtension(sourceFile);
 
         var pathInfo = GetPathInfo(sourceFile, fileName, methodName);
-        return new(sourceFile, settings, fileName, methodName, null, pathInfo);
+        return new(sourceFile, settings, fileName, methodName, null, pathInfo, lineNumber);
     }
 
     [DoesNotReturn]
@@ -36,6 +36,7 @@ public static partial class Verifier
         VerifySettings? settings,
         Assembly assembly,
         string sourceFile,
+        int lineNumber,
         string name,
         Func<InnerVerifier, Task<VerifyResult>> verify,
         bool useUniqueDirectory = false)
@@ -47,7 +48,7 @@ public static partial class Verifier
             settings,
             async settings =>
             {
-                using var verifier = BuildVerifier(settings, sourceFile, name, useUniqueDirectory);
+                using var verifier = BuildVerifier(settings, sourceFile, name, useUniqueDirectory, lineNumber);
 
                 //TODO: rest and replicate try in other projects
                 try
@@ -70,29 +71,32 @@ public static partial class Verifier
         object? target,
         IEnumerable<Target> rawTargets,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly();
-        return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target, rawTargets));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.Verify(target, rawTargets));
     }
 
     public static SettingsTask Verify(
         string name,
         IEnumerable<Target> targets,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly();
-        return Verify(settings, assembly, sourceFile, name, _ => _.Verify(targets));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.Verify(targets));
     }
 
     public static SettingsTask Verify(
         string name,
         Target target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var assembly = Assembly.GetCallingAssembly();
-        return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
+        return Verify(settings, assembly, sourceFile, lineNumber, name, _ => _.Verify(target));
     }
 }

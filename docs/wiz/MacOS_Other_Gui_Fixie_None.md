@@ -280,4 +280,5 @@ Tools supported by MacOS:
  * [Rider](https://www.jetbrains.com/rider/)
  * [Vim](https://www.vim.org/)
  * [Neovim](https://neovim.io/)
+ * [DiffEngineViewer](https://github.com/VerifyTests/DiffEngine)
 

@@ -1,6 +1,9 @@
 ﻿static class PrefixUnique
 {
-    static ConcurrentDictionary<string, byte> prefixSet = [];
+    // Ignoring case, since the prefix maps to file names and NTFS and APFS are both
+    // case insensitive. Two prefixes differing only in case would silently share one
+    // set of files there, and a snapshot repository has to work on every platform.
+    static ConcurrentDictionary<string, byte> prefixSet = new(StringComparer.OrdinalIgnoreCase);
 
     public static void CheckPrefixIsUnique(string prefix)
     {
@@ -41,7 +44,7 @@
 
     static void AppendTargetFramework(Namer namer, UniquenessList uniqueness)
     {
-        var name = namer.UniqueForTargetFrameworkName;
+        var name = namer.ResolveUniqueForTargetFrameworkName();
         if (namer.ResolveUniqueForTargetFrameworkAndVersion())
         {
             if (name is null)

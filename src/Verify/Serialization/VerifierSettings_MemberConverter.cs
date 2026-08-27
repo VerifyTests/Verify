@@ -12,6 +12,19 @@ public static partial class VerifierSettings
 
     internal static ConvertTargetMember? GetMemberConverter(Type? declaringType, string name)
     {
+        if (declaringType is null)
+        {
+            return null;
+        }
+
+        // The exact type wins, so a converter registered for a base type or interface
+        // does not shadow a more specific one merely by being registered first
+        if (membersConverters.TryGetValue(declaringType, out var forType) &&
+            forType.TryGetValue(name, out var converter))
+        {
+            return converter;
+        }
+
         foreach (var pair in membersConverters)
         {
             if (pair.Key.IsAssignableFrom(declaringType) &&

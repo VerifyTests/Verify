@@ -47,7 +47,10 @@
                 return new(Equality.Equal, compareResult.Message, null, null);
             }
 
-            IoHelpers.CopyFile(fileStream.Name, file.ReceivedPath);
+            // Not CopyFile(fileStream.Name): a FileStream built from a handle has no
+            // usable Name. WriteStream keeps the copy-by-path fast path and falls back
+            // to the handle, which is what the New and empty paths above already do.
+            await IoHelpers.WriteStream(file.ReceivedPath, fileStream);
             return new(Equality.NotEqual, compareResult.Message, null, null);
         }
 

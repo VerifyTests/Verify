@@ -4,7 +4,7 @@ public class ParametersSample
     {
         yield return
         [
-            (decimal) 1.1
+            1.1m
         ];
     }
 

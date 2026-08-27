@@ -36,7 +36,8 @@
     [InlineData("g", 4, 4)]
     [InlineData("gg", 4, 4)]
     [InlineData("ggg", 4, 4)]
-    [InlineData("t", 2, 2)]
+    // A single t renders only the first character of the AM/PM designator
+    [InlineData("t", 1, 1)]
     [InlineData("tt", 2, 2)]
     [InlineData("ttt", 2, 2)]
     [InlineData("z", 3, 2)]
@@ -50,6 +51,8 @@
     [InlineData("KK", 12, 0)]
     [InlineData(":", 1, 1)]
     [InlineData("':'", 1, 1)]
+    // The escape backslash inside a quoted literal is consumed, not rendered
+    [InlineData(@"'o\'clock'", 7, 7)]
     [InlineData("/", 1, 1)]
     [InlineData("'/'", 1, 1)]
     [InlineData("yyyy-MM-dd", 10, 10)]
@@ -101,5 +104,17 @@
         length = DateFormatLengthCalculator.InnerGetLength(escapedWrapped.AsSpan(), culture);
         Assert.Equal(max + 2, length.max);
         Assert.Equal(min + 2, length.min);
+    }
+
+    // MMMM next to a day component renders the genitive month name, which can be longer
+    // than every nominative form (cs-CZ November: "listopadu" vs "listopad")
+    [Fact]
+    public void GenitiveMonthNamesFeedTheBounds()
+    {
+        var culture = new CultureInfo("cs-CZ");
+        var (max, min) = DateFormatLengthCalculator.InnerGetLength("d MMMM yyyy".AsSpan(), culture);
+        var rendered = new DateTime(2020, 11, 15).ToString("d MMMM yyyy", culture);
+        Assert.True(rendered.Length <= max, $"{rendered.Length} <= {max}. {rendered}");
+        Assert.True(rendered.Length >= min, $"{rendered.Length} >= {min}. {rendered}");
     }
 }

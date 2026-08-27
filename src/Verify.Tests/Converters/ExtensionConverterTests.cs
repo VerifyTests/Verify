@@ -31,6 +31,13 @@
         Verify("the source text", "texttoconvert");
         #endregion
 
+    // The appended file is scrubbed and newline normalized even though the main target
+    // has already been through the stream converter path, which skips re-scrubbing
+    [Fact]
+    public Task TextSplitterWithFileAppender() =>
+        Verify("the source text", "texttoconvert")
+            .AppendContentAsFile("a\r\nb");
+
     [ModuleInitializer]
     public static void TextSplitterStreamInit()
     {

@@ -9,43 +9,49 @@ partial class VerifyBase
         [StringSyntax(StringSyntaxAttribute.Xml)]
         string? target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.VerifyXml(target, settings, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyXml(target, settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask VerifyXml(
         [StringSyntax(StringSyntaxAttribute.Xml)]
         Task<string> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.VerifyXml(target, settings, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyXml(target, settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask VerifyXml(
         [StringSyntax(StringSyntaxAttribute.Xml)]
         ValueTask<string> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.VerifyXml(target, settings, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyXml(target, settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask VerifyXml(
         Stream? target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.VerifyXml(target, settings, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyXml(target, settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask VerifyXml(
         Task<Stream> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.VerifyXml(target, settings, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyXml(target, settings, sourceFile, lineNumber);
 
     [Pure]
     public SettingsTask VerifyXml(
         ValueTask<Stream> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verifier.VerifyXml(target, settings, sourceFile);
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
+        Verifier.VerifyXml(target, settings, sourceFile, lineNumber);
 }

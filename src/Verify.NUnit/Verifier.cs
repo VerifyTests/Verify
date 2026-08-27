@@ -14,7 +14,7 @@ public static partial class Verifier
     public static void AddAttachmentEvents() =>
         VerifierSettings.AddTestAttachment(AddFile);
 
-    public static InnerVerifier BuildVerifier(string sourceFile, VerifySettings settings, bool useUniqueDirectory = false)
+    public static InnerVerifier BuildVerifier(string sourceFile, VerifySettings settings, bool useUniqueDirectory = false, int lineNumber = 0)
     {
         Guards.AgainstBadSourceFile(sourceFile);
         if (useUniqueDirectory)
@@ -50,7 +50,8 @@ public static partial class Verifier
             type.NameWithParent(),
             method.Name,
             parameterNames,
-            pathInfo);
+            pathInfo,
+            lineNumber);
     }
 
     static IReadOnlyList<string>? GetParameterNames(MethodInfo method, TestAdapter adapter)
@@ -88,6 +89,7 @@ public static partial class Verifier
     static SettingsTask Verify(
         VerifySettings? settings,
         string sourceFile,
+        int lineNumber,
         Func<InnerVerifier, Task<VerifyResult>> verify,
         bool useUniqueDirectory = false)
     {
@@ -96,7 +98,7 @@ public static partial class Verifier
             settings,
             async verifySettings =>
             {
-                using var verifier = BuildVerifier(sourceFile, verifySettings, useUniqueDirectory);
+                using var verifier = BuildVerifier(sourceFile, verifySettings, useUniqueDirectory, lineNumber);
                 return await verify(verifier);
             });
     }
@@ -106,29 +108,35 @@ public static partial class Verifier
         object? target,
         IEnumerable<Target> rawTargets,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
         Verify(
             settings,
             sourceFile,
+            lineNumber,
             _ => _.Verify(target, rawTargets));
 
     [Pure]
     public static SettingsTask Verify(
         IEnumerable<Target> targets,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
         Verify(
             settings,
             sourceFile,
+            lineNumber,
             _ => _.Verify(targets));
 
     [Pure]
     public static SettingsTask Verify(
         Target target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0) =>
         Verify(
             settings,
             sourceFile,
+            lineNumber,
             _ => _.Verify(target));
 }

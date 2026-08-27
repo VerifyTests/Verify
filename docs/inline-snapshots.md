@@ -23,16 +23,6 @@ Inline snapshots store the expected text inside the test file (.cs, .fs or .fsx)
 
 Add `.Snapshot(...)` to any verification:
 
-[Fact]
-public Task MultiLine()
-{
-    var input = "line1\nline2";
-    return Verify(input)
-        .Snapshot();
-}
-
-Omitting the expected argument (or passing `null` or `default`) marks the snapshot as new; accepting it writes the literal into the source file.
-
 <!-- snippet: InlineSample -->
 <a id='snippet-InlineSample'></a>
 ```cs
@@ -50,6 +40,18 @@ public Task MultiLine()
 ```
 <sup><a href='/src/Verify.Tests/InlineTests.cs#L35-L49' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+Omitting the expected argument (or passing `null` or `default`) marks the snapshot as new; accepting it writes the literal into the source file:
+
+```cs
+[Fact]
+public Task MultiLine()
+{
+    var input = "line1\nline2";
+    return Verify(input)
+        .Snapshot();
+}
+```
 
 Because `Snapshot` is a modifier rather than a separate entry point, it composes with every overload: `VerifyXml(...).Snapshot(...)`, `VerifyJson(...).Snapshot(...)`, `VerifyFile(...).Snapshot(...)`, and so on.
 
@@ -173,7 +175,7 @@ public static class ModuleInitializer
 <sup><a href='/src/ModuleInitDocs/InlineApplyMaxLinesToExisting.cs#L3-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticInlineApplyMaxLinesToExisting' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Every existing literal over the limit then migrates, not only the ones whose content changed, so a test that was passing keeps passing: the literal seeds the verified file, as described below. Nothing is rewritten on a build server, where such a test keeps using its literal.
+Every existing literal over the limit then migrates, not only the ones whose content changed. A passing test stays passing through the move, since the literal it held is what seeds the new verified file, as described below. Nothing is rewritten on a build server, where such a test keeps using its literal.
 
 
 ## Parameterised tests
@@ -334,15 +336,17 @@ The checks that route a verification to files are silent rather than errors, so 
 
 ## Accepting a snapshot
 
-On a mismatch (or a new snapshot), Verify records the call site (file, line, and the literal's source text via `CallerArgumentExpression`) and produces a patch. Accepting the patch splices a new raw string literal into the source file, preserving the file's encoding, BOM, and line endings. The literal's location is found by content search, so line shifts from earlier edits do not break later ones.
+On a mismatch (or a new snapshot), Verify records the call site (file, line, and the literal's source text via `CallerArgumentExpression`) and produces a patch. Accepting the patch splices a new raw string literal into the source file, preserving the file's encoding, BOM, and line endings. The literal is then located by searching the file for that source text rather than by trusting the line number, so accepting one snapshot cannot misplace the next in a file where it has shifted the lines.
 
 Accept mechanisms:
 
  * **AutoVerify**: with [AutoVerify](autoverify.md) enabled, the source file is rewritten immediately during the test run.
  * **[DiffEngineViewer](https://github.com/VerifyTests/DiffEngine/blob/main/docs/viewer.md)**: opens showing the received text against the expected text, with Accept and Discard. It ships inside the DiffEngine package, so it needs no install, and it runs on Windows, macOS and Linux. Several snapshots failing in one run queue into a single window.
  * **[DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md)**: pending snapshots appear under "Pending Snapshots" and can be accepted, discarded, or opened in the viewer.
+ * **[Verify.Terminal](https://github.com/VerifyTests/Verify.Terminal)**: `dotnet verify review` steps through the pending snapshots at the command line, and `dotnet verify accept` takes them all. Both places an inline snapshot can be waiting are read, the queue and the staging directory described below, so what it lists does not depend on whether a tray is running. Needs version 0.9.1 or higher.
+ * **[Rider/R# Verify plugin](https://github.com/matkoch/jetbrains-plugin-verify)**: accepts file snapshots today, and inline support is in progress.
 
-The queue belongs to whichever process bound the port first, which is normally the tray since it starts at login. Whichever holds it, the other drives it over the same socket, so the two always agree about what is pending.
+One queue holds the pending snapshots, and it belongs to whichever process bound the port first, normally the tray since it starts at login. Everything else reaches that same queue over the socket instead of starting one of its own, so the tray, the viewer and Verify.Terminal are always working from one list rather than several that can disagree.
 
 Nothing is written to disk for a pending inline snapshot: the patch is handed to the queue owner. Only when nothing owns a queue does Verify fall back to staging the received text, the expected text and the patch itself under `obj/VerifyInline/`, and launching whatever diff tool is configured.
 
@@ -384,9 +388,9 @@ Two further differences need nothing from the reader. F# does not implement `Cal
 
 Both directions are handled without any manual file editing.
 
-**File to inline.** The existing `.verified.` file for the inlined target is detected as stale and flows through the standard [Delete handling](exception-message-format.md): deleted automatically under AutoVerify, otherwise listed in the `Delete:` section and pended for review. A pending delete goes to the tray when one is running, and to the queue owner otherwise, so it is reviewable with no tray installed. Files belonging to the other targets keep their names and are left alone.
+**File to inline.** The existing `.verified.` file for the inlined target is detected as stale and flows through the standard [Delete handling](exception-message-format.md): deleted automatically under AutoVerify, otherwise listed in the `Delete:` section and pended for review. A pending delete goes to the tray when one is running, and to the viewer otherwise, launching one if none is up, so it is reviewable with no tray installed. Files belonging to the other targets keep their names and are left alone.
 
-There is no size opt out on this direction, so a snapshot that shrinks back under a [`maxLines`](#limiting-the-size-of-an-inline-snapshot) limit returns to being inline and leaves its file behind as a stale delete. One sitting on the boundary therefore moves each time it crosses it.
+This direction has no opt in of its own, so a snapshot that shrinks back under a [`maxLines`](#limiting-the-size-of-an-inline-snapshot) limit returns to inline as soon as it does, leaving its file behind as a stale delete. A snapshot whose size hovers around the limit therefore moves each time it crosses.
 
 **Inline to file.** When a `.Snapshot(...)` call exists but inline is off for that verification, the call is removed from the source and the snapshot runs as a normal file snapshot. The literal was the approved snapshot, so it seeds the verified file: an unchanged snapshot migrates without failing, and a changed one is an ordinary mismatch with the old and new text, accepted the usual way. Accepting a migration means committing both the source edit and the new `.verified.` file.
 

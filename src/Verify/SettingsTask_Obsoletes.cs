@@ -25,7 +25,7 @@ public partial class SettingsTask
     [Pure]
     public SettingsTask AutoVerify(bool includeBuildServer = true)
     {
-        CurrentSettings.AutoVerify(includeBuildServer, false);
+        CurrentSettings.AutoVerify(includeBuildServer);
         return this;
     }
 
@@ -34,7 +34,7 @@ public partial class SettingsTask
     [Pure]
     public SettingsTask AutoVerify(AutoVerify autoVerify, bool includeBuildServer = true)
     {
-        CurrentSettings.AutoVerify(autoVerify, includeBuildServer, false);
+        CurrentSettings.AutoVerify(autoVerify, includeBuildServer);
         return this;
     }
 }

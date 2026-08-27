@@ -1,4 +1,4 @@
-// The F# half of inline snapshots. F# has no raw string, so a triple-quoted literal hands over the
+﻿// The F# half of inline snapshots. F# has no raw string, so a triple-quoted literal hands over the
 // line break after the opening delimiter and the indentation of every line, and the snapshot is
 // what is left once DiffEngine takes that layout back off. These tests are that agreement: what
 // the compiler would hand over goes in, and the snapshot has to come out.
@@ -63,7 +63,8 @@ public class InlineFSharpTests :
         Assert.Equal("line one\nline two", InlineEngine.NormalizeExpected("line one\r\nline two", "Tests.cs"));
     }
 
-    // begin-snippet: InlineFSharpMatches
+    // The layout the F# compiler hands over is not content: it comes back off, and the snapshot
+    // is what is left
     [Fact]
     public Task LayoutIsNotContent()
     {
@@ -72,7 +73,6 @@ public class InlineFSharpTests :
         settings.Snapshot(asFSharpHandsItOver, FakeSource(), 1, null);
         return Verify("line one\nline two", settings);
     }
-    // end-snippet
 
     // The same value from a C# file is the snapshot as it stands, because the C# compiler already
     // took the layout off. Reading it the F# way there would silently eat a snapshot's indentation
@@ -122,7 +122,8 @@ public class InlineFSharpTests :
         return Verify(content, settings);
     }
 
-    // begin-snippet: InlineFSharpAccept
+    // Accepting writes the C# shape: line break after the opening delimiter, and every line
+    // indented to where the closing delimiter sits
     [Fact]
     public async Task AcceptWritesTheIndentedForm()
     {
@@ -161,7 +162,6 @@ public class InlineFSharpTests :
             Directory.Delete(Path.GetDirectoryName(template)!, true);
         }
     }
-    // end-snippet
 
     // F# does not implement CallerArgumentExpression, so the patch carries the previous value
     // instead. Two tests with the same snapshot and a hint pointing at the wrong one: the value

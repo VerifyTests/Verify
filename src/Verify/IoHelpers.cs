@@ -261,6 +261,7 @@
         }
 
         // keep using scope to stream is flushed
+        // ReSharper disable once UseAwaitUsing
         using (var targetStream = OpenWrite(path))
         {
             await stream.SafeCopy(targetStream);

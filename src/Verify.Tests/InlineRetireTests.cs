@@ -106,8 +106,8 @@ public class InlineRetireTests :
                 MemberName = stem,
                 OriginalValue = "old"
             });
-        File.WriteAllText(receivedFile, "staged content");
-        File.WriteAllText(expectedFile, "old");
+        await File.WriteAllTextAsync(receivedFile, "staged content");
+        await File.WriteAllTextAsync(expectedFile, "old");
 
         var settings = new VerifySettings();
         settings.UseDirectory(listener.Directory);

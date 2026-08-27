@@ -51,9 +51,9 @@ A v33 beta will be published as a prerelease on NuGet shortly, so the check can 
 For the reasoning behind the model, and the discussion the terms came out of, see [Open Source Maintenance Fee for Verify](https://github.com/orgs/VerifyTests/discussions/1731). For the model itself, see the [OSMF FAQ for consumers](https://opensourcemaintenancefee.org/consumers/faq/).
 
 
-## Sponsors
+## Supporters
 
-include: sponsors
+include: supporters
 
 
 ## Requirements

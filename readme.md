@@ -63,9 +63,9 @@ A v33 beta will be published as a prerelease on NuGet shortly, so the check can 
 For the reasoning behind the model, and the discussion the terms came out of, see [Open Source Maintenance Fee for Verify](https://github.com/orgs/VerifyTests/discussions/1731). For the model itself, see the [OSMF FAQ for consumers](https://opensourcemaintenancefee.org/consumers/faq/).
 
 
-## Sponsors
+## Supporters
 
-### Entity Framework Extensions<!-- include: sponsors. path: /docs/mdsource/sponsors.include.md -->
+### Entity Framework Extensions<!-- include: supporters. path: /docs/mdsource/supporters.include.md -->
 
 [Entity Framework Extensions](https://entityframework-extensions.net/?utm_source=simoncropp&utm_medium=Verify) is a major sponsor and is proud to contribute to the development this project.
 

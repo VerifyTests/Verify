@@ -56,9 +56,7 @@ Exempt from the fee:
  * Organizations that do not generate revenue, other than government agencies.
  * Organizations that engage the core maintainers for consulting work, for six months from the final date of that engagement.
 
-From v33, sponsorship is validated at build time by [SponsorCheck](https://github.com/SimonCropp/SponsorCheck). Each package bundles a hashed list of sponsors and a build-time verifier, and a consuming project declares how it is licensed as metadata on the `PackageReference`: a sponsor account, a private arrangement, an exemption, or `SponsorshipLicenseIgnored="true"`, which builds with a warning rather than an error. Nothing phones home: the check runs inside the build, adds no runtime dependency to the packages, and issues no license keys. See the [consumer guide](https://github.com/SimonCropp/SponsorCheck/blob/main/docs/ConsumerUsage.md) for the metadata and the diagnostic codes.
-
-A v33 beta will be published as a prerelease on NuGet shortly, so the check can be tried out ahead of the release.
+From v33 (currently available as a beta on nuget), sponsorship is validated at build time by [SponsorCheck](https://github.com/SimonCropp/SponsorCheck). Each package bundles a hashed list of sponsors and a build-time verifier, and a consuming project declares how it is licensed as metadata on the `PackageReference`: a sponsor account, a private arrangement, an exemption, or `SponsorshipLicenseIgnored="true"`, which builds with a warning rather than an error. Nothing phones home: the check runs inside the build, adds no runtime dependency to the packages, and issues no license keys. See the [consumer guide](https://github.com/SimonCropp/SponsorCheck/blob/main/docs/ConsumerUsage.md) for the metadata and the diagnostic codes.
 
 For the reasoning behind the model, and the discussion the terms came out of, see [Open Source Maintenance Fee for Verify](https://github.com/orgs/VerifyTests/discussions/1731). For the model itself, see the [OSMF FAQ for consumers](https://opensourcemaintenancefee.org/consumers/faq/).
 

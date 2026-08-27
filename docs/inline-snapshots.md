@@ -7,8 +7,6 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Inline Snapshots
 
-**Currently in 32.0.0-beta**
-
 Only C# and F# are supported
 
 Inline snapshots store the expected text inside the test file (.cs, .fs or .fsx) as a raw string literal, next to the code that produces it, instead of in a `.verified.` file on disk.

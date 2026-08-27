@@ -4,11 +4,14 @@
 
 Only C# and F# are supported
 
-If using [DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md) ensure to update to the current beta.
-
 Inline snapshots store the expected text inside the test file (.cs, .fs or .fsx) as a raw string literal, next to the code that produces it, instead of in a `.verified.` file on disk.
 
-The [Rider/R# Verify plugin](https://github.com/matkoch/jetbrains-plugin-verify) handles them from 2026.3.0: accepting from the test runner splices the snapshot into the source, and comparing shows the received text against the snapshot the run was measured against.
+
+## Tooling status
+
+ * [DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md): Use version 20.1.2 or higher.
+ * [Verify.Terminal](https://github.com/VerifyTests/Verify.Terminal): Use version 0.9.1 or higher.
+ * [Rider/R# Verify plugin](https://github.com/matkoch/jetbrains-plugin-verify): Support is in progress.
 
 
 ## Usage

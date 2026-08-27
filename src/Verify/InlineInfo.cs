@@ -25,9 +25,6 @@ sealed class InlineInfo(string? expected, string file, int line, string? express
     // Set when there is a Snapshot call to put the literal in, Append when there is not
     public InlinePatchMode Mode { get; } = mode;
 
-    // The language the literal is written in, which decides how a value is written and read back
-    public SourceLanguage Language { get; } = SourceLanguage.ForFile(file);
-
     /// <summary>
     /// The languages DiffEngine can rewrite a literal in. Checked before a snapshot is inlined,
     /// because a file it cannot patch produces a snapshot that never applies and a test that fails

@@ -8,12 +8,12 @@ public readonly struct InlineEntry(
     string? patchPath)
 {
     /// <summary>
-    /// Full path to the .cs file containing the inline snapshot.
+    /// Full path to the test source file holding the inline snapshot: .cs, .fs or .fsx.
     /// </summary>
     public string SourceFile { get; } = sourceFile;
 
     /// <summary>
-    /// 1 based line of the VerifyInline call.
+    /// 1 based line of the Snapshot call, or of the verify call for a snapshot that has none yet.
     /// </summary>
     public int Line { get; } = line;
 

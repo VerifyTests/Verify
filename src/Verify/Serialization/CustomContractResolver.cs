@@ -105,7 +105,9 @@
             property.TypeNameHandling = TypeNameHandling.All;
         }
 
-        if (property.PropertyType == typeof(bool))
+        // bools are always included, unless DefaultValueHandling has been explicitly configured
+        if (property.PropertyType == typeof(bool) &&
+            !settings.DefaultValueHandlingExplicit)
         {
             property.DefaultValueHandling = DefaultValueHandling.Include;
         }

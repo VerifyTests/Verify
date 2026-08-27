@@ -1,4 +1,4 @@
-// The F# half of inline snapshots. F# has no raw string, so a triple-quoted literal hands over the
+﻿// The F# half of inline snapshots. F# has no raw string, so a triple-quoted literal hands over the
 // line break after the opening delimiter and the indentation of every line, and the snapshot is
 // what is left once DiffEngine takes that layout back off. These tests are that agreement: what
 // the compiler would hand over goes in, and the snapshot has to come out.
@@ -14,11 +14,18 @@ public class InlineFSharpTests :
     // Accepting rewrites source, which InlineEngine declines to do on a build server
     Func<bool> originalIsBuildServer = InlineEngine.IsBuildServer;
 
+    // Built on demand by WriteTemplate, so the tests that never write one neither create a
+    // directory nor put a path in front of the temp path scrubber
+    TempDirectory? templates;
+
     public InlineFSharpTests() =>
         InlineEngine.IsBuildServer = () => false;
 
-    public void Dispose() =>
+    public void Dispose()
+    {
         InlineEngine.IsBuildServer = originalIsBuildServer;
+        templates?.Dispose();
+    }
 
     // What the F# compiler produces for
     //
@@ -31,16 +38,41 @@ public class InlineFSharpTests :
     // is everything between the delimiters, verbatim
     const string asFSharpHandsItOver = "\n        line one\n        line two\n        ";
 
-    // begin-snippet: InlineFSharpMatches
+    /// <summary>
+    /// The agreement Verify's F# comparison rests on, asserted directly rather than only through
+    /// a verification.
+    /// <para>
+    /// It is not Verify's to keep: taking the layout off is DiffEngine's
+    /// <c>SourceLanguage.SnapshotValue</c>, reached through <c>NormalizeExpected</c>, and the
+    /// package it comes from moves on its own. A release that changed it would flip the pass or
+    /// fail of every F# inline snapshot with no change here, and the failures would say the
+    /// snapshot differed rather than that the contract had. This says which.
+    /// </para>
+    /// </summary>
+    [Fact]
+    public void FSharpLayoutIsTakenOffByTheDependency()
+    {
+        // What the compiler hands over, into what the comparison uses
+        Assert.Equal("line one\nline two", InlineEngine.NormalizeExpected(asFSharpHandsItOver, "Tests.fs"));
+
+        // A value not written to that shape is its own content, which is what keeps a single line
+        // snapshot, or one that merely looks like layout, from being trimmed into something else
+        Assert.Equal("line one", InlineEngine.NormalizeExpected("line one", "Tests.fs"));
+
+        // C# has raw strings, so its compiler has already done it and there is nothing to take off
+        Assert.Equal("line one\nline two", InlineEngine.NormalizeExpected("line one\r\nline two", "Tests.cs"));
+    }
+
+    // The layout the F# compiler hands over is not content: it comes back off, and the snapshot
+    // is what is left
     [Fact]
     public Task LayoutIsNotContent()
     {
         var settings = new VerifySettings();
         settings.IgnoreParameters();
-        settings.Snapshot(asFSharpHandsItOver, FakeSource(), 1, null, "LayoutIsNotContent");
+        settings.Snapshot(asFSharpHandsItOver, FakeSource(), 1, null);
         return Verify("line one\nline two", settings);
     }
-    // end-snippet
 
     // The same value from a C# file is the snapshot as it stands, because the C# compiler already
     // took the layout off. Reading it the F# way there would silently eat a snapshot's indentation
@@ -50,7 +82,7 @@ public class InlineFSharpTests :
         var settings = new VerifySettings();
         settings.IgnoreParameters();
         settings.DisableDiff();
-        settings.Snapshot(asFSharpHandsItOver, FakeCsSource(), 1, null, "LayoutIsContentInCSharp");
+        settings.Snapshot(asFSharpHandsItOver, FakeCsSource(), 1, null);
 
         var exception = await Assert.ThrowsAsync<VerifyException>(
             async () => await Verify("line one\nline two", settings));
@@ -64,7 +96,7 @@ public class InlineFSharpTests :
     {
         var settings = new VerifySettings();
         settings.IgnoreParameters();
-        settings.Snapshot("\n        line one\n\n        ", FakeSource(), 1, null, "TrailingNewline");
+        settings.Snapshot("\n        line one\n\n        ", FakeSource(), 1, null);
         return Verify("line one\n", settings);
     }
 
@@ -74,7 +106,7 @@ public class InlineFSharpTests :
     {
         var settings = new VerifySettings();
         settings.IgnoreParameters();
-        settings.Snapshot("the value", FakeSource(), 1, null, "SingleLine");
+        settings.Snapshot("the value", FakeSource(), 1, null);
         return Verify("the value", settings);
     }
 
@@ -86,11 +118,12 @@ public class InlineFSharpTests :
         var content = "\n    indented\n    ";
         var settings = new VerifySettings();
         settings.IgnoreParameters();
-        settings.Snapshot(RenderedAsFSharp(content), FakeSource(), 1, null, "ContentThatLooksLikeLayout");
+        settings.Snapshot(RenderedAsFSharp(content), FakeSource(), 1, null);
         return Verify(content, settings);
     }
 
-    // begin-snippet: InlineFSharpAccept
+    // Accepting writes the C# shape: line break after the opening delimiter, and every line
+    // indented to where the closing delimiter sits
     [Fact]
     public async Task AcceptWritesTheIndentedForm()
     {
@@ -129,7 +162,6 @@ public class InlineFSharpTests :
             Directory.Delete(Path.GetDirectoryName(template)!, true);
         }
     }
-    // end-snippet
 
     // F# does not implement CallerArgumentExpression, so the patch carries the previous value
     // instead. Two tests with the same snapshot and a hint pointing at the wrong one: the value
@@ -222,11 +254,11 @@ public class InlineFSharpTests :
     static string FakeCsSource() =>
         Path.Combine(Path.GetTempPath(), "VerifyInlineFakeSource.cs");
 
-    static string WriteTemplate(string body)
+    // xunit builds an instance per test, so the one template name cannot collide
+    string WriteTemplate(string body)
     {
-        var directory = Path.Combine(Path.GetTempPath(), $"VerifyInlineFSharpTests_{Guid.NewGuid():N}");
-        Directory.CreateDirectory(directory);
-        var path = Path.Combine(directory, "Template.fs");
+        templates ??= new();
+        var path = templates.BuildPath("Template.fs");
         File.WriteAllText(path, body);
         return path;
     }

@@ -28,7 +28,14 @@ static class Comparer
                 .Replace('\r', '\n');
         }
 
-        var result = await CompareStrings(filePair.Extension, received, verified, settings, bypassComparer);
+        // The tolerance applies to what is compared, not to what is reported: the result carries
+        // the verified text as the file holds it
+        var result = await CompareStrings(
+            filePair.Extension,
+            received,
+            ApplyTrailingNewlineTolerance(verified, received.Length),
+            settings,
+            bypassComparer);
         if (result.IsEqual)
         {
             return new(Equality.Equal, null, received, verified);
@@ -38,17 +45,27 @@ static class Comparer
         return new(Equality.NotEqual, result.Message, received, verified);
     }
 
-    static Task<CompareResult> CompareStrings(string extension, StringBuilder received, string verified, VerifySettings settings, bool bypassComparer)
-    {
-        // Only a single trailing \n, and only where it is the sole difference in length. An
-        // editor adding a final newline to verified is tolerated, a genuine content change is not.
-        if (VerifierSettings.ignoreTrailingNewline &&
-            verified.Length - 1 == received.Length &&
-            verified[^1] == '\n')
-        {
-            verified = verified[..^1];
-        }
+    /// <summary>
+    /// Only a single trailing \n, and only where it is the sole difference in length. An editor
+    /// adding a final newline to verified is tolerated, a genuine content change is not.
+    /// <para>
+    /// Applied by the caller rather than inside the comparison, because an inline snapshot reports
+    /// what it compared against and so has to know what that turned out to be.
+    /// </para>
+    /// </summary>
+    internal static string ApplyTrailingNewlineTolerance(string verified, int receivedLength) =>
+        VerifierSettings.ignoreTrailingNewline &&
+        verified.Length - 1 == receivedLength &&
+        verified[^1] == '\n'
+            ? verified[..^1]
+            : verified;
 
+    /// <summary>
+    /// Ordinal, then whatever string comparer the settings register for the extension. Shared with
+    /// the inline path, which used to compare ordinally and stop there.
+    /// </summary>
+    internal static Task<CompareResult> CompareStrings(string extension, StringBuilder received, string verified, VerifySettings settings, bool bypassComparer)
+    {
         var isEqual = received.Equals(verified.AsSpan());
         if (!isEqual &&
             !bypassComparer &&

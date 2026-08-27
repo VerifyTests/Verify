@@ -17,10 +17,10 @@ updated to the new result.<!-- endInclude -->
 **See [Milestones](https://github.com/VerifyTests/Verify/milestones?state=closed) for release notes.**
 
 
-## Sponsors
+## Supporters
 
 
-### Entity Framework Extensions<!-- include: sponsors. path: /docs/mdsource/sponsors.include.md -->
+### Entity Framework Extensions<!-- include: supporters. path: /docs/mdsource/supporters.include.md -->
 
 [Entity Framework Extensions](https://entityframework-extensions.net/?utm_source=simoncropp&utm_medium=Verify) is a major sponsor and is proud to contribute to the development this project.
 

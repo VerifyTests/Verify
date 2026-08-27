@@ -63,7 +63,7 @@ class VerifyEngine(
             var target = targetList[0];
             if (inlineEngine is not null)
             {
-                inlineEngine.Compare(target);
+                await inlineEngine.Compare(target);
                 return;
             }
 
@@ -76,6 +76,27 @@ class VerifyEngine(
 
         var textHasFailed = false;
         var bypassComparers = false;
+
+        // The inlined target is compared outside Inner, so it has to feed the same cascade by
+        // hand. Without this a first target that differed told the targets after it nothing, and
+        // the derived ones kept trusting comparers that exist to tolerate differences the source
+        // target had just failed on - which is what BypassComparersForSubsequentOnDifference is
+        // for, and it stopped working as soon as that target was the inlined one
+        async Task CompareInline(Target target)
+        {
+            await inlineEngine!.Compare(target);
+            if (inlineEngine.Equality == Equality.Equal)
+            {
+                return;
+            }
+
+            // Always text: Compare refuses a stream outright
+            textHasFailed = true;
+            if (target.BypassComparersForSubsequentOnDifference)
+            {
+                bypassComparers = true;
+            }
+        }
 
         async Task Inner(FilePair file, Target target, bool isFirst)
         {
@@ -111,29 +132,22 @@ class VerifyEngine(
         foreach (var group in indexed.GroupBy(_ => _.target, targetNameExtensionComparer))
         {
             var targets = group.ToList();
-            if (targets.Count == 1)
-            {
-                var (target, position) = targets[0];
-                if (position == 0 && inlineEngine is not null)
-                {
-                    inlineEngine.Compare(target);
-                    continue;
-                }
-
-                await Inner(getFileNames(target), target, position == 0);
-                continue;
-            }
-
+            // Several targets sharing a name and extension are told apart by an index; one on its
+            // own keeps the plain name
+            var indexNames = targets.Count > 1;
             for (var index = 0; index < targets.Count; index++)
             {
                 var (target, position) = targets[index];
                 if (position == 0 && inlineEngine is not null)
                 {
-                    inlineEngine.Compare(target);
+                    await CompareInline(target);
                     continue;
                 }
 
-                await Inner(getIndexedFileNames(target, index.ToString("D2")), target, position == 0);
+                var file = indexNames
+                    ? getIndexedFileNames(target, index.ToString("D2"))
+                    : getFileNames(target);
+                await Inner(file, target, position == 0);
             }
         }
     }

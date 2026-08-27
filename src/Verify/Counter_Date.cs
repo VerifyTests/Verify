@@ -29,14 +29,18 @@ public partial class Counter
             return new(0, name);
         }
 
-        return dateCache.GetOrAdd(
-            input,
-            _ => BuildDateValue());
+        lock (cacheLock)
+        {
+            return dateCache.GetOrAdd(
+                input,
+                _ => BuildDateValue());
+        }
     }
 
+    // Called under cacheLock
     (int intValue, string stringValue) BuildDateValue()
     {
-        var value = Interlocked.Increment(ref currentDate);
+        var value = ++currentDate;
 
         if (DateCounting)
         {
@@ -54,9 +58,10 @@ public partial class Counter
     Dictionary<DateTime, (int intValue, string stringValue)> dateCache = new(dateTimeComparer);
     int currentDate;
 
+    // Called under cacheLock
     (int intValue, string stringValue) BuildDateValue()
     {
-        var value = Interlocked.Increment(ref currentDate);
+        var value = ++currentDate;
 
         if (DateCounting)
         {
@@ -78,10 +83,13 @@ public partial class Counter
             return "Date_MinValue";
         }
 
-        return dateCache.GetOrAdd(
-            date,
-            _ => BuildDateValue())
-            .stringValue;
+        lock (cacheLock)
+        {
+            return dateCache.GetOrAdd(
+                    date,
+                    _ => BuildDateValue())
+                .stringValue;
+        }
     }
 }
 #endif

@@ -108,7 +108,8 @@ public class ReceivedMapsTests
     [Fact]
     public void EmptyWhenDirectoryMissing()
     {
-        var maps = ReceivedMaps.Read(Path.Combine(Path.GetTempPath(), $"missing-{Guid.NewGuid()}"));
+        using var temp = new TempDirectory();
+        var maps = ReceivedMaps.Read(temp.BuildPath("missing"));
 
         Assert.Empty(maps.Pairs);
         Assert.False(maps.TryGetVerified("Foo.received.txt", out _));

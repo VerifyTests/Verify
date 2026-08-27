@@ -86,6 +86,7 @@ partial class InnerVerifier
 
         stream.MoveToStart();
 
+        // ReSharper disable once UseAwaitUsing
         using (stream)
         {
             if (VerifierSettings.HasStreamConverter(extension))

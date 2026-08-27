@@ -1,4 +1,4 @@
-// The inline half of VerifyEngine. One target's expected content lives in the test source file
+﻿// The inline half of VerifyEngine. One target's expected content lives in the test source file
 // instead of a .verified file, so no FilePair is created (FilePair feeds DanglingSnapshotsCheck)
 // and accept is a source rewrite (via DiffEngine InlineApplier) instead of a file move.
 // Owned and driven by VerifyEngine, which keeps deletes, auto verify and the exception message.
@@ -27,7 +27,17 @@ class InlineEngine(
 
     public string MappedSourceFile { get; } = InnerVerifier.MapSourceFile(inline.File);
     public int Line => inline.Line;
-    public Equality Equality { get; private set; }
+
+    /// <summary>
+    /// The verdict, which only exists once <see cref="Compare" /> has reached one. Held as a
+    /// nullable rather than left to default, because the default of this enum is Equal: a
+    /// verification that never compared anything would otherwise report that it passed, and
+    /// nothing downstream could tell that apart from one that did.
+    /// </summary>
+    public Equality Equality =>
+        equality ?? throw new("The inline snapshot was never compared.");
+
+    Equality? equality;
     public string Rendered { get; private set; } = null!;
     public string? NormalizedExpected { get; private set; }
 
@@ -38,14 +48,14 @@ class InlineEngine(
     /// </summary>
     string? SnapshotInSource { get; set; }
 
-    public void Compare(in Target target)
+    public async Task Compare(Target target)
     {
         if (target.IsStream)
         {
             throw new VerifyException(
                 $"""
                  Inline snapshots only support text content. The first target, with extension '{target.Extension}', is a binary stream.
-                 Use `.NotInline()` for this test, or `Target.DontInline` for this extension.
+                 Remove the `Snapshot(...)` call, or add `NotInline()`, to keep this test on verified files. Only an explicit `Snapshot(...)` reaches this: the global switch declines a binary target and falls back to files.
                  """);
         }
 
@@ -54,24 +64,20 @@ class InlineEngine(
 
         if (inline.Expected is null)
         {
-            Equality = Equality.New;
+            equality = Equality.New;
             return;
         }
 
         // What the source is holding right now, which is also what a patch is anchored to
         SnapshotInSource = NormalizeExpected(inline.Expected, inline.File);
-        var expected = SnapshotInSource;
+        NormalizedExpected = Comparer.ApplyTrailingNewlineTolerance(SnapshotInSource, Rendered.Length);
 
-        // Mirror Comparer.CompareStrings trailing newline tolerance
-        if (VerifierSettings.ignoreTrailingNewline &&
-            expected.Length - 1 == Rendered.Length &&
-            expected[^1] == '\n')
-        {
-            expected = expected[..^1];
-        }
-
-        NormalizedExpected = expected;
-        Equality = string.Equals(Rendered, expected, StringComparison.Ordinal)
+        // Through the comparison the file pipeline uses, rather than an ordinal compare that
+        // looked like it. A suite with a string comparer registered - one that tolerates an
+        // ordering, or a timestamp, or a rounding - passed against its verified files and started
+        // failing the moment the same snapshot moved inline, with nothing saying why
+        var result = await Comparer.CompareStrings(target.Extension, builder, NormalizedExpected, settings, false);
+        equality = result.IsEqual
             ? Equality.Equal
             : Equality.NotEqual;
     }
@@ -101,8 +107,78 @@ class InlineEngine(
     {
         if (diffEnabled)
         {
-            DiffRunner.SettleInline(MappedSourceFile, inline.Line);
+            // The member goes with the line, because the line alone stops finding the entry as
+            // soon as an accept earlier in the file inserts a literal above this call site.
+            DiffRunner.SettleInline(MappedSourceFile, inline.Line, inline.MemberName);
+            ClearStaged(MappedSourceFile, inline.Line, inline.MemberName);
         }
+    }
+
+    /// <summary>
+    /// A settle only reaches a queue owner, and a snapshot can be on disk instead: staged by a run
+    /// that found no owner, or written out by one on its way out. Those files are what accept
+    /// tooling reads, so without this the snapshot stays pending for a test that now passes.
+    /// </summary>
+    static void ClearStaged(string mappedSourceFile, int line, string? memberName) =>
+        InlineStaging.Clear(mappedSourceFile, line, memberName, VerifierSettings.IntermediateDir);
+
+    /// <summary>
+    /// The members this process has actually inlined a verification for, so a retire in the same
+    /// member does not reach for one of their entries. See <see cref="Retire" />.
+    /// </summary>
+    static readonly ConcurrentDictionary<string, byte> inlinedMembers = new(StringComparer.OrdinalIgnoreCase);
+
+    public static void RecordInline(string mappedSourceFile, string? memberName)
+    {
+        if (memberName is not null)
+        {
+            inlinedMembers[$"{mappedSourceFile}|{memberName}"] = 0;
+        }
+    }
+
+    /// <summary>
+    /// Drops whatever a previous run queued for a call site that is no longer an inline snapshot:
+    /// <c>NotInline</c>, a global switch that declined it, or a literal that outgrew the size
+    /// limit. Nothing here compares anything, so this is static and needs no engine — there is no
+    /// inline verification to build one for, which is the whole point.
+    /// </summary>
+    /// <remarks>
+    /// Without this the entry outlives the decision that made it meaningless. Settling only ever
+    /// happened on the inline path, so a verification that stopped being inline left its queued
+    /// snapshot pending for good: no run would ever settle it, and the reviewer was left with an
+    /// entry for a test that passes.
+    /// <para>
+    /// The member is withheld once this process has inlined something in that member. It is the
+    /// owner's fallback for a call site whose line has moved, and it cannot tell that from a
+    /// sibling call site in the same member — so a member holding both an inline verification and
+    /// a declined one would have the inline one's freshly queued entry retired out from under it,
+    /// every run, and its snapshot would never be reviewable. Withholding the member costs only
+    /// the drift tolerance, and only for members that have an inline verification to lose.
+    /// </para>
+    /// </remarks>
+    public static void Retire(VerifySettings settings, string? sourceFile, int line, string? memberName)
+    {
+        if (DiffRunner.Disabled ||
+            !settings.diffEnabled ||
+            IsBuildServer())
+        {
+            return;
+        }
+
+        if (sourceFile is null ||
+            line == 0 ||
+            !InlineInfo.IsSupported(sourceFile))
+        {
+            return;
+        }
+
+        var mapped = InnerVerifier.MapSourceFile(sourceFile);
+        var member = memberName is not null &&
+                     inlinedMembers.ContainsKey($"{mapped}|{memberName}")
+            ? null
+            : memberName;
+        DiffRunner.RetireInline(mapped, line, member);
+        ClearStaged(mapped, line, member);
     }
 
     /// <summary>
@@ -143,8 +219,30 @@ class InlineEngine(
         }
 
         return (
-            "No DiffEngineViewer was found, so the snapshot could not be opened for review. Install it: dotnet tool install -g DiffEngineViewer",
+            $"No DiffEngineViewer was found, so the snapshot could not be opened for review. Install it: dotnet tool install -g {ViewerPackage}",
             await WriteStaging());
+    }
+
+    /// <summary>
+    /// The viewer ships one package per platform, and there is no DiffEngineViewer package: the
+    /// command the hint used to give failed with "not found" for everyone who ran it.
+    /// </summary>
+    static string ViewerPackage
+    {
+        get
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return "DiffEngineViewer.Windows";
+            }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                return "DiffEngineViewer.Mac";
+            }
+
+            return "DiffEngineViewer.Linux";
+        }
     }
 
     /// <summary>
@@ -154,8 +252,9 @@ class InlineEngine(
     /// </summary>
     async Task<StagedInline?> WriteStaging()
     {
-        if (IsBuildServer() ||
-            VerifierSettings.IntermediateDir is null)
+        // No build server check: the only caller is Queue, which returns before reaching here
+        // unless diffEnabled, and that already required this not to be one
+        if (VerifierSettings.IntermediateDir is null)
         {
             return null;
         }
@@ -228,7 +327,11 @@ class InlineEngine(
             // source says and is null from F#, whose compiler does not implement the attribute;
             // the value is what it means, and the member is where it lives
             OriginalValue = SnapshotInSource,
-            MemberName = inline.MemberName
+            MemberName = inline.MemberName,
+            // What the accept may chain onto beyond the built-in entry points. Carried on the
+            // patch rather than known to the applier, since it is the test project that declares
+            // its own wrappers and the patch is what crosses to the process that applies it
+            EntryPoints = VerifierSettings.inlineEntryPoints
         };
 
     /// <summary>

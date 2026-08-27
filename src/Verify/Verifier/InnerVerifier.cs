@@ -1,5 +1,3 @@
-using StackTrace = System.Diagnostics.StackTrace;
-
 namespace VerifyTests;
 
 public partial class InnerVerifier :
@@ -24,7 +22,32 @@ public partial class InnerVerifier :
     // inline is not compatible with.
     string? pathPrefixReceived;
 
-    [MethodImpl(MethodImplOptions.NoInlining)]
+    /// <param name="api">
+    /// Defaulted from the calling member, so it names the API that has the restriction.
+    /// Reading it off a StackTrace instead only works while that API has a frame of its
+    /// own: the JIT is free to inline it into the caller, and does on net48 in release,
+    /// which put the caller's name in the message.
+    /// </param>
+    public static void ThrowIfVerifyHasBeenRun([CallerMemberName] string api = "")
+    {
+        if (!verifyHasBeenRun)
+        {
+            return;
+        }
+
+        throw BuildHasBeenRunException($"The API '{api}'");
+    }
+
+    /// <summary>
+    /// Retained for binary compatibility. Plugins compiled against Verify 32.0.0-beta.8 and
+    /// earlier reference the parameterless signature, so adding an <c>api</c> parameter to it
+    /// made those binaries fail with a MissingMethodException at plugin initialization.
+    /// Deprioritized so that source calls keep binding to the overload above, which names the
+    /// API in the message.
+    /// </summary>
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    [OverloadResolutionPriority(-1)]
+    [Obsolete("Use ThrowIfVerifyHasBeenRun(string api)")]
     public static void ThrowIfVerifyHasBeenRun()
     {
         if (!verifyHasBeenRun)
@@ -32,11 +55,11 @@ public partial class InnerVerifier :
             return;
         }
 
-        var stackTrace = new StackTrace(1, false);
-        var method = stackTrace.GetFrame(1)!.GetMethod()!;
-        var type = method.DeclaringType;
-        throw new($"The API '{type}.{method.Name}' must be called prior to any Verify has run. Usually this is done in a [ModuleInitializer]. Verify run by: {verifyHasBeenRunBy}");
+        throw BuildHasBeenRunException("The API");
     }
+
+    static Exception BuildHasBeenRunException(string api) =>
+        new($"{api} must be called prior to any Verify has run. Usually this is done in a [ModuleInitializer]. Verify run by: {verifyHasBeenRunBy}");
 
     public InnerVerifier(
         string sourceFile,

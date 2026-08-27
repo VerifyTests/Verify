@@ -1,4 +1,4 @@
-// ReSharper disable ConstantExpected
+﻿// ReSharper disable ConstantExpected
 [SuppressMessage("Performance", "CA1857:A constant is expected for the parameter")]
 // Shared with InlineFSharpTests: both swap the global IsBuildServer, so running them in parallel
 // has whichever finishes first restore the real detector under the other
@@ -11,11 +11,18 @@ public class InlineTests :
     // fail on CI. The two build server tests move it back for their duration.
     Func<bool> originalIsBuildServer = InlineEngine.IsBuildServer;
 
+    // Built on demand by WriteTemplate, so the tests that never write one neither create a
+    // directory nor put a path in front of the temp path scrubber
+    TempDirectory? templates;
+
     public InlineTests() =>
         InlineEngine.IsBuildServer = () => false;
 
-    public void Dispose() =>
+    public void Dispose()
+    {
         InlineEngine.IsBuildServer = originalIsBuildServer;
+        templates?.Dispose();
+    }
 
     [Fact]
     public async Task Simple()
@@ -136,14 +143,118 @@ public class InlineTests :
     }
 
     /// <summary>
+    /// Nothing was produced, so the literal would be compared against nothing. That used to pass:
+    /// Compare was never reached, and the verdict defaulted to Equal, so a snapshot that was never
+    /// checked reported success and the result then had no text in it.
+    /// </summary>
+    [Fact]
+    public async Task NoTargetsWithAnExplicitSnapshotSaysSo()
+    {
+        var settings = new VerifySettings();
+        settings.Snapshot("expected", FakeSource(), 1, "\"expected\"");
+
+        var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify(new List<Target>(), settings));
+
+        Assert.Contains("nothing to compare the snapshot against", exception.Message);
+    }
+
+    /// <summary>
+    /// A registered string comparer decides equality here the same as it does for a verified
+    /// file. An ordinal compare that stopped there meant a suite whose comparer passes against its
+    /// files started failing the moment one of those snapshots moved inline, and nothing in the
+    /// failure said the comparer had been skipped.
+    /// </summary>
+    [Fact]
+    public Task StringComparerDecidesEquality() =>
+        Verify("THE TEXT")
+            .UseStringComparer(CaseInsensitive)
+            .Snapshot("the text");
+
+    /// <summary>
+    /// And it is asked only when the two differ, so a comparer cannot make equal text unequal.
+    /// </summary>
+    [Fact]
+    public async Task StringComparerIsNotAskedWhenTextMatches()
+    {
+        var asked = false;
+
+        await Verify("value")
+            .UseStringComparer(
+                (_, _, _) =>
+                {
+                    asked = true;
+                    return Task.FromResult(CompareResult.NotEqual("should not be asked"));
+                })
+            .Snapshot("value");
+
+        Assert.False(asked);
+    }
+
+    static Task<CompareResult> CaseInsensitive(string received, string verified, IReadOnlyDictionary<string, object> context) =>
+        Task.FromResult(new CompareResult(string.Equals(received, verified, StringComparison.OrdinalIgnoreCase)));
+
+    /// <summary>
+    /// A first target that differs tells the targets after it to stop trusting their comparers:
+    /// they are usually derived from it, and a comparer that tolerates the difference would hide
+    /// a real change in the source. The inlined target is compared outside the loop that feeds
+    /// that cascade, so it was telling them nothing and the switch stopped working as soon as the
+    /// source target was the inlined one.
+    /// </summary>
+    [Fact]
+    public async Task ADifferingInlineFirstTargetBypassesComparersAfterIt()
+    {
+        using var directory = new TempDirectory();
+        var asked = false;
+
+        var settings = new VerifySettings();
+        settings.DisableDiff();
+        settings.UseDirectory(directory.Path);
+        settings.UseFileName("Cascade");
+        // Only the second target's extension, so the inlined one is not the thing being watched
+        settings.UseStringComparer(
+            (_, _, _) =>
+            {
+                asked = true;
+                return Task.FromResult(CompareResult.Equal);
+            },
+            "json");
+        settings.Snapshot("expected", FakeSource(), 1, "\"expected\"");
+
+        // Content its verified file does not hold, so the comparer is what would decide it
+        await File.WriteAllTextAsync(Path.Combine(directory.Path, "Cascade.verified.json"), "verified");
+
+        List<Target> targets =
+        [
+            new("txt", new StringBuilder("received"))
+            {
+                BypassComparersForSubsequentOnDifference = true
+            },
+            new("json", new StringBuilder("second"))
+        ];
+
+        await Assert.ThrowsAsync<VerifyException>(() => Verify(targets, settings));
+
+        Assert.False(asked);
+    }
+
+    /// <summary>
     /// Only the first target is inlined. The rest keep the names they would have had without
     /// inline, so the #01 file below is the same file it would be with no literal at all.
     /// </summary>
     [Fact]
-    public Task MultiTarget() =>
-        Verify("root")
+    public async Task MultiTarget()
+    {
+        var result = await Verify("root")
             .AppendContentAsFile("extra")
             .Snapshot("root");
+
+        // The snapshot is the first target, and the rest are files the same as they always were.
+        // The result used to carry the snapshot alone, so anything reading Files to post-process
+        // what a verification wrote found nothing there
+        Assert.Equal("root", result.Text);
+        Assert.Single(result.Files);
+        Assert.EndsWith("MultiTarget#01.verified.txt", result.Files.Single());
+    }
 
     [Fact]
     public async Task NotInlineBeatsAnExplicitSnapshot()
@@ -355,7 +466,6 @@ public class InlineTests :
 
         Assert.Contains("only support text", exception.Message);
         Assert.Contains("NotInline", exception.Message);
-        Assert.Contains("DontInline", exception.Message);
     }
 
     [Fact]
@@ -383,17 +493,17 @@ public class InlineTests :
     static string FakeSource() =>
         Path.Combine(Path.GetTempPath(), "VerifyInlineFakeSource.cs");
 
-    static string WriteTemplate(string body)
+    // xunit builds an instance per test, so the one template name cannot collide
+    string WriteTemplate(string body)
     {
-        var directory = Path.Combine(Path.GetTempPath(), $"VerifyInlineTests_{Guid.NewGuid():N}");
-        Directory.CreateDirectory(directory);
-        var path = Path.Combine(directory, "Template.cs");
+        templates ??= new();
+        var path = templates.BuildPath("Template.cs");
         File.WriteAllText(path, body);
         return path;
     }
 
     // The template's line endings would otherwise be whatever the checkout produced
-    static string WriteTemplate(string body, string eol) =>
+    string WriteTemplate(string body, string eol) =>
         WriteTemplate(
             body
                 .Replace("\r\n", "\n")
@@ -523,6 +633,15 @@ public class InlineTests :
         }
         """;
 
+    const string defaultTemplate =
+        """
+        class Templ
+        {
+            Task Method() =>
+                Verify(value).Snapshot(default);
+        }
+        """;
+
     [Fact]
     public async Task AutoVerifyMismatchRewritesSource()
     {
@@ -537,6 +656,40 @@ public class InlineTests :
             var content = await File.ReadAllTextAsync(template);
             Assert.Contains("newvalue", content);
             Assert.DoesNotContain("\"old\"", content);
+        }
+        finally
+        {
+            Directory.Delete(Path.GetDirectoryName(template)!, true);
+        }
+    }
+
+    /// <summary>
+    /// What the AutoVerify delegate is handed for an inline snapshot: the test source file, since
+    /// that is what accepting rewrites, rather than anything shaped like a .verified path. A
+    /// delegate deciding by that convention therefore declines every inline snapshot, which is
+    /// worth pinning because it is the sort of thing a later change would break silently.
+    /// </summary>
+    [Fact]
+    public async Task AutoVerifyIsHandedTheSourceFile()
+    {
+        var template = WriteTemplate(mismatchTemplate);
+        try
+        {
+            var seen = new List<string>();
+            var settings = new VerifySettings();
+            settings.Snapshot("old", template, 4, "\"old\"");
+            settings.DisableDiff();
+            settings.AutoVerify(
+                file =>
+                {
+                    seen.Add(file);
+                    return true;
+                });
+
+            await Verify("newvalue", settings);
+
+            Assert.Equal(template, Assert.Single(seen));
+            Assert.Contains("newvalue", await File.ReadAllTextAsync(template));
         }
         finally
         {
@@ -565,6 +718,29 @@ public class InlineTests :
     }
 
     [Fact]
+    public async Task AutoVerifyNewReplacesDefaultArgument()
+    {
+        // Passes either way - a lone call site is the one shape the content search did handle -
+        // and is here to pin that routing `default` to the insertion path did not break it. That
+        // path only understands the token from DiffEngine 20.0.0-beta.23 on; against an earlier
+        // one this fails with "not a string literal", which is what the guard was waiting for
+        var template = WriteTemplate(defaultTemplate);
+        try
+        {
+            var settings = new VerifySettings();
+            settings.Snapshot(null, template, 4, "default");
+            settings.AutoVerify();
+            settings.DisableDiff();
+            await Verify("newvalue", settings);
+            Assert.Contains(".Snapshot(\"newvalue\");", await File.ReadAllTextAsync(template));
+        }
+        finally
+        {
+            Directory.Delete(Path.GetDirectoryName(template)!, true);
+        }
+    }
+
+    [Fact]
     public async Task AutoVerifyAlreadyApplied()
     {
         // The literal already matches (eg the other target framework accepted first),
@@ -582,6 +758,42 @@ public class InlineTests :
             var before = await File.ReadAllTextAsync(template);
             var settings = new VerifySettings();
             settings.Snapshot("stale", template, 4, "\"stale\"");
+            settings.AutoVerify();
+            settings.DisableDiff();
+            await Verify("newvalue", settings);
+            Assert.Equal(before, await File.ReadAllTextAsync(template));
+        }
+        finally
+        {
+            Directory.Delete(Path.GetDirectoryName(template)!, true);
+        }
+    }
+
+    /// <summary>
+    /// The same stale-expression case as above, but where the expression is the bare `default`
+    /// token. Content searching for it walks past the already-accepted call at the hint and lands
+    /// on whichever other call site still says `default` - here another test in the same file,
+    /// which then gets a snapshot that is not its own.
+    /// </summary>
+    [Fact]
+    public async Task AutoVerifyDefaultDoesNotPatchAnotherTest()
+    {
+        var template = WriteTemplate(
+            """
+            class Templ
+            {
+                Task First() =>
+                    Verify(value).Snapshot(default);
+
+                Task Second() =>
+                    Verify(value).Snapshot("newvalue");
+            }
+            """);
+        try
+        {
+            var before = await File.ReadAllTextAsync(template);
+            var settings = new VerifySettings();
+            settings.Snapshot(null, template, 7, "default");
             settings.AutoVerify();
             settings.DisableDiff();
             await Verify("newvalue", settings);

@@ -133,6 +133,7 @@ partial class InnerVerifier
 
         if (FileExtensions.IsTextFile(path))
         {
+            // ReSharper disable once UseAwaitUsing
             using var stream = openStream();
             var builder = await stream.ReadStringBuilderWithFixedLines();
             fileScrubber?.Invoke(path, builder);

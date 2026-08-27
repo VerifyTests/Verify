@@ -14,6 +14,7 @@
         {
             if(!File.Exists(file))
             {
+                // ReSharper disable once UseAwaitUsing
                 using var reader = IoHelpers.OpenRead(file);
                 await reader.ReadStringBuilderWithFixedLines();
             }

@@ -1187,6 +1187,30 @@ public class SerializationTests
         return Verify(target);
     }
 
+    [Fact]
+    public Task BoolFalseWithDefaultValueIgnore()
+    {
+        var target = new BoolModel
+        {
+            BoolMember = false,
+            NullableBoolMember = false
+        };
+        return Verify(target)
+            .AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Ignore);
+    }
+
+    [Fact]
+    public Task BoolFalseWithDefaultValueInclude()
+    {
+        var target = new BoolModel
+        {
+            BoolMember = false,
+            NullableBoolMember = null
+        };
+        return Verify(target)
+            .AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
+    }
+
     class BoolModel
     {
         public bool BoolMember;
@@ -4649,4 +4673,52 @@ public class SerializationTests
                """)
             .ScrubInlineDateTimes("yyyy-MM-ddTHH:mm:ss.F");
 #endif
+
+    [ModuleInitializer]
+    public static void MemberConverterExactTypeInit()
+    {
+        // the interface is registered first, so without exact type precedence it wins
+        // for every implementation
+        VerifierSettings.MemberConverter<IMemberConverterBase, string>(
+            expression: _ => _.Value,
+            converter: _ => $"{_}_Base");
+
+        VerifierSettings.MemberConverter<MemberConverterExact, string>(
+            expression: _ => _.Value,
+            converter: _ => $"{_}_Exact");
+    }
+
+    [Fact]
+    public Task MemberConverterExactType() =>
+        Verify(
+            new
+            {
+                // the converter for the exact type wins
+                exact = new MemberConverterExact
+                {
+                    Value = "TheValue"
+                },
+                // and an implementation without one still falls back to the interface
+                inherited = new MemberConverterInherited
+                {
+                    Value = "TheValue"
+                }
+            });
+
+    interface IMemberConverterBase
+    {
+        string Value { get; set; }
+    }
+
+    class MemberConverterExact :
+        IMemberConverterBase
+    {
+        public string Value { get; set; }
+    }
+
+    class MemberConverterInherited :
+        IMemberConverterBase
+    {
+        public string Value { get; set; }
+    }
 }

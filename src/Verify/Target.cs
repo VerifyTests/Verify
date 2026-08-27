@@ -58,7 +58,7 @@ public readonly struct Target
 
     [OverloadResolutionPriority(-1)]
     public Target(string extension, Stream data, string? name = null) :
-        this(extension, data, name, true)
+        this(extension, data, name)
     {
     }
 

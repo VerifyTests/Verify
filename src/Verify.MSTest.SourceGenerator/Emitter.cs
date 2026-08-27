@@ -62,7 +62,7 @@ class Emitter
     {
         builder.AppendLine(
             $$"""
-              partial class {{toGenerate.ClassName}}
+              partial {{toGenerate.Keyword}} {{toGenerate.ClassName}}
               {
               """);
         AppendGetter(toGenerate.TestContextPropertyFlags);

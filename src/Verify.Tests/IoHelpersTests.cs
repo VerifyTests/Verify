@@ -24,38 +24,27 @@
     {
         using var source = new TempFile(".bin");
         await File.WriteAllBytesAsync(source, [1, 2, 3, 4, 5, 6, 7, 8]);
-        var destination = Path.Combine(Path.GetTempPath(), $"WriteStream{Guid.NewGuid():N}.bin");
-        try
-        {
-            // Writable + FileShare.None means File.Copy cannot re-open the source
-            // by path on Windows; WriteStream must fall back to the handle.
-            using var stream = new FileStream(source, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
-            await IoHelpers.WriteStream(destination, stream);
+        // The constructor only reserves the path, so WriteStream is what creates the file
+        using var destination = new TempFile(".bin");
 
-            Assert.True(File.Exists(destination));
-            Assert.Equal(8, new FileInfo(destination).Length);
-        }
-        finally
-        {
-            File.Delete(destination);
-        }
+        // Writable + FileShare.None means File.Copy cannot re-open the source
+        // by path on Windows; WriteStream must fall back to the handle.
+        // ReSharper disable once UseAwaitUsing
+        using var stream = new FileStream(source, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+        await IoHelpers.WriteStream(destination, stream);
+
+        Assert.True(File.Exists(destination));
+        Assert.Equal(8, destination.Info.Length);
     }
 
     [Fact]
     public void ExtensionForExtensionlessFileStream()
     {
-        var directory = Path.Combine(Path.GetTempPath(), $"ExtTest{Guid.NewGuid():N}");
-        Directory.CreateDirectory(directory);
-        var path = Path.Combine(directory, "Dockerfile");
+        using var directory = new TempDirectory();
+        var path = directory.BuildPath("Dockerfile");
         File.WriteAllText(path, "content");
-        try
-        {
-            using var stream = File.OpenRead(path);
-            Assert.Equal("noextension", stream.Extension());
-        }
-        finally
-        {
-            Directory.Delete(directory, true);
-        }
+
+        using var stream = File.OpenRead(path);
+        Assert.Equal("noextension", stream.Extension());
     }
 }

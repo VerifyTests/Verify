@@ -32,6 +32,8 @@ Then zero or more categorized sections, each listing file pairs:
  * **InlineNew** - an [inline snapshot](inline-snapshots.md) with no expected value yet.
  * **InlineNotEqual** - an inline snapshot whose expected value differs from the result.
 
+File paths in these sections are relative to the reported directory, and keep any subdirectory. `UseUniqueDirectory` and `VerifyDirectory` place snapshots in a subdirectory, so combining the reported directory with the listed path is what rebuilds the full path.
+
 Inline entries use a different shape: a `Source:` line with the absolute source file path and 1 based line number (`path:line`), followed by optional absolute staged file paths:
 
 ```
@@ -134,6 +136,40 @@ expected text
 <sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionMessageFormatSamples.InlineNotEqualWithDelete.verified.txt#L1-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionMessageFormatSamples.InlineNotEqualWithDelete.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+Only the first target of a verification is inlined, so one message can carry an inline section and the file sections for the remaining targets together:
+
+<!-- snippet: ExceptionMessageFormatSamples.InlineAndFileTogether.verified.txt -->
+<a id='snippet-ExceptionMessageFormatSamples.InlineAndFileTogether.verified.txt'></a>
+```txt
+Directory: {ProjectDirectory}
+InlineNotEqual:
+  - Source: {ProjectDirectory}MyTests.cs:14
+NotEqual:
+  - Received: MyTests.Test1#01.received.txt
+    Verified: MyTests.Test1#01.verified.txt
+Delete:
+  - MyTests.OldTest.verified.txt
+
+FileContent:
+
+InlineNotEqual:
+
+Source: {ProjectDirectory}MyTests.cs:14
+Received:
+inline received
+Expected:
+inline expected
+
+NotEqual:
+
+Received: MyTests.Test1#01.received.txt
+received text
+Verified: MyTests.Test1#01.verified.txt
+verified text
+```
+<sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionMessageFormatSamples.InlineAndFileTogether.verified.txt#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionMessageFormatSamples.InlineAndFileTogether.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
 
 ### NotEqual with Comparer Message
 
@@ -208,7 +244,7 @@ static Result ParseExceptionMessage(string exceptionMessage)
     return result;
 }
 ```
-<sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionParsingTests.cs#L291-L311' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionParsing' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionParsingTests.cs#L304-L324' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionParsing' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The `Result` contains:

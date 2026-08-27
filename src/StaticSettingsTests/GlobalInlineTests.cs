@@ -1,4 +1,4 @@
-// Lives here, rather than in Verify.Tests, since the inline switch is a static setting, and this
+﻿// Lives here, rather than in Verify.Tests, since the inline switch is a static setting, and this
 // project runs serially with BaseTest resetting it between tests.
 //
 // The switch makes the verify calls below real inline call sites in this file. Nothing rewrites
@@ -20,10 +20,15 @@ public class GlobalInlineTests :
         InlineEngine.IsBuildServer = () => false;
     }
 
+    // Built on demand by WriteTemplate, so the tests that never write one neither create a
+    // directory nor put a path in front of the temp path scrubber
+    TempDirectory? templates;
+
     public void Dispose()
     {
         DiffEngine.DiffRunner.Disabled = diffDisabled;
         InlineEngine.IsBuildServer = isBuildServer;
+        templates?.Dispose();
     }
 
     [Fact]
@@ -35,6 +40,19 @@ public class GlobalInlineTests :
 
         Assert.Contains("InlineNew:", exception.Message);
         Assert.Contains("GlobalInlineTests.cs:", exception.Message);
+    }
+
+    /// <summary>
+    /// A verification with no targets has no first target to inline, and indexing for one threw
+    /// an ArgumentOutOfRangeException out of the switch. It declines, the way it declines
+    /// everything else it cannot do, and an empty target list passes as it always has.
+    /// </summary>
+    [Fact]
+    public async Task NoTargetsDeclinesRatherThanThrowing()
+    {
+        VerifierSettings.Inline();
+
+        await Verify(new List<Target>());
     }
 
     [Fact]
@@ -165,8 +183,14 @@ public class GlobalInlineTests :
         Assert.DoesNotContain("InlineNew:", exception.Message);
     }
 
+    /// <summary>
+    /// A binary target has no text to hold in a literal. The switch declines it, the way it
+    /// declines everything else it cannot do: a codebase that turns inline on for everything
+    /// still has tests that emit documents and images, and those must keep working untouched.
+    /// An explicit Snapshot(...) still throws for them.
+    /// </summary>
     [Fact]
-    public async Task NonTextFirstTargetThrows()
+    public async Task NonTextFirstTargetFallsBackToFiles()
     {
         VerifierSettings.Inline();
 
@@ -174,10 +198,127 @@ public class GlobalInlineTests :
         var exception = await Assert.ThrowsAsync<VerifyException>(
             () => Verify(new MemoryStream([1, 2, 3]), "bin", Settings(temp)));
 
-        Assert.Contains("only support text", exception.Message);
-        Assert.Contains("NotInline", exception.Message);
-        Assert.Contains("DontInline", exception.Message);
+        Assert.DoesNotContain("only support text", exception.Message);
+        Assert.DoesNotContain("InlineNew:", exception.Message);
+        Assert.Contains("New:", exception.Message);
     }
+
+    /// <summary>
+    /// A combination captures its caller info at <c>Combination()</c>, so that is the line the hint
+    /// names and the call an accept hangs the Snapshot off. The chained <c>Verify</c> is reached
+    /// through a receiver of its own, which no entry point is, so it is not a candidate at all.
+    /// </summary>
+    [Fact]
+    public async Task CombinationIsInlined()
+    {
+        VerifierSettings.Inline();
+
+        using var temp = new TempDirectory();
+        var exception = await Assert.ThrowsAsync<VerifyException>(
+            () => Combination(settings: Settings(temp))
+                .Verify(Concat, ["a", "b"], [1, 2]));
+
+        Assert.Contains("InlineNew:", exception.Message);
+    }
+
+    static string Concat(string a, int b) =>
+        $"{a}{b}";
+
+    /// <summary>
+    /// A test that reaches verify through a wrapper of its own. Accepting chains a Snapshot call
+    /// onto the call written in the test, which only compiles where that call returns a
+    /// SettingsTask, and a wrapper returning a Task does not. The switch cannot tell one from the
+    /// other by looking at the verification, so it asks the source and declines.
+    /// <para>
+    /// sourceFile and lineNumber are ordinary optional parameters, which is how a wrapper points
+    /// the snapshot at the test that called it, and how these tests stand one up.
+    /// </para>
+    /// </summary>
+    [Fact]
+    public async Task AWrapperCallSiteFallsBackToFiles()
+    {
+        VerifierSettings.Inline();
+
+        using var temp = new TempDirectory();
+        var exception = await Assert.ThrowsAsync<VerifyException>(
+            () => Verify("value", Settings(temp), sourceFile: WrapperTemplate(), lineNumber: 3));
+
+        Assert.DoesNotContain("InlineNew:", exception.Message);
+        Assert.Contains("New:", exception.Message);
+    }
+
+    /// <summary>
+    /// The same wrapper, once the test project has declared that it returns a SettingsTask.
+    /// </summary>
+    [Fact]
+    public async Task ADeclaredWrapperIsInlined()
+    {
+        VerifierSettings.Inline();
+        VerifierSettings.AddInlineEntryPoint("VerifyDocx");
+
+        using var temp = new TempDirectory();
+        var exception = await Assert.ThrowsAsync<VerifyException>(
+            () => Verify("value", Settings(temp), sourceFile: WrapperTemplate(), lineNumber: 3));
+
+        Assert.Contains("InlineNew:", exception.Message);
+    }
+
+    /// <summary>
+    /// The control: the same shape of call site, with an entry point at it.
+    /// </summary>
+    [Fact]
+    public async Task AnEntryPointCallSiteIsInlined()
+    {
+        VerifierSettings.Inline();
+
+        var template = WriteTemplate(
+            """
+            class Templ
+            {
+                Task A() => Verify(value);
+            }
+            """);
+
+        using var temp = new TempDirectory();
+        var exception = await Assert.ThrowsAsync<VerifyException>(
+            () => Verify("value", Settings(temp), sourceFile: template, lineNumber: 3));
+
+        Assert.Contains("InlineNew:", exception.Message);
+    }
+
+    /// <summary>
+    /// A source file that cannot be read says nothing about the call site, and taking that for a
+    /// refusal would drop inline for a whole suite over an unrelated problem: a test assembly run
+    /// from somewhere its sources were never deployed to still has a source path recorded in it.
+    /// </summary>
+    [Fact]
+    public async Task AnUnreadableSourceFileIsStillInlined()
+    {
+        VerifierSettings.Inline();
+
+        using var temp = new TempDirectory();
+        var exception = await Assert.ThrowsAsync<VerifyException>(
+            () => Verify("value", Settings(temp), sourceFile: temp.BuildPath("Gone.cs"), lineNumber: 3));
+
+        Assert.Contains("InlineNew:", exception.Message);
+    }
+
+    [Fact]
+    public void EntryPointsMustBeIdentifiers()
+    {
+        Assert.Throws<ArgumentException>(() => VerifierSettings.AddInlineEntryPoint("Verifier.VerifyDocx"));
+        Assert.Throws<ArgumentException>(() => VerifierSettings.AddInlineEntryPoint("VerifyDocx(document)"));
+        Assert.Throws<ArgumentException>(() => VerifierSettings.AddInlineEntryPoint(""));
+    }
+
+    string WrapperTemplate() =>
+        WriteTemplate(
+            """
+            class Templ
+            {
+                Task A() => VerifyDocx(document);
+            }
+            """);
 
     /// <summary>
     /// One literal at one call site cannot hold a different value per test case, so the switch
@@ -375,11 +516,11 @@ public class GlobalInlineTests :
     }
 
     /// <summary>
-    /// A binary target has no lines to count, and quietly routing it to files would trade a
-    /// clear error for a silent fallback.
+    /// A binary target has no lines to count, so the limit has nothing to say about it. It is
+    /// declined for being binary, before the limit is ever reached.
     /// </summary>
     [Fact]
-    public async Task MaxLinesDoesNotSwallowBinaryFirstTarget()
+    public async Task MaxLinesWithBinaryFirstTarget()
     {
         VerifierSettings.Inline(maxLines: 1);
 
@@ -387,7 +528,9 @@ public class GlobalInlineTests :
         var exception = await Assert.ThrowsAsync<VerifyException>(
             () => Verify(new MemoryStream([1, 2, 3]), "bin", Settings(temp)));
 
-        Assert.Contains("only support text", exception.Message);
+        Assert.DoesNotContain("only support text", exception.Message);
+        Assert.DoesNotContain("InlineNew:", exception.Message);
+        Assert.Contains("New:", exception.Message);
     }
 
     [Fact]
@@ -614,12 +757,12 @@ public class GlobalInlineTests :
         temp.BuildPath($"{nameof(GlobalInlineTests)}.{name}.verified.txt");
 
     // Migrating away from inline rewrites source, so the tests that exercise it point at a
-    // throwaway file rather than this one
-    static string WriteTemplate(string body = snapshotTemplate)
+    // throwaway file rather than this one. xunit builds an instance per test, so the one
+    // template name cannot collide
+    string WriteTemplate(string body = snapshotTemplate)
     {
-        var directory = Path.Combine(Path.GetTempPath(), $"VerifyGlobalInlineTests_{Guid.NewGuid():N}");
-        Directory.CreateDirectory(directory);
-        var path = Path.Combine(directory, "Template.cs");
+        templates ??= new();
+        var path = templates.BuildPath("Template.cs");
         File.WriteAllText(path, body);
         return path;
     }

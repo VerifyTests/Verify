@@ -66,7 +66,7 @@ public class LineScrubberBenchmarks
         return builder.ToString();
     }
 
-    static string? Keep(string line) => line;
+    static string Keep(string line) => line;
 
     static string Engine(EngineScrubberSet set, string content)
     {

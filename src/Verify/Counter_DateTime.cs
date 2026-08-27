@@ -48,14 +48,18 @@ public partial class Counter
             return new(0, name);
         }
 
-        return dateTimeCache.GetOrAdd(
-            input,
-            _ => BuildDateTimeValue());
+        lock (cacheLock)
+        {
+            return dateTimeCache.GetOrAdd(
+                input,
+                _ => BuildDateTimeValue());
+        }
     }
 
+    // Called under cacheLock
     (int intValue, string stringValue) BuildDateTimeValue()
     {
-        var value = Interlocked.Increment(ref currentDateTime);
+        var value = ++currentDateTime;
 
         if (DateCounting)
         {

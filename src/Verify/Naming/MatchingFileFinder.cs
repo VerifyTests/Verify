@@ -50,6 +50,14 @@
 
     static bool SubStringEquals(this CharSpan value, CharSpan match, int start)
     {
+        // The Win32 search pattern `{prefix}*.received.*` also matches a stray file named
+        // exactly `{prefix}.received` (a trailing `.*` matches "no extension"), which is
+        // shorter than the pattern being compared against.
+        if (value.Length < start + match.Length)
+        {
+            return false;
+        }
+
         var slice = value.Slice(start, match.Length);
         return slice.SequenceEqual(match);
     }

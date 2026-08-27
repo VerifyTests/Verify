@@ -15,6 +15,7 @@ static class Parser
         return new(
             Namespace: ns,
             ClassName: name,
+            Keyword: syntax.GetPartialKeyword(),
             TestContextPropertyFlags: propertyFlags,
             ParentClasses: parents);
     }
@@ -54,12 +55,13 @@ static class Parser
 
     static ParentClass[] GetParentClasses(TypeDeclarationSyntax syntax, Cancel cancel)
     {
-        // We can only be nested in class/struct/record
+        // We can only be nested in class/struct/record/record struct
         static bool IsAllowedKind(SyntaxKind kind) =>
             kind is
                 SyntaxKind.ClassDeclaration or
                 SyntaxKind.StructDeclaration or
-                SyntaxKind.RecordDeclaration;
+                SyntaxKind.RecordDeclaration or
+                SyntaxKind.RecordStructDeclaration;
 
         var parents = new Stack<ParentClass>();
 
@@ -71,7 +73,7 @@ static class Parser
             cancel.ThrowIfCancellationRequested();
 
             parents.Push(new(
-                Keyword: parent.Keyword.ValueText,
+                Keyword: parent.GetPartialKeyword(),
                 Name: parent.GetTypeNameWithGenericParameters()));
 
             parent = parent.Parent as TypeDeclarationSyntax;

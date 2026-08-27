@@ -14,8 +14,8 @@ static class UserMachineScrubber
     }
 
     public static Scrubber MachineScrubber() =>
-        Scrubber.Replace(machineName, "TheMachineName", StringComparison.Ordinal, requireWordBoundary: true);
+        Scrubber.Replace(machineName, "TheMachineName", requireWordBoundary: true);
 
     public static Scrubber UserScrubber() =>
-        Scrubber.Replace(userName, "TheUserName", StringComparison.Ordinal, requireWordBoundary: true);
+        Scrubber.Replace(userName, "TheUserName", requireWordBoundary: true);
 }

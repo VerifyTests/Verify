@@ -23,6 +23,16 @@ Inline snapshots store the expected text inside the test file (.cs, .fs or .fsx)
 
 Add `.Snapshot(...)` to any verification:
 
+[Fact]
+public Task MultiLine()
+{
+    var input = "line1\nline2";
+    return Verify(input)
+        .Snapshot();
+}
+
+Omitting the expected argument (or passing `null` or `default`) marks the snapshot as new; accepting it writes the literal into the source file.
+
 <!-- snippet: InlineSample -->
 <a id='snippet-InlineSample'></a>
 ```cs
@@ -40,8 +50,6 @@ public Task MultiLine()
 ```
 <sup><a href='/src/Verify.Tests/InlineTests.cs#L35-L49' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
-
-Omitting the expected argument (or passing `null` or `default`) marks the snapshot as new; accepting it writes the literal into the source file.
 
 Because `Snapshot` is a modifier rather than a separate entry point, it composes with every overload: `VerifyXml(...).Snapshot(...)`, `VerifyJson(...).Snapshot(...)`, `VerifyFile(...).Snapshot(...)`, and so on.
 
@@ -242,7 +250,7 @@ Accepting a new inline snapshot chains a `.Snapshot(...)` call onto the call wri
  * It forwards `sourceFile`, which is what puts the snapshot directory next to the test rather than next to the wrapper.
  * It forwards `lineNumber` as well. Forwarding one and not the other pairs a file with a line from a different file, and the call site that pair names is not the one the test wrote.
 
-The last is what the wrapper has to be named for:
+Then add the wrapper name:
 
 <!-- snippet: StaticInlineEntryPoint -->
 <a id='snippet-StaticInlineEntryPoint'></a>
@@ -257,9 +265,11 @@ public static class ModuleInitializer
 <sup><a href='/src/ModuleInitDocs/InlineEntryPoint.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticInlineEntryPoint' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Naming a wrapper is the assertion that it does all three, since none of it is readable from the file being accepted into. A wrapper that is not named keeps its verifications on `.verified.` files: the switch checks the call site before declaring a verification inline, and declines one that cannot hold a literal rather than have an accept write source that does not compile. `.NotInline()` inside the wrapper states the same thing outright.
+None of those three can be seen from the test file an accept has to rewrite, and often not even from the same project. So the name is the assertion that all three hold, and the wrapper's author is the one making it.
 
-The check is only for a snapshot that is new. An existing `.Snapshot(...)` call is already in the file, and already compiling.
+Leaving a wrapper unnamed is safe. Before a new snapshot is treated as inline, Verify reads the source line the call site points at, and the call found there has to be one an accept can append to: one of Verify's own entry points, or a wrapper named this way. An unnamed wrapper is neither, so its verifications keep using `.verified.` files, which is the outcome to prefer over an accept that writes source that does not compile. `.NotInline()` inside the wrapper asks for that same outcome outright.
+
+Only a new snapshot is checked this way. An existing `.Snapshot(...)` call is already in the file, and already compiling.
 
 
 ## How a verification is routed
@@ -345,69 +355,25 @@ F# test files (`.fs`, `.fsx`) work the same way, with one difference worth knowi
 
 C# has raw strings: the compiler drops the line break after the opening delimiter and the indentation the closing delimiter sits at, and hands over the snapshot. F# has no such form. A triple-quoted string is verbatim, so what F# hands over still carries that line break and the indentation of every line. Writing the snapshot at the left margin instead is not an option either, since F#'s offside rule then rejects anything ending in a newline.
 
-So the layout is taken off by agreement rather than by the compiler. Verify writes the shape C# would, and reads it back the same way:
+So the layout is taken off by agreement rather than by the compiler. Verify writes the shape C# would, and reads it back the same way. Accepting a two line snapshot into
 
-<!-- snippet: InlineFSharpAccept -->
-<a id='snippet-InlineFSharpAccept'></a>
-```cs
-[Fact]
-public async Task AcceptWritesTheIndentedForm()
-{
-    var template = WriteTemplate(
+```fs
+let MyTest () =
+    Verifier.Verify(value).Snapshot("old").ToTask()
+```
+
+produces
+
+```fs
+let MyTest () =
+    Verifier.Verify(value).Snapshot(
         """
-        module Tests
-
-        let MyTest () =
-            Verifier.Verify(value).Snapshot("old").ToTask()
-        """);
-    try
-    {
-        var settings = new VerifySettings();
-        settings.IgnoreParameters();
-        settings.Snapshot("old", template, 4, null, "MyTest");
-        settings.AutoVerify();
-        settings.DisableDiff();
-
-        await Verify("line one\nline two", settings);
-
-        Assert.Equal(
-            """"
-            module Tests
-
-            let MyTest () =
-                Verifier.Verify(value).Snapshot(
-                    """
-                    line one
-                    line two
-                    """).ToTask()
-            """",
-            await File.ReadAllTextAsync(template));
-    }
-    finally
-    {
-        Directory.Delete(Path.GetDirectoryName(template)!, true);
-    }
-}
+        line one
+        line two
+        """).ToTask()
 ```
-<sup><a href='/src/Verify.Tests/InlineFSharpTests.cs#L125-L164' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineFSharpAccept' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
 
-Which means a literal like that compares as the snapshot it looks like, rather than as the indented text F# produced:
-
-<!-- snippet: InlineFSharpMatches -->
-<a id='snippet-InlineFSharpMatches'></a>
-```cs
-[Fact]
-public Task LayoutIsNotContent()
-{
-    var settings = new VerifySettings();
-    settings.IgnoreParameters();
-    settings.Snapshot(asFSharpHandsItOver, FakeSource(), 1, null);
-    return Verify("line one\nline two", settings);
-}
-```
-<sup><a href='/src/Verify.Tests/InlineFSharpTests.cs#L66-L75' title='Snippet source file'>snippet source</a> | <a href='#snippet-InlineFSharpMatches' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
+Which means a literal like that compares as the snapshot it looks like, rather than as the indented text F# produced.
 
 Two consequences. Content ending in a newline is written as a blank line before the closing delimiter, exactly as in C#. And an F# `expected` argument is only the snapshot once Verify has read it: look at it any other way, in a debugger or by passing it somewhere else, and it still has its indentation.
 

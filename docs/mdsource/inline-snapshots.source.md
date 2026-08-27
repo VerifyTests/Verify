@@ -16,10 +16,6 @@ Inline snapshots store the expected text inside the test file (.cs, .fs or .fsx)
 
 Add `.Snapshot(...)` to any verification:
 
-snippet: InlineSample
-
-Omitting the expected argument (or passing `null` or `default`) marks the snapshot as new; accepting it writes the literal into the source file:
-
 ```cs
 [Fact]
 public Task MultiLine()
@@ -29,6 +25,10 @@ public Task MultiLine()
         .Snapshot();
 }
 ```
+
+Since the "expected" is omiited (or passing `null` or `default`) the snapshot as new; accepting it writes the literal into the source file:
+
+snippet: InlineSample
 
 Because `Snapshot` is a modifier rather than a separate entry point, it composes with every overload: `VerifyXml(...).Snapshot(...)`, `VerifyJson(...).Snapshot(...)`, `VerifyFile(...).Snapshot(...)`, and so on.
 

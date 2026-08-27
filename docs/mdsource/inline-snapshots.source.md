@@ -1,6 +1,6 @@
 ﻿# Inline Snapshots
 
-Only C# and F# are supported
+C# and F# are supported
 
 Inline snapshots store the expected text inside the test file (.cs, .fs or .fsx) as a raw string literal, next to the code that produces it, instead of in a `.verified.` file on disk.
 

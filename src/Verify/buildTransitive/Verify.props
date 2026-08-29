@@ -90,14 +90,21 @@
     </PropertyGroup>
   </Target>
 
-  <Target Name="WriteVerifyAttributes"
+  <!-- The generated values come from properties, not from the files the up-to-date check can
+       see, so they are written to a cache file with WriteOnlyWhenDifferent: its timestamp
+       moves only when a value actually changes, which is what makes WriteVerifyAttributes
+       below re-run. This mirrors the SDK's GenerateAssemblyInfo.
+       Without it, only $(MSBuildAllProjects) timestamps were compared, so rebuilding with a
+       different /p:SolutionDir or /p:SolutionName (exactly what the DiscoverSolutionInfo
+       warnings above tell users to pass), or building the same project from another
+       solution, skipped the target and left stale Verify.SolutionDirectory and
+       Verify.SolutionName metadata in the assembly until a full Rebuild. -->
+  <Target Name="WriteVerifyAttributesCache"
           Condition="$(Language) == 'VB' or $(Language) == 'C#' or $(Language) == 'F#' or $(Language) == 'X#'"
-          DependsOnTargets="DiscoverSolutionInfo"
-          BeforeTargets="BeforeCompile;CoreCompile"
-          Inputs="$(MSBuildAllProjects)"
-          Outputs="$(IntermediateOutputPath)$(VerifyAttributesFile)">
+          DependsOnTargets="DiscoverSolutionInfo">
     <PropertyGroup>
       <VerifyAttributesFilePath>$(IntermediateOutputPath)$(VerifyAttributesFile)</VerifyAttributesFilePath>
+      <VerifyAttributesCacheFile>$(IntermediateOutputPath)Verify.Attributes.cache</VerifyAttributesCacheFile>
       <!-- IntermediateOutputPath is relative to the project for the default layout, but absolute for
            others (eg artifacts output), so combine rather than concatenate. -->
       <VerifyIntermediateDirectory>$([System.IO.Path]::Combine('$(MSBuildProjectDirectory)', '$(IntermediateOutputPath)'))</VerifyIntermediateDirectory>
@@ -132,6 +139,21 @@
       <!-- Ensure not part of Compile, as a workaround for https://github.com/dotnet/sdk/issues/114 -->
       <Compile Remove="$(VerifyAttributesFilePath)" />
     </ItemGroup>
+    <MakeDir Directories="$(IntermediateOutputPath)" />
+    <WriteLinesToFile File="$(VerifyAttributesCacheFile)"
+                      Lines="@(VerifyAttributes->'%(_Parameter1)=%(_Parameter2)')"
+                      Overwrite="true"
+                      WriteOnlyWhenDifferent="true" />
+    <ItemGroup>
+      <FileWrites Include="$(VerifyAttributesCacheFile)" />
+    </ItemGroup>
+  </Target>
+  <Target Name="WriteVerifyAttributes"
+          Condition="$(Language) == 'VB' or $(Language) == 'C#' or $(Language) == 'F#' or $(Language) == 'X#'"
+          DependsOnTargets="WriteVerifyAttributesCache"
+          BeforeTargets="BeforeCompile;CoreCompile"
+          Inputs="$(MSBuildAllProjects);$(IntermediateOutputPath)Verify.Attributes.cache"
+          Outputs="$(IntermediateOutputPath)$(VerifyAttributesFile)">
     <WriteCodeFragment AssemblyAttributes="@(VerifyAttributes)"
                        Language="$(Language)"
                        OutputFile="$(VerifyAttributesFilePath)">

@@ -60,7 +60,9 @@ public class VerifyResult
                 throw new("More than one text file in results");
             }
 
-            return File.ReadAllText(textFiles[0]);
+            // Read with the configured encoding, the same as the compare path, so a
+            // BOM-less non-UTF8 UseEncoding round-trips instead of decoding to U+FFFD.
+            return File.ReadAllText(textFiles[0], VerifierSettings.Encoding);
         }
     }
 

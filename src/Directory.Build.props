@@ -20,6 +20,15 @@
     <ImportVerifyMsbuildFiles Condition="'$(MSBuildProjectName)' != '' And $(MSBuildProjectName.EndsWith('Tests'))">true</ImportVerifyMsbuildFiles>
     <!-- Work around https://github.com/dotnet/sdk/issues/51265#issuecomment-3407578810 -->
     <RestoreEnablePackagePruning>false</RestoreEnablePackagePruning>
+    <!-- The Roslyn version the MSTest source generator compiles against, and the analyzers
+         folder Verify.MSTest packs it into. The two have to agree: a generator compiled
+         against a higher version than its folder claims is loaded by every compiler in
+         between and then skipped with CS9057, which silently disables [UsesVerify] and
+         surfaces only as "TestContext is null" at run time. Kept here so neither can move
+         without the other. Lower means more compilers are supported, so raise it only for
+         an API the generator actually needs.
+         https://learn.microsoft.com/en-us/visualstudio/extensibility/roslyn-version-support -->
+    <VerifyRoslynVersion>4.4</VerifyRoslynVersion>
   </PropertyGroup>
   <!-- This directory contains two solutions (Verify.slnx and VerifyDangling.slnx), so Verify cannot
        auto-discover the solution when a project is built outside of a solution context. Default to the

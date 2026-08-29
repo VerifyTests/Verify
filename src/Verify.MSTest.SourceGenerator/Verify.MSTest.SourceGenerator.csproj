@@ -9,13 +9,15 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
+    <!-- Overrides the central version, which the rest of the solution uses to consume
+         Roslyn. This assembly is loaded by the consumer's compiler instead, so it is
+         compiled against the oldest Roslyn it supports: the one named by the analyzers
+         folder it is packed into. See VerifyRoslynVersion in Directory.Build.props. -->
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" VersionOverride="$(VerifyRoslynVersion).0" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
   </ItemGroup>
 
   <Target Name="CheckPackageVersion" BeforeTargets="Build">
-    <!-- https://learn.microsoft.com/en-us/visualstudio/extensibility/roslyn-version-support?view=vs-2022 -->
     <Error Condition="'%(PackageVersion.Identity)' == 'Microsoft.CodeAnalysis.Analyzers' AND '%(PackageVersion.Version)' != '3.11.0'" Text="Invalid package version for Microsoft.CodeAnalysis.Analyzers. Expected: 3.11.0." />
-    <Error Condition="'%(PackageVersion.Identity)' == 'Microsoft.CodeAnalysis.CSharp' AND '%(PackageVersion.Version)' != '4.14.0'" Text="Invalid package version for Microsoft.CodeAnalysis.CSharp. Expected: 4.14.0." />
   </Target>
 </Project>

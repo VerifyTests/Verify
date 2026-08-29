@@ -2,7 +2,9 @@
 {
     #region DefualtCompare
 
-    const int bufferSize = 1024 * sizeof(long);
+    // Large enough that a snapshot of any usual size is a couple of reads, and small enough
+    // to stay under the large object heap threshold and inside the array pool's buckets.
+    const int bufferSize = 64 * 1024;
 
     public static async Task<CompareResult> AreEqual(Stream stream1, Stream stream2)
     {
@@ -15,8 +17,15 @@
         {
             while (true)
             {
-                var count1 = await ReadBufferAsync(stream1, buffer1);
-                var count2 = await ReadBufferAsync(stream2, buffer2);
+                // The two streams are independent, so the reads overlap instead of running
+                // one after the other. Both files are read in full whenever they match,
+                // which is the usual case on a passing run. WhenAll rather than awaiting in
+                // sequence, so a failure on one side cannot leave the other unobserved.
+                var read1 = ReadBufferAsync(stream1, buffer1);
+                var read2 = ReadBufferAsync(stream2, buffer2);
+                await Task.WhenAll(read1, read2);
+                var count1 = read1.Result;
+                var count2 = read2.Result;
 
                 // Callers do not always guarantee the streams are the same length
                 // (e.g. a non-seekable received stream), so a length difference must
@@ -63,7 +72,13 @@
         var bytesRead = 0;
         while (bytesRead < bufferSize)
         {
+#if NET6_0_OR_GREATER
+            // Memory overload: the byte[] overload wraps every call in a Task on a
+            // FileStream opened for async IO.
+            var read = await stream.ReadAsync(buffer.AsMemory(bytesRead, bufferSize - bytesRead));
+#else
             var read = await stream.ReadAsync(buffer, bytesRead, bufferSize - bytesRead);
+#endif
             if (read == 0)
             {
                 // Reached end of stream.

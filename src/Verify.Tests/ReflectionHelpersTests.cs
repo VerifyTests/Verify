@@ -35,7 +35,18 @@ public class ReflectionHelpersTests
             { new ImmutableArray<int>(), true },
             { uninitializedImmutableArray, true },
             { ImmutableDictionary.Create<byte, string>(), true },
-            { new Dictionary<string, object>(), true}
+            { new Dictionary<string, object>(), true},
+            // Below here nothing is a non generic ICollection, so each is classified by
+            // the per type lookup rather than the fast path
+            { new HashSet<int>(), true },
+            { new HashSet<int> { 1 }, false },
+            { Enumerable.Empty<int>(), true },
+            { Array.Empty<int>().ToLookup(_ => _), true },
+            { new[] { 1 }.ToLookup(_ => _), false },
+            { new Dictionary<string, int>().Keys, true },
+            { new Dictionary<string, int> { { "a", 1 } }.Values, false },
+            // A lazy sequence is not treated as a collection at all, empty or not
+            { new[] { 1 }.Where(_ => false), false }
         };
     }
 }

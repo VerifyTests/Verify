@@ -162,7 +162,13 @@ public static partial class VerifierSettings
                 continue;
             }
 
-            var nameForParameter = parameter.ToString();
+            // Invariant for anything formattable, so a file name never varies by machine
+            // culture. parameterToNameLookup covers the common types, but not sbyte,
+            // Int128, UInt128, BigInteger, nint or nuint, and under sv-SE a negative
+            // value of any of those renders with U+2212 MINUS SIGN instead of '-'.
+            var nameForParameter = parameter is IFormattable formattable
+                ? formattable.ToString(null, Culture.InvariantCulture)
+                : parameter.ToString();
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             if (nameForParameter is null)
             {

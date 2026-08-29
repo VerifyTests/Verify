@@ -33,6 +33,28 @@
         Assert.Contains("a/b", name);
     }
 
+    // Types not in parameterToNameLookup fall back to formatting the value, which must
+    // not vary by machine culture. sv-SE renders a negative number with U+2212 MINUS
+    // SIGN under ICU, so a theory case would name its files differently than on CI.
+    [Theory]
+    [InlineData("sv-SE")]
+    [InlineData("en-US")]
+    public void NegativeSbyteIsInvariant(string cultureName)
+    {
+        var original = CultureInfo.CurrentCulture;
+        CultureInfo.CurrentCulture = new(cultureName);
+        try
+        {
+            Assert.Equal(
+                "-5",
+                VerifierSettings.GetNameForParameter((sbyte) -5, counter: CounterBuilder.Empty()));
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = original;
+        }
+    }
+
     [Fact]
     public Task Int() =>
         Verify(VerifierSettings.GetNameForParameter(10, counter: CounterBuilder.Empty()));

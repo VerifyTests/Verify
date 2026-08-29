@@ -111,11 +111,28 @@ public static class ClipboardAccept
         try
         {
             builder.AppendLine(command);
-            await ClipboardService.SetTextAsync(builder.ToString());
+            await SetClipboardText(builder.ToString());
         }
         finally
         {
             semaphore.Release();
+        }
+    }
+
+    static async Task SetClipboardText(string text)
+    {
+        try
+        {
+            await ClipboardService.SetTextAsync(text);
+        }
+        catch (Exception exception)
+        {
+            // This runs from the OnFirstVerify and OnVerifyMismatch callbacks, which the
+            // engine awaits while building the failure. Letting a clipboard failure out
+            // replaces the snapshot diff with an unrelated error: no xsel or wl-copy on a
+            // headless Linux box, or another process holding the Windows clipboard.
+            // Copying the accept command is a convenience, so it fails quietly.
+            Trace.WriteLine($"Verify: could not write the accept command to the clipboard. {exception}");
         }
     }
 }

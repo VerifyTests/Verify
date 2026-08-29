@@ -106,6 +106,33 @@
         Assert.Equal(min + 2, length.min);
     }
 
+    // Two cultures can share a name and still render dates differently, so the cache
+    // cannot be keyed on the name: whichever was measured first would supply the bounds
+    // for the other, and rendered dates would fall outside the probed window lengths.
+    [Fact]
+    public void SameNamedCulturesWithDifferentFormatsAreNotShared()
+    {
+        var standard = new CultureInfo("en-AU");
+        var customized = new CultureInfo("en-AU")
+        {
+            DateTimeFormat =
+            {
+                // A far longer designator, so the bounds cannot coincide by accident
+                PMDesignator = "in the afternoon",
+                AMDesignator = "in the morning"
+            }
+        };
+
+        var standardLength = DateFormatLengthCalculator.GetLength("h:mm tt", standard);
+        var customizedLength = DateFormatLengthCalculator.GetLength("h:mm tt", customized);
+
+        Assert.NotEqual(standardLength, customizedLength);
+
+        var rendered = new DateTime(2020, 1, 1, 13, 30, 0).ToString("h:mm tt", customized);
+        Assert.True(rendered.Length <= customizedLength.max, $"{rendered.Length} <= {customizedLength.max}. {rendered}");
+        Assert.True(rendered.Length >= customizedLength.min, $"{rendered.Length} >= {customizedLength.min}. {rendered}");
+    }
+
     // MMMM next to a day component renders the genitive month name, which can be longer
     // than every nominative form (cs-CZ November: "listopadu" vs "listopad")
     [Fact]

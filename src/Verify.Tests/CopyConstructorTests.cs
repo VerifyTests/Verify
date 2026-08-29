@@ -43,6 +43,36 @@ public class CopyConstructorTests
     }
 
     [Fact]
+    public void SerializationMutationAfterCopyDoesNotLeak()
+    {
+        var settings = new VerifySettings();
+        // The first mutation clones the global serialization settings, so from here the
+        // instance owns them and mutates in place.
+        settings.IgnoreMember("First");
+
+        var copy = new VerifySettings(settings);
+        settings.IgnoreMember("Second");
+
+        Assert.True(copy.serialization.ShouldIgnoreByName("First"));
+        // Mutating the source after the copy was taken must not reach the copy.
+        Assert.False(copy.serialization.ShouldIgnoreByName("Second"));
+        Assert.True(settings.serialization.ShouldIgnoreByName("Second"));
+    }
+
+    [Fact]
+    public void SerializationMutationOnCopyDoesNotLeak()
+    {
+        var settings = new VerifySettings();
+        settings.IgnoreMember("First");
+
+        var copy = new VerifySettings(settings);
+        copy.IgnoreMember("Second");
+
+        Assert.False(settings.serialization.ShouldIgnoreByName("Second"));
+        Assert.True(copy.serialization.ShouldIgnoreByName("Second"));
+    }
+
+    [Fact]
     public void ClonesExtensionMappedScrubbers()
     {
         var settings = new VerifySettings();

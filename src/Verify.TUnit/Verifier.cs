@@ -20,6 +20,20 @@ public static partial class Verifier
     public static void AddAttachmentEvents() =>
         VerifierSettings.AddTestAttachment(AddFile);
 
+    // TestContext.Current is null outside a test, for example in a
+    // [Before(TestSession)] hook or in code that does not flow the test context.
+    // Dereferencing it there gives a bare NullReferenceException.
+    internal static TestDetails CurrentTestDetails()
+    {
+        var context = TestContext.Current;
+        if (context is null)
+        {
+            throw new("TestContext.Current is null. Verify can only be used from within a test method.");
+        }
+
+        return context.Metadata.TestDetails;
+    }
+
     public static InnerVerifier BuildVerifier(string sourceFile, VerifySettings settings, bool useUniqueDirectory = false, int lineNumber = 0)
     {
         Guards.AgainstBadSourceFile(sourceFile);
@@ -28,16 +42,24 @@ public static partial class Verifier
             settings.UseUniqueDirectory();
         }
 
-        var details = TestContext.Current!.Metadata.TestDetails;
+        var details = CurrentTestDetails();
         var type = details.MethodMetadata.Class.Type;
         var classArguments = details.TestClassArguments;
         var methodArguments = details.TestMethodArguments;
+        var parameterNames = details.GetParameterNames();
         if (!settings.HasParameters &&
             (classArguments.Length > 0 ||
              methodArguments.Length > 0))
         {
-            settings.SetParameters([.. classArguments, .. methodArguments]);
-            settings.SetClassArgumentCount(classArguments.Length);
+            // Only apply when the argument count matches the parameter count. A params
+            // array exposes raw pre-binding arguments, which TUnit bundles at invocation
+            // time, so the counts differ and parameterized snapshot naming would throw.
+            // MSTest and XunitV3 apply the same guard.
+            if (classArguments.Length + methodArguments.Length == parameterNames?.Count)
+            {
+                settings.SetParameters([.. classArguments, .. methodArguments]);
+                settings.SetClassArgumentCount(classArguments.Length);
+            }
         }
 
         VerifierSettings.AssignTargetAssembly(type.Assembly);
@@ -49,7 +71,7 @@ public static partial class Verifier
             settings,
             type.NameWithParent(),
             method.Name,
-            details.GetParameterNames(),
+            parameterNames,
             pathInfo,
             lineNumber);
     }

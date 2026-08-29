@@ -1,0 +1,15 @@
+﻿{
+  Principal: {
+    Identities: [
+      {
+        Claims: [
+          {
+            TheClaimType: TheClaimValue
+          }
+        ],
+        AuthenticationType: TheAuthenticationType
+      }
+    ]
+  },
+  Name: TheValue
+}

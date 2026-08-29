@@ -1,6 +1,12 @@
 ﻿static class DateFormatLengthCalculator
 {
-    static ConcurrentDictionary<(string cultureName, string format), (int max, int min)> cache = new();
+    // Keyed on DateTimeFormat rather than the culture name. Two cultures can share a name
+    // and still render dates differently: CurrentCulture carrying Windows user overrides
+    // against CultureInfo.GetCultureInfo of the same name, or a clone whose DateTimeFormat
+    // was replaced. Keying on the name let whichever was measured first supply the window
+    // bounds for the other, so rendered dates fell outside the probed lengths and silently
+    // stopped scrubbing.
+    static ConcurrentDictionary<(DateTimeFormatInfo dateTimeFormat, string format), (int max, int min)> cache = new();
     const int maxSecondsFractionDigits = 7;
 
     static void ValidateSecondsFractionLength(int tokenLen)
@@ -13,11 +19,11 @@
 
     public static (int max, int min) GetLength(string format, Culture culture) =>
         cache.GetOrAdd(
-            (culture.Name, format),
+            (culture.DateTimeFormat, format),
             static (key, culture) =>
             {
-                var format = culture.DateTimeFormat.ExpandFormat(key.format);
-                return InnerGetLength(format.AsSpan(), culture);
+                var expanded = culture.DateTimeFormat.ExpandFormat(key.format);
+                return InnerGetLength(expanded.AsSpan(), culture);
             },
             culture);
 

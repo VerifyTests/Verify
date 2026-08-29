@@ -75,10 +75,14 @@ public static partial class Recording
     class NamedDisposable(string identifier) :
         IDisposable
     {
-        // TryPause (not Pause) so disposing after an explicit Stop is a no-op
-        // rather than throwing from CurrentStateNamed.
+        // Removed, not paused. Named state lives in a static dictionary, so unlike the
+        // unnamed variant nothing else can reclaim it: leaving it there holds every
+        // recorded object for the life of the process, and makes a later Start with the
+        // same identifier throw "Recording already started". Identifiers are meant to be
+        // statically unique, so that happens across theory cases or an in process re-run.
+        // A no-op after an explicit Stop, which has already removed it.
         public void Dispose() =>
-            TryPause(identifier);
+            namedState.TryRemove(identifier, out _);
     }
 
     public static void Pause(string identifier) =>

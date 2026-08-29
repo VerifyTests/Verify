@@ -24,6 +24,25 @@ public class InnerVerifyTests
 
     #endregion
 
+    // Dispose runs the after callbacks, so this constructor has to run the before half
+    // too. An unbalanced pair leaves whatever it pushes, sets or counts in the wrong state.
+    [Fact]
+    public void RunsBeforeAndAfterCallbacks()
+    {
+        var calls = new List<string>();
+        var settings = new VerifySettings();
+        settings.OnVerify(
+            before: () => calls.Add("before"),
+            after: () => calls.Add("after"));
+
+        using (new InnerVerifier(targetDirectory, "callbackBalance", settings))
+        {
+            Assert.Equal(["before"], calls);
+        }
+
+        Assert.Equal(["before", "after"], calls);
+    }
+
     [Fact]
     public async Task VerifyExternalFileLocked()
     {

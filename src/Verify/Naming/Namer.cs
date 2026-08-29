@@ -151,7 +151,6 @@ public class Namer
         Architecture = RuntimeInformation
             .ProcessArchitecture.ToString()
             .ToLowerInvariant();
-        OperatingSystemPlatform = GetOsPlatform();
     }
 
     static string GetOsPlatform()
@@ -181,7 +180,7 @@ public class Namer
             return "IOS";
         }
 
-        throw new("Unknown OS");
+        throw new($"Unknown OS: {RuntimeInformation.OSDescription}. UniqueForOSPlatform cannot name this platform.");
     }
 
     public static string Runtime { get; }
@@ -190,7 +189,16 @@ public class Namer
 
     public static string Architecture { get; }
 
-    public static string OperatingSystemPlatform { get; }
+    static string? operatingSystemPlatform;
+
+    /// <summary>
+    /// Resolved on demand rather than in the static constructor. GetOsPlatform throws for
+    /// any platform outside the handful it names, and VerifySettings creates a Namer, so
+    /// resolving eagerly failed every verification on an unrecognized platform
+    /// (FreeBSD, browser-wasm, tvOS) with a TypeInitializationException, even for tests
+    /// that never asked for UniqueForOSPlatform.
+    /// </summary>
+    public static string OperatingSystemPlatform => operatingSystemPlatform ??= GetOsPlatform();
 
     internal Namer()
     {

@@ -41,6 +41,36 @@
         }
     }
 
+    // Named state lives in a static dictionary, so a scope left without an explicit Stop,
+    // for example because the test threw, would otherwise hold it and its recorded objects
+    // forever, and block the identifier for every later Start.
+    [Fact]
+    public void DisposeNamedReleasesTheIdentifier()
+    {
+        try
+        {
+            using (Recording.Start("DisposeNamedReleases"))
+            {
+                Recording.Add("DisposeNamedReleases", "name", "value");
+                throw new("test failure");
+            }
+        }
+        catch (Exception exception)
+            when (exception.Message == "test failure")
+        {
+        }
+
+        Assert.False(Recording.IsRecording("DisposeNamedReleases"));
+
+        // The identifier is free again
+        using (Recording.Start("DisposeNamedReleases"))
+        {
+            Recording.Add("DisposeNamedReleases", "name", "value2");
+            var recorded = Recording.Stop("DisposeNamedReleases");
+            Assert.Equal(["value2"], recorded.Select(_ => _.Data));
+        }
+    }
+
     [Fact]
     public Task Dates()
     {

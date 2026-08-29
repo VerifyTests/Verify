@@ -16,6 +16,18 @@
         }
     }
 
+    public static void BadParametersText(string value, [CallerArgumentExpression(nameof(value))] string argumentName = "")
+    {
+        BadFileName(value, argumentName);
+
+        // `#` starts the indexed-target namespace, so a value containing one would make
+        // this case's files look like the targets of another case.
+        if (value.Contains('#'))
+        {
+            throw new ArgumentException($"Invalid character for file name. Value: {value}. Char:#", argumentName);
+        }
+    }
+
     static char[] invalidPathChars = Path
         .GetInvalidPathChars()
         .Concat(invalidFileChars.Except(['/', '\\', ':']))

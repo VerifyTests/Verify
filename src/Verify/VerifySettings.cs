@@ -156,7 +156,12 @@ public partial class VerifySettings
     /// </summary>
     public void UseTextForParameters(string parametersText)
     {
-        Guards.AgainstBadExtension(parametersText);
+        // The text goes into the file name verbatim, so it is validated as a file name,
+        // the same as UseFileName, UseTypeName and UseMethodName. The extension guard
+        // used to be applied here, which let `:`, `*`, `?`, `"`, `<`, `>` and `|` through
+        // to fail at write time, or on Windows silently divert the received file into an
+        // NTFS alternate data stream.
+        Guards.BadParametersText(parametersText);
 
         if (parameters is not null)
         {

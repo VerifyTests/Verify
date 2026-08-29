@@ -10,6 +10,7 @@ partial class InnerVerifier
         bool includeStructure,
         bool persistArchive)
     {
+        // ReSharper disable once UseAwaitUsing
         using var stream = File.OpenRead(path);
         return await VerifyZip(stream, include, info, scrubber, includeStructure, persistArchive);
     }
@@ -29,6 +30,7 @@ partial class InnerVerifier
             archiveExtension = Path.GetExtension(fileStream.Name);
         }
 
+        // ReSharper disable once UseAwaitUsing
         using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
         return await VerifyZip(archive, include, info, scrubber, includeStructure, persistArchive, archiveExtension);
     }
@@ -43,6 +45,7 @@ partial class InnerVerifier
         string? archiveExtension)
     {
         using var stream = new MemoryStream(bytes);
+        // ReSharper disable once UseAwaitUsing
         using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
         return await VerifyZip(archive, include, info, scrubber, includeStructure, persistArchive, archiveExtension);
     }

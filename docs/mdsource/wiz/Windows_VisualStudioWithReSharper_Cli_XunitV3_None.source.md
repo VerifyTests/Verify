@@ -9,8 +9,8 @@ Add the following packages to the test project:
 ```
 dotnet add package Microsoft.NET.Test.Sdk
 dotnet add package Verify.XunitV3
-dotnet add package xunit.v3 --prerelease
-dotnet add package xunit.runner.visualstudio --prerelease
+dotnet add package xunit.v3
+dotnet add package xunit.runner.visualstudio
 ```
 
 ## Implicit Usings
@@ -126,9 +126,9 @@ Tools supported by Windows:
  * [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
  * [DeltaWalker](https://www.deltawalker.com/)
  * [WinMerge](https://winmerge.org/)
+ * [TortoiseMerge](https://tortoisesvn.net/TortoiseMerge.html)
  * [TortoiseGitMerge](https://tortoisegit.org/docs/tortoisegitmerge/)
  * [TortoiseGitIDiff](https://tortoisegit.org/docs/tortoisegitmerge/)
- * [TortoiseMerge](https://tortoisesvn.net/TortoiseMerge.html)
  * [TortoiseIDiff](https://tortoisesvn.net/TortoiseIDiff.html)
  * [KDiff3](https://github.com/KDE/kdiff3)
  * [Guiffy](https://www.guiffy.com/)

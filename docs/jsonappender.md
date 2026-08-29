@@ -37,7 +37,7 @@ When when content is verified:
 public Task WithJsonAppender() =>
     Verify("TheValue");
 ```
-<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.cs#L30-L36' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppender' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.cs#L32-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppender' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The content from RegisterJsonAppender will be included in the output:
@@ -67,7 +67,7 @@ public Task WithInferredNameJsonAppenderFluent()
         .AppendValue(name);
 }
 ```
-<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.cs#L47-L55' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppenderInferredName' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.cs#L49-L57' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppenderInferredName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -94,7 +94,7 @@ If the target is a stream or binary file:
 public Task Stream() =>
     Verify(IoHelpers.OpenRead("sample.txt"));
 ```
-<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.cs#L83-L89' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppenderStream' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.cs#L85-L91' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppenderStream' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Then the appended content will be added to the `.verified.txt` file:

@@ -12,6 +12,12 @@
     public Task StringInvalidPathChar() =>
         Verify(VerifierSettings.GetNameForParameter("a/a", counter: CounterBuilder.Empty()));
 
+    // `#` is reserved for the indexed-target namespace, so a value containing one
+    // would make this case's files look like the targets of the case without it
+    [Fact]
+    public Task StringHash() =>
+        Verify(VerifierSettings.GetNameForParameter("a#1", counter: CounterBuilder.Empty()));
+
     [Fact]
     public void CollectionItemPathFriendlyFalseNotCleaned()
     {

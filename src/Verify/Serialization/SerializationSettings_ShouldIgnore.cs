@@ -23,6 +23,8 @@
     internal bool TryGetScrubOrIgnoreByInstance(object value, [NotNullWhen(true)] out ScrubOrIgnore? scrubOrIgnore)
     {
         var memberType = value.GetType();
+        // no predicate matching is not a decision to keep the value, so
+        // the empty collection check still applies
         if (GetShouldIgnoreInstance(memberType, out var funcs))
         {
             foreach (var func in funcs)
@@ -34,9 +36,6 @@
                     return true;
                 }
             }
-
-            scrubOrIgnore = null;
-            return false;
         }
 
         if (ignoreEmptyCollections &&

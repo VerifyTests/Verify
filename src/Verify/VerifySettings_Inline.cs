@@ -32,9 +32,11 @@ public partial class VerifySettings
                  """);
         }
 
-        // A bare `null` token must not be content-searched (far too common); the
-        // patcher's insertion path handles replacing it
-        if (expression == "null")
+        // Neither bare token must be content-searched: both are far too common in a file for the
+        // search to land where it was aimed, and it only has to walk past a call another target
+        // framework already accepted to splice a snapshot into someone else's test. They are
+        // placeholders rather than content, so the patcher's insertion path replaces either
+        if (expression is "null" or "default")
         {
             expression = null;
         }

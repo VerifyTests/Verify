@@ -134,16 +134,40 @@ partial class SerializationSettings
         converters.Add(combinationResultsConverter);
         foreach (var extraSetting in extraSettings)
         {
-            extraSetting(settings);
+            ApplyExtraSetting(settings, extraSetting);
         }
 
         return settings;
     }
 
+    /// <summary>
+    /// True if an extra setting has explicitly assigned <see cref="JsonSerializerSettings.DefaultValueHandling" />.
+    /// Used to know when to stop always including bools.
+    /// </summary>
+    internal bool DefaultValueHandlingExplicit { get; private set; }
+
+    void ApplyExtraSetting(JsonSerializerSettings settings, Action<JsonSerializerSettings> action)
+    {
+        // DefaultValueHandling is nullable, so null is used as a sentinel to detect an explicit assignment
+        var current = settings.DefaultValueHandling;
+        settings.DefaultValueHandling = null;
+
+        action(settings);
+
+        if (settings.DefaultValueHandling is null)
+        {
+            settings.DefaultValueHandling = current;
+        }
+        else
+        {
+            DefaultValueHandlingExplicit = true;
+        }
+    }
+
     public void AddExtraSettings(Action<JsonSerializerSettings> action)
     {
         extraSettings.Add(action);
-        action(jsonSettings);
+        ApplyExtraSetting(jsonSettings, action);
         serializer = null;
     }
 

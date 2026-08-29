@@ -1,7 +1,9 @@
 using VerifyTests.ExceptionParsing;
+using Xunit.Sdk;
+using Xunit.v3;
 
 // Verify's build server detection is global state, and the contract test below toggles it.
-[assembly: CollectionBehavior(DisableTestParallelization = true)]
+[assembly: Parallelization(Mode = ParallelMode.None)]
 
 public class ReceivedMapsTests
 {

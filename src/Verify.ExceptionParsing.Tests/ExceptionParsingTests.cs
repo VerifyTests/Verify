@@ -199,6 +199,19 @@ public class ExceptionParsingTests
         return ParseVerify([], [], delete, []);
     }
 
+    // UseUniqueDirectory and VerifyDirectory put the verified files in a subdirectory
+    // of the reported directory, so the parse has to give the subdirectory back
+    [Fact]
+    public Task DeleteInSubDirectory()
+    {
+        var delete = new List<string>
+        {
+            Path.Combine(projectDirectory, "TheType.TheMethod", "old.verified.txt")
+        };
+
+        return ParseVerify([], [], delete, []);
+    }
+
     [Fact]
     public Task ParseInlineNew()
     {

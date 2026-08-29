@@ -78,7 +78,9 @@ public readonly struct PathInfo
 
     internal static PathInfo DeriveDefault(
         string sourceFile,
+#pragma warning disable IDE0060
         string projectDirectory,
+#pragma warning restore IDE0060
         string typeName,
         string methodName) =>
         new(

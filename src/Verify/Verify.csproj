@@ -3,6 +3,9 @@
   <PropertyGroup>
     <TargetFrameworks Condition="'$(OS)' == 'Windows_NT'">net462;net472;net48</TargetFrameworks>
     <TargetFrameworks>$(TargetFrameworks);net6.0;net7.0;net8.0;net9.0;net10.0;net11.0</TargetFrameworks>
+    <UserSecretsId>28b4bdf9-6518-4588-b320-458aecdbee51</UserSecretsId>
+    <PackageLicenseFile>OsmfEula.txt</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +15,11 @@
     <PackageReference Include="SimpleInfoName" />
     <PackageReference Include="Argon" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
+    <PackageReference Include="SponsorCheck" PrivateAssets="all" />
+    <SponsorExemption Include="MaintainerConsulting" Message="Organizations that have engaged any of the core maintainers of Verify in consulting work could be exempt from the Maintenance Fee for 6 months from the final date of that work." MaxTermMonths="6" />
+    <SponsorExemption Include="SmallRevenue" Message="Consumers under US$10,000 annual gross revenue are exempt." MaxTermMonths="12" />
+
+    <None Include="..\..\OsmfEula.txt" Pack="true" PackagePath="" Visible="false" />
 
     <None Include="buildTransitive\Verify.props" Pack="true" PackagePath="buildTransitive\" />
     <None Include="buildTransitive\Verify.props" Pack="true" PackagePath="build\" />

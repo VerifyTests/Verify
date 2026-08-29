@@ -179,7 +179,7 @@ partial class Counter
         if (ScrubDateTimes)
         {
             if (CanBeIsoDate(value) &&
-                TryParseDateTime(value, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", out var date))
+                TryParseIsoDateTime(value, out var date))
             {
                 result = Convert(date);
                 return true;
@@ -199,6 +199,8 @@ partial class Counter
         return false;
     }
 
+    const string isoFormat = "yyyy-MM-ddTHH:mm:ss.FFFFFFFK";
+
     // The ISO format is "yyyy-MM-ddTHH:mm:ss.FFFFFFFK": at least 19 chars, starting
     // with a 4 digit year then '-'. TryParseExact with DateTimeStyles.None allows no
     // whitespace, so values failing this shape can never parse and the attempt can
@@ -208,6 +210,16 @@ partial class Counter
         char.IsDigit(value[0]) &&
         value[4] == '-';
 
+    // The built in format is ISO 8601, so it is parsed with the invariant culture, and
+    // so the invariant calendar. The ambient culture would read the year in its own
+    // calendar: under th-TH (Buddhist) 2023 becomes 1480, which breaks the MinValue and
+    // MaxValue sentinels and the named date lookups, and under ar-SA (UmAlQura) the parse
+    // fails outright, leaving ISO timestamps unscrubbed. Formats registered through
+    // AddExtraDateTimeFormat keep parsing with the ambient culture, since the test
+    // supplies both those formats and the values they match.
+    static bool TryParseIsoDateTime(CharSpan value, out DateTime dateTime) =>
+        DateTime.TryParseExact(value, isoFormat, Culture.InvariantCulture, DateTimeStyles.None, out dateTime);
+
     static bool TryParseDateTime(CharSpan value, string format, out DateTime dateTime) =>
         DateTime.TryParseExact(value, format, null, DateTimeStyles.None, out dateTime);
 
@@ -216,7 +228,7 @@ partial class Counter
         if (ScrubDateTimes)
         {
             if (CanBeIsoDate(value) &&
-                TryParseDateTimeOffset(value, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", out var date))
+                TryParseIsoDateTimeOffset(value, out var date))
             {
                 result = Convert(date);
                 return true;
@@ -236,6 +248,10 @@ partial class Counter
         return false;
 
     }
+
+    // Invariant for the same reason as TryParseIsoDateTime.
+    static bool TryParseIsoDateTimeOffset(CharSpan value, out DateTimeOffset dateTimeOffset) =>
+        DateTimeOffset.TryParseExact(value, isoFormat, Culture.InvariantCulture, DateTimeStyles.None, out dateTimeOffset);
 
     static bool TryParseDateTimeOffset(CharSpan value, string format, out DateTimeOffset dateTimeOffset) =>
         DateTimeOffset.TryParseExact(value, format, null, DateTimeStyles.None, out dateTimeOffset);

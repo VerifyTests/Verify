@@ -1,4 +1,4 @@
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 partial class InnerVerifier
 {
@@ -36,6 +36,10 @@ partial class InnerVerifier
                 inline,
                 settings.TypeName ?? typeName,
                 settings.MethodName ?? methodName);
+
+            // Recorded before anything else can retire in this member, so a sibling verification
+            // that is not inline retires by call site alone rather than reaching for this one.
+            InlineEngine.RecordInline(inlineEngine.MappedSourceFile, inline.MemberName);
         }
         else if (settings.inline is { } stale)
         {
@@ -56,6 +60,11 @@ partial class InnerVerifier
             // method are legal. Migrating puts this one back under the file naming rules, where
             // two of them in one method would resolve to the same name.
             ValidatePrefix(settings, pathPrefixReceived!);
+        }
+
+        if (inline is null)
+        {
+            RetireInline();
         }
 
         var engine = new VerifyEngine(
@@ -96,6 +105,34 @@ partial class InnerVerifier
         }
 
         return new(filePairs, root);
+    }
+
+    /// <summary>
+    /// This verification is not inline, so anything a previous run queued for its call site is
+    /// stale whatever happens next — the file snapshot passing or failing says nothing about a
+    /// snapshot that no longer lives in the source.
+    /// </summary>
+    /// <remarks>
+    /// Gated on inline being in play at all, so a codebase that never turned it on never pays a
+    /// loopback round trip per verification. Where a Snapshot call is still there but declined,
+    /// its own call site is the one to retire; otherwise it is the verify call's.
+    /// </remarks>
+    void RetireInline()
+    {
+        if (VerifierSettings.inline is null &&
+            settings.inline is null &&
+            !settings.notInline)
+        {
+            return;
+        }
+
+        if (settings.inline is { } declined)
+        {
+            InlineEngine.Retire(settings, declined.File, declined.Line, declined.MemberName);
+            return;
+        }
+
+        InlineEngine.Retire(settings, inlineSourceFile, lineNumber, methodName);
     }
 
     /// <summary>
@@ -147,8 +184,8 @@ partial class InnerVerifier
         }
 
         // Hard incompatibilities. A global switch must not break unrelated tests, so these are
-        // "not inline" rather than errors; the explicit path above still throws for UniqueDirectory
-        // and for parameters.
+        // "not inline" rather than errors; the explicit path above still throws for UniqueDirectory,
+        // for parameters, and for a binary first target.
         //
         // The source file is null only on the ctor that leaves typeName null too, so that check
         // reads as redundant. It is what tells the compiler the argument below is not null, so it
@@ -165,6 +202,10 @@ partial class InnerVerifier
 
         var first = targets[0];
         if (first.DontInline ||
+            // A binary target has no text to hold in a literal. The explicit path throws for it,
+            // stating an intent that cannot be honoured; the switch declines, since a codebase
+            // that turns inline on for everything still has tests that emit documents and images
+            first.IsStream ||
             !globalInline(
                 settings.TypeName ?? typeName,
                 settings.MethodName ?? methodName!,
@@ -176,6 +217,15 @@ partial class InnerVerifier
 
         // A long snapshot swamps the test it sits in, so it stays a file
         if (ExceedsMaxLines(targets))
+        {
+            return null;
+        }
+
+        // Last, because it reads the source file and every other check is a field comparison. The
+        // accept has to have a call to chain a Snapshot onto, and the switch cannot see the source
+        // the way it can see the verification: a wrapper of the test project's own returning a
+        // Task looks like an entry point from here and like one in the file as well
+        if (!InlineAnchor.CanHost(inlineSourceFile, lineNumber, methodName))
         {
             return null;
         }
@@ -203,8 +253,9 @@ partial class InnerVerifier
     {
         if (VerifierSettings.inlineMaxLines is not { } maxLines ||
             targets.Count == 0 ||
-            // A binary first target has no lines to count. It is not inlineable at all, and
-            // InlineEngine.Compare owns that error message, so it is left to reach it.
+            // A binary first target has no lines to count. Only the explicit path can still be
+            // holding one here, and InlineEngine.Compare owns that error message, so it is left
+            // to reach it rather than being routed to files by a limit it cannot be measured against.
             !targets[0].TryGetStringBuilder(out var builder))
         {
             return false;

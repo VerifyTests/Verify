@@ -491,6 +491,15 @@ public class NamerTests
         Verify(value)
             .UseParameters(value);
 
+    // `{prefix}#` is the indexed-target namespace, so without cleaning the `x` case
+    // would claim the files of the `x#1` case
+    [Theory]
+    [InlineData("x")]
+    [InlineData("x#1")]
+    public Task ParametersWithHash(string value) =>
+        Verify(value)
+            .UseParameters(value);
+
     [Fact]
     public Task SingleTarget() =>
         Verify([new Target("txt", "data")]);

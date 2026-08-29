@@ -163,6 +163,7 @@ public static partial class VerifierSettings
         inline = null;
         inlineMaxLines = null;
         inlineApplyMaxLinesToExisting = false;
+        inlineEntryPoints = null;
         UniquePrefixDisabled = false;
         UseUniqueDirectorySplitMode = false;
         omitContentFromException = false;

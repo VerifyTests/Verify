@@ -5,6 +5,7 @@ public static partial class VerifierSettings
     internal static GlobalInline? inline;
     internal static int? inlineMaxLines;
     internal static bool inlineApplyMaxLinesToExisting;
+    internal static string[]? inlineEntryPoints;
 
     /// <summary>
     /// Use inline snapshots for every verification: the expected content lives in a
@@ -61,5 +62,64 @@ public static partial class VerifierSettings
         VerifierSettings.inline = inline ?? ((_, _, _, _) => true);
         inlineMaxLines = maxLines;
         inlineApplyMaxLinesToExisting = applyMaxLinesToExisting;
+    }
+
+    /// <summary>
+    /// Members that an inline snapshot may be accepted into, beyond the entry points the adapters
+    /// expose. Call from a module initializer.
+    /// <para>
+    /// For a test project that reaches verify through a wrapper of its own. Accepting a new inline
+    /// snapshot chains a <c>.Snapshot(...)</c> call onto the call written in the test, so the
+    /// wrapper has to return a <see cref="SettingsTask" /> for that to compile, and has to forward
+    /// both <c>sourceFile</c> and <c>lineNumber</c> for it to land on the right call. Neither is
+    /// readable from the file being accepted into - often not even from the same project - so
+    /// naming a wrapper here is the assertion that it does both.
+    /// </para>
+    /// <para>
+    /// A wrapper that is not named keeps its verifications on <c>.verified</c> files, which is the
+    /// outcome to prefer over an accept that writes source that does not compile.
+    /// </para>
+    /// </summary>
+    public static void AddInlineEntryPoint(params string[] names)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+
+        var combined = inlineEntryPoints is null ? [] : new List<string>(inlineEntryPoints);
+        foreach (var name in names)
+        {
+            // The patcher matches a whole token, so anything else - a receiver, an argument list,
+            // a space - can only ever fail to match, and would do it silently
+            if (!IsIdentifier(name))
+            {
+                throw new ArgumentException($"Inline entry points are member names, so must be identifiers. Value: {name}", nameof(names));
+            }
+
+            if (!combined.Contains(name, StringComparer.Ordinal))
+            {
+                combined.Add(name);
+            }
+        }
+
+        inlineEntryPoints = combined.ToArray();
+    }
+
+    static bool IsIdentifier(string value)
+    {
+        if (value.Length == 0 ||
+            char.IsDigit(value[0]))
+        {
+            return false;
+        }
+
+        foreach (var character in value)
+        {
+            if (character != '_' &&
+                !char.IsLetterOrDigit(character))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

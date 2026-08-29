@@ -11,17 +11,20 @@ public static partial class DateFormatter
 
     static string GetJsonDatePart(DateTimeOffset value)
     {
-        if (value.TimeOfDay == TimeSpan.Zero)
+        // ticks, not the Second/Millisecond properties, since sub-millisecond ticks leave both of those zero
+        var ticks = value.TimeOfDay.Ticks;
+
+        if (ticks == 0)
         {
             return value.ToString("yyyy-MM-dd", Culture.InvariantCulture);
         }
 
-        if (value is {Second: 0, Millisecond: 0})
+        if (ticks % TimeSpan.TicksPerMinute == 0)
         {
             return value.ToString("yyyy-MM-dd HH:mm", Culture.InvariantCulture);
         }
 
-        if (value.Millisecond == 0)
+        if (ticks % TimeSpan.TicksPerSecond == 0)
         {
             return value.ToString("yyyy-MM-dd HH:mm:ss", Culture.InvariantCulture);
         }
@@ -39,17 +42,19 @@ public static partial class DateFormatter
 
     static string GetParameterDatePart(DateTimeOffset value)
     {
-        if (value.TimeOfDay == TimeSpan.Zero)
+        var ticks = value.TimeOfDay.Ticks;
+
+        if (ticks == 0)
         {
             return value.ToString("yyyy-MM-dd", Culture.InvariantCulture);
         }
 
-        if (value is {Second: 0, Millisecond: 0})
+        if (ticks % TimeSpan.TicksPerMinute == 0)
         {
             return value.ToString("yyyy-MM-ddTHH-mm", Culture.InvariantCulture);
         }
 
-        if (value.Millisecond == 0)
+        if (ticks % TimeSpan.TicksPerSecond == 0)
         {
             return value.ToString("yyyy-MM-ddTHH-mm-ss", Culture.InvariantCulture);
         }
@@ -57,30 +62,28 @@ public static partial class DateFormatter
         return value.ToString("yyyy-MM-ddTHH-mm-ss.FFFFFFF", Culture.InvariantCulture);
     }
 
+    // Interpolation formats with the current culture, and NumberFormatInfo.NegativeSign is not "-"
+    // everywhere: sv-SE renders U+2212 and ar-SA prefixes U+061C. The offset reaches both snapshot
+    // content and parameter file names, so the culture is pinned here the same way it is for every
+    // date part above, and the sign is written as a literal rather than taken from a negative number.
     static string GetDateOffset(DateTimeOffset value)
     {
         var offset = value.Offset;
 
-        if (offset > TimeSpan.Zero)
+        if (offset == TimeSpan.Zero)
         {
-            if (offset.Minutes == 0)
-            {
-                return $"+{offset.TotalHours.ToString("0", Culture.InvariantCulture)}";
-            }
-
-            return $"+{offset.Hours.ToString("0", Culture.InvariantCulture)}-{offset.Minutes.ToString("00", Culture.InvariantCulture)}";
+            return "+0";
         }
 
-        if (offset < TimeSpan.Zero)
-        {
-            if (offset.Minutes == 0)
-            {
-                return offset.Hours.ToString("0", Culture.InvariantCulture);
-            }
+        // The sign belongs to the offset as a whole. Taking it from the hour component
+        // instead loses it for a sub hour offset, where that component is zero.
+        var sign = offset < TimeSpan.Zero ? '-' : '+';
 
-            return $"{offset.Hours.ToString("0", Culture.InvariantCulture)}{offset.Minutes.ToString("00", Culture.InvariantCulture)}";
+        if (offset.Minutes == 0)
+        {
+            return FormattableString.Invariant($"{sign}{Math.Abs(offset.TotalHours):0}");
         }
 
-        return "+0";
+        return FormattableString.Invariant($"{sign}{Math.Abs(offset.Hours):0}-{Math.Abs(offset.Minutes):00}");
     }
 }

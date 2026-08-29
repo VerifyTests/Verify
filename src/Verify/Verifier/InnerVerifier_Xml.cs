@@ -34,6 +34,7 @@ partial class InnerVerifier
             return await VerifyInner(target, null, emptyTargets, true, false);
         }
 
+        // ReSharper disable once UseAwaitUsing
         using (target)
         {
             var document = await XDocument.LoadAsync(target, LoadOptions.None, default);

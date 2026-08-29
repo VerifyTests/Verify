@@ -19,7 +19,7 @@ Add the following packages to the test project:
 ```csproj
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
 <PackageReference Include="Verify.XunitV3" Version="31.25.0" />
-<PackageReference Include="xunit.v3" Version="3.2.2" />
+<PackageReference Include="xunit.v3" Version="4.0.0" />
 ```
 <sup><a href='/usages/XunitV3NugetUsage/XunitV3NugetUsage.csproj#L8-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitv3-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -302,9 +302,9 @@ Tools supported by Windows:
  * [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
  * [DeltaWalker](https://www.deltawalker.com/)
  * [WinMerge](https://winmerge.org/)
+ * [TortoiseMerge](https://tortoisesvn.net/TortoiseMerge.html)
  * [TortoiseGitMerge](https://tortoisegit.org/docs/tortoisegitmerge/)
  * [TortoiseGitIDiff](https://tortoisegit.org/docs/tortoisegitmerge/)
- * [TortoiseMerge](https://tortoisesvn.net/TortoiseMerge.html)
  * [TortoiseIDiff](https://tortoisesvn.net/TortoiseIDiff.html)
  * [KDiff3](https://github.com/KDE/kdiff3)
  * [Guiffy](https://www.guiffy.com/)

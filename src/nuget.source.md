@@ -5,7 +5,7 @@ include: intro
 **See [Milestones](https://github.com/VerifyTests/Verify/milestones?state=closed) for release notes.**
 
 
-## Sponsors
+## Supporters
 
 
-include: sponsors
+include: supporters

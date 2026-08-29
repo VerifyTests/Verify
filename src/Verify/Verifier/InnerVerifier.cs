@@ -196,6 +196,12 @@ public partial class InnerVerifier :
             this.settings = settings;
         }
 
+        // Dispose runs the after callbacks unconditionally, so the before callbacks have
+        // to run here too. Otherwise an OnVerify(before, after) pair registered by a
+        // consumer of this API has its after half executed unbalanced, leaving whatever
+        // the pair pushes, sets or counts in the wrong state.
+        this.settings.RunBeforeCallbacks();
+
         SetVerifyHasBeenRun(name);
 
         this.directory = directory;

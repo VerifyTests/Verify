@@ -79,8 +79,7 @@ public static partial class Recording
         // Snapshot the items, then stop the shared State so the stop is observable
         // through the caller's reference.
         recorded = value.Items.ToList();
-        value.Clear();
-        value.Pause();
+        value.Stop();
         asyncLocal.Value = null;
         return true;
     }
@@ -125,7 +124,10 @@ public static partial class Recording
     {
         var value = asyncLocal.Value;
 
-        if (value != null)
+        // A stopped state is one the caller's context is still holding after the recording
+        // was consumed, for example by a Verify. That is finished, so starting again is
+        // valid: only a live recording is a double start.
+        if (value is {Stopped: false})
         {
             throw new("Recording already started");
         }

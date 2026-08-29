@@ -141,17 +141,24 @@ static class DateMatchers
         // No culture was supplied, so each scrub uses the culture in effect at that
         // point. Building a scrubber reads the format lengths and expands the
         // pattern, so the result is cached per culture.
-        ConcurrentDictionary<Culture, Scrubber> cache = new();
+        //
+        // Keyed on DateTimeFormat rather than the culture, because CultureInfo equality
+        // only compares the name and the compare/text info. A CurrentCulture carrying
+        // Windows user overrides is equal to CultureInfo.GetCultureInfo of the same name
+        // while rendering dates differently, so keying on the culture let whichever was
+        // seen first answer for both.
+        ConcurrentDictionary<DateTimeFormatInfo, Scrubber> cache = new();
 
         Scrubber ForCurrentCulture()
         {
             var current = Culture.CurrentCulture;
-            if (cache.TryGetValue(current, out var existing))
+            var key = current.DateTimeFormat;
+            if (cache.TryGetValue(key, out var existing))
             {
                 return existing;
             }
 
-            return cache.GetOrAdd(current, Single(format, current, parseFactory(format, current)));
+            return cache.GetOrAdd(key, Single(format, current, parseFactory(format, current)));
         }
 
         // The registration culture instance supplies the bounds used for ordering

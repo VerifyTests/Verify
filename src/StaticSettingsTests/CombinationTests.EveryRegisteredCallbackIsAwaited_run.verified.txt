@@ -1,0 +1,4 @@
+﻿{
+  list: Result,
+     1: Exception: from the first before callback
+}

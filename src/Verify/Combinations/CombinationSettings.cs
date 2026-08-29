@@ -1,4 +1,4 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 public delegate Task BeforeCombination(IReadOnlyList<object?> keys);
 public delegate Task AfterCombination(IReadOnlyList<object?> keys, object? result);
@@ -16,7 +16,11 @@ public static class CombinationSettings
     public static void CaptureExceptions() =>
         CaptureExceptionsEnabled = true;
 
-    static BeforeCombination? before;
+    // Held as lists rather than combined with `+=`. Invoking a multicast Task returning
+    // delegate returns only the last target's Task, so every earlier callback would run
+    // unawaited: its exceptions unobserved, and its async work racing the combination
+    // method. Same hazard the Then extension documents for Func<Task>.
+    static List<BeforeCombination>? before;
 
     internal static Task RunBeforeCallbacks(IReadOnlyList<object?> keys)
     {
@@ -25,10 +29,18 @@ public static class CombinationSettings
             return Task.CompletedTask;
         }
 
-        return before(keys);
+        return RunAll(before, keys);
     }
 
-    static AfterCombination? after;
+    static async Task RunAll(List<BeforeCombination> callbacks, IReadOnlyList<object?> keys)
+    {
+        foreach (var callback in callbacks)
+        {
+            await callback(keys);
+        }
+    }
+
+    static List<AfterCombination>? after;
 
     internal static Task RunAfterCallbacks(IReadOnlyList<object?> keys, object? result)
     {
@@ -37,10 +49,18 @@ public static class CombinationSettings
             return Task.CompletedTask;
         }
 
-        return after(keys, result);
+        return RunAll(after, keys, result);
     }
 
-    static CombinationException? combinationException;
+    static async Task RunAll(List<AfterCombination> callbacks, IReadOnlyList<object?> keys, object? result)
+    {
+        foreach (var callback in callbacks)
+        {
+            await callback(keys, result);
+        }
+    }
+
+    static List<CombinationException>? combinationException;
 
     internal static Task RunExceptionCallbacks(IReadOnlyList<object?> keys, Exception exception)
     {
@@ -49,14 +69,25 @@ public static class CombinationSettings
             return Task.CompletedTask;
         }
 
-        return combinationException(keys, exception);
+        return RunAll(combinationException, keys, exception);
+    }
+
+    static async Task RunAll(List<CombinationException> callbacks, IReadOnlyList<object?> keys, Exception exception)
+    {
+        foreach (var callback in callbacks)
+        {
+            await callback(keys, exception);
+        }
     }
 
     public static void UseCallbacks(BeforeCombination before, AfterCombination after, CombinationException exception)
     {
-        CombinationSettings.before += before;
-        CombinationSettings.after += after;
-        combinationException += exception;
+        CombinationSettings.before ??= [];
+        CombinationSettings.before.Add(before);
+        CombinationSettings.after ??= [];
+        CombinationSettings.after.Add(after);
+        combinationException ??= [];
+        combinationException.Add(exception);
     }
 
     public static void Reset()

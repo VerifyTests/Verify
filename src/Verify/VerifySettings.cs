@@ -63,7 +63,12 @@ public partial class VerifySettings
         inline = settings.inline;
         notInline = settings.notInline;
         throwException = settings.throwException;
+        // Copy on write: the copy shares the source's SerializationSettings until either
+        // of them mutates. Marking the source as no longer the exclusive owner makes it
+        // clone before its next mutation. Without that, a source that had already cloned
+        // keeps mutating in place, and those mutations leak into this copy.
         serialization = settings.serialization;
+        settings.isCloned = false;
         stringComparer = settings.stringComparer;
         streamComparer = settings.streamComparer;
         extensionStringComparers = settings.extensionStringComparers == null ? null : new(settings.extensionStringComparers);

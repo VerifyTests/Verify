@@ -20,9 +20,9 @@ public static partial class VerifierSettings
 
         if (settings.appendedFiles != null)
         {
-            foreach (var target in settings.appendedFiles)
+            foreach (var buildTarget in settings.appendedFiles)
             {
-                yield return target;
+                yield return buildTarget();
             }
         }
     }
@@ -37,18 +37,23 @@ public static partial class VerifierSettings
 
 public partial class VerifySettings
 {
-    internal List<Target>? appendedFiles;
+    /// <summary>
+    /// Built once per verification rather than held as Targets. The engine disposes the
+    /// stream of every target it writes, so a stored stream is dead after the first
+    /// verification, and settings are reused: SettingsTask copies them per Verify call.
+    /// </summary>
+    internal List<Func<Target>>? appendedFiles;
 
     public void AppendContentAsFile(string content, string extension = "txt", string? name = null)
     {
         appendedFiles ??= [];
-        appendedFiles.Add(new(extension, content, name));
+        appendedFiles.Add(() => new(extension, content, name));
     }
 
     public void AppendContentAsFile(StringBuilder content, string extension = "txt", string? name = null)
     {
         appendedFiles ??= [];
-        appendedFiles.Add(new(extension, content, name));
+        appendedFiles.Add(() => new(extension, content, name));
     }
 
     public void AppendContentAsFile(byte[] content, string extension = "txt", string? name = null)
@@ -56,16 +61,26 @@ public partial class VerifySettings
         appendedFiles ??= [];
         if (FileExtensions.IsTextExtension(extension))
         {
-            appendedFiles.Add(new(extension, Encoding.UTF8.GetString(content), name));
+            var text = Encoding.UTF8.GetString(content);
+            appendedFiles.Add(() => new(extension, text, name));
         }
         else
         {
-            appendedFiles.Add(new(extension, new MemoryStream(content), name));
+            // A fresh stream per verification: the bytes stay re-readable, so reusing the
+            // settings for a second Verify works.
+            appendedFiles.Add(() => new(extension, new MemoryStream(content), name));
         }
     }
 
-    public void AppendFile(string file, string? name = null) =>
-        AppendFile(IoHelpers.OpenRead(file), name);
+    public void AppendFile(string file, string? name = null)
+    {
+        // Opened per verification rather than held open from here, for the same reason,
+        // and so the handle is not held for the lifetime of the settings.
+        Guards.FileExists(file);
+        var extension = Path.GetExtension(file);
+        extension = extension.Length == 0 ? "noextension" : extension[1..];
+        AppendFile(() => IoHelpers.OpenRead(file), extension, name ?? Path.GetFileNameWithoutExtension(file));
+    }
 
     public void AppendFile(FileInfo file, string? name = null) =>
         AppendFile(file.FullName, name);
@@ -73,6 +88,12 @@ public partial class VerifySettings
     public void AppendFile(FileStream stream, string? name = null) =>
         AppendFile(stream, stream.Extension(), name ?? Path.GetFileNameWithoutExtension(stream.Name));
 
+    /// <remarks>
+    /// The stream is owned by the caller and can only be read once, so unlike the other
+    /// overloads this one cannot be replayed for a second verification with the same
+    /// settings. Use <see cref="AppendFile(string,string?)" /> or
+    /// <see cref="AppendContentAsFile(byte[],string,string?)" /> where that matters.
+    /// </remarks>
     public void AppendFile(Stream stream, string extension = "txt", string? name = null)
     {
         stream.MoveToStart();
@@ -80,11 +101,28 @@ public partial class VerifySettings
         if (FileExtensions.IsTextExtension(extension))
         {
             using var reader = new StreamReader(stream, Encoding.UTF8);
-            appendedFiles.Add(new(extension, reader.ReadToEnd(), name));
+            var text = reader.ReadToEnd();
+            appendedFiles.Add(() => new(extension, text, name));
         }
         else
         {
-            appendedFiles.Add(new(extension, stream, name));
+            appendedFiles.Add(() => new(extension, stream, name));
+        }
+    }
+
+    void AppendFile(Func<Stream> openStream, string extension, string? name)
+    {
+        appendedFiles ??= [];
+        if (FileExtensions.IsTextExtension(extension))
+        {
+            using var stream = openStream();
+            using var reader = new StreamReader(stream, Encoding.UTF8);
+            var text = reader.ReadToEnd();
+            appendedFiles.Add(() => new(extension, text, name));
+        }
+        else
+        {
+            appendedFiles.Add(() => new(extension, openStream(), name));
         }
     }
 }

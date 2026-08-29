@@ -112,11 +112,23 @@ static class RestartManager
                 return processes;
             }
 
+            using var currentProcess = Process.GetCurrentProcess();
+            var currentProcessId = currentProcess.Id;
             for (var i = 0; i < pnProcInfo; i++)
             {
+                var processId = processInfo[i].Process.dwProcessId;
+
+                // RmGetList reports the caller too when the lock is held in process, for
+                // example by test code holding the file open. Killing that is killing the
+                // test run, and the write being retried could not have succeeded anyway.
+                if (processId == currentProcessId)
+                {
+                    continue;
+                }
+
                 try
                 {
-                    var process = Process.GetProcessById(processInfo[i].Process.dwProcessId);
+                    var process = Process.GetProcessById(processId);
                     processes.Add(process);
                 }
                 catch (ArgumentException)

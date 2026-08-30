@@ -294,12 +294,74 @@ public class SolutionDiscoveryTests
         Assert.Equal(explicitSolutionName, solutionName);
     }
 
-    static string CreateMinimalCsprojContent()
+    [Fact]
+    public async Task RebuildFromAnotherSolution_UpdatesMetadata()
+    {
+        using var directory = new TempDirectory();
+        var tempDir = directory.Path;
+
+        // Create directory structure
+        var projectDir = Path.Combine(tempDir, "TestProject");
+        Directory.CreateDirectory(projectDir);
+
+        // Two solution directories the same project can be built from
+        var firstSolutionDir = Path.Combine(tempDir, "First") + Path.DirectorySeparatorChar;
+        var secondSolutionDir = Path.Combine(tempDir, "Second") + Path.DirectorySeparatorChar;
+        Directory.CreateDirectory(firstSolutionDir);
+        Directory.CreateDirectory(secondSolutionDir);
+
+        // Create .csproj file. It does not reference Verify.csproj: SolutionDir is a global
+        // property, so it would flow into that build too, and this repo derives its strong name
+        // key path from SolutionDir. Only the imported props are needed here anyway.
+        var csprojPath = Path.Combine(projectDir, "TestProject.csproj");
+        await File.WriteAllTextAsync(csprojPath, CreateMinimalCsprojContent(referenceVerify: false));
+
+        // Build against the first solution
+        var (success, output) = await BuildProject(csprojPath, firstSolutionDir, "FirstSolution");
+        Assert.True(success, $"Build failed: {output}");
+
+        var assemblyPath = GetAssemblyPath(projectDir);
+        var (solutionDir, solutionName) = LoadAssemblyAndGetMetadata(assemblyPath);
+
+        Assert.Equal(firstSolutionDir, solutionDir);
+        Assert.Equal("FirstSolution", solutionName);
+
+        // Rebuild the same intermediate directory against the second solution. No file the
+        // up-to-date check can see has changed, so only the attributes cache can stop
+        // WriteVerifyAttributes being skipped and the baked in metadata going stale.
+        (success, output) = await BuildProject(csprojPath, secondSolutionDir, "SecondSolution");
+        Assert.True(success, $"Build failed: {output}");
+
+        (solutionDir, solutionName) = LoadAssemblyAndGetMetadata(assemblyPath);
+
+        Assert.Equal(secondSolutionDir, solutionDir);
+        Assert.Equal("SecondSolution", solutionName);
+        Assert.DoesNotContain(skipMessage, output);
+
+        // Build against the second solution again. The values are unchanged, so the target has
+        // to go back to being skipped rather than regenerating on every build.
+        (success, output) = await BuildProject(csprojPath, secondSolutionDir, "SecondSolution");
+        Assert.True(success, $"Build failed: {output}");
+        Assert.Contains(skipMessage, output);
+    }
+
+    // MSBuild message, in the language BuildProject pins the build to
+    const string skipMessage = "Skipping target \"WriteVerifyAttributes\" because all output files are up-to-date";
+
+    static string CreateMinimalCsprojContent(bool referenceVerify = true)
     {
         // Get the path to Verify.csproj and Verify.props relative to test project
         var verifyProjectPath = Path.Combine(ProjectFiles.SolutionDirectory, "Verify", "Verify.csproj");
 
         var verifyPropsPath = Path.Combine(ProjectFiles.SolutionDirectory, "Verify", "buildTransitive", "Verify.props");
+
+        var reference = referenceVerify
+            ? $"""
+                 <ItemGroup>
+                   <ProjectReference Include="{verifyProjectPath}" />
+                 </ItemGroup>
+               """
+            : "";
 
         return $"""
                 <Project Sdk="Microsoft.NET.Sdk">
@@ -308,9 +370,7 @@ public class SolutionDiscoveryTests
                     <OutputType>Library</OutputType>
                     <AssemblyName>TestProject</AssemblyName>
                   </PropertyGroup>
-                  <ItemGroup>
-                    <ProjectReference Include="{verifyProjectPath}" />
-                  </ItemGroup>
+                {reference}
                   <Import Project="{verifyPropsPath}" />
                 </Project>
                 """;
@@ -341,27 +401,37 @@ public class SolutionDiscoveryTests
 
     static async Task<(bool success, string output)> BuildProject(string csprojPath, string? solutionDir = null, string? solutionName = null)
     {
-        var args = $"build \"{csprojPath}\" --configuration Release --verbosity normal";
-
-        if (solutionDir != null)
-        {
-            args += $" \"/p:SolutionDir={solutionDir}\"";
-        }
-
-        if (solutionName != null)
-        {
-            args += $" \"/p:SolutionName={solutionName}\"";
-        }
-
         var startInfo = new ProcessStartInfo
         {
             FileName = "dotnet",
-            Arguments = args,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,
             CreateNoWindow = true
         };
+
+        // MSBuild localizes its messages, and the assertions above match the English text
+        startInfo.Environment["DOTNET_CLI_UI_LANGUAGE"] = "en";
+
+        // ArgumentList quotes each value, so a SolutionDir ending in a separator is not
+        // mangled by that separator escaping the closing quote
+        var arguments = startInfo.ArgumentList;
+        arguments.Add("build");
+        arguments.Add(csprojPath);
+        arguments.Add("--configuration");
+        arguments.Add("Release");
+        arguments.Add("--verbosity");
+        arguments.Add("normal");
+
+        if (solutionDir != null)
+        {
+            arguments.Add($"/p:SolutionDir={solutionDir}");
+        }
+
+        if (solutionName != null)
+        {
+            arguments.Add($"/p:SolutionName={solutionName}");
+        }
 
         using var process = Process.Start(startInfo)!;
 

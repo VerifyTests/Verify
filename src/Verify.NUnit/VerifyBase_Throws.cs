@@ -24,7 +24,7 @@ public partial class VerifyBase
         Verifier.ThrowsTask(target, settings ?? this.settings, sourceFile, lineNumber);
 
     [Pure]
-    public SettingsTask ThrowsValueTask<T>(
+    public SettingsTask ThrowsTask<T>(
         Func<Task<T>> target,
         VerifySettings? settings = null,
         [CallerLineNumber] int lineNumber = 0) =>

@@ -98,44 +98,71 @@ static class ReflectionHelpers
             return false;
         }
 
-        var type = target.GetType();
+        switch (enumerableKinds.GetOrAdd(target.GetType(), GetEnumerableKind))
+        {
+            case EnumerableKind.AlwaysEmpty:
+                enumerable = enumerableTarget;
+                isEmpty = true;
+                return true;
+            case EnumerableKind.Enumerate:
+                enumerable = enumerableTarget;
+                isEmpty = IsEmpty(enumerableTarget);
+                return true;
+            default:
+                enumerable = null;
+                isEmpty = null;
+                return false;
+        }
+    }
+
+    enum EnumerableKind
+    {
+        NotACollection,
+        AlwaysEmpty,
+        Enumerate
+    }
+
+    /// <summary>
+    /// Whether a value is a collection depends only on its type, but the answer used to be
+    /// recomputed for every value. With the default ignoreEmptyCollections this runs for
+    /// every non null member value, array item and dictionary value, and for anything that
+    /// is not a non generic ICollection (every HashSet, dictionary key and value view,
+    /// iterator, LINQ result and immutable collection) it allocated a fresh Type[] from
+    /// GetInterfaces plus several LINQ passes over it. Only the per value IsEmpty
+    /// enumeration is left.
+    /// </summary>
+    static ConcurrentDictionary<Type, EnumerableKind> enumerableKinds = new();
+
+    static EnumerableKind GetEnumerableKind(Type type)
+    {
         if (type.IsEnumerableEmpty())
         {
-            enumerable = enumerableTarget;
-            isEmpty = true;
-            return true;
+            return EnumerableKind.AlwaysEmpty;
         }
 
-        if (type.FullName != null &&
-            type.FullName.StartsWith("System.Linq.ILookup", StringComparison.Ordinal))
+        if (IsLookup(type))
         {
-            enumerable = enumerableTarget;
-            isEmpty = IsEmpty(enumerable);
-            return true;
+            return EnumerableKind.Enumerate;
         }
 
         var interfaces = type.GetInterfaces();
 
-        if (interfaces.Any(_ => _.FullName != null &&
-                                _.FullName.StartsWith("System.Linq.ILookup", StringComparison.Ordinal)))
+        if (interfaces.Any(IsLookup))
         {
-            enumerable = enumerableTarget;
-            isEmpty = IsEmpty(enumerable);
-            return true;
+            return EnumerableKind.Enumerate;
         }
 
         if (type.ImplementsGenericCollection() ||
             interfaces.Any(ImplementsGenericCollection))
         {
-            enumerable = enumerableTarget;
-            isEmpty = IsEmpty(enumerable);
-            return true;
+            return EnumerableKind.Enumerate;
         }
 
-        enumerable = null;
-        isEmpty = null;
-        return false;
+        return EnumerableKind.NotACollection;
     }
+
+    static bool IsLookup(Type type) =>
+        type.FullName?.StartsWith("System.Linq.ILookup", StringComparison.Ordinal) == true;
 
     static bool IsEmpty(IEnumerable enumerable)
     {

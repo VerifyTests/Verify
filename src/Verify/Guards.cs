@@ -16,6 +16,31 @@
         }
     }
 
+    public static void BadParametersText(string value, [CallerArgumentExpression(nameof(value))] string argumentName = "")
+    {
+        BadFileName(value, argumentName);
+
+        // `#` starts the indexed-target namespace, so a value containing one would make
+        // this case's files look like the targets of another case.
+        if (value.Contains('#'))
+        {
+            throw new ArgumentException($"Invalid character for file name. Value: {value}. Char:#", argumentName);
+        }
+    }
+
+    /// <summary>
+    /// Kept as a fail fast for APIs that record a path and read it later, so a missing
+    /// file is reported where the caller passed it rather than at verification time.
+    /// </summary>
+    public static void FileExists(string path, [CallerArgumentExpression(nameof(path))] string argumentName = "")
+    {
+        Ensure.NotNullOrEmpty(path, argumentName);
+        if (!File.Exists(path))
+        {
+            throw new FileNotFoundException($"File not found. Path: {path}", path);
+        }
+    }
+
     static char[] invalidPathChars = Path
         .GetInvalidPathChars()
         .Concat(invalidFileChars.Except(['/', '\\', ':']))

@@ -63,7 +63,12 @@ public partial class VerifySettings
         inline = settings.inline;
         notInline = settings.notInline;
         throwException = settings.throwException;
+        // Copy on write: the copy shares the source's SerializationSettings until either
+        // of them mutates. Marking the source as no longer the exclusive owner makes it
+        // clone before its next mutation. Without that, a source that had already cloned
+        // keeps mutating in place, and those mutations leak into this copy.
         serialization = settings.serialization;
+        settings.isCloned = false;
         stringComparer = settings.stringComparer;
         streamComparer = settings.streamComparer;
         extensionStringComparers = settings.extensionStringComparers == null ? null : new(settings.extensionStringComparers);
@@ -156,7 +161,12 @@ public partial class VerifySettings
     /// </summary>
     public void UseTextForParameters(string parametersText)
     {
-        Guards.AgainstBadExtension(parametersText);
+        // The text goes into the file name verbatim, so it is validated as a file name,
+        // the same as UseFileName, UseTypeName and UseMethodName. The extension guard
+        // used to be applied here, which let `:`, `*`, `?`, `"`, `<`, `>` and `|` through
+        // to fail at write time, or on Windows silently divert the received file into an
+        // NTFS alternate data stream.
+        Guards.BadParametersText(parametersText);
 
         if (parameters is not null)
         {

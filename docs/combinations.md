@@ -175,7 +175,7 @@ public Task BuildAddressExceptionsDisabledTest()
             city);
 }
 ```
-<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L214-L230' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptionsFalse' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L251-L267' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CaptureExceptionsFalse' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -401,7 +401,7 @@ class CustomCombinationConverter :
         string.Join(", ", keys.Select(_ => _.Value));
 }
 ```
-<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L260-L269' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationConverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L297-L306' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationConverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Full control of serialization can be achieved by inheriting from `WriteOnlyJsonConverter<CombinationResults>`.
@@ -420,7 +420,7 @@ static CustomCombinationConverter customConverter = new();
 public static void Init() =>
     VerifierSettings.AddExtraSettings(_ => _.Converters.Insert(0, customConverter));
 ```
-<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L232-L240' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationModuleInitializer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L269-L277' title='Snippet source file'>snippet source</a> | <a href='#snippet-CombinationSample_CustomSerializationModuleInitializer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -551,5 +551,5 @@ Headers can be enabled globally:
 public static void EnableIncludeHeaders() =>
     CombinationSettings.IncludeHeaders();
 ```
-<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L272-L278' title='Snippet source file'>snippet source</a> | <a href='#snippet-GlobalCombinationHeader' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/CombinationTests.cs#L309-L315' title='Snippet source file'>snippet source</a> | <a href='#snippet-GlobalCombinationHeader' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

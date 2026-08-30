@@ -79,6 +79,43 @@
             .UseMethodName("CallbackResults");
     }
 
+    // Two registrations, for example an extension package plus user code. A multicast
+    // delegate would return only the last target's Task, leaving the first to run
+    // unawaited: its exceptions unobserved and its work racing the combination method.
+    [Fact]
+    public async Task EveryRegisteredCallbackIsAwaited()
+    {
+        var exceptionMessages = new List<string>();
+
+        // Fails only after an await, so the failure is carried by the returned Task rather
+        // than thrown synchronously. Registered first, so a multicast delegate would return
+        // the second registration's Task instead and this one would never be observed.
+        CombinationSettings.UseCallbacks(
+            async _ =>
+            {
+                await Task.Yield();
+                throw new("from the first before callback");
+            },
+            (_, _) => Task.CompletedTask,
+            (_, exception) =>
+            {
+                exceptionMessages.Add(exception.Message);
+                return Task.CompletedTask;
+            });
+
+        CombinationSettings.UseCallbacks(
+            _ => Task.CompletedTask,
+            (_, _) => Task.CompletedTask,
+            (_, _) => Task.CompletedTask);
+
+        int[] list = [1];
+        await Combination()
+            .Verify((int param1) => param1, list)
+            .UseMethodName("EveryRegisteredCallbackIsAwaited_run");
+
+        Assert.Equal(["from the first before callback"], exceptionMessages);
+    }
+
     [Fact]
     public async Task AfterCallbackRawValueWhenRecording()
     {

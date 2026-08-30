@@ -23,6 +23,20 @@
         items.Enqueue(append);
     }
 
+    /// <summary>
+    /// Set once the recording has been consumed. Nulling the AsyncLocal does not flow back
+    /// to the caller when the engine stops a recording from inside the verification, so the
+    /// stop has to be observable through the caller's own reference to this state.
+    /// </summary>
+    public bool Stopped { get; private set; }
+
+    public void Stop()
+    {
+        Clear();
+        Pause();
+        Stopped = true;
+    }
+
     public void Pause() =>
         Paused = true;
 

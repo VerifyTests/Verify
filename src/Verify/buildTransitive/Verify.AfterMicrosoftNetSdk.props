@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+  Probing for a Blazor parent costs a file system hit per snapshot file, so it is only done in
+  projects that contain razor files. A code behind is included in that, since a test class can sit
+  in one without the project holding the matching .razor.
+  -->
+  <ItemGroup Condition="('$(DisableVerifyFileNesting)' != 'true') And $(Language) == 'C#'">
+    <VerifyRazorFile Include="**\*.razor;**\*.razor.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+  </ItemGroup>
+  <PropertyGroup Condition="('$(DisableVerifyFileNesting)' != 'true')">
+    <VerifyRazorFileCount>@(VerifyRazorFile->Count())</VerifyRazorFileCount>
+  </PropertyGroup>
   <ItemGroup Condition="('$(DisableVerifyFileNesting)' != 'true')">
-    <None Include="**\*.received.*;**\*.verified.*" Condition="$(Language) == 'C#'">
+    <None Include="**\*.received.*;**\*.verified.*" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" Condition="$(Language) == 'C#'">
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0].Split('(')[0])</ParentFile>
-      <DependentUpon>%(ParentFile).cs</DependentUpon>
+      <ParentExtension>.cs</ParentExtension>
+      <!-- A Blazor component keeps its code in a .razor.cs code-behind, or in the .razor file itself -->
+      <ParentExtension Condition="'$(VerifyRazorFileCount)' != '0' And Exists('$(MSBuildProjectDirectory)\%(RelativeDir)%(ParentFile).razor.cs')">.razor.cs</ParentExtension>
+      <ParentExtension Condition="'$(VerifyRazorFileCount)' != '0' And '%(ParentExtension)' == '.cs' And !Exists('$(MSBuildProjectDirectory)\%(RelativeDir)%(ParentFile).cs') And Exists('$(MSBuildProjectDirectory)\%(RelativeDir)%(ParentFile).razor')">.razor</ParentExtension>
+      <DependentUpon>%(ParentFile)%(ParentExtension)</DependentUpon>
     </None>
-    <None Include="**\*.received.*;**\*.verified.*" Condition="$(Language) == 'VB'">
+    <None Include="**\*.received.*;**\*.verified.*" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" Condition="$(Language) == 'VB'">
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0].Split('(')[0])</ParentFile>
       <DependentUpon>%(ParentFile).vb</DependentUpon>
     </None>

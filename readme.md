@@ -934,26 +934,41 @@ This readme will not discuss definitive list of details for proper setup of the 
 
 ## Project inclusion for `*.received.*` and `*.verified.*` files
 
-Verify comes with default MSBuild includes for snapshot files (`*.received.*` and `*.verified.*`) that nests those files under the test that produced them. C#, VB and F# projects are supported.
+Verify comes with default MSBuild includes for snapshot files (`*.received.*` and `*.verified.*`) that nests those files under the test that produced them. C#, VB and F# projects are supported. In Blazor projects, snapshots nest under the `.razor.cs` code-behind of the component under test, or under the `.razor` file when that component has no code-behind.
 
 <!-- snippet: Verify.AfterMicrosoftNetSdk.props -->
 <a id='snippet-Verify.AfterMicrosoftNetSdk.props'></a>
 ```props
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+  Probing for a Blazor parent costs a file system hit per snapshot file, so it is only done in
+  projects that contain razor files. A code behind is included in that, since a test class can sit
+  in one without the project holding the matching .razor.
+  -->
+  <ItemGroup Condition="('$(DisableVerifyFileNesting)' != 'true') And $(Language) == 'C#'">
+    <VerifyRazorFile Include="**\*.razor;**\*.razor.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+  </ItemGroup>
+  <PropertyGroup Condition="('$(DisableVerifyFileNesting)' != 'true')">
+    <VerifyRazorFileCount>@(VerifyRazorFile->Count())</VerifyRazorFileCount>
+  </PropertyGroup>
   <ItemGroup Condition="('$(DisableVerifyFileNesting)' != 'true')">
-    <None Include="**\*.received.*;**\*.verified.*" Condition="$(Language) == 'C#'">
+    <None Include="**\*.received.*;**\*.verified.*" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" Condition="$(Language) == 'C#'">
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0].Split('(')[0])</ParentFile>
-      <DependentUpon>%(ParentFile).cs</DependentUpon>
+      <ParentExtension>.cs</ParentExtension>
+      <!-- A Blazor component keeps its code in a .razor.cs code-behind, or in the .razor file itself -->
+      <ParentExtension Condition="'$(VerifyRazorFileCount)' != '0' And Exists('$(MSBuildProjectDirectory)\%(RelativeDir)%(ParentFile).razor.cs')">.razor.cs</ParentExtension>
+      <ParentExtension Condition="'$(VerifyRazorFileCount)' != '0' And '%(ParentExtension)' == '.cs' And !Exists('$(MSBuildProjectDirectory)\%(RelativeDir)%(ParentFile).cs') And Exists('$(MSBuildProjectDirectory)\%(RelativeDir)%(ParentFile).razor')">.razor</ParentExtension>
+      <DependentUpon>%(ParentFile)%(ParentExtension)</DependentUpon>
     </None>
-    <None Include="**\*.received.*;**\*.verified.*" Condition="$(Language) == 'VB'">
+    <None Include="**\*.received.*;**\*.verified.*" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" Condition="$(Language) == 'VB'">
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0].Split('(')[0])</ParentFile>
       <DependentUpon>%(ParentFile).vb</DependentUpon>
     </None>
   </ItemGroup>
 </Project>
 ```
-<sup><a href='/src/Verify/buildTransitive/Verify.AfterMicrosoftNetSdk.props#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.AfterMicrosoftNetSdk.props' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/buildTransitive/Verify.AfterMicrosoftNetSdk.props#L1-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.AfterMicrosoftNetSdk.props' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 To opt out of this feature, include the following in the project file:

@@ -1,0 +1,6 @@
+﻿None
+  Tests.Simple.verified.txt: Tests.cs
+Content
+  Tests.Explicit.verified.json: Other.cs
+  Tests.Simple.verified.config: Tests.cs
+  Tests.Simple.verified.json: Tests.cs

@@ -1,0 +1,6 @@
+﻿None
+  Tests.Simple.received.txt: Tests.cs
+  Tests.Simple.verified.json: Tests.cs
+  Tests.Simple.verified.txt: Tests.cs
+Content
+  none

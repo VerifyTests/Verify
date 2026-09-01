@@ -1,0 +1,4 @@
+﻿None
+  ComponentTests.Simple.verified.html: not nested
+Content
+  ComponentTests.Simple.verified.json: not nested

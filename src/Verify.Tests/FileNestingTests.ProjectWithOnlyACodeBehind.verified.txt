@@ -1,0 +1,5 @@
+﻿None
+  CodeBehindTests.Component.verified.html: CodeBehindTests.razor.cs
+  CodeBehindTests.Component.verified.txt: CodeBehindTests.razor.cs
+Content
+  none

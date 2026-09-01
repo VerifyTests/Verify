@@ -10,4 +10,26 @@
       <DependentUpon>%(ParentFile).fs</DependentUpon>
     </None>
   </ItemGroup>
+  <!--
+  Snapshot files with an extension that the Razor and Web SDKs claim (eg .json and .config) are
+  Content instead of None. Those Content items only exist once the SDK props have been evaluated,
+  so, unlike the None nesting, they cannot be handled in Verify.AfterMicrosoftNetSdk.props.
+  -->
+  <ItemGroup Condition="('$(DisableVerifyFileNesting)' != 'true')">
+    <Content Update="**\*.received.*;**\*.verified.*" Condition="$(Language) == 'C#'">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0].Split('(')[0])</ParentFile>
+      <ParentExtension>.cs</ParentExtension>
+      <ParentExtension Condition="'$(VerifyRazorFileCount)' != '0' And Exists('$(MSBuildProjectDirectory)\%(RelativeDir)%(ParentFile).razor.cs')">.razor.cs</ParentExtension>
+      <ParentExtension Condition="'$(VerifyRazorFileCount)' != '0' And '%(ParentExtension)' == '.cs' And !Exists('$(MSBuildProjectDirectory)\%(RelativeDir)%(ParentFile).cs') And Exists('$(MSBuildProjectDirectory)\%(RelativeDir)%(ParentFile).razor')">.razor</ParentExtension>
+      <DependentUpon Condition="'%(DependentUpon)' == ''">%(ParentFile)%(ParentExtension)</DependentUpon>
+    </Content>
+    <Content Update="**\*.received.*;**\*.verified.*" Condition="$(Language) == 'VB'">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0].Split('(')[0])</ParentFile>
+      <DependentUpon Condition="'%(DependentUpon)' == ''">%(ParentFile).vb</DependentUpon>
+    </Content>
+    <Content Update="**\*.received.*;**\*.verified.*" Condition="$(Language) == 'F#'">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <DependentUpon Condition="'%(DependentUpon)' == ''">%(ParentFile).fs</DependentUpon>
+    </Content>
+  </ItemGroup>
 </Project>

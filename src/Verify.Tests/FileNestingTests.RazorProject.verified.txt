@@ -1,0 +1,7 @@
+﻿None
+  ComponentTests.Simple.verified.html: ComponentTests.razor.cs
+  NoCodeBehindTests.Simple.verified.html: NoCodeBehindTests.razor
+  PlainTests.Simple.verified.txt: PlainTests.cs
+  Sub/SubComponentTests.Simple.verified.html: SubComponentTests.razor.cs
+Content
+  ComponentTests.Simple.verified.json: ComponentTests.razor.cs

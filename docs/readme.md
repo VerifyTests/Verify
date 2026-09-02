@@ -59,4 +59,5 @@ To change this file edit the source file and then run MarkdownSnippets.
   * [FSharp Usage](/docs/fsharp.md)
   * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)
   * [AI Usage](/docs/ai-usage.md)
-  * [Plugins](/docs/plugins.md)<!-- endInclude -->
+  * [Plugins](/docs/plugins.md)
+  * [Open Source Maintenance Fee](/docs/maintenance-fee.md)<!-- endInclude -->

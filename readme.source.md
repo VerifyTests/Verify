@@ -20,11 +20,9 @@ include: intro
 
 ## Open Source Maintenance Fee
 
-This project participates in the [Open Source Maintenance Fee](https://opensourcemaintenancefee.org). The source code stays freely available under the terms of the [license](license.txt). The fee covers the use official binary releases, the packages published to NuGet, by organizations that generate revenue from them.
+This project participates in the [Open Source Maintenance Fee](https://opensourcemaintenancefee.org). The source code stays freely available under the terms of the [license](license.txt). The fee covers the use of the official binary releases, the packages published to NuGet, by organizations that generate revenue from them. Every version released after 1 September 2026 is covered; versions released on or before that date are not.
 
-Every version released after 1 September 2026 is covered. Versions released on or before that date are not.
-
-The fee is paid by [sponsoring VerifyTests](https://github.com/sponsors/VerifyTests), and [available by invoice](https://docs.github.com/en/sponsors/sponsoring-open-source-contributors/paying-for-github-sponsors-by-invoice):
+The fee is paid by [sponsoring VerifyTests](https://github.com/sponsors/VerifyTests) at the monthly tier matching the size of the organization:
 
 | Organization size | Fee (USD) |
 |---|---|
@@ -33,24 +31,7 @@ The fee is paid by [sponsoring VerifyTests](https://github.com/sponsors/VerifyTe
 | 200 to 1000 employees | [$30/month](https://github.com/sponsors/VerifyTests/sponsorships?tier_id=645065) |
 | More than 1000 employees | [$100/month](https://github.com/sponsors/VerifyTests/sponsorships?tier_id=651172) |
 
-The fee applies to:
-
- * Organizations using the official binary releases in revenue-generating activities, with an annual gross revenue of at least US$10,000.
- * Government agencies.
-
-Exempt from the fee:
-
- * Individuals.
- * Organizations that do not generate revenue, other than government agencies.
- * Organizations that engage the core maintainers for consulting work, for six months from the final date of that engagement.
-
-### Declaring fee status in the build (v33 and later)
-
-From v33 (currently available as a beta on nuget), sponsorship is validated at build time by [SponsorCheck](https://github.com/SimonCropp/SponsorCheck). Each package bundles a hashed list of sponsors and a build-time verifier. **Nothing phones home: the check runs inside the build, adds no runtime dependency to the packages, and issues no license keys.** A build that references a Verify package needs exactly one of the declarations below; without one it fails with [SC021](https://github.com/SimonCropp/SponsorCheck/blob/main/docs/VerifierDiagnosticCodes.md#sc021), whose message contains a copy-pasteable fix.
-
-The Verify packages use SponsorCheck's [owner mode](https://github.com/SimonCropp/SponsorCheck/blob/main/docs/ConsumerUsage.md#owner-mode) with the owner id `Verify`, so the declaration is a single MSBuild property rather than metadata on each `PackageReference`. Set it once in a `Directory.Build.props` at the root of the repository and it covers every project and every Verify package (Verify.Xunit, Verify.NUnit, and so on), including projects that only reference Verify transitively. Prefer answering a few questions? The [SponsorCheck setup wizard for Verify](https://simoncropp.github.io/SponsorCheck/package/Verify) reads the published package and generates the exact snippet.
-
-**Sponsoring** - declare the GitHub account the sponsorship is made from, i.e. the organization or user that sponsors VerifyTests:
+From v33 (currently available as a beta on nuget), sponsorship is verified at build time by [SponsorCheck](https://github.com/SimonCropp/SponsorCheck). **Nothing phones home: the check runs inside the build, adds no runtime dependency to the packages, and issues no license keys.** A sponsoring organization declares its account once, in a `Directory.Build.props` at the root of the repository, and that covers every project and every Verify package:
 
 ```xml
 <PropertyGroup>
@@ -58,36 +39,7 @@ The Verify packages use SponsorCheck's [owner mode](https://github.com/SimonCrop
 </PropertyGroup>
 ```
 
-The bundled sponsor list is frozen when a version is packed, so a sponsorship that began after that date cannot be in it yet; add `<Verify_SponsorshipStart>yyyy-MM-dd</Verify_SponsorshipStart>` alongside the account until the next upgrade. A sponsorship that is private on GitHub is never bundled at all; declare `<Verify_SponsorshipPrivateUntil>yyyy-MM</Verify_SponsorshipPrivateUntil>` instead, at most 12 months out, and renew it when it lapses.
-
-**Exempt** - individuals and organizations under the revenue threshold claim `SmallRevenue`; organizations that engaged the core maintainers for consulting work claim `MaintainerConsulting`. Both exemptions are time-bounded, so an end month is required: at most 12 months ahead of the build date for `SmallRevenue`, and at most 6 months for `MaintainerConsulting`. The build passes with a warning that quotes the exemption's criteria, and fails once the month has passed until the claim is renewed.
-
-```xml
-<PropertyGroup>
-  <Verify_SponsorshipExemption>SmallRevenue</Verify_SponsorshipExemption>
-  <Verify_SponsorshipExemptionUntil>yyyy-MM</Verify_SponsorshipExemptionUntil>
-</PropertyGroup>
-```
-
-**Private arrangement** - an organization with its own licensing arrangement declares the last covered month, at most a year out, and renews it with a one-line edit:
-
-```xml
-<PropertyGroup>
-  <Verify_SponsorshipLicensedUntil>yyyy-MM</Verify_SponsorshipLicensedUntil>
-</PropertyGroup>
-```
-
-**Opting out** - the build passes but logs a breach-of-license warning on every build:
-
-```xml
-<PropertyGroup>
-  <Verify_SponsorshipLicenseIgnored>true</Verify_SponsorshipLicenseIgnored>
-</PropertyGroup>
-```
-
-See the [consumer guide](https://github.com/SimonCropp/SponsorCheck/blob/main/docs/ConsumerUsage.md) for the full reference and the [diagnostic codes](https://github.com/SimonCropp/SponsorCheck/blob/main/docs/VerifierDiagnosticCodes.md) for every message the verifier can emit.
-
-For the reasoning behind the model, and the discussion the terms came out of, see [Open Source Maintenance Fee for Verify](https://github.com/orgs/VerifyTests/discussions/1731). For the model itself, see the [OSMF FAQ for consumers](https://opensourcemaintenancefee.org/consumers/faq/).
+Who the fee applies to, the exemptions, paying by invoice, and the other declarations (exemptions, private arrangements, opting out) are covered in [Open Source Maintenance Fee](/docs/maintenance-fee.md). The [SponsorCheck setup wizard for Verify](https://simoncropp.github.io/SponsorCheck/package/Verify) generates the exact snippet for any of them.
 
 
 ## Supporters

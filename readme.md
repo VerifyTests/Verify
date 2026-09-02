@@ -56,7 +56,48 @@ Exempt from the fee:
  * Organizations that do not generate revenue, other than government agencies.
  * Organizations that engage the core maintainers for consulting work, for six months from the final date of that engagement.
 
-From v33 (currently available as a beta on nuget), sponsorship is validated at build time by [SponsorCheck](https://github.com/SimonCropp/SponsorCheck). Each package bundles a hashed list of sponsors and a build-time verifier, and a consuming project declares how it is licensed as metadata on the `PackageReference`: a sponsor account, a private arrangement, an exemption, or `SponsorshipLicenseIgnored="true"`, which builds with a warning rather than an error. Nothing phones home: the check runs inside the build, adds no runtime dependency to the packages, and issues no license keys. See the [consumer guide](https://github.com/SimonCropp/SponsorCheck/blob/main/docs/ConsumerUsage.md) for the metadata and the diagnostic codes.
+### Declaring fee status in the build (v33 and later)
+
+From v33 (currently available as a beta on nuget), sponsorship is validated at build time by [SponsorCheck](https://github.com/SimonCropp/SponsorCheck). Each package bundles a hashed list of sponsors and a build-time verifier. Nothing phones home: the check runs inside the build, adds no runtime dependency to the packages, and issues no license keys. A build that references a Verify package needs exactly one of the declarations below; without one it fails with [SC021](https://github.com/SimonCropp/SponsorCheck/blob/main/docs/VerifierDiagnosticCodes.md#sc021), whose message contains a copy-pasteable fix.
+
+The Verify packages use SponsorCheck's [owner mode](https://github.com/SimonCropp/SponsorCheck/blob/main/docs/ConsumerUsage.md#owner-mode) with the owner id `Verify`, so the declaration is a single MSBuild property rather than metadata on each `PackageReference`. Set it once in a `Directory.Build.props` at the root of the repository and it covers every project and every Verify package (Verify.Xunit, Verify.NUnit, and so on), including projects that only reference Verify transitively. Prefer answering a few questions? The [SponsorCheck setup wizard for Verify](https://simoncropp.github.io/SponsorCheck/package/Verify) reads the published package and generates the exact snippet.
+
+**Sponsoring** - declare the GitHub account the sponsorship is made from, i.e. the organization or user that sponsors VerifyTests:
+
+```xml
+<PropertyGroup>
+  <Verify_GitHubSponsorAccount>your-github-account</Verify_GitHubSponsorAccount>
+</PropertyGroup>
+```
+
+The bundled sponsor list is frozen when a version is packed, so a sponsorship that began after that date cannot be in it yet; add `<Verify_SponsorshipStart>yyyy-MM-dd</Verify_SponsorshipStart>` alongside the account until the next upgrade. A sponsorship that is private on GitHub is never bundled at all; declare `<Verify_SponsorshipPrivateUntil>yyyy-MM</Verify_SponsorshipPrivateUntil>` instead, at most 12 months out, and renew it when it lapses.
+
+**Exempt** - individuals and organizations under the revenue threshold claim `SmallRevenue`; organizations that engaged the core maintainers for consulting work claim `MaintainerConsulting`. Both exemptions are time-bounded, so an end month is required: at most 12 months ahead of the build date for `SmallRevenue`, and at most 6 months for `MaintainerConsulting`. The build passes with a warning that quotes the exemption's criteria, and fails once the month has passed until the claim is renewed.
+
+```xml
+<PropertyGroup>
+  <Verify_SponsorshipExemption>SmallRevenue</Verify_SponsorshipExemption>
+  <Verify_SponsorshipExemptionUntil>yyyy-MM</Verify_SponsorshipExemptionUntil>
+</PropertyGroup>
+```
+
+**Private arrangement** - an organization with its own licensing arrangement declares the last covered month, at most a year out, and renews it with a one-line edit:
+
+```xml
+<PropertyGroup>
+  <Verify_SponsorshipLicensedUntil>yyyy-MM</Verify_SponsorshipLicensedUntil>
+</PropertyGroup>
+```
+
+**Opting out** - the build passes but logs a breach-of-license warning on every build:
+
+```xml
+<PropertyGroup>
+  <Verify_SponsorshipLicenseIgnored>true</Verify_SponsorshipLicenseIgnored>
+</PropertyGroup>
+```
+
+See the [consumer guide](https://github.com/SimonCropp/SponsorCheck/blob/main/docs/ConsumerUsage.md) for the full reference and the [diagnostic codes](https://github.com/SimonCropp/SponsorCheck/blob/main/docs/VerifierDiagnosticCodes.md) for every message the verifier can emit.
 
 For the reasoning behind the model, and the discussion the terms came out of, see [Open Source Maintenance Fee for Verify](https://github.com/orgs/VerifyTests/discussions/1731). For the model itself, see the [OSMF FAQ for consumers](https://opensourcemaintenancefee.org/consumers/faq/).
 

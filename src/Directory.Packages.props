@@ -28,7 +28,7 @@
     <PackageVersion Include="ProjectFiles" Version="1.4.0" />
     <PackageVersion Include="PublicApiGenerator" Version="11.5.4" />
     <PackageVersion Include="SimpleInfoName" Version="3.2.0" />
-    <PackageVersion Include="SponsorCheck" Version="0.21.0" GitHubSponsorsAccount="VerifyTests" SponsorOwner="Verify" CheckTransitiveReferences="true" />
+    <PackageVersion Include="SponsorCheck" Version="0.22.0" GitHubSponsorsAccount="VerifyTests" SponsorOwner="Verify" CheckTransitiveReferences="true" />
     <PackageVersion Include="System.Drawing.Common" Version="10.0.11" />
     <PackageVersion Include="System.Memory" Version="4.6.3" />
     <!-- keep at 4.5.0 -->

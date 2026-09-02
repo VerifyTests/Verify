@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <PropertyGroup>
-    <NoWarn>CA1822;CS1591;CS0649;xUnit1026;xUnit1013;CS1573;VerifyTestsProjectDir;VerifySetParameters;PolyFillTargetsForNuget;xUnit1051;NU1608;NU1109</NoWarn>
+    <NoWarn>CA1822;CS1591;CS0649;xUnit1026;xUnit1013;CS1573;VerifyTestsProjectDir;VerifySetParameters;PolyFillTargetsForNuget;xUnit1051;NU1608;NU1109;SC023</NoWarn>
     <Version>33.0.0-beta.5</Version>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>preview</LangVersion>
@@ -29,6 +29,7 @@
          an API the generator actually needs.
          https://learn.microsoft.com/en-us/visualstudio/extensibility/roslyn-version-support -->
     <VerifyRoslynVersion>4.4</VerifyRoslynVersion>
+    <Verify_SponsorshipLicenseIgnored>true</Verify_SponsorshipLicenseIgnored>
   </PropertyGroup>
   <!-- This directory contains two solutions (Verify.slnx and VerifyDangling.slnx), so Verify cannot
        auto-discover the solution when a project is built outside of a solution context. Default to the

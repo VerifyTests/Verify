@@ -24,7 +24,7 @@ This project participates in the [Open Source Maintenance Fee](https://opensourc
 
 Every version released after 1 September 2026 is covered. Versions released on or before that date are not.
 
-The fee is paid by [sponsoring VerifyTests](https://github.com/sponsors/VerifyTests), billed monthly or annually, and available by invoice:
+The fee is paid by [sponsoring VerifyTests](https://github.com/sponsors/VerifyTests), and [available by invoice](https://docs.github.com/en/sponsors/sponsoring-open-source-contributors/paying-for-github-sponsors-by-invoice):
 
 | Organization size | Fee (USD) |
 |---|---|

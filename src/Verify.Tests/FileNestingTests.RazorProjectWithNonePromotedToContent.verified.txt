@@ -1,0 +1,5 @@
+﻿None
+  ComponentTests.Simple.verified.html: ComponentTests.razor.cs
+Content
+  ComponentTests.Simple.verified.html: ComponentTests.razor.cs
+  ComponentTests.Simple.verified.json: ComponentTests.razor.cs

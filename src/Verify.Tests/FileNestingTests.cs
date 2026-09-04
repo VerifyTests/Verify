@@ -3,7 +3,9 @@
 using System.Text.Json;
 
 // Snapshot nesting is applied during evaluation, because evaluated items are what Solution Explorer
-// reads. So these tests evaluate a project and inspect its items, rather than building it.
+// reads. So these tests evaluate a project and inspect its items, rather than building it. The one
+// target they run is the SDK's duplicate item check, since that is what rejects a build where the
+// nesting has left a snapshot included twice.
 public class FileNestingTests
 {
     [Fact]
@@ -51,6 +53,28 @@ public class FileNestingTests
                 "CodeBehindTests.razor.cs",
                 "CodeBehindTests.Component.verified.html",
                 "CodeBehindTests.Component.verified.txt"));
+
+    // https://github.com/VerifyTests/Verify.Bunit/issues/108#issuecomment-5522040465
+    // A build fails with NETSDK1022 when a snapshot is a Content item twice. The razor SDK leaves
+    // html snapshots as None, so a project holding them as Content has declared that itself, and
+    // the nesting has to update those items rather than add to them.
+    [Fact]
+    public async Task RazorProjectWithSnapshotsAsContent() =>
+        await Verify(
+            await Evaluate(
+                CSharp(
+                    "Microsoft.NET.Sdk.Razor",
+                    body:
+                    """
+                      <ItemGroup>
+                        <None Remove="**\*.verified.html" />
+                        <Content Include="**\*.verified.html" />
+                      </ItemGroup>
+                    """),
+                "ComponentTests.razor",
+                "ComponentTests.razor.cs",
+                "ComponentTests.Simple.verified.html",
+                "ComponentTests.Simple.verified.json"));
 
     [Fact]
     public async Task RazorProjectWithNestingDisabled() =>
@@ -223,6 +247,10 @@ public class FileNestingTests
         var arguments = startInfo.ArgumentList;
         arguments.Add("msbuild");
         arguments.Add(projectPath);
+        // The SDK fails a build with NETSDK1022 when the same file is a Content item twice, which an
+        // evaluation alone never surfaces. So the target that performs that check runs before the
+        // items are read, and a duplicate fails the test with the error a build would give.
+        arguments.Add("-t:CheckForDuplicateItems");
         arguments.Add("-getItem:None");
         arguments.Add("-getItem:Content");
         arguments.Add("-nologo");
@@ -243,7 +271,7 @@ public class FileNestingTests
             return output;
         }
 
-        throw new($"Evaluation of {projectPath} failed:{Environment.NewLine}{output}{Environment.NewLine}{error}");
+        throw new($"Evaluation of {projectPath} failed:{Environment.NewLine}{error}{Environment.NewLine}{output}");
     }
 }
 

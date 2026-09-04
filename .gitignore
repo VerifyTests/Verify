@@ -25,3 +25,4 @@ src/Verify.TUnit.Tests/Tests.AutoVerifyHasAttachment.verified.txt
 nul
 /BenchmarkDotNet.Artifacts
 TestResults/
+*.lnk

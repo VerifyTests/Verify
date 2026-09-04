@@ -37,7 +37,7 @@
     <PackageVersion Include="xunit.v3" Version="4.0.0" />
     <PackageVersion Include="xunit.v3.extensibility.core" Version="4.0.0" />
     <PackageVersion Include="TUnit" Version="1.65.68" />
-    <PackageVersion Include="TUnit.Core" Version="1.65.68" />
+    <PackageVersion Include="TUnit.Core" Version="1.66.0" />
     <PackageVersion Include="YoloDev.Expecto.TestSdk" Version="0.16.1" />
     <PackageVersion Include="Microsoft.Sbom.Targets" Version="4.1.5" />
   </ItemGroup>

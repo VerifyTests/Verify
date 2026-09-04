@@ -76,6 +76,27 @@ public class FileNestingTests
                 "ComponentTests.Simple.verified.html",
                 "ComponentTests.Simple.verified.json"));
 
+    // https://github.com/VerifyTests/Verify.Bunit/issues/108#issuecomment-5523781048
+    // DotNetProjectFile.Analyzers promotes every None item to Content for its SonarQube
+    // integration, in builds outside an IDE. A snapshot is None twice, once from the SDK glob and
+    // once from Verify, so it became Content twice and the build failed with NETSDK1022.
+    [Fact]
+    public async Task RazorProjectWithNonePromotedToContent() =>
+        await Verify(
+            await Evaluate(
+                CSharp(
+                    "Microsoft.NET.Sdk.Razor",
+                    body:
+                    """
+                      <ItemGroup>
+                        <Content Include="@(None)" Exclude="@(Content)" Visible="false" />
+                      </ItemGroup>
+                    """),
+                "ComponentTests.razor",
+                "ComponentTests.razor.cs",
+                "ComponentTests.Simple.verified.html",
+                "ComponentTests.Simple.verified.json"));
+
     [Fact]
     public async Task RazorProjectWithNestingDisabled() =>
         await Verify(
@@ -196,21 +217,18 @@ public class FileNestingTests
         return builder.ToString();
     }
 
-    // Verify adds its own item for a snapshot on top of the one the SDK globbed, so the same file
-    // can appear more than once. Any disagreement between those items is a bug.
-    static string Parent(IEnumerable<(string Identity, string? Parent)> snapshot)
+    // The SDK globs a snapshot into None and Verify only updates that item, so a file listed twice
+    // means an item was added on top of the glob. That is what the SDK rejects once the None items
+    // are copied into Content, so it is reported rather than merged.
+    static string Parent(IGrouping<string, (string Identity, string? Parent)> snapshot)
     {
-        var parents = snapshot
-            .Select(_ => _.Parent)
-            .Where(_ => _ != null)
-            .Distinct()
-            .ToList();
-        if (parents.Count == 0)
+        var items = snapshot.ToList();
+        if (items.Count > 1)
         {
-            return "not nested";
+            throw new($"{snapshot.Key} is included {items.Count} times");
         }
 
-        return string.Join(" and ", parents);
+        return items[0].Parent ?? "not nested";
     }
 
     static List<IGrouping<string, (string Identity, string? Parent)>> Snapshots(JsonElement items, string type)

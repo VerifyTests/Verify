@@ -945,8 +945,15 @@ Verify comes with default MSBuild includes for snapshot files (`*.received.*` an
   <PropertyGroup Condition="('$(DisableVerifyFileNesting)' != 'true')">
     <VerifyRazorFileCount>@(VerifyRazorFile->Count())</VerifyRazorFileCount>
   </PropertyGroup>
+  <!--
+  The SDK has already globbed the snapshots into None, so the metadata is applied with an Update.
+  Adding a second item for a file the SDK holds would leave it in None twice, and anything that
+  copies None into Content (eg DotNetProjectFile.Analyzers) then fails the build with NETSDK1022.
+  The Include only picks up snapshots the SDK did not, such as when default items are disabled.
+  -->
   <ItemGroup Condition="('$(DisableVerifyFileNesting)' != 'true')">
-    <None Include="**\*.received.*;**\*.verified.*" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" Condition="$(Language) == 'C#'">
+    <None Include="**\*.received.*;**\*.verified.*" Exclude="@(None);$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" Condition="$(Language) == 'C#' Or $(Language) == 'VB'" />
+    <None Update="**\*.received.*;**\*.verified.*" Condition="$(Language) == 'C#'">
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0].Split('(')[0])</ParentFile>
       <ParentExtension>.cs</ParentExtension>
       <!-- A Blazor component keeps its code in a .razor.cs code-behind, or in the .razor file itself -->
@@ -954,14 +961,14 @@ Verify comes with default MSBuild includes for snapshot files (`*.received.*` an
       <ParentExtension Condition="'$(VerifyRazorFileCount)' != '0' And '%(ParentExtension)' == '.cs' And !Exists('$(MSBuildProjectDirectory)\%(RelativeDir)%(ParentFile).cs') And Exists('$(MSBuildProjectDirectory)\%(RelativeDir)%(ParentFile).razor')">.razor</ParentExtension>
       <DependentUpon>%(ParentFile)%(ParentExtension)</DependentUpon>
     </None>
-    <None Include="**\*.received.*;**\*.verified.*" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" Condition="$(Language) == 'VB'">
+    <None Update="**\*.received.*;**\*.verified.*" Condition="$(Language) == 'VB'">
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0].Split('(')[0])</ParentFile>
       <DependentUpon>%(ParentFile).vb</DependentUpon>
     </None>
   </ItemGroup>
 </Project>
 ```
-<sup><a href='/src/Verify/buildTransitive/Verify.AfterMicrosoftNetSdk.props#L1-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.AfterMicrosoftNetSdk.props' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/buildTransitive/Verify.AfterMicrosoftNetSdk.props#L1-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.AfterMicrosoftNetSdk.props' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 To opt out of this feature, include the following in the project file:

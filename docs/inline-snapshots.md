@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Inline Snapshots
 
-C# and F# are supported
+C# and F# are supported.
 
 Inline snapshots store the expected text inside the test file (.cs, .fs or .fsx) as a raw string literal, next to the code that produces it, instead of in a `.verified.` file on disk.
 
@@ -33,7 +33,7 @@ public Task MultiLine()
 }
 ```
 
-Since the "expected" is omiited (or passing `null` or `default`) the snapshot as new; accepting it writes the literal into the source file:
+Since the "expected" is omitted (or passed as `null` or `default`), the snapshot is treated as new; accepting it writes the literal into the source file:
 
 <!-- snippet: InlineSample -->
 <a id='snippet-InlineSample'></a>
@@ -158,7 +158,7 @@ The limit and the delegate combine as an and: the delegate picks the candidate t
 
 `maxLines` counts the lines of the snapshot content, not the lines the literal occupies in source. A raw string literal adds two delimiter lines plus indentation on top of that. A single trailing newline starts no line, so it is not counted. Nothing is measured for width, so a one line snapshot is inlined however long that line is.
 
-By default the limit routes new snapshots only, and a `.Snapshot(...)` call that already exists is left alone. Removing one rewrites source, so that is opted in to separately:
+By default the limit routes new snapshots only, and a `.Snapshot(...)` call that already exists is left alone. Removing one rewrites source, so that is opted into separately:
 
 <!-- snippet: StaticInlineApplyMaxLinesToExisting -->
 <a id='snippet-StaticInlineApplyMaxLinesToExisting'></a>
@@ -182,7 +182,7 @@ Every existing literal over the limit then migrates, not only the ones whose con
 
 An inline snapshot is one literal at one call site, so it cannot hold a different expected value for each case of a [parameterised test](parameterised.md). What decides compatibility is whether the parameters reach the verified name:
 
- * **Parameters in the verified name**: not inlineable. The [global switch](#enabling-inline-snapshots-globally) declines such a test, which keeps using `.verified.` files, so turning inline on across a codebase leaves data driven tests alone. An explicit `.Snapshot(...)` throws instead, since it is a stated intent that cannot be honoured.
+ * **Parameters in the verified name**: not inlineable. The [global switch](#enabling-inline-snapshots-globally) declines such a test, which keeps using `.verified.` files, so turning inline on across a codebase leaves data-driven tests alone. An explicit `.Snapshot(...)` throws instead, since it is a stated intent that cannot be honoured.
  * **No parameters in the verified name**: inlineable. Every case already shares the one snapshot, which is exactly what a literal can represent.
 
 Constructor arguments are treated the same as method parameters: they form part of the verified name unless ignored.
@@ -231,7 +231,7 @@ The whole verification then falls back to files.
 
 ## Calling Verify through a wrapper
 
-A test project often reaches verify through a wrapper of its own, to convert a type Verify cannot take or to apply settings shared by a group of tests:
+A test project often reaches Verify through a wrapper of its own, to convert a type Verify cannot take or to apply settings shared by a group of tests:
 
 ```cs
 public static SettingsTask VerifyDocx(
@@ -359,7 +359,7 @@ F# test files (`.fs`, `.fsx`) work the same way, with one difference worth knowi
 
 C# has raw strings: the compiler drops the line break after the opening delimiter and the indentation the closing delimiter sits at, and hands over the snapshot. F# has no such form. A triple-quoted string is verbatim, so what F# hands over still carries that line break and the indentation of every line. Writing the snapshot at the left margin instead is not an option either, since F#'s offside rule then rejects anything ending in a newline.
 
-So the layout is taken off by agreement rather than by the compiler. Verify writes the shape C# would, and reads it back the same way. Accepting a two line snapshot into
+So the layout is stripped by agreement rather than by the compiler. Verify writes the shape C# would, and reads it back the same way. Accepting a two line snapshot into
 
 ```fs
 let MyTest () =
@@ -377,7 +377,7 @@ let MyTest () =
         """).ToTask()
 ```
 
-Which means a literal like that compares as the snapshot it looks like, rather than as the indented text F# produced.
+That means a literal like that compares as the snapshot it looks like, rather than as the indented text F# produced.
 
 Two consequences. Content ending in a newline is written as a blank line before the closing delimiter, exactly as in C#. And an F# `expected` argument is only the snapshot once Verify has read it: look at it any other way, in a debugger or by passing it somewhere else, and it still has its indentation.
 
@@ -390,7 +390,7 @@ Both directions are handled without any manual file editing.
 
 **File to inline.** The existing `.verified.` file for the inlined target is detected as stale and flows through the standard [Delete handling](exception-message-format.md): deleted automatically under AutoVerify, otherwise listed in the `Delete:` section and pended for review. A pending delete goes to the tray when one is running, and to the viewer otherwise, launching one if none is up, so it is reviewable with no tray installed. Files belonging to the other targets keep their names and are left alone.
 
-This direction has no opt in of its own, so a snapshot that shrinks back under a [`maxLines`](#limiting-the-size-of-an-inline-snapshot) limit returns to inline as soon as it does, leaving its file behind as a stale delete. A snapshot whose size hovers around the limit therefore moves each time it crosses.
+This direction has no opt-in of its own, so a snapshot that shrinks back under a [`maxLines`](#limiting-the-size-of-an-inline-snapshot) limit returns to inline as soon as it does, leaving its file behind as a stale delete. A snapshot whose size hovers around the limit therefore moves each time it crosses.
 
 **Inline to file.** When a `.Snapshot(...)` call exists but inline is off for that verification, the call is removed from the source and the snapshot runs as a normal file snapshot. The literal was the approved snapshot, so it seeds the verified file: an unchanged snapshot migrates without failing, and a changed one is an ordinary mismatch with the old and new text, accepted the usual way. Accepting a migration means committing both the source edit and the new `.verified.` file.
 

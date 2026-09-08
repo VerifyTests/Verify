@@ -24,6 +24,7 @@ The fee applies to:
 Exempt from the fee:
 
  * Individuals.
+ * Open source projects that do not generate revenue. Voluntary donations and sponsorships are not revenue.
  * Organizations that do not generate revenue, other than government agencies.
  * Organizations that engage the core maintainers for consulting work, for six months from the final date of that engagement.
 
@@ -64,11 +65,20 @@ The bundled sponsor list is frozen when a version is packed, so a sponsorship th
 
 ### Exempt
 
-Individuals and organizations under the revenue threshold claim `SmallRevenue`; organizations that engaged the core maintainers for consulting work claim `MaintainerConsulting`. Both exemptions are time-bounded, so an end month is required: at most 12 months ahead of the build date for `SmallRevenue`, and at most 6 months for `MaintainerConsulting`. The build passes with a warning that quotes the exemption's criteria, and fails once the month has passed until the claim is renewed.
+Individuals and organizations under the revenue threshold claim `SmallRevenue`; open source projects that do not generate revenue claim `OpenSource`; organizations that engaged the core maintainers for consulting work claim `MaintainerConsulting`. All three exemptions are time-bounded, so an end month is required: at most 12 months ahead of the build date for `SmallRevenue` and `OpenSource`, and at most 6 months for `MaintainerConsulting`. The build passes with a warning that quotes the exemption's criteria, and fails once the month has passed until the claim is renewed.
 
 ```xml
 <PropertyGroup>
   <Verify_SponsorshipExemption>SmallRevenue</Verify_SponsorshipExemption>
+  <Verify_SponsorshipExemptionUntil>yyyy-MM</Verify_SponsorshipExemptionUntil>
+</PropertyGroup>
+```
+
+For an open source project:
+
+```xml
+<PropertyGroup>
+  <Verify_SponsorshipExemption>OpenSource</Verify_SponsorshipExemption>
   <Verify_SponsorshipExemptionUntil>yyyy-MM</Verify_SponsorshipExemptionUntil>
 </PropertyGroup>
 ```

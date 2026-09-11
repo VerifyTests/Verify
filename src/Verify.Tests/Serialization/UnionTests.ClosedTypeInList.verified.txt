@@ -1,0 +1,10 @@
+﻿[
+  {
+    Amount: 1.0,
+    PaymentId: p-1
+  },
+  {
+    Reference: r-2,
+    PaymentId: p-2
+  }
+]

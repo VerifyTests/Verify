@@ -1,0 +1,4 @@
+﻿{
+  Name: Tibbles,
+  Indoor: true
+}

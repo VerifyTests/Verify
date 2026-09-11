@@ -1,0 +1,6 @@
+﻿{
+  Event: {
+    Amount: 42.5,
+    PaymentId: p-123
+  }
+}

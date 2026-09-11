@@ -1,0 +1,4 @@
+﻿{
+  Value: 42,
+  Name: the name
+}

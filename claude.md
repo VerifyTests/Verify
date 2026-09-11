@@ -27,9 +27,12 @@ Instead, build once and run each test project individually. **`src/appveyor.yml`
 # Build once in the target configuration, then run with --no-build --no-restore
 dotnet build src/Verify.slnx -c Release
 
-# Most projects (xUnit v3, NUnit, MSTest) run via `dotnet test`
-dotnet test src/Verify.Tests -c Release --no-build --no-restore
-dotnet test src/Verify.NUnit.Tests -c Release --no-build --no-restore
+# Most projects (xUnit v3, NUnit, MSTest) run via `dotnet test`.
+# Multi-targeted projects need an ABSOLUTE path: `dotnet test` re-resolves a relative
+# project/directory path against the project directory, giving
+# "src/X/src/X/X.csproj could not be found".
+dotnet test $PWD/src/Verify.Tests -c Release --no-build --no-restore
+dotnet test $PWD/src/Verify.NUnit.Tests -c Release --no-build --no-restore
 
 # Expecto (F#) and TUnit projects are console executables — run via `dotnet run`
 dotnet run --project src/Verify.Expecto.Tests -c Release --no-build --no-restore

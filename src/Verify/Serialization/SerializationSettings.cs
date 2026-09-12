@@ -37,6 +37,7 @@ partial class SerializationSettings
     static CombinationResultsConverter combinationResultsConverter = new();
 
     JsonSerializerSettings jsonSettings;
+    List<JsonConverter> builtInConverters = [];
 
     public SerializationSettings()
     {
@@ -132,6 +133,7 @@ partial class SerializationSettings
         converters.Add(stringDictionaryConverter);
         converters.Add(keyValuePairConverter);
         converters.Add(combinationResultsConverter);
+        builtInConverters = converters.ToList();
         foreach (var extraSetting in extraSettings)
         {
             ApplyExtraSetting(settings, extraSetting);
@@ -154,6 +156,8 @@ partial class SerializationSettings
 
         action(settings);
 
+        PromoteExtraConverters(settings.Converters);
+
         if (settings.DefaultValueHandling is null)
         {
             settings.DefaultValueHandling = current;
@@ -161,6 +165,41 @@ partial class SerializationSettings
         else
         {
             DefaultValueHandlingExplicit = true;
+        }
+    }
+
+    void PromoteExtraConverters(IList<JsonConverter> converters)
+    {
+        var remainingBuiltIns = builtInConverters.ToList();
+        var extras = new List<JsonConverter>();
+        var builtIns = new List<JsonConverter>();
+        foreach (var converter in converters)
+        {
+            var index = remainingBuiltIns.FindIndex(_ => ReferenceEquals(_, converter));
+            if (index < 0)
+            {
+                extras.Add(converter);
+                continue;
+            }
+
+            remainingBuiltIns.RemoveAt(index);
+            builtIns.Add(converter);
+        }
+
+        if (extras.Count == 0)
+        {
+            return;
+        }
+
+        converters.Clear();
+        foreach (var converter in extras)
+        {
+            converters.Add(converter);
+        }
+
+        foreach (var converter in builtIns)
+        {
+            converters.Add(converter);
         }
     }
 

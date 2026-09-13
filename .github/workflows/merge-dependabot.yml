@@ -1,14 +1,28 @@
 name: merge-dependabot
+
+# Merges minor and patch Dependabot pull requests. No personal access token: GITHUB_TOKEN gets
+# write access through the permissions block below, which GitHub allows for Dependabot triggered
+# runs. Major version bumps are left for a person.
 on:
   pull_request:
+
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
-  automerge:
+  merge:
     runs-on: ubuntu-latest
-    if: github.actor == 'dependabot[bot]'
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
     steps:
-      - name: Dependabot Auto Merge
-        uses: ahmadnassri/action-dependabot-auto-merge@v2.6.6
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v2
         with:
-          target: minor
-          github-token: ${{ secrets.dependabot }}
-          command: squash and merge
+          github-token: ${{ github.token }}
+      - name: Merge when the bump is minor or patch
+        if: steps.metadata.outputs.update-type != 'version-update:semver-major'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: gh pr merge "$PR_URL" --squash

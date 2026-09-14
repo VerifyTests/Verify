@@ -106,7 +106,7 @@ static class ReflectionHelpers
                 return true;
             case EnumerableKind.Enumerate:
                 enumerable = enumerableTarget;
-                isEmpty = IsEmpty(enumerableTarget);
+                isEmpty = IsEmpty(enumerable);
                 return true;
             default:
                 enumerable = null;

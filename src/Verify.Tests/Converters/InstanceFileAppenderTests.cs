@@ -63,7 +63,7 @@
     public async Task BinaryBytesSettingsReuse()
     {
         var reused = new VerifySettings();
-        reused.AppendContentAsFile(new byte[] {1, 2, 3}, "bin", "appendedBytes");
+        reused.AppendContentAsFile([1, 2, 3], "bin", "appendedBytes");
 
         await Verify("First", reused)
             .UseMethodName("BinaryBytesSettingsReuse_first");

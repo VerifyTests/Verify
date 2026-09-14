@@ -4,11 +4,9 @@ public record TestExecutionContext(TestContext TestContext, Type TestClass)
 {
     public Assembly Assembly { get; } = TestClass.Assembly;
 
-    MethodInfo? method;
-
     // Resolved lazily: the method scan is only needed when a Verify call actually
     // builds a verifier, not for every test that constructs a context.
-    public MethodInfo Method => method ??= FindMethod(TestClass, TestContext);
+    public MethodInfo Method => field ??= FindMethod(TestClass, TestContext);
 
     static MethodInfo FindMethod(Type type, TestContext context)
     {

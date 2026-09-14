@@ -3,7 +3,6 @@
 public class VerifyResult
 {
     IReadOnlyList<FilePair> files;
-    string? inlineText;
 
     internal VerifyResult(IReadOnlyList<FilePair> files, object? target)
     {
@@ -16,9 +15,9 @@ public class VerifyResult
     /// so any others went to files and belong in <see cref="Files" /> the same as they would have
     /// without a literal. <see cref="Text" /> is still the snapshot, which is the first target.
     /// </summary>
-    internal VerifyResult(string inlineText, IReadOnlyList<FilePair> files, object? target)
-        : this(files, target) =>
-        this.inlineText = inlineText;
+    internal VerifyResult(string inlineText, IReadOnlyList<FilePair> files, object? target) :
+        this(files, target) =>
+        Text = inlineText;
 
     public Exception Exception
     {
@@ -44,9 +43,9 @@ public class VerifyResult
     {
         get
         {
-            if (inlineText is not null)
+            if (field is not null)
             {
-                return inlineText;
+                return field;
             }
 
             var textFiles = TextFiles.ToList();

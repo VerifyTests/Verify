@@ -407,11 +407,13 @@ public class SolutionDiscoveryTests
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,
-            CreateNoWindow = true
+            CreateNoWindow = true,
+            Environment =
+            {
+                // MSBuild localizes its messages, and the assertions above match the English text
+                ["DOTNET_CLI_UI_LANGUAGE"] = "en"
+            }
         };
-
-        // MSBuild localizes its messages, and the assertions above match the English text
-        startInfo.Environment["DOTNET_CLI_UI_LANGUAGE"] = "en";
 
         // ArgumentList quotes each value, so a SolutionDir ending in a separator is not
         // mangled by that separator escaping the closing quote

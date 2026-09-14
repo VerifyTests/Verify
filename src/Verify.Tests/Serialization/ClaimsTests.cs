@@ -18,7 +18,7 @@ public class ClaimsTests
             {
                 Principal = new ClaimsPrincipal(
                     new ClaimsIdentity(
-                        [new Claim("TheClaimType", "TheClaimValue")],
+                        [new("TheClaimType", "TheClaimValue")],
                         "TheAuthenticationType")),
                 Name = "TheValue"
             });

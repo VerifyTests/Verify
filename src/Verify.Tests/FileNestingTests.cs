@@ -184,11 +184,11 @@ public class FileNestingTests
                 """;
     }
 
-    static async Task WriteFile(string directory, string relativePath, string content)
+    static Task WriteFile(string directory, string relativePath, string content)
     {
         var path = Path.Combine(directory, relativePath);
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
-        await File.WriteAllTextAsync(path, content);
+        return File.WriteAllTextAsync(path, content);
     }
 
     static string Format(string json)

@@ -1,5 +1,3 @@
-using System.Globalization;
-
 public class IsoDateParseTests
 {
     // th-TH defaults to the Buddhist calendar and ar-SA to UmAlQura. Parsing the built in

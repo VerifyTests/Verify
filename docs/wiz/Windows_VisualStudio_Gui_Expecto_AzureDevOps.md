@@ -20,7 +20,7 @@ Add the following packages to the test project:
 <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.16.1" />
 <PackageReference Include="Expecto" Version="11.1.0" />
 <PackageReference Update="FSharp.Core" Version="10.1.401" />
-<PackageReference Include="Verify.Expecto" Version="33.0.0" />
+<PackageReference Include="Verify.Expecto" Version="33.0.2" />
 ```
 <sup><a href='/usages/ExpectoNugetUsage/ExpectoNugetUsage.fsproj#L8-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-expecto-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

@@ -3,9 +3,9 @@
     <TargetFramework>net11.0</TargetFramework>
     <EnableNUnitRunner>true</EnableNUnitRunner>
     <RootNamespace>Fake</RootNamespace>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" />
     <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />

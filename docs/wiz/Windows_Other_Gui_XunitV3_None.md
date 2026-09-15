@@ -17,12 +17,39 @@ Add the following packages to the test project:
 <!-- snippet: xunitv3-nugets -->
 <a id='snippet-xunitv3-nugets'></a>
 ```csproj
-<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.10.0" />
 <PackageReference Include="Verify.XunitV3" Version="33.0.2" />
 <PackageReference Include="xunit.v3" Version="4.0.1" />
 ```
-<sup><a href='/usages/XunitV3NugetUsage/XunitV3NugetUsage.csproj#L8-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitv3-nugets' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/usages/XunitV3NugetUsage/XunitV3NugetUsage.csproj#L8-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitv3-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+## Microsoft.Testing.Platform
+
+[Microsoft.Testing.Platform](https://learn.microsoft.com/en-us/dotnet/core/testing/microsoft-testing-platform-intro) (MTP) is the recommended way to run tests. It replaces VSTest, so `Microsoft.NET.Test.Sdk` is not required.<!-- include: testing-platform. path: /docs/mdsource/testing-platform.include.md -->
+
+### dotnet test
+
+The .NET 10 SDK added an [MTP mode to dotnet test](https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-dotnet-test). The default VSTest mode does not run MTP test projects. Enable MTP mode by adding the following to `global.json` at the root of the repository:
+
+```json
+{
+  "test": {
+    "runner": "Microsoft.Testing.Platform"
+  }
+}
+```
+<!-- endInclude -->
+
+### Test project settings
+
+Add the following to the test project:
+
+```xml
+<PropertyGroup>
+  <OutputType>Exe</OutputType>
+</PropertyGroup>
+```
 
 
 ## Implicit Usings

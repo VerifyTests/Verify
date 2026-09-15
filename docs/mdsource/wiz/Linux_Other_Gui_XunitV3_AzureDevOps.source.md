@@ -10,6 +10,21 @@ Add the following packages to the test project:
 snippet: xunitv3-nugets
 
 
+## Microsoft.Testing.Platform
+
+include: testing-platform
+
+### Test project settings
+
+Add the following to the test project:
+
+```xml
+<PropertyGroup>
+  <OutputType>Exe</OutputType>
+</PropertyGroup>
+```
+
+
 ## Implicit Usings
 
 include: implicit-usings

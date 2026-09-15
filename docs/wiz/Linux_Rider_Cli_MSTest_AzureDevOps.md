@@ -14,11 +14,39 @@ To change this file edit the source file and then run MarkdownSnippets.
 Add the following packages to the test project:
 
 ```
-dotnet add package Microsoft.NET.Test.Sdk
 dotnet add package MSTest.TestAdapter
 dotnet add package MSTest.TestFramework
 dotnet add package Verify.MSTest
 ```
+
+## Microsoft.Testing.Platform
+
+[Microsoft.Testing.Platform](https://learn.microsoft.com/en-us/dotnet/core/testing/microsoft-testing-platform-intro) (MTP) is the recommended way to run tests. It replaces VSTest, so `Microsoft.NET.Test.Sdk` is not required.<!-- include: testing-platform. path: /docs/mdsource/testing-platform.include.md -->
+
+### dotnet test
+
+The .NET 10 SDK added an [MTP mode to dotnet test](https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-dotnet-test). The default VSTest mode does not run MTP test projects. Enable MTP mode by adding the following to `global.json` at the root of the repository:
+
+```json
+{
+  "test": {
+    "runner": "Microsoft.Testing.Platform"
+  }
+}
+```
+<!-- endInclude -->
+
+### Test project settings
+
+Add the following to the test project:
+
+```xml
+<PropertyGroup>
+  <OutputType>Exe</OutputType>
+  <EnableMSTestRunner>true</EnableMSTestRunner>
+</PropertyGroup>
+```
+
 
 ## Implicit Usings
 

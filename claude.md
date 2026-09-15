@@ -17,9 +17,18 @@ Verify is a snapshot testing framework for .NET that simplifies assertion of com
 dotnet build src/Verify.slnx
 ```
 
+### Test runner setup (Microsoft.Testing.Platform)
+
+`global.json` sets `"test": { "runner": "Microsoft.Testing.Platform" }`, so `dotnet test` runs in MTP mode. Test projects follow these conventions:
+
+- **No `Microsoft.NET.Test.Sdk`** in xUnit v3, NUnit, MSTest or TUnit projects. It only exists for VSTest. The only project that still references it is `Verify.Fixie.Tests`, which uses VSTest. The Expecto projects don't reference it either: they are console executables run via `dotnet run`.
+- **`<OutputType>Exe</OutputType>` is required** in every MTP test project. `Microsoft.NET.Test.Sdk` used to set it implicitly; without it xunit.v3 fails the build ("xUnit.net v3 test projects must be executable"). TUnit sets it itself.
+- **Runner opt-in**: NUnit projects need `<EnableNUnitRunner>true</EnableNUnitRunner>` and MSTest projects need `<EnableMSTestRunner>true</EnableMSTestRunner>`. xUnit v3 and TUnit are MTP apps without any opt-in.
+- **`<RootNamespace>Fake</RootNamespace>`** in NUnit/MSTest projects stops the generated MTP entry point introducing a `Verify` namespace that shadows the `Verify()` method.
+
 ### Running the full test suite
 
-`global.json` pins the test runner to Microsoft.Testing.Platform (MTP). Because `Verify.Fixie.Tests` and `Verify.Expecto.FSharpTests` still use the VSTest runner, **`dotnet test src/Verify.slnx` does not work** — it aborts with a mixed-runner error ("All projects must use that test runner") before running anything. There is no single command that runs every test project.
+Because `Verify.Fixie.Tests` still uses the VSTest runner, **`dotnet test src/Verify.slnx` does not work** — it aborts with a mixed-runner error ("All projects must use that test runner") before running anything. There is no single command that runs every test project.
 
 Instead, build once and run each test project individually. **`src/appveyor.yml` (`build_script`) is the source of truth** for the complete, ordered list and how each project is invoked. The commands differ by runner:
 
@@ -43,9 +52,18 @@ dotnet run --project src/Verify.TUnit.Tests/Verify.TUnit.Tests.csproj -c Release
 cd src && dotnet fixie Verify.Fixie.Tests -c Release --no-build
 ```
 
+`src/VerifyDangling.slnx` (the `DanglingSnapshots*Usage` projects) is built separately by CI; its tests are not run.
+
 ### Running a single test
 
-MTP does not accept the VSTest `--filter "FullyQualifiedName~..."` syntax. Build the project for a single framework, then run the compiled test executable directly with the xUnit v3 `-class` / `-method` filters (leading/trailing `*` wildcard supported):
+MTP does not accept the VSTest `--filter "FullyQualifiedName~..."` syntax. For xUnit v3 projects, either pass xUnit's MTP filters through `dotnet test` (use `-f` to pick one framework):
+
+```bash
+dotnet test $PWD/src/Verify.Tests -c Release --no-build --no-restore -f net9.0 --filter-method "*NotInlineRetiresTheCallSite*"
+dotnet test $PWD/src/Verify.Tests -c Release --no-build --no-restore -f net8.0 --filter-class "WizardGen"
+```
+
+or build the project for a single framework and run the compiled test executable directly with the xUnit v3 `-class` / `-method` filters (leading/trailing `*` wildcard supported):
 
 ```bash
 dotnet build src/Verify.Tests/Verify.Tests.csproj -f net11.0 -c Debug
@@ -259,6 +277,8 @@ Platform-specific code uses conditional compilation:
 
 6. **Tool Restoration**: Run `dotnet tool restore` before running Fixie tests (requires fixie.console tool).
 
+7. **New Test Projects**: Do not add `Microsoft.NET.Test.Sdk` to an MTP test project, and remember `<OutputType>Exe</OutputType>` plus the runner opt-in (see "Test runner setup"). Without `Microsoft.NET.Test.Sdk`, the runner opt-in is what makes `dotnet test` treat an NUnit/MSTest project as a test project.
+
 ## Source Generator (MSTest)
 
 The MSTest adapter includes a source generator at `src/Verify.MSTest.SourceGenerator/` that generates code for tests marked with `[UsesVerify]`. This handles test context plumbing automatically.
@@ -271,6 +291,18 @@ README and docs are generated from source files using [MarkdownSnippets](https:/
 - Doc sources: `docs/mdsource/*.source.md` → `docs/*.md` (generated)
 - Includes: `docs/mdsource/*.include.md` (reusable fragments)
 - Run `mdsnippets` to regenerate (globally installed dotnet tool)
+
+### Getting Started Wizard
+
+`docs/mdsource/wiz/*.source.md` and `docs/wiz/*.md` are entirely generated (and purged first) by the `WizardGen` test in `src/Verify.Tests/Wizard/WizardGen.cs`. Edit the generator, not the output. It only compiles for net8.0 and does nothing unless `mdsnippets` is on PATH; it runs `mdsnippets` itself after writing the sources:
+
+```bash
+dotnet test $PWD/src/Verify.Tests -c Release -f net8.0 --filter-class "WizardGen"
+```
+
+- The wizard recommends the MTP setup: package lists without `Microsoft.NET.Test.Sdk`, per-framework test project settings (`OutputType`, `EnableNUnitRunner`, etc.), and the `global.json` runner. Fixie is the exception (no MTP runner).
+- Shared MTP text lives in `docs/mdsource/testing-platform.include.md`.
+- "Prefer CLI" package lists are hard-coded in `WizardGen.cs`; "Prefer GUI" package lists are the `*-nugets` snippets in `usages/*NugetUsage/*.csproj`. Keep both in sync.
 
 ### Snippet Conventions
 

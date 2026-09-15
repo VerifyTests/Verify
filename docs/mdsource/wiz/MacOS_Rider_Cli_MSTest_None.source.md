@@ -7,11 +7,26 @@
 Add the following packages to the test project:
 
 ```
-dotnet add package Microsoft.NET.Test.Sdk
 dotnet add package MSTest.TestAdapter
 dotnet add package MSTest.TestFramework
 dotnet add package Verify.MSTest
 ```
+
+## Microsoft.Testing.Platform
+
+include: testing-platform
+
+### Test project settings
+
+Add the following to the test project:
+
+```xml
+<PropertyGroup>
+  <OutputType>Exe</OutputType>
+  <EnableMSTestRunner>true</EnableMSTestRunner>
+</PropertyGroup>
+```
+
 
 ## Implicit Usings
 

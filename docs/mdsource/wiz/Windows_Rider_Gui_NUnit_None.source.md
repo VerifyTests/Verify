@@ -10,6 +10,22 @@ Add the following packages to the test project:
 snippet: nunit-nugets
 
 
+## Microsoft.Testing.Platform
+
+include: testing-platform
+
+### Test project settings
+
+Add the following to the test project:
+
+```xml
+<PropertyGroup>
+  <OutputType>Exe</OutputType>
+  <EnableNUnitRunner>true</EnableNUnitRunner>
+</PropertyGroup>
+```
+
+
 ## Implicit Usings
 
 include: implicit-usings

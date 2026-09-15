@@ -18,6 +18,24 @@ dotnet add package TUnit
 dotnet add package Verify.TUnit
 ```
 
+## Microsoft.Testing.Platform
+
+[Microsoft.Testing.Platform](https://learn.microsoft.com/en-us/dotnet/core/testing/microsoft-testing-platform-intro) (MTP) is the recommended way to run tests. It replaces VSTest, so `Microsoft.NET.Test.Sdk` is not required.<!-- include: testing-platform. path: /docs/mdsource/testing-platform.include.md -->
+
+### dotnet test
+
+The .NET 10 SDK added an [MTP mode to dotnet test](https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-dotnet-test). The default VSTest mode does not run MTP test projects. Enable MTP mode by adding the following to `global.json` at the root of the repository:
+
+```json
+{
+  "test": {
+    "runner": "Microsoft.Testing.Platform"
+  }
+}
+```
+<!-- endInclude -->
+
+
 ## Implicit Usings
 
 **All examples use [Implicit Usings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure `<ImplicitUsings>` is set to `enable` to ensure examples compile correctly.**<!-- include: implicit-usings. path: /docs/mdsource/implicit-usings.include.md -->

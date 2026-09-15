@@ -10,6 +10,11 @@ Add the following packages to the test project:
 snippet: tunit-nugets
 
 
+## Microsoft.Testing.Platform
+
+include: testing-platform
+
+
 ## Implicit Usings
 
 include: implicit-usings

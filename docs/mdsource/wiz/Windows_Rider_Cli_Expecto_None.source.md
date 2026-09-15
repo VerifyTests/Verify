@@ -12,6 +12,22 @@ dotnet add package Expecto
 dotnet add package Verify.Expecto
 ```
 
+## Microsoft.Testing.Platform
+
+include: testing-platform
+
+### Test project settings
+
+Add the following to the test project:
+
+```xml
+<PropertyGroup>
+  <OutputType>Exe</OutputType>
+  <EnableExpectoTestingPlatformIntegration>true</EnableExpectoTestingPlatformIntegration>
+</PropertyGroup>
+```
+
+
 ## Implicit Usings
 
 include: implicit-usings

@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Tests.fs" />
     <PackageReference Include="Argon.FSharp" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="xunit.v3" />
     <ProjectReference Include="..\Verify.XunitV3\Verify.XunitV3.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />

@@ -7,11 +7,24 @@
 Add the following packages to the test project:
 
 ```
-dotnet add package Microsoft.NET.Test.Sdk
 dotnet add package Verify.XunitV3
 dotnet add package xunit.v3
-dotnet add package xunit.runner.visualstudio
 ```
+
+## Microsoft.Testing.Platform
+
+include: testing-platform
+
+### Test project settings
+
+Add the following to the test project:
+
+```xml
+<PropertyGroup>
+  <OutputType>Exe</OutputType>
+</PropertyGroup>
+```
+
 
 ## Implicit Usings
 

@@ -11,6 +11,11 @@ dotnet add package TUnit
 dotnet add package Verify.TUnit
 ```
 
+## Microsoft.Testing.Platform
+
+include: testing-platform
+
+
 ## Implicit Usings
 
 include: implicit-usings

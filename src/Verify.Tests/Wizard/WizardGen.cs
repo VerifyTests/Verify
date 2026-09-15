@@ -191,6 +191,8 @@ public class WizardGen
     {
         AppendNugets(builder, framework, cli);
 
+        AppendTestingPlatform(builder, framework);
+
         AppendImplicitUsings(builder);
 
         AppendConventions(builder, framework);
@@ -391,6 +393,52 @@ public class WizardGen
             _ => throw new ArgumentOutOfRangeException(nameof(os), os, null)
         };
 
+    static void AppendTestingPlatform(StringBuilder builder, TestFramework framework)
+    {
+        // Fixie has no Microsoft.Testing.Platform runner
+        if (framework == TestFramework.Fixie)
+        {
+            return;
+        }
+
+        builder.AppendLine(
+            """
+
+            ## Microsoft.Testing.Platform
+
+            include: testing-platform
+
+            """);
+
+        // TUnit sets OutputType itself and is always a Microsoft.Testing.Platform app
+        var properties = framework switch
+        {
+            TestFramework.XunitV3 => "<OutputType>Exe</OutputType>",
+            TestFramework.NUnit => "<OutputType>Exe</OutputType>\n  <EnableNUnitRunner>true</EnableNUnitRunner>",
+            TestFramework.MSTest => "<OutputType>Exe</OutputType>\n  <EnableMSTestRunner>true</EnableMSTestRunner>",
+            TestFramework.Expecto => "<OutputType>Exe</OutputType>\n  <EnableExpectoTestingPlatformIntegration>true</EnableExpectoTestingPlatformIntegration>",
+            _ => null
+        };
+        if (properties == null)
+        {
+            return;
+        }
+
+        builder.AppendLine(
+            $"""
+             ### Test project settings
+
+             Add the following to the test project:
+
+             ```xml
+             <PropertyGroup>
+               {properties}
+             </PropertyGroup>
+             ```
+
+             """);
+    }
+
     static void AppendNugets(StringBuilder builder, TestFramework framework, CliPreference cli)
     {
         builder.AppendLine(
@@ -410,10 +458,8 @@ public class WizardGen
                         builder.AppendLine(
                             """
                             ```
-                            dotnet add package Microsoft.NET.Test.Sdk
                             dotnet add package Verify.XunitV3
                             dotnet add package xunit.v3
-                            dotnet add package xunit.runner.visualstudio
                             ```
                             """);
                         break;
@@ -421,7 +467,6 @@ public class WizardGen
                         builder.AppendLine(
                             """
                             ```
-                            dotnet add package Microsoft.NET.Test.Sdk
                             dotnet add package NUnit
                             dotnet add package NUnit3TestAdapter
                             dotnet add package Verify.NUnit
@@ -450,7 +495,6 @@ public class WizardGen
                         builder.AppendLine(
                             """
                             ```
-                            dotnet add package Microsoft.NET.Test.Sdk
                             dotnet add package MSTest.TestAdapter
                             dotnet add package MSTest.TestFramework
                             dotnet add package Verify.MSTest

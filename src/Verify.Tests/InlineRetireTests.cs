@@ -58,7 +58,7 @@ public class InlineRetireTests :
         // snapshot whether the file snapshot then passes or fails, so the retire goes either way.
         await Verify("value", settings);
 
-        var settle = listener.AwaitSettle();
+        var settle = listener.AwaitSettle(nameof(NotInlineRetiresTheCallSite));
         Assert.NotNull(settle);
         Assert.NotNull(settle.Key);
 
@@ -189,17 +189,18 @@ public class InlineRetireTests :
         }
 
         /// <summary>
-        /// The first settle to arrive, or null. Other verbs can reach the owner on the same port,
-        /// so this reads past them.
+        /// The first settle for <paramref name="member"/> to arrive, or null. Other verbs, and
+        /// settles for other call sites, can reach the owner on the same port, so this reads past them.
         /// </summary>
-        public Settle? AwaitSettle()
+        public Settle? AwaitSettle(string member)
         {
             var deadline = DateTime.UtcNow.AddSeconds(5);
             while (DateTime.UtcNow < deadline)
             {
                 while (payloads.TryDequeue(out var payload))
                 {
-                    if (TryReadSettle(payload, out var settle))
+                    if (TryReadSettle(payload, out var settle) &&
+                        settle!.Member == member)
                     {
                         return settle;
                     }

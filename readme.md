@@ -43,7 +43,7 @@ The fee is paid by [sponsoring VerifyTests](https://github.com/sponsors/VerifyTe
 | 200 to 1000 employees | [$30/month](https://github.com/sponsors/VerifyTests/sponsorships?tier_id=645065) |
 | More than 1000 employees | [$100/month](https://github.com/sponsors/VerifyTests/sponsorships?tier_id=651172) |
 
-From v33 (currently available as a beta on nuget), sponsorship is verified at build time by [SponsorCheck](https://github.com/SimonCropp/SponsorCheck). **Nothing phones home: the check runs inside the build, adds no runtime dependency to the packages, and issues no license keys.** A sponsoring organization declares its account once, in a `Directory.Build.props` at the root of the repository, and that covers every project and every Verify package:
+From v33, sponsorship is verified at build time by [SponsorCheck](https://github.com/SimonCropp/SponsorCheck). **Nothing phones home: the check runs inside the build, adds no runtime dependency to the packages, and issues no license keys.** A sponsoring organization declares its account once, in a `Directory.Build.props` at the root of the repository, and that covers every project and every Verify package:
 
 ```xml
 <PropertyGroup>

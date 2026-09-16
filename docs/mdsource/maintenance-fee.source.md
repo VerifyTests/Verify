@@ -19,6 +19,7 @@ Exempt from the fee:
  * Individuals.
  * Open source projects that do not generate revenue. Voluntary donations and sponsorships are not revenue.
  * Organizations that do not generate revenue, other than government agencies.
+ * Organizations with an annual gross revenue under US$10,000, other than government agencies.
  * Organizations that engage the core maintainers for consulting work, for six months from the final date of that engagement.
 
 
@@ -38,7 +39,7 @@ GitHub Sponsors bills monthly. Organizations that prefer an invoice can use GitH
 
 ## Declaring fee status in the build (v33 and later)
 
-From v33 (currently available as a beta on nuget), sponsorship is verified at build time by [SponsorCheck](https://github.com/SimonCropp/SponsorCheck). Each package bundles a hashed list of sponsors and a build-time verifier. **Nothing phones home: the check runs inside the build, adds no runtime dependency to the packages, and issues no license keys.** A build that references a Verify package needs exactly one of the declarations below; without one it fails with [SC021](https://github.com/SimonCropp/SponsorCheck/blob/main/docs/VerifierDiagnosticCodes.md#sc021), whose message contains a copy-pasteable fix.
+From v33, sponsorship is verified at build time by [SponsorCheck](https://github.com/SimonCropp/SponsorCheck). The core Verify package bundles a hashed list of sponsors and a build-time verifier, and every package that depends on it, including the test framework adapters, carries the same check. **Nothing phones home: the check runs inside the build, adds no runtime dependency to the packages, and issues no license keys.** A build that references a Verify package needs exactly one of the declarations below; without one it fails with [SC021](https://github.com/SimonCropp/SponsorCheck/blob/main/docs/VerifierDiagnosticCodes.md#sc021), whose message contains a copy-pasteable fix.
 
 The Verify packages use SponsorCheck's [owner mode](https://github.com/SimonCropp/SponsorCheck/blob/main/docs/ConsumerUsage.md#owner-mode) with the owner id `Verify`, so the declaration is a single MSBuild property rather than metadata on each `PackageReference`. Set it once in a `Directory.Build.props` at the root of the repository and it covers every project and every Verify package (Verify.Xunit, Verify.NUnit, and so on), including projects that only reference Verify transitively. Prefer answering a few questions? The [SponsorCheck setup wizard for Verify](https://simoncropp.github.io/SponsorCheck/package/Verify) reads the published package and generates the exact snippet.
 
@@ -58,7 +59,7 @@ The bundled sponsor list is frozen when a version is packed, so a sponsorship th
 
 ### Exempt
 
-Individuals and organizations under the revenue threshold claim `SmallRevenue`; open source projects that do not generate revenue claim `OpenSource`; organizations that engaged the core maintainers for consulting work claim `MaintainerConsulting`. All three exemptions are time-bounded, so an end month is required: at most 12 months ahead of the build date for `SmallRevenue` and `OpenSource`, and at most 6 months for `MaintainerConsulting`. The build passes with a warning that quotes the exemption's criteria, and fails once the month has passed until the claim is renewed.
+Individuals and organizations under the revenue threshold claim `SmallRevenue`; open source projects that do not generate revenue claim `OpenSource`; organizations that engaged the core maintainers for consulting work claim `MaintainerConsulting`. All three exemptions are time-bounded, so an end month is required: at most 12 months ahead of the build date for `SmallRevenue` and `OpenSource`, and at most 6 months for `MaintainerConsulting`. The build passes and logs the exemption's criteria as a message ([SC031](https://github.com/SimonCropp/SponsorCheck/blob/main/docs/VerifierDiagnosticCodes.md#sc031)) rather than a warning, so builds run with `-warnaserror` pass too. Once the month has passed, the build fails until the claim is renewed.
 
 ```xml
 <PropertyGroup>
@@ -72,6 +73,15 @@ For an open source project:
 ```xml
 <PropertyGroup>
   <Verify_SponsorshipExemption>OpenSource</Verify_SponsorshipExemption>
+  <Verify_SponsorshipExemptionUntil>yyyy-MM</Verify_SponsorshipExemptionUntil>
+</PropertyGroup>
+```
+
+For an organization that engaged the core maintainers for consulting work:
+
+```xml
+<PropertyGroup>
+  <Verify_SponsorshipExemption>MaintainerConsulting</Verify_SponsorshipExemption>
   <Verify_SponsorshipExemptionUntil>yyyy-MM</Verify_SponsorshipExemptionUntil>
 </PropertyGroup>
 ```
@@ -90,7 +100,7 @@ An organization with its own licensing arrangement declares the last covered mon
 
 ### Opting out
 
-The build passes but logs a breach-of-license warning on every build:
+The build passes but logs a breach-of-license warning ([SC023](https://github.com/SimonCropp/SponsorCheck/blob/main/docs/VerifierDiagnosticCodes.md#sc023)) on every build, so a build run with `-warnaserror` fails:
 
 ```xml
 <PropertyGroup>

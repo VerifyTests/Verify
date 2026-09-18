@@ -1,0 +1,13 @@
+﻿
+Verify has detected the following issues with snapshot files:
+
+The following files have not been tracked:
+
+ * Deleted.verified.txt
+ * Deleted.Mono6_12.verified.txt
+ * Deleted.Android.verified.txt
+ * Deleted.IOS.verified.txt
+ * Deleted.x64.verified.txt
+ * Deleted.arm64.verified.txt
+ * Deleted.Debug.verified.txt
+ * Deleted.Release.verified.txt

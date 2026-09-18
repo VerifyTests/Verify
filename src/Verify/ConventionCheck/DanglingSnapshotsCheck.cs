@@ -18,9 +18,11 @@ public static class DanglingSnapshotsCheck
         }
 
         var directory = AttributeReader.GetProjectDirectory(VerifierSettings.Assembly);
-        var files = Directory.EnumerateFiles(directory, "*.verified.*", SearchOption.AllDirectories);
-        CheckFiles(files, trackedVerifiedFiles!, directory);
+        CheckFiles(FindSnapshotFiles(directory), trackedVerifiedFiles!, directory);
     }
+
+    internal static IEnumerable<string> FindSnapshotFiles(string directory) =>
+        Directory.EnumerateFiles(directory, "*.verified.*", SearchOption.AllDirectories);
 
     internal static void CheckFiles(IEnumerable<string> filesOnDisk, ConcurrentBag<string> trackedFiles, string directory)
     {

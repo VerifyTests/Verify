@@ -1,0 +1,6 @@
+﻿
+Verify has detected the following issues with snapshot files:
+
+The following files have not been tracked:
+
+ * Plain/Deleted.verified.txt

@@ -75,6 +75,8 @@ use the `[OneTimeTearDown]` feature:
 
 snippet: DanglingSnapshotsNUnitUsage/DanglingSnapshots.cs
 
+The NUnit runner prints a teardown failure but does not count it, so the run is summarised as passed. To keep a dangling snapshot from going unnoticed, the NUnit integration sets the process exit code to 1 when the check fails, and writes the reason after the runner's summary.
+
 
 ### XUnitV3
 
@@ -85,3 +87,24 @@ snippet: DanglingSnapshotsXUnitV3Usage/DanglingSnapshots.cs
 Apply that collection to all tests:
 
 snippet: XunitV3DanglingCollection
+
+
+### TUnit
+
+Use the `[After(TestSession)]` feature:
+
+snippet: DanglingSnapshotsTUnitUsage/DanglingSnapshots.cs
+
+
+### Expecto
+
+Expecto test projects are console applications, so the check goes in the entry point, after the run:
+
+snippet: DanglingSnapshotsExpectoUsage/DanglingSnapshots.cs
+
+
+### Fixie
+
+Fixie already requires an `IExecution` implementation for Verify. Add the check to the end of `Run`:
+
+snippet: DanglingSnapshotsFixieUsage/DanglingSnapshots.cs

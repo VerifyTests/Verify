@@ -64,6 +64,9 @@ build_script:
 - dotnet test %CD%/src/DanglingSnapshotsMSTestUsage --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet test %CD%/src/DanglingSnapshotsNUnitUsage --configuration Release --no-build --no-restore --verbosity minimal
 - dotnet test %CD%/src/DanglingSnapshotsXunitV3Usage --configuration Release --no-build --no-restore --verbosity minimal
+- dotnet run --project src/DanglingSnapshotsExpectoUsage --configuration Release --no-build --no-restore --verbosity minimal
+- dotnet run --project src/DanglingSnapshotsTUnitUsage/DanglingSnapshotsTUnitUsage.csproj --configuration Release --no-build --no-restore --verbosity minimal
+- cmd: pushd src && dotnet fixie DanglingSnapshotsFixieUsage --configuration Release --no-build && popd
 
 
 #- pwsh: |

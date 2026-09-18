@@ -11,8 +11,11 @@
     <File Path="nuget.config" />
     <File Path="testenvironments.json" />
   </Folder>
+  <Project Path="DanglingSnapshotsExpectoUsage/DanglingSnapshotsExpectoUsage.csproj" />
+  <Project Path="DanglingSnapshotsFixieUsage/DanglingSnapshotsFixieUsage.csproj" />
   <Project Path="DanglingSnapshotsMSTestUsage/DanglingSnapshotsMSTestUsage.csproj" />
   <Project Path="DanglingSnapshotsNUnitUsage/DanglingSnapshotsNUnitUsage.csproj" />
+  <Project Path="DanglingSnapshotsTUnitUsage/DanglingSnapshotsTUnitUsage.csproj" />
   <Project Path="DanglingSnapshotsXunitV3Usage/DanglingSnapshotsXunitV3Usage.csproj" />
   <Project Path="Verify.Expecto/Verify.Expecto.csproj" />
   <Project Path="Verify.Fixie/Verify.Fixie.csproj" />

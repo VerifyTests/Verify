@@ -109,6 +109,8 @@ public static class SetUp
 <sup><a href='/src/DanglingSnapshotsNUnitUsage/DanglingSnapshots.cs#L1-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-DanglingSnapshotsNUnitUsage/DanglingSnapshots.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+The NUnit runner prints a teardown failure but does not count it, so the run is summarised as passed. To keep a dangling snapshot from going unnoticed, the NUnit integration sets the process exit code to 1 when the check fails, and writes the reason after the runner's summary.
+
 
 ### XUnitV3
 
@@ -146,4 +148,83 @@ public class Tests
         Verify("Foo");
 ```
 <sup><a href='/src/DanglingSnapshotsXunitV3Usage/Tests.cs#L1-L8' title='Snippet source file'>snippet source</a> | <a href='#snippet-XunitV3DanglingCollection' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### TUnit
+
+Use the `[After(TestSession)]` feature:
+
+<!-- snippet: DanglingSnapshotsTUnitUsage/DanglingSnapshots.cs -->
+<a id='snippet-DanglingSnapshotsTUnitUsage/DanglingSnapshots.cs'></a>
+```cs
+#pragma warning disable VerifyDanglingSnapshots
+
+public static class Cleanup
+{
+    [After(TestSession)]
+    public static void Run() =>
+        DanglingSnapshots.Run();
+}
+```
+<sup><a href='/src/DanglingSnapshotsTUnitUsage/DanglingSnapshots.cs#L1-L8' title='Snippet source file'>snippet source</a> | <a href='#snippet-DanglingSnapshotsTUnitUsage/DanglingSnapshots.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Expecto
+
+Expecto test projects are console applications, so the check goes in the entry point, after the run:
+
+<!-- snippet: DanglingSnapshotsExpectoUsage/DanglingSnapshots.cs -->
+<a id='snippet-DanglingSnapshotsExpectoUsage/DanglingSnapshots.cs'></a>
+```cs
+#pragma warning disable VerifyDanglingSnapshots
+
+var result = Runner.RunTestsInAssemblyWithCLIArgs([], args);
+
+DanglingSnapshots.Run();
+
+return result;
+```
+<sup><a href='/src/DanglingSnapshotsExpectoUsage/DanglingSnapshots.cs#L1-L7' title='Snippet source file'>snippet source</a> | <a href='#snippet-DanglingSnapshotsExpectoUsage/DanglingSnapshots.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Fixie
+
+Fixie already requires an `IExecution` implementation for Verify. Add the check to the end of `Run`:
+
+<!-- snippet: DanglingSnapshotsFixieUsage/DanglingSnapshots.cs -->
+<a id='snippet-DanglingSnapshotsFixieUsage/DanglingSnapshots.cs'></a>
+```cs
+#pragma warning disable VerifyDanglingSnapshots
+
+public class TestProject :
+    ITestProject,
+    IExecution
+{
+    public void Configure(TestConfiguration configuration, TestEnvironment environment)
+    {
+        VerifierSettings.AssignTargetAssembly(environment.Assembly);
+        configuration.Conventions.Add<DefaultDiscovery, TestProject>();
+    }
+
+    public async Task Run(TestSuite testSuite)
+    {
+        foreach (var testClass in testSuite.TestClasses)
+        {
+            foreach (var test in testClass.Tests)
+            {
+                using (ExecutionState.Set(testClass, test, null))
+                {
+                    await test.Run();
+                }
+            }
+        }
+
+        DanglingSnapshots.Run();
+    }
+}
+```
+<sup><a href='/src/DanglingSnapshotsFixieUsage/DanglingSnapshots.cs#L1-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-DanglingSnapshotsFixieUsage/DanglingSnapshots.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

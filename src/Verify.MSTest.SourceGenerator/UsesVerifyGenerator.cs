@@ -50,6 +50,11 @@ public class UsesVerifyGenerator : IIncrementalGenerator
             return null;
         }
 
+        if (IsStatic(symbol))
+        {
+            return null;
+        }
+
         cancel.ThrowIfCancellationRequested();
 
         var markerType = context.SemanticModel.Compilation.GetTypeByMetadataName(MarkerAttributeName);
@@ -93,6 +98,11 @@ public class UsesVerifyGenerator : IIncrementalGenerator
             return null;
         }
 
+        if (IsStatic(symbol))
+        {
+            return null;
+        }
+
         var testClassType = compilation.GetTypeByMetadataName(TestClassAttributeName);
         if (testClassType is null)
         {
@@ -114,6 +124,18 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
         return Parser.Parse(symbol, syntax, cancel);
     }
+
+    /// <summary>
+    /// A static class has no instance for the generated TestContext property to live on, so emitting
+    /// it is CS0708, and it cannot hold MSTest instance test methods either. MSTest does allow a
+    /// static [TestClass] as the host for [AssemblyInitialize] and [AssemblyCleanup], and that is
+    /// the shape the dangling snapshot docs recommend, so an assembly wide [UsesVerify] would
+    /// otherwise fail to compile.
+    ///
+    /// Read from the symbol rather than the declaration: a partial type is static when any one of
+    /// its declarations says so, and the generator only sees the declaration it was triggered by.
+    /// </summary>
+    static bool IsStatic(INamedTypeSymbol symbol) => symbol.IsStatic;
 
     static bool HasTestClassAttribute(INamedTypeSymbol symbol, INamedTypeSymbol testClassType) =>
         !symbol.HasAttributeOfType(testClassType, includeDerived: true);

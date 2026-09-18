@@ -15,7 +15,7 @@ public class DanglingSnapshotsCheckTests
             "path/to/tracked.verified.txt"
         };
 
-        return Throws(() => DanglingSnapshotsCheck.CheckFiles(filesOnDisk, trackedFiles, root))
+        return Throws(() => DanglingSnapshotsCheck.CheckFiles(filesOnDisk, trackedFiles, root, false))
             .IgnoreStackTrace();
     }
 
@@ -31,7 +31,7 @@ public class DanglingSnapshotsCheckTests
             "path/to/tracked.verified.txt"
         };
 
-        return Throws(() => DanglingSnapshotsCheck.CheckFiles(filesOnDisk, trackedFiles, root))
+        return Throws(() => DanglingSnapshotsCheck.CheckFiles(filesOnDisk, trackedFiles, root, false))
             .IgnoreStackTrace();
     }
 
@@ -41,7 +41,7 @@ public class DanglingSnapshotsCheckTests
         var filesOnDisk = new List<string> { "path/to/tracked.verified.txt" };
         var trackedFiles = new ConcurrentBag<string> { "path/to/tracked.verified.txt" };
 
-        DanglingSnapshotsCheck.CheckFiles(filesOnDisk, trackedFiles, root);
+        DanglingSnapshotsCheck.CheckFiles(filesOnDisk, trackedFiles, root, false);
     }
 
     /// <summary>
@@ -79,6 +79,10 @@ public class DanglingSnapshotsCheckTests
     /// The case the uniqueness skip exists for. A multi targeted project running one framework
     /// leaves the snapshots of the other frameworks untouched, and the same holds for the OS,
     /// architecture and configuration axes. None of these may be reported.
+    ///
+    /// The tracked set is the complete framework union, which is what a covered run has. The
+    /// architecture and configuration axes are reported either way: no manifest covers them, and
+    /// they were never in the name based skip either.
     /// </summary>
     [Fact]
     public Task UniquenessFromAnotherRun() =>
@@ -91,6 +95,23 @@ public class DanglingSnapshotsCheckTests
                     "path/to/Alive.Linux.verified.txt",
                     "path/to/Alive.arm64.verified.txt",
                     "path/to/Alive.Debug.verified.txt"
+                ],
+                "path/to/Alive.DotNet9_0.verified.txt",
+                "path/to/Alive.DotNet8_0.verified.txt",
+                "path/to/Alive.Net4_8.verified.txt"));
+
+    /// <summary>
+    /// A project that dropped a target framework keeps the snapshots that framework owned. No run
+    /// produces them again, so they are dangling, and only a complete union can say so: by name
+    /// they are indistinguishable from the files of a framework that simply is not running.
+    /// </summary>
+    [Fact]
+    public Task RetiredFrameworkSnapshots() =>
+        Verify(
+            Report(
+                [
+                    "path/to/Alive.DotNet9_0.verified.txt",
+                    "path/to/Alive.DotNet8_0.verified.txt"
                 ],
                 "path/to/Alive.DotNet9_0.verified.txt"));
 
@@ -341,12 +362,27 @@ public class DanglingSnapshotsCheckTests
     static string Report(IEnumerable<string> filesOnDisk, params string[] tracked) =>
         ReportIn(root, filesOnDisk, tracked);
 
+    /// <summary>
+    /// Reports both ways round. Without a manifest from every target framework the check falls back
+    /// to skipping names that look like they belong to another framework; with one the union decides
+    /// instead, and the difference between the two halves is what the manifests bought.
+    /// </summary>
     static string ReportIn(string directory, IEnumerable<string> filesOnDisk, params string[] tracked)
     {
-        ConcurrentBag<string> trackedFiles = [..tracked];
+        var files = filesOnDisk.ToList();
+        var builder = new StringBuilder();
+        builder.AppendLine("== Frameworks not covered ==");
+        builder.AppendLine(Check(files, tracked, directory, false));
+        builder.AppendLine("== Frameworks covered ==");
+        builder.Append(Check(files, tracked, directory, true));
+        return builder.ToString();
+    }
+
+    static string Check(IReadOnlyCollection<string> filesOnDisk, IReadOnlyCollection<string> tracked, string directory, bool frameworksCovered)
+    {
         try
         {
-            DanglingSnapshotsCheck.CheckFiles(filesOnDisk, trackedFiles, directory);
+            DanglingSnapshotsCheck.CheckFiles(filesOnDisk, tracked, directory, frameworksCovered);
             return "Nothing reported.";
         }
         catch (Exception exception)

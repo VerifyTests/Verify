@@ -1,0 +1,10 @@
+﻿{
+  Type: Exception,
+  Message:
+Verify has detected the following issues with snapshot files:
+
+The following files have not been tracked:
+
+ * Tests.Deleted.DotNet8_0.verified.txt
+
+}

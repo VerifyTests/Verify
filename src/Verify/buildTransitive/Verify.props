@@ -108,11 +108,24 @@
       <!-- IntermediateOutputPath is relative to the project for the default layout, but absolute for
            others (eg artifacts output), so combine rather than concatenate. -->
       <VerifyIntermediateDirectory>$([System.IO.Path]::Combine('$(MSBuildProjectDirectory)', '$(IntermediateOutputPath)'))</VerifyIntermediateDirectory>
+      <!-- BaseIntermediateOutputPath, unlike IntermediateOutputPath, is shared by every target
+           framework of the project, which is what lets a run of one framework find the dangling
+           manifests written by the runs of the others. Scoped by configuration, since a Debug run
+           says nothing about the snapshots a Release run owns. -->
+      <VerifyDanglingDirectory>$([System.IO.Path]::Combine('$(MSBuildProjectDirectory)', '$(BaseIntermediateOutputPath)', 'VerifyDangling', '$(Configuration)'))</VerifyDanglingDirectory>
     </PropertyGroup>
     <ItemGroup>
       <VerifyAttributes Include="System.Reflection.AssemblyMetadata">
         <_Parameter1>Verify.TargetFrameworks</_Parameter1>
         <_Parameter2>$(TargetFrameworks)</_Parameter2>
+      </VerifyAttributes>
+      <VerifyAttributes Include="System.Reflection.AssemblyMetadata">
+        <_Parameter1>Verify.TargetFramework</_Parameter1>
+        <_Parameter2>$(TargetFramework)</_Parameter2>
+      </VerifyAttributes>
+      <VerifyAttributes Include="System.Reflection.AssemblyMetadata">
+        <_Parameter1>Verify.DanglingDirectory</_Parameter1>
+        <_Parameter2>$(VerifyDanglingDirectory)</_Parameter2>
       </VerifyAttributes>
       <VerifyAttributes Include="System.Reflection.AssemblyMetadata">
         <_Parameter1>Verify.IntermediateDirectory</_Parameter1>

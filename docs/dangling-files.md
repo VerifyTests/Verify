@@ -19,6 +19,22 @@ A dangling snapshot file are when a `.verified.` file exist with no correspondin
    * have casing that does not match the test case
 
 
+## Multi targeted projects
+
+A multi targeted project runs its tests once per target framework, so most of the snapshots on disk during any one run belong to a framework that is not currently running. A `UniqueForRuntime` or `UniqueForTargetFramework` snapshot of a deleted test is indistinguishable, by name, from one that another framework still owns.
+
+To tell them apart, each run records what it tracked to a manifest in the intermediate (obj) directory. The manifests are named after the target framework and share one directory across all frameworks of the project, so a run can read what the other runs tracked. Once every target framework has a manifest, the union of them is the complete set of snapshot files the project owns, and anything on disk outside that union is dangling regardless of what its name suggests.
+
+In a multi targeted run this means the check is at its most accurate on the last framework to run: the earlier runs cannot yet account for the frameworks still to come, and fall back to skipping names that look like they belong to another framework.
+
+The manifests are scoped to the build configuration, and are ignored if they predate the assembly running the check, so a stale manifest cannot mask a dangling file. They live in obj and are removed by a clean.
+
+Two axes cannot be settled this way, and snapshot names carrying them are always skipped:
+
+ * `UniqueForOSPlatform`, since the runs that produce those files are on other machines with their own intermediate directories.
+ * `UniqueForArchitecture` and `UniqueForAssemblyConfiguration`, which are not recognised as uniqueness at all and are reported as dangling if no run tracks them.
+
+
 ## Experimental
 
 `DanglingSnapshots` is an experimental feature (marked with `[Experimental("VerifyDanglingSnapshots")]`) and is subject to change in minor version.

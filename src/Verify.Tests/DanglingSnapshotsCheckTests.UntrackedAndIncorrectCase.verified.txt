@@ -1,4 +1,18 @@
-﻿
+﻿== Frameworks not covered ==
+
+Verify has detected the following issues with snapshot files:
+
+The following files have not been tracked:
+
+ * Deleted.verified.txt
+
+
+The following files have been tracked with incorrect case:
+
+ * AliveWithCase.verified.txt
+
+== Frameworks covered ==
+
 Verify has detected the following issues with snapshot files:
 
 The following files have not been tracked:

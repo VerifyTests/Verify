@@ -14,6 +14,19 @@ public static class AttributeReader
     public static bool TryGetTargetFrameworks(Assembly assembly, [NotNullWhen(true)] out string? targetFrameworks) =>
         TryGetValue(assembly, "Verify.TargetFrameworks", out targetFrameworks);
 
+    /// <summary>
+    /// The single target framework this assembly was built for, as written in the project file.
+    /// </summary>
+    public static bool TryGetTargetFramework(Assembly assembly, [NotNullWhen(true)] out string? targetFramework) =>
+        TryGetValue(assembly, "Verify.TargetFramework", out targetFramework);
+
+    /// <summary>
+    /// The directory holding the dangling snapshot manifests, shared by every target framework of
+    /// the project and scoped to the build configuration.
+    /// </summary>
+    internal static bool TryGetDanglingDirectory(Assembly assembly, [NotNullWhen(true)] out string? danglingDirectory) =>
+        TryGetValue(assembly, "Verify.DanglingDirectory", out danglingDirectory);
+
     public static string GetProjectDirectory() =>
         GetProjectDirectory(Assembly.GetCallingAssembly());
 

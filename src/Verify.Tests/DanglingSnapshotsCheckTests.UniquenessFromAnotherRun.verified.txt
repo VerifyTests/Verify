@@ -1,4 +1,14 @@
-﻿
+﻿== Frameworks not covered ==
+
+Verify has detected the following issues with snapshot files:
+
+The following files have not been tracked:
+
+ * Alive.arm64.verified.txt
+ * Alive.Debug.verified.txt
+
+== Frameworks covered ==
+
 Verify has detected the following issues with snapshot files:
 
 The following files have not been tracked:

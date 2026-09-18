@@ -4,7 +4,7 @@ Verify has detected the following issues with snapshot files:
 
 The following files have not been tracked:
 
- * Alive.Debug.verified.txt
+ * Unpinned.Mono3_1.verified.txt
 
 == Frameworks covered ==
 
@@ -12,4 +12,5 @@ Verify has detected the following issues with snapshot files:
 
 The following files have not been tracked:
 
- * Alive.Debug.verified.txt
+ * Pinned.Mono3_1.verified.txt
+ * Unpinned.Mono3_1.verified.txt

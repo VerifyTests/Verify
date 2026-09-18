@@ -48,6 +48,12 @@ public static partial class VerifierSettings
         }
     }
 
+    /// <summary>
+    /// Null until the first verification runs. Unlike <see cref="Assembly" />, does not throw, for
+    /// callers whose whole job is to do nothing when no verification ran.
+    /// </summary>
+    internal static Assembly? AssemblyOrNull => assembly;
+
     static Lock locker = new();
 
     public static void AssignTargetAssembly(Assembly assembly)

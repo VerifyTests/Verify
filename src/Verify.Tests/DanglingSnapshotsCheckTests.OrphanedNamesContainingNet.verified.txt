@@ -1,5 +1,14 @@
 ﻿== Frameworks not covered ==
-Nothing reported.
+
+Verify has detected the following issues with snapshot files:
+
+The following files have not been tracked:
+
+ * Tests.NetworkClient.verified.txt
+ * Tests.NetCoreShim.verified.txt
+ * Tests.Nettle.verified.txt
+ * HttpTests.NetworkFailure.verified.txt
+
 == Frameworks covered ==
 
 Verify has detected the following issues with snapshot files:

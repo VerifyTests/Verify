@@ -1,3 +1,4 @@
+#pragma warning disable VerifyDanglingSnapshots
 namespace VerifyTests;
 
 public partial class InnerVerifier :
@@ -101,6 +102,12 @@ public partial class InnerVerifier :
         directory = ResolveDirectory(sourceFile, settings, pathInfo);
 
         Directory.CreateDirectory(directory);
+
+        // Recorded here rather than alongside the files, so that a test counts as existing even when
+        // it produces none: an inline snapshot, a verification that throws, or one whose targets are
+        // all excluded. Everything the naming appends after this point - parameters, uniqueness,
+        // target name, index - varies per run and per case, so none of it identifies the test.
+        DanglingSnapshotsCheck.TrackPrefix(Path.Combine(directory, settings.FileName ?? typeAndMethod));
 
         if (settings.UniqueDirectory)
         {
@@ -211,6 +218,7 @@ public partial class InnerVerifier :
         Directory.CreateDirectory(directory);
 
         var prefix = Path.Combine(directory, name);
+        DanglingSnapshotsCheck.TrackPrefix(prefix);
         ValidatePrefix(this.settings, prefix);
 
         verifiedFiles = MatchingFileFinder.FindVerified(name, directory);

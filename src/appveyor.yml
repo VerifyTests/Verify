@@ -58,11 +58,12 @@ build_script:
 # Run it via the fixie.console tool (restored from src/.config/dotnet-tools.json, which is only discoverable from src).
 # Use pushd/popd so the `cd` into src does not persist into subsequent AppVeyor script lines.
 - cmd: pushd src && dotnet fixie Verify.Fixie.Tests --configuration Release --no-build && popd
+# The dangling snapshot check only runs on a build server, so these projects are the only place it
+# is exercised end to end: adapter wiring, module initializer, teardown hook, manifest and scan.
 - dotnet build src/VerifyDangling.slnx --configuration Release --verbosity minimal
-#- dotnet test %CD%/src/DanglingSnapshotsMSTestUsage --configuration Release --no-build --no-restore
-#- dotnet test %CD%/src/DanglingSnapshotsNUnitUsage --configuration Release --no-build --no-restore
-#- dotnet test %CD%/src/DanglingSnapshotsXunitUsage --configuration Release --no-build --no-restore
-#- dotnet test %CD%/src/DanglingSnapshotsXunitV3Usage --configuration Release --no-build --no-restore
+- dotnet test %CD%/src/DanglingSnapshotsMSTestUsage --configuration Release --no-build --no-restore --verbosity minimal
+- dotnet test %CD%/src/DanglingSnapshotsNUnitUsage --configuration Release --no-build --no-restore --verbosity minimal
+- dotnet test %CD%/src/DanglingSnapshotsXunitV3Usage --configuration Release --no-build --no-restore --verbosity minimal
 
 
 #- pwsh: |

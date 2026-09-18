@@ -1,7 +1,18 @@
-#pragma warning disable VerifyDanglingSnapshots
+﻿#pragma warning disable VerifyDanglingSnapshots
 public class DanglingSnapshotsCheckTests
 {
     const string root = "path/to";
+
+    // Runtimes and architectures no run of this project produces, so the classifier reaches the same
+    // verdict on every target framework and machine and the snapshots can be shared between them.
+    // A test that hard coded, say, DotNet8_0 would report it as belonging to another run everywhere
+    // except the net8.0 run, which owns it.
+    const string foreignRuntime = "Mono3_1";
+    const string otherForeignRuntime = "Mono4_2";
+    const string foreignArchitecture = "s390x";
+
+    static readonly string[] alive = ["path/to/Alive.verified.txt"];
+    static readonly string[] alivePrefix = ["path/to/Alive"];
 
     [Fact]
     public Task Untracked()
@@ -15,7 +26,7 @@ public class DanglingSnapshotsCheckTests
             "path/to/tracked.verified.txt"
         };
 
-        return Throws(() => DanglingSnapshotsCheck.CheckFiles(filesOnDisk, trackedFiles, root, false))
+        return Throws(() => DanglingSnapshotsCheck.CheckFiles(filesOnDisk, trackedFiles, ["path/to/tracked"], root, false))
             .IgnoreStackTrace();
     }
 
@@ -31,7 +42,7 @@ public class DanglingSnapshotsCheckTests
             "path/to/tracked.verified.txt"
         };
 
-        return Throws(() => DanglingSnapshotsCheck.CheckFiles(filesOnDisk, trackedFiles, root, false))
+        return Throws(() => DanglingSnapshotsCheck.CheckFiles(filesOnDisk, trackedFiles, ["path/to/tracked"], root, false))
             .IgnoreStackTrace();
     }
 
@@ -41,15 +52,14 @@ public class DanglingSnapshotsCheckTests
         var filesOnDisk = new List<string> { "path/to/tracked.verified.txt" };
         var trackedFiles = new ConcurrentBag<string> { "path/to/tracked.verified.txt" };
 
-        DanglingSnapshotsCheck.CheckFiles(filesOnDisk, trackedFiles, root, false);
+        DanglingSnapshotsCheck.CheckFiles(filesOnDisk, trackedFiles, ["path/to/tracked"], root, false);
     }
 
     /// <summary>
-    /// Every file here is a snapshot for a test that no longer exists: nothing shares its prefix
-    /// with anything the run tracked. A file is reported only when its whole relative path avoids
-    /// the <c>IfFileUnique</c> substring list, so the ones carrying a runtime, framework or OS
-    /// segment are skipped. They are skipped on every framework and every OS, so nothing ever
-    /// reports them.
+    /// Every file here is a snapshot for a test that no longer exists: no recorded prefix owns a
+    /// name starting where theirs do. The set of tests does not vary by framework, OS or
+    /// architecture, so there is no run left for the uniqueness in the name to belong to, and all of
+    /// them are reported whether or not the manifests cover the frameworks.
     /// </summary>
     [Fact]
     public Task OrphanedWithUniqueness() =>
@@ -73,52 +83,45 @@ public class DanglingSnapshotsCheckTests
                     "path/to/Deleted.Debug.verified.txt",
                     "path/to/Deleted.Release.verified.txt"
                 ],
-                "path/to/Alive.verified.txt"));
+                alive,
+                alivePrefix));
 
     /// <summary>
-    /// The case the uniqueness skip exists for. A multi targeted project running one framework
-    /// leaves the snapshots of the other frameworks untouched, and the same holds for the OS,
-    /// architecture and configuration axes. None of these may be reported.
-    ///
-    /// The tracked set is the complete framework union, which is what a covered run has. The
-    /// architecture and configuration axes are reported either way: no manifest covers them, and
-    /// they were never in the name based skip either.
+    /// The axes no manifest can settle. The architecture one is skipped whether or not the
+    /// frameworks are covered, since the run that owns it is on another machine. The configuration
+    /// one has no enumerable value set, so it is not recognised as uniqueness at all and is
+    /// reported.
     /// </summary>
     [Fact]
     public Task UniquenessFromAnotherRun() =>
         Verify(
             Report(
                 [
-                    "path/to/Alive.DotNet9_0.verified.txt",
-                    "path/to/Alive.DotNet8_0.verified.txt",
-                    "path/to/Alive.Net4_8.verified.txt",
-                    "path/to/Alive.Linux.verified.txt",
-                    "path/to/Alive.arm64.verified.txt",
+                    $"path/to/Alive.{foreignArchitecture}.verified.txt",
                     "path/to/Alive.Debug.verified.txt"
                 ],
-                "path/to/Alive.DotNet9_0.verified.txt",
-                "path/to/Alive.DotNet8_0.verified.txt",
-                "path/to/Alive.Net4_8.verified.txt"));
+                alive,
+                alivePrefix));
 
     /// <summary>
-    /// A project that dropped a target framework keeps the snapshots that framework owned. No run
-    /// produces them again, so they are dangling, and only a complete union can say so: by name
-    /// they are indistinguishable from the files of a framework that simply is not running.
+    /// A project that dropped a target framework keeps the snapshots that framework owned. The test
+    /// is still there, so only a complete union can say the file is stale: by name it is
+    /// indistinguishable from the file of a framework that simply is not running.
     /// </summary>
     [Fact]
     public Task RetiredFrameworkSnapshots() =>
         Verify(
             Report(
                 [
-                    "path/to/Alive.DotNet9_0.verified.txt",
-                    "path/to/Alive.DotNet8_0.verified.txt"
+                    $"path/to/Alive.{foreignRuntime}.verified.txt",
+                    $"path/to/Alive.{otherForeignRuntime}.verified.txt"
                 ],
-                "path/to/Alive.DotNet9_0.verified.txt"));
+                [$"path/to/Alive.{foreignRuntime}.verified.txt"],
+                alivePrefix));
 
     /// <summary>
-    /// <c>IfFileUnique</c> matches <c>.Net</c> with no trailing separator, so any name that merely
-    /// starts a word with <c>Net</c> is skipped. None of these are uniqueness segments, and all of
-    /// them are snapshots for tests that do not exist.
+    /// Names that merely start a word with <c>Net</c>. A whole segment match cannot confuse them
+    /// with a uniqueness segment, and none of them is owned by a live test.
     /// </summary>
     [Fact]
     public Task OrphanedNamesContainingNet() =>
@@ -130,11 +133,12 @@ public class DanglingSnapshotsCheckTests
                     "path/to/Tests.Nettle.verified.txt",
                     "path/to/HttpTests.NetworkFailure.verified.txt"
                 ],
-                "path/to/Alive.verified.txt"));
+                alive,
+                alivePrefix));
 
     /// <summary>
-    /// The substring list is applied to the path relative to the project, not to the file name, so
-    /// a single directory whose name contains one of the tokens hides every snapshot below it.
+    /// A directory whose name contains a uniqueness token holds snapshots like any other. Only the
+    /// segments after a recorded prefix are uniqueness, so the directory name cannot hide them.
     /// </summary>
     [Fact]
     public Task OrphanedUnderDirectoryContainingUniquenessToken() =>
@@ -145,13 +149,9 @@ public class DanglingSnapshotsCheckTests
                     "path/to/Snapshots.Windows.Only/Deleted.verified.txt",
                     "path/to/Plain/Deleted.verified.txt"
                 ],
-                "path/to/Alive.verified.txt"));
+                alive,
+                alivePrefix));
 
-    /// <summary>
-    /// The skip is a case sensitive <c>Contains</c>, so a segment is skipped only in the exact
-    /// casing <c>Namer</c> produces. Not wrong on its own, but it shows the list is matching text
-    /// rather than recognising a uniqueness value.
-    /// </summary>
     [Fact]
     public Task OrphanedWithLowerCaseUniquenessSegments() =>
         Verify(
@@ -162,11 +162,12 @@ public class DanglingSnapshotsCheckTests
                     "path/to/Deleted.osx.verified.txt",
                     "path/to/Deleted.dotnet9_0.verified.txt"
                 ],
-                "path/to/Alive.verified.txt"));
+                alive,
+                alivePrefix));
 
     /// <summary>
-    /// A verified name is <c>{Type}.{Method}{_parameters}{.uniqueness}#{index}</c>. Everything
-    /// after the type and method varies per run, so none of it identifies the test.
+    /// A verified name is <c>{Type}.{Method}{_parameters}{.uniqueness}#{index}</c>. Everything after
+    /// the type and method varies per run, so none of it identifies the test.
     /// </summary>
     [Fact]
     public Task OrphanedWithIndexesAndParameters() =>
@@ -179,12 +180,12 @@ public class DanglingSnapshotsCheckTests
                     "path/to/Deleted_param=value.DotNet9_0#00.verified.txt",
                     "path/to/Deleted.DotNet9_0#00.verified.txt"
                 ],
-                "path/to/Alive.verified.txt"));
+                alive,
+                alivePrefix));
 
     /// <summary>
     /// A test that is still there but whose parameter set changed leaves a snapshot behind. The
-    /// prefix is live, so this is the one case where the run genuinely cannot tell a stale
-    /// parameter from one produced by a sibling test case that did not run.
+    /// prefix is live and no uniqueness segment excuses the file, so it is reported.
     /// </summary>
     [Fact]
     public Task StaleParameterOnLiveTest() =>
@@ -194,32 +195,130 @@ public class DanglingSnapshotsCheckTests
                     "path/to/Alive_param=current.verified.txt",
                     "path/to/Alive_param=removed.verified.txt"
                 ],
-                "path/to/Alive_param=current.verified.txt"));
+                ["path/to/Alive_param=current.verified.txt"],
+                alivePrefix));
+
+    /// <summary>
+    /// A prefix ends at the type and method, so a test whose name merely starts with another's does
+    /// not lend it its identity.
+    /// </summary>
+    [Fact]
+    public Task PrefixIsNotASubstringMatch() =>
+        Verify(
+            Report(
+                [
+                    "path/to/Alive.verified.txt",
+                    "path/to/AliveToo.verified.txt",
+                    $"path/to/AliveToo.{foreignRuntime}.verified.txt"
+                ],
+                alive,
+                alivePrefix));
+
+    /// <summary>
+    /// Two tests where one name extends the other. The longer prefix has to win, or the shorter
+    /// one's uniqueness rules would be applied to the longer one's files.
+    /// </summary>
+    [Fact]
+    public Task LongestPrefixWins() =>
+        Verify(
+            Report(
+                [
+                    "path/to/Tests.Method.verified.txt",
+                    "path/to/Tests.Method.Nested.verified.txt",
+                    $"path/to/Tests.Method.Nested.{foreignRuntime}.verified.txt"
+                ],
+                ["path/to/Tests.Method.verified.txt"],
+                ["path/to/Tests.Method", "path/to/Tests.Method.Nested"]));
+
+    /// <summary>
+    /// The directory half of a prefix comes from the compiler's caller file path, while the scan
+    /// starts at the project directory MSBuild recorded. The two disagree on case often enough that
+    /// matching them ordinally would call every test unknown.
+    /// </summary>
+    [Fact]
+    public Task PrefixMatchIgnoresCase() =>
+        Verify(
+            Report(
+                [$"path/to/Nested/Alive.{otherForeignRuntime}.verified.txt"],
+                [$"path/to/Nested/Alive.{foreignRuntime}.verified.txt"],
+                ["path/to/nested/Alive"]));
+
+    /// <summary>
+    /// The unique directory conventions put the parameters and uniqueness in a directory name, with
+    /// the snapshots below it, so a prefix is followed by a separator rather than by a dot.
+    /// </summary>
+    [Fact]
+    public Task UniqueDirectoryPrefixes() =>
+        Verify(
+            Report(
+                [
+                    "path/to/Alive/target.verified.txt",
+                    $"path/to/Alive.{foreignRuntime}/target.verified.txt",
+                    $"path/to/Deleted.{foreignRuntime}/target.verified.txt"
+                ],
+                [
+                    "path/to/Alive/target.verified.txt",
+                    $"path/to/Alive.{foreignRuntime}/target.verified.txt"
+                ],
+                alivePrefix));
+
+    /// <summary>
+    /// <c>UseFileName</c> pins the verified name, so the recorded prefix is that name rather than
+    /// the type and method.
+    /// </summary>
+    [Fact]
+    public Task UseFileNamePrefix() =>
+        Verify(
+            Report(
+                [
+                    "path/to/Pinned.verified.txt",
+                    $"path/to/Pinned.{foreignRuntime}.verified.txt",
+                    $"path/to/Unpinned.{foreignRuntime}.verified.txt"
+                ],
+                ["path/to/Pinned.verified.txt"],
+                ["path/to/Pinned"]));
+
+    /// <summary>
+    /// Nothing recorded the tests, so there is no identity to reason from and every file would look
+    /// unowned. Only reachable through a caller that tracks files alone, or a manifest written
+    /// before prefixes were recorded.
+    /// </summary>
+    [Fact]
+    public Task NoPrefixesRecorded() =>
+        Verify(
+            Report(
+                [
+                    "path/to/Deleted.verified.txt",
+                    $"path/to/Deleted.{foreignRuntime}.verified.txt"
+                ],
+                alive,
+                []));
 
     /// <summary>
     /// <c>ResolveDirectory</c> combines the source file directory with a relative
     /// <c>UseDirectory</c> through <c>Path.Combine</c>, which does not normalise, so the tracked
-    /// path keeps its <c>..</c>. The scan returns the normalised path and the ordinal comparison
-    /// misses, reporting a live snapshot as dangling.
+    /// path keeps its <c>..</c>. The scan returns the normalised path, and neither the file nor the
+    /// prefix matches it.
     /// </summary>
     [Fact]
     public Task UnnormalizedTrackedPath() =>
         Verify(
             Report(
                 ["path/to/Snapshots/Alive.verified.txt"],
-                "path/to/Tests/../Snapshots/Alive.verified.txt"));
+                ["path/to/Tests/../Snapshots/Alive.verified.txt"],
+                ["path/to/Tests/../Snapshots/Alive"]));
 
     /// <summary>
-    /// Only the case of the file name is meaningful. The case of the directory comes from whatever
-    /// string each side happened to build its path from: the scan starts at the project directory
-    /// recorded by MSBuild, the tracked path starts at the compiler's caller file path.
+    /// Only the case of the file name is meaningful. The prefix matches either way, so the file
+    /// reaches the casing check rather than being reported as an unknown test.
     /// </summary>
     [Fact]
     public Task DirectoryCaseMismatch() =>
         Verify(
             Report(
                 ["path/to/Nested/Alive.verified.txt"],
-                "path/to/nested/Alive.verified.txt"));
+                ["path/to/nested/Alive.verified.txt"],
+                ["path/to/nested/Alive"]));
 
     /// <summary>
     /// The project directory recorded by MSBuild ends with a separator, so the relative suffix has
@@ -231,7 +330,8 @@ public class DanglingSnapshotsCheckTests
             ReportIn(
                 "path/to/",
                 ["path/to/Deleted.verified.txt"],
-                "path/to/Alive.verified.txt"));
+                alive,
+                alivePrefix));
 
     [Fact]
     public Task UntrackedAndIncorrectCase() =>
@@ -241,7 +341,8 @@ public class DanglingSnapshotsCheckTests
                     "path/to/Deleted.verified.txt",
                     "path/to/AliveWithCase.verified.txt"
                 ],
-                "path/to/alivewithcase.verified.txt"));
+                ["path/to/alivewithcase.verified.txt"],
+                ["path/to/alivewithcase"]));
 
     /// <summary>
     /// A test can track a verified path that has no file yet: the first run of a new test, or a run
@@ -249,7 +350,7 @@ public class DanglingSnapshotsCheckTests
     /// </summary>
     [Fact]
     public Task TrackedFileMissingFromDisk() =>
-        Verify(Report([], "path/to/NotYetAccepted.verified.txt"));
+        Verify(Report([], ["path/to/NotYetAccepted.verified.txt"], ["path/to/NotYetAccepted"]));
 
     /// <summary>
     /// Several verifications can resolve to one verified path, through <c>UseFileName</c> or a
@@ -260,12 +361,12 @@ public class DanglingSnapshotsCheckTests
         Verify(
             Report(
                 ["path/to/Alive.verified.txt"],
-                "path/to/Alive.verified.txt",
-                "path/to/Alive.verified.txt"));
+                ["path/to/Alive.verified.txt", "path/to/Alive.verified.txt"],
+                ["path/to/Alive", "path/to/Alive"]));
 
     [Fact]
     public Task NothingOnDisk() =>
-        Verify(Report([]));
+        Verify(Report([], alive, alivePrefix));
 
     /// <summary>
     /// <c>UseUniqueDirectory</c> in split mode writes to
@@ -359,30 +460,35 @@ public class DanglingSnapshotsCheckTests
         return path;
     }
 
-    static string Report(IEnumerable<string> filesOnDisk, params string[] tracked) =>
-        ReportIn(root, filesOnDisk, tracked);
+    static string Report(IEnumerable<string> filesOnDisk, IReadOnlyCollection<string> tracked, IReadOnlyCollection<string> prefixes) =>
+        ReportIn(root, filesOnDisk, tracked, prefixes);
 
     /// <summary>
-    /// Reports both ways round. Without a manifest from every target framework the check falls back
-    /// to skipping names that look like they belong to another framework; with one the union decides
-    /// instead, and the difference between the two halves is what the manifests bought.
+    /// Reports both ways round. Without a manifest from every target framework the check leaves the
+    /// runtime and framework axis to the name; with one the union decides it instead, and the
+    /// difference between the two halves is what the manifests bought.
     /// </summary>
-    static string ReportIn(string directory, IEnumerable<string> filesOnDisk, params string[] tracked)
+    static string ReportIn(string directory, IEnumerable<string> filesOnDisk, IReadOnlyCollection<string> tracked, IReadOnlyCollection<string> prefixes)
     {
         var files = filesOnDisk.ToList();
         var builder = new StringBuilder();
         builder.AppendLine("== Frameworks not covered ==");
-        builder.AppendLine(Check(files, tracked, directory, false));
+        builder.AppendLine(Check(files, tracked, prefixes, directory, false));
         builder.AppendLine("== Frameworks covered ==");
-        builder.Append(Check(files, tracked, directory, true));
+        builder.Append(Check(files, tracked, prefixes, directory, true));
         return builder.ToString();
     }
 
-    static string Check(IReadOnlyCollection<string> filesOnDisk, IReadOnlyCollection<string> tracked, string directory, bool frameworksCovered)
+    static string Check(
+        IReadOnlyCollection<string> filesOnDisk,
+        IReadOnlyCollection<string> tracked,
+        IReadOnlyCollection<string> prefixes,
+        string directory,
+        bool frameworksCovered)
     {
         try
         {
-            DanglingSnapshotsCheck.CheckFiles(filesOnDisk, tracked, directory, frameworksCovered);
+            DanglingSnapshotsCheck.CheckFiles(filesOnDisk, tracked, prefixes, directory, frameworksCovered);
             return "Nothing reported.";
         }
         catch (Exception exception)

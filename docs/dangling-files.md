@@ -12,27 +12,40 @@ A dangling snapshot file are when a `.verified.` file exist with no correspondin
 
 ## How dangling snapshot checks works
 
- * When each test is executed, any snapshots produced are recorded.
- * After all tests are executed, all recorded snapshots are checked against the snapshots that exist on disk
+ * When each test is executed, two things are recorded: the snapshots it produced, and the name it produces them under, up to the end of the type and method. The name is recorded even when the test produces no snapshot at all, so an inline test, or one that threw, still counts as existing.
+ * After all tests are executed, the snapshots on disk are checked against both.
  * An exception is thrown if any files:
    * exist on disk and do not have a corresponding recorded test
    * have casing that does not match the test case
+
+
+## Which run a snapshot belongs to
+
+A snapshot file the current run did not produce is not necessarily redundant. It can belong to another target framework, another OS, or another architecture, none of which are running. The two recorded halves answer different parts of that question.
+
+A file whose name starts with no recorded test name belongs to no run at all. The set of tests in an assembly does not vary by framework, OS or architecture, so a snapshot no test claims is redundant however much uniqueness its name carries. `SomeTests.Deleted.DotNet9_0.verified.txt` is reported as readily as `SomeTests.Deleted.verified.txt`.
+
+A file whose name does start with a recorded test name is a variant of a live test, and what follows that name decides it. Everything between the test name and the `.verified.` marker is split into segments and each is compared, whole, against the values [`Namer`](https://github.com/VerifyTests/Verify/blob/main/src/Verify/Naming/Namer.cs) produces for this run. A segment naming a different OS or architecture belongs to a run on another machine and is left alone. A segment naming a different target framework is covered below. Anything else is not uniqueness, so the file is reported.
+
+Matching whole segments is what separates a uniqueness segment from a name that merely starts the same way: `SomeTests.NetworkClient.verified.txt` is a test called `NetworkClient`, not a `Net` uniqueness segment.
 
 
 ## Multi targeted projects
 
 A multi targeted project runs its tests once per target framework, so most of the snapshots on disk during any one run belong to a framework that is not currently running. A `UniqueForRuntime` or `UniqueForTargetFramework` snapshot of a deleted test is indistinguishable, by name, from one that another framework still owns.
 
-To tell them apart, each run records what it tracked to a manifest in the intermediate (obj) directory. The manifests are named after the target framework and share one directory across all frameworks of the project, so a run can read what the other runs tracked. Once every target framework has a manifest, the union of them is the complete set of snapshot files the project owns, and anything on disk outside that union is dangling regardless of what its name suggests.
+To tell them apart, each run records what it tracked to a manifest in the intermediate (obj) directory. The manifests are named after the target framework and share one directory across all frameworks of the project, so a run can read what the other runs tracked. Once every target framework has a manifest, the union of them is the complete set of snapshot files the project owns, and a target framework segment no longer excuses a file: nothing produces it, so it is dangling.
 
-In a multi targeted run this means the check is at its most accurate on the last framework to run: the earlier runs cannot yet account for the frameworks still to come, and fall back to skipping names that look like they belong to another framework.
+Both recorded halves go in the manifest. The test names matter across frameworks as much as the files do: a test behind an `#if NET48` exists only in the net48 run, and without its name in the union every other run would report its snapshots.
+
+In a multi targeted run this means the check is at its most accurate on the last framework to run: the earlier runs cannot yet account for the frameworks still to come, and leave the target framework segments alone. Snapshots of deleted tests are reported by every run, since no manifest is needed to know that no test claims them.
 
 The manifests are scoped to the build configuration, and are ignored if they predate the assembly running the check, so a stale manifest cannot mask a dangling file. They live in obj and are removed by a clean.
 
-Two axes cannot be settled this way, and snapshot names carrying them are always skipped:
+Two axes cannot be settled this way:
 
- * `UniqueForOSPlatform`, since the runs that produce those files are on other machines with their own intermediate directories.
- * `UniqueForArchitecture` and `UniqueForAssemblyConfiguration`, which are not recognised as uniqueness at all and are reported as dangling if no run tracks them.
+ * `UniqueForOSPlatform` and `UniqueForArchitecture`, since the runs that produce those files are on other machines with their own intermediate directories. A segment naming an OS or architecture other than the current one is always left alone.
+ * `UniqueForAssemblyConfiguration`, which has no enumerable set of values and so is not recognised as uniqueness at all. A snapshot only another configuration produces is reported.
 
 
 ## Experimental

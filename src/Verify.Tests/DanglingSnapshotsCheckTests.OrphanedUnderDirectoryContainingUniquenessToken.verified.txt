@@ -4,6 +4,8 @@ Verify has detected the following issues with snapshot files:
 
 The following files have not been tracked:
 
+ * Shared.NetCore/Deleted.verified.txt
+ * Snapshots.Windows.Only/Deleted.verified.txt
  * Plain/Deleted.verified.txt
 
 == Frameworks covered ==
@@ -13,4 +15,5 @@ Verify has detected the following issues with snapshot files:
 The following files have not been tracked:
 
  * Shared.NetCore/Deleted.verified.txt
+ * Snapshots.Windows.Only/Deleted.verified.txt
  * Plain/Deleted.verified.txt

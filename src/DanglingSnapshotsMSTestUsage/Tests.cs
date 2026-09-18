@@ -11,6 +11,6 @@ public partial class Tests
         Verify("Foo");
 
     [TestMethod]
-    public Task IncorrectCase() =>
+    public Task Second() =>
         Verify("Foo");
 }

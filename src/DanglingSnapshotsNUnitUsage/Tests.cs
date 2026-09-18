@@ -6,6 +6,6 @@ public class Tests
         Verify("Foo");
 
     [Test]
-    public Task IncorrectCase() =>
+    public Task Second() =>
         Verify("Foo");
 }

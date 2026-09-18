@@ -8,7 +8,7 @@ public class Tests
 #endregion
 
     [Fact]
-    public Task IncorrectCase() =>
+    public Task Second() =>
         Verify("Foo");
 }
 

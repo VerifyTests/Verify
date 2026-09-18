@@ -1,4 +1,4 @@
-using Expecto;
+﻿using Expecto;
 
 public class Tests
 {
@@ -10,9 +10,9 @@ public class Tests
             target: "Foo"));
 
     [Tests]
-    public static Test IncorrectCase = Runner.TestCase(
-        nameof(IncorrectCase),
+    public static Test Second = Runner.TestCase(
+        nameof(Second),
         () => Verify(
-            name: nameof(IncorrectCase),
+            name: nameof(Second),
             target: "Foo"));
 }

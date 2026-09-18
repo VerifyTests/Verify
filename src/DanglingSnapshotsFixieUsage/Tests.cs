@@ -1,8 +1,8 @@
-public class Tests
+﻿public class Tests
 {
     public Task Simple() =>
         Verify("Foo");
 
-    public Task IncorrectCase() =>
+    public Task Second() =>
         Verify("Foo");
 }

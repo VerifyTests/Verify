@@ -16,6 +16,24 @@ public static partial class VerifierSettings
 
     internal static bool TargetsMultipleFramework { get; private set; } = true;
 
+    /// <summary>
+    /// Every target framework of the project, as written in the project file. Empty when the project
+    /// does not consume Verify's build props, or targets a single framework.
+    /// </summary>
+    internal static IReadOnlyList<string> TargetFrameworks { get; private set; } = [];
+
+    /// <summary>
+    /// The single target framework this assembly was built for. Null when the project does not
+    /// consume Verify's build props.
+    /// </summary>
+    internal static string? TargetFramework { get; private set; }
+
+    /// <summary>
+    /// The directory holding the dangling snapshot manifests. Null when the project does not consume
+    /// Verify's build props, in which case no manifests are written or read.
+    /// </summary>
+    internal static string? DanglingDir { get; private set; }
+
     [Experimental("VerifierSettingsTestAssembly")]
     public static Assembly Assembly
     {
@@ -29,6 +47,12 @@ public static partial class VerifierSettings
             return assembly;
         }
     }
+
+    /// <summary>
+    /// Null until the first verification runs. Unlike <see cref="Assembly" />, does not throw, for
+    /// callers whose whole job is to do nothing when no verification ran.
+    /// </summary>
+    internal static Assembly? AssemblyOrNull => assembly;
 
     static Lock locker = new();
 
@@ -56,7 +80,17 @@ public static partial class VerifierSettings
             if (AttributeReader.TryGetTargetFrameworks(assembly, out var targetFrameworks))
             {
                 TargetsMultipleFramework = targetFrameworks.Contains(';');
+                TargetFrameworks = targetFrameworks
+                    .Split(';', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(_ => _.Trim())
+                    .Where(_ => _.Length > 0)
+                    .ToList();
             }
+
+            AttributeReader.TryGetTargetFramework(assembly, out var targetFramework);
+            TargetFramework = targetFramework;
+            AttributeReader.TryGetDanglingDirectory(assembly, out var danglingDir);
+            DanglingDir = danglingDir;
 
             DirectoryReplacements.UseAssembly(solutionDir, ProjectDir);
             VerifierSettings.assembly = assembly;

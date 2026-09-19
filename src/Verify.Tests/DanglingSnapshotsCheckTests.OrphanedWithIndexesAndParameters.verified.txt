@@ -1,0 +1,23 @@
+﻿== Frameworks not covered ==
+
+Verify has detected the following issues with snapshot files:
+
+The following files have not been tracked:
+
+ * Deleted#00.verified.txt
+ * Deleted#name.verified.txt
+ * Deleted_param=value.verified.txt
+ * Deleted_param=value.DotNet9_0#00.verified.txt
+ * Deleted.DotNet9_0#00.verified.txt
+
+== Frameworks covered ==
+
+Verify has detected the following issues with snapshot files:
+
+The following files have not been tracked:
+
+ * Deleted#00.verified.txt
+ * Deleted#name.verified.txt
+ * Deleted_param=value.verified.txt
+ * Deleted_param=value.DotNet9_0#00.verified.txt
+ * Deleted.DotNet9_0#00.verified.txt

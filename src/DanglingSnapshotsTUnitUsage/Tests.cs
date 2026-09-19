@@ -1,11 +1,10 @@
-﻿[TestClass]
-public partial class Tests
+﻿public class Tests
 {
-    [TestMethod]
+    [Test]
     public Task Simple() =>
         Verify("Foo");
 
-    [TestMethod]
+    [Test]
     public Task Second() =>
         Verify("Foo");
 }

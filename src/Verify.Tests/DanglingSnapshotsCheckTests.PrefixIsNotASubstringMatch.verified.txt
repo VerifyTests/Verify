@@ -1,0 +1,17 @@
+﻿== Frameworks not covered ==
+
+Verify has detected the following issues with snapshot files:
+
+The following files have not been tracked:
+
+ * AliveToo.verified.txt
+ * AliveToo.Mono3_1.verified.txt
+
+== Frameworks covered ==
+
+Verify has detected the following issues with snapshot files:
+
+The following files have not been tracked:
+
+ * AliveToo.verified.txt
+ * AliveToo.Mono3_1.verified.txt

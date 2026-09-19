@@ -1,0 +1,16 @@
+﻿== Frameworks not covered ==
+
+Verify has detected the following issues with snapshot files:
+
+The following files have not been tracked:
+
+ * Tests.Method.Nested.verified.txt
+
+== Frameworks covered ==
+
+Verify has detected the following issues with snapshot files:
+
+The following files have not been tracked:
+
+ * Tests.Method.Nested.verified.txt
+ * Tests.Method.Nested.Mono3_1.verified.txt

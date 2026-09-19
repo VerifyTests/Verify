@@ -1,0 +1,15 @@
+﻿== Frameworks not covered ==
+
+Verify has detected the following issues with snapshot files:
+
+The following files have been tracked with incorrect case:
+
+ * Nested/Alive.verified.txt
+
+== Frameworks covered ==
+
+Verify has detected the following issues with snapshot files:
+
+The following files have been tracked with incorrect case:
+
+ * Nested/Alive.verified.txt

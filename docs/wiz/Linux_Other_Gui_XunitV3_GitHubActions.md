@@ -17,7 +17,7 @@ Add the following packages to the test project:
 <!-- snippet: xunitv3-nugets -->
 <a id='snippet-xunitv3-nugets'></a>
 ```csproj
-<PackageReference Include="Verify.XunitV3" Version="33.0.2" />
+<PackageReference Include="Verify.XunitV3" Version="33.1.0" />
 <PackageReference Include="xunit.v3" Version="4.0.1" />
 ```
 <sup><a href='/usages/XunitV3NugetUsage/XunitV3NugetUsage.csproj#L8-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitv3-nugets' title='Start of snippet'>anchor</a></sup>

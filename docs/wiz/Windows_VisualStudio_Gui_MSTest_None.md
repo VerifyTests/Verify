@@ -17,9 +17,9 @@ Add the following packages to the test project:
 <!-- snippet: mstest-nugets -->
 <a id='snippet-mstest-nugets'></a>
 ```csproj
-<PackageReference Include="MSTest.TestAdapter" Version="4.4.0" />
-<PackageReference Include="MSTest.TestFramework" Version="4.4.0" />
-<PackageReference Include="Verify.MSTest" Version="33.0.2" />
+<PackageReference Include="MSTest.TestAdapter" Version="4.4.1" />
+<PackageReference Include="MSTest.TestFramework" Version="4.4.1" />
+<PackageReference Include="Verify.MSTest" Version="33.1.0" />
 ```
 <sup><a href='/usages/MSTestNugetUsage/MSTestNugetUsage.csproj#L9-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-mstest-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

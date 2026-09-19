@@ -7,9 +7,9 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- begin-snippet: mstest-nugets -->
-    <PackageReference Include="MSTest.TestAdapter" Version="4.4.0" />
-    <PackageReference Include="MSTest.TestFramework" Version="4.4.0" />
-    <PackageReference Include="Verify.MSTest" Version="33.0.2" />
+    <PackageReference Include="MSTest.TestAdapter" Version="4.4.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="4.4.1" />
+    <PackageReference Include="Verify.MSTest" Version="33.1.0" />
     <!-- end-snippet -->
   </ItemGroup>
 </Project>

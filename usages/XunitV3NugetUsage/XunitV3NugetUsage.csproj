@@ -6,7 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- begin-snippet: xunitv3-nugets -->
-    <PackageReference Include="Verify.XunitV3" Version="33.0.2" />
+    <PackageReference Include="Verify.XunitV3" Version="33.1.0" />
     <PackageReference Include="xunit.v3" Version="4.0.1" />
     <!-- end-snippet -->
   </ItemGroup>

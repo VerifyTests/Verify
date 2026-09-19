@@ -345,7 +345,7 @@ Support for [MSTest](https://github.com/Microsoft/testfx-docs)
 <a id='snippet-SampleTestMSTest'></a>
 ```cs
 [TestClass]
-public partial class Sample
+public class Sample
 {
     [TestMethod]
     public Task Test()
@@ -359,27 +359,9 @@ public partial class Sample
 <!-- endSnippet -->
 
 
-#### Marking tests as 'Using Verify'
+#### Inheriting from `VerifyBase`
 
-The MSTest implementation leverages a [Source Generator](https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/source-generators-overview) and requires test classes to opt in to being processed by the Source Generator.<!-- include: mstest-marker. path: /docs/mdsource/mstest-marker.include.md -->
-
-Add the `UsesVerifyAttribute`.
-
-For all test classes in an assembly:
-
-```
-[assembly: UsesVerify]
-```
-
-For a specific a test class:
-
-```
-[UsesVerify]
-[TestClass]
-public class TheTest...
-```
-
-Or inherit from `VerifyBase`:
+As an alternative to the static import, a test class can inherit from `VerifyBase`:
 
 <!-- snippet: VerifyBaseUsage.cs -->
 <a id='snippet-VerifyBaseUsage.cs'></a>
@@ -395,7 +377,6 @@ public class VerifyBaseUsage :
 ```
 <sup><a href='/src/Verify.MSTest.Tests/VerifyBaseUsage.cs#L1-L8' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyBaseUsage.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
-<!-- endInclude -->
 
 
 ### Initial Verification
@@ -720,7 +701,7 @@ The above conventions can be checked by calling `VerifyChecks.Run()` in a test
 <a id='snippet-VerifyChecksMSTest'></a>
 ```cs
 [TestClass]
-public partial class VerifyChecksTests
+public class VerifyChecksTests
 {
     [TestMethod]
     public Task Run() =>

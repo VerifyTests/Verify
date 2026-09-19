@@ -19,7 +19,6 @@
   <Project Path="DanglingSnapshotsXunitV3Usage/DanglingSnapshotsXunitV3Usage.csproj" />
   <Project Path="Verify.Expecto/Verify.Expecto.csproj" />
   <Project Path="Verify.Fixie/Verify.Fixie.csproj" />
-  <Project Path="Verify.MSTest.SourceGenerator/Verify.MSTest.SourceGenerator.csproj" />
   <Project Path="Verify.MSTest/Verify.MSTest.csproj" />
   <Project Path="Verify.NUnit/Verify.NUnit.csproj" />
   <Project Path="Verify.TUnit/Verify.TUnit.csproj" />

@@ -1,7 +1,7 @@
 // Overloads share a name, so the data the test was invoked with is all there is
 // to tell the MethodInfo of one from the other
 [TestClass]
-public partial class OverloadTests
+public class OverloadTests
 {
     [TestMethod]
     [DataRow("Value")]

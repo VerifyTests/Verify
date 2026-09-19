@@ -5,7 +5,7 @@
 #pragma warning disable CS8618
 
 [TestClass]
-public partial class VerifyObjectSamples
+public class VerifyObjectSamples
 {
     [TestMethod]
     public Task ScopedSerializer()

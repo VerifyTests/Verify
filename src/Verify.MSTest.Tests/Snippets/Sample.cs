@@ -1,7 +1,7 @@
 #region SampleTestMSTest
 
 [TestClass]
-public partial class Sample
+public class Sample
 {
     [TestMethod]
     public Task Test()

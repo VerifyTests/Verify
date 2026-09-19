@@ -1,7 +1,7 @@
 #region MSTestExtensionSample
 
 [TestClass]
-public partial class ExtensionSample
+public class ExtensionSample
 {
     [TestMethod]
     public Task Method() =>

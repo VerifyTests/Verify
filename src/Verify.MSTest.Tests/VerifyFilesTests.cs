@@ -1,5 +1,5 @@
 [TestClass]
-public partial class VerifyFilesTests
+public class VerifyFilesTests
 {
     [TestMethod]
     public Task Run() =>

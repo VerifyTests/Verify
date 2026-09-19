@@ -39,8 +39,6 @@
   <Project Path="Verify.Fixie/Verify.Fixie.csproj" />
   <Project Path="Verify.MSTest.DerivePaths.Tests/Verify.MSTest.DerivePaths.Tests.csproj" />
   <Project Path="Verify.MSTest.DisableAttachments.Tests/Verify.MSTest.DisableAttachments.Tests.csproj" />
-  <Project Path="Verify.MSTest.SourceGenerator.Tests/Verify.MSTest.SourceGenerator.Tests.csproj" />
-  <Project Path="Verify.MSTest.SourceGenerator/Verify.MSTest.SourceGenerator.csproj" />
   <Project Path="Verify.MSTest.Tests/Verify.MSTest.Tests.csproj" />
   <Project Path="Verify.MSTest/Verify.MSTest.csproj" />
   <Project Path="Verify.NUnit.DerivePaths.Tests/Verify.NUnit.DerivePaths.Tests.csproj" />

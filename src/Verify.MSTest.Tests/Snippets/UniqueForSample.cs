@@ -1,7 +1,7 @@
 #region UniqueForSampleMSTest
 
 [TestClass]
-public partial class UniqueForSample
+public class UniqueForSample
 {
     [TestMethod]
     public Task Runtime()

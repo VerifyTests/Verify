@@ -1,7 +1,7 @@
 #region ScrubbersSampleMSTest
 
 [TestClass]
-public partial class ScrubbersSample
+public class ScrubbersSample
 {
     [TestMethod]
     public Task Lines()

@@ -1,5 +1,5 @@
 [TestClass]
-public partial class Base
+public class Base
 {
     [TestMethod]
     public Task TestInBase() =>

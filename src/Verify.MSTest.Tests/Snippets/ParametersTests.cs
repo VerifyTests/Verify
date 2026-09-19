@@ -1,5 +1,5 @@
 [TestClass]
-public partial class ParametersTests
+public class ParametersTests
 {
     //[TestMethod]
     //[DataRow("1.1")]

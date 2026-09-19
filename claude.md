@@ -115,7 +115,7 @@ dotnet tool restore --tool-manifest src/.config/dotnet-tools.json
 **Adapter Pattern**: Each test framework has a minimal adapter that extracts framework metadata differently:
 - **Xunit**: Uses `UseVerifyAttribute` (a `BeforeAfterTestAttribute`) injected via MSBuild
 - **NUnit**: Direct access to `TestContext.CurrentContext.Test`
-- **MSTest**: Requires `[UsesVerify]` attribute with source generator
+- **MSTest**: Reads `TestContext.Current`, and resolves the test class by name via `TestClassResolver`
 - **Fixie**: Uses `ExecutionState.Current`
 
 **Partial Classes**: `InnerVerifier` is split across 12 files:
@@ -198,7 +198,6 @@ src/
 ├── Verify.NUnit/                    # NUnit adapter
 ├── Verify.XunitV3/                  # xUnit v3 adapter
 ├── Verify.MSTest/                   # MSTest adapter
-├── Verify.MSTest.SourceGenerator/   # Code generation for MSTest
 ├── Verify.Fixie/                    # Fixie adapter
 ├── Verify.Expecto/                  # Expecto (F#) adapter
 ├── Verify.TUnit/                    # TUnit adapter
@@ -267,7 +266,7 @@ Platform-specific code uses conditional compilation:
 
 1. **Module Initializers**: Global configuration via `VerifierSettings` must be done in a module initializer (`[ModuleInitializer]`) before any tests run.
 
-2. **MSTest Requires Opt-in**: MSTest tests need `[UsesVerify]` attribute on class/assembly, or inherit from `VerifyBase`.
+2. **MSTest Needs No Opt-in**: `[UsesVerify]` is obsolete and has no effect. The adapter reads the ambient `TestContext.Current`, so a plain `[TestClass]` works and does not need to be `partial`.
 
 3. **Fixie Requires Custom Convention**: Fixie needs `ITestProject` and `IExecution` implementations that call `VerifierSettings.AssignTargetAssembly()` and `ExecutionState.Set()`.
 
@@ -278,10 +277,6 @@ Platform-specific code uses conditional compilation:
 6. **Tool Restoration**: Run `dotnet tool restore` before running Fixie tests (requires fixie.console tool).
 
 7. **New Test Projects**: Do not add `Microsoft.NET.Test.Sdk` to an MTP test project, and remember `<OutputType>Exe</OutputType>` plus the runner opt-in (see "Test runner setup"). Without `Microsoft.NET.Test.Sdk`, the runner opt-in is what makes `dotnet test` treat an NUnit/MSTest project as a test project.
-
-## Source Generator (MSTest)
-
-The MSTest adapter includes a source generator at `src/Verify.MSTest.SourceGenerator/` that generates code for tests marked with `[UsesVerify]`. This handles test context plumbing automatically.
 
 ## Documentation Generation
 

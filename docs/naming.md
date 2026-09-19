@@ -405,7 +405,7 @@ public class UniqueForSample
 <a id='snippet-UniqueForSampleMSTest'></a>
 ```cs
 [TestClass]
-public partial class UniqueForSample
+public class UniqueForSample
 {
     [TestMethod]
     public Task Runtime()

@@ -1,12 +1,12 @@
 [TestClass]
-public partial class NestedTypeTests
+public class NestedTypeTests
 {
     [TestMethod]
     public Task ShouldPass() =>
         Verify("Foo");
 
     [TestClass]
-    public partial class Nested
+    public class Nested
     {
         [TestMethod]
         public Task ShouldPass() =>

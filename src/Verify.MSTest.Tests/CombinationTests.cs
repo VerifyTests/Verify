@@ -1,5 +1,5 @@
 ﻿[TestClass]
-public partial class CombinationTests
+public class CombinationTests
 {
     [TestMethod]
     public Task One()

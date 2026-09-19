@@ -5,10 +5,16 @@ public static partial class Verifier
 {
     static Task AddFile(string path)
     {
-        var context = CurrentTestContext.Value?.TestContext;
+        // Attaching only needs the TestContext, so this takes the ambient fallback without
+        // resolving the test class.
+        var context = CurrentTestContext.Value?.TestContext ?? AmbientContext;
         context?.AddResultFile(path);
         return Task.CompletedTask;
     }
+
+#pragma warning disable MSTESTEXP
+    static TestContext? AmbientContext => TestContext.Current;
+#pragma warning restore MSTESTEXP
 
     [ModuleInitializer]
     [EditorBrowsable(EditorBrowsableState.Never)]
@@ -59,12 +65,26 @@ public static partial class Verifier
     internal static TestExecutionContext GetTestContext()
     {
         var context = CurrentTestContext.Value;
-        if (context is null)
+        if (context is not null)
         {
-            throw new("TestContext is null. Ensure test class has a `[UsesVerify]` attribute (or inherits from `VerifyBase`).");
+            return context;
         }
 
-        return context;
+        // The ambient context is the normal path. CurrentTestContext is only set when something
+        // outside this assembly assigns it, so it is checked first and otherwise unused.
+        var ambient = AmbientContext;
+        if (ambient is null)
+        {
+            throw new("TestContext is null. Ensure Verify is called from within a running MSTest test method.");
+        }
+
+        var className = ambient.FullyQualifiedTestClassName;
+        if (className is null)
+        {
+            throw new("Expected TestContext.FullyQualifiedTestClassName to have a non null value.");
+        }
+
+        return new(ambient, TestClassResolver.Resolve(className, ambient.TestName));
     }
 
     [Pure]

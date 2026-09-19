@@ -574,7 +574,7 @@ public class ScrubbersSample
 <a id='snippet-ScrubbersSampleMSTest'></a>
 ```cs
 [TestClass]
-public partial class ScrubbersSample
+public class ScrubbersSample
 {
     [TestMethod]
     public Task Lines()
@@ -919,7 +919,7 @@ public class ScrubberLevelsSample
 <a id='snippet-ScrubberLevelsSampleMSTest'></a>
 ```cs
 [TestClass]
-public partial class ScrubberLevelsSample
+public class ScrubberLevelsSample
 {
     VerifySettings classLevelSettings;
 

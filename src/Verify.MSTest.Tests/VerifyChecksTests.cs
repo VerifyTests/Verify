@@ -1,7 +1,7 @@
 ﻿/**
 #region VerifyChecksMSTest
 [TestClass]
-public partial class VerifyChecksTests
+public class VerifyChecksTests
 {
     [TestMethod]
     public Task Run() =>

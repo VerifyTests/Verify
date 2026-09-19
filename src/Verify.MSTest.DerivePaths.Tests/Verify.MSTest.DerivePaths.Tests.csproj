@@ -11,7 +11,6 @@
     <PackageReference Include="MSTest.TestFramework" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <ProjectReference Include="..\Verify.MSTest\Verify.MSTest.csproj" />
-    <ProjectReference Include="..\Verify.MSTest.SourceGenerator\Verify.MSTest.SourceGenerator.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify.MSTest\buildTransitive\Verify.MSTest.props" />

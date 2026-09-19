@@ -1,5 +1,5 @@
 [TestClass]
-public partial class ParametersSample
+public class ParametersSample
 {
     #region UseTextForParametersMSTest
 

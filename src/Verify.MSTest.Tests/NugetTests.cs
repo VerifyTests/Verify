@@ -1,7 +1,7 @@
 // #if RELEASE && NET9_0
 //
 // [TestClass]
-// public partial class NugetTests
+// public class NugetTests
 // {
 //     [TestMethod]
 //     public async Task Run()

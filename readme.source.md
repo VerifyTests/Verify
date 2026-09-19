@@ -152,9 +152,11 @@ Support for [MSTest](https://github.com/Microsoft/testfx-docs)
 snippet: SampleTestMSTest
 
 
-#### Marking tests as 'Using Verify'
+#### Inheriting from `VerifyBase`
 
-include: mstest-marker
+As an alternative to the static import, a test class can inherit from `VerifyBase`:
+
+snippet: VerifyBaseUsage.cs
 
 
 ### Initial Verification

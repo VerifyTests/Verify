@@ -1,5 +1,5 @@
 [TestClass]
-public partial class VerifyTextSample
+public class VerifyTextSample
 {
     [TestMethod]
     public Task Simple() =>

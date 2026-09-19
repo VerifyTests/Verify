@@ -23,7 +23,7 @@
     <PackageVersion Include="MSTest.TestAdapter" Version="4.4.1" />
     <PackageVersion Include="MSTest.TestFramework" Version="4.4.1" />
     <PackageVersion Include="NUnit3TestAdapter" Version="6.3.0" />
-    <PackageVersion Include="Polyfill" Version="11.3.0" />
+    <PackageVersion Include="Polyfill" Version="11.4.0" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.181" />
     <PackageVersion Include="ProjectFiles" Version="1.4.0" />
     <PackageVersion Include="PublicApiGenerator" Version="11.5.4" />
@@ -36,9 +36,9 @@
     <PackageVersion Include="TextCopy" Version="6.2.1" />
     <PackageVersion Include="xunit.v3" Version="4.0.1" />
     <PackageVersion Include="xunit.v3.extensibility.core" Version="4.0.1" />
-    <PackageVersion Include="TUnit" Version="1.68.4" />
-    <PackageVersion Include="TUnit.Core" Version="1.68.4" />
+    <PackageVersion Include="TUnit" Version="1.68.17" />
+    <PackageVersion Include="TUnit.Core" Version="1.68.17" />
     <PackageVersion Include="YoloDev.Expecto.TestSdk" Version="0.16.1" />
-    <PackageVersion Include="Microsoft.Sbom.Targets" Version="4.1.5" />
+    <PackageVersion Include="Microsoft.Sbom.Targets" Version="4.1.12" />
   </ItemGroup>
 </Project>

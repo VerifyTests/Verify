@@ -181,6 +181,63 @@ public class InlineSwitchOffTests :
         Assert.Empty(Records());
     }
 
+    /// <summary>
+    /// A record lives only while its call site is one the switch appends to. Once a switched-on
+    /// verification at that call site is not appended to any more, the record would only ever
+    /// retire whatever sits on that line at switch off, which can be an explicit Snapshot call's
+    /// own pending snapshot.
+    /// </summary>
+    [Fact]
+    public async Task ACallSiteTheSwitchNoLongerAppendsToForgetsItsRecord()
+    {
+        // One call site for both runs, since the record is keyed by the line
+        for (var run = 0; run < 2; run++)
+        {
+            VerifierSettings.Reset();
+            VerifierSettings.Inline();
+            VerifySettings? settings = null;
+            if (run == 1)
+            {
+                // The next run, still on, with the call site now declined
+                settings = PassingSettings();
+                settings.NotInline();
+            }
+
+            var verification = Verify("value", settings ?? new());
+            if (run == 0)
+            {
+                await Assert.ThrowsAsync<VerifyException>(() => verification);
+                Assert.Single(Records());
+                continue;
+            }
+
+            await verification;
+        }
+
+        Assert.Empty(Records());
+    }
+
+    /// <summary>
+    /// A record that cannot be read is not a malformed one: deleting it would strand the entry it
+    /// names for good, so it is left for a run that can read it.
+    /// </summary>
+    [Fact]
+    public async Task AnUnreadableRecordIsLeftForALaterRun()
+    {
+        VerifierSettings.Inline();
+        await Assert.ThrowsAsync<VerifyException>(() => Verify("value"));
+        var record = Assert.Single(Records());
+
+        VerifierSettings.Reset();
+        using (new FileStream(record, FileMode.Open, FileAccess.Read, FileShare.Delete))
+        {
+            await Verify("value", PassingSettings());
+        }
+
+        Assert.Empty(retired);
+        Assert.Single(Records());
+    }
+
     // A file verification that passes. A failing one hands a pending move to whatever owns the queue
     // on this machine, so AutoVerify accepts it into the temp directory instead
     VerifySettings PassingSettings()

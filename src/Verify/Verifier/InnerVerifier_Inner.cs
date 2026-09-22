@@ -66,6 +66,17 @@ partial class InnerVerifier
             ValidatePrefix(settings, pathPrefixReceived!);
         }
 
+        // The switch is on but this call site is not one it appends to any more: an explicit
+        // Snapshot call is there now, or the switch declined it. Its record would otherwise outlive
+        // the entry it was written for and retire whatever sits on that line at switch off
+        if (VerifierSettings.inline is not null &&
+            inline?.Mode != InlinePatchMode.Append &&
+            inlineSourceFile is not null &&
+            lineNumber != 0)
+        {
+            InlineSwitchRecords.Forget(MapSourceFile(inlineSourceFile), lineNumber);
+        }
+
         if (inline is null)
         {
             RetireInline();

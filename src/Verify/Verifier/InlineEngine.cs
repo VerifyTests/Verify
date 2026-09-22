@@ -236,8 +236,9 @@ class InlineEngine(
         }
 
         // An appended snapshot is the global switch's, and once the switch is off nothing in the
-        // source says this call site was ever inline. Recorded before it is handed over, so it is
-        // never pending without a record
+        // source says this call site was ever inline. Recorded before it is handed over, so a
+        // hand over that succeeds is never ahead of its record. The write is best effort, and a
+        // project with no intermediate directory has nowhere to write: those entries stay pending
         if (inline.Mode == InlinePatchMode.Append)
         {
             InlineSwitchRecords.Write(MappedSourceFile, inline.Line);

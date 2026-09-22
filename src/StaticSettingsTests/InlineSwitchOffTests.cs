@@ -104,6 +104,77 @@ public class InlineSwitchOffTests :
     }
 
     /// <summary>
+    /// A test deleted while its snapshot was pending leaves nothing to verify at its call site, so
+    /// the record is all that still names the entry. The retire does not consult the source, and
+    /// must not start to: a verify call at the recorded line is exactly what a deleted test lacks.
+    /// </summary>
+    [Fact]
+    public async Task ARecordWhoseTestWasDeletedIsStillRetired()
+    {
+        // The file after the delete, with no verify call left at the recorded line
+        var source = temp.BuildPath("Tests.cs");
+        await File.WriteAllTextAsync(
+            source,
+            """
+            class Tests
+            {
+                [Fact]
+                public Task Remaining() =>
+                    Task.CompletedTask;
+            }
+            """);
+        InlineSwitchRecords.Write(source, 5);
+
+        await Verify("value", PassingSettings());
+
+        var retire = Assert.Single(retired);
+        Assert.Equal(source, retire.SourceFile);
+        Assert.Equal(5, retire.Line);
+        Assert.Empty(Records());
+    }
+
+    /// <summary>
+    /// A switched-off run retires before its first verification can queue anything, so a record
+    /// cannot drop an entry that run has just queued under the same key: here an explicit Snapshot
+    /// call that now sits on the recorded line, failing against its literal.
+    /// </summary>
+    [Fact]
+    public async Task ARecordCannotRetireWhatTheSwitchedOffRunQueues()
+    {
+        var events = new List<string>();
+        InlinePatch? appended = null;
+        InlineEngine.AddInline = patch =>
+        {
+            appended ??= patch;
+            events.Add($"queue {patch.LineHint}");
+            return Task.FromResult(InlineResult.Queued);
+        };
+        InlineEngine.SendRetire = (_, line, _) => events.Add($"retire {line}");
+
+        // One call site for both runs, since the record is keyed by the line
+        for (var run = 0; run < 2; run++)
+        {
+            VerifierSettings.Reset();
+            var settings = new VerifySettings();
+            if (run == 0)
+            {
+                VerifierSettings.Inline();
+            }
+            else
+            {
+                // The next run, switched off. This file and line, so the patch is queued under the
+                // key the record names, which the seams keep from whatever owns the queue here
+                settings.Snapshot("old", appended!.SourceFile, appended.LineHint, "\"old\"");
+            }
+
+            await Assert.ThrowsAsync<VerifyException>(() => Verify("value", settings));
+        }
+
+        var line = appended!.LineHint;
+        Assert.Equal([$"queue {line}", $"retire {line}", $"queue {line}"], events);
+    }
+
+    /// <summary>
     /// While the switch is on, what it queued is pending for a reason: the call site is still an
     /// inline snapshot, waiting to be accepted.
     /// </summary>
@@ -157,6 +228,58 @@ public class InlineSwitchOffTests :
         Assert.Empty(retired);
         Assert.Single(Records());
 
+        await Verify("value", PassingSettings());
+
+        Assert.Equal(patch.LineHint, Assert.Single(retired).Line);
+        Assert.Empty(Records());
+    }
+
+    /// <summary>
+    /// As <see cref="DiffDisabledLeavesTheRecordsForALaterVerification" />, with diff off for the
+    /// whole process, which DiffEngine does itself under continuous testing and an AI CLI. The
+    /// settings are built first, since they read the same switch, and this is about the check that
+    /// reads it directly.
+    /// </summary>
+    [Fact]
+    public async Task DiffRunnerDisabledLeavesTheRecordsForALaterVerification()
+    {
+        VerifierSettings.Inline();
+        await Assert.ThrowsAsync<VerifyException>(() => Verify("value"));
+        var patch = Assert.Single(queued);
+
+        VerifierSettings.Reset();
+        var settings = PassingSettings();
+        DiffRunner.Disabled = true;
+        await Verify("value", settings);
+
+        Assert.Empty(retired);
+        Assert.Single(Records());
+
+        DiffRunner.Disabled = false;
+        await Verify("value", PassingSettings());
+
+        Assert.Equal(patch.LineHint, Assert.Single(retired).Line);
+        Assert.Empty(Records());
+    }
+
+    /// <summary>
+    /// As <see cref="DiffDisabledLeavesTheRecordsForALaterVerification" />, on a build server.
+    /// </summary>
+    [Fact]
+    public async Task ABuildServerLeavesTheRecordsForALaterVerification()
+    {
+        VerifierSettings.Inline();
+        await Assert.ThrowsAsync<VerifyException>(() => Verify("value"));
+        var patch = Assert.Single(queued);
+
+        VerifierSettings.Reset();
+        BuildServerDetector.Detected = true;
+        await Verify("value", PassingSettings());
+
+        Assert.Empty(retired);
+        Assert.Single(Records());
+
+        BuildServerDetector.Detected = false;
         await Verify("value", PassingSettings());
 
         Assert.Equal(patch.LineHint, Assert.Single(retired).Line);
@@ -218,6 +341,84 @@ public class InlineSwitchOffTests :
     }
 
     /// <summary>
+    /// The case the forget exists for: the snapshot was accepted, so an explicit Snapshot call is
+    /// at the call site now, and with the switch still on it is compared rather than appended to.
+    /// </summary>
+    [Fact]
+    public async Task AnAcceptedSnapshotAtTheCallSiteForgetsItsRecord()
+    {
+        // One call site for both runs, since the record is keyed by the line
+        for (var run = 0; run < 2; run++)
+        {
+            VerifierSettings.Reset();
+            VerifierSettings.Inline();
+            var settings = new VerifySettings();
+            if (run == 1)
+            {
+                // The next run, still on, with the snapshot accepted. Deliberately not this file, as
+                // in AnExplicitSnapshotIsNotRecorded, and diff off so the passing comparison settles
+                // nothing with whatever owns the queue on this machine
+                settings.Snapshot("value", temp.BuildPath("Fake.cs"), 1, "\"value\"");
+                settings.DisableDiff();
+            }
+
+            var verification = Verify("value", settings);
+            if (run == 0)
+            {
+                await Assert.ThrowsAsync<VerifyException>(() => verification);
+                Assert.Single(Records());
+                continue;
+            }
+
+            await verification;
+        }
+
+        Assert.Empty(Records());
+    }
+
+    /// <summary>
+    /// A call site the switch stops inlining without NotInline: here its delegate declines it, and
+    /// the same goes for a parameter, the size limit or a binary first target. What it queued while
+    /// it was inline is stale, so it is retired.
+    /// </summary>
+    [Fact]
+    public async Task ACallSiteTheSwitchDeclinesRetiresWhatItQueued()
+    {
+        InlinePatch? patch = null;
+        // One call site for both runs, since the entry is keyed by the line
+        for (var run = 0; run < 2; run++)
+        {
+            VerifierSettings.Reset();
+            VerifySettings? settings = null;
+            if (run == 0)
+            {
+                VerifierSettings.Inline();
+            }
+            else
+            {
+                // The next run, still on, with the delegate now declining the call site
+                VerifierSettings.Inline((_, _, _, _) => false);
+                settings = PassingSettings();
+            }
+
+            var verification = Verify("value", settings ?? new());
+            if (run == 0)
+            {
+                await Assert.ThrowsAsync<VerifyException>(() => verification);
+                patch = Assert.Single(queued);
+                continue;
+            }
+
+            await verification;
+        }
+
+        var retire = Assert.Single(retired);
+        Assert.Equal(patch!.SourceFile, retire.SourceFile);
+        Assert.Equal(patch.LineHint, retire.Line);
+        Assert.Empty(Records());
+    }
+
+    /// <summary>
     /// A record that cannot be read is not a malformed one: deleting it would strand the entry it
     /// names for good, so it is left for a run that can read it.
     /// </summary>
@@ -236,6 +437,49 @@ public class InlineSwitchOffTests :
 
         Assert.Empty(retired);
         Assert.Single(Records());
+    }
+
+    /// <summary>
+    /// A record that reads but names no call site can never be retired, so it is deleted rather
+    /// than read again by every later run.
+    /// </summary>
+    [Fact]
+    public async Task AMalformedRecordIsDeleted()
+    {
+        Directory.CreateDirectory(InlineSwitchRecordsDirectory);
+        await File.WriteAllTextAsync(Path.Combine(InlineSwitchRecordsDirectory, "malformed.txt"), "not a record");
+
+        await Verify("value", PassingSettings());
+
+        Assert.Empty(retired);
+        Assert.Empty(Records());
+    }
+
+    /// <summary>
+    /// Cleaning up after the switch must not change a test outcome. A retire that throws costs only
+    /// its own record, and the rest are still retired.
+    /// </summary>
+    [Fact]
+    public async Task ARetireThatThrowsDoesNotFailTheVerification()
+    {
+        InlineSwitchRecords.Write(temp.BuildPath("First.cs"), 1);
+        InlineSwitchRecords.Write(temp.BuildPath("Second.cs"), 1);
+        var thrown = false;
+        InlineEngine.SendRetire = (sourceFile, line, memberName) =>
+        {
+            if (!thrown)
+            {
+                thrown = true;
+                throw new("The queue owner fell over");
+            }
+
+            Retire(sourceFile, line, memberName);
+        };
+
+        await Verify("value", PassingSettings());
+
+        Assert.Single(retired);
+        Assert.Empty(Records());
     }
 
     // A file verification that passes. A failing one hands a pending move to whatever owns the queue

@@ -19,6 +19,12 @@ class InlineEngine(
     internal static Func<InlinePatch, Task<InlineResult>> AddInline = _ => DiffRunner.AddInlineAsync(_);
 
     /// <summary>
+    /// Swapped in tests, as <see cref="AddInline" /> is: what a retire told the queue owner is
+    /// otherwise only observable from the owner.
+    /// </summary>
+    internal static Action<string, int, string?> SendRetire = DiffRunner.RetireInline;
+
+    /// <summary>
     /// Swapped in tests. Every source rewrite below is a no-op on a build server, so the tests that
     /// cover those rewrites need the check off. Scoped to inline rather than moving
     /// BuildServerDetector.Detected, which is global and would reach tests running in parallel.
@@ -140,7 +146,9 @@ class InlineEngine(
     /// Drops whatever a previous run queued for a call site that is no longer an inline snapshot:
     /// <c>NotInline</c>, a global switch that declined it, or a literal that outgrew the size
     /// limit. Nothing here compares anything, so this is static and needs no engine — there is no
-    /// inline verification to build one for, which is the whole point.
+    /// inline verification to build one for, which is the whole point. A switch turned off
+    /// altogether leaves no verification knowing it was ever on, so those call sites go through
+    /// <see cref="RetireRecorded" /> instead.
     /// </summary>
     /// <remarks>
     /// Without this the entry outlives the decision that made it meaningless. Settling only ever
@@ -177,8 +185,23 @@ class InlineEngine(
                      inlinedMembers.ContainsKey($"{mapped}|{memberName}")
             ? null
             : memberName;
-        DiffRunner.RetireInline(mapped, line, member);
+        SendRetire(mapped, line, member);
         ClearStaged(mapped, line, member);
+    }
+
+    /// <summary>
+    /// Drops a call site the global switch queued while it was on, now that it is off. See
+    /// <see cref="InlineSwitchRecords" />.
+    /// </summary>
+    /// <remarks>
+    /// No member. The record holds the line the entry was queued under, which is the key the owner
+    /// holds it by, so there is no drift for the member to recover from — and the member is what
+    /// can reach a sibling call site's entry instead.
+    /// </remarks>
+    public static void RetireRecorded(string mappedSourceFile, int line)
+    {
+        SendRetire(mappedSourceFile, line, null);
+        ClearStaged(mappedSourceFile, line, null);
     }
 
     /// <summary>
@@ -210,6 +233,14 @@ class InlineEngine(
         if (!diffEnabled)
         {
             return (null, null);
+        }
+
+        // An appended snapshot is the global switch's, and once the switch is off nothing in the
+        // source says this call site was ever inline. Recorded before it is handed over, so it is
+        // never pending without a record
+        if (inline.Mode == InlinePatchMode.Append)
+        {
+            InlineSwitchRecords.Write(MappedSourceFile, inline.Line);
         }
 
         var result = await AddInline(BuildPatch());

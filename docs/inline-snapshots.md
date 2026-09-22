@@ -107,6 +107,8 @@ public static class ModuleInitializer
 
 Every `Verify*` then uses an inline snapshot, unless it is declined by one of the rules below, and accepting one appends the `.Snapshot(...)` call to the verify invocation.
 
+Turning the switch off again withdraws what it left pending review. Snapshots the switch handed to DiffEngineTray, DiffEngineViewer or the staging directory, and that were never accepted, are dropped by the next test run, so review tooling does not go on offering to add a `.Snapshot(...)` call to a test that is back on `.verified.` files.
+
 To decide per verification, pass a delegate:
 
 <!-- snippet: StaticInlineDelegate -->

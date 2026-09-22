@@ -26,6 +26,10 @@ partial class InnerVerifier
             throw new("All targets have been excluded by ExcludeTargets. A verification requires at least one target.");
         }
 
+        // Before this verification can queue, settle or retire anything of its own, so what a run
+        // with the switch on left pending is dealt with first
+        InlineSwitchRecords.RetireIfSwitchedOff(settings);
+
         var inline = ResolveInline(resultTargets);
         InlineEngine? inlineEngine = null;
         string? migratedExpected = null;
@@ -116,6 +120,10 @@ partial class InnerVerifier
     /// Gated on inline being in play at all, so a codebase that never turned it on never pays a
     /// loopback round trip per verification. Where a Snapshot call is still there but declined,
     /// its own call site is the one to retire; otherwise it is the verify call's.
+    /// <para>
+    /// A global switch that has been turned off is not in play, so what it queued while it was on
+    /// is never reached from here. <see cref="InlineSwitchRecords" /> retires those.
+    /// </para>
     /// </remarks>
     void RetireInline()
     {

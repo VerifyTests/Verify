@@ -77,6 +77,33 @@ public class InlineRetireTests :
     }
 
     /// <summary>
+    /// A declined Snapshot call is a call site of its own, and it is the one whose entry is pending:
+    /// a patch for a literal already in the source is keyed by the Snapshot call's line, not the
+    /// verify call's. The same goes for a literal that outgrew the size limit.
+    /// </summary>
+    [Fact]
+    public async Task ADeclinedSnapshotRetiresItsOwnCallSite()
+    {
+        // Nothing is at this path. Declining a literal strips it from the file it names, and this is
+        // about the retire alone
+        var source = Path.Combine(listener.Directory, "Snapshot.cs");
+
+        var settings = new VerifySettings();
+        settings.UseDirectory(listener.Directory);
+        settings.Snapshot("value", source, 7, "\"value\"");
+        settings.NotInline();
+
+        // Accepted rather than left failing, for the reason given in NotInlineRetiresTheCallSite
+        settings.AutoVerify();
+
+        await Verify("value", settings);
+
+        var settle = listener.AwaitSettle(nameof(ADeclinedSnapshotRetiresItsOwnCallSite));
+        Assert.NotNull(settle);
+        Assert.Equal(InlineKey.For(InnerVerifier.MapSourceFile(source), 7), settle.Key);
+    }
+
+    /// <summary>
     /// A settle only ever reached the queue owner, which says nothing to a snapshot that is on
     /// disk instead — staged by a run that found no owner, or written out by one on its way out.
     /// Those files are what accept tooling reads, so the snapshot stayed pending for a test that

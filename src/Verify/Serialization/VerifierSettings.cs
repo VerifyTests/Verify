@@ -164,6 +164,7 @@ public static partial class VerifierSettings
         inlineMaxLines = null;
         inlineApplyMaxLinesToExisting = false;
         inlineEntryPoints = null;
+        InlineSwitchRecords.Reset();
         UniquePrefixDisabled = false;
         UseUniqueDirectorySplitMode = false;
         omitContentFromException = false;

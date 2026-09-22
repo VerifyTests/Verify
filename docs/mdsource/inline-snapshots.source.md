@@ -49,6 +49,8 @@ snippet: StaticInline
 
 Every `Verify*` then uses an inline snapshot, unless it is declined by one of the rules below, and accepting one appends the `.Snapshot(...)` call to the verify invocation.
 
+Turning the switch off again withdraws what it left pending review. Snapshots the switch handed to DiffEngineTray, DiffEngineViewer or the staging directory, and that were never accepted, are dropped by the next test run, so review tooling does not go on offering to add a `.Snapshot(...)` call to a test that is back on `.verified.` files. The run that drops them has to have diff tooling enabled (so not a build server, and not `DiffEngine_Disabled`), and to build the same configuration and target framework as the run that queued them: the call sites are recorded under the project's intermediate directory, which a project that does not consume Verify's build props does not have, and which deleting `obj` removes. Snapshots queued by a version of Verify before this recording stay pending.
+
 To decide per verification, pass a delegate:
 
 snippet: StaticInlineDelegate

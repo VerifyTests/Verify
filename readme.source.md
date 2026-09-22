@@ -39,7 +39,9 @@ From v33, sponsorship is verified at build time by [SponsorCheck](https://github
 </PropertyGroup>
 ```
 
-Who the fee applies to, the exemptions, paying by invoice, and the other declarations (exemptions, private arrangements, opting out) are covered in [Open Source Maintenance Fee](/docs/maintenance-fee.md). The [SponsorCheck setup wizard for Verify](https://simoncropp.github.io/SponsorCheck/package/Verify) generates the exact snippet for any of them.
+Each Verify version bundles the sponsor list as it stood when that version was packed, so a sponsorship that began later also needs `<Verify_SponsorshipStart>yyyy-MM-dd</Verify_SponsorshipStart>` until the next upgrade. A sponsorship made private on GitHub is never bundled, so it also needs `<Verify_SponsorshipPrivateUntil>yyyy-MM</Verify_SponsorshipPrivateUntil>`, set at most 12 months out and renewed when it lapses.
+
+Who the fee applies to, paying by invoice, and the other declarations (exemptions, private arrangements, opting out) are covered in [Open Source Maintenance Fee](/docs/maintenance-fee.md). The [SponsorCheck setup wizard for Verify](https://simoncropp.github.io/SponsorCheck/package/Verify) generates the exact snippet for any of them.
 
 
 ## Supporters

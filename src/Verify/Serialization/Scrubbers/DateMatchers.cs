@@ -19,6 +19,7 @@ static class DateMatchers
         var resolvedCulture = culture ?? Culture.CurrentCulture;
         try
         {
+            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             probeDateTime.ToString(format, resolvedCulture);
         }
         catch (FormatException exception)
@@ -80,6 +81,7 @@ static class DateMatchers
         var resolvedCulture = culture ?? Culture.CurrentCulture;
         try
         {
+            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             Date.FromDateTime(probeDateTime).ToString(format, resolvedCulture);
         }
         catch (FormatException exception)

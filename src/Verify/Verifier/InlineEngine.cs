@@ -109,14 +109,23 @@ class InlineEngine(
     /// <summary>
     /// Drops anything a prior failing run left queued in the viewer.
     /// </summary>
+    /// <remarks>
+    /// The member goes with the line, because the line alone stops finding the entry as soon as
+    /// an accept earlier in the file inserts a literal above this call site. The value goes with
+    /// the member, because a member is not a call site: where the line names nothing, the owner
+    /// falls back to the member, and a member holding one pending entry held it for whichever of
+    /// its calls passed. A passing sibling of a failing call settled the failing one's entry, and
+    /// its snapshot was pending nowhere. With the value, the owner only takes an entry this value
+    /// settles - one anchored to it, or waiting to become it. It is what the source holds, which
+    /// is what an entry's anchor and content are both written against, not the comparison's
+    /// trimmed form of it.
+    /// </remarks>
     public void Settle()
     {
         if (diffEnabled)
         {
-            // The member goes with the line, because the line alone stops finding the entry as
-            // soon as an accept earlier in the file inserts a literal above this call site.
-            DiffRunner.SettleInline(MappedSourceFile, inline.Line, inline.MemberName);
-            ClearStaged(MappedSourceFile, inline.Line, inline.MemberName);
+            DiffRunner.SettleInline(MappedSourceFile, inline.Line, inline.MemberName, SnapshotInSource);
+            ClearStaged(MappedSourceFile, inline.Line, inline.MemberName, SnapshotInSource);
         }
     }
 
@@ -124,9 +133,11 @@ class InlineEngine(
     /// A settle only reaches a queue owner, and a snapshot can be on disk instead: staged by a run
     /// that found no owner, or written out by one on its way out. Those files are what accept
     /// tooling reads, so without this the snapshot stays pending for a test that now passes.
+    /// <paramref name="value" /> narrows the member fallback as it does for the queue: see
+    /// <see cref="Settle" />.
     /// </summary>
-    static void ClearStaged(string mappedSourceFile, int line, string? memberName) =>
-        InlineStaging.Clear(mappedSourceFile, line, memberName, VerifierSettings.IntermediateDir);
+    static void ClearStaged(string mappedSourceFile, int line, string? memberName, string? value = null) =>
+        InlineStaging.Clear(mappedSourceFile, line, memberName, VerifierSettings.IntermediateDir, value: value);
 
     /// <summary>
     /// The members this process has actually inlined a verification for, so a retire in the same

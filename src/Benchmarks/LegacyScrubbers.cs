@@ -100,14 +100,13 @@ static class LegacyGuidScrubber
                         break;
                     }
 
-                    var value = chunkSpan;
-                    if ((chunkIndex != 0 && IsInvalidStartingChar(value[chunkIndex - 1])) ||
-                        (end != value.Length && IsInvalidEndingChar(value[end])))
+                    if ((chunkIndex != 0 && IsInvalidStartingChar(chunkSpan[chunkIndex - 1])) ||
+                        (end != chunkSpan.Length && IsInvalidEndingChar(chunkSpan[end])))
                     {
                         continue;
                     }
 
-                    var slice = value.Slice(chunkIndex, 36);
+                    var slice = chunkSpan.Slice(chunkIndex, 36);
 
                     if (!Guid.TryParseExact(slice, "D", out var guid))
                     {

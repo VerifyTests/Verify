@@ -40,7 +40,7 @@
         new Random(1).NextBytes(bytes);
 
         var path = Path.Combine(Path.GetTempPath(), $"StreamComparerTests_{Guid.NewGuid():N}.bin");
-        File.WriteAllBytes(path, bytes);
+        await File.WriteAllBytesAsync(path, bytes);
         try
         {
             using var received = new MemoryStream((byte[]) bytes.Clone());
@@ -66,7 +66,9 @@
         var bytes = new byte[256 * 1024 + 13];
         new Random(2).NextBytes(bytes);
 
+        // ReSharper disable once UseAwaitUsing
         using var received = new ShortReadStream(bytes, maxRead: 1023);
+        // ReSharper disable once UseAwaitUsing
         using var verified = new ShortReadStream((byte[]) bytes.Clone(), maxRead: 337);
         var result = await StreamComparer.AreEqual(received, verified);
         Assert.True(result.IsEqual);

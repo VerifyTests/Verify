@@ -208,11 +208,11 @@ class VerifyEngine(
         SettleRaisedDeletes();
 
         var inlineFailed = false;
-        if (inlineEngine is { } engine)
+        if (inlineEngine != null)
         {
-            if (engine.Equality == Equality.Equal)
+            if (inlineEngine.Equality == Equality.Equal)
             {
-                engine.Settle();
+                inlineEngine.Settle();
             }
             else
             {

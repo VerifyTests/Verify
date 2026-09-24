@@ -180,6 +180,7 @@ public static partial class VerifierSettings
         EngineScrubberSet.InvalidateGlobalCache();
         GlobalIgnoredParameters = null;
         GlobalIgnoreConstructorParameters = false;
+        RaisedDeletes.Reset();
     }
 
     public static void UseStrictJson()

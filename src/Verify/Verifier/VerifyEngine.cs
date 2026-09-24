@@ -205,6 +205,7 @@ class VerifyEngine(
     public async Task ThrowIfRequired()
     {
         ProcessEquals();
+        SettleRaisedDeletes();
 
         var inlineFailed = false;
         if (inlineEngine is { } engine)
@@ -330,9 +331,31 @@ class VerifyEngine(
             return true;
         }
 
-        await DiffRunner.AddDeleteAsync(file);
+        await RaisedDeletes.Raise(file);
 
         return false;
+    }
+
+    /// <summary>
+    /// Every verified file this verification compared against is in use, whatever the comparison
+    /// found, so a delete an earlier run raised for one of them no longer describes a stale file.
+    /// </summary>
+    void SettleRaisedDeletes()
+    {
+        foreach (var item in equal)
+        {
+            RaisedDeletes.SettleIfRaised(item.VerifiedPath);
+        }
+
+        foreach (var item in notEquals)
+        {
+            RaisedDeletes.SettleIfRaised(item.File.VerifiedPath);
+        }
+
+        foreach (var item in @new)
+        {
+            RaisedDeletes.SettleIfRaised(item.File.VerifiedPath);
+        }
     }
 
     async Task<bool> ProcessNotEquals()

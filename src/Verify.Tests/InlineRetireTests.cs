@@ -74,6 +74,83 @@ public class InlineRetireTests :
         // No framework: the statement is "there is no inline snapshot here", not "this framework
         // now passes", so the owner takes the whole entry rather than one variant of it.
         Assert.Null(settle.Origin);
+
+        // And no value, since no call site here holds an inline snapshot to settle by
+        Assert.Null(settle.Value);
+    }
+
+    /// <summary>
+    /// A passing inline verification settles with the value its expected argument holds. Where the
+    /// line names no entry the owner falls back to the member, and a member is not a call site: the
+    /// value is what keeps a passing call from settling the entry of a failing sibling beside it.
+    /// </summary>
+    [Fact]
+    public async Task APassingSnapshotSettlesWithItsValue()
+    {
+        // Nothing is at this path. A settle names the call site and reads nothing from it
+        var source = Path.Combine(listener.Directory, "Snapshot.cs");
+
+        var settings = new VerifySettings();
+        settings.UseDirectory(listener.Directory);
+        settings.Snapshot("value", source, 7, "\"value\"");
+
+        await Verify("value", settings);
+
+        var settle = listener.AwaitSettle(nameof(APassingSnapshotSettlesWithItsValue));
+        Assert.NotNull(settle);
+        Assert.Equal(InlineKey.For(InnerVerifier.MapSourceFile(source), 7), settle.Key);
+        Assert.Equal("value", settle.Value);
+    }
+
+    /// <summary>
+    /// The same on disk. A trio staged for another call site in this member - a failing sibling -
+    /// is found by the member fallback, and only the value says it is not this call's: the passing
+    /// call holds neither its anchor nor its content. Without the value it was deleted.
+    /// </summary>
+    [Fact]
+    public async Task APassingSnapshotLeavesASiblingsStagedSnapshot()
+    {
+        var intermediate = VerifierSettings.IntermediateDir;
+        Assert.NotNull(intermediate);
+
+        // ReSharper disable once RedundantSuppressNullableWarningExpression
+        var staging = Path.Combine(intermediate!, InlineStaging.DirectoryName);
+        Directory.CreateDirectory(staging);
+
+        var source = Path.Combine(listener.Directory, "Sibling.cs");
+        var stem = nameof(APassingSnapshotLeavesASiblingsStagedSnapshot);
+        var patchFile = Path.Combine(staging, $"{stem}.inlinepatch");
+        var receivedFile = Path.Combine(staging, $"{stem}.received.txt");
+        var expectedFile = Path.Combine(staging, $"{stem}.expected.txt");
+        InlinePatchFile.Write(
+            patchFile,
+            new(InnerVerifier.MapSourceFile(source), 20, "\"old\"", "staged content")
+            {
+                TestName = $"InlineRetireTests.{stem}",
+                MemberName = stem,
+                OriginalValue = "old"
+            });
+        await File.WriteAllTextAsync(receivedFile, "staged content");
+        await File.WriteAllTextAsync(expectedFile, "old");
+
+        try
+        {
+            var settings = new VerifySettings();
+            settings.UseDirectory(listener.Directory);
+            settings.Snapshot("value", source, 7, "\"value\"");
+
+            await Verify("value", settings);
+
+            Assert.True(File.Exists(patchFile));
+            Assert.True(File.Exists(receivedFile));
+            Assert.True(File.Exists(expectedFile));
+        }
+        finally
+        {
+            File.Delete(patchFile);
+            File.Delete(receivedFile);
+            File.Delete(expectedFile);
+        }
     }
 
     /// <summary>
@@ -153,7 +230,7 @@ public class InlineRetireTests :
     static string SourceFile([CallerFilePath] string file = "") =>
         InnerVerifier.MapSourceFile(file);
 
-    sealed record Settle(string? Key, string? Origin, string? Member);
+    sealed record Settle(string? Key, string? Origin, string? Member, string? Value);
 
     /// <summary>
     /// Stands in for whoever owns the inline queue: accepts connections, records what arrives, and
@@ -246,6 +323,7 @@ public class InlineRetireTests :
             string? key = null;
             string? origin = null;
             string? member = null;
+            string? settledBy = null;
             foreach (var raw in payload.Replace("\r\n", "\n").Split('\n'))
             {
                 var separator = raw.IndexOf(':');
@@ -270,6 +348,9 @@ public class InlineRetireTests :
                     case "member":
                         member = Decode(value);
                         break;
+                    case "value":
+                        settledBy = Decode(value);
+                        break;
                 }
             }
 
@@ -278,7 +359,7 @@ public class InlineRetireTests :
                 return false;
             }
 
-            settle = new(key, origin, member);
+            settle = new(key, origin, member, settledBy);
             return true;
         }
 

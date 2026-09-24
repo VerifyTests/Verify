@@ -1,25 +1,46 @@
 name: on-push-do-docs
+
 on:
   push:
+    # Branches only: a tag push has no branch to commit regenerated docs to. Dependabot branches
+    # are skipped since their bumps do not change docs, and a docs commit would restart the PR build.
+    branches:
+      - '**'
+      - '!dependabot/**'
+
+# Serialize per branch, so two quick pushes do not race each other's docs commit.
+concurrency:
+  group: docs-${{ github.ref }}
+
+permissions:
+  contents: write
+
 jobs:
   docs:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-dotnet@v4
-      with:
-        global-json-file: global.json
-    - name: Run MarkdownSnippets
-      run: |
-        dotnet tool install --global MarkdownSnippets.Tool
-        mdsnippets ${GITHUB_WORKSPACE}
-      shell: bash
-    - name: Push changes
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git commit -m "Docs changes" -a || echo "nothing to commit"
-        remote="https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
-        branch="${GITHUB_REF:11}"
-        git push "${remote}" ${branch} || echo "nothing to push"
-      shell: bash
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+
+      - name: Run MarkdownSnippets
+        shell: bash
+        run: |
+          dotnet tool install --global MarkdownSnippets.Tool
+          mdsnippets "$GITHUB_WORKSPACE"
+
+      # Fails the run when the push is rejected rather than hiding it. A push made with
+      # GITHUB_TOKEN does not trigger further workflow runs, so this does not rebuild the branch.
+      - name: Push changes
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "No docs changes"
+            exit 0
+          fi
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Docs changes" -a
+          git push origin "HEAD:$GITHUB_REF_NAME"

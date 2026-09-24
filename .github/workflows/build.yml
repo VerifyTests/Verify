@@ -1,0 +1,157 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+    tags: ['*']
+  pull_request:
+  workflow_dispatch:
+
+# Read only by default. The publish job asks for the OIDC token it needs itself.
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_NOLOGO: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 60
+    env:
+      # SponsorCheck (referenced by the Verify project) needs a token to query GitHub Sponsors.
+      GitHubToken: ${{ secrets.GitHubToken }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: |
+            10.0.300
+          global-json-file: global.json
+
+      # Keyed on everything that decides the package graph. restore-keys lets a changed graph start
+      # from the previous cache rather than empty.
+      - name: Cache NuGet packages
+        uses: actions/cache@v6
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('global.json', '**/Directory.Packages.props', '**/Directory.Build.props', '**/*.csproj', '**/*.fsproj') }}
+          restore-keys: nuget-${{ runner.os }}-
+
+      - name: Restore tools
+        run: dotnet tool restore --tool-manifest src/.config/dotnet-tools.json
+
+      # The tag is the version: tag 1.2.3 (or v1.2.3) builds 1.2.3. Other builds use the
+      # Version in Directory.Build.props.
+      - name: Resolve the version from the tag
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: bash
+        run: echo "VERSION_ARGUMENT=-p:Version=${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
+
+      - name: Build
+        run: dotnet build src/Verify.slnx --configuration Release --verbosity minimal ${{ env.VERSION_ARGUMENT }}
+
+      # `dotnet test` with a relative project/directory path is re-resolved against the project
+      # directory for multi-targeted projects, producing a doubled path
+      # ("src/X/src/X/X.csproj could not be found"). Pass an absolute path to avoid it.
+      - name: Test
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          $src = "$env:GITHUB_WORKSPACE/src"
+          $options = '--configuration', 'Release', '--no-build', '--no-restore', '--verbosity', 'minimal'
+          foreach ($project in 'ApplyScrubbersTests', 'DeterministicTests', 'FSharpTests', 'StaticSettingsTests', 'StrictJsonTests', 'Verify.ClipboardAccept.Tests', 'Verify.ExceptionParsing.Tests', 'Verify.MSTest.DerivePaths.Tests', 'Verify.MSTest.Tests', 'Verify.MSTest.SourceGenerator.Tests', 'Verify.MSTest.DisableAttachments.Tests', 'Verify.NUnit.DerivePaths.Tests', 'Verify.NUnit.Tests', 'Verify.NUnit.DisableAttachments.Tests', 'Verify.Tests', 'Verify.XunitV3.Tests', 'Verify.XunitV3.DerivePaths.Tests')
+          {
+            dotnet test "$src/$project" @options
+          }
+          foreach ($project in 'Verify.Expecto.DerivePaths.Tests', 'Verify.Expecto.FSharpTests', 'Verify.Expecto.Tests', 'Verify.TUnit.DerivePaths.Tests', 'Verify.TUnit.Tests', 'Verify.TUnit.DisableAttachments.Tests')
+          {
+            dotnet run --project "$src/$project" @options
+          }
+
+      # Fixie has no Microsoft.Testing.Platform runner, so it cannot run via `dotnet test` in MTP mode.
+      # Run it via the fixie.console tool (restored from src/.config/dotnet-tools.json, which is only discoverable from src).
+      - name: Fixie tests
+        working-directory: src
+        run: dotnet fixie Verify.Fixie.Tests --configuration Release --no-build
+
+      # The dangling snapshot check only runs on a build server, so these projects are the only place it
+      # is exercised end to end: adapter wiring, module initializer, teardown hook, manifest and scan.
+      - name: Dangling snapshot tests
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          $src = "$env:GITHUB_WORKSPACE/src"
+          $options = '--configuration', 'Release', '--no-build', '--no-restore', '--verbosity', 'minimal'
+          dotnet build src/VerifyDangling.slnx --configuration Release --verbosity minimal
+          foreach ($project in 'DanglingSnapshotsMSTestUsage', 'DanglingSnapshotsNUnitUsage', 'DanglingSnapshotsXunitV3Usage')
+          {
+            dotnet test "$src/$project" @options
+          }
+          foreach ($project in 'DanglingSnapshotsExpectoUsage', 'DanglingSnapshotsTUnitUsage')
+          {
+            dotnet run --project "$src/$project" @options
+          }
+          Push-Location src
+          dotnet fixie DanglingSnapshotsFixieUsage --configuration Release --no-build
+          Pop-Location
+
+      - name: Upload received on failure
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: received
+          path: '**/*.received.*'
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Upload packages
+        if: success()
+        uses: actions/upload-artifact@v7
+        with:
+          name: nupkgs
+          path: nugets/**/*.nupkg
+          if-no-files-found: warn
+          retention-days: 30
+
+  # Trusted publishing: no stored API key. nuget.org validates GitHub's OIDC token against the
+  # policy naming this repository and this workflow file, and returns a key good for an hour.
+  publish:
+    needs: build
+    environment: nuget
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Download packages
+        uses: actions/download-artifact@v8
+        with:
+          name: nupkgs
+          path: packages
+
+      - name: NuGet login
+        id: login
+        uses: NuGet/login@v1
+        with:
+          user: SimonCropp
+
+      - name: Push to nuget.org
+        run: >
+          dotnet nuget push "packages/**/*.nupkg"
+          --api-key ${{ steps.login.outputs.NUGET_API_KEY }}
+          --source https://api.nuget.org/v3/index.json
+          --skip-duplicate

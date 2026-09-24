@@ -30,7 +30,7 @@ dotnet build src/Verify.slnx
 
 Because `Verify.Fixie.Tests` still uses the VSTest runner, **`dotnet test src/Verify.slnx` does not work** — it aborts with a mixed-runner error ("All projects must use that test runner") before running anything. There is no single command that runs every test project.
 
-Instead, build once and run each test project individually. **`src/appveyor.yml` (`build_script`) is the source of truth** for the complete, ordered list and how each project is invoked. The commands differ by runner:
+Instead, build once and run each test project individually. **`.github/workflows/build.yml` is the source of truth** for the complete, ordered list and how each project is invoked. The commands differ by runner:
 
 ```bash
 # Build once in the target configuration, then run with --no-build --no-restore
@@ -241,7 +241,7 @@ When tests fail, `.received.*` files are created showing actual output. To accep
 
 ### Debugging Tests
 
-On CI (AppVeyor), failed test artifacts are uploaded for inspection.
+On CI (GitHub Actions), failed test artifacts are uploaded for inspection.
 
 ## Multi-Targeting
 

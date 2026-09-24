@@ -60,7 +60,6 @@ MTP does not accept the VSTest `--filter "FullyQualifiedName~..."` syntax. For x
 
 ```bash
 dotnet test $PWD/src/Verify.Tests -c Release --no-build --no-restore -f net9.0 --filter-method "*NotInlineRetiresTheCallSite*"
-dotnet test $PWD/src/Verify.Tests -c Release --no-build --no-restore -f net8.0 --filter-class "WizardGen"
 ```
 
 or build the project for a single framework and run the compiled test executable directly with the xUnit v3 `-class` / `-method` filters (leading/trailing `*` wildcard supported):
@@ -291,18 +290,6 @@ README and docs are generated from source files using [MarkdownSnippets](https:/
 - Doc sources: `docs/mdsource/*.source.md` → `docs/*.md` (generated)
 - Includes: `docs/mdsource/*.include.md` (reusable fragments)
 - Run `mdsnippets` to regenerate (globally installed dotnet tool)
-
-### Getting Started Wizard
-
-`docs/mdsource/wiz/*.source.md` and `docs/wiz/*.md` are entirely generated (and purged first) by the `WizardGen` test in `src/Verify.Tests/Wizard/WizardGen.cs`. Edit the generator, not the output. It only compiles for net8.0 and does nothing unless `mdsnippets` is on PATH; it runs `mdsnippets` itself after writing the sources:
-
-```bash
-dotnet test $PWD/src/Verify.Tests -c Release -f net8.0 --filter-class "WizardGen"
-```
-
-- The wizard recommends the MTP setup: package lists without `Microsoft.NET.Test.Sdk`, per-framework test project settings (`OutputType`, `EnableNUnitRunner`, etc.), and the `global.json` runner. Fixie is the exception (no MTP runner).
-- Shared MTP text lives in `docs/mdsource/testing-platform.include.md`.
-- "Prefer CLI" package lists are hard-coded in `WizardGen.cs`; "Prefer GUI" package lists are the `*-nugets` snippets in `usages/*NugetUsage/*.csproj`. Keep both in sync.
 
 ### Snippet Conventions
 

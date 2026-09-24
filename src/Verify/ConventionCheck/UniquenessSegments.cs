@@ -16,21 +16,23 @@ namespace VerifyTests;
 /// </summary>
 static class UniquenessSegments
 {
-    static HashSet<string> platforms = new(StringComparer.Ordinal)
-    {
+    static HashSet<string> platforms =
+    [
+        with(StringComparer.Ordinal),
         "Windows",
         "Linux",
         "OSX",
         "Android",
         "IOS"
-    };
+    ];
 
     // Namer.Architecture is RuntimeInformation.ProcessArchitecture lowercased. Listed rather than
     // reflected off the Architecture enum, which grew over time: reflecting it would make a name
     // recognised or not depending on the runtime reading it, so a snapshot an s390x agent produced
     // would go unrecognised by a .NET Framework run, which only knows the first four.
-    static HashSet<string> architectures = new(StringComparer.Ordinal)
-    {
+    static HashSet<string> architectures =
+    [
+        with(StringComparer.Ordinal),
         "x86",
         "x64",
         "arm",
@@ -41,16 +43,17 @@ static class UniquenessSegments
         "armv6",
         "ppc64le",
         "riscv64"
-    };
+    ];
 
     // Every value Namer.GetRuntimeAndVersion and Namer.GetSimpleFrameworkName can return, before
     // the major and minor version is appended.
-    static HashSet<string> frameworks = new(StringComparer.Ordinal)
-    {
+    static HashSet<string> frameworks =
+    [
+        with(StringComparer.Ordinal),
         "Net",
         "DotNet",
         "Mono"
-    };
+    ];
 
     /// <param name="tail">The verified path from the end of the matched prefix.</param>
     /// <param name="frameworksCovered">

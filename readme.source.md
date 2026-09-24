@@ -55,11 +55,11 @@ include: supporters
  * Supported SDK: 9.0.301 and up
 
 
-## [Getting started wizard](/docs/wiz/readme.md)
+## Getting started wizard
 
 Get customized instructions for the specific combination of Operating System, IDE, Test Framework, and Build Server.
 
-[Start wizard](/docs/wiz/readme.md).
+[Start wizard](https://verifytests.github.io/Wizard/).
 
 
 ## NuGet

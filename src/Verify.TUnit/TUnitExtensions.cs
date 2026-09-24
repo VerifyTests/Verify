@@ -1,8 +1,12 @@
-static class TUnitExtensions
+﻿static class TUnitExtensions
 {
     public static IReadOnlyList<string>? GetParameterNames(this TestDetails details)
     {
-        var methodParameterNames = details.MethodMetadata.Parameters.Select(_ => _.Name).ToList();
+        // TUnit injects CancellationToken parameters itself, so they are not in TestMethodArguments
+        var methodParameterNames = details.MethodMetadata.Parameters
+            .Where(_ => _.Type != typeof(CancellationToken))
+            .Select(_ => _.Name)
+            .ToList();
 
         var constructorParameterNames = GetConstructorParameterNames(details);
         if (methodParameterNames.Count is 0)

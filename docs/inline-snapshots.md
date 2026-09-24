@@ -390,7 +390,7 @@ Two further differences need nothing from the reader. F# does not implement `Cal
 
 Both directions are handled without any manual file editing.
 
-**File to inline.** The existing `.verified.` file for the inlined target is detected as stale and flows through the standard [Delete handling](exception-message-format.md): deleted automatically under AutoVerify, otherwise listed in the `Delete:` section and pended for review. A pending delete goes to the tray when one is running, and to the viewer otherwise, launching one if none is up, so it is reviewable with no tray installed. Files belonging to the other targets keep their names and are left alone.
+**File to inline.** The existing `.verified.` file for the inlined target is detected as stale and flows through the standard [Delete handling](exception-message-format.md): deleted automatically under AutoVerify, otherwise listed in the `Delete:` section and pended for review. A pending delete goes to the tray when one is running, and to the viewer otherwise, launching one if none is up, so it is reviewable with no tray installed. If the snapshot moves back to that file before the delete is accepted, the next run verifies against the file and withdraws the delete, so accepting it cannot remove a file that is in use again. Files belonging to the other targets keep their names and are left alone.
 
 This direction has no opt-in of its own, so a snapshot that shrinks back under a [`maxLines`](#limiting-the-size-of-an-inline-snapshot) limit returns to inline as soon as it does, leaving its file behind as a stale delete. A snapshot whose size hovers around the limit therefore moves each time it crosses.
 

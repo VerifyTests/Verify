@@ -7,6 +7,10 @@ on:
   pull_request:
   workflow_dispatch:
 
+# Read only by default. The publish job asks for the OIDC token it needs itself.
+permissions:
+  contents: read
+
 concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
@@ -25,14 +29,23 @@ jobs:
       GitHubToken: ${{ secrets.GitHubToken }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v6
         with:
           dotnet-version: |
             10.0.300
           global-json-file: global.json
+
+      # Keyed on everything that decides the package graph. restore-keys lets a changed graph start
+      # from the previous cache rather than empty.
+      - name: Cache NuGet packages
+        uses: actions/cache@v6
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('global.json', '**/Directory.Packages.props', '**/Directory.Build.props', '**/*.csproj', '**/*.fsproj') }}
+          restore-keys: nuget-${{ runner.os }}-
 
       - name: Restore tools
         run: dotnet tool restore --tool-manifest src/.config/dotnet-tools.json
@@ -96,7 +109,7 @@ jobs:
 
       - name: Upload received on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: received
           path: '**/*.received.*'
@@ -105,7 +118,7 @@ jobs:
 
       - name: Upload packages
         if: success()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: nupkgs
           path: nugets/**/*.nupkg
@@ -125,7 +138,7 @@ jobs:
       id-token: write
     steps:
       - name: Download packages
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: nupkgs
           path: packages

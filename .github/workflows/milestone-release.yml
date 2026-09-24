@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Sync Release with Milestone
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const { owner, repo } = context.repo;
@@ -70,11 +70,39 @@ jobs:
               }).join('\n') || 'No issues in this milestone yet.';
             }
 
-            // Helper: Update existing release only
+            // Helper: Does a tag with this name exist
+            async function tagExists(tagName) {
+              try {
+                await github.rest.git.getRef({ owner, repo, ref: `tags/${tagName}` });
+                return true;
+              } catch (error) {
+                if (error.status === 404) return false;
+                throw error;
+              }
+            }
+
+            // Helper: Update the milestone's release, creating it when the tag already exists
             async function updateReleaseIfExists(milestone) {
               const release = await findRelease(milestone.title);
               if (!release) {
-                console.log(`No release found for ${milestone.title}, skipping`);
+                if (await tagExists(milestone.title)) {
+                  try {
+                    await github.rest.repos.createRelease({
+                      owner, repo,
+                      tag_name: milestone.title,
+                      name: milestone.title,
+                      body: await generateBody(milestone.number),
+                      draft: false
+                    });
+                    core.notice(`Created missing release for existing tag: ${milestone.title}`);
+                  } catch (error) {
+                    // The tag push run created it at the same moment
+                    if (error.status !== 422) throw error;
+                    console.log(`Release was created concurrently: ${milestone.title}`);
+                  }
+                  return;
+                }
+                core.notice(`No release or tag for ${milestone.title} yet; the release is created when the tag is pushed`);
                 return;
               }
               const body = await generateBody(milestone.number);
@@ -108,14 +136,31 @@ jobs:
                 ? await generateBody(milestone.number)
                 : '';
 
-              await github.rest.repos.createRelease({
-                owner, repo,
-                tag_name: tagName,
-                name: tagName,
-                body: body,
-                draft: false
-              });
-              console.log(`Created release for tag: ${tagName}`);
+              const existing = await findRelease(tagName);
+              if (existing) {
+                await github.rest.repos.updateRelease({
+                  owner, repo,
+                  release_id: existing.id,
+                  body: body
+                });
+                console.log(`Release already existed, updated: ${tagName}`);
+                return;
+              }
+
+              try {
+                await github.rest.repos.createRelease({
+                  owner, repo,
+                  tag_name: tagName,
+                  name: tagName,
+                  body: body,
+                  draft: false
+                });
+                console.log(`Created release for tag: ${tagName}`);
+              } catch (error) {
+                // A milestone event running at the same moment created it first
+                if (error.status !== 422) throw error;
+                console.log(`Release was created concurrently: ${tagName}`);
+              }
               return;
             }
 

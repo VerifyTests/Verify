@@ -38,7 +38,7 @@
     <PackageVersion Include="xunit.v3" Version="4.0.1" />
     <PackageVersion Include="xunit.v3.extensibility.core" Version="4.0.1" />
     <PackageVersion Include="TUnit" Version="1.69.0" />
-    <PackageVersion Include="TUnit.Core" Version="1.69.0" />
+    <PackageVersion Include="TUnit.Core" Version="1.69.16" />
     <PackageVersion Include="YoloDev.Expecto.TestSdk" Version="0.16.1" />
   </ItemGroup>
 </Project>

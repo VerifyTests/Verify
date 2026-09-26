@@ -27,7 +27,7 @@
     <PackageVersion Include="ProjectDefaults" Version="1.0.181" />
     <PackageVersion Include="ProjectFiles" Version="1.4.0" />
     <PackageVersion Include="PublicApiGenerator" Version="11.5.4" />
-    <PackageVersion Include="Sbom" Version="0.2.0" />
+    <PackageVersion Include="Sbom" Version="0.3.1" />
     <PackageVersion Include="SimpleInfoName" Version="3.2.0" />
     <PackageVersion Include="SponsorCheck" Version="0.26.0" GitHubSponsorsAccount="VerifyTests" SponsorOwner="Verify" CheckTransitiveReferences="true" SponsorLandingUrl="https://github.com/VerifyTests/Verify/blob/main/docs/maintenance-fee.md" />
     <PackageVersion Include="System.Drawing.Common" Version="10.0.12" />

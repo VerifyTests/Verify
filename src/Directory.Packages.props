@@ -12,7 +12,7 @@
     <PackageVersion Include="Fixie" Version="4.2.0" />
     <PackageVersion Include="Fixie.TestAdapter" Version="4.2.0" />
     <PackageVersion Include="FSharp.Core" Version="11.0.100" />
-    <PackageVersion Include="MarkdownSnippets.MsBuild" Version="28.4.4" />
+    <PackageVersion Include="MarkdownSnippets.MsBuild" Version="28.5.0" />
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.12" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" Pinned="true" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" Pinned="true" />
@@ -23,7 +23,7 @@
     <PackageVersion Include="MSTest.TestAdapter" Version="4.4.1" />
     <PackageVersion Include="MSTest.TestFramework" Version="4.4.1" />
     <PackageVersion Include="NUnit3TestAdapter" Version="6.3.0" />
-    <PackageVersion Include="Polyfill" Version="11.4.0" />
+    <PackageVersion Include="Polyfill" Version="11.4.1" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.181" />
     <PackageVersion Include="ProjectFiles" Version="1.4.0" />
     <PackageVersion Include="PublicApiGenerator" Version="11.5.4" />
@@ -37,8 +37,8 @@
     <PackageVersion Include="TextCopy" Version="6.2.1" />
     <PackageVersion Include="xunit.v3" Version="4.0.1" />
     <PackageVersion Include="xunit.v3.extensibility.core" Version="4.0.1" />
-    <PackageVersion Include="TUnit" Version="1.69.16" />
-    <PackageVersion Include="TUnit.Core" Version="1.69.16" />
+    <PackageVersion Include="TUnit" Version="1.70.0" />
+    <PackageVersion Include="TUnit.Core" Version="1.70.0" />
     <PackageVersion Include="YoloDev.Expecto.TestSdk" Version="0.16.1" />
   </ItemGroup>
 </Project>

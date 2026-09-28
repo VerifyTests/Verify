@@ -13,6 +13,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" />
     <PackageReference Include="NUnit3TestAdapter" />
+    <PackageReference Include="System.ValueTuple" VersionOverride="4.6.2" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
 
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />

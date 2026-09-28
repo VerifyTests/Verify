@@ -2,11 +2,11 @@
 public class VerifyInOneTimeSetUp
 {
     [OneTimeSetUp]
-    public void SetUp()
+    public async Task SetUp()
     {
-        var exception = ThrowsAsync<Exception>(
-            () => Verify("If I call verify in a fixtures One Time SetUp method, then test method is not available for the verify file name."))!;
-        That(exception.Message, Is.EqualTo("TestContext.CurrentContext.Test.Method is null. Verify can only be used from within a test method."));
+        var exception = await ThrowsAsync<Exception>(
+            () => Verify("If I call verify in a fixtures One Time SetUp method, then test method is not available for the verify file name."));
+        That(exception!.Message, Is.EqualTo("TestContext.CurrentContext.Test.Method is null. Verify can only be used from within a test method."));
     }
 
     [Test]

@@ -51,6 +51,76 @@ The staged path lines are omitted when staging was unavailable (build server, or
 
 After the file listing, a `FileContent:` section includes the text content of new and not-equal files. This section is only present when there are text-based new or not-equal files. Binary files are listed in the file listing but their content is not included.
 
+A not-equal text file shows a `Diff:` of the verified text against the received text, rather than both texts in full. Lines compare exactly, whitespace and case included. When the texts differ only in something a line diff does not see, such as line endings, both texts are shown in full instead.
+
+
+### Text Diff Format
+
+The diff is produced by [DiffEngine](https://github.com/VerifyTests/DiffEngine)'s `TextDiff.Format`, in one of three formats:
+
+ * `Compact` (the default): the changed lines prefixed with `-` or `+`, each unchanged line next to a change prefixed with its received line number, and `[BOF]` or `[EOF]` where a change touches either end.
+ * `Full`: every line, prefixed with `-`, `+` or two spaces.
+ * `Minimal`: only the changed lines, prefixed with `-` or `+`.
+
+<!-- snippet: VerifyExceptionMessageBuilderTests.NotEqual_TextDiffCompact.verified.txt -->
+<a id='snippet-VerifyExceptionMessageBuilderTests.NotEqual_TextDiffCompact.verified.txt'></a>
+```txt
+Directory: {ProjectDirectory}
+NotEqual:
+  - Received: VerifyExceptionMessageBuilderTests.Fake.received.txt
+    Verified: VerifyExceptionMessageBuilderTests.Fake.verified.txt
+
+FileContent:
+
+NotEqual:
+
+Received: VerifyExceptionMessageBuilderTests.Fake.received.txt
+Verified: VerifyExceptionMessageBuilderTests.Fake.verified.txt
+Diff:
+2 line 2
+- line 3
++ line three
+4 line 4
+
+7 line 7
++ line 8
+  [EOF]
+```
+<sup><a href='/src/Verify.ExceptionParsing.Tests/VerifyExceptionMessageBuilderTests.NotEqual_TextDiffCompact.verified.txt#L1-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyExceptionMessageBuilderTests.NotEqual_TextDiffCompact.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+The format is set globally:
+
+<!-- snippet: UseTextDiffFormat -->
+<a id='snippet-UseTextDiffFormat'></a>
+```cs
+public static class ModuleInitializer
+{
+    [ModuleInitializer]
+    public static void Init() =>
+        VerifierSettings.UseTextDiffFormat(DiffEngine.TextDiffFormat.Full);
+}
+```
+<sup><a href='/src/ModuleInitDocs/UseTextDiffFormat.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextDiffFormat' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+To show both texts in full, as before diffs were shown, disable the diff:
+
+<!-- snippet: DisableTextDiff -->
+<a id='snippet-DisableTextDiff'></a>
+```cs
+public static class ModuleInitializer
+{
+    [ModuleInitializer]
+    public static void Init() =>
+        VerifierSettings.DisableTextDiff();
+}
+```
+<sup><a href='/src/ModuleInitDocs/DisableTextDiff.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableTextDiff' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+This only changes the exception message. Launching a diff tool is controlled separately, by [DisableDiff](/docs/verify-options.md#disablediff).
+
 
 ## Example: All Categories
 
@@ -80,11 +150,14 @@ the new content
 NotEqual:
 
 Received: MyTests.Test2.received.txt
-received text
 Verified: MyTests.Test2.verified.txt
-verified text
+Diff:
+  [BOF]
+- verified text
++ received text
+  [EOF]
 ```
-<sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionMessageFormatSamples.AllCategories.verified.txt#L1-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionMessageFormatSamples.AllCategories.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionMessageFormatSamples.AllCategories.verified.txt#L1-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionMessageFormatSamples.AllCategories.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -163,17 +236,20 @@ inline expected
 NotEqual:
 
 Received: MyTests.Test1#01.received.txt
-received text
 Verified: MyTests.Test1#01.verified.txt
-verified text
+Diff:
+  [BOF]
+- verified text
++ received text
+  [EOF]
 ```
-<sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionMessageFormatSamples.InlineAndFileTogether.verified.txt#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionMessageFormatSamples.InlineAndFileTogether.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.ExceptionParsing.Tests/ExceptionMessageFormatSamples.InlineAndFileTogether.verified.txt#L1-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionMessageFormatSamples.InlineAndFileTogether.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### NotEqual with Comparer Message
 
-When a custom comparer provides a message, the content section uses `Compare Result:` instead of inline file content:
+When a custom comparer provides a message, the content section uses `Compare Result:` instead of a diff or the file content:
 
 <!-- snippet: ExceptionMessageFormatSamples.NotEqualWithMessage.verified.txt -->
 <a id='snippet-ExceptionMessageFormatSamples.NotEqualWithMessage.verified.txt'></a>

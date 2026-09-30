@@ -168,6 +168,7 @@ public static partial class VerifierSettings
         UniquePrefixDisabled = false;
         UseUniqueDirectorySplitMode = false;
         omitContentFromException = false;
+        textDiffFormat = TextDiffFormat.Compact;
         fixNewlinesOnRead = false;
         ignoreTrailingNewline = false;
         encoding = new UTF8Encoding(true, true);

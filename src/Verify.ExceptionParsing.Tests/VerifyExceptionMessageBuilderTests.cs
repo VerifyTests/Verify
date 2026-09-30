@@ -1,3 +1,4 @@
+using DiffEngine;
 using FilePair = VerifyTests.FilePair;
 
 public class VerifyExceptionMessageBuilderTests
@@ -154,6 +155,58 @@ public class VerifyExceptionMessageBuilderTests
         };
 
         return BuildVerify([], notEquals, [], []);
+    }
+
+    const string multiLineVerified = "line 1\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7";
+    const string multiLineReceived = "line 1\nline 2\nline three\nline 4\nline 5\nline 6\nline 7\nline 8";
+
+    [Fact]
+    public Task NotEqual_TextDiffCompact() =>
+        BuildVerifyTextDiff(multiLineReceived, multiLineVerified, TextDiffFormat.Compact);
+
+    [Fact]
+    public Task NotEqual_TextDiffFull() =>
+        BuildVerifyTextDiff(multiLineReceived, multiLineVerified, TextDiffFormat.Full);
+
+    [Fact]
+    public Task NotEqual_TextDiffMinimal() =>
+        BuildVerifyTextDiff(multiLineReceived, multiLineVerified, TextDiffFormat.Minimal);
+
+    /// <summary>
+    /// With the diff disabled the full received and verified text is shown, as before diffs existed.
+    /// </summary>
+    [Fact]
+    public Task NotEqual_TextDiffDisabled() =>
+        BuildVerifyTextDiff(multiLineReceived, multiLineVerified, null);
+
+    /// <summary>
+    /// A whitespace only change is a difference, and has to show as one.
+    /// </summary>
+    [Fact]
+    public Task NotEqual_TextDiffWhitespace() =>
+        BuildVerifyTextDiff("a\n  b\nc", "a\nb\nc", TextDiffFormat.Compact);
+
+    /// <summary>
+    /// Line endings split lines rather than belong to them, so texts that differ only in line
+    /// endings have an empty diff, and the full text is shown instead.
+    /// </summary>
+    [Fact]
+    public Task NotEqual_TextDiffEmptyFallsBackToContent() =>
+        BuildVerifyTextDiff("a\r\nb", "a\nb", TextDiffFormat.Compact);
+
+    static Task BuildVerifyTextDiff(string received, string verified, TextDiffFormat? format)
+    {
+        var message = VerifyExceptionMessageBuilder.Build(
+            projectDirectory,
+            [],
+            [new(new("txt", receivedTxt, verifiedTxt), null, new(received), verified)],
+            [],
+            [],
+            null,
+            null,
+            format);
+
+        return Verifier.Verify(message);
     }
 
     static Task BuildVerify(

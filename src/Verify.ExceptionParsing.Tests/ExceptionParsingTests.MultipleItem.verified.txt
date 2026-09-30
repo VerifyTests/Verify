@@ -30,9 +30,12 @@ the content
 NotEqual:
 
 Received: ExceptionParsingTests.Fake.received.txt
-receivedText
 Verified: ExceptionParsingTests.Fake.verified.txt
-verifiedText
+Diff:
+  [BOF]
+- verifiedText
++ receivedText
+  [EOF]
 
 ,
   result: {

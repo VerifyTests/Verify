@@ -21,7 +21,10 @@ new content
 NotEqual:
 
 Received: VerifyExceptionMessageBuilderTests.Fake.received.txt
-received
 Verified: VerifyExceptionMessageBuilderTests.Fake.verified.txt
-verified
+Diff:
+  [BOF]
+- verified
++ received
+  [EOF]
 

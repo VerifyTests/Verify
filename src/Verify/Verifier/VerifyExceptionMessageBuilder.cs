@@ -20,7 +20,23 @@ static class VerifyExceptionMessageBuilder
         IReadOnlyCollection<string> delete,
         IReadOnlyCollection<FilePair> equal,
         InlineSection? inline = null,
-        string? hint = null)
+        string? hint = null) =>
+        Build(directory, @new, notEquals, delete, equal, inline, hint, VerifierSettings.textDiffFormat);
+
+    /// <summary>
+    /// <paramref name="textDiffFormat"/> is null to show the full received and verified text of a
+    /// mismatched text file rather than a diff. Passed rather than read from the settings so tests
+    /// can vary it without changing global state.
+    /// </summary>
+    public static string Build(
+        string directory,
+        IReadOnlyCollection<NewResult> @new,
+        IReadOnlyCollection<NotEqualResult> notEquals,
+        IReadOnlyCollection<string> delete,
+        IReadOnlyCollection<FilePair> equal,
+        InlineSection? inline,
+        string? hint,
+        TextDiffFormat? textDiffFormat)
     {
         var builder = new StringBuilder($"Directory: {directory}\n");
 
@@ -75,7 +91,7 @@ static class VerifyExceptionMessageBuilder
             }
         }
 
-        AppendContent(directory, @new, notEquals, inline, hint, builder);
+        AppendContent(directory, @new, notEquals, inline, hint, textDiffFormat, builder);
 
         return builder.ToString();
     }
@@ -94,6 +110,7 @@ static class VerifyExceptionMessageBuilder
         IReadOnlyCollection<NotEqualResult> notEquals,
         InlineSection? inline,
         string? hint,
+        TextDiffFormat? textDiffFormat,
         StringBuilder builder)
     {
         var omit = VerifierSettings.omitContentFromException;
@@ -170,13 +187,13 @@ static class VerifyExceptionMessageBuilder
             builder.AppendLineN();
             foreach (var notEqual in notEqualContentFiles)
             {
-                AppendNotEqualContent(directory, builder, notEqual);
+                AppendNotEqualContent(directory, builder, notEqual, textDiffFormat);
                 builder.AppendLineN();
             }
         }
     }
 
-    static void AppendNotEqualContent(string directory, StringBuilder builder, NotEqualResult notEqual)
+    static void AppendNotEqualContent(string directory, StringBuilder builder, NotEqualResult notEqual, TextDiffFormat? textDiffFormat)
     {
         var item = notEqual.File;
         var message = notEqual.Message;
@@ -184,6 +201,19 @@ static class VerifyExceptionMessageBuilder
         var verifiedPath = IoHelpers.GetRelativePath(directory, item.VerifiedPath);
         if (message is null)
         {
+            var diff = Diff(notEqual, textDiffFormat);
+            if (diff is not null)
+            {
+                builder.AppendLineN(
+                    $"""
+                     Received: {receivedPath}
+                     Verified: {verifiedPath}
+                     Diff:
+                     {diff}
+                     """);
+                return;
+            }
+
             builder.AppendLineN(
                 $"""
                  Received: {receivedPath}
@@ -202,5 +232,29 @@ static class VerifyExceptionMessageBuilder
                  {message}
                  """);
         }
+    }
+
+    /// <summary>
+    /// A line diff of the verified text against the received text, or null to fall back to showing
+    /// both in full: when diffs are disabled, when either text is missing, and when the diff comes
+    /// back empty because the texts differ only in something a line diff does not see, such as line
+    /// endings.
+    /// </summary>
+    static string? Diff(NotEqualResult notEqual, TextDiffFormat? textDiffFormat)
+    {
+        if (textDiffFormat is not { } format ||
+            notEqual.ReceivedText is not { } received ||
+            notEqual.VerifiedText is not { } verified)
+        {
+            return null;
+        }
+
+        var diff = TextDiff.Format(verified, received.ToString(), format);
+        if (diff.Length == 0)
+        {
+            return null;
+        }
+
+        return diff;
     }
 }

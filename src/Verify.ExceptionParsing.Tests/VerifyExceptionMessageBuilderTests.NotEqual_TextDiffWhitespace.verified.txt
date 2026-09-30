@@ -10,8 +10,8 @@ NotEqual:
 Received: VerifyExceptionMessageBuilderTests.Fake.received.txt
 Verified: VerifyExceptionMessageBuilderTests.Fake.verified.txt
 Diff:
-  [BOF]
-- verified content
-+ received content
-  [EOF]
+1 a
+- b
++   b
+3 c
 

@@ -42,6 +42,9 @@ resharper_replace_with_single_call_to_first_or_default_highlighting = error
 # Replace with single call to Any(..)
 resharper_replace_with_single_call_to_any_highlighting = error
 
+# Convert into method group
+resharper_convert_closure_to_method_group_highlighting = error
+
 # Simplify negative equality expression
 resharper_negative_equality_expression_highlighting = error
 
@@ -371,6 +374,13 @@ resharper_redundant_record_class_keyword_highlighting = error
 resharper_redundant_extends_list_entry_highlighting = error
 
 resharper_redundant_type_arguments_inside_nameof_highlighting = error
+
+# Never suggest returning a ternary: return one value from an if and the other after it
+dotnet_style_prefer_conditional_expression_over_return = false:none
+dotnet_style_prefer_conditional_expression_over_assignment = false:none
+resharper_convert_if_statement_to_conditional_ternary_expression_highlighting = none
+resharper_convert_conditional_ternary_expression_to_switch_expression_highlighting = none
+resharper_convert_if_statement_to_return_statement_highlighting = none
 
 # Xml files
 [*.{xml,config,nuspec,resx,vsixmanifest,csproj,targets,props,fsproj}]

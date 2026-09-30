@@ -123,7 +123,7 @@ public Task OnFluentCallbacks() =>
 
 ## OmitContentFromException
 
-By default, when a verify mismatch occurs for text, the content of the received and verified files is included in the exception that is thrown. This results in that text being included in test runners and build output. To omit the content use `VerifierSettings.OmitContentFromException`.
+By default, when a verify mismatch occurs for text, a diff of the received and verified files is included in the exception that is thrown. This results in that text being included in test runners and build output. To omit the content use `VerifierSettings.OmitContentFromException`. To change the diff format, or show both files in full, see [Text Diff Format](/docs/exception-message-format.md#text-diff-format).
 
 
 ## DisableDiff

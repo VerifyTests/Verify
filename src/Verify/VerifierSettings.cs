@@ -7,6 +7,28 @@ public static partial class VerifierSettings
     public static void OmitContentFromException() =>
         omitContentFromException = true;
 
+    internal static TextDiffFormat? textDiffFormat = TextDiffFormat.Compact;
+
+    /// <summary>
+    /// The format of the line diff shown in the exception message when a text file does not match
+    /// and no string comparer supplied a message. Defaults to <see cref="TextDiffFormat.Compact"/>.
+    /// </summary>
+    public static void UseTextDiffFormat(TextDiffFormat format)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        textDiffFormat = format;
+    }
+
+    /// <summary>
+    /// Show the full received and verified text in the exception message, instead of a line diff,
+    /// when a text file does not match. Does not affect launching a diff tool.
+    /// </summary>
+    public static void DisableTextDiff()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        textDiffFormat = null;
+    }
+
     /// <summary>
     /// Automatically accept the results of all tests.
     /// </summary>

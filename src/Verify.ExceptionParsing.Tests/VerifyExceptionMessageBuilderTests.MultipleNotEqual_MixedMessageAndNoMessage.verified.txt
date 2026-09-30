@@ -10,9 +10,12 @@ FileContent:
 NotEqual:
 
 Received: VerifyExceptionMessageBuilderTests.Fake.received.txt
-received text
 Verified: VerifyExceptionMessageBuilderTests.Fake.verified.txt
-verified text
+Diff:
+  [BOF]
+- verified text
++ received text
+  [EOF]
 
 Received: VerifyExceptionMessageBuilderTests.Fake.received.txt
 Verified: VerifyExceptionMessageBuilderTests.Fake.verified.txt

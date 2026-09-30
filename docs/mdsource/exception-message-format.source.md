@@ -44,6 +44,29 @@ The staged path lines are omitted when staging was unavailable (build server, or
 
 After the file listing, a `FileContent:` section includes the text content of new and not-equal files. This section is only present when there are text-based new or not-equal files. Binary files are listed in the file listing but their content is not included.
 
+A not-equal text file shows a `Diff:` of the verified text against the received text, rather than both texts in full. Lines compare exactly, whitespace and case included. When the texts differ only in something a line diff does not see, such as line endings, both texts are shown in full instead.
+
+
+### Text Diff Format
+
+The diff is produced by [DiffEngine](https://github.com/VerifyTests/DiffEngine)'s `TextDiff.Format`, in one of three formats:
+
+ * `Compact` (the default): the changed lines prefixed with `-` or `+`, each unchanged line next to a change prefixed with its received line number, and `[BOF]` or `[EOF]` where a change touches either end.
+ * `Full`: every line, prefixed with `-`, `+` or two spaces.
+ * `Minimal`: only the changed lines, prefixed with `-` or `+`.
+
+snippet: VerifyExceptionMessageBuilderTests.NotEqual_TextDiffCompact.verified.txt
+
+The format is set globally:
+
+snippet: UseTextDiffFormat
+
+To show both texts in full, as before diffs were shown, disable the diff:
+
+snippet: DisableTextDiff
+
+This only changes the exception message. Launching a diff tool is controlled separately, by [DisableDiff](/docs/verify-options.md#disablediff).
+
 
 ## Example: All Categories
 
@@ -63,7 +86,7 @@ snippet: ExceptionMessageFormatSamples.InlineAndFileTogether.verified.txt
 
 ### NotEqual with Comparer Message
 
-When a custom comparer provides a message, the content section uses `Compare Result:` instead of inline file content:
+When a custom comparer provides a message, the content section uses `Compare Result:` instead of a diff or the file content:
 
 snippet: ExceptionMessageFormatSamples.NotEqualWithMessage.verified.txt
 

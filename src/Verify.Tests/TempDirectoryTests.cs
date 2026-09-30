@@ -417,7 +417,7 @@ public class TempDirectoryTests
 
         try
         {
-            Assert.ThrowsAny<Exception>(() => temp.Dispose());
+            Assert.ThrowsAny<Exception>(temp.Dispose);
         }
         finally
         {

@@ -4,7 +4,7 @@
     {
         // TUnit injects CancellationToken parameters itself, so they are not in TestMethodArguments
         var methodParameterNames = details.MethodMetadata.Parameters
-            .Where(_ => _.Type != typeof(CancellationToken))
+            .Where(_ => _.Type != typeof(Cancel))
             .Select(_ => _.Name)
             .ToList();
 

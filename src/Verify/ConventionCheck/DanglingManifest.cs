@@ -83,7 +83,7 @@ static class DanglingManifest
     {
         HashSet<string> files = [];
         HashSet<string> prefixes = [];
-        HashSet<string> frameworksRead = new(StringComparer.OrdinalIgnoreCase);
+        HashSet<string> frameworksRead = [with(StringComparer.OrdinalIgnoreCase)];
 
         if (Directory.Exists(directory))
         {

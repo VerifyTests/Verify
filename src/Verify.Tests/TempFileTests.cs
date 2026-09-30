@@ -240,7 +240,7 @@
         var temp = TempFile.Create();
         File.Delete(temp.Path);
 
-        var exception = Record.Exception(() => temp.Dispose());
+        var exception = Record.Exception(temp.Dispose);
 
         Assert.Null(exception);
     }
@@ -346,7 +346,7 @@
 
         using var temp = TempFile.Create();
 
-        var exception = Assert.Throws<Exception>(() => temp.OpenExplorerAndDebug());
+        var exception = Assert.Throws<Exception>(temp.OpenExplorerAndDebug);
         Assert.Contains("not supported on build servers", exception.Message);
     }
 

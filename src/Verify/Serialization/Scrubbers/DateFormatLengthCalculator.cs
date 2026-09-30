@@ -371,7 +371,7 @@
         var abbreviatedMonthNames = Lengths(info.AbbreviatedMonthNames.Concat(info.AbbreviatedMonthGenitiveNames));
         var dayNames = Lengths(info.DayNames);
         var abbreviatedDayNames = Lengths(info.AbbreviatedDayNames);
-        var eras = Lengths(calendar.Eras.Select(_ => info.GetEraName(_)));
+        var eras = Lengths(calendar.Eras.Select(info.GetEraName));
         var timeSeparator = info.TimeSeparator;
         var dateSeparator = info.DateSeparator;
         return new(

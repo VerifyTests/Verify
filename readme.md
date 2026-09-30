@@ -1043,7 +1043,6 @@ To opt out of this feature, include the following in the project file:
 * [Verify.Cosmos](https://github.com/VerifyTests/Verify.Cosmos): Verification of [Azure CosmosDB](https://docs.microsoft.com/en-us/azure/cosmos-db/).
 * [Verify.ClosedXml](https://github.com/VerifyTests/Verify.ClosedXml): Verification of Excel documents via [ClosedXml](https://github.com/ClosedXML/ClosedXML).
 * [Verify.CsvHelper](https://github.com/VerifyTests/Verify.CsvHelper): Verification of CSVs via [CsvHelper](https://joshclose.github.io/CsvHelper/).
-* [Verify.DiffPlex](https://github.com/VerifyTests/Verify.DiffPlex): Comparison of text via [DiffPlex](https://github.com/mmanela/diffplex).
 * [Verify.Diagnostics](https://github.com/VerifyTests/Verify.Diagnostics): Verification of [System.Diagnostics.Activity](https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.activity) types.
 * [Verify.OpenTelemetry](https://github.com/VerifyTests/Verify.OpenTelemetry): Verification of [OpenTelemetry](https://www.nuget.org/packages/OpenTelemetry) types.
 * [Verify.DocNet](https://github.com/VerifyTests/Verify.DocNet): Verification of pdfs via [DocNet](https://github.com/GowenGit/docnet).

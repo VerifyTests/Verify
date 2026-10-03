@@ -6,8 +6,7 @@ public class InnerVerifyTests
 
     static InnerVerifyTests()
     {
-        var solutionDirectory = AttributeReader.GetSolutionDirectory();
-        targetDirectory = Path.Combine(solutionDirectory, "Verify.Tests", "InnerVerifyTests");
+        targetDirectory = Path.Combine(ProjectFiles.ProjectDirectory, "InnerVerifyTests");
         filePath = Path.Combine(targetDirectory, "sample.txt");
         splitFilePath = Path.Combine(targetDirectory, "sample.innersplit");
     }

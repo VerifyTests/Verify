@@ -141,7 +141,7 @@ public class TypeConverterTests
                 ["name"] = nameof(WithInfo)
             }
         };
-        var bitmap = new Bitmap(IoHelpers.OpenRead("sample.bmp"));
+        var bitmap = new Bitmap(IoHelpers.OpenRead(ProjectFiles.sample_bmp));
         return Verify(bitmap, settings);
     }
 
@@ -173,7 +173,7 @@ public class TypeConverterTests
             }
         };
         settings.IgnoreMember("Property");
-        var bitmap = new Bitmap(IoHelpers.OpenRead("sample.bmp"));
+        var bitmap = new Bitmap(IoHelpers.OpenRead(ProjectFiles.sample_bmp));
         return Verify(bitmap, settings);
     }
 
@@ -200,7 +200,7 @@ public class TypeConverterTests
                 ["name"] = nameof(TypeConversion)
             }
         };
-        var bitmap = new Bitmap(IoHelpers.OpenRead("sample.bmp"));
+        var bitmap = new Bitmap(IoHelpers.OpenRead(ProjectFiles.sample_bmp));
         return Verify(bitmap, settings);
     }
 

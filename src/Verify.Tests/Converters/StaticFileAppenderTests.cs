@@ -43,9 +43,9 @@
 
     [Fact]
     public Task Stream() =>
-        Verify(IoHelpers.OpenRead("sample.txt"));
+        Verify(IoHelpers.OpenRead(ProjectFiles.sample_txt));
 
     [Fact]
     public Task File() =>
-        VerifyFile("sample.txt");
+        VerifyFile(ProjectFiles.sample_txt.Path);
 }

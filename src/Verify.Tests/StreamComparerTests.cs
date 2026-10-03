@@ -4,9 +4,9 @@
     public async Task BinaryEquals()
     {
         // ReSharper disable once UseAwaitUsing
-        using var stream1 = File.OpenRead("sample.bmp");
+        using var stream1 = ProjectFiles.sample_bmp.OpenRead();
         // ReSharper disable once UseAwaitUsing
-        using var stream2 = File.OpenRead("sample.bmp");
+        using var stream2 = ProjectFiles.sample_bmp.OpenRead();
         var result = await StreamComparer.AreEqual(stream1, stream2);
         Assert.True(result.IsEqual);
     }
@@ -101,7 +101,7 @@
     public async Task BinaryNotEqualsSameLength()
     {
         // ReSharper disable once UseAwaitUsing
-        using var stream1 = File.OpenRead("sample.bmp");
+        using var stream1 = ProjectFiles.sample_bmp.OpenRead();
         using var stream2 = new MemoryStream();
         await stream1.CopyToAsync(stream2);
         stream2.Position = 100;
@@ -117,7 +117,7 @@
     public async Task BinaryNotEquals()
     {
         // ReSharper disable once UseAwaitUsing
-        using var stream1 = File.OpenRead("sample.bmp");
+        using var stream1 = ProjectFiles.sample_bmp.OpenRead();
         using var stream2 = new MemoryStream();
         stream2.WriteByte(8);
         stream2.MoveToStart();
@@ -157,11 +157,11 @@
     public async Task ShouldNotLock()
     {
         // ReSharper disable UseAwaitUsing
-        using var stream1 = File.OpenRead("sample.bmp");
-        using var stream2 = File.OpenRead("sample.bmp");
+        using var stream1 = ProjectFiles.sample_bmp.OpenRead();
+        using var stream2 = ProjectFiles.sample_bmp.OpenRead();
         using (
             new FileStream(
-                "sample.bmp",
+                ProjectFiles.sample_bmp,
                 FileMode.Open,
                 FileAccess.Read,
                 FileShare.Read))

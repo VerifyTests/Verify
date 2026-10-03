@@ -75,7 +75,7 @@
     public async Task AppendFileSettingsReuse()
     {
         var reused = new VerifySettings();
-        reused.AppendFile("sample.png");
+        reused.AppendFile(ProjectFiles.sample_png.Path);
 
         await Verify("First", reused)
             .UseMethodName("AppendFileSettingsReuse_first");

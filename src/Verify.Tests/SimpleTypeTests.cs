@@ -89,7 +89,7 @@
         yield return [Expression.Constant("ConstantExpression")];
         yield return ["stringValue"];
         yield return [new StringBuilder("stringBuilderValue")];
-        yield return [File.OpenRead("sample.png")];
+        yield return [ProjectFiles.sample_png.OpenRead()];
         yield return
         [
             new byte[]

@@ -3,7 +3,7 @@
     [Fact(Skip = "true")]
     public async Task All()
     {
-        var solutionDirectory = AttributeReader.GetSolutionDirectory();
+        var solutionDirectory = ProjectFiles.SolutionDirectory.Path;
         var enumerateFiles = Directory.EnumerateFiles(
             solutionDirectory,
             "*.verified.txt",

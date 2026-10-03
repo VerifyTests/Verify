@@ -1,6 +1,6 @@
 public class VerifyDirectoryTests
 {
-    static string directoryPathToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
+    static string directoryPathToVerify = Path.Combine(ProjectFiles.SolutionDirectory, "ToVerify");
 #if NET8_0_OR_GREATER
 
 #region AddTextFileConvention

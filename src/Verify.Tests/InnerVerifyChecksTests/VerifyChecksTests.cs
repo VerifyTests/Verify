@@ -35,7 +35,7 @@ public class VerifyChecksTests
 
     [Fact]
     public Task GetExtensions() =>
-        Verify(InnerVerifyChecks.GetExtensions(AttributeReader.GetSolutionDirectory()));
+        Verify(InnerVerifyChecks.GetExtensions(ProjectFiles.SolutionDirectory));
 
     [Fact]
     public Task IncorrectlyImportedSnapshots() =>
@@ -79,6 +79,6 @@ public class VerifyChecksTests
     public Task BuildIndentSectionHeader_NoIndentExtensions() =>
         Verify(InnerVerifyChecks.BuildIndentSectionHeader(["txt", "md"]));
 
-    static string GetDirectory(string suffix, [CallerFilePath] string sourceFile = "") =>
-        Path.Combine(Path.GetDirectoryName(sourceFile)!, suffix);
+    static string GetDirectory(string suffix) =>
+        Path.Combine(ProjectFiles.ProjectDirectory, "InnerVerifyChecksTests", suffix);
 }

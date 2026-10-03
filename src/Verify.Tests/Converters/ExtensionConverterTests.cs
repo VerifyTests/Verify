@@ -80,7 +80,7 @@
     // eg when a converter is getting info from a png
     [Fact]
     public Task Recursive() =>
-        Verify(IoHelpers.OpenRead("sample.recursive"));
+        Verify(IoHelpers.OpenRead(ProjectFiles.sample_recursive));
 
     [ModuleInitializer]
     public static void NestedInit()
@@ -107,7 +107,7 @@
 
     [Fact]
     public Task Nested() =>
-        Verify(IoHelpers.OpenRead("sample.level1"));
+        Verify(IoHelpers.OpenRead(ProjectFiles.sample_level1));
 
     [Fact]
     public Task NestedTarget()
@@ -127,7 +127,7 @@
 
     [Fact]
     public Task TextSplit() =>
-        Verify(IoHelpers.OpenRead("sample.split"), "txt");
+        Verify(IoHelpers.OpenRead(ProjectFiles.sample_split), "txt");
 
     [ModuleInitializer]
     public static void InitEnsureInputs() =>
@@ -290,17 +290,17 @@
 
     [Fact]
     public Task WithInfoAndBinary() =>
-        Verify(File.OpenRead("sample.png"), "WithInfoAndBinary");
+        Verify(ProjectFiles.sample_png.OpenRead(), "WithInfoAndBinary");
 
 #if NET6_0_OR_GREATER
     [Fact]
     public async Task WithInfoAndModifiedBinary()
     {
-        await Verify(File.OpenRead("sample.png"), "WithInfoAndBinary")
+        await Verify(ProjectFiles.sample_png.OpenRead(), "WithInfoAndBinary")
             .AutoVerify();
 
         await Assert.ThrowsAsync<VerifyException>(
-            () => Verify(File.OpenRead("sample2.png"), "WithInfoAndBinary")
+            () => Verify(ProjectFiles.sample2_png.OpenRead(), "WithInfoAndBinary")
                 .DisableRequireUniquePrefix()
                 .DisableDiff());
         var file = CurrentFile.Relative($"ExtensionConverterTests.WithInfoAndModifiedBinary.{Namer.RuntimeAndVersion}.received.png");

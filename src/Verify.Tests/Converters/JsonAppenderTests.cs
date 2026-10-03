@@ -96,7 +96,7 @@
 
     [Fact]
     public Task File() =>
-        VerifyFile("sample.txt");
+        VerifyFile(ProjectFiles.sample_txt.Path);
 
     [Fact]
     public Task OnlyJsonAppender() =>

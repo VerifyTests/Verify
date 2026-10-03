@@ -981,7 +981,7 @@ public class InlineTests :
     [Fact]
     public async Task MovedToInlineCleanup()
     {
-        var directory = Path.Combine(AttributeReader.GetProjectDirectory(), "InlineScratch");
+        var directory = Path.Combine(ProjectFiles.ProjectDirectory, "InlineScratch");
         Directory.CreateDirectory(directory);
         // Scoped to the runtime: every target framework runs this concurrently against the same directory
         var name = $"MovedToInline_{Namer.RuntimeAndVersion}";
@@ -1030,7 +1030,7 @@ public class InlineTests :
             await Verify("value", settings);
 
             Assert.DoesNotContain("Snapshot", await File.ReadAllTextAsync(template));
-            var verified = Path.Combine(AttributeReader.GetProjectDirectory(), "InlineScratch", $"{name}.verified.txt");
+            var verified = Path.Combine(ProjectFiles.ProjectDirectory, "InlineScratch", $"{name}.verified.txt");
             Assert.True(File.Exists(verified));
             File.Delete(verified);
         }
@@ -1085,7 +1085,7 @@ public class InlineTests :
             await Verify("value", settings);
 
             Assert.Equal(original, await File.ReadAllTextAsync(template));
-            var verified = Path.Combine(AttributeReader.GetProjectDirectory(), "InlineScratch", $"{name}.verified.txt");
+            var verified = Path.Combine(ProjectFiles.ProjectDirectory, "InlineScratch", $"{name}.verified.txt");
             if (File.Exists(verified))
             {
                 File.Delete(verified);

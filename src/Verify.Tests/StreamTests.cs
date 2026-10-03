@@ -92,7 +92,7 @@ public class StreamTests
 
     [Fact]
     public Task VerifyBytes() =>
-        Verify(File.ReadAllBytes("sample.jpg"), "jpg");
+        Verify(File.ReadAllBytes(ProjectFiles.sample_jpg), "jpg");
 
     [Fact]
     public async Task EmptyBinary()
@@ -133,7 +133,7 @@ public class StreamTests
 
     [Fact]
     public Task FileStreamTask() =>
-        Verify(Task.FromResult(File.OpenRead("sample.txt")));
+        Verify(Task.FromResult(ProjectFiles.sample_txt.OpenRead()));
 
     [Fact]
     public Task StreamNotAtStart()
@@ -207,7 +207,7 @@ public class StreamTests
 
     [Fact]
     public Task VerifyBytesAsync() =>
-        Verify(File.ReadAllBytesAsync("sample.jpg"), "jpg");
+        Verify(File.ReadAllBytesAsync(ProjectFiles.sample_jpg), "jpg");
 
     #region VerifyFile
 
@@ -229,8 +229,8 @@ public class StreamTests
     [Fact]
     public async Task VerifyFileNotLocked()
     {
-        await VerifyFile("sampleNotLocked.txt");
-        Assert.False(FileEx.IsFileLocked("sampleNotLocked.txt"));
+        await VerifyFile(ProjectFiles.sampleNotLocked_txt.Path);
+        Assert.False(FileEx.IsFileLocked(ProjectFiles.sampleNotLocked_txt));
     }
 
 #endif
@@ -247,20 +247,20 @@ public class StreamTests
 
     [Fact]
     public Task VerifyFileWithAppend() =>
-        VerifyFile("sample.txt")
+        VerifyFile(ProjectFiles.sample_txt.Path)
             .AppendValue("key", "value");
 
     [Fact]
     public Task OnlyExtension() =>
-        VerifyFile(".sample");
+        VerifyFile(ProjectFiles._sample.Path);
 
     [Fact]
     public async Task OnlyExtensionAppendFile() =>
-        await VerifyFile("sample.txt")
-            .AppendFile(".sample");
+        await VerifyFile(ProjectFiles.sample_txt.Path)
+            .AppendFile(ProjectFiles._sample.Path);
 
     [Fact]
     public async Task OnlyExtensionAppendTextFile() =>
-        await VerifyFile("sample.txt")
-            .AppendFile(".txt");
+        await VerifyFile(ProjectFiles.sample_txt.Path)
+            .AppendFile(ProjectFiles._txt.Path);
 }

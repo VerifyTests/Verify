@@ -1,0 +1,3 @@
+[*.cs]
+# Test classes are partial for the Verify.MSTest source generator
+resharper_partial_type_with_single_part_highlighting = none

@@ -154,6 +154,69 @@ public class InlineRetireTests :
     }
 
     /// <summary>
+    /// A multi-targeted project stages a trio a framework, and a call site that passes on this one
+    /// can still be failing on another. Passing clears what this framework staged for it and
+    /// leaves the other's: cleared together, the snapshot still failing there was on offer nowhere.
+    /// </summary>
+    [Fact]
+    public async Task APassingSnapshotLeavesWhatAnotherFrameworkStaged()
+    {
+        var intermediate = VerifierSettings.IntermediateDir;
+        Assert.NotNull(intermediate);
+
+        // ReSharper disable once RedundantSuppressNullableWarningExpression
+        var staging = Path.Combine(intermediate!, InlineStaging.DirectoryName);
+        Directory.CreateDirectory(staging);
+
+        var source = Path.Combine(listener.Directory, "Frameworks.cs");
+        var stem = nameof(APassingSnapshotLeavesWhatAnotherFrameworkStaged);
+
+        string[] Stage(string name, string? framework)
+        {
+            string[] trio =
+            [
+                Path.Combine(staging, $"{stem}.{name}.inlinepatch"),
+                Path.Combine(staging, $"{stem}.{name}.received.txt"),
+                Path.Combine(staging, $"{stem}.{name}.expected.txt")
+            ];
+            InlinePatchFile.Write(
+                trio[0],
+                new(InnerVerifier.MapSourceFile(source), 7, "\"old\"", "value")
+                {
+                    TestName = $"InlineRetireTests.{stem}",
+                    MemberName = stem,
+                    OriginalValue = "old",
+                    // Null is labelled with the framework this process runs on
+                    Framework = framework
+                });
+            File.WriteAllText(trio[1], "value");
+            File.WriteAllText(trio[2], "old");
+            return trio;
+        }
+
+        var mine = Stage("mine", null);
+        var theirs = Stage("theirs", "netother1.0");
+        try
+        {
+            var settings = new VerifySettings();
+            settings.UseDirectory(listener.Directory);
+            settings.Snapshot("value", source, 7, "\"value\"");
+
+            await Verify("value", settings);
+
+            Assert.All(mine, _ => Assert.False(File.Exists(_)));
+            Assert.All(theirs, _ => Assert.True(File.Exists(_)));
+        }
+        finally
+        {
+            foreach (var file in mine.Concat(theirs))
+            {
+                File.Delete(file);
+            }
+        }
+    }
+
+    /// <summary>
     /// A declined Snapshot call is a call site of its own, and it is the one whose entry is pending:
     /// a patch for a literal already in the source is keyed by the Snapshot call's line, not the
     /// verify call's. The same goes for a literal that outgrew the size limit.

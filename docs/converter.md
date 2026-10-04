@@ -11,11 +11,13 @@ Converters are used to split a target into its component parts, then verify each
 
 When a target is split the result is:
 
- * An info file (containing the metadata of the target) serialized as json. File name: `{TestType}.{TestMethod}.info.verified.txt`
- * Zero or more documents of a specified extension. File name: `{TestType}.{TestMethod}.{Index}.verified.{Extension}`
+ * An info file (containing the metadata of the target) serialized as json. File name: `{TestType}.{TestMethod}.verified.txt`
+ * Zero or more targets of a specified extension. File name: `{TestType}.{TestMethod}#{Name}.verified.{Extension}` for a target the converter named. Targets with no name that share an extension are told apart by an index: `{TestType}.{TestMethod}#00.verified.{Extension}`.
 
 
 Converters are registered globally. The `context` parameter passed to a conversion carries per-test information. See [Context](/docs/context.md).
+
+A converter for a document with pages is best built on `PagedConversion`. See [Paged documents](/docs/paged-documents.md).
 
 
 ## Usage scenarios
@@ -229,6 +231,58 @@ return new(
 <!-- endSnippet -->
 
 
+## Source and derived targets
+
+Many converters return the document they were given, alongside what they computed from it: a csv for each sheet of a workbook, an image of each page of a pdf. A converter can say which is which, by passing the document as the `source` and the rest as `derived`:
+
+<!-- snippet: SourceAndDerivedTargets -->
+<a id='snippet-SourceAndDerivedTargets'></a>
+```cs
+// A converter of a workbook: the workbook is the source, and a csv of each sheet is derived
+static ConversionResult ConvertWorkbook(string? name, Stream stream, IReadOnlyDictionary<string, object> context)
+{
+    var workbook = Workbook.Load(stream);
+
+    var sheets = new List<Target>();
+    foreach (var sheet in workbook.Sheets)
+    {
+        // Named by what it is. The name of the target being converted is added by Verify
+        sheets.Add(new("csv", sheet.ToCsv(), sheet.Name));
+    }
+
+    Target? source = null;
+    if (!context.IsTargetExcluded("xlsx"))
+    {
+        source = new("xlsx", workbook.Save());
+    }
+
+    return new(
+        info: new
+        {
+            workbook.Author
+        },
+        source,
+        derived: sheets);
+}
+```
+<sup><a href='/src/Verify.Tests/Snippets/PagedDocumentSnippets.cs#L53-L82' title='Snippet source file'>snippet source</a> | <a href='#snippet-SourceAndDerivedTargets' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Verify then does the following, so that no converter has to:
+
+ * **Names.** The targets are named relative to the target that was converted, so the `name` the converter is passed is not used. A sheet named `Sheet1` becomes `{TestType}.{TestMethod}#Sheet1.verified.csv`. Where the workbook is itself a target named `Attachment1`, the sheet becomes `#Attachment1.Sheet1` and the workbook takes `#Attachment1`. So does its info file when the workbook is a target passed to the verification. For a workbook found inside another converted document, the info is gathered into that document's info file.
+ * **No second conversion.** The source is not converted again, whatever its extension. A converter registered for both `xls` and `xlsx` can return an `xls` it was given as an `xlsx`.
+ * **Comparison.** The source is compared first. When it differs, its derived targets skip their registered [comparers](/docs/comparer.md#bypass-comparers-for-derived-targets) and are compared exactly. Only its own: a second document of the same verification is not affected.
+ * **Review.** The diff tool is told the derived files came from the source. [DiffEngineViewer](https://github.com/VerifyTests/DiffEngine/blob/main/docs/viewer.md#files-derived-from-a-document) shows a document it can draw as one row, with what was derived from it beneath, and accepts them together. Other diff tools are given each file as before. Verified files that the conversion no longer produces, such as a page a document has lost, are deleted along with the accept of the document.
+ * **Exclusion.** `ExcludeDerivedTargets` applies to the derived targets and to nothing else. See [Leaving out what was derived](/docs/paged-documents.md#leaving-out-what-was-derived).
+
+The info file counts as derived when it holds only what converters returned. With an `info` argument passed to the verification, or a [JsonAppender](/docs/jsonappender.md) in play, it holds something of the test's as well and stands alone.
+
+`source` is null where the document is not wanted as a target. The derived targets then stand alone as well, and are still named the same way.
+
+A target that is not the source can opt out of further conversion with `performConversion: false`.
+
+
 ## Excluding targets
 
 Some converters emit the source document (for example a `pdf`, `docx`, or `xlsx`) alongside the info file and the derived targets. That source document is then committed as a `.verified.{extension}` file. Where the document is large, or where its bytes cannot be made deterministic, it can be excluded from the snapshot. The info file and the derived targets continue to verify.
@@ -290,6 +344,8 @@ static ConversionResult ConvertExcludeCheck(string? name, Stream stream, IReadOn
 <!-- endSnippet -->
 
 `IsTargetExcluded` reflects both the global and the per-verification `ExcludeTargets`, so shipping this check lets a caller opt out of the document build itself, rather than only its snapshot.
+
+`IsDerivedTargetExcluded` is the same check for a [derived target](#source-and-derived-targets). It reflects `ExcludeDerivedTargets` as well as `ExcludeTargets`.
 
 
 ## Shipping

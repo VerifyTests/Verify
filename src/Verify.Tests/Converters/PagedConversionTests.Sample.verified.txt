@@ -1,0 +1,16 @@
+﻿{
+  Document: {
+    Title: The title
+  },
+  PageCount: 2,
+  Pages: [
+    {
+      Number: 1,
+      Text: The first page
+    },
+    {
+      Number: 2,
+      Text: The second page
+    }
+  ]
+}

@@ -5,8 +5,26 @@ public readonly struct Target
     readonly StringBuilder? stringBuilderData;
     readonly Stream? streamData;
     public string Extension { get; }
-    public string? Name { get; } = null;
+    public string? Name { get; internal init; } = null;
     public bool PerformConversion { get; } = true;
+
+    /// <summary>
+    /// The conversion this target came out of, where that conversion named a source: what ties a
+    /// derived target to the document it was computed from. Null for a target that stands alone.
+    /// </summary>
+    internal ConversionToken? Conversion { get; init; }
+
+    /// <summary>
+    /// This target is the source of <see cref="Conversion" />: the document the other targets of
+    /// that conversion were derived from. See <see cref="ConversionResult.Source" />.
+    /// </summary>
+    internal bool IsSource { get; init; }
+
+    /// <summary>
+    /// This target was computed from a document by a conversion that told the two apart, whether
+    /// or not the document is itself a target. What <c>ExcludeDerivedTargets</c> applies to.
+    /// </summary>
+    internal bool IsDerived { get; init; }
 
     /// <summary>
     /// When <c>true</c> and this target differs from its verified file, all subsequent targets in the

@@ -1,0 +1,130 @@
+# Paged documents
+
+A [converter](/docs/converter.md) for a document with pages (a pdf, a Word document, a presentation, a multi frame image) verifies more than the document. It also verifies what it computed from the document: an image of each page, the text of each page, and an info file describing the whole.
+
+How those files are named, where the text goes, and which pages are verified are decided by Verify rather than by each converter, so every converter built on `PagedConversion` behaves the same way and is controlled by the same settings.
+
+
+## The files
+
+For a test `Tests.Report` verifying a pdf:
+
+| File | Holds |
+| --- | --- |
+| `Tests.Report.verified.pdf` | The document |
+| `Tests.Report.verified.txt` | The info file: what the converter says of the document, the page count, and the text |
+| `Tests.Report#page_0001.verified.png` | The first page, drawn |
+| `Tests.Report#page_0002.verified.png` | The second page, drawn |
+
+Page numbers are 1 based, and a page keeps its number when other pages are left out.
+
+The info file has one shape, whichever converter wrote it:
+
+snippet: PagedConversionTests.Sample.verified.txt
+
+`Document` is whatever the converter says of the document as a whole, and each page's `Info` whatever it says of that page. A member with nothing in it is left out, and when there is nothing to say at all no info file is written.
+
+
+## Where the text goes
+
+By default the text read from a document is in the info file, under each page. `PageText` moves it:
+
+| `PageTextPlacement` | Text |
+| --- | --- |
+| `InInfo` | In the info file. The default. |
+| `PerPage` | In a file per page, named as the image of the page is: `Tests.Report#page_0001.verified.txt`. |
+| `None` | Not verified. A converter can skip reading it. |
+
+snippet: PageTextPerPage
+
+Some converters cannot say which page a part of the text is on, and read the document as one text. That goes where the text of a page would have gone: `Text` in the info file, or `Tests.Report#text.verified.txt` under `PerPage`.
+
+
+## Which pages are verified
+
+`PagesToInclude` limits what is verified to the first pages of a document:
+
+snippet: PagesToIncludeCount
+
+Or to the pages a delegate accepts:
+
+snippet: PagesToIncludeDelegate
+
+The document itself is still verified whole, and `PageCount` in the info file is still the number of pages it has.
+
+
+## Leaving out what was derived
+
+`ExcludeDerivedTargets` drops the derived targets with an extension, for example the page images, where only the document and its text are wanted:
+
+snippet: ExcludeDerivedTargets
+
+It applies only to what a converter derived from a document. [ExcludeTargets](/docs/converter.md#excluding-targets) applies to every target with the extension, so `ExcludeTargets("png")` would also exclude a png that is itself the thing being verified. It remains the way to leave out the document: `ExcludeTargets("pdf")`.
+
+
+## For every test
+
+All three can be set once, at initialization:
+
+snippet: StaticPagedDocuments
+
+A setting on a verification is used in place of the global one, and its exclusions are added to the global ones.
+
+
+## Reviewing in a diff tool
+
+A change to a three page pdf is a change to at least five files. Verify tells [DiffEngine](https://github.com/VerifyTests/DiffEngine) which of them were derived from the document, and [DiffEngineViewer](https://github.com/VerifyTests/DiffEngine/blob/main/docs/viewer.md#files-derived-from-a-document), which draws the document's pages itself, shows them as one row and accepts them as one. Any other diff tool is given each file as before.
+
+The same is recorded for tooling that runs after the tests: see the [received map file](/docs/naming.md#received-map-file).
+
+When the document has changed, the files derived from it are compared exactly, skipping any [comparer](/docs/comparer.md) registered for them. A comparer exists to tolerate differences, and a document that has changed is the one case where its pages should not be given the benefit of the doubt.
+
+The info file of a document is never an [inline snapshot](/docs/inline-snapshots.md) under the global switch. It is a file of the document, reviewed and accepted with the rest.
+
+
+## Writing a converter
+
+`PagedConversion` builds the result of a converter from the document and its pages:
+
+snippet: PagedConversion
+
+snippet: PagedConversionVerify
+
+ * `Source` is the document. It is left out when [IsTargetExcluded](/docs/converter.md#avoiding-work-in-a-converter) says its extension is excluded.
+ * `Pages` gives the numbers of the pages to verify and records the page count. `IsPageIncluded` answers for one page.
+ * `IncludeImages` and `IncludeText` say whether a page's image and text will be kept, so that neither is produced only to be dropped.
+ * `AddPage` takes whichever of an image, the text and an info a page has. Empty text is no text. An info with nothing to say is best passed as null, so that the page has no empty `Info` member.
+ * `AddImages` is for a renderer that draws every page at once and so cannot skip one. The images of pages that are not verified are dropped.
+ * `Text` is for a converter that reads the document as one text.
+ * `AddDerived` adds any other target computed from the document, such as a csv of a sheet. It has to be named, even when it is the only one, so that a second sheet adds a file rather than renaming the first.
+ * `ImageExtension` and `TextExtension` change `png` and `txt`, for example to `md` for a converter that reads a document as markdown.
+
+The `name` a converter is passed is not used. Verify names what a converter returns relative to the target that was converted, so a document that is the attachment `Attachment1` of some other target becomes:
+
+```
+Tests.Mail#Attachment1.verified.pdf
+Tests.Mail#Attachment1.page_0001.verified.png
+```
+
+Its info is gathered into the info file of the target it was found in. A document passed to the verification as a target named `Attachment1` has an info file of its own, `Tests.Mail#Attachment1.verified.txt`.
+
+A converter with no pages, for example a workbook split into a csv per sheet, uses the constructor of `ConversionResult` that `PagedConversion` is built on. See [Source and derived targets](/docs/converter.md#source-and-derived-targets).
+
+
+## Migrating from 33
+
+Up to version 33 each converter chose its own file names and settings. Converters that have moved to `PagedConversion` differ in these ways:
+
+ * Page files are named `#page_0001`, not by an index: `#00`, `#01`. The index was 0 based, was missing altogether for a document with one page, and for a text file was one higher than for its image.
+ * The text of a page is in the info file unless `PageText` says otherwise.
+ * The info file has the one shape above.
+ * A sheet is always named. Converters that left the csv of a one sheet workbook unnamed, as `.verified.csv`, now write `#Sheet1.verified.csv`.
+ * `PagesToInclude`, `PageText` and `ExcludeDerivedTargets` are members of `VerifySettings`, `SettingsTask` and `VerifierSettings`. The methods and enums a converter had for the same purpose are gone: an `ExcludeDerivedTargets("png")` where there was an option to verify only the text.
+
+Renamed snapshots show as a new file and a pending delete. Accepting both, or running once with [AutoVerify](/docs/autoverify.md), moves a test over. Where rendering is byte for byte deterministic the content of a page file is unchanged, and source control shows it as a rename.
+
+Where page images are compared with a tolerance, an accepted page is a fresh render, and can differ in its bytes from the one committed under the old name. Renaming the committed files to the new names instead keeps them as they were. The pages are then compared by their comparer as before, while the document itself is unchanged, and only the info file is left to accept.
+
+A converter has to move with Verify. One built against 33 still compiles against 34, but its own `PagesToInclude` extension methods are hidden by the members of the same name that Verify now has, so its page filter is never set.
+
+For code calling `InnerVerifier(directory, name)` directly: a target with a name is now written to `{name}#{TargetName}.verified.{extension}`. It was written to `{name}.verified.{extension}`, which every named target of a verification shared.

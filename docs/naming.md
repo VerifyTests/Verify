@@ -951,6 +951,25 @@ if (maps.TryGetVerified(receivedPath, out var verifiedPath))
 
 `ReceivedMaps.Pairs` enumerates every pair instead, for accepting a whole run at once.
 
+A file that a [converter](converter.md#source-and-derived-targets) derived from a document, such as the image of a page, has a third line while that document is itself pending: the received path of the document.
+
+```
+C:\code\MyProject\Tests\TheTest.TheMethod#page_0001.DotNet11_0.received.png
+C:\code\MyProject\Tests\TheTest.TheMethod#page_0001.verified.png
+C:\code\MyProject\Tests\TheTest.TheMethod.DotNet11_0.received.pdf
+```
+
+`ReceivedMaps.TryGetSource` reads it, so that a tool can present a document and what was derived from it as one change, and accept them together:
+
+```cs
+if (maps.TryGetSource(receivedPath, out var documentReceivedPath))
+{
+    // receivedPath was derived from the document at documentReceivedPath
+}
+```
+
+It answers false for a file that stands alone: one that was not derived from a document, the document itself, and a file whose document has since been accepted.
+
 It scans the directory recursively, so it can be pointed at a project or a repository root. `.git` and `node_modules` are skipped.
 
 Notes:

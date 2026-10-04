@@ -224,11 +224,24 @@ public partial class InnerVerifier :
         verifiedFiles = MatchingFileFinder.FindVerified(name, directory);
 
         getFileNames = target =>
-            new(
+        {
+            if (target.Name is null)
+            {
+                return new(
+                    target.Extension,
+                    $"{prefix}.received.{target.Extension}",
+                    $"{prefix}.verified.{target.Extension}",
+                    target.IsString);
+            }
+
+            // As the file convention names it. Without the name, every named target that is the
+            // only one of its name was written to the one file: each page of a document
+            return new(
                 target.Extension,
-                $"{prefix}.received.{target.Extension}",
-                $"{prefix}.verified.{target.Extension}",
+                $"{prefix}#{target.Name}.received.{target.Extension}",
+                $"{prefix}#{target.Name}.verified.{target.Extension}",
                 target.IsString);
+        };
 
         getIndexedFileNames = (target, index) =>
         {

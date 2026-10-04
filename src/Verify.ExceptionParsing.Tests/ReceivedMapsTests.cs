@@ -147,10 +147,111 @@ public class ReceivedMapsTests
         Assert.Equal(verified, found);
     }
 
-    static void WriteMap(string parent, string received, string verified)
+    [ModuleInitializer]
+    public static void Init() =>
+        VerifierSettings.RegisterStreamConverter(
+            "mapdoc",
+            (_, _, _) =>
+                new(
+                    null,
+                    new Target("mapdoc", new MemoryStream("the document"u8.ToArray())),
+                    [new("mappage", new MemoryStream("the page"u8.ToArray()), "page_0001")]));
+
+    // Pins the third line of a map between the writer, in Verify, and the reader here.
+    [Fact]
+    public async Task ReadsSourceWrittenByVerify()
+    {
+        var detected = DiffEngine.BuildServerDetector.Detected;
+        DiffEngine.BuildServerDetector.Detected = false;
+        try
+        {
+            using var temp = new TempDirectory();
+            var settings = new VerifySettings();
+            settings.UseDirectory(temp);
+            settings.DisableDiff();
+
+            await Assert.ThrowsAsync<VerifyException>(() => VerifyXunit.Verifier.Verify(new MemoryStream("input"u8.ToArray()), "mapdoc", settings));
+
+            var files = Directory.EnumerateFiles(temp).ToList();
+            var document = files.Single(_ => _.EndsWith(".received.mapdoc", StringComparison.Ordinal));
+            var page = files.Single(_ => _.EndsWith(".received.mappage", StringComparison.Ordinal));
+
+            var maps = ReceivedMaps.Read(AttributeReader.GetIntermediateDirectory());
+
+            Assert.True(maps.TryGetSource(page, out var source));
+            Assert.Equal(document, source);
+            Assert.False(maps.TryGetSource(document, out _));
+            Assert.True(maps.TryGetVerified(page, out var verified));
+            Assert.Equal(
+                Path.Combine(temp.Path, "ReceivedMapsTests.ReadsSourceWrittenByVerify#page_0001.verified.mappage"),
+                verified);
+        }
+        finally
+        {
+            DiffEngine.BuildServerDetector.Detected = detected;
+        }
+    }
+
+    [Fact]
+    public void ADerivedFileNamesItsSource()
+    {
+        using var temp = new TempDirectory();
+        var document = Path.Combine(temp.Path, "Foo.received.pdf");
+        var page = Path.Combine(temp.Path, "Foo#page_0001.received.png");
+        var verifiedPage = Path.Combine(temp.Path, "Foo#page_0001.verified.png");
+        File.WriteAllText(document, "the document");
+        File.WriteAllText(page, "the page");
+        var obj = Path.Combine(temp.Path, "obj");
+        WriteMap(obj, "document.txt", document, Path.Combine(temp.Path, "Foo.verified.pdf"));
+        WriteMap(obj, "page.txt", page, verifiedPage, document);
+
+        var maps = ReceivedMaps.Read(temp);
+
+        Assert.Equal(2, maps.Pairs.Count);
+        Assert.True(maps.TryGetSource(page, out var source));
+        Assert.Equal(document, source);
+        // The document is derived from nothing, and the pair of the page is what it always was
+        Assert.False(maps.TryGetSource(document, out _));
+        Assert.True(maps.TryGetVerified(page, out var found));
+        Assert.Equal(verifiedPage, found);
+    }
+
+    /// <summary>
+    /// A document accepted on its own leaves its pages pending with a record that still names it.
+    /// They stand alone then, since there is nothing left to accept them with.
+    /// </summary>
+    [Fact]
+    public void ASourceThatHasGoneIsNotNamed()
+    {
+        using var temp = new TempDirectory();
+        var page = Path.Combine(temp.Path, "Foo#page_0001.received.png");
+        File.WriteAllText(page, "the page");
+        WriteMap(
+            Path.Combine(temp.Path, "obj"),
+            "page.txt",
+            page,
+            Path.Combine(temp.Path, "Foo#page_0001.verified.png"),
+            Path.Combine(temp.Path, "Foo.received.pdf"));
+
+        var maps = ReceivedMaps.Read(temp);
+
+        Assert.Single(maps.Pairs);
+        Assert.False(maps.TryGetSource(page, out _));
+    }
+
+    static void WriteMap(string parent, string received, string verified) =>
+        WriteMap(parent, "map.txt", received, verified);
+
+    static void WriteMap(string parent, string name, string received, string verified, string? source = null)
     {
         var directory = Path.Combine(parent, "VerifyReceived");
         Directory.CreateDirectory(directory);
-        File.WriteAllLines(Path.Combine(directory, "map.txt"), [received, verified]);
+        List<string> lines = [received, verified];
+        if (source is not null)
+        {
+            lines.Add(source);
+        }
+
+        File.WriteAllLines(Path.Combine(directory, name), lines);
     }
 }

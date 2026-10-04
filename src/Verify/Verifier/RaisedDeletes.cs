@@ -27,8 +27,19 @@ static class RaisedDeletes
 
     /// <summary>
     /// Swapped in tests. What reaches the tray or the viewer is otherwise only observable from them.
+    /// The second argument is the received file of the source the file was derived from, or null.
     /// </summary>
-    internal static Func<string, Task> AddDelete = DiffRunner.AddDeleteAsync;
+    internal static Func<string, string?, Task> AddDelete = DefaultAddDelete;
+
+    static Task DefaultAddDelete(string file, string? source)
+    {
+        if (source is null)
+        {
+            return DiffRunner.AddDeleteAsync(file);
+        }
+
+        return DiffRunner.AddDerivedDeleteAsync(file, source);
+    }
 
     /// <inheritdoc cref="AddDelete" />
     internal static Action<string> SettleDelete = DiffRunner.SettleDelete;
@@ -51,7 +62,13 @@ static class RaisedDeletes
     /// Raises a delete for a verified file no target produced, recording it first so it is never
     /// pending without a record.
     /// </summary>
-    public static Task Raise(string file)
+    /// <param name="file">The verified file.</param>
+    /// <param name="source">
+    /// The received file of the pending source the file is taken to have been derived from, a page
+    /// a document no longer has, or null for a file that stands alone. Withdrawing the delete
+    /// later goes by the file alone.
+    /// </param>
+    public static Task Raise(string file, string? source)
     {
         // Nothing is raised where DiffEngine is switched off, so there is nothing to withdraw later
         if (!DiffRunner.Disabled)
@@ -59,7 +76,7 @@ static class RaisedDeletes
             Record(file);
         }
 
-        return AddDelete(file);
+        return AddDelete(file, source);
     }
 
     /// <summary>

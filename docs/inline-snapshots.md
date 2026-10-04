@@ -230,6 +230,8 @@ new Target("md", page1)
 
 The whole verification then falls back to files.
 
+The info file of a converter that [names its source](/docs/converter.md#source-and-derived-targets) is opted out the same way by Verify. It is a file of the document, reviewed and accepted together with the document and the files derived from it.
+
 
 ## Calling Verify through a wrapper
 

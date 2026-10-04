@@ -82,6 +82,8 @@ snippet: BypassComparersForSubsequentOnDifference
 
 The flag must be set on the source target, and that target must precede the derived targets in the conversion result.
 
+A converter that says which of its targets is the source, and which were derived from it, needs no flag. Verify compares the source first, and when it differs compares its derived targets exactly. That applies only to the targets derived from that source, where the flag applies to every target after it. See [Source and derived targets](/docs/converter.md#source-and-derived-targets).
+
 
 ## Default Comparison
 

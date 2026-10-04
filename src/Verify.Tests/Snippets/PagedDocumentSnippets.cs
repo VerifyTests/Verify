@@ -86,17 +86,21 @@ public class PagedDocumentSnippets
         public static Workbook Load(Stream stream) =>
             new();
 
+        // ReSharper disable once MemberCanBeMadeStatic.Local
         public string Author => "";
         public List<Sheet> Sheets { get; } = [];
 
+        // ReSharper disable once MemberCanBeMadeStatic.Local
         public Stream Save() =>
             new MemoryStream();
     }
 
     class Sheet
     {
+        // ReSharper disable once MemberCanBeMadeStatic.Local
         public string Name => "";
 
+        // ReSharper disable once MemberCanBeMadeStatic.Local
         public string ToCsv() =>
             "";
     }

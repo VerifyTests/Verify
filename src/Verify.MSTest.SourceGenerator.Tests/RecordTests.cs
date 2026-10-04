@@ -1,5 +1,6 @@
 // A record is a class, so it is a legal MSTest test class
 [TestClass]
+// ReSharper disable once PartialTypeWithSinglePart
 public partial class RecordTests : TestBase
 {
     [TestMethod]

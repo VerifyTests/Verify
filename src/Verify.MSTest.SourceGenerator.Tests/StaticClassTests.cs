@@ -1,4 +1,5 @@
 [TestClass]
+// ReSharper disable once PartialTypeWithSinglePart
 public partial class StaticClassTests : TestBase
 {
     /// <summary>

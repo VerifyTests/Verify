@@ -357,7 +357,8 @@ public class SourceDerivedReportTests :
         var sheets = await Assert.ThrowsAsync<VerifyException>(() => Verify(Stream("doc"), "rsheets", Settings()));
         Assert.DoesNotContain("InlineNew:", sheets.Message);
 
-        var plain = await Assert.ThrowsAsync<VerifyException>(() => Verify(Stream("doc"), "rplain", Settings()));
+        var plain = await Assert.ThrowsAsync<VerifyException>(() => Verify(Stream("doc"), "rplain", Settings())
+            .Snapshot("info of the plain"));
         Assert.Contains("InlineNew:", plain.Message);
     }
 

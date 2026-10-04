@@ -1,3 +1,4 @@
+// ReSharper disable PartialTypeWithSinglePart
 [TestClass]
 public partial class InheritanceTests : TestBase
 {

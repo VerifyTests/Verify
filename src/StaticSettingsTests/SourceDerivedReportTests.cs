@@ -16,6 +16,8 @@ public class SourceDerivedReportTests :
     Func<FilePair, string?, Task> originalLaunchDiff = VerifyEngine.LaunchDiff;
     Func<string, string?, Task> originalAddDelete = RaisedDeletes.AddDelete;
     Action<string> originalSettleDelete = RaisedDeletes.SettleDelete;
+    Func<InlinePatch, Task<InlineResult>> originalAddInline = InlineEngine.AddInline;
+    Action<string, int, string?> originalSendRetire = InlineEngine.SendRetire;
     bool originalDisabled = DiffRunner.Disabled;
     TempDirectory temp = new();
 
@@ -33,6 +35,13 @@ public class SourceDerivedReportTests :
             return Task.CompletedTask;
         };
         RaisedDeletes.SettleDelete = _ =>
+        {
+        };
+
+        // A snapshot the global switch queues is a patch against this file, and one accepted in
+        // the viewer writes a Snapshot call into the test that queued it
+        InlineEngine.AddInline = _ => Task.FromResult(InlineResult.Queued);
+        InlineEngine.SendRetire = (_, _, _) =>
         {
         };
 
@@ -74,6 +83,8 @@ public class SourceDerivedReportTests :
         VerifyEngine.LaunchDiff = originalLaunchDiff;
         RaisedDeletes.AddDelete = originalAddDelete;
         RaisedDeletes.SettleDelete = originalSettleDelete;
+        InlineEngine.AddInline = originalAddInline;
+        InlineEngine.SendRetire = originalSendRetire;
         DiffRunner.Disabled = originalDisabled;
         temp.Dispose();
     }
@@ -357,8 +368,7 @@ public class SourceDerivedReportTests :
         var sheets = await Assert.ThrowsAsync<VerifyException>(() => Verify(Stream("doc"), "rsheets", Settings()));
         Assert.DoesNotContain("InlineNew:", sheets.Message);
 
-        var plain = await Assert.ThrowsAsync<VerifyException>(() => Verify(Stream("doc"), "rplain", Settings())
-            .Snapshot("info of the plain"));
+        var plain = await Assert.ThrowsAsync<VerifyException>(() => Verify(Stream("doc"), "rplain", Settings()));
         Assert.Contains("InlineNew:", plain.Message);
     }
 

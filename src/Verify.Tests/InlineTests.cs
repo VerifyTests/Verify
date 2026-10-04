@@ -915,6 +915,52 @@ public class InlineTests :
         }
     }
 
+    /// <summary>
+    /// A call site's line is the compiler's, and an accept earlier in the run moves everything
+    /// under it. Here the first accept is five lines longer, which puts the member's first call on
+    /// the very line its second was built at, holding the same literal: asked about that line, the
+    /// second call's snapshot was written into the first.
+    /// </summary>
+    [Fact]
+    public async Task ALaterSiteIsFoundWhereAnEarlierAcceptMovedIt()
+    {
+        var template = WriteTemplate(
+            """
+            class Templ
+            {
+                Task A() => Verify(a).Snapshot("old");
+                async Task M()
+                {
+                    await Verify(first).Snapshot("old");
+                    // one
+                    // two
+                    // three
+                    // four
+                    await Verify(second).Snapshot("old");
+                }
+            }
+            """);
+        try
+        {
+            var before = (await File.ReadAllLinesAsync(template)).Length;
+            await Verify("one\ntwo\nthree", AcceptSettings(template, 3, "\"old\""));
+            // What the rest depends on: the call built at line 6 is now on line 11
+            Assert.Equal(before + 5, (await File.ReadAllLinesAsync(template)).Length);
+
+            await Verify("for the second", AcceptSettings(template, 11, "\"old\""));
+
+            var content = await File.ReadAllTextAsync(template);
+            var first = content.IndexOf("Verify(first)", StringComparison.Ordinal);
+            var second = content.IndexOf("Verify(second)", StringComparison.Ordinal);
+            Assert.Contains("\"old\"", content.Substring(first, second - first));
+            Assert.Contains("for the second", content.Substring(second));
+        }
+        finally
+        {
+            Directory.Delete(Path.GetDirectoryName(template)!, true);
+        }
+    }
+
     [Fact]
     public async Task ParallelSameFileAcceptsWithIdenticalLiterals()
     {

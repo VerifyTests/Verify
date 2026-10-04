@@ -125,19 +125,22 @@ class InlineEngine(
         if (diffEnabled)
         {
             DiffRunner.SettleInline(MappedSourceFile, inline.Line, inline.MemberName, SnapshotInSource);
-            ClearStaged(MappedSourceFile, inline.Line, inline.MemberName, SnapshotInSource);
+            // This framework's alone, as the settle above is. A multi-targeted project stages a
+            // trio a framework, and a call site that passes on one can still be failing on
+            // another: cleared for every framework, that one's snapshot was on offer nowhere
+            InlineStaging.Settle(MappedSourceFile, inline.Line, inline.MemberName, VerifierSettings.IntermediateDir, SnapshotInSource);
         }
     }
 
     /// <summary>
-    /// A settle only reaches a queue owner, and a snapshot can be on disk instead: staged by a run
+    /// A retire only reaches a queue owner, and a snapshot can be on disk instead: staged by a run
     /// that found no owner, or written out by one on its way out. Those files are what accept
-    /// tooling reads, so without this the snapshot stays pending for a test that now passes.
-    /// <paramref name="value" /> narrows the member fallback as it does for the queue: see
-    /// <see cref="Settle" />.
+    /// tooling reads, so without this the snapshot stays pending for a call site that is no
+    /// longer inline. Every framework's, since that is true of all of them; a call site that
+    /// passes clears only its own (<see cref="Settle" />).
     /// </summary>
-    static void ClearStaged(string mappedSourceFile, int line, string? memberName, string? value = null) =>
-        InlineStaging.Clear(mappedSourceFile, line, memberName, VerifierSettings.IntermediateDir, value: value);
+    static void ClearStaged(string mappedSourceFile, int line, string? memberName) =>
+        InlineStaging.Clear(mappedSourceFile, line, memberName, VerifierSettings.IntermediateDir);
 
     /// <summary>
     /// The members this process has actually inlined a verification for, so a retire in the same
@@ -227,7 +230,7 @@ class InlineEngine(
         }
 
         // InlineApplier owns all locking (cross process mutex + in process gate)
-        var result = InlineApplier.Apply(BuildPatch());
+        var result = InlineEdits.Apply(BuildPatch());
         return result.Status is InlineApplyStatus.Applied or InlineApplyStatus.AlreadyApplied;
     }
 
@@ -400,7 +403,7 @@ class InlineEngine(
             OriginalValue = inline.Expected is null ? null : NormalizeExpected(inline.Expected, inline.File),
             MemberName = inline.MemberName
         };
-        return InlineApplier.Apply(patch).Status == InlineApplyStatus.Applied;
+        return InlineEdits.Apply(patch).Status == InlineApplyStatus.Applied;
     }
 }
 

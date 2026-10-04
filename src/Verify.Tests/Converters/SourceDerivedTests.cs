@@ -1,6 +1,9 @@
 // A conversion that tells its source from what it derived from it: how the targets are named, what
 // is converted again, how they are compared and what an exclusion applies to. What reaches a diff
 // tool is in StaticSettingsTests, since that is observed through a static seam.
+
+using System.Security;
+
 public class SourceDerivedTests
 {
     [ModuleInitializer]
@@ -283,13 +286,21 @@ public class SourceDerivedTests
     /// With no flag set by the converter. A page of a document that has not changed is given to
     /// its comparer, and a page of one that has is compared exactly.
     /// </summary>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="PathTooLongException"></exception>
+    /// <exception cref="DirectoryNotFoundException"></exception>
+    /// <exception cref="IOException"></exception>
+    /// <exception cref="UnauthorizedAccessException"></exception>
+    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="SecurityException"></exception>
     [Fact]
     public async Task ADifferingSourceHasItsDerivedTargetsComparedExactly()
     {
         using var temp = new TempDirectory();
         var prefix = Path.Combine(temp, $"{nameof(SourceDerivedTests)}.{nameof(ADifferingSourceHasItsDerivedTargetsComparedExactly)}");
-        File.WriteAllText($"{prefix}.verified.sdbypass", "the document");
-        File.WriteAllText($"{prefix}#page_0001.verified.sdpage", "a page the comparer would let through");
+        await File.WriteAllTextAsync($"{prefix}.verified.sdbypass", "the document");
+        await File.WriteAllTextAsync($"{prefix}#page_0001.verified.sdpage", "a page the comparer would let through");
 
         maskedCount = 0;
         var equal = await Verify(Stream("the document"), "sdbypass")
@@ -322,10 +333,10 @@ public class SourceDerivedTests
     {
         using var temp = new TempDirectory();
         var prefix = Path.Combine(temp, $"{nameof(SourceDerivedTests)}.{nameof(AnInfoThatDiffersLeavesThePagesOfAnUnchangedSourceToTheirComparers)}");
-        File.WriteAllText($"{prefix}.verified.txt", "an info in the shape it used to have");
-        File.WriteAllText($"{prefix}.verified.sddoc", "the document");
-        File.WriteAllText($"{prefix}#page_0001.verified.sdpage", "a page the comparer would let through");
-        File.WriteAllText($"{prefix}#page_0001.verified.txt", "text of the document");
+        await File.WriteAllTextAsync($"{prefix}.verified.txt", "an info in the shape it used to have");
+        await File.WriteAllTextAsync($"{prefix}.verified.sddoc", "the document");
+        await File.WriteAllTextAsync($"{prefix}#page_0001.verified.sdpage", "a page the comparer would let through");
+        await File.WriteAllTextAsync($"{prefix}#page_0001.verified.txt", "text of the document");
 
         maskedCount = 0;
         var exception = await Assert.ThrowsAsync<VerifyException>(
@@ -351,8 +362,8 @@ public class SourceDerivedTests
         var prefix = Path.Combine(temp, $"{nameof(SourceDerivedTests)}.{nameof(ADifferingSourceLeavesTheTargetsOfAnotherToTheirComparers)}");
         foreach (var attachment in new[] {"Attachment1", "Attachment2"})
         {
-            File.WriteAllText($"{prefix}#{attachment}.verified.sdbypass", attachment);
-            File.WriteAllText($"{prefix}#{attachment}.page_0001.verified.sdpage", "a page the comparer would let through");
+            await File.WriteAllTextAsync($"{prefix}#{attachment}.verified.sdbypass", attachment);
+            await File.WriteAllTextAsync($"{prefix}#{attachment}.page_0001.verified.sdpage", "a page the comparer would let through");
         }
 
         List<Target> attachments =
@@ -383,10 +394,10 @@ public class SourceDerivedTests
     {
         using var temp = new TempDirectory();
         var prefix = Path.Combine(temp, $"{nameof(SourceDerivedTests)}.{nameof(TheInfoOfADifferingSourceIsComparedExactlyToo)}");
-        File.WriteAllText($"{prefix}.verified.txt", "an info the comparer would let through");
-        File.WriteAllText($"{prefix}.verified.sddoc", "the document");
-        File.WriteAllText($"{prefix}#page_0001.verified.sdpage", "page of the document, changed");
-        File.WriteAllText($"{prefix}#page_0001.verified.txt", "text of the document, changed");
+        await File.WriteAllTextAsync($"{prefix}.verified.txt", "an info the comparer would let through");
+        await File.WriteAllTextAsync($"{prefix}.verified.sddoc", "the document");
+        await File.WriteAllTextAsync($"{prefix}#page_0001.verified.sdpage", "page of the document, changed");
+        await File.WriteAllTextAsync($"{prefix}#page_0001.verified.txt", "text of the document, changed");
 
         var compared = 0;
         var exception = await Assert.ThrowsAsync<VerifyException>(

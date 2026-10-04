@@ -7,5 +7,6 @@ public partial class VerifyBase
     /// </summary>
     [Obsolete("Use the overload that accepts mirrorSourceStructure.")]
     public static void UseProjectRelativeDirectory(string directory) =>
+        // ReSharper disable once RedundantArgumentDefaultValue
         Verifier.UseProjectRelativeDirectory(directory, false);
 }

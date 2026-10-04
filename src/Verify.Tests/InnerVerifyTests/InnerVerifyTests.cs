@@ -110,6 +110,8 @@ public class InnerVerifyTests
                 "named#page_0002.verified.txt"
             ],
             result.Files.Select(Path.GetFileName));
-        Assert.Equal("the second page", File.ReadAllText(Path.Combine(temp.Path, "named#page_0002.verified.txt"), Encoding.UTF8));
+        Assert.Equal(
+            "the second page",
+            await File.ReadAllTextAsync(Path.Combine(temp.Path, "named#page_0002.verified.txt"), Encoding.UTF8));
     }
 }

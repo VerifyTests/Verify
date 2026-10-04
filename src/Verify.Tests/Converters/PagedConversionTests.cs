@@ -170,7 +170,7 @@ public class PagedConversionTests
         Assert.Contains("PageCount: 2", info);
         Assert.Equal(
             "The second page",
-            File.ReadAllText(result.Files.Single(_ => _.EndsWith("#page_0002.verified.txt")), Encoding.UTF8));
+            await File.ReadAllTextAsync(result.Files.Single(_ => _.EndsWith("#page_0002.verified.txt")), Encoding.UTF8));
     }
 
     /// <summary>

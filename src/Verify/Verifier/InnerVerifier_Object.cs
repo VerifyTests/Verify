@@ -58,7 +58,9 @@ partial class InnerVerifier
         if (VerifierSettings.TryGetTypedConverter(target, settings, out var converter))
         {
             var result = await converter.Conversion(target, settings.Context);
-            return await VerifyInner(result.Info, result.Cleanup, result.Targets, true, true);
+            conversionRan = true;
+            var targets = Adopt(result, null, null, false, out var token);
+            return await VerifyInner(result.Info, result.Cleanup, targets, true, true, token, result.IsDerivation);
         }
 
         return await VerifyInner(target, null, emptyTargets, true, false);

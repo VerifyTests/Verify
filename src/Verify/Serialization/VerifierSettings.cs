@@ -174,6 +174,9 @@ public static partial class VerifierSettings
         encoding = new UTF8Encoding(true, true);
         addAttachments = true;
         excludedTargets = null;
+        excludedDerivedTargets = null;
+        pageText = null;
+        includePage = null;
         GlobalScrubbers.Clear();
         ExtensionMappedGlobalScrubbers.Clear();
         GlobalSpanScrubbers.Clear();

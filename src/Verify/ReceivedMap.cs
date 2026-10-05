@@ -14,12 +14,18 @@
 /// The file name is derived from the received path, so a re run overwrites the same map instead of
 /// accumulating. Stale maps, for example from a deleted test, are never read, since tooling looks up
 /// maps by the received files that actually exist. They are removed whenever obj is cleaned.
+///
+/// A map is a line each: the received path, the verified path, and, for a file a converter derived
+/// from a document that is itself pending, the received path of that document. The third line is
+/// what lets tooling treat a document and its pages as one change to accept. It is absent for a
+/// file that stands alone, and a reader from before it existed reads the first two lines of a map
+/// that has it.
 /// </summary>
 static class ReceivedMap
 {
     const string directoryName = "VerifyReceived";
 
-    public static void Write(in FilePair file)
+    public static void Write(in FilePair file, string? source)
     {
         if (BuildServerDetector.Detected)
         {
@@ -40,7 +46,13 @@ static class ReceivedMap
             var directory = Path.Combine(intermediate, directoryName);
             Directory.CreateDirectory(directory);
             var path = Path.Combine(directory, $"{Fnv1a.Hash(file.ReceivedPath)}.txt");
-            File.WriteAllText(path, $"{file.ReceivedPath}{Environment.NewLine}{file.VerifiedPath}");
+            var content = $"{file.ReceivedPath}{Environment.NewLine}{file.VerifiedPath}";
+            if (source is not null)
+            {
+                content = $"{content}{Environment.NewLine}{source}";
+            }
+
+            File.WriteAllText(path, content);
         }
         catch
         {

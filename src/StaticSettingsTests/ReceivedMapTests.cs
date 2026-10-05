@@ -130,7 +130,8 @@ public class ReceivedMapTests :
         foreach (var file in MapFiles())
         {
             var lines = File.ReadAllLines(file);
-            if (lines.Length == 2)
+            // A third line names the document a file was derived from: SourceDerivedReportTests
+            if (lines.Length >= 2)
             {
                 records.Add((lines[0], lines[1]));
             }

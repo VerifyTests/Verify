@@ -5,10 +5,19 @@ partial class InnerVerifier
     Task<VerifyResult> VerifyInner(IEnumerable<Target> targets) =>
         VerifyInner(null, null, targets, true, true);
 
-    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExtensionConversion, bool ignoreNullRoot)
+    /// <param name="infoOwner">
+    /// The conversion <paramref name="root" /> is the info of, where it is nothing but what
+    /// converters said of a source one of them named. The file it is written to is then derived
+    /// from that source, as the other targets of the conversion are.
+    /// </param>
+    /// <param name="infoIsOfDocument">
+    /// <paramref name="root" /> is nothing but what converters said of a document, one that may
+    /// not itself be a target. The file it is written to is then never the inline snapshot.
+    /// </param>
+    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExtensionConversion, bool ignoreNullRoot, ConversionToken? infoOwner = null, bool infoIsOfDocument = false)
     {
         var resultTargets = new List<Target>();
-        if (TryGetRootTarget(root, ignoreNullRoot, out var rootTarget))
+        if (TryGetRootTarget(root, ignoreNullRoot, infoOwner, infoIsOfDocument, out var rootTarget))
         {
             resultTargets.Add(rootTarget.Value);
         }
@@ -19,11 +28,14 @@ partial class InnerVerifier
         cleanup = cleanup.Then(extraCleanup);
         resultTargets.AddRange(extraTargets);
         cleanup = RemoveExcludedTargets(resultTargets, cleanup, out var removedTargets);
-        if (removedTargets &&
-            resultTargets.Count == 0)
+        // Removed here, or left out by a converter that asked what was excluded and so never
+        // produced them. Either way the exclusions account for there being nothing to verify
+        if (resultTargets.Count == 0 &&
+            (removedTargets ||
+             (conversionRan && VerifierSettings.AnyExcludedTargets(settings.Context))))
         {
             await cleanup();
-            throw new("All targets have been excluded by ExcludeTargets. A verification requires at least one target.");
+            throw new("All targets have been excluded by ExcludeTargets or ExcludeDerivedTargets. A verification requires at least one target.");
         }
 
         // Before this verification can queue, settle or retire anything of its own, so what a run
@@ -328,7 +340,7 @@ partial class InnerVerifier
         for (var index = targets.Count - 1; index >= 0; index--)
         {
             var target = targets[index];
-            if (!VerifierSettings.IsExcluded(settings.Context, target.Extension))
+            if (!IsExcluded(target))
             {
                 continue;
             }
@@ -344,6 +356,19 @@ partial class InnerVerifier
         }
 
         return cleanup;
+    }
+
+    // ExcludeDerivedTargets is asked only of what a converter derived from a document. The
+    // document, a target passed in directly, and the info this builds itself answer to
+    // ExcludeTargets alone
+    bool IsExcluded(in Target target)
+    {
+        if (target.IsDerived)
+        {
+            return VerifierSettings.IsDerivedExcluded(settings.Context, target.Extension);
+        }
+
+        return VerifierSettings.IsExcluded(settings.Context, target.Extension);
     }
 
     async Task<(List<Target> extra, Func<Task> cleanup)> GetTargets(IEnumerable<Target> targets, bool doExtensionConversion)
@@ -368,7 +393,9 @@ partial class InnerVerifier
 
         foreach (var target in list)
         {
-            if (!target.PerformConversion ||
+            // A source is the document a typed converter gave, and is not converted again
+            if (target.IsSource ||
+                !target.PerformConversion ||
                 !VerifierSettings.HasStreamConverter(target.Extension))
             {
                 Scrub(target);
@@ -376,22 +403,30 @@ partial class InnerVerifier
                 continue;
             }
 
-            var (info, converted, itemCleanup) = await DoExtensionConversion(target, null);
-            cleanup = cleanup.Then(itemCleanup);
-            if (info != null)
+            var converted = await DoExtensionConversion(target, null);
+            cleanup = cleanup.Then(converted.Cleanup);
+            if (converted.Info != null)
             {
-                Target infoTarget = new(
+                var infoTarget = new Target(
                     settings.TxtOrJson,
                     JsonFormatter.AsJson(
                         settings,
                         counter,
-                        info));
+                        converted.Info),
+                    converted.InfoName)
+                {
+                    // Of the source its conversion named, or of the one the converted target
+                    // was itself derived from
+                    Conversion = converted.InfoOwner ?? target.Conversion,
+                    // As the info of a converted stream is: see TryGetRootTarget
+                    DontInline = converted.InfoIsOfDocument
+                };
                 Scrub(infoTarget);
                 result.Add(infoTarget);
             }
 
             // converted targets are scrubbed within DoExtensionConversion
-            result.AddRange(converted);
+            result.AddRange(converted.Targets);
         }
 
         return (result, cleanup);
@@ -406,11 +441,40 @@ partial class InnerVerifier
         }
     }
 
-    bool TryGetRootTarget(object? root,bool ignoreNullRoot, [NotNullWhen(true)] out Target? target)
+    bool TryGetRootTarget(object? root, bool ignoreNullRoot, ConversionToken? infoOwner, bool infoIsOfDocument, [NotNullWhen(true)] out Target? target)
+    {
+        if (!TryGetRootTarget(root, ignoreNullRoot, out target, out var hasAppends))
+        {
+            return false;
+        }
+
+        // What was appended is the test's, not the converter's, so a file holding any is not one
+        // the document alone accounts for
+        if (hasAppends)
+        {
+            return true;
+        }
+
+        if (infoOwner is not null ||
+            infoIsOfDocument)
+        {
+            target = target.Value with
+            {
+                Conversion = infoOwner,
+                // A file of the document, reviewed and accepted with the rest of them. Inlined by
+                // the global switch it would be the one part of the document that was not a file
+                DontInline = true
+            };
+        }
+
+        return true;
+    }
+
+    bool TryGetRootTarget(object? root, bool ignoreNullRoot, [NotNullWhen(true)] out Target? target, out bool hasAppends)
     {
         var appends = VerifierSettings.GetJsonAppenders(settings);
 
-        var hasAppends = appends.Count > 0;
+        hasAppends = appends.Count > 0;
 
         if (ignoreNullRoot && root == null && !hasAppends)
         {

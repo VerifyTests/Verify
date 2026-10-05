@@ -430,7 +430,7 @@ public class InlineSwitchOffTests :
         var record = Assert.Single(Records());
 
         VerifierSettings.Reset();
-        using (new FileStream(record, FileMode.Open, FileAccess.Read, FileShare.Delete))
+        await using (new FileStream(record, FileMode.Open, FileAccess.Read, FileShare.Delete))
         {
             await Verify("value", PassingSettings());
         }

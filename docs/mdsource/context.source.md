@@ -28,7 +28,7 @@ Values that are the same for every test do not need Context. A static field is s
 
 ## Reserved keys
 
-Verify uses the same dictionary for some per-verification state, under keys prefixed with `Verify.`. For example `ExcludeTargets` stores its extensions under `Verify.ExcludeTargets`, which is what allows a converter to call `context.IsTargetExcluded("png")`. Keys prefixed with `Verify.` should be treated as reserved.
+Verify uses the same dictionary for some per-verification state, under keys prefixed with `Verify.`. For example `ExcludeTargets` stores its extensions under `Verify.ExcludeTargets`, which is what allows a converter to call `context.IsTargetExcluded("png")`. The settings for [paged documents](/docs/paged-documents.md) are read the same way: `context.PageTextPlacement()`, `context.IsPageIncluded(1)` and `context.IsDerivedTargetExcluded("png")`. Keys prefixed with `Verify.` should be treated as reserved.
 
 
 ## Copy behavior

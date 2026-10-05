@@ -132,6 +132,13 @@ dotnet tool restore --tool-manifest src/.config/dotnet-tools.json
 
 **Builder Pattern**: `SettingsTask` provides fluent API with ~50 configuration methods that are lazily evaluated at verification time.
 
+**Source and derived targets**: A converter can say which of its targets is the document and which were computed from it (`ConversionResult(info, source, derived)`, or the `PagedConversion` builder for documents with pages, both in `src/Verify/Splitters/`):
+- `InnerVerifier.Adopt` (`InnerVerifier_Stream.cs`) is the only place a `ConversionToken` is created. It stamps the targets of a conversion, names them relative to the target that was converted, and marks the source, which is never converted again.
+- `VerifyEngine.HandleResults` decides every file name first (`Plan`), compares sources ahead of the rest (`CompareOrder`, so a differing source makes its derived targets bypass their comparers), and hands results on in planned order, which is the order callbacks and the exception message have always used.
+- `VerifyEngine.Report` runs once, after the delete/new/not-equal callbacks, and is the only caller of DiffEngine for pending files: deletes that stand alone, moves that stand alone (sources among them), moves derived from a pending source (`DiffRunner.LaunchDerived*`), then deletes derived from one. Test seams: `VerifyEngine.LaunchDiff` and `RaisedDeletes.AddDelete`.
+- The settings a paged converter reads (`PageText`, `PagesToInclude`, `ExcludeDerivedTargets`) follow the `ExcludeTargets` pattern: a static on `VerifierSettings`, a `Context` key on `VerifySettings`, a `SettingsTask` wrapper, and a reader on the converter's `context`.
+- User and plugin-author docs: `docs/paged-documents.md` and the "Source and derived targets" section of `docs/converter.md`.
+
 **Counter Pattern**: Deduplicates repeated values in filenames:
 - First occurrence: `Date`, second: `Date_1`, third: `Date_2`, etc.
 - Separate counters for DateTime, DateTimeOffset, Guid, etc.

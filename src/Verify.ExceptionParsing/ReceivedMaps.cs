@@ -13,6 +13,10 @@ namespace VerifyTests.ExceptionParsing;
 /// The records are written to the intermediate (obj) directory of the test project, in a
 /// `VerifyReceived` directory, one file per received file, each holding the received path on the first
 /// line and the verified path on the second.
+///
+/// A file that a converter derived from a document, such as the image of a page, has a third line
+/// while that document is itself pending: the received path of the document. See
+/// <see cref="TryGetSource" />.
 /// </summary>
 public sealed class ReceivedMaps
 {
@@ -25,11 +29,13 @@ public sealed class ReceivedMaps
             : StringComparer.Ordinal;
 
     readonly Dictionary<string, string> verifiedByReceived;
+    readonly Dictionary<string, string> sourceByReceived;
 
-    ReceivedMaps(IReadOnlyList<FilePair> pairs, Dictionary<string, string> verifiedByReceived)
+    ReceivedMaps(IReadOnlyList<FilePair> pairs, Dictionary<string, string> verifiedByReceived, Dictionary<string, string> sourceByReceived)
     {
         Pairs = pairs;
         this.verifiedByReceived = verifiedByReceived;
+        this.sourceByReceived = sourceByReceived;
     }
 
     /// <summary>
@@ -46,12 +52,13 @@ public sealed class ReceivedMaps
     public static ReceivedMaps Read(string directory)
     {
         var lookup = new Dictionary<string, string>(pathComparer);
+        var sources = new Dictionary<string, string>(pathComparer);
 
         foreach (var mapDirectory in FindMapDirectories(directory))
         {
             foreach (var file in EnumerateFiles(mapDirectory))
             {
-                if (!TryReadPair(file, out var pair))
+                if (!TryReadPair(file, out var pair, out var source))
                 {
                     continue;
                 }
@@ -69,6 +76,21 @@ public sealed class ReceivedMaps
                 // The same received path can be recorded by more than one build, for example Debug
                 // and Release, with the same result. So the last wins rather than throwing.
                 lookup[received] = pair.Verified;
+
+                // The last wins here too, including where the last names no source
+                sources.Remove(received);
+                if (source is null)
+                {
+                    continue;
+                }
+
+                // A document that was accepted on its own has left what was derived from it
+                // standing alone, the same way a record outlives its received file.
+                source = Normalize(source);
+                if (File.Exists(source))
+                {
+                    sources[received] = source;
+                }
             }
         }
 
@@ -80,7 +102,7 @@ public sealed class ReceivedMaps
             pairs.Add(new(entry.Key, entry.Value));
         }
 
-        return new(pairs, lookup);
+        return new(pairs, lookup, sources);
     }
 
     /// <summary>
@@ -91,6 +113,19 @@ public sealed class ReceivedMaps
     /// </remarks>
     public bool TryGetVerified(string receivedPath, [NotNullWhen(true)] out string? verified) =>
         verifiedByReceived.TryGetValue(Normalize(receivedPath), out verified);
+
+    /// <summary>
+    /// Finds the received file of the document that <paramref name="receivedPath" /> was derived
+    /// from by a converter: the pdf that the image of a page was rendered from. A tool can then
+    /// present the document and what was derived from it as one change, and accept them together.
+    /// </summary>
+    /// <remarks>
+    /// False for a file that stands alone: one that was not derived from a document, the document
+    /// itself, and a file whose document is no longer pending. One level only, so the source of a
+    /// file never has a source of its own.
+    /// </remarks>
+    public bool TryGetSource(string receivedPath, [NotNullWhen(true)] out string? source) =>
+        sourceByReceived.TryGetValue(Normalize(receivedPath), out source);
 
     // A junction or symlink can make the tree cyclic, and netstandard2.0 has no way to resolve a link
     // target to detect that. So the walk is bounded instead. An intermediate directory sits only a
@@ -161,8 +196,9 @@ public sealed class ReceivedMaps
         }
     }
 
-    static bool TryReadPair(string file, out FilePair pair)
+    static bool TryReadPair(string file, out FilePair pair, out string? source)
     {
+        source = null;
         string[] lines;
         try
         {
@@ -175,7 +211,8 @@ public sealed class ReceivedMaps
             return false;
         }
 
-        // Only the first two lines are read, so that a future version adding more does not break this.
+        // Lines past the ones known here are ignored, so that a future version adding more does
+        // not break this.
         if (lines.Length < 2 ||
             lines[0].Length == 0 ||
             lines[1].Length == 0)
@@ -185,6 +222,12 @@ public sealed class ReceivedMaps
         }
 
         pair = new(lines[0], lines[1]);
+        if (lines.Length > 2 &&
+            lines[2].Length != 0)
+        {
+            source = lines[2];
+        }
+
         return true;
     }
 

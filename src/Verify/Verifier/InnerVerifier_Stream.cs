@@ -92,9 +92,9 @@ partial class InnerVerifier
             if (VerifierSettings.HasStreamConverter(extension))
             {
                 var initial = await GetTarget(stream, extension);
-                var (newInfo, converted, cleanup) = await DoExtensionConversion(initial, info);
+                var converted = await DoExtensionConversion(initial, info);
 
-                return await VerifyInner(newInfo, cleanup, converted, false, true);
+                return await VerifyInner(converted.Info, converted.Cleanup, converted.Targets, false, true, converted.InfoOwner, converted.InfoIsOfDocument);
             }
 
             var target = await GetTarget(stream, extension);
@@ -124,7 +124,34 @@ partial class InnerVerifier
         return new(extension, stream);
     }
 
-    async Task<(object? info, List<Target> targets, Func<Task> cleanup)> DoExtensionConversion(Target initial, object? info)
+    /// <summary>
+    /// What converting one target, and whatever its conversion produced that could itself be
+    /// converted, came to.
+    /// </summary>
+    /// <param name="Info">The infos of the conversions, with the one passed in first.</param>
+    /// <param name="Targets">The targets left once nothing more could be converted.</param>
+    /// <param name="Cleanup">Disposes what the conversions own.</param>
+    /// <param name="InfoOwner">
+    /// The conversion <paramref name="Info" /> belongs to, where it is nothing but what converters
+    /// said of a source the first of them named. Its info file is then derived from that source.
+    /// </param>
+    /// <param name="InfoName">
+    /// The name of the info file, where the first conversion names its targets relative to the
+    /// target it converted: that target's name.
+    /// </param>
+    /// <param name="InfoIsOfDocument">
+    /// <paramref name="Info" /> is nothing but what converters said of a document the first of
+    /// them told apart from what it derived, whether or not that document is itself a target. It
+    /// is then a file of the document, and stays one: see <see cref="Target.DontInline" />.
+    /// </param>
+    readonly record struct Converted(object? Info, List<Target> Targets, Func<Task> Cleanup, ConversionToken? InfoOwner, string? InfoName, bool InfoIsOfDocument);
+
+    // A converter ran for this verification. A converter that is told what is excluded leaves
+    // those targets out itself, so having none left can be the exclusions' doing with nothing
+    // having been removed here: see VerifyInner
+    bool conversionRan;
+
+    async Task<Converted> DoExtensionConversion(Target initial, object? info)
     {
         var cleanup = () => Task.CompletedTask;
         // the source stream of a stream target is owned here, so dispose it once consumed
@@ -140,6 +167,10 @@ partial class InnerVerifier
         }
 
         var targets = new List<Target>();
+        ConversionToken? infoOwner = null;
+        string? infoName = null;
+        var infoIsOfDocument = false;
+        var isInitial = true;
 
         var queue = new Queue<Target>();
         queue.Enqueue(initial);
@@ -148,7 +179,12 @@ partial class InnerVerifier
         {
             var target = queue.Dequeue();
 
-            if (!VerifierSettings.TryGetStreamConverter(target.Extension, out var conversion))
+            // A source is the document as its conversion gave it, so it is not converted again
+            // whatever its extension: a doc given back as a docx is not then run through the docx
+            // converter. PerformConversion is how any other target asks for the same
+            if (target.IsSource ||
+                !target.PerformConversion ||
+                !VerifierSettings.TryGetStreamConverter(target.Extension, out var conversion))
             {
                 // terminal target: scrub text before it is finalized
                 Scrub(target);
@@ -184,7 +220,24 @@ partial class InnerVerifier
                 infos.Add(result.Info);
             }
 
-            var resultTargets = result.Targets.ToList();
+            conversionRan = true;
+            var resultTargets = Adopt(result, target.Name, target.Conversion, target.IsDerived, out var token);
+            if (isInitial)
+            {
+                isInitial = false;
+                // With an info passed in, the file holds that as well, and is not the source's
+                if (info is null &&
+                    result.Source is not null)
+                {
+                    infoOwner = token;
+                }
+
+                if (result.IsDerivation)
+                {
+                    infoName = target.Name;
+                    infoIsOfDocument = info is null;
+                }
+            }
 
             foreach (var resultTarget in resultTargets)
             {
@@ -207,6 +260,85 @@ partial class InnerVerifier
             > 1 => infos,
             _ => null
         };
-        return (newInfo, targets, cleanup);
+        return new(newInfo, targets, cleanup, infoOwner, infoName, infoIsOfDocument);
+    }
+
+    /// <summary>
+    /// Takes what a conversion returned into the verification. The one place a
+    /// <see cref="ConversionToken" /> is made, and where the targets of a conversion that told
+    /// its source from what it derived are named and tied to that source.
+    /// </summary>
+    /// <param name="result">What the conversion returned.</param>
+    /// <param name="name">The name of the target that was converted, or null.</param>
+    /// <param name="parent">The conversion that target came out of, or null.</param>
+    /// <param name="derived">Whether that target was itself derived from a document.</param>
+    /// <param name="token">
+    /// The conversion the targets belong to: a new one where <paramref name="result" /> names a
+    /// source, and otherwise <paramref name="parent" />, since what was computed from a derived
+    /// target was derived from the same source it was.
+    /// </param>
+    static List<Target> Adopt(in ConversionResult result, string? name, ConversionToken? parent, bool derived, out ConversionToken? token)
+    {
+        if (!result.IsDerivation)
+        {
+            // Named by the converter, which was passed the name to do it with
+            token = parent;
+            if (!derived)
+            {
+                return result.Targets.ToList();
+            }
+
+            // Computed from a derived target, so derived from whatever that was. Its source where
+            // it has one, and derived all the same where the source was left out
+            return result.Targets
+                .Select(_ => _ with { Conversion = parent, IsDerived = true })
+                .ToList();
+        }
+
+        var hasSource = result.Source is not null;
+        if (hasSource)
+        {
+            token = new(parent);
+        }
+        else
+        {
+            token = parent;
+        }
+
+        var targets = new List<Target>();
+        foreach (var target in result.Targets)
+        {
+            // The source is the first of the targets where there is one
+            var isSource = hasSource && targets.Count == 0;
+            targets.Add(
+                target with
+                {
+                    Name = RelativeName(name, target.Name),
+                    Conversion = token,
+                    IsSource = isSource,
+                    IsDerived = !isSource
+                });
+        }
+
+        return targets;
+    }
+
+    /// <summary>
+    /// A target named <c>page_0001</c>, from the conversion of a target named <c>Attachment1</c>,
+    /// is <c>Attachment1.page_0001</c>. Either on its own where the other is missing.
+    /// </summary>
+    static string? RelativeName(string? converted, string? name)
+    {
+        if (converted is null)
+        {
+            return name;
+        }
+
+        if (name is null)
+        {
+            return converted;
+        }
+
+        return $"{converted}.{name}";
     }
 }

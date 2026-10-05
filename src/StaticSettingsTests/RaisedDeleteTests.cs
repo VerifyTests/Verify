@@ -13,7 +13,7 @@ public class RaisedDeleteTests :
 {
     List<string> added = [];
     List<string> settled = [];
-    Func<string, Task> originalAddDelete = RaisedDeletes.AddDelete;
+    Func<string, string?, Task> originalAddDelete = RaisedDeletes.AddDelete;
     Action<string> originalSettleDelete = RaisedDeletes.SettleDelete;
     bool originalDisabled = DiffRunner.Disabled;
     TempDirectory temp = new();
@@ -21,9 +21,9 @@ public class RaisedDeleteTests :
     public RaisedDeleteTests()
     {
         // Both stood in for, so nothing reaches whatever tray or viewer is running on this machine
-        RaisedDeletes.AddDelete = _ =>
+        RaisedDeletes.AddDelete = (file, _) =>
         {
-            added.Add(_);
+            added.Add(file);
             return Task.CompletedTask;
         };
         RaisedDeletes.SettleDelete = _ => settled.Add(_);

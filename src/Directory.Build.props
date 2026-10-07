@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <PropertyGroup>
-    <NoWarn>CA1822;CS1591;CS0649;xUnit1026;xUnit1013;CS1573;VerifyTestsProjectDir;VerifySetParameters;PolyFillTargetsForNuget;xUnit1051;NU1608;NU1109</NoWarn>
+    <!-- NoWarn:
+         * CA1822: member does not use instance data and can be static.
+         * CS1591: missing XML comment on a publicly visible type or member.
+         * CS0649: field is never assigned to, and will always have its default value.
+         * xUnit1026: theory method does not use all of its parameters.
+         * xUnit1013: public method on a test class is not marked as a test.
+         * CS1573: parameter has no matching param tag in an XML comment that has others.
+         * VerifyTestsProjectDir: use of the experimental VerifierSettings.ProjectDir.
+         * VerifySetParameters: use of the experimental VerifySettings.SetParameters.
+         * PolyFillTargetsForNuget: Polyfill asks a packed project to target every framework from
+           its lowest up to net48.
+         * xUnit1051: call that accepts a CancellationToken is not given
+           TestContext.Current.CancellationToken.
+         * NU1608: resolved package version is outside a dependency's version constraint.
+         * NU1109: package downgrade detected for a centrally pinned transitive package.
+         The IL codes are linker warnings from Squash about reflection over the types under test,
+         which are never in the assembly being trimmed:
+         * IL2026: call to a member marked RequiresUnreferencedCode.
+         * IL2060: MethodInfo.MakeGenericMethod call that cannot be statically analyzed.
+         * IL2070: reflection on a Type that came from a parameter with no
+           DynamicallyAccessedMembers annotation.
+         * IL2075: the same, where the Type came from a method's return value.
+         * IL2077: the same, where the Type came from a field.
+         * IL2111: method with DynamicallyAccessedMembers on its parameters or return value is
+           reached through reflection. -->
+    <NoWarn>CA1822;CS1591;CS0649;xUnit1026;xUnit1013;CS1573;VerifyTestsProjectDir;VerifySetParameters;PolyFillTargetsForNuget;xUnit1051;NU1608;NU1109;IL2026;IL2060;IL2070;IL2075;IL2077;IL2111</NoWarn>
     <Version>33.3.1</Version>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>preview</LangVersion>

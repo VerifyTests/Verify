@@ -6,10 +6,13 @@
     <UserSecretsId>28b4bdf9-6518-4588-b320-458aecdbee51</UserSecretsId>
     <PackageLicenseFile>OsmfEula.txt</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <!-- The adapters and tests use internals through InternalsVisibleTo -->
+    <SquashInternalsVisibleTo>Honor</SquashInternalsVisibleTo>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Sbom" PrivateAssets="all" />
+    <PackageReference Include="Squash" PrivateAssets="all" />
     <PackageReference Include="Polyfill" PrivateAssets="all" />
     <PackageReference Include="DiffEngine" />
     <PackageReference Include="SimpleInfoName" />

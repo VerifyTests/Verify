@@ -4,6 +4,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Sbom" PrivateAssets="all" />
+    <PackageReference Include="Squash" PrivateAssets="all" />
     <PackageReference Include="Polyfill" PrivateAssets="all" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
   </ItemGroup>

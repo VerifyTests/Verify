@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Sbom" PrivateAssets="all" />
+    <PackageReference Include="Squash" PrivateAssets="all" />
     <PackageReference Include="NUnit" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
 

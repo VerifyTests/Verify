@@ -6,6 +6,7 @@
   <ItemGroup>
     <PackageReference Include="DiffEngine" />
     <PackageReference Include="Sbom" PrivateAssets="all" />
+    <PackageReference Include="Squash" PrivateAssets="all" />
     <PackageReference Include="TextCopy" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <ProjectReference Include="..\Verify\Verify.csproj" />

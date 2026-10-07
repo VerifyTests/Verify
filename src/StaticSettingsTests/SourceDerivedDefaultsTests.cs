@@ -58,7 +58,7 @@ public class SourceDerivedDefaultsTests :
 
         await VerifyEngine.LaunchDiff(new(extension, received, verified), source);
 
-        Assert.Equal(new Heard("move", received, verified, source), Assert.Single(listener.Heard()));
+        Assert.Equal(new("move", received, verified, source), Assert.Single(listener.Heard()));
     }
 
     /// <summary>
@@ -80,7 +80,7 @@ public class SourceDerivedDefaultsTests :
 
         await RaisedDeletes.AddDelete(stale, source);
 
-        Assert.Equal(new Heard("delete", stale, null, source), Assert.Single(listener.Heard()));
+        Assert.Equal(new("delete", stale, null, source), Assert.Single(listener.Heard()));
     }
 
     // The received file of the document, which is all a source is to DiffEngine: a path it is
@@ -95,7 +95,9 @@ public class SourceDerivedDefaultsTests :
         return null;
     }
 
+    // ReSharper disable NotAccessedPositionalProperty.Local
     record Heard(string? Verb, string? Key, string? Body, string? Source);
+    // ReSharper restore NotAccessedPositionalProperty.Local
 
     /// <summary>
     /// A queue owner that only writes down what it was sent, and answers that it took it.

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <PropertyGroup>
+    <Version>33.3.2</Version>
     <!-- NoWarn:
          * CA1822: member does not use instance data and can be static.
          * CS1591: missing XML comment on a publicly visible type or member.
@@ -26,7 +27,6 @@
          * IL2111: method with DynamicallyAccessedMembers on its parameters or return value is
            reached through reflection. -->
     <NoWarn>CA1822;CS1591;xUnit1026;xUnit1013;CS1573;VerifyTestsProjectDir;VerifySetParameters;PolyfillTargetsForNuget;xUnit1051;NU1608;NU1109;IL2026;IL2060;IL2070;IL2075;IL2077;IL2111</NoWarn>
-    <Version>33.3.2-beta.1</Version>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>preview</LangVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>

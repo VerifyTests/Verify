@@ -4,10 +4,10 @@
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Argon" Version="0.38.1" />
-    <PackageVersion Include="Argon.FSharp" Version="0.38.1" />
+    <PackageVersion Include="Argon" Version="0.38.2" />
+    <PackageVersion Include="Argon.FSharp" Version="0.38.2" />
     <PackageVersion Include="BenchmarkDotNet" Version="0.15.8" />
-    <PackageVersion Include="DiffEngine" Version="20.7.1" />
+    <PackageVersion Include="DiffEngine" Version="20.7.2" />
     <PackageVersion Include="Expecto" Version="11.1.0" />
     <PackageVersion Include="Fixie" Version="4.2.0" />
     <PackageVersion Include="Fixie.TestAdapter" Version="4.2.0" />
@@ -38,8 +38,8 @@
     <PackageVersion Include="TextCopy" Version="6.2.1" />
     <PackageVersion Include="xunit.v3" Version="4.0.1" />
     <PackageVersion Include="xunit.v3.extensibility.core" Version="4.0.1" />
-    <PackageVersion Include="TUnit" Version="1.72.16" />
-    <PackageVersion Include="TUnit.Core" Version="1.73.0" />
+    <PackageVersion Include="TUnit" Version="1.73.5" />
+    <PackageVersion Include="TUnit.Core" Version="1.73.5" />
     <PackageVersion Include="YoloDev.Expecto.TestSdk" Version="0.16.1" />
   </ItemGroup>
 </Project>

@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="xunit.v3" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
+    <PackageReference Include="Polyfill" PrivateAssets="all" />
 
     <ProjectReference Include="..\Verify.ExceptionParsing\Verify.ExceptionParsing.csproj" />
     <ProjectReference Include="..\Verify.XunitV3\Verify.XunitV3.csproj" />

@@ -14,6 +14,7 @@
     <PackageReference Include="PublicApiGenerator" />
     <PackageReference Include="xunit.v3" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
+    <PackageReference Include="Polyfill" PrivateAssets="all" />
 
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.XunitV3\Verify.XunitV3.csproj" />

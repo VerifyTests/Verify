@@ -39,6 +39,10 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <PolyEnsure>true</PolyEnsure>
+    <!-- Polyfill's types are marked as embedded, which hides them from the assemblies named in
+         InternalsVisibleTo. A project that needs them references Polyfill itself, and no project
+         depends on which of them another happens to use. -->
+    <PolyUseEmbeddedAttribute>true</PolyUseEmbeddedAttribute>
     <PolyStringInterpolation>true</PolyStringInterpolation>
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
     <ImportVerifyMsbuildFiles Condition="'$(MSBuildProjectName)' != '' And $(MSBuildProjectName.EndsWith('Tests'))">true</ImportVerifyMsbuildFiles>

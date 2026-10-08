@@ -1,4 +1,6 @@
-﻿class State
+﻿namespace VerifyTests;
+
+class State
 {
     ConcurrentQueue<ToAppend> items = [];
 

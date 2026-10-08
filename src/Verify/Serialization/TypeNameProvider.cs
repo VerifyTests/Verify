@@ -1,4 +1,6 @@
-﻿class TypeNameProvider(Type type) :
+﻿namespace VerifyTests;
+
+class TypeNameProvider(Type type) :
     IValueProvider
 {
     public void SetValue(object target, object? value) =>

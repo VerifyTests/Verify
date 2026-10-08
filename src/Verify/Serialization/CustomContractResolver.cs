@@ -1,4 +1,6 @@
-﻿partial class CustomContractResolver(SerializationSettings settings) :
+﻿namespace VerifyTests;
+
+partial class CustomContractResolver(SerializationSettings settings) :
     DefaultContractResolver
 {
     static ItemInterceptResult ToInterceptItemResult(ScrubOrIgnore scrubOrIgnore)

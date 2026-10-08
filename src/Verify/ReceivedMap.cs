@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 /// <summary>
 /// Records which verified file a received file belongs to.
 ///

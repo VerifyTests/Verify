@@ -1,4 +1,6 @@
-﻿class InfoBuilder
+﻿namespace VerifyTests;
+
+class InfoBuilder
 {
     bool ignoreNullRoot;
     object? root;

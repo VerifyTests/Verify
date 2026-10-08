@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 // The inline date scrubbers: window scrubbers whose bounds come from
 // DateFormatLengthCalculator and whose matcher is a TryParseExact for the format.
 // Formats ending in upper case fraction specifiers (.F to .FFFF) produce a second

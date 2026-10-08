@@ -1,4 +1,6 @@
-﻿static class PrefixUnique
+﻿namespace VerifyTests;
+
+static class PrefixUnique
 {
     // Ignoring case, since the prefix maps to file names and NTFS and APFS are both
     // case insensitive. Two prefixes differing only in case would silently share one

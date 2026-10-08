@@ -1,4 +1,6 @@
-﻿static class JsonFormatter
+﻿namespace VerifyTests;
+
+static class JsonFormatter
 {
     public static StringBuilder AsJson(VerifySettings settings, Counter counter, object value)
     {

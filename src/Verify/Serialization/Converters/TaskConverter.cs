@@ -1,4 +1,6 @@
-﻿class TaskConverter :
+﻿namespace VerifyTests;
+
+class TaskConverter :
     WriteOnlyJsonConverter<Task>
 {
     public override void Write(VerifyJsonWriter writer, Task task)

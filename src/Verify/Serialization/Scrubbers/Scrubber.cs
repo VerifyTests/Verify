@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 /// <summary>
 /// Defines a scrubbing operation executed by the span based scrub engine.
 /// </summary>

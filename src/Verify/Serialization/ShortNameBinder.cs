@@ -1,4 +1,6 @@
-﻿class ShortNameBinder :
+﻿namespace VerifyTests;
+
+class ShortNameBinder :
     ISerializationBinder
 {
     public static readonly ShortNameBinder Instance = new();

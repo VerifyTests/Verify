@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 class PhysicalEnvironment : IEnvironment
 {
     public static readonly IEnvironment Instance = new PhysicalEnvironment();

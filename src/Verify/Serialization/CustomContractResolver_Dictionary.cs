@@ -1,4 +1,6 @@
-﻿partial class CustomContractResolver
+﻿namespace VerifyTests;
+
+partial class CustomContractResolver
 {
     protected override JsonDictionaryContract CreateDictionaryContract(Type objectType)
     {

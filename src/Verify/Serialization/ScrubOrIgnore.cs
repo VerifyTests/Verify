@@ -1,4 +1,6 @@
-﻿enum ScrubOrIgnore
+﻿namespace VerifyTests;
+
+enum ScrubOrIgnore
 {
     Scrub,
     Ignore,

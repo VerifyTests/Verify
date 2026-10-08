@@ -1,4 +1,6 @@
-﻿static class DateFormatExpander
+﻿namespace VerifyTests;
+
+static class DateFormatExpander
 {
     internal static string ExpandFormat(this DateTimeFormatInfo info, string format)
     {

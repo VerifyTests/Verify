@@ -1,4 +1,6 @@
-﻿class TempDirectoryConverter :
+﻿namespace VerifyTests;
+
+class TempDirectoryConverter :
     WriteOnlyJsonConverter<TempDirectory>
 {
     public override void Write(VerifyJsonWriter writer, TempDirectory value) =>

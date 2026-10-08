@@ -1,4 +1,6 @@
-﻿static class StreamComparer
+﻿namespace VerifyTests;
+
+static class StreamComparer
 {
     #region DefualtCompare
 

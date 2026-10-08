@@ -1,4 +1,6 @@
-﻿readonly struct EqualityResult(Equality equality, string? message, StringBuilder? receivedText, string? verifiedText)
+﻿namespace VerifyTests;
+
+readonly struct EqualityResult(Equality equality, string? message, StringBuilder? receivedText, string? verifiedText)
 {
     public Equality Equality { get; } = equality;
     public string? Message { get; } = message;

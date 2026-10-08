@@ -1,4 +1,6 @@
-﻿static class IoHelpers
+﻿namespace VerifyTests;
+
+static class IoHelpers
 {
     static IoHelpers()
     {

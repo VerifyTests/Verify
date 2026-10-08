@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 enum ScrubberKind
 {
     Replace,

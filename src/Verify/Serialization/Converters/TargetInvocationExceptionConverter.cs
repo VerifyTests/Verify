@@ -1,4 +1,6 @@
-﻿class TargetInvocationExceptionConverter :
+﻿namespace VerifyTests;
+
+class TargetInvocationExceptionConverter :
     WriteOnlyJsonConverter<TargetInvocationException>
 {
     public override void Write(VerifyJsonWriter writer, TargetInvocationException exception) =>

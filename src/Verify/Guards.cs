@@ -1,4 +1,6 @@
-﻿static class Guards
+﻿namespace VerifyTests;
+
+static class Guards
 {
     static char[] invalidFileChars = Path.GetInvalidFileNameChars();
 

@@ -1,5 +1,7 @@
 ﻿using System.Security.Claims;
 
+namespace VerifyTests;
+
 class ClaimsPrincipalConverter :
     WriteOnlyJsonConverter<ClaimsPrincipal>
 {

@@ -1,4 +1,6 @@
-﻿class VerifyException(string message) : Exception(message)
+﻿namespace VerifyTests;
+
+class VerifyException(string message) : Exception(message)
 {
     public override string StackTrace => "";
 }

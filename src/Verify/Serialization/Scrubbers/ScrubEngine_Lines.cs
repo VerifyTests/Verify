@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 // The line phase: walks the (already newline-normalized) source once, applying line drops first
 // (needle, whitespace, and predicate based) then line transforms in registration order. Drops always
 // evaluate the raw line; transform output becomes fresh scannable source for the inline phase.

@@ -1,4 +1,6 @@
-﻿partial class CombinationRunner
+﻿namespace VerifyTests;
+
+partial class CombinationRunner
 {
     public static Task<CombinationResults> Run<A>(
         Func<A, Task> method,

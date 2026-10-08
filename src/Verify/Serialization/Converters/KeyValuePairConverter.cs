@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 class KeyValuePairConverter :
     WriteOnlyJsonConverter
 {

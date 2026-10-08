@@ -1,4 +1,6 @@
-﻿partial class CombinationRunner
+﻿namespace VerifyTests;
+
+partial class CombinationRunner
 {
     Task<CombinationResults> Run(Func<object?[], ValueTask> method) =>
         RunWithVoid(_ => method(_).AsTask());

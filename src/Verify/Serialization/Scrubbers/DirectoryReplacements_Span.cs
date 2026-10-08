@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 // The span based path matcher shared by the engine pass and the legacy StringBuilder pass.
 // Matching rules: '/' and '\' are equivalent (Find is pre-sanitized to '/'); the char before a match
 // must not be a letter or digit; a trailing letter or digit invalidates the match; a trailing '/' or

@@ -1,4 +1,6 @@
-﻿class JObjectConverter :
+﻿namespace VerifyTests;
+
+class JObjectConverter :
     WriteOnlyJsonConverter<JObject>
 {
     public override void Write(VerifyJsonWriter writer, JObject value)

@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 partial class SerializationSettings
 {
     [Obsolete("Use ScrubGuids = false")]

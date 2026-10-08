@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 class AggregateExceptionConverter :
     WriteOnlyJsonConverter<AggregateException>
 {

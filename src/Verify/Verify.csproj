@@ -6,8 +6,10 @@
     <UserSecretsId>28b4bdf9-6518-4588-b320-458aecdbee51</UserSecretsId>
     <PackageLicenseFile>OsmfEula.txt</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <!-- The adapters and tests use internals through InternalsVisibleTo -->
-    <SquashInternalsVisibleTo>Honor</SquashInternalsVisibleTo>
+    <!-- The adapters and tests use internals through InternalsVisibleTo. Verify's own are all in
+         VerifyTests and are kept whole. What Polyfill adds is hidden from them
+         (PolyUseEmbeddedAttribute), so it is trimmed where nothing in Verify uses it. -->
+    <Squash_InternalNamespacesToKeep>VerifyTests</Squash_InternalNamespacesToKeep>
   </PropertyGroup>
 
   <ItemGroup>

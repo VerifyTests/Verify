@@ -1,5 +1,7 @@
 using System.Collections.Immutable;
 
+namespace VerifyTests;
+
 static class ReflectionHelpers
 {
     public static bool InheritsFrom(this Type type, Type parent)

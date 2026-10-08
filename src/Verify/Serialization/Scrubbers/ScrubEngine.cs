@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 // The span based scrub engine. Operates on a contiguous source string, tracking the document as a
 // list of chunks: scannable source slices and quarantined replacement strings. Each scrubber scans
 // the remaining scannable chunks; a match splits its chunk and the replacement is never re-examined

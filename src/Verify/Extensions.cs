@@ -1,5 +1,7 @@
 ﻿// ReSharper disable UnusedVariable
 
+namespace VerifyTests;
+
 static class Extensions
 {
     static HashSet<Type> numericTypes =

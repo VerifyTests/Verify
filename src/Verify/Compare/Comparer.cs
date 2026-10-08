@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 static class Comparer
 {
     public static async Task<EqualityResult> Text(FilePair filePair, StringBuilder received, VerifySettings settings, bool bypassComparer = false)

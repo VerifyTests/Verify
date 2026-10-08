@@ -1,4 +1,6 @@
-﻿partial class SerializationSettings
+﻿namespace VerifyTests;
+
+partial class SerializationSettings
 {
     List<Func<MemberInfo, ScrubOrIgnore?>>? ignoredMemberPredicatesByMember;
     List<Func<string, ScrubOrIgnore?>>? ignoredMemberPredicatesByString;

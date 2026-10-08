@@ -1,5 +1,7 @@
 ﻿// ReSharper disable RedundantSuppressNullableWarningExpression
 
+namespace VerifyTests;
+
 class DelegateConverter :
     WriteOnlyJsonConverter<Delegate>
 {

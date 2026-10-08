@@ -1,4 +1,6 @@
-﻿static class PathLauncher
+﻿namespace VerifyTests;
+
+static class PathLauncher
 {
     public static void Launch(string path)
     {

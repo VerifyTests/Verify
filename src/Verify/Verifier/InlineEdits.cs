@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 /// <summary>
 /// The source rewrites this process has made itself, a file at a time, so each later one is asked
 /// about the line its call site is on now.

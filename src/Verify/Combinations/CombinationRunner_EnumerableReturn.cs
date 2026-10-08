@@ -1,4 +1,6 @@
-﻿partial class CombinationRunner
+﻿namespace VerifyTests;
+
+partial class CombinationRunner
 {
     Task<CombinationResults> Run<TReturn>(Func<object?[], IEnumerable<TReturn>> method) =>
         RunWithReturn(_ => Task.FromResult(method(_).ToList()));

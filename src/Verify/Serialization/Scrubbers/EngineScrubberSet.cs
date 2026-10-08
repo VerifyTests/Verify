@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 // The merged, ordered view of all registered span scrubbers that apply to a single scrub operation.
 // Levels merge in priority order: instance, extension-mapped instance, extension-mapped global, global.
 // Inline scrubbers are ordered: unknown max length first, then descending max length, ties broken by

@@ -1,5 +1,7 @@
 // ReSharper disable RedundantSuppressNullableWarningExpression
 
+namespace VerifyTests;
+
 static partial class DirectoryReplacements
 {
     public readonly struct Pair

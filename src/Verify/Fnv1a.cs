@@ -1,4 +1,6 @@
-﻿// FNV-1a. Used instead of string.GetHashCode since that is randomized per process, and callers
+﻿namespace VerifyTests;
+
+// FNV-1a. Used instead of string.GetHashCode since that is randomized per process, and callers
 // need names that are stable across runs.
 static class Fnv1a
 {

@@ -1,4 +1,6 @@
-﻿enum Equality
+﻿namespace VerifyTests;
+
+enum Equality
 {
     Equal,
     NotEqual,

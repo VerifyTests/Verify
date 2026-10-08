@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 static class ProjectDirectoryFinder
 {
     public static string Find(string testDirectory)

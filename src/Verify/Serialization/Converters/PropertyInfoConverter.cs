@@ -1,4 +1,6 @@
-﻿class PropertyInfoConverter :
+﻿namespace VerifyTests;
+
+class PropertyInfoConverter :
     WriteOnlyJsonConverter<PropertyInfo>
 {
     public override void Write(VerifyJsonWriter writer, PropertyInfo value) =>

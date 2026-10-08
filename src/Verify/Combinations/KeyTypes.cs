@@ -1,4 +1,6 @@
-﻿static class KeyTypes
+﻿namespace VerifyTests;
+
+static class KeyTypes
 {
     public static Type[] Build(List<IEnumerable<object?>> lists)
     {

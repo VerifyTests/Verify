@@ -1,4 +1,6 @@
-﻿class JArrayConverter :
+﻿namespace VerifyTests;
+
+class JArrayConverter :
     WriteOnlyJsonConverter<JArray>
 {
     public override void Write(VerifyJsonWriter writer, JArray value)

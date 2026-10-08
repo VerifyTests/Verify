@@ -1,4 +1,6 @@
-﻿class TempFileConverter :
+﻿namespace VerifyTests;
+
+class TempFileConverter :
     WriteOnlyJsonConverter<TempFile>
 {
     public override void Write(VerifyJsonWriter writer, TempFile value) =>

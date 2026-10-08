@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 // The inline guid scrubbers: a fixed 36 char window over the canonical "D" format
 // and a fixed 32 char window over the "N" format.
 // The "D" engine anchor jumps between '-' chars at offset 8 (the first dash of the

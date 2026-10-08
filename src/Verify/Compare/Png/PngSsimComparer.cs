@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 static class PngSsimComparer
 {
     public static double Threshold { get; set; } = 0.98;

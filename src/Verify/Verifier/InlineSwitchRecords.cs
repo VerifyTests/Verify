@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 /// <summary>
 /// The call sites the global inline switch handed over for review, recorded so a run with the
 /// switch turned off can retire them.

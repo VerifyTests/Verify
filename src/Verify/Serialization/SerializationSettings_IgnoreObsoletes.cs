@@ -1,5 +1,7 @@
 ﻿// ReSharper disable UseObjectOrCollectionInitializer
 
+namespace VerifyTests;
+
 partial class SerializationSettings
 {
     bool includeObsoletes;

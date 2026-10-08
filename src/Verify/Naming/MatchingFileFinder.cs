@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 static class MatchingFileFinder
 {
     public static void DeleteReceived(string fileNamePrefix, string directory)

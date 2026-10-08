@@ -1,4 +1,6 @@
-﻿partial class SerializationSettings
+﻿namespace VerifyTests;
+
+partial class SerializationSettings
 {
     internal bool TryGetScrubOrIgnore(MemberInfo member, [NotNullWhen(true)] out ScrubOrIgnore? scrubOrIgnore)
     {

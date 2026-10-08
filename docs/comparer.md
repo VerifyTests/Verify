@@ -302,7 +302,7 @@ static async Task<int> ReadBufferAsync(Stream stream, byte[] buffer)
     return bytesRead;
 }
 ```
-<sup><a href='/src/Verify/Compare/StreamComparer.cs#L3-L94' title='Snippet source file'>snippet source</a> | <a href='#snippet-DefualtCompare' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Compare/StreamComparer.cs#L5-L96' title='Snippet source file'>snippet source</a> | <a href='#snippet-DefualtCompare' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

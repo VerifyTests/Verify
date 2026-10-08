@@ -1,4 +1,6 @@
-﻿static class FileComparer
+﻿namespace VerifyTests;
+
+static class FileComparer
 {
     public static async Task<EqualityResult> DoCompare(VerifySettings settings, FilePair file, bool bypassComparer, Stream receivedStream)
     {

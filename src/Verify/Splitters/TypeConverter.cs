@@ -1,4 +1,6 @@
-﻿class TypeConverter(
+﻿namespace VerifyTests;
+
+class TypeConverter(
     AsyncConversion conversion,
     CanConvert canConvert)
 {

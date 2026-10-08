@@ -1,4 +1,6 @@
-﻿static class ExpressionExtensions
+﻿namespace VerifyTests;
+
+static class ExpressionExtensions
 {
     public static MemberInfo FindMember<T, TMember>(this Expression<Func<T, TMember>> expression)
     {

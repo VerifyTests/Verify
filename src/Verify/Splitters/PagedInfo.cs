@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 /// <summary>
 /// The info file of a paged document, in the one shape every converter built on
 /// <see cref="PagedConversion" /> writes: what the converter says of the document, how many pages

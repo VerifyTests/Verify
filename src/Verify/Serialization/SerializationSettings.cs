@@ -2,6 +2,8 @@
 
 using Formatting = Argon.Formatting;
 
+namespace VerifyTests;
+
 partial class SerializationSettings
 {
     static JArrayConverter jArrayConverter = new();

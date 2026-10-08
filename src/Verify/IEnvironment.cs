@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 interface IEnvironment
 {
     string CurrentDirectory { get; }

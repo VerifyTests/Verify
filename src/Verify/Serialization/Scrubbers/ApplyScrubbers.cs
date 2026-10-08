@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 static class ApplyScrubbers
 {
     public static void ApplyForExtension(string extension, StringBuilder target, VerifySettings settings, Counter counter)

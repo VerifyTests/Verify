@@ -1,4 +1,6 @@
-﻿class UniquenessList
+﻿namespace VerifyTests;
+
+class UniquenessList
 {
     List<string> inner;
 

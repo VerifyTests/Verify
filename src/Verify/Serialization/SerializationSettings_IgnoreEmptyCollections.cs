@@ -1,4 +1,6 @@
-﻿partial class SerializationSettings
+﻿namespace VerifyTests;
+
+partial class SerializationSettings
 {
     bool ignoreEmptyCollections = true;
 

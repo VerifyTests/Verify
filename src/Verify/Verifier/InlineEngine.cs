@@ -1,4 +1,6 @@
-﻿// The inline half of VerifyEngine. One target's expected content lives in the test source file
+﻿namespace VerifyTests;
+
+// The inline half of VerifyEngine. One target's expected content lives in the test source file
 // instead of a .verified file, so no FilePair is created (FilePair feeds DanglingSnapshotsCheck)
 // and accept is a source rewrite (via DiffEngine InlineApplier) instead of a file move.
 // Owned and driven by VerifyEngine, which keeps deletes, auto verify and the exception message.

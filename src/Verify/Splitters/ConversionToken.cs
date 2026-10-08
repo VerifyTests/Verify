@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 /// <summary>
 /// One conversion that named a source, and so the identity shared by that source and every target
 /// the conversion derived from it.

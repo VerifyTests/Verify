@@ -1,4 +1,6 @@
-﻿class NameValueCollectionConverter :
+﻿namespace VerifyTests;
+
+class NameValueCollectionConverter :
     WriteOnlyJsonConverter<NameValueCollection>
 {
     public override void Write(VerifyJsonWriter writer, NameValueCollection collection)

@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 class NumericIdScrubProvider(IValueProvider inner, string entityName) :
     IValueProvider
 {

@@ -1,4 +1,6 @@
-﻿static class ZipStructure
+﻿namespace VerifyTests;
+
+static class ZipStructure
 {
     public static StringBuilder Build(ZipArchive archive)
     {

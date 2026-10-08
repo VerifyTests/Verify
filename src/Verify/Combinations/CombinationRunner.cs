@@ -1,4 +1,6 @@
-﻿partial class CombinationRunner
+﻿namespace VerifyTests;
+
+partial class CombinationRunner
 {
     Type[] keyTypes;
     int[] indices;

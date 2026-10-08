@@ -1,4 +1,6 @@
-﻿static class DateFormatLengthCalculator
+﻿namespace VerifyTests;
+
+static class DateFormatLengthCalculator
 {
     // Keyed on DateTimeFormat rather than the culture name. Two cultures can share a name
     // and still render dates differently: CurrentCulture carrying Windows user overrides

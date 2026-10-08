@@ -1,4 +1,6 @@
-﻿class CancelConverter :
+﻿namespace VerifyTests;
+
+class CancelConverter :
     WriteOnlyJsonConverter<Cancel>
 {
     public override void Write(VerifyJsonWriter writer, Cancel value)

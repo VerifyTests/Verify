@@ -1,4 +1,6 @@
-﻿class ToAppendConverter :
+﻿namespace VerifyTests;
+
+class ToAppendConverter :
     WriteOnlyJsonConverter<ToAppend>
 {
     public override void Write(VerifyJsonWriter writer, ToAppend value)

@@ -1,4 +1,6 @@
-﻿readonly struct NotEqualResult(
+﻿namespace VerifyTests;
+
+readonly struct NotEqualResult(
     FilePair file,
     string? message,
     StringBuilder? receivedText,

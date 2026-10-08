@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 class VerifiedLineEndingException(string path, string extension) :
     Exception(
         $"""

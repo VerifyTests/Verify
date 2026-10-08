@@ -1,4 +1,6 @@
-﻿readonly struct CultureDate(
+﻿namespace VerifyTests;
+
+readonly struct CultureDate(
     int amPmLong,
     int amPmShort,
     int monthNameLong,

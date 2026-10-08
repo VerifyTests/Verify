@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 [SupportedOSPlatform("windows")]
 static class RestartManager
 {

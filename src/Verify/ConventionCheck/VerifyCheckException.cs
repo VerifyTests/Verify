@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 class VerifyCheckException(string message) :
     Exception(message)
 {

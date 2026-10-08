@@ -7,7 +7,7 @@
     <PackageLicenseFile>OsmfEula.txt</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <!-- The adapters and tests use internals through InternalsVisibleTo -->
-    <SquashInternalsVisibleTo>Honor</SquashInternalsVisibleTo>
+    <Squash_InternalsVisibleTo>Honor</Squash_InternalsVisibleTo>
   </PropertyGroup>
 
   <ItemGroup>

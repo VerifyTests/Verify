@@ -1,4 +1,6 @@
-﻿class ValueTaskConverter :
+﻿namespace VerifyTests;
+
+class ValueTaskConverter :
     WriteOnlyJsonConverter
 {
     static MethodInfo genericWriteDef;

@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 class VirtualizedRunHelper
 {
     internal static IEnvironment Env { private get; set; } = PhysicalEnvironment.Instance;

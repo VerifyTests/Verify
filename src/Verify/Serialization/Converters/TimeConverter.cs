@@ -1,4 +1,6 @@
-﻿#if NET6_0_OR_GREATER
+﻿namespace VerifyTests;
+
+#if NET6_0_OR_GREATER
 class TimeConverter :
     WriteOnlyJsonConverter<Time>
 {

@@ -1,4 +1,6 @@
-﻿class CustomValueProvider(
+﻿namespace VerifyTests;
+
+class CustomValueProvider(
     IValueProvider inner,
     Type type,
     Func<Exception, bool> ignoreException,

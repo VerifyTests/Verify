@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 static class UserMachineScrubber
 {
     static string machineName;

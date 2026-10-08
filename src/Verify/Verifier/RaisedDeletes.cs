@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 /// <summary>
 /// The deletes a run raised for verified files no target produced, recorded so a later run that
 /// verifies against one of those files again can withdraw its delete.

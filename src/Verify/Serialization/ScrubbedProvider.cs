@@ -1,4 +1,6 @@
-﻿class ScrubbedProvider : IValueProvider
+﻿namespace VerifyTests;
+
+class ScrubbedProvider : IValueProvider
 {
     public void SetValue(object target, object? value) =>
         throw new NotImplementedException();

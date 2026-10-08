@@ -1,4 +1,6 @@
-﻿static class FileNameCleaner
+﻿namespace VerifyTests;
+
+static class FileNameCleaner
 {
     static char[] invalidFileNameChars =
     [

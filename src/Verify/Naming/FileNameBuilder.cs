@@ -1,4 +1,6 @@
 #pragma warning disable AppendParameter
+namespace VerifyTests;
+
 static class FileNameBuilder
 {
     public static FrameworkNameVersion? FrameworkName(this Assembly assembly)

@@ -1,3 +1,5 @@
+namespace VerifyTests;
+
 // The inline snapshot's contribution to the exception message. Sits alongside the file sections
 // rather than replacing them, because only the first target is inlined.
 record InlineSection(

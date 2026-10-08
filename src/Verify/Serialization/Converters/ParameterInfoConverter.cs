@@ -1,4 +1,6 @@
-﻿class ParameterInfoConverter :
+﻿namespace VerifyTests;
+
+class ParameterInfoConverter :
     WriteOnlyJsonConverter<ParameterInfo>
 {
     public override void Write(VerifyJsonWriter writer, ParameterInfo value) =>

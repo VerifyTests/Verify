@@ -1,4 +1,6 @@
-﻿static class ScrubStackTrace
+﻿namespace VerifyTests;
+
+static class ScrubStackTrace
 {
     public static string Scrub(string stackTrace, bool removeParams = false)
     {

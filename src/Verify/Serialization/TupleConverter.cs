@@ -1,4 +1,6 @@
-﻿#if !NET462
+﻿namespace VerifyTests;
+
+#if !NET462
 static class TupleConverter
 {
     public static Dictionary<string, object?> ExpressionToDictionary(Expression<Func<ITuple>> expression)

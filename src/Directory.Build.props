@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <PropertyGroup>
-    <Version>33.3.2</Version>
+    <Version>33.3.3</Version>
     <!-- NoWarn:
          * CA1822: member does not use instance data and can be static.
          * CS1591: missing XML comment on a publicly visible type or member.

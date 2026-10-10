@@ -1,8 +1,7 @@
 ﻿// ReSharper disable ConditionIsAlwaysTrueOrFalse
 
-namespace VerifyTests;
-
 #if !NET6_0_OR_GREATER
+namespace VerifyTests;
 static class CodeBaseLocation
 {
     static CodeBaseLocation()

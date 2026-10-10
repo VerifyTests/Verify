@@ -699,7 +699,7 @@ class VerifyEngine(
         }
     }
 
-    async Task ReportMove(FilePair file, string? source)
+    Task ReportMove(FilePair file, string? source)
     {
         // The received file is being left on disk, so record the verified file it belongs to.
         // With its source whether or not a diff tool is told: the map is for tooling that finds
@@ -708,8 +708,10 @@ class VerifyEngine(
 
         if (diffEnabled)
         {
-            await LaunchDiff(file, source);
+            return LaunchDiff(file, source);
         }
+
+        return Task.CompletedTask;
     }
 
     // Nothing was launched for a source while diff is off, so there is nothing for DiffEngine to

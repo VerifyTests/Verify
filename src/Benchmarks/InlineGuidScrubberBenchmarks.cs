@@ -34,8 +34,12 @@ public class InlineGuidScrubberBenchmarks
         composition = BuildComposition(31_000);
 
         guidSet = EngineScrubberSet.ForScrubbers([GuidMatcher.Instance]);
-        List<Scrubber> compositionScrubbers = [GuidMatcher.Instance, Scrubber.RemoveLinesContaining(StringComparison.Ordinal, "SECRET")];
-        compositionScrubbers.AddRange(DateMatchers.DateTimes(isoFormat, null));
+        List<Scrubber> compositionScrubbers =
+        [
+            GuidMatcher.Instance,
+            Scrubber.RemoveLinesContaining(StringComparison.Ordinal, "SECRET"),
+            .. DateMatchers.DateTimes(isoFormat, null)
+        ];
         compositionSet = EngineScrubberSet.ForScrubbers(compositionScrubbers);
     }
 

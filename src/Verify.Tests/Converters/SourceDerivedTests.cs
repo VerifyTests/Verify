@@ -74,7 +74,7 @@ public class SourceDerivedTests
         // Asks before producing anything, so with everything excluded it returns nothing at all
         VerifierSettings.RegisterStreamConverter(
             "sdskip",
-            (_, stream, context) =>
+            (_, _, context) =>
             {
                 Target? source = null;
                 if (!context.IsTargetExcluded("sdskip"))

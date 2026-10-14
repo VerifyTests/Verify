@@ -35,7 +35,7 @@ jobs:
         uses: actions/setup-dotnet@v6
         with:
           dotnet-version: |
-            10.0.300
+            10.0.402
           global-json-file: global.json
 
       # Keyed on everything that decides the package graph. restore-keys lets a changed graph start

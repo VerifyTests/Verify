@@ -20,7 +20,8 @@ updated to the new result.<!-- endInclude -->
 ## Supporters
 
 
-### Entity Framework Extensions<!-- include: supporters. path: /docs/mdsource/supporters.include.md -->
+<!-- include: supporters. path: /docs/mdsource/supporters.include.md -->
+### Entity Framework Extensions
 
 [Entity Framework Extensions](https://entityframework-extensions.net/?utm_source=simoncropp&utm_medium=Verify) is a major sponsor and is proud to contribute to the development this project.
 

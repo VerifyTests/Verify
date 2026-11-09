@@ -300,6 +300,7 @@ dotnet_style_collection_initializer = true:error
 dotnet_style_coalesce_expression = false:error
 dotnet_style_null_propagation = true:error
 dotnet_style_explicit_tuple_names = true:error
+dotnet_style_prefer_compound_assignment = true:error
 
 # Use collection expression syntax
 resharper_use_collection_expression_highlighting = error

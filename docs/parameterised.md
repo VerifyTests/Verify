@@ -7,7 +7,8 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Parameterised Tests
 
-## File name suffix<!-- include: file-name-suffix. path: /docs/mdsource/file-name-suffix.include.md -->
+<!-- include: file-name-suffix. path: /docs/mdsource/file-name-suffix.include.md -->
+## File name suffix
 
 Every parameterised case should have a unique [file name](/docs/naming.md) with the parameters appended to the file name. This happens automatically for NUnit; xUnit and MSTest require the use of `UseParameters()` (see below).
 

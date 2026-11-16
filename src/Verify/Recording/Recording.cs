@@ -11,13 +11,10 @@ public static partial class Recording
         // from other threads, so publish a new set rather than mutating in place.
         lock (ignoredLock)
         {
-            var copy = new HashSet<string>(ignored);
-            foreach (var name in names)
-            {
-                copy.Add(name);
-            }
-
-            ignored = copy;
+            ignored = [
+                .. ignored,
+                .. names
+            ];
         }
     }
 

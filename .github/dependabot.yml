@@ -5,3 +5,10 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 10
+  # Pinned="true" in src/Directory.Packages.props, which Dependabot does not read.
+  # Microsoft.CodeAnalysis.Analyzers is also enforced by the CheckPackageVersion
+  # target in Verify.MSTest.SourceGenerator.csproj, so a bump fails the build.
+  ignore:
+  - dependency-name: Microsoft.CodeAnalysis.Analyzers
+  - dependency-name: Microsoft.CodeAnalysis.CSharp
+  - dependency-name: System.ValueTuple

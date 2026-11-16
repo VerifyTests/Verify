@@ -27,7 +27,7 @@
     <PackageVersion Include="ProjectDefaults" Version="1.0.189" />
     <PackageVersion Include="ProjectFiles" Version="1.6.0" />
     <PackageVersion Include="PublicApiGenerator" Version="11.5.4" />
-    <PackageVersion Include="Sbom" Version="0.3.1" />
+    <PackageVersion Include="Sbom" Version="1.0.0" />
     <PackageVersion Include="SimpleInfoName" Version="3.2.1" />
     <PackageVersion Include="Squash" Version="2.2.0" />
     <PackageVersion Include="SponsorCheck" Version="0.27.0" GitHubSponsorsAccount="VerifyTests" SponsorOwner="Verify" CheckTransitiveReferences="true" SponsorLandingUrl="https://github.com/VerifyTests/Verify/blob/main/docs/maintenance-fee.md" />

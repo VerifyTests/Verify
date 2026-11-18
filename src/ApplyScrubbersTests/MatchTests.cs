@@ -1,7 +1,7 @@
 public class MatchTests
 {
     static SegmentMatch DigitRunMatcher { get; } =
-        (CharSpan segment, Counter _, IReadOnlyDictionary<string, object> _, out int index, out int length, out string? replacement) =>
+        (segment, _, _, out index, out length, out replacement) =>
         {
             for (index = 0; index < segment.Length; index++)
             {
@@ -41,7 +41,7 @@ public class MatchTests
         EngineRunner.Run(
             "abc",
             Scrubber.Match(
-                (CharSpan _, Counter _, IReadOnlyDictionary<string, object> _, out int index, out int length, out string? replacement) =>
+                (_, _, _, out index, out length, out replacement) =>
                 {
                     invoked = true;
                     index = 0;
@@ -59,7 +59,7 @@ public class MatchTests
         var exception = Assert.ThrowsAny<Exception>(() =>
             EngineRunner.Run(
                 "abc",
-                Scrubber.Match((CharSpan _, Counter _, IReadOnlyDictionary<string, object> _, out int index, out int length, out string? replacement) =>
+                Scrubber.Match((_, _, _, out index, out length, out replacement) =>
                 {
                     index = 0;
                     length = 10;
@@ -75,7 +75,7 @@ public class MatchTests
         var exception = Assert.ThrowsAny<Exception>(() =>
             EngineRunner.Run(
                 "ab\ncd",
-                Scrubber.Match((CharSpan _, Counter _, IReadOnlyDictionary<string, object> _, out int index, out int length, out string? replacement) =>
+                Scrubber.Match((_, _, _, out index, out length, out replacement) =>
                 {
                     index = 0;
                     length = 5;
@@ -94,7 +94,7 @@ public class MatchTests
         EngineRunner.Run(
             "abc",
             counter,
-            Scrubber.Match((CharSpan _, Counter matcherCounter, IReadOnlyDictionary<string, object> matcherContext, out int index, out int length, out string? replacement) =>
+            Scrubber.Match((_, matcherCounter, matcherContext, out index, out length, out replacement) =>
             {
                 seenCounter = matcherCounter;
                 seenContext = matcherContext;

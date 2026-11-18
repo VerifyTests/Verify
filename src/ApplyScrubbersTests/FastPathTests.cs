@@ -48,7 +48,7 @@ public class FastPathTests
         Apply(
             "a",
             settings => settings.AddScrubber(Scrubber.Match(
-                (CharSpan _, Counter _, IReadOnlyDictionary<string, object> _, out int index, out int length, out string? replacement) =>
+                (_, _, _, out index, out length, out replacement) =>
                 {
                     invoked = true;
                     index = 0;

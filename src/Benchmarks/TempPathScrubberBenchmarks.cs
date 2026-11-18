@@ -68,7 +68,7 @@ public class TempPathScrubberBenchmarks
     // The matcher as it was duplicated in TempDirectory.Init and TempFile.Init
     static Scrubber BuildDuplicated() =>
         Scrubber.Match(
-            (ReadOnlySpan<char> segment, Counter _, IReadOnlyDictionary<string, object> _, out int index, out int length, out string? replacement) =>
+            (segment, _, _, out index, out length, out replacement) =>
             {
                 index = -1;
                 length = 0;

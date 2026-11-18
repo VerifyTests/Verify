@@ -110,7 +110,7 @@
 
         int[] list = [1];
         await Combination()
-            .Verify((int param1) => param1, list)
+            .Verify(param1 => param1, list)
             .UseMethodName("EveryRegisteredCallbackIsAwaited_run");
 
         Assert.Equal(["from the first before callback"], exceptionMessages);
@@ -133,7 +133,7 @@
         Recording.Start();
         await Combination()
             .Verify(
-                (int param1) =>
+                param1 =>
                 {
                     Recording.Add("recorded", "value");
                     return $"result{param1}";

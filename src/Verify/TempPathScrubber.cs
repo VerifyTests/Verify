@@ -15,7 +15,7 @@ static class TempPathScrubber
         string token,
         int rootDirectoryLength) =>
         Scrubber.Match(
-            (CharSpan segment, Counter _, IReadOnlyDictionary<string, object> _, out int index, out int length, out string? replacement) =>
+            (segment, _, _, out index, out length, out replacement) =>
             {
                 index = -1;
                 length = 0;

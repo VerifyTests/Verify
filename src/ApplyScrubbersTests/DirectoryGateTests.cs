@@ -10,7 +10,7 @@ public class DirectoryGateTests
     {
         var result = EngineRunner.RunWithDirectoryReplacements(
             "here",
-            Scrubber.ReplaceLines((string line) => line == "here" ? "C:/Code/TheSolution/TheProject/file.txt" : line));
+            Scrubber.ReplaceLines(_ => _ == "here" ? "C:/Code/TheSolution/TheProject/file.txt" : _));
         Assert.Equal("{ProjectDirectory}file.txt", result);
     }
 

@@ -40,7 +40,7 @@ public class EngineTests
     {
         var result = EngineRunner.Run(
             "token",
-            Scrubber.Match((CharSpan segment, Counter _, IReadOnlyDictionary<string, object> _, out int index, out int length, out string? replacement) =>
+            Scrubber.Match((segment, _, _, out index, out length, out replacement) =>
             {
                 index = segment.IndexOf("token".AsSpan());
                 if (index < 0)
@@ -149,7 +149,7 @@ public class EngineTests
     [Fact]
     public void Validation_WindowBoundsThrow()
     {
-        Assert.Throws<ArgumentOutOfRangeException>(() => Scrubber.Window(0, 5, (CharSpan _, Counter _, IReadOnlyDictionary<string, object> _) => null));
-        Assert.Throws<ArgumentOutOfRangeException>(() => Scrubber.Window(5, 4, (CharSpan _, Counter _, IReadOnlyDictionary<string, object> _) => null));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Scrubber.Window(0, 5, (_, _, _) => null));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Scrubber.Window(5, 4, (_, _, _) => null));
     }
 }

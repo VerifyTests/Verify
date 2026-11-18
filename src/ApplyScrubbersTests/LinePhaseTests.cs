@@ -129,7 +129,7 @@ public class LinePhaseTests
         var settings = new VerifySettings();
         // Explicitly typed span lambdas select the LineMatch/LineReplace overloads
         settings.ScrubLines((CharSpan line) => line.StartsWith("remove".AsSpan()));
-        settings.ScrubLinesWithReplace((CharSpan line) =>
+        settings.ScrubLinesWithReplace(line =>
         {
             if (line.StartsWith("replace".AsSpan()))
             {

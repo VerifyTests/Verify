@@ -11,7 +11,7 @@ public class OrderingTests
         var result = EngineRunner.Run(
             "abcdef",
             Scrubber.Replace("abcdef", "R"),
-            Scrubber.Match((CharSpan segment, Counter _, IReadOnlyDictionary<string, object> _, out int index, out int length, out string? replacement) =>
+            Scrubber.Match((segment, _, _, out index, out length, out replacement) =>
             {
                 index = segment.IndexOf("abc".AsSpan());
                 if (index < 0)

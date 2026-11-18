@@ -7,8 +7,8 @@ public class MultiLineTransformTests
     {
         var result = EngineRunner.Run(
             "a",
-            Scrubber.ReplaceLines((string line) => line == "a" ? "x\ny" : line),
-            Scrubber.ReplaceLines((string line) => line == "x" ? "z" : line));
+            Scrubber.ReplaceLines(_ => _ == "a" ? "x\ny" : _),
+            Scrubber.ReplaceLines(_ => _ == "x" ? "z" : _));
         Assert.Equal("z\ny", result);
     }
 
@@ -17,8 +17,8 @@ public class MultiLineTransformTests
     {
         var result = EngineRunner.Run(
             "a",
-            Scrubber.ReplaceLines((string line) => line == "a" ? "x\ny\nz" : line),
-            Scrubber.ReplaceLines((string line) => line.ToUpperInvariant()));
+            Scrubber.ReplaceLines(_ => _ == "a" ? "x\ny\nz" : _),
+            Scrubber.ReplaceLines(_ => _.ToUpperInvariant()));
         Assert.Equal("X\nY\nZ", result);
     }
 
@@ -27,8 +27,8 @@ public class MultiLineTransformTests
     {
         var result = EngineRunner.Run(
             "a",
-            Scrubber.ReplaceLines((string line) => line == "a" ? "keep\ndrop\nkeep2" : line),
-            Scrubber.ReplaceLines((string line) => line == "drop" ? null : line));
+            Scrubber.ReplaceLines(line => line == "a" ? "keep\ndrop\nkeep2" : line),
+            Scrubber.ReplaceLines(_ => _ == "drop" ? null : _));
         Assert.Equal("keep\nkeep2", result);
     }
 
@@ -37,8 +37,8 @@ public class MultiLineTransformTests
     {
         var result = EngineRunner.Run(
             "a\nb",
-            Scrubber.ReplaceLines((string line) => line == "a" ? "x\ny" : line),
-            Scrubber.ReplaceLines((string line) => line is "x" or "y" ? null : line));
+            Scrubber.ReplaceLines(_ => _ == "a" ? "x\ny" : _),
+            Scrubber.ReplaceLines(_ => _ is "x" or "y" ? null : _));
         Assert.Equal("b", result);
     }
 
@@ -47,9 +47,9 @@ public class MultiLineTransformTests
     {
         var result = EngineRunner.Run(
             "a",
-            Scrubber.ReplaceLines((string line) => line == "a" ? "x\ny" : line),
-            Scrubber.ReplaceLines((string line) => line == "y" ? "1\n2" : line),
-            Scrubber.ReplaceLines((string line) => line == "2" ? "end" : line));
+            Scrubber.ReplaceLines(_ => _ == "a" ? "x\ny" : _),
+            Scrubber.ReplaceLines(_ => _ == "y" ? "1\n2" : _),
+            Scrubber.ReplaceLines(_ => _ == "2" ? "end" : _));
         Assert.Equal("x\n1\nend", result);
     }
 
@@ -58,8 +58,8 @@ public class MultiLineTransformTests
     {
         var result = EngineRunner.Run(
             "a",
-            Scrubber.ReplaceLines((CharSpan line) => line.SequenceEqual("a".AsSpan()) ? LineResult.Replace("x\ny") : LineResult.Keep),
-            Scrubber.ReplaceLines((CharSpan line) => line.SequenceEqual("x".AsSpan()) ? LineResult.Replace("z") : LineResult.Keep));
+            Scrubber.ReplaceLines(_ => _.SequenceEqual("a".AsSpan()) ? LineResult.Replace("x\ny") : LineResult.Keep),
+            Scrubber.ReplaceLines(_ => _.SequenceEqual("x".AsSpan()) ? LineResult.Replace("z") : LineResult.Keep));
         Assert.Equal("z\ny", result);
     }
 
@@ -69,7 +69,7 @@ public class MultiLineTransformTests
         // Nothing follows the expanding transform, so the text is untouched
         var result = EngineRunner.Run(
             "a",
-            Scrubber.ReplaceLines((string line) => line == "a" ? "x\ny\n" : line));
+            Scrubber.ReplaceLines(_ => _ == "a" ? "x\ny\n" : _));
         Assert.Equal("x\ny\n", result);
     }
 
@@ -78,8 +78,8 @@ public class MultiLineTransformTests
     {
         var result = EngineRunner.Run(
             "before\na\nafter",
-            Scrubber.ReplaceLines((string line) => line == "a" ? "x\ny" : line),
-            Scrubber.ReplaceLines((string line) => line == "x" ? "z" : line));
+            Scrubber.ReplaceLines(_ => _ == "a" ? "x\ny" : _),
+            Scrubber.ReplaceLines(_ => _ == "x" ? "z" : _));
         Assert.Equal("before\nz\ny\nafter", result);
     }
 }

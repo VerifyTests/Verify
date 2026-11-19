@@ -300,11 +300,53 @@ public partial class SettingsTask
         // on the current thread when a control is created; during a test it has no running message
         // pump, so capturing it would deadlock the pipeline (and the awaiting test) on the received
         // file write of a new or mismatched snapshot. Clearing it here - synchronously, before the
-        // task is built and before the caller's await captures a context - keeps the pipeline and the
-        // caller's continuation free of any context the caller already had. UI converters additionally
-        // restore the context around rendering, since Show() re-installs one mid-pipeline.
+        // task is built - keeps the pipeline free of any context the caller already had. UI
+        // converters additionally restore the context around rendering, since Show() re-installs one
+        // mid-pipeline.
+        //
+        // Once the pipeline has started, any other context goes back before the caller's await
+        // captures one, so the caller resumes where it was. A test runner's own context, such as
+        // TUnit's [STAThreadExecutor], runs its continuations, and the rest of a test on an STA
+        // thread has to stay on the thread that owns its windows: resumed on the thread pool, each
+        // window it closes waits on the STA thread, which is not pumping. A UI framework's context
+        // stays cleared, so the caller's continuation is not posted to a pump that never runs.
+        var context = SynchronizationContext.Current;
         SynchronizationContext.SetSynchronizationContext(null);
-        return task = buildTask(CurrentSettings);
+        try
+        {
+            return task = buildTask(CurrentSettings);
+        }
+        finally
+        {
+            if (context is not null &&
+                !IsUiContext(context))
+            {
+                SynchronizationContext.SetSynchronizationContext(context);
+            }
+        }
+    }
+
+    // What WinForms, WPF and Avalonia install on a thread when a control is created there. Matched
+    // by name, as Verify references none of them.
+    static readonly HashSet<string> uiContexts =
+    [
+        "System.Windows.Forms.WindowsFormsSynchronizationContext",
+        "System.Windows.Threading.DispatcherSynchronizationContext",
+        "Avalonia.Threading.AvaloniaSynchronizationContext"
+    ];
+
+    static bool IsUiContext(SynchronizationContext context)
+    {
+        for (var type = context.GetType(); type is not null; type = type.BaseType)
+        {
+            if (type.FullName is { } name &&
+                uiContexts.Contains(name))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     [Pure]

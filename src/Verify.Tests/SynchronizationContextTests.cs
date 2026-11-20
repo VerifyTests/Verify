@@ -36,6 +36,68 @@ public class SynchronizationContextTests
             "Verify captured the caller's SynchronizationContext; its async IO must run free of it.");
     }
 
+    // A context that isn't a UI framework's, such as the one TUnit's [STAThreadExecutor] runs a
+    // test under, is the caller's again once ToTask returns, so the caller's await resumes on it:
+    // on an STA thread, the thread that owns the test's windows. The pipeline still runs free of it.
+    [Fact]
+    public async Task CallerKeepsItsSynchronizationContext()
+    {
+        var context = new RecordingSynchronizationContext();
+        var original = SynchronizationContext.Current;
+        SynchronizationContext.SetSynchronizationContext(context);
+        Task task;
+        SynchronizationContext? afterToTask;
+        try
+        {
+            task = VerifyMissingBinary();
+            afterToTask = SynchronizationContext.Current;
+        }
+        finally
+        {
+            SynchronizationContext.SetSynchronizationContext(original);
+        }
+
+        await Assert.ThrowsAsync<VerifyException>(() => task);
+
+        Assert.Same(context, afterToTask);
+        Assert.False(
+            context.Posted,
+            "Verify captured the caller's SynchronizationContext; its async IO must run free of it.");
+    }
+
+    // A UI framework's context stays cleared, since nothing pumps it during a test, and a caller's
+    // continuation posted to it would never run.
+    [Fact]
+    public async Task UiSynchronizationContextStaysCleared()
+    {
+        var original = SynchronizationContext.Current;
+        SynchronizationContext.SetSynchronizationContext(new Avalonia.Threading.AvaloniaSynchronizationContext());
+        Task task;
+        SynchronizationContext? afterToTask;
+        try
+        {
+            task = VerifyMissingBinary();
+            afterToTask = SynchronizationContext.Current;
+        }
+        finally
+        {
+            SynchronizationContext.SetSynchronizationContext(original);
+        }
+
+        await Assert.ThrowsAsync<VerifyException>(() => task);
+
+        Assert.Null(afterToTask);
+    }
+
+    // As in DoesNotCaptureCallerSynchronizationContext: no baseline, so the received file is written
+    // through async IO that suspends.
+    static Task<VerifyResult> VerifyMissingBinary()
+    {
+        var settings = new VerifySettings();
+        settings.DisableDiff();
+        return Verify(new MemoryStream(new byte[1024 * 1024]), "bin", settings).ToTask();
+    }
+
     class RecordingSynchronizationContext : SynchronizationContext
     {
         public volatile bool Posted;
@@ -46,4 +108,10 @@ public class SynchronizationContextTests
             base.Post(callback, state);
         }
     }
+}
+
+// Stands in for Avalonia's context, which ToTask recognises by name.
+namespace Avalonia.Threading
+{
+    class AvaloniaSynchronizationContext : SynchronizationContext;
 }

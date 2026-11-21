@@ -13,7 +13,8 @@
     <PackageVersion Include="Fixie.TestAdapter" Version="4.2.0" />
     <PackageVersion Include="FSharp.Core" Version="11.0.101" />
     <PackageVersion Include="MarkdownSnippets.MsBuild" Version="30.0.1" />
-    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="11.0.0" />
+    <!-- Only pinned for .NET Framework, where Verify references it. On modern TFMs 11.0.0 warns below net10.0 (#2020), so the version a dependency asks for flows through instead. -->
+    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="11.0.0" Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" Pinned="true" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" Pinned="true" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="11.0.0" />
